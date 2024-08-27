@@ -1,0 +1,140 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+bppc | The insecurity in CNM can actually be a good thing in that it can keep us from taking our partners for granted or becoming complacent in our relationships in ways that are often found in monogamous relationships. Personally, I find security in the fact that when I'm in CNM relationships I know that my partners are not with me because they are obliged to be, but because they continue to choose to be. However, the inherent insecurity in CNM relationships can be grinding. This form of relationship can bring up levels of uncertainty that many people are not yet equipped for, especially when they don't have enough internal secure attachment. To create sustainable healthy relationships with multiple partners, it's crucial to learn how to build polysecurity in your CNM relationships and even more so to cultivate secure attachment and equanimity within yourself.
+ilnw | Having multiple partners can replicate the conditions of attachment insecurity.
+f3rc | For many of us, our lives are complicated and overscheduled. The baseline mainte- nance of life has grown beyond what previous generations had to manage. Many of us juggle multiple life factors including businesses to run, work to go to, children
+d7bx | to take care of, our physical bodies to tend to, homes and cars that need mainte- nance, friends and family to keep up with, groups and communities to stay active with, emails to respond to and an online presence to maintain. Not to mention the time needed for self-care, exercise, play, personal growth, meditation practice, shows to binge or simple quiet time in nature. Economic times have also changed. For many, a single income is barely enough to support a single person, let alone a family. As I enumerate all of these life factors, I'm actually surprised anyone has time for even one securely attached relationship. Secure attachment takes time, both to establish and to maintain. Research shows that it takes babies up to seven months for their attachment to their caregivers to become securely established, and for adults, a securely attached romantic relationship takes approximately two years to really solidify.60 So, while you might feel an instant resonance or connec- tion with someone, building an actual relationship based on trust, seeing each other in multiple contexts, deeply understanding each other and relating in securely attached ways requires time.
+gx97 | I want to make an important distinction here that we will return to again. In CNM, it is not necessary for all of our relationships to be attachment-based. There is a difference between being in a secure connection with someone and having a securely attached relationship. Secure connections are with people or partners who we don't have daily or regular contact with, but with whom we know that when we reach out it will feel as if a moment hasn't passed. We are secure in the bond that we have with such people, and this bond might be immensely meaningful, special and important to us, but it's not necessarily a relationship that requires us to invest regular maintenance and attention. In CNM, these might be the partners we refer to as comets, satellites or casual. They're the people who we see at special events a few times a year or our less-involved long-distance relationships. Securely attached relationships are based on consistency and reliability. These are the people who are there for each other in responsive and attuned ways more times than not. They are our "go-to" people who have our back and to whom we can turn when we feel hurt or threatened and or need support, comfort or reassurance. They're the people we
+ppkp | are excited to share our latest news or discoveries with. Sue Johnson simplifies what we are looking for in our attachment relationships through the three ques- tions: are you available, are you responsive, are you emotionally engaged?51
+8br6 | I have seen a frequent phenomenon in CNM relationships that are more attach- ment-based: as partners begin to spend more time with other people, the condi- tions that create increased attachment insecurity can emerge. As discussed in Chapter One, the main factor in a child developing an anxious attachment pattern is inconsistent attunement from their primary caregiver-there is love, but it is unreliable. In CNM, as people begin to go on more dates, enter into additional rela- tionships or experience new relationship energy with someone else, they can start to become less available, responsive or attuned to their pre-existing partners. The person experiencing an increase in their number of partners or a deepening in a specific relationship may not intend to give less to their other partners (often they think they can manage all their relationships to a high degree), but due to the limits of how many hours there are in a day, how many date nights there are in a week or how many people you can text with at once, splitting time among more and more people can create insecure conditions for their other partners. The person with a new partner has now become (intentionally or not) more inconsistent, unpre- dictable and inaccessible to their attachment-based relationships than they were previously.
+de3k | The partners who are receiving less time and attention will usually begin to feel uneasy, anxious or angry, and they will begin to protest. As they begin to voice their dissatisfaction that their partner is being less available, present or connected than the partner used to be, they may be told they are too jealous or needy. But their protest can actually be a healthy sign of their attachment system detecting too much disconnection and therefore acting up in order to course-correct. It's the body's inner guidance system indicating that important needs are going unmet. The insecurities arising for the partner who feels left out, left behind or no longer as important are not necessarily manifestations of jealousy. Rather, the situation and the relationship they find themselves in are no longer providing them with the
+2kb3 | same degree of attachment-based needs fulfillment that they have become accus- tomed to, triggering a more hyperactivated anxious preoccupied style. In such cases, sometimes just the awareness of what is going on can be enough for the partner who has been less attentive to re-engage. Other times, strategies for being less polysaturated and more present with each partner need to be implemented, or sometimes renegotiations about the level of involvement or commitment of the relationship are needed.
+lqcx | Similarly, the conditions that contribute to a disorganized attachment pattern can also arise in nonmonogamous relationships. In situations where non- monogamy is not done ethically, where people are subject to vetoes or to decisions and boundaries that they did not co-create, and when relationship agreements or safe sex practices are being repeatedly broken, a person's safety and security alarms bells can go off in ways that become highly dysregulating and damaging. In any relationship, whether monogamous or nonmonogamous, abuse, neglect, ag- gression, violence, manipulation, control or gaslighting can also contribute to a fearful-avoidant attachment experience where the one you love and trust is also the one you fear and shouldn't really trust.
+3h7w | The conditions that breed a disorganized attachment adaptation are not spe- cific to CNM by any means, but I have seen a variation that is unique to CNM. There can be something very disorienting that happens for some new CNM couples who were first monogamous together and were accustomed to being each other's main source of comfort, support and relief from distress. As the relationship opens, a partner's actions with other people (even ethical ones that were agreed upon) can become a source of distress and pose an emotional threat. Everything that this per- son is doing with other people can become a source of intense fear and insecurity for their pre-existing partner, catapulting them into the paradoxical disorganized dilemma of wanting comfort and safety from the very same person who is trig- gering their threat response. Again, the partner may be doing exactly what the cou- ple consented to and acting within their negotiated agreements, but for the pre- existing partner, their primary attachment figure being away, unavailable and
+th5p | potentially sharing levels of intimacy with another person registers as a debilitating threat in the nervous system. As someone in this situation simultaneously wants to move towards and away from one's partner, the very foundation of their rela- tionship and attachment system can begin to shudder, and people can begin acting out in ways that are destructive to each other and the relationship. When this hap- pens, I recommend working with a professional to re-establish inner and outer safety.
+b7nk | CNM can activate the attachment system into primal panic.
+cbb5 | From the perspective of attachment theory, we need to be connected to people to survive, so our nervous system equates emotional connection with safety and emo- tional disconnection with danger or threat. Attachment-related threats include the potential loss of our attachment figure, separation from our attachment figure or loss of access to them for periods of time longer than we are used to. These threats don't have to be actual to activate the attachment system-even theoretical or symbolic threats can initiate attachment distress and what is called primal panic. As Sue Johnson states,
+5qcf | Separation distress arises when an attachment bond is threatened or a secure con- nection is lost. There are other kinds of emotional bonds based on shared activities or respect, and when they are broken a person may be distressed. But that distress does not have the same intensity or significance as when an attachment bond is called into question. Emotional and physical isolation from attachment figures is inherently traumatizing for human beings, beginning with it as a heightened sense, not simply of vulnerability and danger, but also helplessness. 62
+8u2c | Many of my clients report being highly anxious and off their emotional axis for hours, sometimes even days, before their partner goes on a date with someone else. Others seriously spiral out while the date is happening. Cognitively, they know that their partner is still alive, not abandoning them or doing anything wrong, but their body and emotions are in primal panic. In such cases, jealousy is not a suffi- cient or accurate description of what is happening for the partner in distress. When primal attachment panic gets mislabeled as jealousy, the partner experiencing it
+c1e3 | can be left thinking that there is something wrong with them, that this is their issue to figure out on their own and that they should be better at doing CNM. They might use self-destructive behaviors, such as using distractions or substances, in an at- tempt to feel better, but the root of the problem is left unaddressed. This can also escalate into panic attacks, meltdowns or an emotional crisis that can pit partners against each other or become extremely difficult for everyone involved to manage. However, when people are able to identify this experience as primal panic, under- stand how it is rooted in their attachment needs, learn how to better self-soothe and address these attachment needs with their partner, a new path forward opens up together.
+7pez | There can be a mismatch of attachment expectations.
+qs5t | As mentioned earlier, not all relationships have to be attachment-based, but ideally all parties involved in the relationship need to agree about this. Very painful and confusing situations can arise when one person wants a certain relationship to meet their attachment needs, but the other person does not want the same level of involvement, or if a person wants an attachment-based relationship in theory but is practically or situationally unable to emotionally provide at that level. When I see clients struggling with attachment anxiety because a partner gives mixed signals or is inconsistent in their responsiveness, support or availability, it is important to ex- plore whether or not they are expecting this partner to be an attachment figure for them. If they are, then it is paramount for them to dialogue with their partner about whether or not that partner wants to be in the role of an attachment figure for them, as well as honestly assessing if the partner has enough time, capacity and/or space in their life and other relationships to show up to the degree required for being polysecure together.
+en4s | Some people prefer not to define their relationships, preferring to explore and experience them without labels or traditional expectations. As long as this level of ambiguity or relationship fluidity is a match for everyone involved, it can be a very liberating and satisfying way to relate with others. But when someone casts a part- her in the role of attachment figure, but that person is unable or unwilling to play
+csb5 | the part, much pain, frustration, disappointment, heartache and attachment anxiety ensues. In monogamy, if two people do not align in their desires to be attached at a secure level or one person is unable or unwilling to step into secure functioning, then the relationship usually ends (or they just suffer miserably together forever), but when this occurs in nonmonogamy, the relationship might also end, but it doesn't necessarily have to. Nonmonogamous relationships allow for more flexi- bility and negotiation about how close, connected and involved partners want to be. I've seen that once people get clear with each other about whether or not they are pursuing an attachment-based relationship, each person can better orient to what the relationship is, what it isn't, what's available and what's not available, en- abling people to better accept and appreciate the relationship for what it is without having to let it go. If the relationship is not going to be attachment-based, this doesn't mean that someone no longer needs to have their attachment needs met in general, but the acceptance that a specific relationship is not going to meet a per- son's attachment needs can relieve everyone involved and be an important step in finding or creating relationships with others.
+i096 | Potential signs that your attachment needs are not being considered in your CNM relationship:
+tlzt | . Your partner is inconsistently there for when you need them.
+6iyf | . Your partner ignores your texts, emails or calls or inconsistently responds to your texts, emails or calls.
+o1nk | · Your partner ignores your explicit requests for time together or they keep say- ing that they want to do things with you but there is little to no follow- through.
+mnaf | . Your partner does things that make you question if you are accepted, appre- ciated or valued.
+0yxe | . Your partner is inconsistent about the information they share about them- selves, other partners or sexual activity.
+erre | . Relationship and/or sexual agreements are being broken.
+835g | . Your partner uses their other partners as an excuse for their own behavior.
+x3l9 | · Your partner uses criticism, defensiveness, contempt or stonewalling.
+d2fj | . Your feelings, needs or opinions are not heard or don't carry much weight.
+geyi | . Despite what your partner says about how much they care about you or how they don't practice hierarchy, other partners are getting preferential treatment.
+2181 | . Your partner is effusively affectionate over text, but uncomfortable with verbal or physical affection in person.
+9ubl | . You are giving more than you are receiving.
+o8pj | . You are being asked to keep your relationship a secret or lie about your rela- tionship in front of certain people.
+27b9 | . You get more information from your metamours pertaining to important things about your partner than from your actual partner.
+09xa | CNM can create new attachment ruptures.
+yi97 | As people transition into the nonmonogamous relationship paradigm they are re- quired to lay down the privileges as well as the relational map of monogamy. Now walking around in a world that does not yet fully understand, respect or approve of them, these people are left to figure out how to ethically have multiple lovers with- out a clear guidebook to follow. The loss of monogamy's privileges and absence of the clear-cut path that it offers on how to navigate relationships can create new at- tachment ruptures and traumas, both anticipated and unanticipated. These rup- tures can occur over the multiple dimensions of human experience that are pre- sented in the nested model of attachment and trauma. The following section offers the different ways in which people can experience stress, trauma and attachment ruptures when they are practicing nonmonogamy. Some of these experiences are subtler, where difficulty and pain result from an accumulation of stressful experi- ences within the various levels, and other experiences are more overtly oppressive, traumatic or damaging of attachment. The examples that I share here are based on my own personal and professional experiences with CNM, insights from other men- tal health professionals specializing in nonmonogamous relationships, and Elis- abeth Sheff's years of research on people in polyamorous relationships and
+```
+
+OUTPUT:
+```

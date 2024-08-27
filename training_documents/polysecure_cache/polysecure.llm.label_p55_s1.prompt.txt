@@ -1,0 +1,151 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+a230 | nonmonogamous as orientation describe their nonmonogamy not as a choice, but as who they essentially are and how they are fundamentally wired. I often hear these people say that they feel most themselves when they are with multiple peo- ple, be it sexually or romantically. Some people who identify as nonmonogamous by orientation are fortunate enough to have been nonmonogamous from the time they started dating or being sexual. But many people come into their non- monogamy orientation a bit later, often after having suffered from the belief that they are broken or defective in some way after struggling to be faithful to their part- ners or feeling that monogamy was never fully right for them.
+dvoe | THE DIFFERENT TYPES OF CONSENSUAL NONMONOGAMY
+677t | There are numerous ways that people practice non-monogamy and for every per- son, couple, triad, quad or polycule that says they are practicing a certain type of CNM, there are manifold ways that their version might be enacted. Even when peo- ple tell me the specific style of nonmonogamy they practice, I still ask, "what ex- actly does that look like for you?" There is no one right way to practice CNM and it is more of a "create your own relationship" than a one-size-fits-all approach, but there are still certain distinctions in the ways that people practice CNM that are important to name.
+5hk6 | Each different style of CNM or CNM relationship structure will have different de- grees of openness to sexual and/ or emotional engagement with others, as well as different types of relationship agreements or rules. In Figure 4.1, I plot some of the main relationship structures or styles within CNM based on the two dimensions of emotional exclusivity and sexual exclusivity. On the horizontal axis, we find high emotional exclusivity on the left and low emotional exclusivity on the right. The ver- tical axis has high sexual exclusivity at the top and low sexual exclusivity at the bot- tom. Please note that these two dimensions are not the only way to comprehend the different types of CNM, so please take what helps and dismiss the rest. Addi- tionally, although I place certain types of CNM in specific regions on this graph, there will always be exceptions to where someone else would plot their own ver- sion of that same type of CNM.
+viei | High Sexual Exclusivity (Mono-Sexual)
+rk0j | Monogamy
+c6x9 | Asexual and Polyamorous
+g5at | Poly-Intimates
+re3j | Monogamish
+6z45 | Polyfidelity
+20af | Low Emotional Exclusivity
+huae | High Emotional Exclusivity
+rblh | (Poly-Amorous)
+gl5i | (Mono-Amorous)
+x0yg | Open Marriage / Relationship
+mjt8 | Hierarchical Polyamory
+htcn | Nonhierarchical Polyamory
+86d4 | Solo Polyamory
+z7qp | Swinging
+6t1g | Low Sexual Exclusivity
+cpls | (Poly-Sexual)
+m50n | Relationship Anarchy
+eztf | FIGURE 4.1: The different types of nonmonogamy.
+bwsu | Upper Left Quadrant
+oqod | Monogamy: Monogamy is found in the upper left quadrant because it is tradi- tionally high in both sexual and emotional exclusivity. Some couples that consider themselves monogamous do vary on how emotionally open or closed they are to people outside of the relationship, but it is common for monogamous couples to consider each other as their only sexual partner and emotional primary. In monog- amous couples, a partner is usually considered to be cheating if they engage sexu- ally with another and/ or if they share deep or romantic emotions with others.
+tey0 | Monogamish: Coined by sex columnist Dan Savage, this term refers to couples who are mostly sexually and emotionally exclusive, but periodically engage in extra- marital or extra-relational sex or sexual play. These exceptions might include occa- sional one-time hookups, sex with others while traveling apart, or even kissing other people at certain types of events.
+ghiv | Polyfidelity: A romantic or sexual relationship that involves more than two people, but these people are exclusive with each other. This could include a group rela- tionship of three or more people that is closed to any additional outside partners, or it could be a person who has more than one partner and their partners are not dating each other, but they are also closed to additional relationships.
+o5ts | Lower Left Quadrant
+hd7d | Swinging: The practice of couples engaging in sexual activity with other couples, individuals or groups. The focus of those encounters is primarily sexual rather than romantic or emotionally intimate and couples who consider themselves as swingers typically sexually play with others while they are together in the same room or at the same event, rather than completely separately from each other. In my practice, I've encountered many swingers who do want to feel some level of connection with the people they are swinging with, but often prefer to keep emo- tional involvement to a minimum in order to maintain the emotional primacy of their marriage or primary relationship.
+ehux | Open Marriage/Relationship: A relationship where one or both partners in a rela- tionship have sexual or romantic relationships outside of their primary partnership. Open relationships tend to be more focused on having sex and limiting the degree of emotional involvement with others in order to keep the primary, dyadic rela- tionship as the first priority.
+poxj | Lower Right Quadrant
+2xvb | Polyamory: The practice of having many (poly) loves (amory), where everyone in- volved is aware and consenting of partners simultaneously having multiple roman- tic and sexual relationships. People who identify as polyamorous tend to focus on the falling in love part of being nonmonogamous, where the intention of having multiple partners is to be in love and have multiple emotionally invested relation- ships. People practicing polyamory can differ in the degree to which they imple- ment hierarchy in their different relationships.
+m1hx | Hierarchical Polyamory: A subset of polyamory where there is a ranking system
+9psh | among romantic/sexual relationships and some relationships are considered more important than others. A person's primary partner(s) would be at the top of this ranking system since primaries usually cohabitate, share resources, make deci- sions together and organize their schedules so that they are spending the most amount of time together. Hierarchical relationships tend to use the terms primary, secondary, and sometimes tertiary, describing various levels of importance, com- mitment and who has the rights to create relationship agreements. Typically, the people in a primary relationship with each other set the rules for all subsequent relationships, which might include restrictions on certain recreational or social activities, limits on certain sex acts or on how strong, deep or invested other rela- tionships can become. Many polyamory experts caution against hierarchical rela- tionship structures that create asymmetrical balances of power in which people in secondary or tertiary positions have little or no say about how their relationship un- folds, or are subject to vetoes or rules from their metamours.
+aiqv | In More Than Two, Franklin Veaux and Eve Rickert make the distinction between prescriptive and descriptive hierarchy.51 Prescriptive hierarchy occurs when a couple predetermines that their status as primaries will not change and all future relation- ships will be subordinate to theirs. All of the relationship styles in the lower left side of this chart could be described as being hierarchical forms of consensual nonmonogamy and in the upper left quadrant, hierarchy would be assumed. De- scriptive hierarchy is less about a given relationship prescription for the future. The term describes a hierarchy that might include several primaries that have emerged more organically and have become more domestically, financially or emotionally entangled than other relationships, but there is still an openness to things chang- ing or new people entering the hierarchy.
+4klz | Nonhierarchical Polyamory: The practice of having multiple simultaneous relation- ships without imposing hierarchies. This means that there is no ranking system of primary and secondary. It means that no one person has extra influence over a per- son's relationships, including veto power or more privilege because they live to- gether or have been together longer. All important people get a seat at the table and
+xz5d | everyone gets to have a voice. Each relationship is allowed to grow into what it naturally wants to be. In some cases, nonhierarchical polyamory may include pri- oritization of certain relationships in instances where people have children together or live together, but the nonhierarchical structure does not endorse power differ- entials and allows for more flexibility in how relationships can change and evolve over time.
+erwx | Solo Polyamory: An approach to polyamory that emphasizes personal agency. Indi- viduals do not seek to engage in relationships that are tightly couple-centric or financially and/or domestically entwined. People who identify as solo poly empha- size autonomy, the freedom to choose their own relationships without seeking per- mission from others, and flexibility in the form their relationships take. It is a com- mon misconception that people practicing solo polyamory are either more casual or less committed in their relationships, but this is not necessarily the case. Solo poly folks can be deeply emotionally involved and committed in their relationships, but they typically choose not to take on the traditional roles that some partners as- sume like living together, having shared bank accounts or doing each other's laun- dry (at least not as a relationship obligation). One principle of solo poly that I think everyone can benefit from is the notion of being your own primary partner and pri- oritizing your relationship with yourself first and foremost.
+ie7i | Relationship Anarchy: This type of CNM falls at the very end or even off this chart completely. The term was first coined in 2006 by Andie Nordgren,52 who applied political anarchist principles to interpersonal relationships. Relationship anarchists seek to dismantle the social hierarchies dictating how sexual and romantic relation- ships are prioritized over all other forms of love, and so people who identify as relationship anarchists make less distinction between the importance or value of their lovers over their friends or other people in their life, and they do not only re- serve intimacy or romance for the people they have sex with. Upper Right Quadrant
+aksw | Poly Intimates: I've started to use this term for people who are sexually exclusive
+0fsl | with one partner, but who are not emotionally exclusive with that partner in ways that a traditional monogamous relationship would typically disallow, be suspicious of or characterize as emotional cheating. Poly intimates might share varying de- grees of romance and emotional intimacy with more than just the person they are sexually exclusive with. Poly intimates might be nonsexual partners who live to- gether, travel together, raise children together or share other aspects of life, where the level of investment and involvement does not fit the conventional notion of friendship.
+0m3g | Polyamorous and Asexual: People who identify as asexual do not experience sexual attraction to others and they do not engage in sex with others, but they still expe- rience romantic attraction to people, and there are asexual people who are roman- tically polyamorous.
+9sp0 | §
+nbpk | In this chapter, I acknowledged that nonmonogamy is not a new form of rela- tionship, but that it is currently becoming more common. I examined the reasons why people engage in nonmonogamy based on survey research and what I've also seen in my own psychotherapy and coaching practice. I also covered the different ways that people can express being nonmonogamous based on how sexually exclu- sive or sexually nonexclusive they are intersecting with how emotionally exclusive or emotionally nonexclusive they are. After reading this chapter, which of the rea- sons for being nonmonogamous resonate with you? Do you have reasons for being nonmonogamous that weren't mentioned here? In looking at the different types of nonmonogamy, what did you learn about yourself or your partners? And are there other ways that you would define your version of nonmonogamy?
+xs3r | CHAPTER FIVE ATTACHMENT AND NONMONOGAMY
+ffuj | ATTACHMENT RESEARCH AND RESOURCES for consensually nonmonogamous rela- tionships are scarce. It is safe to say that the field of attachment theory is highly mononormative. The overwhelming majority of research conducted to understand adult romantic attachment is undertaken with monogamous couples, and advice about how to establish a secure attachment either assumes monogamy or outright prescribes monogamy as a necessary precondition for establishing safety and security. Moors, Conley, Edelstein and Chopik state that "attachment theory pre- sumes that healthy, satisfying relationships are, by definition, dyadic."53 Authors on attachment theory will assert that being pair-bonded is the prototype for attach- ment in adulthood, that couples need to create a couple bubble around them in order to ensure security, and that your partner needs to be the one, single or main person that you emotionally depend on. I question if these criteria are even healthy from a monogamous standpoint (a considerable amount of the mono-romantic ideal can actually be codependency in disguise), but at the very least we can see how these ideas and assumptions within the field of attachment are excluding peo- ple in CNM relationships.
+h7f6 | What attachment researchers say about the relationship between sex and at- tachment creates another mononormative problem for people in CNM relation- ships. Attachment literature unquestionably has important insights into how the different attachment styles experience and relate to sex.54 Differences in motivation and experiences are to be expected and are not inherently a problem, but some behaviors such as casual sex, one-night stands, sex outside of marriage, multiple sexual partners, partaking in bondage, voyeurism, exhibitionism and even sexting are all associated with insecure attachment. The problem gets even bigger when people then take these research findings a step further and conclude that since these sexual behaviors are the types of behaviors that non-monogamous people participate in, then nonmonogamy must in and of itself be an expression of
+t74k | insecure attachment. Just to be clear, I am not saying this and, as you will see below, the current research on CNM relationships does not support this, but many of my clients have unfortunately heard previous therapists equate being CNM with attachment insecurity and pathologized them for their lifestyle and sexuality. In such cases, it is important to distinguish between the intentions behind specific sexual behaviors instead of just looking at the sex act itself. If someone is pursuing multiple partners to avoid intimacy or using sex in an attempt to secure intimacy when they feel insecure, then in those cases such behaviors can be seen as an ex- pression of insecure attachment. But many people engage in these very same behaviors from a secure place, where they are able to have multiple sex partners, one-night stands or BDSM play in intentional, highly attuned, connected and mean- ingful ways.
+qdn7 | When we start to dig into the current research on CNM and attachment, we find the research is extremely limited. As I write this book in 2020, there are less than a handful of studies that examine the relationship between attachment and CNM. From a research perspective, this is insufficient. The good news is that what little research has been done thus far demonstrates that people in CNM relationships are just as likely to be securely attached as people in monogamous relationships. In a survey conducted with over 1,300 people, Moors, Conley, Edelstein and Chopik examined whether there were any differences in attachment styles for people who were either in monogamous, swinging or polyamorous relationships.55 They found that there was no difference in attachment anxiety levels between people who were monogamous versus those that were CNM, and that people in CNM relationships were actually lower in attachment avoidance than the people in monogamous rela- tionships were. This research suggests that people in CNM relationships exhibit characteristics of secure attachment, maybe even more so than people in monog- amous relationships. A smaller study of 179 gay men similarly found no difference in attachment styles between the participants who were in in monogamous rela- tionships and those in nonmonogamous relationships.56 A 2014 doctoral disser- tation investigated whether there was any difference in the attachment styles of
+```
+
+OUTPUT:
+```

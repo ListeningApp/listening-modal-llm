@@ -1,0 +1,228 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+5bjs | (6) Where the Commission approves the dissolution of a trust, the trust shall be dissolved in accordance with the provisions of the Companies and Allied Matters Act.
+uodj | 12 .- (1) Subject to regulation 13(2) of these Regulations, a settlor shall-
+k16v | (a) prior to the incorporation of a trust, appoint in consultation with the host communities, the first trustees ; and
+b2lm | (b) in consultation with the advisory committee, appoint additional or replacement trustees, other than the first trustees.
+ti7f | (2) The number of the trustees shall be an odd number, not exceeding nine members, but subject to size and diversity of the host community.
+oksu | (3) The settlor shall determine the criteria for the appointment of trustees, the selection process, remuneration, discipline, qualification, disqualification, suspension and removal of any member of the Board of Trustees.
+wtow | (4) Without prejudice to the provisions of the Act and these Regulations, a settlor shall give due consideration to diversity as it relates to age, gender and physical disability in determining the criteria for appointment to the Board of Trustees.
+o22k | (5) Members of the Board of Trustees shall serve a term of four years in the first instance and may be reappointed for another term of four years and no more.
+nwfz | 13 .- (1) Prior to appointment of a trustee, the settlor shall submit an application to the Commission in the prescribed form for approval.
+nvfy | (2) The application referred to under sub-regulation (1) of this regulation shall be accompanied with the following information and documents-
+mror | (a) the draft constitution of the trust ;
+zlxc | (b) the minutes of the meeting with the host communities or advisory committee as applicable where the proposed trustee was nominated for appointment ;
+k0bw | (c) the full name and address of the proposed trustee ;
+aq5a | (d) a copy of a valid means of identification of the proposed trustee ;
+sc5y | (e) the qualifications and professional background of the proposed trustee, including a short profile of the proposed trustee ;
+0yab | (f ) evidence that the trustee comes from the relevant host community ; and
+w95z | (g) any other document the Commission may specify from time to time.
+0i1k | (3) The Commission shall within 30 days of receipt of the application, give notice to the settlor of the rejection or approval of the appointment of the trustee.
+dqlg | (4) Where the Commission fails to give notice to the settlor within the time specified in sub-regulation (3) of this regulation, the appointment of the trustees shall be deemed approved.
+p6pq | (5) The Commission may reject the appointment of a trustee, where it determines that-
+zse6 | (a) the provisions of the Act were not complied with in the process of the selection of the trustee ;
+p2n3 | (b) the trustee does not meet the criteria for appointment as provided in the constitution of the trust ; or
+ohh7 | (c) the trustee is disqualified from acting as a trustee under regulation 14 of these Regulations.
+vbni | (6) The settlor shall not advertise the name of a proposed trustee or register a trustee with the Corporate Affairs Commission unless the trustee has been approved or deemed approved by the Commission.
+dgcw | 14. Without prejudice to the provisions of the Act, a person shall not be qualified to be appointed as a trustee of a trust, where the person-
+gvwz | (a) is not of high integrity and professional standing ;
+sk5m | (b) is an infant, that is, less than 18 years old ;
+qws8 | (c) is of unsound mind, having been found by a court as such ;
+877u | (d) is an undischarged bankrupt ; and
+rzhj | (e) has been convicted of an offence involving fraud or dishonesty within ten years of the proposed appointment.
+bfax | 15. The Board of Trustees shall administer the trust and perform the duties provided under section 243 of the Act.
+f2y8 | 16 .- (1) The settlor may remove a trustee from office in accordance with the constitution of the trust.
+o7qm | (2) A trustee shall be removed from office where at any time during the trustee's tenure, the trustee becomes disqualified as a trustee in accordance with regulation 12(3) of these Regulations and the constitution of the trust.
+d52l | (3) The settlor shall remove a trustee within 30 days of becoming aware that the trustee has become disqualified in accordance with regulation 12(3) of these Regulations and the constitution of the trust.
+qlbb | (4) Where a settlor fails to remove a trustee as specified by these Regulations or any applicable law, the settlor shall be liable to pay an administrative penalty of $2,500 or its equivalent in Naira for every day the disqualified trustee continues to hold office.
+nhsg | (5) For the purpose of sub-regulation (3) of this regulation, the settlor shall be deemed to have notice of any matter which disqualifies a trustee under regulation 14 of these Regulations where such matters are publicly known or reasonably ought to have been known by the trustee or the settlor.
+hy0l | (6) The settlor shall within 14 days of removal of a trustee, notify the Commission of such removal and provide the Commission with supporting documents evidencing the grounds for such disqualification or reason for removal.
+4jmz | (7) A trustee shall be deemed to have vacated office upon disqualification as a trustee in accordance with regulation 14 of these Regulations and shall no longer be eligible to participate in the activities of the Board of Trustees.
+b7cq | B 2124
+0b39 | 17 .- (1) A trustee may resign from office voluntarily at any time, subject to giving a 21 days notice of resignation to the settlor.
+qecd | (2) The settlor shall within seven days of receipt of the letter of resignation of a trustee or upon otherwise having notice of the resignation of a trustee, notify the Commission of the resignation.
+1o7p | PART IV - HOST COMMUNITIES DEVELOPMENT TRUST COMMITTEES
+cp13 | 18 .- (1) Within 30 days of the establishment of the trust, the Board of Trustees shall set up and appoint members of the management committee.
+bgre | (2) The management committee shall comprise-
+57lp | (a) a representative of each of the host community, nominated by the relevant host community as a non-executive member ;
+ukth | (b) the following executive members, who shall be Nigerians of high integrity and professional standing-
+kpvt | (i) a person, who is qualified to practice as an accountant in Nigeria, with not less than 10 years' experience as a practicing accountant in Nigeria,
+jie2 | (ii) a person, who is a member of the Chartered Institute of Project Managers of Nigeria, with not less than 10 years' experience as a practicing project manager in Nigeria,
+d0ik | (iii) a person with at least 10 years working experience in the finance sector in Nigeria, and
+0x0s | (iv) a legal practitioner with not less than 10 years post call experience.
+4exe | (3) A person shall not be qualified to act as a member of the management committee, where the person-
+0myz | (a) is less than 18 years old ;
+xh3i | (b) is a lunatic or a person of unsound mind ;
+syiw | (c) is an undischarged bankrupt ; or
+kg3t | (d) has been convicted of an offence relating to fraud, dishonesty or vandalism of any oil installations and gas assets in Nigeria.
+lvae | (4) The remuneration, qualification, disqualification, discipline, suspension or removal of members of the management committee by the Board of Trustees shall be in accordance with the constitution of the trust.
+o9sc | (5) A member of the management committee shall serve a term of four years in the first instance and may be reappointed for another term of four years and no more.
+121u | B 2125
+zh03 | (6) The Board of Trustees shall notify the Commission within 10 working days of the appointment or removal of any member of the management committee.
+1mvw | (7) The management committee shall be responsible for the general administration of the host community development trust in an ad hoc basis and shall perform duties set out in section 248 of the Act.
+6d4s | 19 .- (1) Within 30 days of the constitution of the management committee, the management committee shall set up and appoint members of the host communities advisory committee.
+mqah | Host Communities Advisory Committee.
+xxr8 | (2) The remuneration, qualification, disqualification, discipline, suspension or removal of members of the advisory committee by the management committee shall be in accordance with the constitution of the trust or internal policies as approved by the Board of Trustees from time to time.
+rl4j | (3) The advisory committee shall comprise of one representative from each host community.
+vz32 | (4) Notwithstanding the provisions of regulation 19(2) of these Regulations, a person shall not be qualified to act as a member of the advisory committee, where the person-
+ncb0 | (a) is less than 18 years old ;
+8mp0 | (b) is a lunatic or of unsound mind ;
+xjyk | (c) is an undischarged bankrupt ; or
+mt0f | (d) has been convicted of an offence relating to fraud, dishonesty or vandalism of any oil and gas assets in Nigeria.
+awab | (5) Decisions of the management committee with respect to the appointment of members of the advisory committee shall be subject to the approval of the Board of Trustees.
+ixcc | (6) The advisory committee shall perform the duties set out in section 250 of the Act.
+8p6h | 20 .- (1) Pursuant to section 251 of the Act, settlors shall carry out a host communities needs assessment, within six months following the grant of a license or lease.
+pmgl | (2) In the case of existing licenses and leases, the settlor shall carry out host communities needs assessment prior to the establishment of the trust in accordance with section 251(4) of the Act.
+90no | (3) A settlor shall carry out host communities needs assessment every five years, to determine the current needs of the host communities.
+jt0y | (4) The host communities needs assessment shall require an evaluation of the-
+qb7o | (a) level of primary, secondary and tertiary education in the community ;
+oae5 | (b) availability of basic utilities including water, electricity and shelter ;
+s0fl | (c) access to healthcare ;
+43ia | (d) level of infrastructure development in the community including roads and telecommunications infrastructure ;
+3g2y | (e) social, environmental and economic needs of the community ; and
+gc7v | (f) such other needs of the host communities as the settlor may determine.
+wqfv | (5) The host communities needs assessment shall demonstrate that the settlor has complied with the provisions of section 251(3) of the Act.
+j30a | (6) The host communities needs assessment shall form the basis for the host communities development plan.
+7bdk | (7) Upon completion of the host communities needs assessment in accordance with regulation 20(1) and (2) of these Regulations, the settlor shall prepare the host communities development plan pursuant to section 252 of the Act, which shall be submitted to the Commission in accordance with regulation 20(8) of these Regulations.
+fim0 | (8) Upon completion of the host communities needs assessment in accordance with regulation 20(3) of these Regulations, the settlor shall prepare the host communities development plan and submit the plan to the Commission for approval, within 30 days from the date of completion of the host communities needs assessment.
+ojro | 21 .- (1) The host communities development plan shall-
+l6t9 | (a) specify the communities development initiatives required to respond to the findings and strategy identified in the host communities needs assessment ;
+1ujy | (b) determine and specify the projects to implement the specified initiatives ;
+qzor | (c) provide a detailed timeline for projects ;
+a0by | (d) set out the reasons and objectives of each project as supported by the host communities needs assessment ;
+u1ky | (e) conform with the Nigerian content requirements provided in the Nigerian Oil and Gas Industry Content Development Act ;
+htm9 | (f) provide for ongoing review and reporting to the Commission ; and
+8hul | (g) contain such other matters as may be prescribed by the Commission from time to time.
+87vz | B 2127
+ym66 | (2) The Commission may publish a template of the host communities development plan on its website from time to time.
+l0a3 | (3) Upon the approval of the host communities development plan by the Commission, it shall not be amended without prior written approval of the Commission.
+u8nw | 22 .- (1) The fund distribution matrix shall set out-
+l2v9 | (a) the basis for proposed allocation of funds to host communities based on equitable and economic principles ;
+afbe | (b) description of the existing programme of host community support prior to the Act, where applicable ; and
+78r8 | (c) such other matters that the Commission may specify from time to time.
+320g | (2) The fund distribution matrix shall not be amended without the prior written consent of the Commission.
+tp8g | (3) Without prejudice to sub-regulation (1) of this regulation, the Commission may issue a template of fund distribution matrix to serve as a guide to settlors.
+gxfd | PART V-ESTABLISHMENT AND MANAGEMENT OF THE HOST COMMUNITIES DEVELOPMENT TRUST FUND
+s2v1 | 23 .- (1) A settlor shall establish the host communities development trust fund (the Fund) in the name of the trust within one month of the-
+jkp9 | (a) incorporation of a trust for existing oil mining leases ;
+z8tt | (b) grant of approval of the field development plan for existing oil prospecting licences ; and
+9g22 | (c) grant of approval of field development plan for new petroleum prospecting licences or petroleum mining leases granted under the Act.
+41fx | (2) The Fund shall be deposited in a designated account, in a commercial bank duly licensed by the Central Bank of Nigeria with a minimum credit rating of 'BBB' issued by at least, two rating agencies, one of which shall be a rating agency incorporated in Nigeria and registered with the Securities and Exchange Commission.
+7um8 | (3) The Board of Trustees of the Fund shall maintain in the same commercial bank, the following accounts-
+uow2 | (a) collection account, into which the settlor shall pay its annual contribution in an amount equal to 3% of its actual annual operating expenditure of the preceding financial year in the upstream petroleum operations affecting the host communities for which the fund was established ;
+iat7 | B 2128
+ywwr | (b) the capital fund account, into which the 75% of the amount standing to the credit of the collection account shall be paid and utilised in accordance with regulation 20(2) of these Regulations ;
+0i6j | (c) the reserve fund account, into which 20% of any amount standing to the credit of the collection account shall be paid and utilised in accordance with regulation 20(3) of these Regulations ; and
+87cq | (d) the administrative cost account to be entrusted to the settlor, into which an amount not exceeding 5% of any amount standing to the credit of the collection account shall be paid and utilised in accordance with regulation 20(4) of these Regulations.
+0qs3 | (4) The money in each of the accounts comprising the Fund shall remain distinct and shall not be co-mingled.
+z8f7 | (5) Upon the establishment of the Fund, the following details shall be submitted to the Commission-
+7w7j | (a) details of each of the bank accounts and sub-accounts comprising the Fund ;
+51vd | (b) details of signatories to the bank account and sub-accounts, which shall comprise the representatives of the settlor and Board of Trustees ;
+baj1 | (c) a copy of the settlor's board resolution approving the opening of the bank accounts and sub-accounts comprising the Fund and the bank account mandate ; and
+n1wo | (d) a forecast of the contributions for the subsequent five years.
+5bq3 | (6) Where the credit rating of a bank in which the Fund is domiciled declines below the prescribed rating under sub-regulation (2) of this regulation, the Board of Trustees shall within one month, transfer the Fund to a bank with the prescribed rating and shall provide the Commission with the following-
+ezla | (a) details of each of the bank accounts and sub-accounts comprising the Fund ;
+rsbu | (b) details of signatories to the bank account and sub - accounts, which shall comprise of representatives of the settlor and board of trustees ; and
+magd | (c) a copy of the Board of Trustees' resolution approving the opening of the bank accounts and sub - accounts comprising the Fund and the mandate of bank account.
+tb74 | (7) The Board of Trustees or settlor as may be applicable, shall not make any change to the signatories, mandate, name or other details of the Fund or change the bank where the Fund is domiciled, without the prior approval of the Commission.
+8l69 | (8) Where the Commission approves any of the changes contemplated in regulation 23(7) of these Regulations, the Board of Trustees shall within five working days of making such changes provide the Commission with the information and documents set out in sub-regulation (6) of this Regulations.
+```
+
+OUTPUT:
+```

@@ -1,0 +1,132 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+1pjs | An exploration of the relationship between psychedelic drug use, mystical experiences, mindfulness, and mental health.
+o2kr | Kiana Azmoodeh
+v6sk | UCL Doctorate in Clinical Psychology Thesis declaration form
+1wj6 | I confirm that the work presented in this thesis is my own. Where information has been derived from other sources, I confirm that this has been indicated in the thesis.
+936l | Signature:
+06yq | Date: 10/07/2020
+dpv6 | Overview
+8r5j | Research into psychedelic drugs and their therapeutic potential has gained increasing attention in recent years, however an understanding of the psychological mechanisms by which these substances exert their influence is not yet fully established. The purpose of this thesis was to better understand the relationship between psychedelic drug use and the psychotherapeutic constructs implicated in explaining their proposed benefits.
+2taz | This volume is comprised of three parts. Part One presents a review of relevant literature, pertaining to the question of which psychotherapeutic constructs may be relevant to psychedelic experiences and their effects. The relevance of constructs such as 'mindfulness' and 'psychological flexibility' are considered, as well as the role of psychedelic-induced 'mystical experiences'.
+o3ya | Part Two of the thesis describes an exploratory cross-sectional study, gathering data from a large sample of recreational psychedelic drug users using an internet-based survey. This study explored the association between lifetime psychedelic drug use, mystical experiences, mindfulness and depression, and examined the pathways between demonstrated effects.
+r5il | Finally, a critical appraisal of the process of conducting the research is provided. This includes personal reflections on the undertaking of research within the subject area of psychedelics, as well as a consideration of the process of establishing a direction for the study from a psychological position.
+5gui | Impact Statement
+82qc | A revival of interest in the therapeutic potential of psychedelic drugs has been seen in recent years, with an evidence-base for their application in the treatment of mental health problems expanding. Whilst benefits have been demonstrated in depression and addiction, for example, the mechanisms by which psychedelics exert their therapeutic effects are not yet fully understood. Evidence to date has explored aspects of the acute psychedelic experience (i.e. 'mystical experiences') which appear to be important in explaining their therapeutic effects. Likely change processes at a neurobiological level have also been identified, however psychological mechanisms remain unclear. The role of mindfulness has very recently been investigated with regard to psychedelics, with studies suggesting increases in this capacity following their use. The aim of this study was therefore to explore the relationship between mindfulness-related constructs, mental health, psychedelic use, and psychedelic-induced mystical experiences.
+ls7d | It is envisaged that findings will contribute to a growing understanding of the psychological pathways involved in psychedelic effects and potentially inform future research on their therapeutic use. By providing preliminary exploratory data from a large sample of psychedelic users, support may be provided for future research on the relevance of mindfulness-related psychotherapeutic constructs, both enabling an understanding of the mechanisms of change in psychedelic therapy and improving our understanding of the recreational use of these drugs.
+tzt3 | Table of Contents
+t8vv | Part 2: Empirical Paper
+qvnu | List of Tables
+kggw | Acknowledgments
+xrd1 | This thesis would not have been possible without the invaluable contribution of Professor Sunjeev Kamboj. I am extremely grateful for his thoughtful advice and insightful supervision throughout the project. Thank you for your guidance.
+5746 | I would also like to express thanks to the UK Psychedelic Society, the Multidisciplinary Association for Psychedelic Studies, and members of the UCL Clinical Psychopharmacology Unit, for kindly advertising this study to their networks. Thank you also to the individuals who volunteered to share their experience and expertise with me, and to every person who participated in the study and shared it with others. I hope the topic prompted some interesting conversations as it has done for me.
+7toz | To each and every one of my amazing friends, thank you for being my constant providers of support and silliness. A special thank you to Lucy, for donating her artwork to this project, and for proofreading so very many words.
+j346 | To my parents, for their unrelenting belief in me. Thank you for your boundless warmth and wisdom, for reminding me of what's truly important, and that این هم میگذرد
+v8uq | To Arianne, whose involvement in the recruitment for this project is deeply appreciated. Thank you for sparing me the perplexing world of social media pages and reddit threads. As my big sister, thank you for your infinite energy, enthusiasm and encouragement, for the unfathomably long phone calls, and for the one thousand other ways in which you are wonderful.
+x972 | Thank you to Antonio, for his unwavering kindness and patience, and for walking alongside me through difficult times. I am endlessly grateful for you.
+cwrw | Finally, thank you to my UCL DClinPsy class. There isn't any other assortment of people I would have rather shared this journey with. I am honoured to have learnt and laughed alongside you.
+4i0e | Part 1: Literature Review
+h2l3 | 'Third-Wave' psychotherapeutic constructs and their relevance to the psychedelic experience.
+dfzb | Abstract
+u6ty | This literature review takes the form of a conceptual introduction, providing an comprehensive overview of those constructs investigated as part of the empirical study of this thesis (see Part 2). An introduction to classic psychedelic drugs and psychedelic experiences is provided, including a consideration of mystical and/or challenging or difficult experiences. The evidence regarding therapeutic outcomes following psychedelic use is discussed, as well as an overview of theories which seek to explain these effects. A proposed overlap between psychedelic experiences and meditative practices is examined, and relevant aspects of 'third wave' cognitive- behavioural psychotherapeutic approaches are identified, such as 'mindfulness' and 'psychological flexibility' (core components of Acceptance and Commitment Therapy (ACT)). The value that these psychotherapeutic constructs may hold in understanding, supporting and integrating psychedelic experiences is explored, and discussed in relation to both acute and sustained effects.
+awvu | Having highlighted the relevance of mystical experiences and mindfulness-related capacities with regard to psychedelics and their therapeutic potential, this review concludes by outlining the aims of the empirical study presented in Part 2.
+```
+
+OUTPUT:
+```

@@ -1,0 +1,144 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+iwn5 | STIFFNESS NONLINEARITY
+uooz | Empirical Fitting Equation
+pxbq | In order to evaluate the effects of the confining pressure, the stress ratio at consolidation, and the overconsolidation his-
+jfsr | JOURNAL OF GEOTECHNICAL AND GEOENVIRONMENTAL ENGINEERING / OCTOBER 2000 / 931
+u15r | J. Geotech. Geoenviron. Eng., 2000, 126(10): 929-938
+lq35 | tory on the secant Young's modulus <LATEX>E _ { s e c }</LATEX> under small and in- termediate strain levels, an empirical study was performed on a large number of triaxial compression test results on Toyoura, Quiou, and Ticino sands.
+3g9w | It has generally been recognized that the shear modulus of sand can be expressed by means of an empirical equation as a function of the void ratio, the confining pressure, and strain levels (Hardin and Richart 1963; Iwasaki and Tatsuoka 1977; Jamiolkowski et al. 1994a). For example, Iwasaki and Tat- suoka indicated that the shear modulus of clean sands obtained from resonant column and cyclic torsional tests can be ex- pressed by
+d09o | <LATEX>G _ { c q } = K \left( \gamma \right) F \left( e \right) p ^ { \prime n \left( \gamma \right) }</LATEX> (1)
+ylhz | where <LATEX>G _ { e q } = \mathrm { e q u i v a l e n }</LATEX> shear modulus; <LATEX>K \left( \gamma \right) = \mathrm { m a t e r i a l }</LATEX> con- stant that depends on shear strain level; <LATEX>F \left( e \right) = \mathrm { v o i d }</LATEX> ratio func- tion; <LATEX>p ^ { \prime } = m e a n</LATEX> effective stress; and <LATEX>n \left( \gamma \right) = \mathrm { e m p i r i c a }</LATEX> exponent that depends on shear strain level.
+a3td | According to Hardin and Blandford (1989), it is also pos- sible to express the dependence of the small strain shear mod- ulus <LATEX>G _ { 0 }</LATEX> on the current state of a soil by means of the following relationship:
+ex5k | <LATEX>G _ { 0 } = S _ { i j } F \left( e \right) \left( O C R \right) ^ { k } p _ { a } ^ { \left( 1 - n _ { i } - n _ { j } \right) } \sigma _ { i } ^ { \prime n _ { i } } \sigma _ { i } ^ { \prime n _ { j } }</LATEX> (2)
+9d4o | where Sij = nondimensional material constant of given soil that also reflects its fabric; <LATEX>k = \mathrm { e m p i r }</LATEX> exponent that depends on plasticity index (PI) of soil; <LATEX>\sigma _ { i }</LATEX> and <LATEX>\sigma _ { j } ^ { \prime } = \mathrm { e f f e c t i v e }</LATEX> principal stresses acting on plane in which <LATEX>G _ { 0 }</LATEX> is measured; <LATEX>n ;</LATEX> and <LATEX>n _ { i } =</LATEX> empirical exponents; and <LATEX>p _ { a } =</LATEX> stress.
+cjq2 | Moreover, Hardin and Blandford suggested that the Young's modulus for elastic compressive strain increments in a certain direction is a unique function of the normal stress in that di- rection. Lo Presti et al. (1995) and Hoque and Tatsuoka (1998) reported similar results for triaxial tests performed on clay and sand.
+5esx | As mentioned before, it was indicated that the secant Young's modulus depends on the stress ratio and the stress history under consolidation. Moreover its effects were differ- ent from sand to sand. Thus, to clarify the effects of the con- fining pressure, the stress ratio at consolidation (i.e., isotropic and <LATEX>K _ { 0 }</LATEX> consolidation) and the overconsolidation history on the secant Young's modulus <LATEX>E _ { \mathrm { s c } }</LATEX> under wide strain levels (0.001 to 1%), an empirical study was performed on triaxial com- pression test results using the following equations:
+m5ka | Downloaded from ascelibrary.org by Massachusetts Institute of Technology (MIT) on 05/23/23. Copyright ASCE. For personal use only; all rights reserved.
+byu8 | <LATEX>E _ { \mathrm { s c c } \left( \mathrm { I C } \right) } = S _ { \mathrm { r } } F \left( e \right) \sigma _ { \mathrm { r e } } ^ { \prime n } p _ { a } ^ { \left( 1 - n \right) }</LATEX> (isotropic normally consolidated sand)
+76b0 | (3) <LATEX>E _ { \sec \left( K _ { 0 } \right) } = a S _ { v } F \left( e \right) \sigma _ { w } ^ { \prime \prime } p _ { a } ^ { \left( 1 - n \right) } \left( K _ { 0 } \text { normally } c \text { onsolidated sand } \right)</LATEX> (4) where Sy = nondimensional material constant that depends on
+zxz6 | axial strain level of isotropic normally consolidated sands; <LATEX>F \left( e \right)</LATEX> <LATEX>= \mathrm { v o i d }</LATEX> ratio function <LATEX>\left[ \dot { F \left( e \right) } = \left( 2 . 1 7 - e \right) ^ { 2 } / \left( 1 + e \right) \right.</LATEX> (Toyoura and Ticino sands) and <LATEX>F \left( e \right) = \left( 3 . 8 2 - e \right) ^ { 2 } / \left( 1 + e \right)</LATEX> (Quiou sand)]; <LATEX>\sigma _ { w } ^ { \prime } = \mathrm { e f f e c t i v e }</LATEX> axial stress at end of consolidation; <LATEX>n</LATEX> = empirical exponent that depends on axial stress and axial strain level of isotropic normally consolidated sands; <LATEX>p _ { a } =</LATEX> reference stress (98 kPa); and a = empirical constant that
+xnth | <LATEX>E _ { \sec } \left( t e s t d a t a \right) ^ { 3 0 } \left[ M P a \right]</LATEX> FIG. 3. Comparison of Empirical Fitting Study and Test Data on Toyoura Sand: (a) <LATEX>\epsilon _ { a } = 0 . 0 1 \%</LATEX> (b) <LATEX>e _ { a } = 0 . 1 \%</LATEX> (c)
+vafm | 932 / JOURNAL OF GEOTECHNICAL AND GEOENVIRONMENTAL ENGINEERING / OCTOBER 2000
+2zmw | J. Geotech. Geoenviron. Eng., 2000, 126(10): 929-938
+bf9k | FIG. 4. Comparison of Empirical Fitting Study and Test Data on Quiou Sand: (a) <LATEX>\epsilon _ { a } = 0 . 0 1 \%</LATEX> (b) &a = 0.1%; (c)
+otkr | <LATEX>\& a = 1 . 0</LATEX> depends on axial strain level of <LATEX>K _ { 0 }</LATEX> normally consolidated sands.
+ibgs | Figs. 3-5 show the comparison of the secant modulus ob- tained from the test data and the empirical fitting equation for normally consolidated [isotropic consolidated (IC) and <LATEX>K _ { 0 }</LATEX> con- solidated <LATEX>\left. \left( K _ { 0 } \mathrm { C } \right) \right]</LATEX> Toyoura, Quiou, and Ticino sands for three kinds of strain levels, respectively. Although a certain scatter is recognized, it can be seen that the empirical fitting equation that uses (3) and (4) above agrees well with the test data at small and intermediate strain levels and stress ratios for nor- mally consolidated sands. Table 3 lists the parameter values of the empirical fitting equation for the three sands.
+colo | <LATEX>8 _ { a } = 0 . 1 \%</LATEX> <LATEX>C 8 _ { 2 } = 0 . 0 0 1 \%</LATEX> <LATEX>\bigtriangleup \varepsilon _ { \mathrm { a } } = 0 . 0 0 5 \%</LATEX> Downloaded from ascelibrary.org by Massachusetts Institute of Technology (MIT) on 05/23/23. Copyright ASCE. For personal use only; all rights reserved.
+d6r4 | FIG. 5. Comparison of Empirical Fitting Study and Test Data on Ticino Sand: (a) <LATEX>e _ { a } = 0 . 0 1 \%</LATEX> (b) <LATEX>8 _ { a } = 0 . 1 \%</LATEX> (c)
+9mrz | <LATEX>x _ { a } = 1 . 0 \%</LATEX> Influence Factors
+pk06 | Consolidation Stress
+7wn9 | Fig. 6 shows the variations of <LATEX>E _ { \mathrm { s e c } } / F \left( e \right)</LATEX> at several strain levels with respect to effective axial stress <LATEX>\sigma _ { v } ^ { \prime }</LATEX> using double logarithmic scales for isotropic NC Toyoura, Quiou, and Ti- cino sand specimens. From this figure, it has been found that the relationships between <LATEX>\log \left( E _ { \mathrm { s e c } } / F \left( e \right) \right)</LATEX> and <LATEX>\log \left( \sigma _ { v c } ^ { \prime } \right)</LATEX> for each strain level and sand can be approximated as a straight line. Accordingly, the secant Young's modulus of isotropic NC sand specimens can be explained by an exponent function of the
+wcd0 | JOURNAL OF GEOTECHNICAL AND GEOENVIRONMENTAL ENGINEERING / OCTOBER 2000 / 933
+caos | J. Geotech. Geoenviron. Eng., 2000, 126(10): 929-938
+qrvy | <LATEX>\sigma _ { \mathrm { v c } } ^ { \prime } \left[ \mathrm { k P a } \right]</LATEX> FIG. 6. Normalized Secant Young's Modulus versus Effective Vertical Stress at Consolidation: (a) Toyoura Sand; (b) Quiou Sand; (c) Ticino Sand
+pn9j | effective vertical stress at any strain level, as in the case of small strains.
+1pmc | Fig. 7 shows the relationships of n-value versus <LATEX>\log \left( \varepsilon _ { a } \right)</LATEX> for Toyoura, Quiou, and Ticino sand specimens. The strain level dependency of the <LATEX>n</LATEX> n-value of Toyoura sand is similar to that of Ticino sand. The n-values at small strain levels of Toyoura and Ticino sands are almost equal to 0.5, and those increase gradually with the increase in the strain levels. On the other hand, in the case of Quiou sand, the n-value increases at lower strain levels than other sands, and for <LATEX>\varepsilon _ { a } > 0 . 0 5 \%</LATEX> it decreases with an increase in the strain levels. It would seem that this is the effect of the high crushability of Quiou sand. Fig. 8
+5z6q | Quiou Sand a (for <LATEX>K _ { 0 }</LATEX> n <LATEX>S _ { v }</LATEX> (4) (5) (6) (7) 1.04 1.01 1.08 0.562 512 0.83 0.78 0.722 387 0.66 0.531 1,367 0.56 0.785 321 0.76 0.530 1,122 0.46 0.852 246 0.70 0.530 911 0.38 0.905 150 0.58 0.519 763 0.35 0.864 99.6 0.50 0.538 599 0.34 0.799 64.2 0.47 378 0.34 0.636 39.3 0.51 234 0.35 0.573 30.0 0.51 Isotropic Normally Consolidated Sand 1.0 0.5 4 n-value 0.0 0.0001 0.001 60 — — Downloaded from ascelibrary.org by Massachusetts Institute of Technology (MIT) on 05/23/23. Copyright ASCE. For personal use only; all rights reserved.
+yeoh | FIG. 7. Effect of Strain level on n-Value
+b8hf | FIG. 8. Stress Dependency of Friction Angle at Failure
+hntf | shows the stress dependency of the friction angle at failure for isotropic NC specimens. It has been found that the stress de- pendency of Quiou sand is larger than that of Toyoura and Ticino sands. In particular, the friction angle of Quiou sand decreases rapidly with an increase in the confining pressure. This is because the crushability of Quiou sand is higher than that of other sands. Therefore, the n-value of Quiou sand de- creased for
+99fo | <LATEX>8 _ { a } > 0 . 0 5 \% .</LATEX> Consolidation Stress Ratio
+y5r7 | The secant modulus decrease with an increase in the strain level is more pronounced in <LATEX>K _ { 0 }</LATEX> consolidated <LATEX>\left( K _ { 0 } \mathrm { C } \right)</LATEX> specimens than in isotropic consolidated (IC) specimens, as mentioned before.
+lrry | 934 / JOURNAL OF GEOTECHNICAL AND GEOENVIRONMENTAL ENGINEERING / OCTOBER 2000
+hvhm | J. Geotech. Geoenviron. Eng., 2000, 126(10): 929-938
+```
+
+OUTPUT:
+```

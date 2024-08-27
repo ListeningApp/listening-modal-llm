@@ -1,0 +1,187 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+1pjs | ILLUSTRATIONS BY JAMES YANG
+o2kr | Principles of Instruction
+v6sk | Research-Based Strategies That All Teachers Should Know
+1wj6 | BY BARAK ROSENSHINE
+936l | T his article presents 10 research-based principles of instruction, along with suggestions for classroom prac- tice. These principles come from three sources: (a) research in cognitive science, (b) research on master teachers, and (c) research on cognitive supports. Each is briefly explained below.
+06yq | A: Research in cognitive science: This research focuses on how our brains acquire and use information. This cognitive research also provides suggestions on how we might overcome the limita- tions of our working memory (i.e., the mental "space" in which thinking occurs) when learning new material.
+dpv6 | B: Research on the classroom practices of master teachers: Mas- ter teachers are those teachers whose classrooms made the high- est gains on achievement tests. In a series of studies, a wide range of teachers were observed as they taught, and the investigators coded how they presented new material, how and whether they checked for student understanding, the types of support they provided to their students, and a number of other instructional activities. By also gathering student achievement data, research- ers were able to identify the ways in which the more and less effec- tive teachers differed.
+8r5j | C: Research on cognitive supports to help students learn complex tasks: Effective instructional procedures-such as thinking aloud, providing students with scaffolds, and providing students with models-come from this research.
+2taz | Barak Rosenshine is an emeritus professor of educational psychology in the College of Education at the University of Illinois at Urbana-Champaign. A distinguished researcher, he has spent much of the past four decades identifying the hallmarks of effective teaching. He began his career as a high school history teacher in the Chicago public schools. This article is adapted with permission from Principles of Instruction by Barak Rosen- shine. Published by the International Academy of Education in 2010, the original report is available at www.ibe.unesco.org/fileadmin/user_upload/ Publications/Educational_Practices/EdPractices_21.pdf.
+o3ya | 12 AMERICAN EDUCATOR | SPRING 2012
+r5il | Even though these are three very different bodies of research, there is no conflict at all between the instructional suggestions that come from each of these three sources. In other words, these three sources supplement and complement each other. The fact that the instructional ideas from three different sources supple- ment and complement each other gives us faith in the validity of these findings.
+5gui | Education involves helping a novice develop strong, readily accessible background knowledge. It's important that background knowledge be readily accessible, and this occurs when knowledge is well rehearsed and tied to other knowledge. The most effective teachers ensured that their students efficiently acquired, rehearsed, and connected background knowledge by providing a good deal of instructional support. They provided this support by teaching new material in manageable amounts, modeling, guiding student practice, helping students when they made errors, and providing for sufficient practice and review. Many of these teachers also went on to experiential, hands-on activities, but they always did the experiential activities after, not before, the basic material was learned.
+82qc | The following is a list of some of the instructional principles that have come from these three sources. These ideas will be described and discussed in this article:
+ls7d | · Begin a lesson with a short review of previous learning.1
+tzt3 | · Present new material in small steps with student practice after each step.2
+t8vv | · Ask a large number of questions and check the responses of all students.3
+qvnu | Provide models.4
+kggw | · Guide student practice.5
+xrd1 | · Check for student understanding.6
+5746 | Obtain a high success rate.7
+7toz | · Provide scaffolds for difficult tasks.8
+j346 | · Require and monitor independent practice.9
+v8uq | · Engage students in weekly and monthly review.10
+x972 | 1. Begin a lesson with a short review of previous learning: Daily review can strengthen previous learning and can lead to fluent recall.
+cwrw | Research findings
+4i0e | Daily review is an important component of instruction. Review can help us strengthen the connections among the material we have learned. The review of previous learning can help us recall words, concepts, and procedures effortlessly and automatically when we need this material to solve problems or to understand new material. The development of expertise requires thousands of hours of practice, and daily review is one component of this practice.
+h2l3 | For example, daily review was part of a successful experiment in elementary school mathematics. Teachers in the experiment were taught to spend eight minutes every day on review. Teachers used this time to check the homework, go over problems where there were errors, and practice the concepts and skills that needed to become automatic. As a result, students in these classrooms had higher achievement scores than did students in other classrooms.
+dfzb | Daily practice of vocabulary can lead to seeing each practiced word as a unit (i.e., seeing the whole word automatically rather than as individual letters that have to be sounded out and blended). When students see words as units, they have more space available in their working memory, and this space can now be used for comprehension. Mathematical problem solving is also improved when the basic skills (addition, multiplication, etc.) are overlearned and become automatic, thus freeing working-mem- ory capacity.
+u6ty | In the classroom The most effective teachers in the studies of classroom instruction understood the importance of practice, and they began their les- sons with a five- to eight-minute review of previously covered material. Some teachers reviewed vocabulary, formulae, events, or previously learned concepts. These teachers provided addi- tional practice on facts and skills that were needed for recall to become automatic.
+awvu | Effective teacher activities also included reviewing the con- cepts and skills that were necessary to do the homework, having students correct each others' papers, and asking about points on which the students had difficulty or made errors. These reviews
+on9b | ensured that the students had a firm grasp of the skills and con- cepts that would be needed for the day's lesson.
+a8ge | Effective teachers also reviewed the knowledge and concepts that were relevant for that day's lesson. It is important for a teacher to help students recall the concepts and vocabulary that will be relevant for the day's lesson because our working memory is very limited. If we do not review previous learning, then we will have to make a special effort to recall old material while learning new material, and this makes it difficult for us to learn the new material.
+h27a | Daily review is particularly important for teaching material that will be used in subsequent learning. Examples include reading sight words (i.e., any word that is known by a reader automati- cally), grammar, math facts, math computation, math factoring, and chemical equations.
+pdjh | When planning for review, teachers might want to consider which words, math facts, procedures, and concepts need to
+xmgs | The most effective teachers ensured that students efficiently acquired, rehearsed, and connected knowledge. Many went on to hands-on activities, but always after, not before, the basic material was learned.
+bd9h | become automatic, and which words, vocabulary, or ideas need to be reviewed before the lesson begins.
+m047 | In addition, teachers might consider doing the following dur- ing their daily review:
+gy8c | · Correct homework.
+y4mj | · Review the concepts and skills that were practiced as part of the homework.
+vpgq | • Ask students about points where they had difficulties or made errors.
+ousl | · Review material where errors were made.
+m4ju | · Review material that needs overlearning (i.e., newly acquired skills should be practiced well beyond the point of initial mas- tery, leading to automaticity).
+a0mb | 2. Present new material in small steps with student practice after each step: Only present small amounts of new material at any time, and then assist students as they practice this material.
+ki8m | Research findings
+km8w | Our working memory, the place where we process information, is small. It can only handle a few bits of information at once-too much information swamps our working memory. Presenting too much material at once may confuse students because their work- ing memory will be unable to process it.
+wzno | Therefore, the more effective teachers do not overwhelm their students by presenting too much new material at once. Rather,
+xagm | AMERICAN EDUCATOR | SPRING 2012 13
+iwn5 | these teachers only present small amounts of new material at any time, and then assist the students as they practice this material. Only after the students have mastered the first step do teachers proceed to the next step.
+uooz | The procedure of first teaching in small steps and then guiding student practice represents an appropriate way of dealing with the limitation of our working memory.
+pxbq | In the classroom
+jfsr | The more successful teachers did not overwhelm their students by presenting too much new material at once. Rather, they pre- sented only small amounts of new material at one time, and they
+u15r | taught in such a way that each point was mastered before the next point was introduced. They checked their students' understand- ing on each point and retaught material when necessary.
+lq35 | Some successful teachers taught by giving a series of short presentations using many examples. The examples provided concrete learning and elaboration that were useful for processing new material.
+3g9w | Teaching in small steps requires time, and the more effective teachers spent more time presenting new material and guiding student practice than did the less effective teachers. In a study of mathematics instruction, for instance, the most effective math- ematics teachers spent about 23 minutes of a 40-minute period in lecture, demonstration, questioning, and working examples. In contrast, the least effective teachers spent only 11 minutes presenting new material. The more effective teachers used this extra time to provide additional explanations, give many exam- ples, check for student understanding, and provide sufficient instruction so that the students could learn to work independently without difficulty. In one study, the least effective teachers asked only nine questions in a 40-minute period. Compared with the successful teachers, the less effective teachers gave much shorter presentations and explanations, and then passed out worksheets and told students to solve the problems. The less successful teach- ers were then observed going from student to student and having to explain the material again.
+d09o | Similarly, when students were taught a strategy for summariz- ing a paragraph, an effective teacher taught the strategy using small steps. First, the teacher modeled and thought aloud as she identified the topic of a paragraph. Then, she led practice on iden-
+ylhz | 14 AMERICAN EDUCATOR | SPRING 2012
+a3td | tifying the topics of new paragraphs. Then, she taught students to identify the main idea of a paragraph. The teacher modeled this step and then supervised the students as they practiced both find- ing the topic and locating the main idea. Following this, the teacher taught the students to identify the supporting details in a paragraph. The teacher modeled and thought aloud, and then the students practiced. Finally, the students practiced carrying out all three steps of this strategy. Thus, the strategy of summarizing a paragraph was divided into smaller steps, and there was modeling and practice at each step.
+ex5k | 3. Ask a large number of questions and check the responses of all students: Questions help students practice new information and connect new material to their prior learning.
+9d4o | Research findings
+cjq2 | Students need to practice new material. The teacher's questions and student discussion are a major way of providing this neces- sary practice. The most successful teachers in these studies spent more than half of the class time lecturing, demonstrating, and asking questions.
+5esx | Questions allow a teacher to determine how well the material has been learned and whether there is a need for additional instruction. The most effective teachers also ask students to explain the process they used to answer the question, to explain how the answer was found. Less successful teachers ask fewer questions and almost no process questions.
+m5ka | In the classroom
+byu8 | In one classroom-based experimental study, one group of teach- ers was taught to follow the presentation of new material with lots of questions.11 They were taught to increase the number of factual questions and process questions they asked during this guided practice. Test results showed that their students achieved higher scores than did students whose teachers did not receive the training.
+76b0 | Imaginative teachers have found ways to involve all students in answering questions. Examples include having all students:
+zxz6 | · Tell the answer to a neighbor.
+xnth | · Summarize the main idea in one or two sentences, writing the summary on a piece of paper and sharing this with a neighbor, or repeating the procedures to a neighbor.
+vafm | . Write the answer on a card and then hold it up.
+2zmw | · Raise their hands if they know the answer (thereby allowing the teacher to check the entire class).
+bf9k | . Raise their hands if they agree with the answer that someone else has given.
+otkr | Across the classrooms that researchers observed, the purpose of all these procedures was to provide active participation for the students and also to allow the teacher to see how many students were correct and confident. The teacher may then reteach some material when it was considered necessary. An alternative was for students to write their answers and then trade papers with each other.
+ibgs | Other teachers used choral responses to provide sufficient practice when teaching new vocabulary or lists of items. This made the practice seem more like a game. To be effective, how-
+colo | ever, all students needed to start together, on a signal. When students did not start together, only the faster students answered.
+d6r4 | In addition to asking questions, the more effective teachers facilitated their students' rehearsal by providing explanations, giving more examples, and supervising students as they practiced the new material.
+9mrz | The following is a series of stems12 for questions that teachers might ask when teaching literature, social science content, or sci- ence content to their students. Sometimes, students may also develop questions from these stems to ask questions of each other.
+pk06 | 4. Provide models: Providing students with models and worked examples can help them learn to solve problems faster.
+7wn9 | Research findings Students need cognitive support to help them learn to solve prob- lems. The teacher modeling and thinking aloud while demonstrat- ing how to solve a problem are examples of effective cognitive support. Worked examples (such as a math problem for which the teacher not only has provided the solution but has clearly laid out each step) are another form of modeling that has been developed by researchers. Worked examples allow students to focus on the specific steps to solve problems and thus reduce the cognitive load on their working memory. Modeling and worked examples have been used successfully in mathematics, science, writing, and reading comprehension.
+wcd0 | In the classroom
+caos | Many of the skills that are taught in classrooms can be conveyed by providing prompts, modeling use of the prompt, and then guid-
+qrvy | ing students as they develop independence. When teaching read- ing comprehension strategies, for example, effective teachers provided students with prompts that the students could use to ask themselves questions about a short passage. In one class, students were given words such as "who," "where," "why," and "how" to help them begin a question. Then, everyone read a passage and the teacher modeled how to use these words to ask questions. Many examples were given.
+pn9j | Next, during guided practice, the teacher helped the students practice asking questions by helping them select a prompt and
+1pmc | Many of the skills taught in classrooms can be conveyed by providing prompts, modeling use of the prompt, and then guiding students as they develop independence.
+5z6q | develop a question that began with that prompt. The students practiced this step many times with lots of support from the teacher.
+yeoh | Then, the students read new passages and practiced asking questions on their own, with support from the teacher when needed. Finally, students were given short passages followed by questions, and the teacher expressed an opinion about the quality of the students' questions.
+b8hf | This same procedure-providing a prompt, modeling, guiding practice, and supervising independent practice-can be used for many tasks. When teaching students to write an essay, for exam- ple, an effective teacher first modeled how to write each para- graph, then the students and teacher worked together on two or more new essays, and finally students worked on their own with supervision from the teacher.
+hntf | Worked examples are another form of modeling that has been used to help students learn how to solve problems in mathematics and science. A worked example is a step-by-step demonstration of how to perform a task or how to solve a problem. The presenta- tion of worked examples begins with the teacher modeling and explaining the steps that can be taken to solve a specific problem. The teacher also identifies and explains the underlying principles for these steps.
+```
+
+OUTPUT:
+```

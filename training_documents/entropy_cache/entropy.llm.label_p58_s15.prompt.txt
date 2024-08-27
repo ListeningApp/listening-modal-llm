@@ -1,0 +1,220 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+k38m | Thanks to this, if we have a system whose space of states is <LATEX>\mathbb{R} ^ { n }</LATEX> and its energy function <LATEX>E : \mathbb{R} ^ { n } \rightarrow \mathbb{R}</LATEX> is a positive definite quadratic form, we can compute
+nkj9 | <LATEX>\langle E \rangle = \frac { \int _ { \mathbb{R} ^ { n } } E \left( x \right) \exp \left( - \beta E \left( x \right) \right) d x } { \int _ { \mathbb{R} ^ { n } } \exp \left( - \beta E \left( x \right) \right) d x }</LATEX> by reducing it to the previous case using a change of variables. We get
+35a8 | <LATEX>\langle E \rangle = \frac { 1 } { 2 } n k T</LATEX> 51
+337o | So, each degree of freedom still contributes akT to the expected energy. That's the equipartition theorem!
+cuth | But be careful. The equipartition theorem doesn't apply when the energy is an arbitrary function of n variables. It also fails when we switch from classical to quantum statistical mechanics.
+09z2 | People sometimes memorize the conclusion of the equipartition theorem, E = 2nkT, without learning that it holds only for classical systems whose energy is a positive def- inite quadratic form. These people sometimes get fooled into thinking (E) is always proportional to T. Some of these poor benighted souls go around saying that temper- ature is just a measure of energy per degree of freedom. This completely ignores the subtlety of the concept of temperature.
+13fv | As we've seen, the truly general relation between temperature and energy, for sys- tems in thermal equilibrium, also involves entropy:
+v5pj | TdS = d(E).
+trab | 52
+grxs | THE AVERAGE ENERGY OF AN ATOM
+u9dn | Since an atom of helium gas can move in 3 directions, and its energy depends quadratically on its velocity and not on position, the equipartition theorem says that classically its expected energy should be
+t25w | (E) = - kT 2 3
+x62u | where T is temperature and k is Boltzmann's constant, about 1.38 . 10-23 joules/kelvin.
+aoc8 | So, heating an atom of helium gas 1 ℃ should take
+3mdu | 3
+m04v | x 1.38 . 10-23 joules = 2.07 . 10-23 joules
+3aip | 2
+q3gu | This is very close to the truth.
+txab | We can finally start reaping the rewards of all our thoughts about entropy! The equipartition theorem lets us estimate how much energy it takes to heat up one atom of helium one degree Celsius. And it works!
+dov0 | Of course we don't heat up an individual atom: we heat up a bunch. A mole of helium is about 6.02 . 1023 atoms, so heating up a mole of helium one degree Celsius (= 1 kelvin) should take about
+xd5o | 6.02 . 1023 x 2.07 . 10-23 ~ 12.46 joules
+3gny | And this is very close to correct! It seems the experimentally measured answer is 12.6 joules.
+ws73 | What are the sources of error? Most importantly, our calculation neglects the interaction between helium atoms. Luckily this is very small at standard temperature and pressure. We're also neglecting quantum mechanics. Luckily for helium this too gives only small corrections at standard temperature and pressure.
+vyos | It's important here that helium is a monatomic gas. In hydrogen, which is a diatomic gas, we get extra energy because this molecule can tumble around, not just move along. We'll try that next.
+w4hq | 53
+ghbe | THE ENERGY OF HYDROGEN
+1lkf | If we treat a molecule of hydrogen as a dumbbell whose position takes 3 numbers and whose axis whose takes 2 numbers to describe, we can try to use the equipartition theorem to estimate its expected energy as
+uobn | (E) = - kT 5
+3194 | where T is temperature and k = 1.38 . 10-23 joules/kelvin.
+r22o | In this approximation, heating a molecule of hydrogen gas 1 kelvin takes
+nupw | 2 x 1.38 . 10-23 joules = 3.45 . 10-23 joules
+37xs | In reality it takes 3.39 . 10-23 joules at standard temperature and pressure. Not bad!
+hoi0 | A molecule of hydrogen gas is a blurry quantum thing, but let's pretend it's a classical solid dumbbell that can move and tumble but not spin around its axis. Then it has 3+2 = 5 degrees of freedom, and we can use the equipartition theorem to estimate its energy.
+tffb | For T significantly less than 6000 kelvin, hydrogen molecules don't vibrate with the two atoms moving toward and away from each other. They don't spin around their axis until even higher temperatures. But they tumble like a dumbbell as soon as T exceeds about 90 kelvin.
+ewwt | We need quantum mechanics to compute these things. But at room temperature and pressure, we can pretend a hydrogen gas is made of classical solid dumbbells that can move around and tumble but not spin around their axes! In this approximation the equipartition theorem tells us (E) = 5kT.
+2tj1 | This is fine as far as it goes-but our goal in this course is to compute the entropy of hydrogen. We'll start with a useful warmup: the classical harmonic oscillator.
+nbhq | 54
+w251 | ENTROPY OF THE HARMONIC OSCILLATOR: 1
+1vgx | A classical harmonic oscillator has energy
+yjnk | = p2 kg2
+9zmh | 2m
+mi3g | where q is its position, p its momentum, m its mass and « its spring constant.
+ntjg | By the equipartition theorem, in thermal equilibrium at temperature T it has expected energy (E) = kT where k is Boltzmann's constant.
+86at | So, using d(E) = TdS, its entropy is
+bpd2 | S=Jas- Ja = k | -k(In
+hkd8 | Since this does not approach 0 as T -> 0 from above, the Third Law of Thermodynamics doesn't hold for the classical harmonic oscillator.
+sptg | But what is this constant C'? For that we must think harder.
+2k40 | What's the entropy of a classical harmonic oscillator in thermal equilibrium? Using the equipartition theorem and the formula d(E) = TdS, we can show it's
+krk7 | So, the entropy grows logarithmically with temperature. And it does not go to zero as T approaches zero: instead, it goes to negative infinity. So the Third Law of Thermo- dynamics does not hold for the classical harmonic oscillator!
+4tyc | That may seem shocking, but it actually makes sense. The Third Law holds only for certain special systems. Furthermore, we've seen that the entropy of a sharply peaked probability distribution on a continuous state space is negative. We'll see that the Boltzmann distribution for the classical oscillator gets more and more sharply peaked near q = p = 0 as the temperature approaches zero from above. So in fact, it makes perfect sense that the entropy approaches -0.
+2mjl | However, the classical harmonic oscillator is just an approximation to the quantum harmonic oscillator, which does obey the Third Law. It's a good approximation at high temperatures, but bad at low temperatures. In fact, this business of negative entropies at low temperature is not something that happens in the real world. It's just a defect of classical mechanics. It's trying to tell us that quantum mechanics is better.
+6d9q | Another point: you'll have noticed that constant C here. What is it? We can make progress with a bit of dimensional analysis. The quantity ln T is a funny thing: if we change our units of temperature, it doesn't get multiplied by a constant factor, the way
+wsc1 | 55
+or3l | physical quantities usually do. It changes by adding a constant! So k In T doesn't have dimensions of entropy. But
+fbyc | must have dimensions of entropy. The constant C must somehow save the day! How does that work? Let's see.
+vceo | 56
+kd78 | ENTROPY OF THE HARMONIC OSCILLATOR: 2
+896u | Classically, a harmonic oscillator at temperature T has entropy
+o0si | S = k(ln T + C) Writing C = - In(To) for some constant To, this gives S = k ln(T /T0) Dimensional analysis implies T0 must have units of temperature!
+1fx8 | But what is this temperature T0? For that we must think harder.
+tfms | The formula S = k(ln T + C) is a bit scary from the viewpoint of dimensional analysis. We usually avoid working with the logarithm of a dimensionful quantity, like ln T, because it transforms in a funny way when we change our units. But if we write C = - In To then we get S = kln(T/To), and we see the solution to our problem! If To has units of temperature, then T/To is dimensionless, so In(T/To) doesn't change at all when we change our units. In other words: now ln(T/T0) is dimensionless, so S = k ln(T/T0) has units of entropy as it should.
+pfv5 | So, the constant C must equal - In To for some temperature To that we can compute for any harmonic oscillator. What is it? We could just compute it. But it's more fun to use dimensonal analysis.
+8gxa | What could it depend on? Obviously the mass m, the spring constant k and Boltz- mann's constant k. But there's no way to form a quantity with units of temperature from just m, k and k. So we need an extra ingredient.
+fsvi | And we've seen this already: to define the entropy of a probability distribution on the q, p plane and get something with the right units, we need a quantity with units of action! The obvious candidate is Planck's constant h, and this is actually right. The entropy we're after is given by an integral with respect to dp dq/h where h = h/2T. So the temperature To can depend on h as well as m, k and k.
+068d | We can compute a quantity with units of temperature from m, k, k and h. The frequency of our oscillator is w = k/m, and it's a famous fact that he has units of energy. k has units of energy/temperature ... so hw/k has units of temperature!
+ysz7 | Thus, our temperature To must be hw/k times some dimensionless purely mathe- matical constant, which I'll call 1/a. a must be something like 7 or 2, or if we're really unlucky, e666 - though in practice we usually get numbers fairly close to 1, not huge or tiny numbers.
+k5db | So, the entropy of a classical harmonic oscillator must be
+7jzh | S = kln(T/To) =kln(akT/hw).
+vm00 | This is far as I can get without breaking down and doing some real work. Later we will compute Q.
+62qe | 57
+ypz9 | ENTROPY OF THE HARMONIC OSCILLATOR: 3
+mpml | We've seen a classical harmonic oscillator with frequency w has entropy
+imnm | S = kln(akT/hw) when it's in thermal equilibrium at temperature T.
+8na8 | Here k is Boltzmann's constant, h is Planck's constant,
+ul2a | and o is some dimensionless mathematical constant. We'll figure it out later.
+4eaf | Even though we don't know o, this formula is already very interesting! kT is known to be the typical energy scale of thermal fluctuations at temperature T. hw is the spacing between energy levels of a quantum harmonic oscillator with frequency w. The ratio kT/hw is therefore roughly the number of energy eigenstates in which we may find a quantum harmonic oscillator with high probability when it's at temperature T.
+4b6k | Thus, S is roughly k times the logarithm of the number of states that we're likely to find a quantum harmonic oscillator in, when it's at temperature T. This may seem mysterious. After all, we weren't trying to do quantum mechanics, much less count quantum states. But there are other examples of this pattern, where the entropy of a classical system in thermal equilibrium at temperature T is roughly k times the logarithm of the number of quantum states that are accessible at temperature T.
+hxiu | We'll learn a bit more about this later, when we relate entropy to something called the 'partition function', which can be understood as the 'number of acccessible states'. This viewpoint will also explain the constant Q. But now let's calculate this constant.
+1ylw | 58
+waqw | ENTROPY OF THE HARMONIC OSCILLATOR: 4
+nf6a | A classical harmonic oscillator has energy
+5g96 | p, q) = 2 + Kg2 2m
+d1y5 | where p is its momentum, q its position, m its mass and « its spring constant.
+rl20 | At temperature T, the probability density of its momentum and position is the Boltzmann distribution:
+t91r | e-BE(p,q) p(p,q) =
+7s4b | .00 e-BE(p,q) dp dq h
+ehif | where ( = 1/kT, k is Boltzmann's constant, and h = 2Th is the original 'unreduced' Planck's constant.
+buv0 | The oscillator's entropy at temperature T is thus
+wqqa | 00 p(p, q) In p(p, q) dp dq h
+www8 | S =- k -00/- 100
+zhvt | Last time we found a formula for the entropy of a classical harmonic oscillator ... which includes a mysterious purely mathematical dimensionless constant Q. Now let's figure out a.
+yv1q | We'll grit our teeth and actually do the integral needed to calculate the entropy-but only in one easy case! Combining this with our formula, we'll get a.
+u7jx | First, recall the basics. The energy E(p, q) of our harmonic oscillator at momentum p and position q determines its Boltzmann distribution at temperature T, which I'll call p(p, q) now since the letter p is already being used. Integrating -pln p using the measure dp dq/h we get the Shannon entropy. In physics we multiply this by Boltzmann's constant k to get the Gibbs entropy.
+03u9 | 59
+8sqd | ENTROPY OF THE HARMONIC OSCILLATOR: 5
+vlyz | We can choose units of length, time, mass and temperature to make a classical harmonic oscillator's mass m, its spring constant K, Boltzmann's constant k and Planck's constant h all equal 1.
+5034 | Then at T = 1 the Boltzmann distribution of the oscillator is
+9lvu | e-(p2+q2)/2
+uy7a | p(p, q) = .00 ∞ e-(p2+q2)/2 dpdq = e-(p2+q2)/2
+lqs6 | so its entropy is S = - | | e- (p2 +2)/2 In (e- (p2+2) /2) dpdq -001-00
+ri4s | Let's do this integral!
+2j8o | Let's compute the Boltzmann distribution p(p, q) and the entropy S. To keep the formulas clean, we'll work in units where m = K = k = h =1, and compute everything at one special temperature: T = 1.
+qrl1 | In this setup h = 27, and
+uvvk | e-BE(p,q) =e-(p2+q2)/2
+mdnj | is a beautiful Gaussian with integral
+mwy0 | 00 e-(p2+q2)/2 = 27T.
+hg8q | These two factors of 27 cancel when we compute the denominator of the probability distribution p(p, q):
+rcyg | dpdq 2TT 2TT .= 1. =
+bj8l | Thus, we get simply
+cygk | p(p,q) =e-(p2+q2)/2
+rtk7 | The entropy of the harmonic oscillator is thus
+1wc3 | dpdq when K = k = h =T =1. Next let's do this integral.
+333g | S = - e-(p2+ 2)/2 In (e-(p2+2)/2) −∞ -00
+6kja | 60
+fmi5 | ENTROPY OF THE HARMONIC OSCILLATOR: 6
+bqn5 | When m =k=k=h=T=1 the entropy of a classical harmonic oscillator is
+4lyq | 00 00 00 e-(p2+q2)/2 In (e-(p2+q2)/2) dp dq
+jzqz | S =
+```
+
+OUTPUT:
+```

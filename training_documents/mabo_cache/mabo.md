@@ -1,0 +1,337 @@
+## In Defence of Mabo
+
+CORRECTION OF AN ENDURING WRONG OR A ‘PITIFUL' DECISION?
+
+The decision of the High Court of Australia in Mabo and Ors v The State of Queensland has attracted unprecedented comment. Brennan J (with whom Mason CJ and McHugh J agreed) envisaged that his decision would afford a new, just and appropriate 'skeleton of the common law' in Australia concerning the title to land of its indigenous peoples. Many have applauded the decision as long overdue. Others have condemned it as a judicial usurpation of power. The Honourable Peter Connolly, a former Judge of the Supreme Court of Queensland, described it in emphatic terms: ' ... as law, the decision is pitiful.' Rarely has a decision of an Australian court attracted so much praise and so much calumny. Most commentators have, of course, not read the decision. Most do not really know exactly what the case decides.
+
+That the Mabo decision would attract such varied comment was probably inevitable. After all, the decision rejected the legal concept of terra nullius - a fundamental assumption, until now, in Australia's legal history. It is the extent of the public debate, and its vehemence, which is notable and virtually unique. Needless to say, the recognition, in principle, of a form of native title, lying as a substratum to Australia's established systems of real property law, has excited ambition, consternation and vituperation on the part of those who perceive that their interests may fall within the domain of the emerging Mabo principle.
+
+For some, the Mabo decision is correct, morally and legally. For others, it stands as a nearly insurmountable obstacle to their perceived rights and as an impediment to economic progress in Australia as they perceive it. The issues, the subject of popular debate, will only ultimately be clarified by legislative intervention, or, in the absence of legislative initiative, by decisions of the courts as they have to consider the individual claims to land presented to them.
+
+The Mabo decision is legally significant in a number of respects. First, it recognised the entitlement of indigenous people of Australia to a form of native land title. This recognition required the overruling of the common law doctrine of terra nullius. For this, the High Court has been criticised upon the basis that it thereby usurped a legislative function and so breached the separation of powers doctrine enshrined in the Australian Constitution. Second, the High Court offered guidance as to the circumstances in which an established common law doctrine may be overruled by a court. Third, guidance was offered as to the proper influence which international law and international instruments may have upon the development of the common law in Australia. Finally, the decision implicitly brings to the fore an important question of judicial policy.
+
+The most telling criticism which has been targeted at Mabo concerns not how the High Court came to its decision, but whether, as a matter of judicial policy, it ought not to have left such a seemingly radical change of the law to the elected representatives of the Australian people in their democratic Parliaments.
+
+
+## AN OVERVIEW OF THE MABO DECISION
+
+The scope of this article forbids a detailed analysis of the Mabo decision. However, it is essential to offer a broad description of the decision if only because most observers have little or no idea of what the case actually holds.
+
+The Meriam people (a people of Melanesian descent) live on the Murray Islands. This small group of islands is situated in the Torres Strait. The islands in question comprise an area of nine square kilometers. The largest island is called Mer. There had not been a migration of permanent settlers to the Murray Islands. The islands remain today basically as they were when Australia was acquired by Britain.
+
+The indigenous inhabitants of the islands live in village communities. Property is passed, by custom, from one generation to another. The evidence taken by the primary judge in Mabo suggested that the cultivation of gardens was a primary activity. The Meriam people of today retain a strong sense of 'affiliation with their forebears and with the society and culture of earlier times'. Brennan J noted that 'the findings show that Meriam society was regulated more by custom than by law'.
+
+In eighteen seventy-nine, the islands were annexed to the then colony of Queensland. In eighteen eighty-two, the Queensland Government reserved the islands for the native inhabitants. It leased two acres to a society of missionaries. In nineteen thirty-one, a lease of two of the smaller islands in the group was granted by the Queensland Government so that a sardine factory could be established there. However, the lease made express reference to the native interest in the islands by prohibiting interference with the natives' use of the islands.
+
+In Mabo the Meriam people sought, in part, a declaration that, notwithstanding the annexation of the islands by Queensland in eighteen seventy-nine and subsequent related actions, they retained native title to the islands entitling 'the Meriam people ... as against the whole world to possession, occupation, use and enjoyment of the island'. They were successful in this application.
+
+The actual decision of the High Court of Australia was neatly summarised, with the authority of the court, by Mason CJ and McHugh J in their short note expressing agreement with the judgment of Brennan J. Their Honours said:
+
+In the result, six members of the Court (Dawson J. dissenting) are in agreement that the common law of this country recognizes a form of native title which, in cases where it has not been extinguished, reflects the entitlement of the indigenous inhabitants, in accordance with their laws or customs, to their traditional lands and that, subject to the effect of some particular Crown leases, the land entitlement of the Murray Islanders in accordance with their laws or customs is preserved, as native title, under the law of Queensland.
+
+The essential difference between the several majority judgments was that Mason CJ and Brennan and McHugh JJ did not agree with the
+
+... conclusion to be drawn from the judgments of [Justices] Deane, Toohey and Gaudron ... that, at least in the absence of clear and unambiguous statutory provision to the contrary, extinguishment of native title by the Crown is wrongful and gives rise to a claim for compensatory damages.
+
+The summary provided by Mason CJ and McHugh J outlines the legal outcome of the case. However, it does not outline the reasoning of the judges towards this outcome. That reasoning can be outlined in the following way.
+
+
+## THE REASONING BEHIND THE RECOGNITION OF NATIVE TITLE
+
+There is no doubt that the Crown is sovereign in Australia. Necessarily, it is sovereign in those territories annexed to Australia. However, sovereignty is a concept distinct, in law, from the absolute beneficial ownership of land. Hence, while the Crown is sovereign in all of the territory of Australia, the Crown's 'ultimate', 'final' or 'radical' title enabling the beneficial use of the land remains subject to any pre-existing indigenous native title which has not been extinguished in a manner recognised by the law. That is, the radical beneficial title to land is a potential outcome of the doctrine of sovereignty - it is not a necessary incident to sovereignty.
+
+Prior to Mabo, Australian courts had accepted that customary native title, if it in fact originally existed, was necessarily extinguished when the British Crown asserted sovereignty over the Australian colonies. That is, the Crown's radical title entailed, of itself without more, the universal and beneficial ownership and use of the land to the exclusion of any native title. Simply stated, the High Court in Mabo took the view that the acquisition of Australia in the name of the British Crown did not necessarily extinguish native title. Hence, the Crown's radical title did not necessarily confer full beneficial ownership of the land.
+
+Upon this view, when sovereignty was asserted over the Australian territories, the only land which the Crown could have absolute beneficial title to was land to which no native title extended or land to which the native title, although extending, had been extinguished. Nevertheless, an incident to the Crown's radical title was a power to appropriate land to itself or to alienate land to others to the exclusion of native title. If, however, the Crown did not so act to appropriate or alienate the land, the title of the indigenous people to the land remained, until the Crown so acted.
+
+This approach necessarily exploded the common myth of terra nullius. For, if the Australian territories were properly terra nullius, there could be no legitimate claim to any pre-existing native title.
+
+According to the commentaries of Blackstone, English municipal law became the law of a newly discovered land if upon the first settlement by English colonists, the discovered land was a desert uninhabited country. Alternatively, where the subject land had been conquered or ceded, English municipal law applied by exercise of the Sovereign's legislative power. Importantly, after conquest or cession the law continued to recognise the legal rights of the conquered or ceded inhabitants. However, where the land was terra nullius, the law did not recognise the continued legal rights of the inhabitants in a settled land. As a matter of decided case law, the inhabited territory of New South Wales came to be treated as desert uninhabited country upon the logic that the condition of the indigenous people before British settlement was barbarous or the territory was practically unoccupied, without settled inhabitants or settled law.
+
+In the Mabo case itself, it was held that there was sufficient evidence of the Meriam people's continuous occupation and settlement of the islands. They had cultivated gardens, established a system of customary law and provided for the passage of property from one generation to the next. Such a substratum of complementary native title was clearly consistent with the law of real property which was inherited by the Australian territories upon their settlement by British and later immigrants.
+
+When the Crown asserted its sovereignty over Australia, the law governing real property which immediately applied was that of tenure. Tenure, upon its true analysis, was a relationship which existed between the Crown and the land occupier, not as between the land and the land occupier. The doctrine of tenure is said to derive in England from the actions of King William One when he acquired all land, either by conquest, forfeiture or surrender, and then granted that land to his tenants-in-chief. Similarly, land in Australia, which had been granted by the Crown, was held on some kind of tenure and such titles, under the accepted Australian land law of tenure, cannot be disturbed. However, in Australia this fundamental premise of the doctrine of tenure - that is, the granting of interests in all land by the Crown - was not true for all land. Some Crown land remained unalienated. Hence, in Australia, the doctrine of tenure, and its subsequent recognition of land title, could only correctly be said to apply to land which has been granted or alienated by the Crown. Of necessity, then, it could not be said to apply to deny the existence of interests concerning land - native title being one example - which owed their existence to something other than a Crown grant or Crown alienation.
+
+As such, the radical title to the beneficial use of land was subject to a number of interests where the territory was not the subject of a Crown grant or alienation and where the land was not terra nullius. Among those interests was indigenous native title. The Crown, therefore, took the land subject to native title (which could be extinguished by the Crown by legally recognised actions or extinguished by the indigenous people themselves). The occupiers of land took the land subject to the Crown although, in the vast majority of cases, the Crown's conduct in giving beneficial title to land occupiers was sufficient, in law, to extinguish native title. This was because that was tantamount to an alienation of land by the Crown inconsistent with the continued enjoyment of native title.
+
+The decision in Mabo affects the notion of terra nullius in a number of ways. The most important is that, for the Meriam people to be successful, it was essential that they should dispel the notion of terra nullius. Clearly, there was evidence suggesting a society beyond that which could be considered the proper subject of the terra nullius doctrine, at least in respect of the Murray Islands. However, inherent in the reason which sustained the decision of the court in Mabo, appears to be a logic that the whole of mainland Australia is similarly not the proper subject of the terra nullius doctrine. While the actual decision concerned only the land annexed by Queensland in the Murray Islands, the consideration of the legal status of that land parallels the status of other land in mainland Australia. This is so even if the case be that no similar claims will be successful within the mainland. The rejection of the terra nullius doctrine was made more easy by its inherently discriminatory nature and the fact that international law had also earlier rejected the doctrine.
+
+
+## WHAT IS NATIVE TITLE?
+
+Native title (or traditional, customary or indigenous title) has its origin in and is given its content by the traditional laws acknowledged by and the traditional customs observed by the indigenous inhabitants of a territory. Its existence is primarily a question of fact by reference to those laws and customs. It may possess characteristics unknown to,
+
+
+## In Defence of Mabo
+
+and unenforceable by, the common law. Native title is not an institution of the common law. Instead, it is distinct from the common law.
+
+To prove native title, an entitlement to occupy or use particular land needs to be established. The entitlement must be of sufficient significance to demonstrate a locally recognised special relationship between the indigenous users and the land.
+
+The central concepts to native title are presence upon the land and connexion with the land. Traditional connexion with the land will be evidenced by the indigenous people's substantial continued acknowledgment of traditional laws and customs with respect to the land. Native title requires presence on the land which amounts to occupancy. However, this need not necessarily amount to possession as it is understood by the common law. Such presence must be established at least from the time the Crown asserted its general sovereignty.
+
+What will amount to presence or connexion is governed by the demands of the land and the indigenous society in question. Brennan J said:
+
+The nature and incidents of native title must be ascertained as a matter of fact by reference to those laws and customs. The ascertainment may present a problem of considerable difficulty.
+
+By this reasoning, a nomadic lifestyle per se is not inconsistent with the existence of native title. However, the presence on the land must be more than merely coincidental or truly random. Thus, as noted by Deane and Gaudron JJ, native title can result from an indigenous people's established use of land to obtain food, either by cultivation or hunting.
+
+Native title is not, ordinarily, individual title. Presence upon, or connexion with, a particular land giving rise to native title may relate to land either communally or individually held. Thus, to note the example provided by Toohey J, a number of groups of indigenous people may come onto the land for ceremonial purposes. Upon this basis, native title may be shared between different indigenous groups.
+
+Because native title is not an institution of the common law, it is alienable only in conformity with traditional customs and law. Thus, native title cannot be alienated outside the indigenous clan or group, though it can be surrendered voluntarily or upon purchase to the Crown. Only the Crown can acquire native title. This it can do by virtue of the Crown's capacity as sovereign over the whole of Australian territory. Native title cannot be acquired by those who do not acknowledge and observe the laws and customs of the indigenous people. Brennan J said:
+
+It follows that a right or interest possessed as a native title cannot be acquired from an indigenous people by one who, not being a member of the indigenous people, does not acknowledge their laws and observe their customs; nor can such a right or interest be acquired by a clan, group or member of the indigenous people unless the acquisition is consistent with the laws and customs of that people. Such a right or interest can be acquired outside those laws and customs only by the Crown.
+
+Notwithstanding the Mabo decision, the exact legal character of the native title remains unclear. Brennan J took the view that native title is, in some circumstances, 'proprietary' in nature and thus capable of accommodating personal usufructuary rights. Deane and Gaudron JJ took the view that native title is 'personal' in nature, upon the premise that it is inalienable. However, such a personal nature was more than a mere 'permissive occupancy'. Dawson J, who dissented, took the view that native title is only 'permissive occupancy'. Toohey J declined to decide the nature of native title given that, in any case, the Crown, acting appropriately, could readily extinguish it.
+
+According to the majority view in Mabo, where an indigenous clan or group have continued to observe tradition and customs concerning their land, the native title remains in existence. Change in the traditional society over time does not, of itself, extinguish native title. Similarly, native title will not be lost by an indigenous society modifying its traditional way of life. However, if the indigenous people abandon their laws and customs relating to the land, or abandon the land or surrender it to the Crown, the native title is lost. Once native title is lost, it cannot be revived.
+
+The recognition of native title by the common law of Australia thus allows native title to be protected by any legal or equitable remedies which are appropriate to the particular rights and interests as established by the evidence. Such rights and interests may include proprietary, personal and
+
+
+## In Defence of Mabo
+
+usufructuary interests, whether possessed by a community or a group or an individual.
+
+An indigenous people's claim to possession of land, based upon native title, can be protected, or their entitlement enforced, by a representative action brought on the community's behalf. That is, a single member of an indigenous community has standing to bring a Mabo-style claim on behalf, and for the benefit, of the indigenous community.
+
+
+## HOW MAY NATIVE TITLE BE EXTINGUISHED?
+
+With the Crown's sovereignty over the whole of Australia came power to create and extinguish private rights and interests in land within the sovereign's territory. It follows that, with sovereignty, came the power to extinguish native title with complete legality. Essentially, any Crown grant or alienation which is clearly inconsistent with the continued exercise and enjoyment of native title over the land extinguishes the native title to the extent of the inconsistency. In order effectively to extinguish native title, a clear intention to do so must be manifested. Brennan J said:
+
+... the exercise of a power to extinguish native title must reveal a clear and plain intention to do so, whether the action be taken by the Legislature or by the Executive.
+
+Such an intention will depend upon all the circumstances of the case, including the terms of any relevant legislation.
+
+However, to focus attention exclusively upon the intent of the Crown may be misleading. Rather, what appears to be crucial under Mabo is how, in fact, the Crown action, if any, affected the right of the indigenous people to enjoy the native title. Brennan J said:
+
+The extinguishing of native title does not depend on the actual intention of the Governor in Council (who may not have adverted to the rights and interests of the indigenous inhabitants or their descendants), but on the effect which the grant has on the right to enjoy the native title.
+
+Upon this basis, the essential inquiry concerning claims to land under the Mabo decision must be the capacity of the indigenous people to continue to enjoy native title. Upon such a premise, it is clear that native title would be extinguished by a grant of the subject land in fee simple or grant of a lease (unless the lease purports to preserve native rights to enjoy the subject land). Similarly, appropriation of land for a road, railway or any other purpose, which necessarily precludes continued enjoyment of native title to the land, would also extinguish native title.
+
+If the Crown's actions are more limited, in the sense that they merely regulate the enjoyment of native title or create a regime of control which is consistent with the continued enjoyment of native title, then native title to the land will not be extinguished. Thus, a law reserving, or authorising reservation of, land for indigenous people does not extinguish native title to the area. Nor would the dedication of land as a national park or the grant of an authority to prospect for minerals.
+
+This approach is well illustrated by an example provided by Brennan J. A reservation of land for a public purpose, other than for the benefit of indigenous persons, will not of itself extinguish native title if a right to continue to enjoy native title is not inconsistent with that public purpose. However, if such land is then used in a manner inconsistent with the continued enjoyment of native title, then native title will be extinguished. Thus, a reservation of land for use as a school, public office or courthouse does not, of itself, extinguish native title. But the construction of a building on the reserved land would be inconsistent, as it is incompatible with the maintenance of the enjoyment of native title.
+
+As may be inferred from the foregoing discussion concerning the nature of native title, that native title may also be extinguished by surrender to the Crown voluntarily or by the indigenous people's abandonment of their presence on, or connexion with, the land.
+
+Where native title is extinguished, the Crown becomes the absolute beneficial owner of the land. In all of the great torrent of words about Mabo, there was precious little discussion about the derogation from native title fully recognised in the High Court's decision. Landholders in the suburbs and towns of Australia became alarmed that their hard-earned assets may be lost to claims by Aboriginal Australians based on supposed native use hundreds of years ago. As is made clear from the Mabo decision itself, such fears are, in general, completely groundless.
+
+
+## In Defence of Mabo
+
+COMPENSATION FOR THE EXTINCTION OF NATIVE TITLE
+
+As stated earlier, the majority of the High Court took the view that the Crown's extinguishment of native title since seventeen eighty-eight was not 'wrongful' in the sense that it gave rise to a claim for compensation. However, Deane, Gaudron and Toohey JJ took the view that the extinguishment of native title after the introduction in nineteen seventy-five of the Racial Discrimination Act would be invalid unless accompanied by the payment of compensation. Toohey J noted that any claim for compensation for wrongful extinguishment of native title would be subject to the operation of limitation statutes. Dawson J disagreed with this position. Brennan J (with whom Mason CJ and McHugh J agreed) did not finally decide the point. Deane and Gaudron JJ, further, took the view that such extinguishment of native title would have to accord with section fifty-one paragraph thirty-one of the Australian Constitution - that is, it would have to be on 'just terms'. In the face of these differing views, the issue of compensation remains unclear. However, the majority appears to have sent out reassuring messages concerning the scope for rights of compensation.
+
+Fair-minded Australians, I assume, would not object to the notion that Australian Aboriginals be justly compensated by the Crown for the extinguishment of their legitimate native title. For surely, such fair-minded citizens would expect just compensation if their own title to land were extinguished by the Crown. Indeed, as noted by Deane and Gaudron JJ, such a right to just compensation is enshrined, in certain circumstances, within the Australian Constitution itself. We should accord to the indigenous people of this continent in our law no lesser fundamental rights than we decided to reserve to ourselves in the charter of our Federal Commonwealth.
+
+
+## THE HIGH COURT AND THE SEPARATION OF POWERS DOCTRINE
+
+The High Court of Australia has been criticised by commentators, including thoughtful and temperate ones, for acting legislatively rather than judicially in the Mabo decision. As will be shown, such criticism may be unwarranted given the true nature of the judicial function and the High Court's proper role as a court of ultimate authority in this country.
+
+Typical of the criticisms of this kind is that voiced by the Tasmanian Premier, Mr Groom. He is reported to have said of the High Court and the Mabo decision:
+
+It seems to me extraordinary that the High Court, an unelected body, could move in one decision to overthrow all of our land tenure laws that have served Australia so well for two hundred years.
+
+Mr Groom's statement appears prompted by a belief that 'the High Court in the Mabo case, and many others, had taken on a legislative role that should be confined to democratically elected representatives'. Similarly, in emphatic terms, the former Connolly J of Queensland wrote, in response to the rhetorical question: 'What was wrong with the decision?'.
+
+The first answer is that it was sheer invention or, if you prefer a politer word, sheer legislation. As Dr Colin Howard has observed, 'The philosophy of the common law is, above all, evolutionary, not revolutionary. Mabo is above all, revolutionary, not evolutionary.' In order to emphasise this point, I shall hereafter refer to the decision as the legislation of three June nineteen ninety-two. Now, if we had a Bill of Rights, there might conceivably be something in it upon which to hang such legislation, but there was nothing. My thesis is, and I regret to have to put it so bluntly, that this is the naked assumption of power by a body quite unfitted to make the political and social decisions which are involved.
+
+Another example of this same accusation will be sufficient to allow this point to be made. Professor Geoffrey de Q. Walker, Dean of the Faculty of Law in the University of Queensland, has written:
+
+The polemic that has followed Mabo highlights the fact that from a constitutional viewpoint it was not (except in relation to the Murray islanders) a judicial decision at all. Most of the controversy has centred on how the Court's decision should be 'implemented', by federal or State legislation, or both. Yet the hallmark of a genuine judicial decision is that it requires no legislative implementation, for the simple reason that it declares what the current law is, and applies it to the facts. Each time a court applies a principle to new facts it is to a degree developing the law, but sweeping new proclamations of policy, or calls to arms that require Acts of parliament to put them into effect, are quite outside the judicial function. The Mabo case, therefore, except in relation to the Murray islanders, represents yet another usurpation by the Court of the constitutional powers of the Australian parliaments and people.
+
+
+## In Defence of Mabo
+
+The comments of Dawson J in his lonely dissent in Mabo also give some support to the claim that the High Court, in this case, intruded impermissibly into the legislative province. After concluding that any traditional land rights of the Australian indigenes had long since been extinguished, Dawson J wrote:
+
+Accordingly, if traditional land rights (or at least rights akin to them) are to be afforded to the inhabitants of the Murray Islands, the responsibility, both legal and moral, lies with the legislature and not with the courts.
+
+Similarly, in the context of Australia's history of European settlement, Dawson J concluded:
+
+There may not be a great deal to be proud of in this history of events. But a dispassionate appraisal of what occurred is essential to the determination of the legal consequences, notwithstanding the degree of condemnation which is nowadays apt to accompany any account. The policy which lay behind the legal regime was determined politically and, however insensitive the politics may now seem to have been, a change in view does not of itself mean a change in the law. It requires the implementation of a new policy to do that and that is a matter for government rather than the courts. In the meantime it would be wrong to attempt to revise history or to fail to recognize its legal impact, however unpalatable it may now seem. To do so would be to impugn the foundations of the very legal system under which this case must be decided.
+
+
+## WHAT IS THE SEPARATION OF POWERS DOCTRINE?
+
+In its most basic formulation, the separation of powers doctrine prohibits one single branch of government (the parliament, executive and judiciary) from exercising the powers of another branch of government. The three traditional branches of government are essentially regarded as separate in function. In this respect, the Australian Constitution is much influenced by its American counterpart, in turn affected by the philosophical teachings in vogue at the time when the United States Constitution was written.
+
+In the context of the United States, James Madison wrote:
+
+The accumulation of all powers, legislative, executive and judiciary, in the same hands, whether of one, a few, or many, and whether hereditary, self-appointed, or elective, may justly be pronounced the very definition of tyranny.
+
+Such a sentiment was stated in its purest form by the Supreme Court of the United States in Springer et al v Government of the Philippine Islands:
+
+... unless otherwise expressly provided or incidental to the powers conferred, the legislature cannot exercise either executive or judicial power; the executive cannot exercise either legislative or judicial power; the judiciary cannot exercise either executive or legislative power.
+
+That the doctrine of separation of powers has relevance to the Australian Constitution cannot be denied. However, it is significant that in the Constitution, the executive powers (although nominally vested in the Queen and exercisable by the Governor General) were, from the start, to be administered by the Queen's Ministers of State. Those Ministers were required by the Constitution to secure a seat in Parliament no later than three months after their appointment as such. The significance of this requirement is that it is indicative of a rejection of a strict separation of powers doctrine in Australia.
+
+The high watermark of the separation of powers doctrine in Australia was the Boilermakers' case. In that case, it was held that the Federal Parliament could not, by legislation, confer upon a federal court both judicial and non-judicial functions. To purport to do so was inconsistent with the provisions of the Australian Constitution and also with the very structure of the Constitution. Upon this basis, the Court of Conciliation and Arbitration could not validly exercise both judicial and non-judicial powers. The outcome of the decision was the division of those functions respectively between the Industrial Court (from which has grown the Federal Court of Australia) and the Conciliation and Arbitration Commission (from which has grown the Industrial Relations Commission of Australia).
+
+The decision of the High Court of Australia in Boilermakers' was affirmed by the Privy Council. Their Lordships observed:
+
+... in a federal system the absolute independence of the judiciary is the bulwark of the constitution against encroachment whether by the legislature or by the executive. To vest in the same body executive and judicial power is to remove a vital constitutional safeguard.
+
+The context of the Boilermakers' decision is important. It was decided at a time when the declaratory theory of judicial function was almost universally accepted in Australia. Any notion that the judges invented the law was strongly rejected. Dixon CJ asserted that the law would have no meaning as a discipline if there were not pre-existing norms which the
+
+
+## In Defence of Mabo
+
+judge merely had to find and then to apply. Such a task might be difficult and, at times, taxing. But aided by 'strict and complete legalism', the application of logical rules and analogous reasoning, the relevant principles of law would always be found.
+
+While this declaratory theory of strict and complete legalism is still probably accepted by many in the general community and by politicians in Australia, it is a view which is now held by very few Australian and English judges. Lord Reid, in nineteen seventy-two, denounced such a view as a 'fairy tale' in which we did not believe 'any more'.
+
+An assertion that a court has breached the separation of powers doctrine by creating law which was more properly the domain of parliament is closely linked to the criticism of the judiciary for being too creative in the particular case. Such an assertion typically calls for a return to greater judicial restraint.
+
+
+## SEPARATION OF POWERS, JUDICIAL RESTRAINT AND THE HIGH COURT
+
+For the purist, the strict separation of powers doctrine requires absolute judicial restraint. The classical theory of judicial restraint dictates that the judges do not have regard to 'changing economic, social and political ideas' in the exercise of their judicial power, 'unless [such considerations] are specifically commended to the court's attention by the legislature'. Strict adherence to the notion of judicial restraint is given considerable weight by two undeniable factors: first, the judiciary's exercise of a power legislative in character is illegitimate as the judiciary lacks accountability and therefore democratic authority to make radical new laws. Second, the judicial process is inapt to provide the appropriate consultative processes which significant reform or change in the domain of the legislature requires.
+
+In recent years there has been a slow, but steady, drift in Australia away from the strict theory of judicial restraint. The exact limits of judicial creativity are yet to be defined - assuming that the boundary could ever be defined with precision. In Caltex Oil Pty Ltd v The Dredge 'Willemstad', Stephen J in the High Court of Australia recognised that 'policy considerations must no doubt play a very significant part in any judicial definition of liability and entitlement in new areas of the law'.
+
+However, he warned that to 'apply generalized policy considerations directly ... instead of formulating principles from policy and applying those principles ... is ... to invite uncertainty and judicial diversity.'
+
+Deane J in Oceanic Sun Line Special Shipping Co. Inc. v Fay expressed what he took to be the correct approach to be adopted when a judge is invited to change the existing common law and to adopt a new approach. He said:
+
+There are three main reference points to which regard should be paid in deciding whether the United Kingdom doctrine should be accepted as the law of this country. They are legal principle, decided authority and policy.
+
+In that particular case, Deane J went on to find that the arguments for change based upon suggested policy and principle were 'not sufficiently strong' to warrant the court's departing from the established law. He stated that, in such a situation, change was the proper domain of the legislation 'enacted after full inquiry and informed assessment of international as well as domestic considerations of a kind which the Court is not equipped to make of its own initiative.' Despite these cautious words, one is left with the impression that, if the policy considerations before Deane J had been considered more compelling, the judge would have had little hesitation in overruling the pre-existing authorities. As such, the comments of Deane J represent a clear recognition of the proper and legitimate creative role of the courts - especially of the nation's highest court.
+
+
+## THE HIGH COURT 'CREATES' LAW
+
+That the High Court of Australia has substantially abandoned strict adherence to past authority and the notion of judicial restraint is evidenced not just in Mabo. It can be seen in a number of recent decisions which exemplify that court's new-found creativity.
+
+In Trident General Insurance Co. Ltd v McNeice Bros Pty Ltd, the High Court by majority held that a person, not a party to an insurance contract, was entitled to enforce the indemnity against the party's liability to pay damages as the result of a successful claim in negligence against the party. While the ramifications of the decision remain to be explored, the decision may have dispensed with the doctrine of privity of contract. It
+
+
+## In Defence of Mabo
+
+may have done so by court decision and this despite many calls for legislative reform which earlier fell upon deaf ears in Parliament.
+
+Similarly, in Mckinney v The Queen, the High Court, by majority, laid down a 'rule of practice for the future' to be applied in the context of confessions made by a person in police custody. The 'rule' was that, wherever police evidence of a confessional statement allegedly made by an accused while in police custody was disputed at trial, and its making was not reliably corroborated, the judge should warn the jury of the danger of convicting on the basis of that evidence alone. Law reform bodies had for years cried out for legislative reform in this area (as Brennan J noted in a powerful dissent). The court-mandated requirement would have implications for police practice and resources. Yet the High Court would wait no longer for legislation based on law reform reports. It acted resolutely itself to defend the justice of proceedings in Australian courts.
+
+In R v L, the High Court unanimously rejected the notion that, by reason of marriage, there was an irrevocable consent to sexual intercourse on the part of a spouse. This legal fiction had survived for two centuries. It was peremptorily terminated.
+
+In Australian Capital Television Pty Ltd v The Commonwealth (No. two) the High Court, by majority, held invalid key provisions of the Political Broadcasts and Political Disclosures Act nineteen ninety-one upon the ground that they involved a severe impairment of freedoms previously enjoyed by Australian citizens to discuss public and political affairs and to criticise federal institutions. An implied guarantee of freedom of speech with respect to public and political discussion was found to be inherent to a constitutional democracy such as Australia. This was despite the fact that previous suggestions that the Australian Constitution required freedom of speech and other communication had been strongly rejected.
+
+In David Securities Pty Ltd and Others v Commonwealth Bank of Australia, the majority held that a rule, well settled for nearly two hundred years, precluding the recovery of money paid under mistake of law should no longer be regarded as part of the law of Australia.
+
+In Dietrich v The Queen, the majority held that, in the absence of exceptional circumstances, a judge should, on application, adjourn, postpone or stay a criminal trial where an indigent accused person, charged with a serious offence is, through no fault of their own, unable to obtain legal representation. If such an application were refused and the resulting trial were unfair, the conviction might be quashed upon the ground of miscarriage of justice. This decision was in marked contrast to the earlier decision of the High Court in McInnis v The Queen. The dissent of Murphy J in that case was approved, and followed, in the Dietrich case.
+
+In Dietrich v The Queen,117 the majority118 held that, in the absence of exceptional circumstances, a judge should, on application, adjourn, post- pone or stay a criminal trial where an indigent accused person, charged with a serious offence is, through no fault of their own, unable to obtain legal representation. If such an application were refused and the result- ing trial were unfair, the conviction might be quashed upon the ground of miscarriage of justice. This decision was in marked contrast to the ear- lier decision of the High Court in McInnis v The Queen.119 The dissent of Murphy J in that case was approved, and followed, in the Dietrich case.
+
+These examples clearly demonstrate the High Court's marked tendency towards judicial activism and creativity. Against such a pro-active and reformatory approach, it ought not have come as any real surprise to the astute observer of the judiciary in Australia that the High Court in Mabo would adopt the course which it did. No doubt the Mabo decision is creative. No doubt it sits upon the fine line which separates a truly legislative act from the exercise of true judicial function. However, it is certainly consistent with the recent approach of the High Court to many difficult problems where injustices have long endured and been completely ignored by the legislature despite repeated calls for urgent reform.
+
+A system based upon the common law, of its nature, requires a creative judiciary. If the judges of the common law did not so act, the law would fail to adapt and change to modern society. In the past, strict legalism usually served society well. Nowadays, a mature common law system requires that strict legalism be tempered by judicial consideration of both principle and policy in stating what the law is. Strict and complete legalism, giving effect to simple views concerning the separation of powers doctrine, has become entirely inappropriate to a modern common law system. This is especially the case where the system operates under a written constitution designed to endure indefinitely. The recent increase in apparent creativity on the part of the courts in Australia may be the more noticeable only because of their earlier abstinence long maintained. That abstinence may have created a log jam of injustice which only now the High Court and other Australian courts are striving to clear.
+
+Where inquiry is focused upon the creative nature of the judiciary, except in very clear cases, the debate often turns to emotive, rather than substantive, questions. Mabo is a very clear example of this. The essential complaint is not about the legal veracity of the Mabo decision. Pace Mr Connolly, few would argue that six of the seven Justices of the High Court
+
+
+## In Defence of Mabo
+
+simply got the law wrong. The essential complaint, as I understand it, is that the court ought not have done what it did in this case. Yet Mabo, reduced to fundamentals, says only that: (a) our system of real property law accommodates native title; (b) native title may be extinguished; (c) it may be extinguished in a number of ways by either the Crown or by the indigenous people themselves; and (d) where it has been extinguished there may (or may not) be a right to compensation.
+
+Whether the High Court ought to have ventured upon this rather modest restatement of the law, so explained, invites conflicting opinions about the proper limits of judicial creativity. In my own respectful opinion, the High Court acted appropriately in overturning a doctrine which was inherently discriminatory and which no longer conformed (if it ever did) to modern notions about the rights of indigenous societies and their legitimate claims upon settler societies. In acting as it did, the High Court undoubtedly overturned and restated important and fundamental aspects of the common law of Australia. But in so acting, it was not effecting a usurpation of the legislative function. It was merely performing one aspect - the creative aspect - of the court's own judicial function and its duty to the Australian community. Let no one doubt that judges of the common law have been making up law for centuries. That is the very nature of the system. That is the reason why its highly practical techniques of problem solving have outlasted the British Empire and are in operation in the busy courts of the four corners of the world, serving about one-third of humanity.
+
+
+## THE HIGH COURT AND THE COMMON LAW
+
+The Mabo decision made clear the circumstances in which the common law of Australia may be overruled as it advances to a higher principle. In so doing, it provided invaluable guidance for future courts faced with like problems in completely different areas of the law.
+
+That the courts of Australia have a duty to state the common law is made clear by Mabo. Brennan J stated the relevant principles of this duty in the following manner:
+
+In discharging its duty to declare the common law of Australia, this Court is not free to adopt rules that accord with contemporary notions of justice and human rights if their adoption would fracture the skeleton of principle which gives the body of our law its shape and internal consistency. Australian law is not only the historical successor of, but is an organic development from, the law of England. Although our law is the prisoner of its history, it is not now bound by decisions of courts in the hierarchy of an Empire then concerned with the development of its colonies. It is not immaterial to the resolution of the present problem that, since the Australia Act nineteen eighty six came into operation, the law of this country is entirely free of Imperial control. The law which governs Australia is Australian Law. The Privy Council itself held that the common law of this country might legitimately develop independently of English precedent. Increasingly since nineteen sixty eight, the common law of Australia has been substantially in the hands of this Court. Here rests the ultimate responsibility of declaring the law of the nation. Although this court is free to depart from English precedent which was earlier followed as stating the common law of this country, it cannot not do so where the departure would fracture what I have called the skeleton of principle. The Court is even more reluctant to depart from earlier decisions of its own. The peace and order of Australian society is built on the legal system. It can be modified to bring it into conformity with contemporary notions of justice and human rights, but it cannot be destroyed. It is not possible, a priori, to distinguish between cases that express a skeletal principle and those which do not, but no case can command unquestioning adherence if the rule it expresses seriously offends the values of justice and human rights (especially equality before the law) which are aspirations of the contemporary Australian legal system. If a postulated rule of the common law expressed in earlier cases seriously offends those contemporary values, the question arises whether the rule should be maintained and applied. Whenever such a question arises, it is necessary to assess whether the particular rule is an essential doctrine of our legal system and whether, if the rule were to be overturned, the disturbance to be apprehended would be disproportionate to the benefit flowing from the overturning.
+
+One may restate this principle in the following form. A rule of common law may be overturned by the appellate court if the postulated rule 'seriously offends the values of justice and human rights'. However, such a rule may not be overturned if 'the disturbance to be apprehended would be disproportionate to the benefit flowing from the overturning'. Thus, a balancing exercise is required involving judgment in each case. The competing interests at work are the modification of the legal system 'to bring it into conformity with contemporary notions of justice and human rights' and the peril of destroying the 'skeleton of principle which gives the body of our law its shape and internal consistency'. Where the challenged rule of law is so entrenched and fundamental to our common law system that change cannot be accommodated, the change will not be permissible. Then to change the law would be destructive of our very system of common law. Any such changes must be left to Parliament which, it can be assumed, would act with care and justice to most of the interests involved.
+
+
+## In Defence of Mabo
+
+According to the High Court in Mabo, the concept of terra nullius was merely a categorisation of the Australian continent's land established by earlier cases. Such a categorisation represented an element of the common law susceptible to change without dire consequence for the totality of our common law. Similarly, and as a consequence, the common law governing real property, properly interpreted, drew a distinction between the Crown, as sovereign, having title to Australia and owning beneficially all of the land in Australia. That is, the common law applicable accommodated the Crown's sovereignty to Australia's land subject only to the indigenous native title. In fact, the common law itself (not to say statute law) provides perfectly effective means for that indigenous native title to be extinguished. Thus, according to the principles explained by Brennan J, the recognition of indigenous native title did nothing to fracture the skeleton of the common law.
+
+The inherently discriminatory nature of the application of the doctrine of terra nullius meant that it no longer accorded with what Brennan J described as 'values of justice and human rights'. Similarly, the concept of terra nullius being applied to inhabited lands (such as the Murray Islands) was itself questionable. Brennan J focused upon the inappropriateness of the doctrine of terra nullius in a modern society. His Honour said:
+
+If the international law notion that inhabited land may be classified as terra nullius no longer commands general support, the doctrines of common law which depend on the notion that native peoples may be 'so low in the scale of social organisation' that it is 'idle to impute to such people some shadow of the rights known to our law' can hardly be retained. If it were permissible in past centuries to keep the common in step with international law, it is imperative in today's world that the common law should neither be nor seen to be frozen in an age of racial discrimination. The fiction by which the rights and interests of indigenous inhabitants in land were treated as non-existent was justified by a policy which has no place in the contemporary law of this country.
+
+Adopting a slightly different approach, one could argue alternatively that all the Mabo decision did was to reject the notion that the Murray Islands were properly categorised as terra nullius and made clear what the applicable common law actually was in that circumstance. If that be the case, the common law was not really overturned at all. It was not even changed (except in as far as the earlier cases held that Australia had been terra nullius at the time of settlement). Instead, a fundamental error of fact about Australia at the time of settlement was corrected.
+
+If one accepts the foregoing, Mabo was essentially nothing more that a clarification of law and a re-finding of fact. In such a case, the spectre of
+
+Mabo, as an illegitimate decision of law, is properly answered. The essential question for legal advisers of today is relatively simple. It is: in a particular situation, do the factual circumstances give rise to a prima facie claim for indigenous native title and if so, what, if any, actions by indigenous people themselves, the Crown or a legislature with power may be said to have extinguished that prima facie claim? The only substantive question of law which then remains, if a claim exists or has been non- consensually terminated, is the disputable question of compensation.
+
+
+## THE IMPACT OF INTERNATIONAL LAW
+
+The Mabo decision also provides guidance as to the appropriate influence which international law and instruments may have on the development of Australia's common law in the years ahead.
+
+Before Mabo, there was no doubt that international law was a source of our law. However, the impact of international law was, for the most part, one of influence only. It remains probable that international law is not, as such, part of the domestic law of Australia - as indeed of most countries. International law does not generally become part of domestic law until either Parliament so enacts or the judiciary incorporates the principles into the domestic law. In adopting and adapting the principles of international law in domestic decisions, the influence of international law is increased. Nevertheless, the incorporation of international law into domestic law by the judiciary remains the exception, and not the rule.
+
+It is usually only where the issue for determination before a court is uncertain that a judge will seek the guidance of international legal material. Such uncertainty may arise where an established doctrine of the common law, by the passage of time, becomes inappropriate to the responsibilities and demands of modern society. Such was the case in Mabo. It may also arise where a statute is ambiguous and a principle of international law is relevant to assist in resolving the ambiguity.
+
+Early recognition within the High Court of Australia of the potential role of international instruments to influence Australian law may be found in the judgments of Murphy. However, in recent years, the acceptance of international law and international instruments in performing the judicial function has steadily grown. The culmination in Australia of this
+
+
+## In Defence of Mabo
+
+new-found legitimacy for international law - as an influence upon domestic law - was the Mabo decision.
+
+For the purposes of determining what the common law of Australia truly was in Mabo, Brennan had regard to the influence of international law. He said:
+
+Whatever the justification advanced in earlier days for refusing to recognize the rights and interests in land of the indigenous inhabitants of settled colonies, an unjust and discriminatory doctrine of that kind can no longer be accepted. The expectations of the international community accord in this respect with the contemporary values of the Australian people. The opening up of international remedies to individuals pursuant to Australia's accession to the Option Protocol to the International Covenant on Civil and Political Rights brings to bear on the common law the powerful influence of the Covenant and the international standards it imports. The common law does not necessarily conform with international law, but international law is a legitimate and important influence on the development of the common law, especially when international law declares the existence of universal human rights. A common law doctrine founded on unjust discrimination in the enjoyment of civil and political rights demands reconsideration. It is contrary both to international standards and to the fundamental values of our common law to entrench a discriminatory rule which, because of the supposed position on the scale of social organization of the indigenous inhabitants of a settled colony, denies them a right to occupy their traditional lands.
+
+Brennan's statement is significant for a number of reasons. It is the most explicit recognition of the stated principle yet found in the decisions of Australia's highest court. It provides for the future development of the common law of Australia in general harmony with the developing principles of international law. It provides to those who advocate the beneficial influence of international law a cause for renewed vigour.
+
+The impact of Mabo, in this respect, has already been felt to some extent. For example, the High Court in Australian Capital Television Proprietary Limited versus The Commonwealth implied into the Australian Constitution a guarantee of freedom of communication as to public and political discussion. Brennan, in particular, had regard to Canadian and United States decisions on basic rights as well as decisions in the European Commission of Human Rights. In Dietrich versus The Queen, the High Court also considered the International Covenant on Civil and Political Rights. Of the Covenant, Brennan in that case said:
+
+Although this provision of the Covenant is not part of our municipal law, it is a legitimate influence on the development of the common law. Indeed, it is incongruous that Australia should adhere to the Covenant containing the provision unless Australian Courts recognize the entitlement and Australian governments provide the resources required to carry that entitlement into effect. But the Courts cannot, independently of the legislature and the executive, legitimately declare an entitlement to legal aid.
+
+Similarly, in Chu Keng Lim v The Minister for Immigration, Local Government & Ethnic Affairs, the International Covenant on Civil and Political Rights was considered once again. While it was not determinative of the decision in that case, Brennan, Deane and Dawson JJ made their position clear. Their Honours said:
+
+We accept the proposition that the courts should, in a case of ambiguity, favour a construction of a Commonwealth statute which accords with the obligations of Australia under an international treaty. The provisions of [the relevant statute] ... are, however, quite unambiguous.
+
+The significance of Mabo in this respect is therefore that it has reinforced the legitimacy of international law and instruments as proper sources of influence in the development of the domestic common law of Australia. The proper inference to be drawn is that, after Mabo, the astute lawyer in Australia will, where appropriate, direct the attention of Australian courts to relevant international material. Courts themselves, upon the basis of Mabo and the subsequent cases, will increasingly regard such material as legitimate sources of data. As the cases bear out, such use of international material need not be limited to circumstances in which 'international law declares the existence of universal human rights'. The use will come to extend to other, perhaps more mundane, circumstances. In this respect, Mabo has dictated that the common law of Australia will in future be influenced by legal authority, policy, principle and applicable rules of international law.
+
+What is so revolutionary about this notion? In the age of nuclear fission, the Human Genome Project, global telecommunications, jumbo jets, international problems such as HIV/AIDS and so on, do we not need a legal system - and legal weapons in our judicial armoury - which, in appropriate cases, can bring our Australian law into harmony with the advancing law of the community of nations? I suggest that we do. Mabo advances this necessary and beneficial legal development apt for the coming century.
+
+
+## In Defence of Mabo
+
+HOW REMARKABLE IS THE RECOGNITION OF NATIVE TITLE?
+
+The recognition of indigenous or Aboriginal land rights is by no means peculiar to the law of Australia. Indeed, Australia is one of the last of the common law nations to acknowledge in its legal system the legitimacy of indigenous or aboriginal land rights.
+
+For example, the right of indigenous people to native title has been recognised, in a similar form to Mabo, in Canada. Likewise, in Amodu Tijani v The Secretary, Southern Nigeria, the Privy Council recognised that a 'usufructuary' right was vested in the indigenous people of a part of Nigeria, despite the fact that the 'radical' title to land was held by the British Crown. In New Zealand, the courts have been vigilant in their protection of the common law rights of the Maori -- although in that country the Treaty of Waitangi establishes a special relationship between the Crown and the Moari people which has no equivalent in Australian history.
+
+Where the particular factual circumstances prevent the recognition of native title, by the application of the established common law principles, native title has often been recognised by legislative enactment. It is surprising to note that, in the United States, the recognition of indigenous native title at common law, once adopted by the Supreme Court, now appears to be denied. It has largely become the domain of the legislature.
+
+Without embarking on any detailed analysis of the developments in other jurisdictions, the point to be made is that, by whatever means chosen in each particular jurisdiction, native or indigenous title has been recognised in most settler and non-settler communities of the common law. In many cases, principles have been adopted similar to those applied in Mabo. The particular factual circumstances sometimes demanded a different result. However, an inference may clearly be drawn that the High Court's decision in Mabo was by no means remarkable - still less revolutionary - tested against international developments. Instead, it was in line with the international developments of accepted responsibilities towards indigenous people and it was in line with the responses of many legal system similar to our own, which had long ago abandoned the fiction of terra nullius.
+
+To those who say that the creative judiciary ought to have waited for the legislatures of Australia to correct this long-standing affront to justice to an unimportant section of the Australian community - the questions come back: why had they not acted before now? How long must the courts wait before discharging their own constitutional duty to ensure justice under the law?
+
+
+## CONCLUSIONS
+
+In my respectful opinion, the Mabo decision is commendable in a number of respects. First, the High Court recognised the legitimate claims of indigenous people to native title. It did so overruling the inappropriate application of the common law doctrine of terra nullius to the Australian continent. That the application of terra nullius was inappropriate to inhabited countries -- such as Australia undoubtedly was - was explicitly recognised by the court. No fair-minded person, with knowledge of the Aboriginal presence in Australia before British settlement, could seriously object to the decision of the nation's highest court in refusing any longer to build its laws as to land title on a myth and a falsehood.
+
+Second, the High Court provided valuable guidance to Australian courts in respect of two crucial aspects of the future development of our common law system. Those are: the proper influence which international law and international instruments may play in the development of the common law; and the proper circumstances in which long-standing rules of the common law in Australia may be overruled.
+
+Third, the decision itself, and the subsequent debate, brings to the fore the important issue of the judicial role in a constitutional democracy. The criticism of the decision upon the basis that the High Court in Mabo usurped a legislative function overlooks the legitimate judicial function of judicial creativity in the law. The High Court has increasingly assumed that function in recent years, as I have shown. Other Australian courts have also followed suit. The creative function invites, to some degree, a rejection of the concept of strict judicial restraint. But creativity in the common law judiciary is by no means a recent development. Ultimately,
+
+
+## In Defence of Mabo
+
+the duty of the courts of Australia requires of them the attainment of a proper balance between stability and adaptation of the common law to new and ever changing social circumstances. The Mabo decision is consistent with, and is an example of, the High Court's performance of its judicial function.
+
+It is clear that Mabo, as it stands now, leaves many questions unanswered. However, those questions did not have to be answered by the High Court in that case. The decision has, nevertheless, provided a framework for the recognition of indigenous native title. That framework must now be completed, either by subsequent case law or by legislative enactment. At least now, Australia has a judicial stimulus to action: to establish a more just legal system as it affects the Aboriginal people of this continent.
+
+Without Mabo, that stimulus might never have been provided. As a civilised people, we need to ponder that fact when we criticise the decision in Mabo and the judges responsible for it. In the long perspective of history, Mabo will probably be seen as remarkable not for its delivery in nineteen ninety-two but because it was so long coming in Australian law. It will be viewed as an illustration of the way in which the common law system eventually corrects itself of most errors and rights most wrongs. Being a system based upon human reason and justice, it eventually attains those goals. It did so here. The correction creates, it is true, some uncertainty and some opposition at the time. But, far from being a revolutionary usurpation by the judges of legislative power, Mabo is an example of the common law in action.
+
+It would be most unfortunate if the High Court of Australia, or indeed other Australian courts, were to respond to the debate which has followed the Mabo decision by abdicating or curtailing their legitimate creative functions, returning the courts to a less creative role. Such an outcome would remit the common law of Australia to a condition of stagnancy, inhibiting the necessary correction of injustices by the courts in the daily performance of their charter.
+
+Views may legitimately differ about whether, in the particular matter of native title in Australia, the judges of the High Court would have been wiser to stay their hands and leave reform to Parliament. But my own assessment is that history will treat the decision kindly. As it will the judges who made it.

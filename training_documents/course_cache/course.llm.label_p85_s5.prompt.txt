@@ -1,0 +1,170 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+wtse | 4. The theory of island biogeography and species richness depend on
+bm7g | · Area size: Large size has larger populations and higher habitat heterogeneity
+jr68 | · Distance to mainland: Nearness -> Higher colonization rate
+axix | <LATEX>\rightarrow \mathrm { S } \uparrow</LATEX> · Habitat connectivity: Low connectivity means lower colonization rate
+05y4 | · Speciation-extinction dynamics: Related to time and population size/ area
+2fb0 | Lecture 7 - Foraging Theory
+s9fn | What is Optimal Foraging Theory, OPT?
+k5r6 | . It is a behavioral ecology model that helps predict how an animal behaves when searching for food
+z9v9 | Aim of the Optimal Foraging Theory
+gpu9 | · To predict the foraging strategy of a forager/predator to be expected under specified condition
+u5ws | O Important terminologies
+onkh | . Ideal Free Distribution theory - theory which makes a case of uniform distribution of food for predators such that there is no need for foragers to switch foraging patches.
+8t55 | · Functional response - deals with a predator's intake rate in response to variation in prey distribution and densities
+7imw | · Aggregate response - explains how predators are distributed in response to prey availability
+lf1t | · Total response = Functional response + Aggregate response
+tze7 | Assumptions inherent in Optimal Foraging Theory
+ryvv | 1. The foraging behaviour that is exhibited by present-day animals is the one that has been favoured by natural selection in the past but almost enhances an animal's fitness at present
+zdrh | 2. High fitness is achieved by a high net rate of energy intake (i.e. gross energy intake minus the energetic costs of obtaining that energy)
+osmo | 3. Experimental animals are observed in an environment to which their foraging behaviour is suited
+0b8v | Scenarios which unjustify the OFT
+fucs | 1. Other aspects of the organism's behaviour may influence fitness more than optimal foraging does. E.g. premium on avoidance of predators coercing animals to forage at places and at times associated with lower predation risk trading off efficiency in food gathering.
+yply | 2. Variation in the efficiencies of energy gathering process exploiting different dietary constituents (e.g. nitrogen) by many consumers (herbivores and omnivores) creating the need for consumers to forage on a mixed and balanced diet.
+75n5 | Theoreticians & Mathematicians
+ec91 | . OFT makes predictions about foraging behaviour based on mathematical models
+wul6 | · Important Question
+4rhy | · Is it necessary for a real forager to be equally omniscient and mathematical, if it is to adopt the appropriate , optimal strategy?
+092d | Theoreticians are omniscient mathematicians - the foragers need not be
+94ul | · The answer is NO, because
+0vdu | . Theory says that if a forager that in some way manages to do the right thing in the right circumstances, then this forager
+a230 | 1. Will be favoured by natural selection
+dvoe | 2. Possible inheritance of newly acquired abilities by future generations
+677t | 3. Abilities spread, in evolutionary time, throughout the population
+5hk6 | Parameterizing the OFT 1
+viei | · Foraging entails predators expending time and energy in obtaining food (MacArthur & Pianka, 1966)
+rk0j | · Intake rates of a predator is dependent on the searching (encounter rate) and handling (i.e. pursuing, subduing and consuming it) times of prey
+c6x9 | · Generalists pursue (and may then subdue and consume) a large proportion of the prey types they encounter
+g5at | · Specialists continue searching except when they encounter prey of their specifically preferred type
+re3j | Parameterizing the OFT 2
+6z45 | · Specialists will only pursue profitable prey items, but may expend a great deal of time and energy searching for them
+20af | · Generalists will spend relatively little time searching but they will pursue both more or less profitable types of prey
+huae | · An optimal forager should therefore balance the pros and cons so as to maximise its overall rate of energy intake
+rblh | Parameterizing the OFT 3
+gl5i | · Given that a predator already includes a certain number of profitable items in its diet, should it expand its diet (and thereby decrease its search time) by including the next most profitable item as well?
+x0yg | · The next most profitable prey item for an optimal forager
+mjt8 | Ei hi
+htcn | Profitability =
+86d4 | where E; is the energy content of the next most profitable ith prey item and h; its handling time
+z7qp | · In addition, E / h is the average profitability of the 'present' diet (i.e. one that includes all prey types that are more profitable that i, but does not include prey type i itself), and
+6t1g | · s is the average search time for the present diet
+cpls | Parameterizing the OFT 4
+m50n | · If a predator does pursue a prey item of type i, then its expected rate of energy intake is E;/h;
+eztf | · If it ignores this prey item, whilst pursuing all those that are more profitable, then it can expect to search further. The total expected rate of energy intake
+bwsu | E (5 +h)
+oqod | where E is the average energy content, s is the average search time and h is the average handling time for the present diet
+tey0 | Parameterizing the OFT 4
+ghiv | . The most profitable, optimal strategy for a predator will be to pursue the ith item if, and only if
+o5ts | Ei / hi > Ē / (5 + h)
+hd7d | . The optimal diet model leads to a number of predictions
+ehux | 1. Predators with shorter handling times than search times should be generalists, because the short times taken to handle prey items already found would allow them to commence searching for another prey.
+poxj | 2. Predators with longer handling times than search times should be specialists because once a prey has been seen and began to be handled (include pursuit), the predator cannot go in for another food. Therefore, such predators should go in for the most profitable prey. 12
+2xvb | Parameterizing the OFT 5
+m1hx | 3. Predators should have broader diets in unproductive environments (where prey items are relatively rare and s is relatively large) than in a productive environment (where s is smaller)
+9psh | 4. Predators should ignore insufficiently profitable food types irrespective of their abundance
+aiqv | 5. Provides a context for understanding the narrow specialization of predators that live in intimate association with their prey. Since their whole lifestyle and life cycle are finely tuned to those of their prey, handling time is low.
+4klz | · Two studies of optimal diet choice that show a clear but limited
+xz5d | correspondence with the predictions of the optimal diet model. Diets are more specialised at high prey densities; but more low profitability items are included than predicted by the theory
+erwx | Literature:
+ie7i | References
+```
+
+OUTPUT:
+```

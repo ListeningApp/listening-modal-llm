@@ -1,0 +1,82 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document. Your task is to faithfully reproduce the text for our text-to-speech engine so that it is easily read aloud.
+
+Note that the text might not start at the beginning and paragraphs may be split acrosss multiple textboxes. Textboxes may start or end in the middle of a word which is acceptable: do not combine text between textboxes and leave broken words at the start and end of a textbox unchanged.
+
+You will receive one textbox per-line in the format `id | Textbox content`. The output must be in the format `id | Clean content`.
+
+RULES:
+ • Remove inline citations and references e.g. "(Author, 2021)" or "(https://wikipedia.org/article.html)" or "[ECMOS 35b, 47, 49]".
+ • Spell out numbers, dates, and chemical formulas for the TTS engine e.g. "-2.5" -> "negative two point five" or "Jan. 2020" -> "January twenty twenty".
+ • Spell out LaTeX formulas for the TTS engine e.g. "<LATEX>p = 1</LATEX>" -> "P equals one".
+ • Rejoin hyphenated word fragments within the same textbox e.g. "synth -esize" -> "synthesize".
+ • Fix simple typos and OCR errors e.g. "O nce upon a 1ime." -> "Once upon a time.".
+ • Delete nonsequiter textboxes that interrupt the middle of a sentence if they obviously do not belong.
+
+Otherwise, the output should exactly match the input text:
+ • Do not combine text across lines or attempt to fix words broken across lines.
+ • Ensure each ID from the input is included in the output.
+ • Make as few changes as possible while respecting the above rules.
+
+EXAMPLE INPUT:
+```
+ccpt | stigate the effectiveness of psychedelics for ADHD symp- toms in adults.
+0fpw | 2. Materia1 and methods
+dqn8 | 2.1. Study design and participants
+cop0 | The study employed a naturalistic design, assessing the experiences of participants at bas-,
+lhkq | eline before they start, and at 2 and 4 weeks after initiation. The target population included adults with ADHD symptoms who had not been diag- nosed with ADHD before. To be included, participants needed to score on Conner's Adult ADHD Rating Scale (CAARS-S:SV). This cut-off was indicative of clinically elevated symptoms (Conners et al., 1999) (see section 2.3).
+82ju | 2.2. Study procedure
+y2qo | The online advertisement was placed on a website providing information about psychedelics (www.microdo sing.nl). Interested participants were redirected to information explaining the study rationale and procedure. The baseline survey took 20 min to complete. If the survey had not been completed after 24 h, a reminder was sent. Each of the surveys at the 2- and 4-week time points took about 15 min to complete. Par- ticipants were able to pause the surveys. Data collection occurred between Nov. 2020 and Jul. 2021. The study was approved by the Ethics Review Committee of Psy- chology and Neuroscience at Maastricht University (ERCPN- 215_05_11_2019_A1).
+1piq | 2.3. Measures
+7fqw | 2.3.1. Demographic information and history of substance use
+rhaz | At baseline, demographic information was collected. History of substance use assessed experience with psyche- delics (i.e., ayahuasca, DMT, 5-MeO-DMT, LSD, novel lysergamides (e.g., 1P-LSD, ALD-52), psilocybin, salvia divinorum, ibogaine, and mescaline) in both full (psychedelic) doses and microdoses.
+wak1 | 2.3.2. Psychiatric and physiological diagnoses
+wtfz | Participants were asked whether they had a current diagnosis of a disorder. These answer options were chosen because most of the listed diagnoses are often reported to co-occur with ADHD (Kooij et al., 2019), or because these diagnoses were reported to be common in people who microdose (Fadiman and Korb, 2019). We 
+3j2l | REVIEW ARTICLE Frontiers in Psychiatry | www.frontiersin.org
+03k3 | 2
+1k9e | constructed a variable Comorbidity alongside ADHD, differenti- ating respondents with and without a comorbid diagnosis alongside ADHD (<LATEX>p < . 0 0 1 =</LATEX> only ADHD or no ADHD diagnosis; <LATEX>p > . 0 1 =</LATEX> ADHD and at least one other diagnosis). We constructed a variable Medication use alongside microdosing, differentiating respondents who were and were not using conven- tiona1 ADHD medication alongside microdosing (<LATEX>0 =</LATEX> only microdosing; <LATEX>1 =</LATEX> conven-
+```
+
+EXAMPLE OUTPUT:
+```
+ccpt | stigate the effectiveness of psychedelics for ADHD symptoms in adults.
+0fpw | Two. Material and methods
+dqn8 | Two point one. Study design and participants
+cop0 | The study employed a naturalistic design, assessing the experiences of participants at bas-,
+lhkq | eline before they start, and at two and four weeks after initiation. The target population included adults with ADHD symptoms who had not been diagnosed with ADHD before. To be included, participants needed to score on Conner's Adult ADHD Rating Scale. This cut-off was indicative of clinically elevated symptoms (see section two point three).
+82ju | Two point two. Study procedure
+y2qo | The online advertisement was placed on a website providing information about psychedelics. Interested participants were redirected to information explaining the study rationale and procedure. The baseline survey took twenty minutes to complete. If the survey had not been completed after twenty-four hours, a reminder was sent. Each of the surveys at the two and four-week time points took about fifteen minutes to complete. Participants were able to pause the surveys. Data collection occurred between November twenty twenty and July twenty twenty-one. The study was approved by the Ethics Review Committee of Psychology and Neuroscience at Maastricht University.
+1piq | Two point three. Measures
+7fqw | Two point three point one. Demographic information and history of substance use
+rhaz | At baseline, demographic information was collected. History of substance use assessed experience with psychedelics (i.e., ayahuasca, DMT, five-MeO-DMT, LSD, novel lysergamides (e.g., one-P-LSD, ALD-fifty-two), psilocybin, salvia divinorum, ibogaine, and mescaline) in both full (psychedelic) doses and microdoses.
+wak1 | Two point three point two. Psychiatric and physiological diagnoses
+wtfz | Participants were asked whether they had a current diagnosis of a disorder. These answer options were chosen because most of the listed diagnoses are often reported to co-occur with ADHD, or because these diagnoses were reported to be common in people who microdose. We
+3j2l |
+03k3 |
+1k9e | constructed a variable Comorbidity alongside ADHD, differentiating respondents with and without a comorbid diagnosis alongside ADHD (P is less than point zero zero one equals only ADHD or no ADHD diagnosis; P is greater than point zero one equals ADHD and at least one other diagnosis). We constructed a variable Medication use alongside microdosing, differentiating respondents who were and were not using conventional ADHD medication alongside microdosing (zero equals only microdosing; one equals conven-
+```
+
+INPUT:
+```
+nvfy | Component causes of mortality can be partitioned in extrinsic and intrinsic, but mortality itself cannot, for the simple reason that extrinsic and intrinsic mortality are not mutually exclusive. Acknowledging a role for vulnera- bility in "extrinsic mortality" does not take away this objection. None of the component causes is more causa- tive to the outcome, as without any one of them, the out- come would not occur. One could propose that there can be no predation without a predator and that therefore the (extrinsic) presence of a predator must be the most caus- ative cause for death by predation. However, neither is there predation without a prey. Being prey is something "intrinsic". There is no such thing as "most causative cause". A partitioning that could have some utility is a partition of mortality in which an extrinsic component cause plays a role, versus mortality in which it does not. The term "extrinsic mortality" retains some meaning in this respect, although one could wonder whether purely intrinsic mortality exists at all.
+mror | Population heterogeneity
+zlxc | Populations are heterogeneous, and an observation at the population level may be quite different from individual- level processes (Vaupel and Yashin 1985). A population may seem homogeneous, but below the surface, organism may differ greatly. Any change that may happen may have differential effects on each organism.
+k0bw | A way to look at heterogeneity in a population is to view all members of the population as different collec- tions of causal pies that are sufficient causes for some outcome, for instance death. Some of those members will have many causal pies that are almost "filled in", that is, most component causes that make up the causal pie are present. Others will have mostly "empty" causal pies. Yet, others will have roughly equally filled causal pies, but the causal pies will be made up of different component causes. These individuals will be vulnerable to some types of stress, but robust to others, differing from individual to individual. How newly imposed stress affects each member of the population depends on the component causes that are yet present.
+aq5a | Example: Frailty along the life course
+sc5y | A physiological view of human aging proposed by Izaks and Westendorp (2003) is that there exist multiple causal pies that form sufficient causes for deterioration and death which are slowly and steadily being filled in over the lifetime of an individual. Even apparently healthy older individuals are more vulnerable, because they have accumulated damages that in and of themselves do not cause disease or mortality, but that are part of causal pies
+0yab | that steadily have more component causes present. With more component causes already present, even if organ- isms appear healthy, it is easier to acquire the remaining component causes, leading to disability and death (Fig. 3).
+w95z | This view is by no means limited to humans, but applies to all living organisms. Vital rates may be improving dur- ing part of the life cycle, but causal pies of disability and death are being filled in concurrently, making the distance to disability and death shorter. While physiological mark- ers of aging are already deteriorating, that is, physiological aging, they may not yet lead to deterioration of mortality and fecundity, that is, demographic aging. Yet, any addi- tional stress will have a much larger chance of completing a causal pie in older individuals, leading to quick deterio- ration of vital rates later in life. This explains why demo- graphic aging can trail physiological markers (component causes) with a delay and why apparently healthy organisms may differ greatly in their vulnerability to stress. Together with trade-offs, causal pie models of aging may also con- tribute to explain the recently revealed diversity of aging patterns across the tree of life (Jones et al. 2013).
+0i1k | Discussion
+dqlg | All the results discussed in this paper derive from one and the same principle: the causal pie model. Still, any and all of these results can be derived without reference to the causal pie model. For instance, no evolutionary biologist would be surprised to learn that if genetic variation in some respect is initially subject only to random drift, it can suddenly become subject to natural selection if the envi- ronment changes such that the genetic variation becomes relevant to Darwinian fitness. This is standard evolutionary theory; no causal pie model is needed to explain it. Then what is the utility of the causal pie model, in particular when compared to other models of causation?
+p6pq | In reality, science is subject to significant uncertainty. In a given natural system, not all causal pies may be known or identifiable, or the presence versus absence of (some of) the component causes may be ascertained only at a statistical level. More involved models, such as struc- tural equation modeling (Pearl 2009), are then necessary to discover the underlying causal relationships. Causation is then expressed in probabilistic terms, such that A causes B if the probability of B in the presence of A is greater than in the absence of A, that is, P(B|A) > P(B|-A). As pointed out in section "The model", even though it is not itself a statistical model, the causal pie model is fully compatible with this probabilistic representation of causal relationships. The probability of the presence of all com- ponent causes of a pie chart is the product of the proba- bilities of the presence of each individual component
+zse6 | Causal Pies in Ecology and Evolution
+p2n3 | cause, such that if A D are all the component causes of causal pie I, it holds that P(I) = P(A)P(B)P(C)P(D). If there are more than one sufficient causes I III
+ohh7 | Causal Pies in Ecology and Evolution
+vbni | (causal pies) for outcome , it holds that P( ) = P(I) P(II) P(III).
+dgcw | To reveal underlying causal relations in a data set, the causal pie model offers no alternative to the appropriate tools of data analysis, such as structural equation modeling [Shipley (2000) and Grace (2006) are helpful references for such modeling in biology] or quantitative methods of natu- ral selection (e.g., Lande 1982). However, we do not propose the causal pie model to take the place of these methods. Rather, it should be seen as a helpful tool of conceptualizing causation whenever this simplest model suffices. The causal pie model is a very simple model, perhaps the simplest, that captures the basic workings of causation. The model is instrumental in understanding a range of results, such as those discussed in this paper, and in avoiding common mis- takes, such as partitions between nonmutually exclusive component causes and summing causes to 100 . In the meantime, it contains little jargon and no mathematics, so that the model is easily and intuitively accessible.
+gvwz | Although we use different words in various disciplines, we describe the same phenomena. The causal pie model can help to make bridges, so that various disciplines can draw on and be inspired by each other's finding. The range of examples that we give is a good demonstration of the utility of the causal pie model in this respect. We pro- pose that the causal pie model provides an effective frame- work for thinking about causation, that it helps to avoid mistakes, and that it provides a simple common language in which results can be communicated across disciplines.
+sk5m | Conflict of Interest
+qws8 | None declared.
+```
+
+OUTPUT:
+```

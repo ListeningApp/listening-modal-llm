@@ -1,0 +1,134 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+colo | Life in the 'buffer zone'
+d6r4 | The Ethiopian borderlands have been backwaters since 2000, missing out on the development elsewhere in the country. The border towns and districts have been slowly dying, as the young move to other Ethiopian cities or migrate abroad for
+9mrz | 69
+pk06 | better opportunities.43 As explained by an elderly farmer in the Irob district: 'We have failed them. Our community has failed them. Ethiopia has certainly failed them'.44
+7wn9 | While the borderland population thus has most to gain in development by recon- necting with their Eritrean counterparts, recent fieldwork in the twin villages of Kinin and Kinto on the Tsorona frontline indicates that similar sentiments are har- boured on the Eritrean side too.45 This area has been militarily controlled by Ethiopian defence forces since a 2011 border skirmish. The Eritrean villagers remained, however, and it is now administered by the neighbouring Ethiopian district (woreda) of Glomekeda in Adigrat zone. But the villagers are caught in a precarious situation, always worrying about possible snipers or the outbreak of a fire-fight, as the Eritrean trenches skirt the villages. While visiting the area, our research team had to stay in the shadows on the Ethiopia-facing side of the small dwellings, in order to stay hidden from Eritrean snipers.
+wcd0 | Life in the 'buffer zone' was full of challenges and villagers expressed their griev- ances about the lack of opportunities and development as long as the border was closed. After adolescence, the youth crossed the border to the south, either to migrate to third countries or seek educational or employment opportunities in Ethiopia. The alternative of staying in the village or going to Asmara or other Eritrean towns did not exist, since they knew that they then would end up in never- ending National Service duty.46 Even so, Geresus (name altered), a farmer in his early 6os, explained that they are in general doing fine as their livelihood is secured with plenty of farming land in no man's land's zone:
+caos | Although we do not receive any help or assistance from our local [Eritrean] authorities, Tigray administration is supplying us with all that we need in terms of social assistance and health care. And our children attend the local Tigrayan community school, as equals to their Ethiopian friends.47
+qrvy | But Geresus grieved for the separation of the two people, and longed for the time when the political leaders would allow the people to reconnect at the grassroots. 'We see that our children are friends with their Tigrayan school companions as if the war never happened. Hence, if only the rulers could leave us alone, things would get back to normal quickly'.
+pn9j | 70
+1pmc | In several places in no man's land, children of both countries met while tending the cattle or fetching water from the springs located there. While visiting the trenches of Zalambessa in November 2017, we talked to the young Ethiopian herd- ers. They regularly played with Eritrean children to pass the time. A young boy regretted however, that they were not allowed to visit each other's houses, since they then had to pass the enemy trenches. Playing in no man's land under the watchful eyes of snipers form both sides, however, was allowed and a 'normalised' activity.48
+5z6q | Citizens' reconciliation committees
+yeoh | The twin-villages of Kinin and Kinto may not be representative of the broader Eritrean border population sentiment, as the area is still under Ethiopian military control. The interest of Eritrean border villages to reconnect with communities on the Ethiopian side, however, has manifested itself in several ways. For instance, the Ethiopian frontline commander in Zalambessa (the main crossing-point between Eritrea-Ethiopia on the road between Mekelle and Asmara) received a request in 2017 by the three neighbouring Eritrean villages to organise a joint market day for them to buy and sell their produce in Zalambessa. The Ethiopian commander accepted the request, on condition that they also received permission from Asmara in order to safeguard their security when crossing the militarised zone.49 No such permission was granted by Asmara, however.
+b8hf | At this time, individuals in Zalambessa and Senafe, the border town on the Eritrean side, were working to reestablish social interaction between the twin bor- der settlements. This was later energised by the formal peace declaration, and citi- zens' reconciliation committees were established to lobby the authorities for an open border. During the summer of 2018 they started to prepare for the first public joint reconciliation celebration in Zalambessa on I September. Being impatient with the sluggishness of the opening of the border on the ground (as only air traffic opened in July), they wanted a public event to mark the new beginning of peace rapprochement at the grassroots. Although supported by local authorities, Zalambessa's reconciliation committee was a private citizens' initiative. On the day, Eritrean and Ethiopian artists were to entertain the crowds and traditional foods would be shared between the people. The event was sponsored by Ethiopian busi- ness enterprises, including food suppliers and a local beer brewery. Their counter- part reconciliation committee in the Eritrean border town of Senafe had organised a delegation of 300 people to join in at the festivities in Zalambessa, and had received prior permission by the Eritrean force commander to cross over to the Ethiopian side. Early morning on I September the inhabitants of Zalambessa, in anticipation of the arriving Eritrean delegation, flocked to dismantle the Ethiopian defence line to clear the way for their Eritrean brothers and sisters. As time passed without any delegation appearing, and news spreading that they had been stopped
+hntf | by the Eritrean military, two Ethiopian priests crossed the no man's land zone to clarify the matter with the Eritrean front line commander. There, they discovered that the former force commander and his unit had suddenly been removed, and a new force commander had been placed in charge. He excused himself to the Ethiopian priests saying that he had only been in that position for three days and had received no orders to allow Eritreans to pass into Zalambessa to participate in the reconciliation event.5°
+99fo | It appears that the two governments in the capitals far from the borderlands would not allow their formal bilateral process to be overtaken by a grassroots-led reconciliation initiative aiming to soften the rigid inter-state border. The power to do so and to sanction 'reconciliation', was equal to the power to define 'enmity' and war, and was thus the prerogative of the political elites in the respect- ive capitals.
+y5r7 | The reconciliation event was conducted despite the absence of the formal Eritrean delegation. Many Eritreans living in Tigray, and a small delegation of Eritrean Afars crossing the border in the lowlands, still participated in the celebrations. At the event, the zonal administrator of Adigrat gave a moving speech addressing the shared history and community among the people of Eritrea and Ethiopia and pledging that the mistakes of the past should be rectified.51 He was optimistic that the border would be opened up for on-the-ground crossing after II September, the Ethiopian New Year. Less than two weeks later, just before going to Jeddah to sign the second peace agreement, President Isaias Afwerki and Prime Minister Abiy Ahmed presided over the official opening of the border on the ground at Zalambessa, and the town was flooded by Eritreans who wanted to reconnect and reconcile with their Tigrayan counterparts.52
+lrry | A faltering peace process
+hvhm | A year and a half after signing the Eritrea-Ethiopia peace agreement - as this article was written - there appeared to have been no further formal institutionalisation of the peace rapprochement. No agreement formalising cross-border traffic, trade, tar- iffs, immigration, etc. had been ratified, nor had any information on the operations of the so-called High-level Committee, or its sub-committees mentioned in the peace agreement, been made known.
+863b | Newspaper reports indicate that a 'road-map' for peace was agreed upon as early as January 2019.53 Simultaneously, rumours have circulated that an agreement had
+fj24 | been reached on a detailed framework regulating cross-border movement of people and goods, and that only President Isaias Afwerki's approval was pending.54
+uz3c | On the issue of demilitarisation and border demarcation, no concrete movements have been made beyond some redeployment of troops away from the border zone. Ethiopian military forces still occupy territories granted to Eritrea by the EEBC, including the symbolic village of Badme and the more sensitive Irob area. No territories have been vacated and returned to Eritrea.55
+d5bi | Likewise, Eritrea maintains full mobilisation and has not yet announced any plans to demobilise or to reform the open-ended national service obligation. Neither have any plans been announced for broader political and economic reforms, as for instance instituting the Eritrean Parliament, or implementing the suspended Eritrean Constitution. The country is still governed by Presidential Decrees.
+ba4l | The formal rapprochement initiated last summer has even taken a step back, with the unexpected unilateral decision by Asmara to close the border crossings for Ethiopians to enter Eritrea in late December 2018,56 without any official explan- ation given by Eritrean (or Ethiopian) authorities as to why this was imposed.57 Only the Oumhajir-Humera crossing remained partly open for traffic, until it was closed suddenly in late April 2019.58
+ffx8 | Subsequently, further restrictions were imposed on Eritreans wanting to cross the ground border into Ethiopia by apparently introducing a differentiated policy. The Eritrean border population is apparently allowed to cross back-and forth on foot with few obstacles.59 Eritreans from Asmara and other inland towns, however, need to apply for permission from their local authorities to travel to Ethiopia. They must then obtain an exit visa from the immigration authorities in Asmara (presum- ably similar to an ordinary exit visa).60 At the border, Eritrean authorities seem to have established an immigration facility where 'inland' Eritreans need to show their exit permit and register before being allowed to cross over to Zalambessa. People without permits are still crossing, but taking a one-hour detour around the formal check-point. If they are discovered by Eritrean border guards, they are reportedly just ordered to turn back without any further sanction.61 The active shoot-to-kill policy has thus seemingly been lifted.
+s6su | Failure to institutionalise peace
+y219 | Ethiopia announced in late May 2019 that two trade agreements had been submit- ted to Asmara for endorsement.62 One agreement regulated cross-border petty trade, and the other focused on bilateral trade. Interviews conducted in Addis Ababa with high-level government representatives during spring and summer 2019, however, suggested that these agreements, in addition to a port agreement regulating Ethiopian use of the Eritrean Red Sea ports, in reality had been finalised in early 2019, but were pending Eritrean input which had been constantly delayed.
+06ht | Key Ethiopian officials admit off-the-record that 'it takes two to tango'; they are frustrated and do not understand why President Isaias Afwerki does not appear to want to move forward and institutionalise the peace process. Even Prime Minister Abiy Ahmed alluded to this when he visited Axum in June 2019: in response to a question from the audience about when the border would be reopened, he admitted that the peace process had stalled. 'It is not only up to us to open the border; there are two sides to the process', he explained to an impatient crowd of Tigrayans.63 According to Dr Abraha Negash, Vice President of Tigray, Prime Minister Abiy Ahmed also alluded to President Isaias Afwerki's unpredictability in moving the process forward; he believed he had secured an agreement with President Isaias Afwerki to reopen the Zalambessa border crossing in early May 2019, as the regional government in Tigray received a call from the prime minister's office 'to be ready' in Zalambessa for cross-border traffic.64 The regional government sent rein- forcements of police and administrative personnel to the border, but nothing hap- pened, and the border remains closed at the time of writing (November 2019). Despite the stand-still of institutionalisation of the peace process and the lack of response from Asmara, the Ethiopian government is preparing a peace dividend with Eritrea by furthering economic collaboration and integration, with policies aiming to establish joint economic activities along their long border and revamping the infrastructure between the two countries.65
+v3r2 | Inside Eritrea, however, there are few signs of similar activity. Allegedly, rapproche- ment with Ethiopia had been discussed at some meetings at different political and administrative levels after the signing of the peace agreement.66 Some interpret this as a preparation for reforms. So far however, no public commitments or statements have been made to this effect. Indeed, in speeches made by President Isaias Afwerki on Liberation Day, 24 May and Martyrs' Day, 20 June 2019, he neither commented on the peace agreements nor hinted at any forthcoming reforms. Rather, he has used the opportunity to tell the Eritrean people that this is a time to consolidate and take
+nv42 | stock of their development efforts, and continue their struggle for development as nothing has changed.67 Likewise, two months after the Nobel Committee awarded the Nobel Peace Prize to Prime Minister Abiy Ahmed (in beginning of December 2019), neither President Isaias Afwerki nor any of his spokespeople had publicly commented upon the award or congratulated their 'brother in peace'.
+xags | The absence of any institutionalisation of the peace declaration is obviously an increasing concern. Without this, considering the history of outbreak of war in 1998,68 the unpredictability of the process is glaring. Currently, the 'peace' and 'reconciliation' content of the formal agreement are concepts held hostage by the political elites in both countries, without any border-population input or influence. Similarly, the resecuritisation of the border restricts its permeability and the possi- bility of advancing reconciliation and renegotiation of borderlands' identities.
+jc47 | Consolidating peace and reconciliation bottom-up?
+ko3c | Notwithstanding the hobbled formal top-level negotiation process and the set-back of closing the border, informal people-to-people reconciliation continues. Border populations are reconnecting as individuals and families, neighbouring commun- ities, and even as local government administrators, and security forces on both sides of the border. Eritreans in the borderlands cross back and forth every day, although in dwindling numbers, for petty trade, to buy necessities, to visit friends and family, or to participate in religious or social ceremonies.
+```
+
+OUTPUT:
+```

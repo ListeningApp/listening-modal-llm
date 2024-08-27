@@ -1,0 +1,138 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+bd9h | This article is intended solely for the personal use of the individual user and is not to be disseminated broadly. This document is copyrighted by the American Psychological Association or one of its allied publishers.
+m047 | LARSEN AND McGRAW
+gy8c | 1098
+y4mj | Ersner-Hershfield, Mikels, Sullivan, & Carstensen, 2008; J. T. Larsen et al., 2001), certain types of music (Hunter, Schellenberg, & Schimmack, 2008), evocative pictures (Schimmack, 2001, 2005), and bittersweet advertisements (Williams & Aaker, 2002) can also make people feel happy and sad at the same time.
+vpgq | The debate over mixed emotions hinges on the actual experience of emotion (see Russell & Barrett, 1999), which is best indexed with self-reports (e.g., Wilson, 2003), but facial expressions have also provided evidence for mixed emotions. Griffin and Sayette (2008) found that nearly one quarter of heavy smokers smiled and frowned simultaneously for at least 300 ms while they watched a burning cigarette. Moreover, those who smiled and frowned si- multaneously were more likely to be ambivalent about smoking, which was indexed in terms of whether they had had difficulty quitting in the past. These findings provide convergent validity for self-report evidence for mixed emotions.
+ousl | Alternative Interpretations
+m4ju | Despite considerable research, whether the experience of va- lence is irreducible (e.g., Russell & Carroll, 1999) or whether positivity and negativity are separable in experience (e.g., Cacioppo & Berntson, 1994) remains unclear because all available evidence that people can feel happy and sad at the same time is open to alternative interpretations. For instance, Griffin and Say- ette (2008) did not measure self-reported emotional experience, so it is unclear whether smokers' smiles and frowns reflected mixed emotions of happiness and sadness, as opposed to other positive and negative emotions. Here we outline several alternative inter- pretations for studies in which self-reports were collected and explain them in more detail as we present studies designed to address them.
+a0mb | One pair of alternative interpretations involves limitations in how researchers have measured happiness and sadness (e.g., J. T. Larsen et al., 2001; Schimmack, 2001; Williams & Aaker, 2002). First, although subjects were asked to report how they felt at one particular moment, they may have instead reported summaries of their emotional experience over time (Barrett & Bliss-Moreau, 2009; Beebe-Center, 1932; J. T. Larsen, McGraw, Mellers, & Cacioppo, 2004). If so, they may have reported mixed emotions when they had in fact merely vacillated between happiness and sadness. We addressed this possibility in one set of studies (Studies 1-3) by placing some people in bittersweet situations and collect- ing continuous, as opposed to static, measures of emotions. Sec- ond, subjects in previous studies completed closed-ended measures of emotion (e.g., "Do you feel happy?"), which raises the possi- bility that those subjects who reported mixed emotions only be- cause they were explicitly asked whether they felt happy and whether they felt sad. We addressed this possibility in a second set of studies (Studies 4-6) by placing some people in bittersweet situations and asking open-ended questions (e.g., "How do you feel right now?"), as opposed to closed-ended questions.
+ki8m | Another pair of alternative interpretations for evidence for mixed emotions involves subjects' expectancies. First, demand characteristics (Orne, 1962) may have led subjects to report mixed emotions because they thought that we expected them to do so. To address this possibility, we led some subjects to believe that we did not expect them to report mixed emotions and collected continuous measures of emotion (Study 2) or open-ended measures of emotion
+km8w | (Study 5). Second, subjects may have reported mixed emotions only because they held the lay theory that people can feel happy and sad at the same time. To address this possibility, we collected continuous measures (Study 3) or open-ended measures (Study 6) from individuals who did not believe that people can feel happy and sad at the same time.
+wzno | Subjects in all studies were told that they were participating in a study of foreign language comprehension and then watched one of two clips from the English-subtitled version of Life Is Beautiful. The bittersweet clip was 19 min 43 s long (1,183 s). During the clip, a character named Guido uses humor to keep his son, Joshua, alive and unaware of their plight while his wife, Dora, is impris- oned elsewhere in the camp. In the final 5 min of the clip, Guido loses his own life to ensure Joshua's survival and Joshua is reunited with Dora. The control clip was 19 min 40 s long (1,180 s). It begins with Guido and Dora's lighthearted courtship and joyful scenes from Joshua's childhood. It then transitions abruptly to the family's imprisonment, where it paints an unambiguously dreadful picture of their plight and ends with Dora fearing that Joshua is dead.
+xagm | Part 1: Vacillation
+iwn5 | Emotions can be fleeting (e.g., Ekman, 1992). As noted above, this raises the alternative interpretation for earlier evidence for mixed emotions that subjects merely vacillated between happiness and sadness and, when prompted, reported summaries of their emotions (e.g., Barrett & Bliss-Moreau, 2009). Determining whether people can feel happy and sad at the same time and, by extension, whether valence is irreducible requires tests of this vacillation hypothesis.
+uooz | Schimmack (2005) noted that if people in bittersweet situations merely vacillate between happiness and sadness, they should re- port less mixed emotions when they rate their happiness and sadness closer together in time. His subjects viewed a series of pleasant and unpleasant pictures and then rated the extent to which they were feeling pleasure, displeasure, and 12 other emotions, all of which were presented in a unique random order for each subject. Schimmack's finding that the number of items between the plea- sure and displeasure items had no influence on the intensity of subjects' reported mixed emotions provides initial evidence against vacillation.
+pxbq | Carrera and Oceja (2007) tested the vacillation hypothesis more directly by collecting continuous measures of subjects' emotional reactions to a bittersweet clip from a film entitled The Son of the Bride (Campanella, 2001). The clip depicted a wedding that was both heartwarming and heartbreaking because the elderly bride had Alzheimer's disease and could not recognize anyone, includ- ing the groom. After watching the clip, subjects completed static emotion ratings. Those who reported mixed emotions then drew two curves to chart their recollection of how the intensity of their happiness and sadness changed over the course of the 6-min clip. Carrera and Oceja quantified simultaneously mixed emotions in terms of whether both curves exceeded zero at any point in time. Subjects who watched the bittersweet clip were more likely to report mixed emotions with static ratings (76%) than they were to recall that their happiness and sadness occurred simultaneously (47%), but they were nonetheless more likely to recall simultane- ously mixed emotions than those who watched a control clip
+jfsr | This article is intended solely for the personal use of the individual user and is not to be disseminated broadly. This document is copyrighted by the American Psychological Association or one of its allied publishers.
+u15r | MIXED EMOTIONS
+lq35 | intended to elicit happiness and sadness in a sequential, as opposed to a simultaneous, fashion (25%). Taken together, the results indicate that even though some subjects merely vacillated between happiness and sadness, others actually experienced simultaneously mixed emotions.
+3g9w | One limitation of Carrera and Oceja's (2007) study is that retrospective, recall-based measures tend to be less accurate than those collected in real time as the emotional episode unfolds (i.e., online measures; see Kahneman, 1999; Robinson & Clore, 2002), in part because people can have trouble remembering their expe- riences of emotion (e.g., Thomas & Diener, 1990). Thus, stronger tests of the vacillation hypothesis require online continuous mea- sures of happiness and sadness. Studies 1a and 1b provided two such tests.
+d09o | Study 1a: The Button Press Measures
+ylhz | J. T. Larsen et al. (2004) developed online continuous measures of positivity and negativity by asking subjects to press one com- puter mouse button whenever they felt good during a computerized gambling task and another button whenever they felt bad. Subjects were also instructed to press both buttons if they felt both good and bad and neither button if they felt neither good nor bad. The gambles included several disappointing wins, which J. T. Larsen et al. defined as good outcomes that could have turned out even better (e.g., smaller-than-expected raises; Kahneman, 1992; Ortony, Clore, & Collins, 1988). Subjects spent more time simultaneously pressing both buttons after receiving disappointing wins than after receiving outright wins, which indicates that disappointing wins can elicit simultaneously mixed emotions. These data do not speak to whether people can experience simultaneously mixed emotions of happiness and sadness, however, because J. T. Larsen et al. measured positivity and negativity in general, rather than happi- ness and sadness in particular. In Study 1a we provided a strong test of the vacillation hypothesis by asking subjects to indicate whether they felt happy and sad with the button press measures as they watched a clip from Life Is Beautiful.
+a3td | Method. Subjects were 47 Texas Tech undergraduates (21 women; 45%). In this and all studies, they received partial course credit for participating.
+ex5k | Subjects completed the study individually and watched the bittersweet clip <LATEX>\left( n = 2 2 \right)</LATEX> or the control clip <LATEX>\left( n = 2 5 \right) b y \quad r a n d o m</LATEX> assignment. After providing the foreign language comprehension cover story, the experimenter asked subjects to hold the mouse in both hands, to press the left button with their left thumb whenever they felt happy, and to press the right button with their right thumb whenever they felt sad.1 The experimenter also mentioned that they should not press any buttons if they felt neither happy nor sad and that they should press both buttons if they felt both happy and sad at the same time. Throughout the clip, the experimenter ob- served subjects on a video monitor. If subjects removed one of their thumbs from the mouse button for more than 30 s, the experimenter asked them over an intercom to keep both thumbs on the buttons. (Data from one subject were discarded because she ignored several such requests.) The computer recorded all changes in the state of the mouse buttons. Offline, we determined whether each button was or was not being pressed every 100 ms.
+9d4o | After subjects completed a film comprehension test, the exper- imenter conducted a funnel debriefing to determine whether sub-
+cjq2 | 1099
+5esx | jects suspected that we were interested in mixed emotions. After explaining that psychology studies are designed to answer ques- tions about how people think, feel, or behave, the experimenter asked subjects what they thought we were interested in. The experimenter then asked about why we might be interested in their emotions and why we asked them to report their happiness and sadness separately and continuously. The experimenter then told subjects that we were interested only in one thing and asked what that one thing might be. Finally, the experimenter told subjects that we were interested in something about their emotions and asked what that one thing might be. No subjects suspected that we were interested in mixed emotions.
+m5ka | The experimenter also asked subjects whether they thought they were allowed to press both buttons at the same time. Data from three subjects (6%) who had watched the control clip were re- moved because they did not think they were allowed to do so. None of these subjects ever pressed both buttons, so excluding them worked against the hypothesis that people who watched the control clip would report less mixed emotions. In all, data from four of 47 (9%) subjects were excluded.
+byu8 | Results and discussion. The proportion of subjects who reported happiness and who reported sadness at each moment of each clip is shown in Figure 3. People who watched the control clip often reported happiness during the first 11 min and rarely reported sadness. During the final 8 min, they rarely reported happiness and often reported sadness. People who watched the bittersweet clip often reported happiness during the first 3 min and rarely reported sadness. In addition, they often reported happiness at several points during the remaining 17 min even though they often reported sadness throughout that portion as well.
+76b0 | To further examine how evocative the clips were, we computed how much time each subject pressed each button (see Table 1).2 We submitted these data to a 2 (clip: control, bittersweet) × 2 (emotion: happiness, sadness) mixed-model analysis of variance, where clip was a between-subjects variable.3 The analysis of variance revealed a main effect of clip, such that subjects reported more emotion during the bittersweet clip <LATEX>\left( M = 1 0 . 5 7 \right.</LATEX> min, <LATEX>S D =</LATEX> 5.27) than during the control clip
+zxz6 | This article is intended solely for the personal use of the individual user and is not to be disseminated broadly.
+xnth | This document is copyrighted by the American Psychological Association or one of its allied publishers.
+vafm | 1100
+2zmw | LARSEN AND McGRAW
+bf9k | Control Clip
+otkr | Figure 3. Percentage of subjects who pressed the happy button and the sad button at each point during the control clip and the bittersweet clip in Study 1a.
+ibgs | <LATEX>\left. 4 1 \right) = 6 . 6 0 ,</LATEX> <LATEX>\eta _ { 0 } ^ { 2 } = . 1 4 ,</LATEX> <LATEX>p = . 0 1 . 4</LATEX> The main effect of clip was qualified by a <LATEX>\mathrm { C l i p } \times \mathrm { E m o }</LATEX> interaction, <LATEX>F \left( 1 , 4 1 \right) = 1 6 . 7 0 ,</LATEX> <LATEX>\eta _ { p } ^ { 2 } = . 2 9 ,</LATEX> <LATEX>p < . 0 0 1 .</LATEX> Follow-up t tests indicated that the bittersweet clip elicited more sadness than the control clip, <LATEX>t \left( 4 1 \right) = 4 . 0 8 ,</LATEX> <LATEX>d = 1 . 2 5 ,</LATEX> <LATEX>p < . 0 0 1 ,</LATEX> but no more happiness,
+```
+
+OUTPUT:
+```

@@ -1,0 +1,136 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+h27a | · How do modes of existing between life and death affect normative categorizations of the living, the non-living and the dead?
+pdjh | · What are the implications of reconfiguring understandings of death to a more ecological frame that accommodates more-than-human lives and deaths?
+xmgs | · How do such challenges alter ethical approaches and values attached to dying and death?
+bd9h | The contents of this book
+m047 | This volume draws together diverse material-discursive perspectives on socio-ecological networks of the dying and dead. In addition to gathering a wide range of international perspectives - contributors hail from North America, Europe, Asia, Africa and Oceania - this collection showcases a range of theoretical and methodological approaches to the study of death and dying from scholars doing cutting-edge research in death studies, feminist and queer studies, new materialism and waste studies, plant and animal studies, and non-Western or indigenous studies. In so doing, this volume broadens the scope of conventional research on death and dying, and focuses the discussion towards death as a more-than-human affair. Thinking and writing along the themes of mediation, care and power, the collection further challenges normative understandings and categories of life and death.
+gy8c | The organization of edited volumes always involves choices about how best to draw out certain contents by grouping specific chapters in distinct parts, and in particular orders. Recognizing that these choices always take place among a field of possible alternative arrangements, we have organized the book's chapters into three parts, which, respectively, highlight the themes of (I) ontologies and epistemologies of death and dying, (II) care and remembrance, and (III) troubling agencies.
+y4mj | Part I explores how scientific, technological and discursive practices mediate ontologies and epistemologies of death in human bodies, microbial soil communities, waterbodies, and at large scales. These chapters challenge normative understandings of death by exposing the complexity of material and creaturely forms of death and dying, and by critically examining relationships between individual and collective death. The chapters collected in this section also highlight new perspectives occasioned by new medical and funerary technologies, growing concerns about the harmful effects of anthropogenic climate change, and the interests of nonhuman organisms.
+vpgq | Grounded in fieldwork conducted in a Swiss forensic medicine department that is on the cutting-edge of new postmortem imaging technologies, Céline Schnegg, Séverine Rey and Alejandro Dominguez
+ousl | INTRODUCTION
+m4ju | explore ontological and epistemological negotiations between conventional autopsy techniques (in situ) and emerging radiological technologies (including MRI and CT scans). Their opening chapter reveals how new imaging technologies are taken up by radiologists and pathologists who are generating and responding to new forms of evidence - even new, onto- epistemic 'realities' of the dead body - as well as new forms of expertise in the morally and legally charged field of forensic investigation. While some postmortem imaging enthusiasts have proposed that new imaging techniques could one day replace conventional autopsy practices, Schnegg et al point out that, in practice, postmortem imaging tends to serve as a compliment to in situ examination, which, for the time being, retains its ascendancy in forensic investigation. In Chapter 2, Philip Olson, too, examines how the development and use of new technologies has challenged normative practices, and how those norms have pushed back against technology- backed challenges. Using discourse analysis to examine long-standing proscriptions against the 'commingling' of human remains, Olson argues that thinking about and designing for death at large scales has provoked a moral dialectic that moves between individual and collective death, and between anthropocentric and ecocentric perspectives on death's meaning and materiality. Reconciliation across constructed scales of death and disposition calls for an alignment of human purposes and natural processes, Olson argues; and achieving this alignment, he concludes, may require explicit attention to collective deathcare policy. Collective death emerges as a point of interest in Serena Zanzu's Chapter 3 as well. Interrogating the exploitative instrumentalism that has dominated human-microbe relations in bioremediation practices, Zanzu evokes the 'microbial turn' as a means by which to 'problematize the human understanding of individuated death', and to make space for appreciating the (sometimes engineered) death of whole microbial communities. In bioremediation practices, the termination of invisible, microbial life is understood as 'destruction', but not 'authentic death', because microbes are reduced to tools or potential threats. Zanzu concludes that a microbiopolitcs of the invisible may generate new narratives of life and death that enrich microbial being with non-instrumental value. In Chapter 4, Jesse Peterson rounds out Part I of the volume by drawing explicit attention to the question of what sorts of beings or entities can live or die. Provoked by characterizations of the Baltic Sea as 'dead' or 'dying', Peterson illustrates how cultural and scientific representations of the sea contribute to an environmental imaginary of a dying Baltic Sea. Valuations of specific characteristics of the sea's water shape ideas about the sea's 'natural' state, and about 'unnatural' threats to those valued characteristics. Guided by an onto-epistemic pluralism that resonates with Schnegg et al's Chapter 1, Peterson notes that a dying Baltic Sea is one among many possible Baltic Seas, each of which consists of a different set of value-laden claims about its
+a0mb | water, and each of which could 'die' if that definitive set of characteristics undergoes substantial changes.
+ki8m | Part II (care and remembrance) focuses on the sociality of caring for, and disposing of deceased bodies, and the prominence of the body in processes of grief and remembrance. From banners that materialize the deceased in absence of the body (Bredenbröker, Chapter 6) and ambiguous relations between spirit and body (Sicilia, Chapter 8), to COVID-19 protocols for treatment of 'contagious' bodies (Yépez and Johnson, Chapter 5) and fears of mass burial (Holleran, Chapter 7), the chapters in this section provide insight into the cultural significance of deceased bodies. They show how the discursive and physical spaces occupied by the dead may transform relationships with the dead and among the living, in so doing probing into issues of affect, memory and responsibility. In different ways, all of the chapters deal with questions of containment and separation of dead bodies. Moreover, the chapters consider what happens when ethical obligations towards the dead cannot be fulfilled due to cultural, biological, institutional or temporal constraints. This exposes some of the values and expectations that underpin memorialization and notions of a good death, as expressed in funerary practices and postmortem care relations.
+km8w | In Chapter 5, Rosa Inés Padilla Yépez and Anne W. Johnson reflect on the experiences of family members of people who died of COVID-19 infections in Mexico and Ecuador. Family members were in many cases prohibited from accompanying the dying person and from practising funerary rituals, which has had a detrimental effect on the mourning process. Yépez and Johnson relate this experience to the sanitary protocols that were enforced in funerary and healthcare institutions, and which were based on a logic of containment and separation. They argue that such protocols are a way in which states exercise power over the lives and deaths of citizens - a form of power that also faces resistance in the families' creative practices. Isabel Bredenbröker explores in Chapter 6 the cultural significance of obituary banners in Ghana. Based on fieldwork, they suggest that these funeral banners, which depict the deceased person and are placed centrally in the community, materialize the important position of the dead in social life. Their analysis of the changes in mortuary practices from colonization through to the present, reveals that the banners enable a good death for the deceased by blending indigenous and Christian ways of responding to death, which involves both separation from the body of the deceased and their continued presence in the community. Returning to COVID-19 in Chapter 7, Samuel Holleran traces contemporary fears of mass burial through an historical analysis of images of death and large-scale burials that proliferated in the media during the pandemic. Holleran juxtaposes these images and the fears they represent with emerging death technologies, such as hakatomo and human composting. Such alternative modes of disposition, he suggests, might be
+wzno | understood as shifting the cultural perception of collective burial, although public reception and social and religious customs may hold their acceptance in check. Continuing in the theme of culturally problematized funerary practices, in Chapter 8, Olga Sicilia draws on fieldwork in Zimbabwe to describe the funerary protocols and practices for deceased spirit mediums. Sicilia shows that, as the deceased body is considered to incorporate both the person and a spirit ancestor, deceased spirit mediums are treated in a distinct way and separated from relatives. As in Yépez and Johnson's chapter, this separation and absence of the body means relatives struggle to mourn their relatives. Moreover, she relates this to the complexities and cultural (in)appropriateness of disgust in relation to the decaying body.
+xagm | Part III brings together research on the human and nonhuman agencies that 'trouble' the world of the living. Ranging from seal population management, those who refuse to stay buried, legal definitions of human cadavers, and the promise for an ecological afterlife, chapters in this section raise critical questions regarding what objects and discourses influence dying and death and what benefits and consequences arise therefrom. They evidence how nonhuman agencies enacted by lungworms, television series, legal definitions and burial continuously interrupt and trouble our conceptions of death, who deserves to die, and what to do about the dead.
+iwn5 | In Chapter 9, Doortje Hoerst looks at how lungworms enact biopolitical relationships in collaboration with scientists, veterinarians and the general public. Using a material semiotics approach, Hoerst focuses on the multispecies entanglements between seals, lungworm parasites and the Dutch rehabilitation scientists who are studying infected seals. In the matter of the life and death of these seals, Hoerst displays how the pragmatics of policy and the ethics of care place hold on how these veterinarians respond to seals dying from lungworm infection. Based on her anthropological data, she challenges an exclusive attribution of biopolitical power to human actors by revealing that lungworms, too, enact biopolitical power in ways that impact conservation care practices. In Chapter 10, Bethan Michael-Fox provides a look into how materialities of television apparatus and narrative function as a space where 'morbid' relationalities get enacted through an analysis of the French supernatural television drama series, Les Revenants (2012-2015). Drawing on feminist theory to provide a diffractive analysis, she points to how such relationalities issue practical and theoretical challenges to the dichotomies of 'alive/dead' and 'then/now'. That is, she shows us how the dead who return in this series upset notions of death as a final state and time as a linear construct and explains that these once/now dead characters draw attention to the diminished power and agency of the self in the face of the prospect of planetary extinction.
+uooz | In Chapter 11, Marc Trabsky and Jacinthe Flore illustrate how the human corpse and the lucrative necro-waste extracted from it trouble the legal
+pxbq | frameworks that legislate the dead body. They illustrate how understanding the corpse through feminist new materialism breaks down and challenges the corpse as both person and thing. Instead, they argue, corpses ought to be considered as 'emergent material-discursive' phenomena and suggest that 'this re-conceptualization potentially can animate an improved regulation of the global trade in cadaveric tissue'. In Chapter 12, Hannah Gould and her co- authors explore the imaginaries of ecological afterlives, highlighting different burial practices that promise to convert the dead into trees or mushrooms. Thinking seriously with these beings, they highlight the differences in arboreal versus mycelial afterlives and point out how imagining the dead as angels is becoming more grounded and earth-bound. Doing so, they argue that vernacular values are caught up in and vivified by the biological forms and symbolic values proffered by these and other organisms that can have an ecological relationship with the deceased.
+jfsr | In Chapter 13, the book's concluding discussion, we summarize core findings across all sections of the book, suggesting future trajectories for transdisciplinary death scholarship. Focusing in particular on the various new relationalities explored in this volume, we articulate a number of the ecological, social and philosophical implications of the contributors' research. We hope the rich, interdisciplinary work contained in this volume will inspire deeper conversations about the complex socio-ecological dynamics of death, dying and deathcare that await the attention of scholars, practitioners and artists working across a variety of fields.
+u15r | Alaimo, S. (2010) Bodily natures: Science, environment, and the material self. Bloomington: Indiana University Press.
+lq35 | Armiero, M., Andritsos, T., Barca, S., Brás, R., Ruiz Cauyela, S., Dedeoğlu, Ç. et al (2019) Toxic bios: Toxic autobiographies - A public environmental humanities project. Environmental Justice, 12(1): 7-11.
+3g9w | Beisel, U. (2010) Jumping hurdles with mosquitoes? Environment and Planning D: Society and Space, 28(1): 46-49.
+d09o | Fiscus, D. (2001) The ecosystemic life hypothesis I: Introduction and definitions. Bulletin of the Ecological Society of America, 82(4): 248-250.
+ylhz | Haraway, D. (2008) When species meet. Minneapolis: University of Minnesota Press.
+a3td | Heise, U.K. (2016) Imagining extinction. Chicago: University of Chicago Press. Lidström, S., Meyer, T. and Peterson, J.D. (2022) The metaphor of ocean
+ex5k | 'health' is problematic: 'The ocean we want' is a better term. Frontiers in Marine Science, 9: 1-4.
+9d4o | Mbembé, J .- A. (2003) Necropolitics. Translated by L. Meintjes. Public Culture 15(1): 11-40.
+cjq2 | Mehrabi, T. (2020) Queer ecologies of death in the lab: Rethinking waste, decomposition and death through a queerfeminist lens. Australian Feminist Studies, 35(104): 138-154.
+5esx | Muller, S. and Nielsen, M.O. (2022) Toxic timescapes: Examining toxicity across time and space. Athens: Ohio University Press.
+m5ka | Radomska, M., Mehrabi, T. and Lykke, N. (2019) Queer death studies: Coming to terms with death, dying and mourning differently. An introduction. Women, Gender and Research, (3-4): 3-11.
+byu8 | Radomska, M., Mehrabi, T. and Lykke, N. (2020) Queer death studies: Death, dying and mourning from a queerfeminist perspective. Australian Feminist Studies, 35(104): 81-100.
+76b0 | Rose, D.B., van Dooren, T. and Chrulew, M. (2017) Extinction studies: Stories of time, death, and generations. New York: Columbia University Press.
+zxz6 | Tsing, A.L., Bubandt, N., Gan, E. and Swanson, H.A. (eds) (2017) Arts of living on a damaged planet: Ghosts and monsters of the Anthropocene. Minneapolis: University of Minnesota Press.
+xnth | Wei, Y., Yang, Y., Zhang, Y., Mu, Z. and Bu, F. (2022) A frame theory of energetic life: A twisting energy solidified on the holographic fractal structure. Applied Sciences, 12(21): 10930.
+```
+
+OUTPUT:
+```

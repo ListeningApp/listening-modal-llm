@@ -1,0 +1,79 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document. Your task is to faithfully reproduce the text for our text-to-speech engine so that it is easily read aloud.
+
+Note that the text might not start at the beginning and paragraphs may be split acrosss multiple textboxes. Textboxes may start or end in the middle of a word which is acceptable: do not combine text between textboxes and leave broken words at the start and end of a textbox unchanged.
+
+You will receive one textbox per-line in the format `id | Textbox content`. The output must be in the format `id | Clean content`.
+
+RULES:
+ • Remove inline citations and references e.g. "(Author, 2021)" or "(https://wikipedia.org/article.html)" or "[ECMOS 35b, 47, 49]".
+ • Spell out numbers, dates, and chemical formulas for the TTS engine e.g. "-2.5" -> "negative two point five" or "Jan. 2020" -> "January twenty twenty".
+ • Spell out LaTeX formulas for the TTS engine e.g. "<LATEX>p = 1</LATEX>" -> "P equals one".
+ • Rejoin hyphenated word fragments within the same textbox e.g. "synth -esize" -> "synthesize".
+ • Fix simple typos and OCR errors e.g. "O nce upon a 1ime." -> "Once upon a time.".
+ • Delete nonsequiter textboxes that interrupt the middle of a sentence if they obviously do not belong.
+
+Otherwise, the output should exactly match the input text:
+ • Do not combine text across lines or attempt to fix words broken across lines.
+ • Ensure each ID from the input is included in the output.
+ • Make as few changes as possible while respecting the above rules.
+
+EXAMPLE INPUT:
+```
+ccpt | stigate the effectiveness of psychedelics for ADHD symp- toms in adults.
+0fpw | 2. Materia1 and methods
+dqn8 | 2.1. Study design and participants
+cop0 | The study employed a naturalistic design, assessing the experiences of participants at bas-,
+lhkq | eline before they start, and at 2 and 4 weeks after initiation. The target population included adults with ADHD symptoms who had not been diag- nosed with ADHD before. To be included, participants needed to score on Conner's Adult ADHD Rating Scale (CAARS-S:SV). This cut-off was indicative of clinically elevated symptoms (Conners et al., 1999) (see section 2.3).
+82ju | 2.2. Study procedure
+y2qo | The online advertisement was placed on a website providing information about psychedelics (www.microdo sing.nl). Interested participants were redirected to information explaining the study rationale and procedure. The baseline survey took 20 min to complete. If the survey had not been completed after 24 h, a reminder was sent. Each of the surveys at the 2- and 4-week time points took about 15 min to complete. Par- ticipants were able to pause the surveys. Data collection occurred between Nov. 2020 and Jul. 2021. The study was approved by the Ethics Review Committee of Psy- chology and Neuroscience at Maastricht University (ERCPN- 215_05_11_2019_A1).
+1piq | 2.3. Measures
+7fqw | 2.3.1. Demographic information and history of substance use
+rhaz | At baseline, demographic information was collected. History of substance use assessed experience with psyche- delics (i.e., ayahuasca, DMT, 5-MeO-DMT, LSD, novel lysergamides (e.g., 1P-LSD, ALD-52), psilocybin, salvia divinorum, ibogaine, and mescaline) in both full (psychedelic) doses and microdoses.
+wak1 | 2.3.2. Psychiatric and physiological diagnoses
+wtfz | Participants were asked whether they had a current diagnosis of a disorder. These answer options were chosen because most of the listed diagnoses are often reported to co-occur with ADHD (Kooij et al., 2019), or because these diagnoses were reported to be common in people who microdose (Fadiman and Korb, 2019). We 
+3j2l | REVIEW ARTICLE Frontiers in Psychiatry | www.frontiersin.org
+03k3 | 2
+1k9e | constructed a variable Comorbidity alongside ADHD, differenti- ating respondents with and without a comorbid diagnosis alongside ADHD (<LATEX>p < . 0 0 1 =</LATEX> only ADHD or no ADHD diagnosis; <LATEX>p > . 0 1 =</LATEX> ADHD and at least one other diagnosis). We constructed a variable Medication use alongside microdosing, differentiating respondents who were and were not using conven- tiona1 ADHD medication alongside microdosing (<LATEX>0 =</LATEX> only microdosing; <LATEX>1 =</LATEX> conven-
+```
+
+EXAMPLE OUTPUT:
+```
+ccpt | stigate the effectiveness of psychedelics for ADHD symptoms in adults.
+0fpw | Two. Material and methods
+dqn8 | Two point one. Study design and participants
+cop0 | The study employed a naturalistic design, assessing the experiences of participants at bas-,
+lhkq | eline before they start, and at two and four weeks after initiation. The target population included adults with ADHD symptoms who had not been diagnosed with ADHD before. To be included, participants needed to score on Conner's Adult ADHD Rating Scale. This cut-off was indicative of clinically elevated symptoms (see section two point three).
+82ju | Two point two. Study procedure
+y2qo | The online advertisement was placed on a website providing information about psychedelics. Interested participants were redirected to information explaining the study rationale and procedure. The baseline survey took twenty minutes to complete. If the survey had not been completed after twenty-four hours, a reminder was sent. Each of the surveys at the two and four-week time points took about fifteen minutes to complete. Participants were able to pause the surveys. Data collection occurred between November twenty twenty and July twenty twenty-one. The study was approved by the Ethics Review Committee of Psychology and Neuroscience at Maastricht University.
+1piq | Two point three. Measures
+7fqw | Two point three point one. Demographic information and history of substance use
+rhaz | At baseline, demographic information was collected. History of substance use assessed experience with psychedelics (i.e., ayahuasca, DMT, five-MeO-DMT, LSD, novel lysergamides (e.g., one-P-LSD, ALD-fifty-two), psilocybin, salvia divinorum, ibogaine, and mescaline) in both full (psychedelic) doses and microdoses.
+wak1 | Two point three point two. Psychiatric and physiological diagnoses
+wtfz | Participants were asked whether they had a current diagnosis of a disorder. These answer options were chosen because most of the listed diagnoses are often reported to co-occur with ADHD, or because these diagnoses were reported to be common in people who microdose. We
+3j2l |
+03k3 |
+1k9e | constructed a variable Comorbidity alongside ADHD, differentiating respondents with and without a comorbid diagnosis alongside ADHD (P is less than point zero zero one equals only ADHD or no ADHD diagnosis; P is greater than point zero one equals ADHD and at least one other diagnosis). We constructed a variable Medication use alongside microdosing, differentiating respondents who were and were not using conventional ADHD medication alongside microdosing (zero equals only microdosing; one equals conven-
+```
+
+INPUT:
+```
+5u67 | Prior to Mabo, Australian courts had accepted that customary native title, if it in fact originally existed, was necessarily extinguished when the British Crown asserted sovereignty over the Australian colonies.12 That is, the Crown's radical title entailed, of itself without more, the universal and beneficial ownership and use of the land to the exclusion of any na- tive title.13 Simply stated, the High Court in Mabo took the view that the acquisition of Australia in the name of the British Crown did not neces- sarily extinguish native title. Hence, the Crown's radical title did not nec- essarily confer full beneficial ownership of the land.14
+dvms | Upon this view, when sovereignty was asserted over the Australian territories, the only land which the Crown could have absolute beneficial title to was land to which no native title extended or land to which the native title, although extending, had been extinguished.15 Nevertheless, an incident to the Crown's radical title was a power to appropriate land to itself or to alienate land to others to the exclusion of native title.16 If, however, the Crown did not so act to appropriate or alienate the land, the title of the indigenous people to the land remained, until the Crown so acted.17
+qrd3 | This approach necessarily exploded the common myth of terra nullius. For, if the Australian territories were properly terra nullius, there could be no legitimate claim to any pre-existing native title.18
+rxrg | According to the commentaries of Blackstone, English municipal law became the law of a newly discovered land if upon the first settlement by English colonists, the discovered land was a 'desert uninhabited' coun- try. Alternatively, where the subject land had been conquered or ceded, English municipal law applied by exercise of the Sovereign's legislative power.19 Importantly, after conquest or cession the law continued to rec- ognise the legal rights of the conquered or ceded inhabitants. However, where the land was terra nullius, the law did not recognise the continued legal rights of the inhabitants in a settled land.20 As a matter of decided case law, the inhabited territory of New South Wales came to be treated as 'desert uninhabited' country upon the logic that the condition of the indigenous people before British settlement was 'barbarous' or the terri- tory was 'practically unoccupied, without settled inhabitants or settled law'.21
+tf43 | In the Mabo case itself, it was held that there was sufficient evidence of the Meriam people's continuous occupation and settlement of the islands. They had cultivated gardens, established a system of customary law and provided for the passage of property from one generation to the next. Such a substratum of complementary native title was clearly consistent with the law of real property which was inherited by the Australian terri- tories upon their settlement by British and later immigrants.
+fcco | When the Crown asserted its sovereignty over Australia, the law gov- erning real property which immediately applied was that of tenure. Ten- ure, upon its true analysis, was a relationship which existed between the Crown and the land occupier, not as between the land and the land occu- pier.22 The doctrine of tenure is said to derive in England from the actions of King William I when he acquired all land, either by conquest, forfei- ture or surrender, and then granted that land to his tenants-in-chief. Simi- larly, land in Australia, which had been granted by the Crown, was held on some kind of tenure and such titles, under the accepted Australian land law of tenure, cannot be disturbed.23 However, in Australia this fun- damental premise of the doctrine of tenure - that is, the granting of in- terests in all land by the Crown - was not true for all land. Some Crown land remained unalienated.24 Hence, in Australia, the doctrine of tenure, and its subsequent recognition of land title, could only correctly be said to apply to land which has been granted or alienated by the Crown.25 Of necessity, then, it could not be said to apply to deny the existence of inter- ests concerning land - native title being one example - which owed
+8uji | their existence to something other than a Crown grant or Crown aliena- tion.26
+df3e | As such, the radical title to the beneficial use of land was subject to a number of interests where the territory was not the subject of a Crown grant or alienation and where the land was not terra nullius. Among those interests was indigenous native title. The Crown, therefore, took the land subject to native title (which could be extinguished by the Crown by le- gally recognised actions or extinguished by the indigenous people them- selves). The occupiers of land took the land subject to the Crown although, in the vast majority of cases, the Crown's conduct in giving beneficial title to land occupiers was sufficient, in law, to extinguish native title. This was because that was tantamount to an alienation of land by the Crown inconsistent with the continued enjoyment of native title.27
+53eu | The decision in Mabo affects the notion of terra nullius in a number of ways. The most important is that, for the Meriam people to be successful, it was essential that they should dispel the notion of terra nullius. Clearly, there was evidence suggesting a society beyond that which could be con- sidered the proper subject of the terra nullius doctrine, at least in respect of the Murray Islands. However, inherent in the reason which sustained the decision of the court in Mabo, appears to be a logic that the whole of mainland Australia is similarly not the proper subject of the terra nullius doctrine.28 While the actual decision concerned only the land annexed by Queensland in the Murray Islands, the consideration of the legal status of that land parallels the status of other land in mainland Australia.29 This is so even if the case be that no similar claims will be successful within the mainland.30 The rejection of the terra nullius doctrine was made more easy by its inherently discriminatory nature and the fact that international law had also earlier rejected the doctrine.31
+a5u1 | WHAT IS NATIVE TITLE?
+ry7u | Native title (or 'traditional', 'customary' or 'indigenous' title) has its 'ori- gin in and is given its content by the traditional laws acknowledged by and the traditional customs observed by the indigenous inhabitants of a territory".32 Its existence is primarily a question of fact 'by reference to those laws and customs'.33 It may possess characteristics unknown to,
+5mda | and unenforceable by, the common law.34 Native title is not an institution of the common law.35 Instead, it is distinct from the common law.
+i4li | To prove native title, an entitlement to occupy or use particular land needs to be established. The entitlement must be of sufficient significance to demonstrate a locally recognised special relationship between the in- digenous users and the land.36
+r8sm | The central concepts to native title are 'presence' upon the land37 and 'connexion' with the land.38 Traditional connexion with the land will be evidenced by the indigenous people's substantial continued acknowledg- ment of traditional laws and customs with respect to the land.39 Native title requires presence on the land which amounts to occupancy.40 How- ever, this need not necessarily amount to possession as it is understood by the common law.41 Such presence must be established at least from the time the Crown asserted its general sovereignty.42
+cuin | What will amount to 'presence' or 'connexion' is governed by the de- mands of the land and the indigenous society in question. Brennan J said:43
+n1i7 | The nature and incidents of native title must be ascertained as a matter of fact by reference to those laws and customs. The ascertainment may present a problem of considerable difficulty ....
+```
+
+OUTPUT:
+```

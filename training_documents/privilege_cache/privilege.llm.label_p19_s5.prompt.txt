@@ -1,0 +1,125 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+y5r7 | It seems clear that feminist accounts of objectivity and embodi- ment-that is, of a world-of the kind sketched in this essay re- quire a deceptively simple maneuver within inherited Western analytical traditions, a maneuver begun in dialectics but stopping short of the needed revisions. Situated knowledges require that the object of knowledge be pictured as an actor and agent, not as a screen or a ground or a resource, never finally as slave to the master that closes off the dialectic in his unique agency and his authorship of "objective" knowledge. The point is paradigmatically clear in critical approaches to the social and human sciences, where the agency of people studied itself transforms the entire project of producing social theory. Indeed, coming to terms with the agency of the "objects" studied is the only way to avoid gross
+lrry | Donna Haraway
+hvhm | 593
+863b | error and false knowledge of many kinds in these sciences. But the same point must apply to the other knowledge projects called sciences. A corollary of the insistence that ethics and politics covertly or overtly provide the bases for objectivity in the sciences as a heterogeneous whole, and not just in the social sciences, is granting the status of agent/actor to the "objects" of the world. Ac- tors come in many and wonderful forms. Accounts of a "real" world do not, then, depend on a logic of "discovery" but on a power-charged social relation of "conversation." The world neither speaks itself nor disappears in favor of a master decoder. The codes of the world are not still, waiting only to be read. The world is not raw material for humanization; the thorough attacks on humanism, another branch of "death of the subject" discourse, have made this point quite clear. In some critical sense that is crudely hinted at by the clumsy category of the social or of agency, the world encountered in knowledge projects is an active entity. Insofar as a scientific account has been able to engage this dimen- sion of the world as object of knowledge, faithful knowledge can be imagined and can make claims on us. But no particular doc- trine of representation or decoding or discovery guarantees anything. The approach I am recommending is not a version of "realism," which has proved a rather poor way of engaging with the world's active agency.
+fj24 | My simple, perhaps simple-minded, maneuver is obviously not new in Western philosophy, but it has a special feminist edge to it in relation to the science question in feminism and to the linked question of gender as situated difference and the question of female embodiment. Ecofeminists have perhaps been most insis- tent on some version of the world as active subject, not as resource to be mapped and appropriated in bourgeois, Marxist, or mas- culinist projects. Acknowledging the agency of the world in knowledge makes room for some unsettling possibilities, in- cluding a sense of the world's independent sense of humor. Such a sense of humor is not comfortable for humanists and others com- mitted to the world as resource. There are, however, richly evocative figures to promote feminist visualizations of the world as witty agent. We need not lapse into appeals to a primal mother resisting her translation into resource. The Coyote or Trickster, as embodied in Southwest native American accounts, suggests the si- tuation we are in when we give up mastery but keep searching for
+uz3c | Donna Haraway
+d5bi | fidelity, knowing all the while that we will be hoodwinked. I think these are useful myths for scientists who might be our allies. Femi- nist objectivity makes room for surprises and ironies at the heart of all knowledge production; we are not in charge of the world. We just live here and try to strike up noninnocent conversations by means of our prosthetic devices, including our visualization technologies. No wonder science fiction has been such a rich writing practice in recent feminist theory. I like to see feminist theory as a reinvented coyote discourse obligated to its sources in many heterogeneous accounts of the world.
+ba4l | Another rich feminist practice in science in the last couple of decades illustrates particularly well the "activation" of the pre- viously passive categories of objects of knowledge. This activation permanently problematizes binary distinctions like sex and gender, without eliminating their strategic utility. I refer to the reconstructions in primatology (especially, but not only, in women's practice as primatologists, evolutionary biologists, and behavioral ecologists) of what may count as sex, especially as female sex, in scientific accounts.20 The body, the object of biological discourse, becomes a most engaging being. Claims of biological determinism can never be the same again. When female "sex" has been so thoroughly retheorized and revisualized that it emerges as practically indistinguishable from "mind," something basic has happened to the categories of biology. The biological female peopling current biological behavioral accounts has almost no passive properties left. She is structuring and active in every respect; the "body" is an agent, not a resource. Difference is theorized biologically as situational, not intrinsic, at every level from gene to foraging pattern, thereby fundamentally changing the biological politics of the body. The relations between sex and gender need to be categorically reworked within these frames of knowledge. I would like to suggest that this trend in explanatory strategies in biology is an allegory for interventions faithful to pro- jects of feminist objectivity. The point is not that these new pic- tures of the biological female are simply true or not open to con- testation and conversation-quite the opposite. But these pictures foreground knowledge as situated conversation at every level of its articulation. The boundary between animal and human is one of the stakes in this allegory, as is the boundary between machine and organism.
+ffx8 | Donna Haraway
+s6su | So I will close with a final category useful to a feminist theory of situated knowledges: the apparatus of bodily production. In her analysis of the production of the poem as an object of literary value, Katie King offers tools that clarify matters in the objectivity debates among feminists. King suggests the term "apparatus of literary production" to refer to the emergence of literature at the in- tersection of art, business, and technology. The apparatus of literary production is a matrix from which "literature" is born. Focusing on the potent object of value called the "poem," King ap- plies her analytic framework to the relation of women and writing technologies.21 I would like to adapt her work to understanding the generation-the actual production and reproduction- of bodies and other objects of value in scientific knowledge projects. At first glance, there is a limitation to using King's scheme inherent in the "facticity" of biological discourse that is absent from literary discourse and its knowledge claims. Are biological bodies "pro- duced" or "generated" in the same strong sense as poems? From the early stirrings of Romanticism in the late eighteenth century, many poets and biologists have believed that poetry and or- ganisms are siblings. Frankenstein may be read as a meditation on this proposition. I continue to believe in this potent proposition but in a postmodern and not a Romantic manner. I wish to trans- late the ideological dimensions of "facticity" and "the organic" into a cumbersome entity called a "material-semiotic actor." This un- wieldy term is intended to portray the object of knowledge as an active, meaning-generating part of apparatus of bodily production, without ever implying the immediate presence of such objects or, what is the same thing, their final or unique determination of what can count as objective knowledge at a particular historical junc- ture. Like "poems," which are sites of literary production where language too is an actor independent of intentions and authors, bodies as objects of knowledge are material-semiotic generative nodes. Their boundaries materialize in social interaction. Boun- daries are drawn by mapping practices; "objects" do not preexist as such. Objects are boundary projects. But boundaries shift from within; boundaries are very tricky. What boundaries provisionally contain remains generative, productive of meanings and bodies. Siting (sighting) boundaries is a risky practice.
+y219 | Objectivity is not about disengagement but about mutual and usually unequal structuring, about taking risks in a world where
+06ht | Donna Haraway
+v3r2 | "we" are permanently mortal, that is, not in "final" control. We have, finally, no clear and distinct ideas. The various contending biological bodies emerge at the intersection of biological research and writing, medical and other business practices, and technology, such as the visualization technologies enlisted as metaphors in this essay. But also invited into that node of intersection is the analogue to the lively languages that actively intertwine in the pro- duction of literary value: the coyote and the protean embodiments of the world as witty agent and actor. Perhaps the world resists be- ing reduced to mere resource because it is-not mother/matter/ mutter -but coyote, a figure of the always problematic, always po- tent tie between meaning and bodies. Feminist embodiment, femi- nist hopes for partiality, objectivity, and situated knowledges, turn on conversations and codes at this potent node in fields of possible bodies and meanings. Here is where science, science fantasy and science fiction converge in the objectivity question in feminism. Perhaps our hopes for accountability, for politics, for ecofemi- nism, turn on revisioning the world as coding trickster with whom we must learn to converse.
+nv42 | Donna Haraway
+xags | 4. Nancy Hartsock, Money, Sex, and Power: An Essay on Domination and Community (Boston: Northeastern University Press, 1984).
+jc47 | 6. Harding, 24-26, 161-62.
+ko3c | 598
+xek3 | Donna Haraway
+bbpr | Donna Haraway
+5zyf | The chart below begins an analysis by parallel dissections. In the chart (and in reality?), both gender and science are analytically asymmetrical; that is, each term con- tains and obscures a structuring hierarchicalized binary opposition, sex/gender and nature/science. Each binary opposition orders the silent term by a logic of appropria- tion, as resource to product, nature to culture, potential to actual. Both poles of the op- position are constructed and structure each other dialectically. Within each voiced or explicit term, further asymmetrical splittings can be excavated, as from gender, masculine to feminine, and from science, hard sciences to soft sciences. This is a point about remembering how a particular analytical tool works, willy-nilly, intended or not. The chart reflects common ideological aspects of discourse on science and gender and may help as an analytical tool to crack open mystified units like Science or Woman.
+9own | individual identity/subject position
+bqfb | 17. Katie King, "Canons without Innocence" (Ph.D. diss., University of California at Santa Cruz, 1987).
+wwdt | 20. Donna Haraway, Primate Visions: Gender, Race, and Nature in the World of Modern Science (New York: Routledge & Kegan Paul), forthcoming Spring 1989.
+```
+
+OUTPUT:
+```

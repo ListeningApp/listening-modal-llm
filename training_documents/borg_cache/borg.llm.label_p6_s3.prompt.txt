@@ -1,0 +1,133 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+v8uq | Perhaps the most obvious objection to the claim that LLMs deserve the attribution of rich predicates like meaning and representing is that such systems lack the kind of connections to the external world which seem necessary to ground semantic content. As Piantadosi and Hill 2022 note, there is a "prominent view ... that models trained only on text cannot acquire realistic meanings because they lack reference, or connection to objects in the real world" (see, e.g, Bender and Koller 2020. Lake & Murphy 2023: 411, although they argue against externalist semantics, agree that nothing in the vector assigned to a word in an LLM would allow a user to label an object or describe a scene). The assumption here is that words get their meaning from their connection to things outside the sphere of language, so that, e.g. "dog" means what it does because it refers to dogs or picks out the property of doghood (Fodor xxxx). While sentences and utterances are meaningful because they make claims about the world, so that their meaning can be analysed in terms of their conditions of truth (Davidson, Partee). As David Lewis famously put it (1970: 18), it seems that: "semantics with no treatment of truth conditions is not semantics". Yet, if all a system has available to it is intra-linguistic information, we might suspect that truth won't enter the picture, since the system is out of touch with the external states of affairs where (according to most theories) truth gets its footing.4
+x972 | The worry that externally determined properties like truth don't get any traction within LLMs is reinforced by the well-known issue of LLM fabrication, or "hallucination": [sparks 82]
+cwrw | [A] key limitation of LLMs [is] their tendency to generate errors without warning, including mathematical, programming, attribution, and higher-level conceptual errors. Such errors are often referred to as hallucinations per their tendency to appear as reasonable or aligned with truthful inferences. Hallucinations, such as erroneous references, content, and statements, may be intertwined with correct information, and presented in a persuasive and confident manner, making their identification difficult without close inspection and effortful fact-checking.5
+4i0e | The existence of such fabrications undermines the idea that users can rest epistemic weight on LLM outputs, since falsehoods emerge unbidden from exactly the same background processes as give rise to statements of fact. As ChatGPT's developers, OpenAI, note (pointed out by Titus 2024: ?? ), fixing this problem is far from straightforward:
+h2l3 | ChatGPT sometimes writes plausible-sounding but incorrect or nonsensical answers. Fixing this issue is challenging, as: (1) during RL training, there is currently no source of truth; (2) training the model to be more cautious causes it to decline questions that it can answer correctly; and (3) supervised training misleads the model because the ideal answer depends on what the model knows, rather than what the human demonstrator knows.
+dfzb | The Sceptic's argument is thus that a system needs robust externalist connections prior to any attribution of rich semantic predicates (like representation and meaning) and that since LLMs lack such connections they cannot be treated as semantic engines.
+u6ty | In response, however, I think there are (at least) three kinds of response a Believer might make:
+awvu | 1. reject the claim that externalist connections are needed (or at least maintain that referential properties are only part of the story).
+on9b | 2. accept the claim that externalist connections are needed but argue that future iterations of LLMs will have the required connections.
+a8ge | 3. accept the claim that externalist connections are needed, but argue that, as things stand, LLMs already realise appropriate word-world relations through their connection to humans.
+h27a | I'll take these responses in order but focus on (3), since I think it provides the most promising response to the Sceptic.
+pdjh | 2.1 Distributional, Inferential, and Conceptual Role Semantics
+xmgs | A first move would be to reject the call for an externalist semantics in favour of some form of internalist approach. According to internalist semantic theories, words and sentences are made meaningful not through their connection to external objects and situations, but through their position in a linguistic or conceptual network.6 On this model, reference and truth emerge only later, at the point where already meaningful expressions are used to talk about the world. The properties internalists appeal to include distributional properties, entailment relations and
+bd9h | position within a conceptual network. The first idea - that the distributional properties of expressions (i.e. the statistical patterns of word occurrences) suffice for meaning - has a long history in philosophy and linguistics, with the linguist John Rupert Frith, writing in the 1950's, capturing the approach in the slogan: "You shall know a word by the company it keeps". That is to say, 'distributional semantics' holds that the meaning of a word is fixed by the pattern of words it commonly co-occurs with, so that, e.g., "dog" means what it does because it commonly appears with words like "barks", "bites", "bones", etc, but less often (or not at all) with words like "justice", "flies", "not", etc. Distributional semantics is clearly a pre-cursor of the approach to natural language processing adopted by LLMs (and by corpus linguistics in general), thus an advocate of Distributional semantics is likely to simply deny the claim (made in §1) that LLMs do not directly target semantic properties. If meaning is given by distributional properties and LLMs model distribution, then LLMs just are modelling semantic content. One response to the Sceptic, then, would be to embrace Distributional semantics.
+m047 | LLMs may also qualify as modelling semantic content on alternative internalist approaches. For instance, Inferential Role semantics holds that meaning is grounded in the entailment relations that exist between sentences: to master "cow" is (to be disposed) to infer from "x is a cow" to "x is an animal", "x has four legs", "x gives milk", etc (Boghossian 1994). As noted in [Sparks, p?], it seems that LLMs are highly adept at capturing these kinds of inferential relations. Or again, Conceptual Role semantics couches the required internalist properties at the level of thought, focusing on the relationships between concepts which presumably underpin acceptable inferences at the level of language (Harman 1987). Given LLMs success with inferential and conceptual network tasks, it could be argued that information about these relations is already tacitly contained within the system. Piantadosi and Hill 2022 seem to embrace this kind of view. They suggest that "relationships between concepts are the essential, defining, aspects of meaning" and they go on to argue that:
+gy8c | The key question for LLMs is whether training to predict text could actually support discovery of conceptual roles. To us the question is empirical, and we believe has been answered in a promising, partial affirmative by studies showing success on tasks that require knowledge of relationships between concepts. Text provides such clues to conceptual role because human conceptual roles generated the text.7
+y4mj | Deciding whether LLMs count as semantic engines given either an Inferential or a Conceptual Role approach requires taking a stance on what it is for information to be
+vpgq | represented in a system and this is a controversial question. An analogy might be helpful here: say I set up a system to identify and track mutations in the melanocortin 1 receptor, a gene located on chromosome 16. Let's suppose that these mutations are entirely (rather than merely largely) responsible for the phenotypic trait of red hair. So a system which tracks these genetic mutations will, in effect, track people with red hair. It might be argued that such a system does not actually represent red-headedness or carry information about red-heads, since it simply tracks a property that correlates with or causes this observed trait, without recruiting the higher-level property in any of its internal transformations. On the other hand, since having red hair is (in the current thought experiment) nothing over and above having these genetic mutations, an alternative stance would be that by tracking the mutations the system de facto ends up representing information about red-headedness. Analogously, a Believer will want to claim that, from an internalist point of view, tracking statistical distributions turns out not merely to track a proxy for semantic properties but in fact succeeds in representing those properties as such, since distributional properties tacitly contain information about inferential and conceptual roles.
+ousl | For philosophers, this kind of debate will call to mind protracted discussions (between Drestske, Millikan, Papineau, Fodor and many others) about the possibility of a naturalised account of content. Contributors to this debate tend not to adopt an internalist approach to content, instead grounding meaning in the relationship between a sign and some worldly state of affairs, but still the question of how we settle exactly what distal property an internal state represents remains the same. (Just as Dretske xxxx worried about whether the internal state of a frog represents flies or moving black dots, so this debate about LLMs asks whether an internal state of an artificial system represents conceptual or inferential relations or only statistical facts.) Thus we might think that the same tools used in naturalised externalist frameworks will be available to the Believer here; for instance, spelling out representation in terms of asymmetric causal dependence (so that an internal state of an LLM could be held to represent inferential/conceptual relations not merely distributive properties since the distributional properties are caused by the inferential properties of a sign but not vice versa; see Fodor XXXX) or its proper function within a system (as in the kind of teleological approach advocated by Millikan xxxx). Of course, these questions remain vexed and I can't hope to settle them here. Yet I think it suffices for present purposes to note that if the demand for an externalist semantics is rejected, LLMs will at least be in the running as systems which directly target and represent semantic properties through targeting and representing distributional properties.
+m4ju | 2.2 LLMs and Robots
+a0mb | An alternative response to the Sceptic's demand for better integration with the non-textual environment would be to accept that LLMs fail on external aspects at the moment, but hold that this is a contingent gap which will be filled by future iterations of artificial systems. This kind of move is of course familiar from the 'Robot Reply' Searle considers to his Chinese Room argument: according to this response, what is needed to get meaning into a Chinese Room is the addition of supplementary systems that integrate the Room into its non-linguistic environment (Crane 1991: 127). For instance, a perceptual system could be added, allowing the person in the room to connect incoming symbols with external objects. Artificial limbs or prostheses could be added, so that the person in the room could manipulate their environment as part of their response to incoming linguistic prompts, perhaps together with some form of locomotion, so that the system as a whole could explore its environment. In short, then, the Chinese Room could be embedded within a robot.
+ki8m | This philosophical call for embedding a linguistic system in a multimodal structure has been answered by some engineers, as Lake & Murphy 2023: 412 note:
+km8w | AI researchers are certainly working on various forms of multimodal learning. A recent flurry of work has focused on integrating vision and language, leading to creative combinations of computer vision and NLP models.
+wzno | A recent multi-author paper (Butlin et al 2023) pursues this idea, looking in detail at three such wider systems: PaLM-E (Driess et al. 2023), described as an "embodied multimodal language model"; a "virtual rodent" trained by reinforcement learning (Merel et al. 2019); and AdA, a large Transformer-based, RL-trained "adaptive agent" (DeepMind Adaptive Agents Team 2023). While it is early days for this research, some of the results have been impressive, with systems able to recognise and label complex situations that go beyond the specific examples contained in the system's training data (see Lake & Murphy for further discussion). Furthermore, some of these models show "emergent visual-language alignment", where the decoder attends to the relevant part of an image when producing a word (e.g. analysing the umbrella part of an image when producing the word "umbrella" in a caption).
+xagm | Although this is an extremely fast-moving area and the above projects are exciting, it is clear that the Robot Response cedes the current ground to the Sceptic: if we opt for an externalist view of semantic content and pair this with a requirement that an individual language
+iwn5 | user must themselves realise the required word-world relations, then LLMs currently fall short.8 A different move, however, would be to argue that there is no need to embed an LLM within an artificial multi-modal system, for they already have access to a proxy which allows them to forge the necessary connections with the world: although an LLM lacks a direct ability to interact with the non-linguistic world, it does connect via humans. As [Sparks p.53] contend:
+uooz | language is a powerful interface, allowing GPT-4 to perform tasks that require understanding the environment, the task, the actions, and the feedback, and adapting accordingly. While it cannot actually see or perform actions, it can do so via a surrogate (e.g., a human).
+pxbq | This brings us to the third response that Believers might make to the Sceptic's demand for appropriate word-world relations, which appeals to the role that humans play in the lifespan of LLMs.
+jfsr | 2.3 Derived Intentionality
+u15r | Computers are built and used by people, thus a common response to Searle's challenge has been to appeal to the meaning that programmers or users assign to the symbols manipulated by artificial systems: when a calculator outputs the symbol "4" in response to the input "2+2", this output means four because of the intentions of the person who designed or built the calculator and/or because of what the users of the calculator take the sign to mean. This is to appeal to what Searle termed 'derived intentionality': the symbols of an artificial system inherit meaning from their connection to human thinkers and their practices.
+lq35 | The appeal to derived intentionality takes on a special force, however, with respect to LLMs, for the signs manipulated by these systems just are the signs of ordinary natural languages that we, human speakers, manipulate in order to convey information to one another. These symbols are connected with human communicative systems both through the database of human-generated text that the system is exposed to during pre-training and through the interaction with speakers once the system is in use. Furthermore, these natural language signs are manipulated by LLMs in ways that look promising from the point of view of meaning. If we were faced with an artificial system which took English words as input but produced as output some kind of word salad - a rag-bag collection of English terms spewed out by a purely random mechanism, say - the idea that the signs produced in the output retained the meaning they would
+```
+
+OUTPUT:
+```

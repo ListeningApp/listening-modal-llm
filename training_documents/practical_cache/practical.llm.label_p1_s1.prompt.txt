@@ -1,0 +1,142 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+1pjs | Pediatric Radiology (2021) 51:1545-1554 https://doi.org/10.1007/s00247-021-05034-7
+o2kr | Practical approach for the diagnosis of biliary atresia on imaging, part 2: magnetic resonance cholecystopancreatography, hepatobiliary scintigraphy, percutaneous cholecysto-cholangiography, endoscopic retrograde cholangiopancreatography, percutaneous liver biopsy, risk scores and decisional flowchart
+v6sk | Abstract
+1wj6 | We aim to present a practical approach to imaging in suspected biliary atresia, an inflammatory cholangiopathy of infancy resulting in progressive fibrosis and obliteration of extrahepatic and intrahepatic bile ducts. Left untreated or with failure of the Kasai procedure, biliary atresia progresses to biliary cirrhosis, end-stage liver failure and death within the first years of life. Differentiating biliary atresia from other nonsurgical causes of neonatal cholestasis is difficult as there is no single method for diagnosing biliary atresia and clinical, laboratory and imaging features of this disease overlap with those of other causes of neonatal cholestasis. In this second part, we discuss the roles of magnetic resonance (MR) cholecystopancreatography, hepatobiliary scintigraphy, percutaneous biopsy and percutaneous cholecysto-cholangiography. Among imaging techniques, ultrasound (US) signs have a high specificity, although a normal US examination does not rule out biliary atresia. Other imaging techniques with direct opacification of the biliary tree combined with percutaneous liver biopsy have roles in equivocal cases. MR cholecystopancreatography and hepatobiliary scintigraphy are not useful for the diagnosis of biliary atresia. We propose a decisional flowchart for biliary atresia diagnosis based on US signs, including elastography, percutaneous cholecysto- cholangiography or endoscopic retrograde cholangiopancreatography and liver biopsy.
+936l | Keywords Bile duct · Biliary atresia · Endoscopic retrograde cholangiopancreatography · Hepatobiliary scintigraphy · Infants · Liver · Magnetic resonance imaging · Percutaneous cholecysto-cholangiography · Percutaneous liver biopsy
+06yq | Introduction
+dpv6 | Biliary atresia is an important cause of obstructive jaundice in infants causing progressive fibrosis and obliteration of extra- hepatic and intrahepatic bile ducts and resulting in biliary cirrhosis in the absence of early surgery. Jaundice with pale
+8r5j | stools and dark urine is present within the first days or weeks of life. The prevalence of biliary atresia ranges from 1 in 5,000 to 1 in 20,000 worldwide depending on the geographic area, with the highest prevalence in Taiwan [1-3]. The aetiology of biliary atresia is unknown and different causes have been pro- posed including viral infections, genetic factors or toxins [4].
+2taz | There are two forms of biliary atresia: the non-syndromic form, which accounts for about 80% of cases, and the syndromic form, also called biliary atresia splenic malforma- tion syndrome, which accounts for about 20% of cases [3]. The syndromic form is associated with polysplenia (asplenia), intestinal malrotation, preduodenal portal vein, interrupted
+o3ya | Springer
+r5il | inferior vena cava, aberrant hepatic artery, abdominal heterotaxia and congenital heart disease [5]. There are also different subtypes of biliary atresia according to the extent of fibrosis in extrahepatic bile ducts and the presence of a cyst of the extrahepatic bile duct. In all cases, intrahepatic bile ducts
+5gui | Fig. 1 Different types of biliary atresia, with the obstructed bile ducts and/or gallbladder in grey and the patent parts in green. a Complete atresia of the extrahepatic bile duct and the gallbladder. This is the most frequent type accounting for about 2/3 of patients. b Patent gallbladder with atretic cystic duct and extrahepatic bile duct. c Patent gallbladder, cystic duct and choledochus with atretic main common bile duct. d-g Cystic forms with a macrocyst at the liver hilum and variable atresia of the gallbladder and the extrahepatic bile ducts. Note that intrahepatic bile ducts are always pathological, hence they do not display dilation. Reproduced with permission from [6]
+82qc | Springer
+ls7d | Pediatr Radiol (2021) 51:1545-1554
+tzt3 | are fibrotic, which explains the absence of bile duct dilatation despite a biliary obstacle [6] (Fig. 1). The histology is charac- terized by bile duct proliferation, bile plugs, portal or perilobular fibrosis, oedema and the preservation of the basic hepatic lobular architecture [7, 8]. Histology is not specific
+t8vv | Pediatr Radiol (2021) 51:1545-1554
+qvnu | and disorders such as parenteral nutrition-associated cholesta- sis, cystic fibrosis and «-1-antitrypsin deficiency may mimic biliary atresia. Liver biopsy specimens obtained before 6 weeks of age could be indistinguishable from neonatal hep- atitis [8-10]. If left untreated, patients with biliary atresia will die within the first years of life from complications of biliary cirrhosis and end-stage liver disease.
+kggw | The primary treatment for biliary atresia is the Kasai hepatoportoenterostomy, which consists of resecting the choledocal remnants, gallbladder and portal plate and construct- ing a jejunal Roux-en-Y anastomosis (Kasai procedure) or cholecystostomy to restore biliary drainage. If biliary atresia pa- tients have surgery within the first 60 days of life, bile flow can be established in 70% of cases; patients who have surgery after 90 days of life achieve sufficient bile flow only in 20% of cases [11]. Liver transplantation is performed if primary Kasai hepatoportoenteostomy fails or in case of delayed diagnosis with advanced cirrhosis that contraindicates Kasai surgery. Rapid di- agnosis at the onset of symptoms is the main goal of imaging considering the paramount importance of early surgical treatment.
+xrd1 | Differentiating biliary atresia from other nonsurgical causes of neonatal cholestasis is challenging. Gamma- glutamyl transpeptidase is an important biomarker in the dif- ferential diagnosis of neonatal cholestasis showing higher levels in children with biliary atresia than in those without biliary atresia [12]. Ultrasound (US), magnetic resonance (MR) cholangiopancreatography, hepatobiliary scinti- graphy, liver percutaneous biopsy, percutaneous cholecysto- cholangiography and endoscopic retrograde cholangio- pancreatography (ERCP) are used in the work-up for biliary atresia, but surgery with intraoperative cholangiography and biopsy is the only reference standard for diagnosis.
+5746 | We divided our results in two linked papers. In part 1 [13], we discussed the prenatal US and magnetic resonance imaging (MRI) diagnosis and the early postnatal US findings. In this second part, we discuss the role of MR cholecysto- pancreatography, nuclear medicine, percutaneous biopsy, per- cutaneous cholecysto-cholangiography and risk scores. Based on this literature review and discussions within the European Society of Paediatric Radiology (ESPR) Abdominal Taskforce, both via e-mails and during plenary sessions, a suggested diagnostic pathway for patients with suspected bil- iary atresia is proposed as a consensus statement from the ESPR.
+7toz | Systematic review
+j346 | The Preferred Reporting Items for Systematic Reviews and Meta-Analyses statement was applied to this review. In December 2019, two of the authors (M.N. and B.M.D., both with 16 years of experience) independently and systematically
+v8uq | searched on PubMed all articles published from Jan. 1999 to Dec. 1, 2019. Keywords included (MRI) AND (biliary atre- sia), (percutaneous cholecystocholangiography) AND (biliary atresia), (ERCP) AND (biliary atresia), (percutanous liver bi- opsy) AND (biliary atresia), (nuclear medicine) AND (biliary atresia), (biliary atresia) AND (risk scores). The two readers in consensus selected eligible papers based on title and abstract. Only articles in English were considered for analysis. We matched author names and affiliations to avoid data duplica- tion and we included only the most recent or complete study of the same authors including the same patients. No papers were dismissed due to the children's ages or the type of study.
+x972 | Imaging techniques
+cwrw | Magnetic resonance cholecystopancreatography
+4i0e | One hundred fifty-two studies were identified for initial re- view. On the basis of title or abstract, 141 papers were exclud- ed and 11 [14-24] papers were identified as relevant.
+h2l3 | A fast spin echo three-dimensional (3-D) MR cholangiopancreatography is recommended with echo time (TE) 600-700 ms, repetition time (TR) 1,500-2,500 ms (the- oretical, dependent on respiratory gating), flip angle 140° and fat suppression using a 1.5-tesla (T) unit (Fig. 2). Acquisitions are strictly coronal and almost isotropic to allow for non- distorted detection and assessment of the smaller structures. Real-time navigator gating is necessary to synchronize breath- ing. Field of view 18-24 cm and acquisition matrix 256×256 are adequate. We suggest using a flexible surface coil accord- ing to the child's weight (minimum 12 channels).
+dfzb | Gentle swaddling and natural sleep or sedation are both possible options. We recommend the patient fast for at least 4 h before the MRI and no digestive contrast.
+u6ty | The MR cholecystopancreatography diagnosis of biliary atresia was made on the basis of the non-visualization of the extrahepatic biliary tree [15, 17, 19, 22, 24] or the non- visualization of the extrahepatic bile duct and gallbladder, also considering periportal thickening and high signal intensity in the porta hepatis on T2-weighted images [14, 21] (Fig. 2). Other authors considered the non-visualization of the extrahe- patic bile duct and gallbladder abnormalities [20, 23] (Fig. 3).
+awvu | The meta-analysis performed by He et al. [25] included 7 MR cholecystopancreatography studies (age range: 1-15 days) for biliary atresia diagnosis reporting a sensitivity of 89.7% (range: 84.8-93.4%), a specificity of 64.7% (range: 58.0- 71.0%), a positive likelihood ratio of 3.10 (range: 1.59-6.06), a negative likelihood ratio of 0.16 (range: 0.06-0.44) and a diagnostic odds ratio of 32.48 (range: 8.22-128.29).
+on9b | Kim et al. [16] used a conditional inference tree analysis to select discriminators for the diagnosis of biliary atresia. Visibility of the common bile duct, abnormality of the
+a8ge | Springer
+h27a | Fig. 2 Non-obstructing and obstructing cholestasis. a A 1-month-old girl with cholestasis due to hepatitis. Three-dimensional MR cholecystopancreatography (repetition time [TR]/echo time [TE] 1,600/ 650 ms) with coronal maximum intensity projection reconstruction shows normal biliary tree. b, c A 2-month-old girl with biliary atresia. An axial T2-weighted fat-saturated image (b) (TR/TE 2,500/100 ms) shows a 3-
+pdjh | gallbladder and MRI triangular cord thickness were good dis- criminators for the diagnosis of biliary atresia. The MRI-based decision tree using these findings with MRI triangular cord thickness cutoff of 5.1 mm showed 97.3% sensitivity, 94.8% specificity and 96.2% accuracy, comparable to US. MRI scans in this study were performed using sedation. This was a retro- spective study with the possibility of bias. The authors did not assess the reproducibility of MRI triangular sign thickness and the baseline characteristics (gender and laboratory results) were different between the biliary atresia and non-biliary atresia groups. The proportion of patients with visible or dilated com- mon bile duct on MRI in the non-biliary atresia group (94/96, 97.9%) was much higher than in other studies because the au- thors included 42 patients with choledochal cyst and partially visualized common bile duct in the visible common bile duct group, compared with previous studies that excluded these cases (mean age±standard deviation in the biliary atresia group 59.3 ±30.2 days and in the non-biliary atresia group 57.9±43.1 days).
+xmgs | Fig. 3 A 3-month-old girl with biliary atresia. An axial T2-weighted fat- saturated image (repetition time/echo time 2,500/100 ms) shows a small and dysmorphic gallbladder (arrow)
+bd9h | Springer
+m047 | mm porta hepatis microcyst (black arrow) inside periportal thickening with high signal intensity (white arrow). A coronal T2-weighted thick- slab single-shot turbo spin echo MR cholecystopancreatography (c) (TR/ TE 4,000/900 ms) shows a porta hepatis microcyst (black arrow), a small gallbladder (white arrow) and the non-visualization of extrahepatic biliary tree
+gy8c | According to Siles et al. [18], non-enhanced MR cholecystopancreatography visualization of the entire extrahe- patic bile duct system, including confluence of intrahepatic bile ducts, is possible but was only observed in 62.5% of neonates and infants younger that 3 months in a normal phys- iological state. For infants younger than 30 days, this result dropped to 50%. This compromises the ability of MR cholecystopancreatography to exclude the diagnosis of biliary atresia at the optimal time for surgery.
+y4mj | Hepatobiliary scintigraphy
+vpgq | Hepatobiliary scintigraphy uses Tc-99 m-labelled iminodiacetic acid derivatives as a radiotracer. Patient preparation for imaging should include phenobarbital to activate liver excretory en- zymes and increase bile flow for a minimum of 3-5 days before the hepatobiliary imaging study. Scintigraphy can exclude bil- iary atresia by demonstrating transit of radiotracer into the bow- el (Fig. 4). Cholescintigraphic images should be acquired at multiple times up to 24 h.
+```
+
+OUTPUT:
+```

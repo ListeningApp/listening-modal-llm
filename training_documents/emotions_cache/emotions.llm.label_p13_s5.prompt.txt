@@ -1,0 +1,140 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+qlbb | Subjects completed the study individually. Because few nonen- dorsers were available and we thought it unlikely that they would report mixed emotions after watching the control clip, all nonen- <LATEX>d o r s e r s \left( n = 2 8 \right) w a t c h e d</LATEX> the bittersweet clip. Endorsers watched either the bittersweet Life Is Beautiful clip <LATEX>\left( n = 2 2 \right)</LATEX> or the control clip <LATEX>\left( n = 2 4 \right)</LATEX> by random assignment. After providing the cover story, the experimenter left and subjects watched the clip. After the clip, the experimenter told subjects that she needed to ask a few questions about their emotional reactions to the film because emotions can affect language comprehension. She first asked, "How do you feel right now?" Throughout, whenever subjects mentioned an emotion, the experimenter asked them to explain why they felt that way if they had not spontaneously done so. If they mentioned positive or negative emotions only in response to the first question, she asked, "Do you feel anything else?"8 At this point, the experimenter confirmed any reports of mixed emotions by asking, "So you feel happy and sad?" (When applicable, the experimenter replaced "happy" and "sad" with the positive and negative emotions mentioned by the subject.) No subjects who initially reported mixed emotions subsequently denied them.
+nhsg | Results and discussion. We distinguished between subjects who reported mixed emotions spontaneously after being asked "How do you feel right now?" and those who reported mixed emotions only after being asked "Do you feel anything else?" The percentage of subjects in each group who reported mixed emo- tions, reported mixed emotions spontaneously, and reported simul- taneously mixed emotions is shown in Table 5. Chi-square tests revealed effects of condition on all three measures, <LATEX>\chi ^ { 2 } \left( 2 \right. ,</LATEX> <LATEX>N =</LATEX> <LATEX>\left. 9 0 \right) = 1 4 . 6 9 ,</LATEX> 7.85, and 7.86, Cramér's <LATEX>V = . 4 5 ,</LATEX> .33, and .33, respectively, all <LATEX>p s < . 0 3 .</LATEX> Follow-up Fisher's exact tests indicated that endorsers who watched the bittersweet clip were more likely than endorsers who watched the control clip to report mixed emotions <LATEX>\left( \varphi = . 4 8 \right. ,</LATEX> <LATEX>\left. p = . 0 0 1 \right)</LATEX> and report simultaneously mixed emotions <LATEX>\left( \varphi = . 3 6 \right. ,</LATEX> <LATEX>\left. p = . 0 2 \right) ,</LATEX> after correcting for familywise error rate. Endorsers who watched the bittersweet clip were also mar- ginally more likely to spontaneously report mixed emotions <LATEX>\left( \varphi = \right.</LATEX> .32, <LATEX>\left. p = . 0 4 \right) .</LATEX> Nonendorsers, all of whom watched the bittersweet clip, were more likely than endorsers who watched the control clip to report mixed emotions <LATEX>\left( \varphi = . 5 4 \right. ,</LATEX> <LATEX>\left. p < . 0 0 1 \right) ,</LATEX> spontaneously report mixed emotions <LATEX>\left( \varphi = . 4 0 \right. ,</LATEX> <LATEX>\left. p = . 0 0 5 \right) ,</LATEX> and report simulta- neously mixed emotions
+hy0l | <LATEX>\left( \varphi = . 4 0 \right. ,</LATEX> <LATEX>\left. p = . 0 0 5 \right) . 9</LATEX> Table 4 Percentage of Subjects in Study 5's Three Groups Who Reported Mixed Emotions and Simultaneously Mixed Emotions
+4jmz | 1107
+b7cq | Table 5 Percentage of Subjects in Study 6's Three Groups Who Reported Mixed Emotions, Spontaneously Reported Mixed Emotions, and Reported Simultaneously Mixed Emotions
+0b39 | Thus, whether or not they initially endorsed the notion that people could feel happy and sad at the same time, individuals who watched the bittersweet clip were more likely to report mixed emotions than those who watched the control clip. These results provide further evidence against the contention that people report mixed emotions in bittersweet situations only because they think that people can feel happy and sad at the same time. More generally, Study 6's results, like those of Studies 4 and 5, provide evidence against the reactive measurement hypothesis and for the contention that happiness and sadness can co-occur.
+qecd | General Discussion
+1o7p | When it comes to the experience of emotion, is valence irre- ducible or are positivity and negativity separable? We addressed this question with six studies designed to test whether people can feel happy and sad at the same time. Subjects reported their emotions during (Studies 1-3) or after clips (Studies 4-6) from a tragicomic film containing bittersweet scenes or a combination of unambiguously pleasant and unpleasant scenes. At first glance, the results of all six studies indicate that the incidence of mixed emotions is low. In Studies 1b and 3, for instance, the majority of subjects never reported mixed emotions for so much as a second over the course of a nearly 20-min film clip. In Studies <LATEX>4 - 6 ,</LATEX> 84% did not report experiencing simultaneously mixed emotions after the clips. Thus, our data may provide the strongest evidence to date that people cannot feel happy and sad at the same time.
+cp13 | A closer look at the data, however, provides even stronger evidence for a more nuanced conclusion. Compared with those who watched the control clip, people who watched the bittersweet clip spent more time pressing the happy and sad buttons simulta- neously in Studies 1a and 3, moved further into the interior of the continuous ESG in Studies 1b and 2, were more likely to list mixed emotions in Study 4, were more likely to describe feeling mixed emotions in Study 5, and were more likely to tell an interviewer
+bgre | This article is intended solely for the personal use of the individual user and is not to be disseminated broadly. This document is copyrighted by the American Psychological Association or one of its allied publishers.
+57lp | 1108
+ukth | LARSEN AND McGRAW
+kpvt | that they felt mixed emotions in Study 6. Thus, the data indicate that people do not often feel happy and sad at the same time but can do so in bittersweet situations.
+jie2 | Taken together, the data extend prior evidence against the con- tention of Bain (1859), Wundt (1896), and Titchener (1908) that valence is an irreducible aspect of the experience of emotion. In contrast, the findings provide evidence for the contention of So- crates, Hume (1739/2000), and Ebbinghaus (1902; cited in Wohlgemuth, 1919) that positivity and negativity are separable in experience. In terms of their implications for contemporary models of the structure of affect, the data are inconsistent with Russell's (1980; Russell & Carroll, 1999) valence-arousal model but con- sistent with Cacioppo and Berntson's (1994; Cacioppo et al., 2004) ESM.
+d0ik | A Lingering Alternative Interpretation
+0x0s | The current studies indicate that prior evidence that people can feel happy and sad at the same time is not a result of vacillation, reactive measurement, demand characteristics, or lay theories about mixed emotions, but Russell (2003) has raised another alternative interpretation. Like appraisal theorists of emotion (see Roseman & Smith, 2001), Russell distinguished between the ex- perience of emotion, which he termed core affect, and appraisals of stimuli as pleasant or unpleasant, which he termed perceptions of affective quality. Perceptions of affective quality do not necessarily influence core affect, as when an individual with depression ap- preciates the beauty of a sunset but remains utterly depressed (Russell, 2003). By extension, people may perceive an object as having ambivalent affective qualities without actually experienc- ing mixed emotions. Thus, Russell suggested that research subjects may erroneously report feeling happy and sad when they merely intended to report that ongoing events contained both pleasant and unpleasant aspects.
+4exe | It is widely acknowledged that films can elicit intense emotions (e.g., Gerrards-Hesse, Spies, & Hesse, 1994; Gross & Levenson, 1995; Russell, 2003), so our data are less susceptible to Russell's concern than other data are. It is especially unlikely that subjects in a recent study of mixed emotions by Andrade and Cohen (2007) reported their perceptions of affective quality. In that study, con- tinuous ESG ratings indicated that fans of horror films experienced mixed emotions of happiness and fear while they watched horror clips. The horror clips were terrifying and contained no happy material, so it is doubtful that subjects merely reported their appraisals of the clips' emotional content. A more plausible ex- planation is that subjects genuinely experienced happiness and, by extension, mixed emotions of happiness and fear. Thus, the most parsimonious interpretation for our studies is that subjects who watched the bittersweet Life Is Beautiful clip reported mixed emotions of happiness and sadness because they genuinely expe- rienced mixed emotions of happiness and sadness.
+0myz | Future Directions
+xh3i | Some people may experience mixed emotions more often than others. The tendency for Asians to experience more mixed emo- tions than Westerners (e.g., Bagozzi, Wong, & Yi, 1999; Schim- mack, 2009; Williams & Aaker, 2002; for a review, see Goetz, Spencer-Rodgers, & Peng, 2008) has been attributed to the ten-
+syiw | dency for Asians to show greater dialectical thinking (Peng & Nisbett, 1999). One aspect of dialectical thinking is the belief that two contradictory propositions can both be true. Experiencing positive and negative emotions can be seen as contradictory, so it makes sense that cultural differences in mixed emotions are a result of cultural differences in perceptions of contradiction. An- other aspect of dialectical thinking is the belief that things change. The extant evidence for cultural differences in mixed emotions comes from static measures, which leaves open the possibility that Asians report more mixed emotions not because they spend more time experiencing simultaneously mixed emotions than Western- ers, but because they spend more time vacillating between positive and negative emotions (cf. Goetz et al., 2008). Future research with continuous measures of positivity and negativity (e.g., the continuous ESG) can test these competing hypotheses.
+kg3t | Future research with continuous unipolar measures might also shed light on emotional disturbances associated with bipolar dis- order. Personality inventories indicate that individuals with bipolar disorder show greater emotion lability (e.g., "My mood often changes from happiness to sadness, without my knowing why"; Benazzi & Akiskal, 2005), and emotion ratings indicate that some individuals with bipolar disorder vacillate between intense positive and negative emotions within the course of a day (Kramlinger & Post, 1996), but researchers in this area have not employed con- tinuous measures or separate measures of positivity and negativity. Such measures may indicate that what appear to be episodes of vacillation are actually episodes of simultaneously mixed emotions and that individuals with bipolar disorder experience more mixed emotions than others do.
+lvae | Final Thoughts
+o9sc | Our data and others' (e.g., Remington et al., 2000) indicate that emotional experience generally conforms to the valence-arousal model's predictions. Yet even the most robust models in psychol- ogy have boundary conditions (e.g., McGuire, 1989), so it should come as no surprise that the valence-arousal model cannot account for every person's experience in every situation. Our evidence for mixed emotions indicates that a more complete understanding of emotional experience in bittersweet situations requires conceptu- alizing positivity and negativity as separable.
+121u | References
+zh03 | This article is intended solely for the personal use of the individual user and is not to be disseminated broadly.
+1mvw | This document is copyrighted by the American Psychological Association or one of its allied publishers.
+6d4s | MIXED EMOTIONS
+mqah | Barrett, L. F., Robin, L., Pietromonaco, P. R., & Eyssell, K. M. (1998). Are women the "more emotional" sex? Evidence from emotional experi- ences in social context. Cognition & Emotion, 12, 555-578. doi: 10.1080/026999398379574
+xxr8 | 1109
+rl4j | Griffin, K. M., & Sayette, M. A. (2008). Facial reactions to smoking cues relate to ambivalence about smoking. Psychology of Addictive Behav- iors, 22, 551-556. doi:10.1037/0893-164X.22.4.551
+vz32 | Remington, N. A., Fabrigar, L. R., & Visser, P. S. (2000). Reexamining the circumplex model of affect. Journal of Personality and Social Psychol- ogy, 79, 286-300. doi: 10.1037/0022-3514.79.2.286
+ncb0 | Robinson, M. D., & Clore, G. L. (2002). Belief and feeling: Evidence for an accessibility model of emotional self-report. Psychological Bulletin, 128, 934-960. doi:10.1037/0033-2909.128.6.934
+8mp0 | 1110
+xjyk | This article is intended solely for the personal use of the individual user and is not to be disseminated broadly. This document is copyrighted by the American Psychological Association or one of its allied publishers.
+mt0f | LARSEN AND McGRAW
+awab | Online First Publication
+ixcc | APA-published journal articles are now available Online First in the PsycARTICLES database. Electronic versions of journal articles will be accessible prior to the print publication, expediting access to the latest peer-reviewed research.
+8p6h | All PsycARTICLES institutional customers, individual APA PsycNET® database package sub- scribers, and individual journal subscribers may now search these records as an added benefit. Online First Publication (OFP) records can be released within as little as 30 days of acceptance and transfer into production, and are marked to indicate the posting status, allowing researchers to quickly and easily discover the latest literature. OFP articles will be the version of record; the articles have gone through the full production cycle except for assignment to an issue and pagination. After a journal issue's print publication, OFP records will be replaced with the final published article to reflect the final status and bibliographic information.
+```
+
+OUTPUT:
+```

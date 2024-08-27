@@ -1,0 +1,137 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+1pjs | diagnostics
+o2kr | Review
+v6sk | Cardiac Magnetic Resonance in Hypertensive Heart Disease: Time for a New Chapter
+1wj6 | Diagnostics 2023, 13, 137. https://doi.org/10.3390/diagnostics13010137
+936l | MDPI
+06yq | Abstract: Hypertension is one of the most important cardiovascular risk factors, associated with significant morbidity and mortality. Chronic high blood pressure leads to various structural and functional changes in the myocardium. Different sophisticated imaging methods are developed to properly estimate the severity of the disease and to prevent possible complications. Cardiac magnetic resonance can provide a comprehensive assessment of patients with hypertensive heart disease, including accurate and reproducible measurement of left and right ventricle volumes and function, tissue characterization, and scar quantification. It is important in the proper evaluation of different left ventricle hypertrophy patterns to estimate the presence and severity of myocardial fibrosis, as well as to give more information about the benefits of different therapeutic modalities. Hypertensive heart disease often manifests as a subclinical condition, giving exceptional value to cardiac magnetic resonance as an imaging modality capable to detect subtle changes. In this article, we are giving a comprehensive review of all the possibilities of cardiac magnetic resonance in patients with hypertensive heart disease.
+dpv6 | Keywords: hypertension; hypertensive heart disease; cardiac magnetic resonance; left ventricle hypertrophy; myocardial fibrosis
+8r5j | 1. Introduction
+2taz | Hypertension presents a massive burden for health systems worldwide and is one of the most important cardiovascular risk factors [1]. The incidence of hypertension and its complications, especially in West-Balkan countries, is increasing [2]. More than 70% of people with the first heart attack, stroke, or first episode of heart failure have blood pressure higher than 140/90 mmHg [3]. The impact of untreated and uncontrolled blood pressure is undeniable and can cause complications on different target organs, predominantly kidneys, eyes, brain, peripheral arteries, and also the heart. In general, hypertensive heart disease (HHD) is defined by the presence of left ventricular hypertrophy, left ventricular systolic and diastolic dysfunction, and their clinical manifestations. Different pathophysiological mechanisms inevitably lead to myocardium remodeling and can increase the mortality and cardiac morbidity of patients with hypertension [4]. Myocardial remodeling in these patients is the result of complex myocardial, cellular, and tissue abnormalities leading to changes in the shape, size, and also function of the left ventricle, both diastolic and regional or global systolic [5]. Optimal evaluation of myocardial remodeling is of great importance, not only for making a proper diagnosis but also to follow the impact of the therapy on these patients. Left ventricular hypertrophy, as one of the main characteristics of cardiac remodeling in patients with hypertension, is defined as an abnormal increase in left
+o3ya | https://www.mdpi.com/journal/diagnostics
+r5il | Diagnostics 2023, 13, 137
+5gui | ventricular mass and is considered to be a result of an adaptation to an increased cardiac workload. The main pathophysiological mechanisms responsible for the progression to LV hypertrophy include not only a response to mechanical stress but also the effect of different neurohormones, growth factors, and cytokines [6]. These complex mechanisms lead to myocyte hypertrophy, as well as myocyte apoptosis, myofibroblast proliferation, and eventually interstitial fibrosis. Although left ventricle hypertrophy and diastolic or systolic dysfunction were marked as the main characteristics of hypertensive heart disease, different novel diagnostic techniques provided more insights into other significant findings in patients with hypertension, especially on diffuse myocardial fibrosis, that can precede the above-mentioned conditions. Myocardial fibrosis in hypertension is originally a part of cardioprotective mechanisms to prevent left ventricular dilatation by increasing ventricular stiffness. This process is diminished in these patients, as it leads to a collagen overproduction, but without a proper protective effect, which gradually leads to the incapability of the ventricle to relax, causing diastolic dysfunction, and heart failure with both preserved (HFpEF), and afterward, reduced ejection fraction (HFrEF) [7]. Currently available imaging modalities to properly estimate these processes in both the subclinical and clinical stages of the disease are limited. Cardiac magnetic resonance is a useful, non-invasive, non-radiating imaging modality with excellent reproducibility and less inter- observer variability that can provide certain, more detailed information on left ventricle volumes and tissue characterization, including scar quantification and the estimation of diffuse myocardial fibrosis. It has a great correlation with 3D echocardiography and speckle-tracking echocardiography, especially in the evaluation of left ventricle volumes and regional systolic function [8]. Although it is not considered a golden standard imaging modality, the usability of cardiac magnetic resonance in hypertensive heart disease is unquestionable.
+82qc | In this review, we emphasize the emerging diagnostic and prognostic role of cardiac magnetic resonance in patients with HHD.
+ls7d | 2. Technical Aspects and Possibilities of Cardiac Magnetic Resonance in Patients with Hypertensive Heart Disease
+tzt3 | Cardiac magnetic resonance can provide important information in patients with hyper- tensive heart disease with its high reproducibility, the evaluation of systolic and diastolic dysfunction, and easier and faster evaluation of treatment effects. It is of great value in fibrosis assessment, ischemia detection, and differentiation of multiple causes of left ventric- ular hypertrophy [9]. The most important sequences that could provide vital information in patients with hypertensive heart disease are steady-state free precession cine (SSFP), phase contrast sequences, T1 and T2 weighted fast spin-echo and T2 STIR sequences, as well as T1-weighted perfusion and myocardial late gadolinium enhancement sequences [10]. Analysis of three-dimensional myocardial strains with tissue tagging gated to diastole is an important modality in estimating diastolic dysfunction [11]. Novel diagnostic procedures under cardiac magnetic resonance, including myocardial tissue mapping by using the modified Look-Locker inversion-recovery sequence and the estimation of extracellular volume fraction are important in the proper assessment of edema, myocardial infiltration, and local or diffuse myocardial fibrosis. Obtaining all these sequences is essential in the proper evaluation of wall motion, function and velocity, tissue characterization, edema, and fibrosis assessment. Although no specific indications are set for patients with HHD, performing cardiac magnetic resonance could be important not only in the early diagnosis of hypertensive heart disease but also in discovering potential complications and following the effects of different treatment modalities.
+t8vv | 3. Morphological Changes in Patients with Hypertensive Heart Disease
+qvnu | Long-standing hypertension through increased afterload causes cardiomyocyte hy- pertrophy and accumulation of interstitial collagen fibers, resulting in left ventricular hypertrophy and diffuse myocardial fibrosis [12]. Left ventricular hypertrophy (LVH) is an
+kggw | Diagnostics 2023, 13, 137
+xrd1 | independent risk factor for morbidity and mortality in patients with hypertensive heart disease [13,14]. There are different patterns of myocardium hypertrophy, but the clinical impact of all these phenotypes is yet to be evaluated. The most common phenotype is concentric hypertrophy which results in a lower cardiac output due to an increased wall thickening (Figure 1). However, the other types of myocardial hypertrophy should not be ignored, as the worst outcome was noted in patients with dilated (eccentric) hypertrophy and those with thick and dilated hypertrophy [15]. Other conditions in patients with hypertension can affect the hypertrophic pattern, including obesity, diabetes mellitus, and coronary artery disease. It is important to emphasize the fact that diastolic dysfunction and impairment in LV mechanics occur before left ventricular hypertrophy. This is why the estimation of diastolic function and regional systolic function is of great importance. Myocardial fibrosis in these patients can be focal (reparative) or diffuse (interstitial) and is a consequence of the accumulation of type I and type III collagen fibers [16]. By provoking myocardial stiffness, it subsequently leads to changes in ventricular function, myocardial perfusion, and electrical activity. Therefore, it is crucial to identify patients with these abnormalities to prevent the further progression of the disease.
+5746 | Figure 1. Asymmetric hypertrophic cardiomyopathy-with apical hypertrophy, as marked by ar- rows (A,B) versus left ventricular hypertrophy in hypertensive heart disease, concentric type, with predominant hypertrophy of the septum (marked by red arrow) (C,D) cine sequences.
+7toz | 4. Comparison of Cardiac Magnetic Resonance with Other Imaging Modalities in Evaluating Hypertensive Heart Disease
+j346 | Considering the advantages in evaluating patients with hypertensive heart disease, cardiac magnetic resonance, aside from being the gold standard for ventricular function and mass assessment, did not find its place in everyday practice, mostly due to the limited capability of a large number of hospitals to perform it on an everyday basis. Different non- invasive diagnostic modalities have been developed and improved with great correlation to cardiac magnetic resonance in evaluating patients with hypertensive heart disease. In
+v8uq | Diagnostics 2023, 13, 137
+x972 | patients with myocardial hypertrophy, ECG showed low sensitivity and specificity, while echocardiography overestimated or underestimated certain clinical forms due to high inter-observer variability [17]. It is shown that echocardiography overdiagnosed LVH in 15% of patients and missed LVH in 14% [18]. However, with the latest echocardiographic techniques, this imaging modality can provide a much wider spectrum of important information. 3D echocardiography showed excellent results in different clinical trials in obtaining measurements of left ventricle size and function in correlation with cardiac magnetic resonance [19]. Speckle-tracking echocardiography can detect subclinical systolic dysfunction and reduced longitudinal strain in patients with hypertensive heart disease [20]. Regarding the differences between various imaging tools in evaluating patients with hypertensive heart disease, cardiac magnetic resonance can offer high reproducibility of measurements, easier and faster evaluation of treatment, intramyocardial function and diastolic dysfunction, fibrosis, and ischemia assessment (Table 1). Ischemia assessment is an important aspect, as cardiac magnetic resonance can provide a highly sensitive non-invasive estimation of ischemia through an adenosine stress-perfusion test [21]. All these parameters give a comprehensive overview of the patient's clinical condition in one single examination, shortening the time required to make a diagnosis while simultaneously facilitating healthcare expenses.
+cwrw | 5. Ventricular Volumes and Left Ventricle Geometry Measured by Cardiac Magnetic Disease in Patients with HHD
+4i0e | Pathophysiological mechanisms of hypertensive heart disease involve myocardium re- modeling, muscle fibrosis, cardiomyocyte hypertrophy, and hypertrophy of intra-myocardial coronary vasculature. The evolution of the disease is affected by the duration and severity of hypertension, hereditary predisposition, and the effects of cytokines and neurohormonal factors which subsequently lead to systolic and diastolic dysfunction, myocardial fibrosis, or ischemia [22]. Cardiac magnetic resonance is currently the gold standard in estimating right and left ventricular volumes, myocardial mass, non-invasive hemodynamic indexes, as well as accessing the left ventricle geometry [23]. CMR-measured LV mass and cardiac geometry are independently associated with biomarkers of myocardial stretch and injury, including NT-proBNP and hs-Troponin T [24].
+h2l3 | Optimal evaluation of hypertrophy patterns, especially between hypertrophic car- diomyopathy (HCM) and hypertensive heart disease (HHD), is of great importance consid- ering an increased cardiovascular risk in patients with advanced left ventricle hypertrophy (Figure 2). Additionally, it is important to underline that left ventricle asymmetry and left ventricle end-diastolic wall thickness are poor discriminators between HCM and HHD [25]. A novel imaging technique named myocardial feature tracking is a method similar to speckle-tracking echocardiography which can differentiate between hypertensive heart disease and hypertrophic cardiomyopathy by accessing global longitudinal strain [26]. Although the differences between left ventricle ejection fraction and left ventricle volumes
+dfzb | Diagnostics 2023, 13, 137
+u6ty | were insignificant in these patients, as presented by Neisius et al., left ventricle mass index, maximum left ventricle wall thickness, late gadolinium enhancement volume, and global native T1 measured by cardiac magnetic resonance were important parameters of HHD to HCM distinction [27].
+awvu | Figure 2. Different cardiac magnetic resonance characteristics in patients with: (A,B)-hypertensive heart disease (left ventricular hypertrophy with subtle focal LGE marked by red arrow); (C,D)- hypertrophic cardiomyopathy (characteristic septal LGE marked by red arrow), cine and PSIR LGE sequences.
+on9b | 6. Left Ventricle Function Accessed by Cardiac Magnetic Resonance
+a8ge | Global systolic function in the early stages of hypertension is usually preserved. Measuring the intramyocardial strain by cardiac magnetic resonance in these patients is im- portant as this parameter is usually depressed, especially in the septum. Myocardial tissue tagging is a modality that can access longitudinal and circumferential shortening, determine pathophysiological changes, and follow-up left ventricle wall motion changes in patients with hypertensive heart disease. It is shown that in patients with hypertensive heart disease, global circumferential, longitudinal, and radial strain rates were associated with the mean arterial pressure, left ventricular mass index, and age, which is important in preventing the possible consequential decrease in global ejection fraction. Global longitudinal strain is decreased in patients with hypertensive heart disease, regardless of the presence of late gadolinium enhancement phenomenon, and is associated with left ventricular end-diastolic volume, LV ejection fraction, and LV mass index [28]. Certain biomarkers of myocardial
+h27a | Diagnostics 2023, 13, 137
+pdjh | fibrosis can be significant in the early stages of hypertensive heart disease before global systolic dysfunction occurs, as they have a good correlation with myocardial strain rates. In patients with decreased longitudinal strain, increased values of serum TIMP-1 level have been detected. This tissue inhibitor of matrix metalloproteinase has been marked as a potential indicator of myocardial fibrosis, not only in hypertensive patients with decreased regional systolic function but also in patients with diastolic dysfunction [29]. Molecular biomarkers of collagen synthesis (PICP and PIIINP) and collagen degradation (CITP and MMP-1) are potential biomarkers of myocardial fibrosis and have significant correlation with left atrial diameter, LV mass, LV posterior wall thickness, LV end-diastolic volume, and longitudinal strain, as important parameters in patients with progressed hypertensive heart disease [30]. Cardiac magnetic resonance derived mitral annular plane systolic excursion (MAPSE) can also be a significant prognostic marker in patients with hypertension. A study by Romano et al. demonstrated that lateral MAPSE was independently associated with mortality across all the subgroups of patients with preserved ejection fraction, even in those without history of previous myocardial infarction [31].
+xmgs | Diastolic dysfunction often develops as a consequence of long-standing hypertension, while atrial dilatation correlates with the severity of hypertension and is associated with increased morbidity and mortality [32]. Quantification of ventricular volume change over time using retrospective gating is an important modality that can estimate atrial filling ratios, peak diastolic filling rate, and time to peak filling [33]. Although it is not used routinely in estimating diastolic dysfunction in patients with hypertensive heart disease, cardiac magnetic resonance could be an important part of stratifying patients with an increased risk to develop a more severe form of the disease.
+```
+
+OUTPUT:
+```

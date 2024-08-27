@@ -1,0 +1,118 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+pk06 | Figure 5. Map of vegetation communities for the Imnavait footprint.
+7wn9 | greenness at the outer margins of the flight line (similar to Vierling et al 1997), while simultaneously reducing the prominence of tussock shadows. Overall, the maps correspond well to previous polygon maps of the area and to the authors' knowledge of the mapped landscapes.
+wcd0 | 4. Conclusion
+caos | This project combined predictor datasets derived from two airborne sensors in a machine learning approach that permitted the construction of very high-resolution validated vegetation classification maps based on simple ground reference data. The approach highlights the ability of high-quality airborne data to produce very high- resolution geospatial data products over relatively large areas, providing an important link between limited- extent ground- and UAS-based remote sensing products and coarser geospatial data products covering larger extents. The maps should prove to be a valuable resource for Arctic researchers requiring fine-scale reference data for these important research landscapes.
+qrvy | Acknowledgments
+pn9j | This work was supported by NASA Terrestrial Ecology grant NNX12AK83G awarded to LAV, NASA Earth Science Fellowship NNX15AP04H awarded to HEG, and NASA Idaho Space Grant Fellowship NNX10AM75H
+1pmc | awarded to TSM. This is a NASA ABoVE affiliated project. Airborne lidar and imagery data were collected and preprocessed by Kodiak Mapping, Inc., Palmer, AK, www.kodiakmapping.com. Field assistance from Elizabeth Fortin was invaluable, and Skip Walker generously provided feedback and advice on the maps. Random Forest modeling was informed and improved by discussions with Patrick Fekety. The manuscript was improved by comments from two anonymous reviewers. The authors are also grateful for the support of the staff and greater research community of Toolik Field Station, Institute of Arctic Biology, University of Alaska Fairbanks, with special thanks to Jason Stuckey, Randy Fulweber, and Jorge Noguera of Toolik GIS for assistance with field GNSS and lidar ground control.
+5z6q | Data availability
+yeoh | The vegetation classification maps and ground reference photo collection are available for download at the Oak Ridge National Laboratory Distributed Active Archive Center (ORNL DAAC), https://daac.ornl.gov. Maps citation: Greaves, HE, J Eitel, L Vierling, N Boelman, K Griffin, T Magney, and C Prager 2019. High-Resolution Vegetation Community Maps, Toolik Lake Area, Alaska, 2013-2015. ORNL DAAC, Oak Ridge, Tennessee, USA. https://doi.org/10.3334/ORNLDAAC/1690. Reference photo collection citation: Greaves, H E, and E A Fortin. 2019. Ground-Based Vegetation Community Photos, Toolik Lake Area, Alaska, 2014-2015. ORNL DAAC, Oak Ridge, Tennessee, USA. https://doi.org/10.3334/ORNLDAAC/1718.
+b8hf | ORCID iDs
+hntf | Heather E Greaves [ https://orcid.org/0000-0002-8800-019X Jan UH Eitel @ https://orcid.org/0000-0003-1903-3833 Lee A Vierling ® https://orcid.org/0000-0001-5344-1983
+99fo | Natalie T Boelman @ https://orcid.org/0000-0003-3716-2372 Kevin L Griffin [ https://orcid.org/0000-0003-4124-3757 Troy S Magney @ https://orcid.org/0000-0002-9033-0024
+y5r7 | Case M Prager @ https://orcid.org/0000-0001-9198-5586
+lrry | References
+hvhm | Dirnböck T, Dullinger S, Gottfried M, Ginzler C and Grabherr G 2003 Mapping alpine vegetation based on image analysis, topographic variables and Canonical correspondence analysis Appl. Veg. Sci. 6 85-96
+863b | Yan W Y and Shaker A 2014 Radiometric correction and normalization of airborne lidar intensity data for land cover classification IEEE Trans. Geosci. Remote Sens. 52 7658-73
+```
+
+OUTPUT:
+```

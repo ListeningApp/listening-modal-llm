@@ -1,0 +1,131 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+1pjs | A Bourdieusian Approach to Educational Leadership in Culturally Diverse Schools
+o2kr | Abstract As student populations become increasingly diverse, there is urgency to explain relationships between leaders and students from culturally diverse back- grounds. While many leadership scholars have recently drawn attention to student diversity and the need for culturally responsive leadership, few researchers have theorized leadership from a Bourdieusian perspective. A Bourdieuian perspective explains leadership-student relations considering capital, fields, and habitus. We argue these concepts are essential for contemporary leadership theory, policy, and practice in diverse schools. Capital is at the core of Bourdieu's theory of social reproduction. ( Bourdieu, P. (1977a). Cultural reproduction and social reproduction. In Karabel, J. & Halsey, A.H. (Eds.), Power and ideology in education (pp. 487-511), New York: Oxford.) argues upper-class students are advantaged not by the merit of their experiences but by the unequal value bestowed to these experiences by schools. He introduces the concept of habitus as the dispositions acquired through life expe- riences in different dimensions, and theorizes that the social world is divided into fields. Each field has a set of practices, and people who dominate and are dominated. Using habitus and field, researchers can examine the dispositions, traits, and practices of school leaders, as they operate across a number of fields, each with different power structures and properties. This chapter lays the groundwork for theorizing relation- ships among individual educational leaders and increasingly pluralistic communities so as to further inform empirical research. We construct a framework grounded in the theoretical logic of sociology beyond organizational and critical theories that explains relationships between leaders and students from culturally diverse backgrounds
+v6sk | 33
+1wj6 | Keywords Educational leadership . Culturally diverse . School leaders · Bourdieu
+936l | 1 Changing Demographics, Changing Cultures, and the Need for a New Leadership Approach
+06yq | The world is being reshaped by global migration. According to the data from the United Nations, there are more than 250 million migrants worldwide who are living outside of their birth countries (Pew Research Center 2018). In 2017, about 49.7 million people living in the United States were born in other countries (Pew Research Center 2018). The U.S. Census Bureau (2014), projects the number of foreign-born United States residents will rise to 78.2 million by 2060 (Colby and Ortman 2015). As the United States becomes more pluralistic, school leaders need to be prepared to lead schools with greater student diversity in ways that bring education and democ- racy closer together. If we are to fulfill the democratic prospect articulated by John Dewey (1916), educational leaders must be able to mediate among culturally diverse individuals, schools, and communities.
+dpv6 | Pierre Bourdieu was an influential social theorist of the twentieth century (Calhoun and Wacquant 2002; Grenfell 2010). In education, Bourdieu is best known for his theory of social and cultural reproduction. Bourdieu's research identified the central role that schools play in reproducing social and cultural inequalities. The work of Bourdieu is also useful for theorizing educational leadership (Lingard and Christie 2003). Bourdieu's theoretical approach sought to go beyond the structure-individual agency conundrum in sociology using his "thinking tools"-habitus, capital, and field. According to Lingard and Christie (2003), Bourdieu provides "a way through that central sociological conundrum and a way to allow for contextual constraints and individual possibilities within the work of principals" (p. 319). Yet few researchers (Lingard and Christie 2003) have theorized leadership from a Bourdieusian perspec- tive using habitus, capital, and field. Habitus, capital and fields are concepts that we argue are essential for contemporary leadership theory, policy, and practice in diverse schools. Due to the changing demographics and culture of students attending public schools in the US, school leaders more than ever, need to be aware of their own iden- tity and how their self-concept impacts those who are following (Turbin 2017). Moll et al. (1992) drew on Bourdieu's notion of cultural capital, and Vygotsky (1978) to conceptualize funds of knowledge; however, leadership received little attention.
+8r5j | We ask: How can we construct a framework grounded in Bourdieusian theoretical logics beyond the current literature that theorizes relationships between leaders and frequently marginalized students? How do we theorize leadership for education and social inclusion that explicitly considers the cultural background of the students in an increasingly diverse democratic society? In our view, such theorizing of leadership calls us to look beyond theories that explain practice from organizational or political theories alone. This chapter will lay the groundwork for theorizing relationships between the individual educational leader and increasingly pluralistic communities that might inform future empirical research.
+2taz | A Bourdieusian Approach to Educational Leadership ...
+o3ya | 2 Leadership Literature Over Time
+r5il | Organizational theorists (Fayol 1949; Simon 1958) influenced the educational lead- ership field with many empirical studies focused on relationships among the school or district as a micro organization, leaders and other school participants, and the broader social, economic and political environment or context. For example, lead- ership scholars such as Hoy and Miskel (2005) synthesized organizational theories from business and sociology and applied these theories to the work of leaders in school organizations defined as systems. Here Hoy and Miskel (2005) explained relations between inputs (e.g. economic resources, policies) and outputs (student outcomes). More recently, a growing number of educational leadership scholars have utilized various social theories to consider relations among social structures, politics, policies and schools. With an increasing plurality of students in educa- tional organizations/schools worldwide, we see a significant need to bring these two strands of leadership literature into dialogue and theorize the relationships among the individual, school structure, and the broader society, including multiculturalism and multilingualism. In the following paragraphs, we further discuss leadership literature over time and then present a leadership approach that extends existing literature with deeper theorizing of culture.
+5gui | 3 Organizational Theory Approach to Leadership
+82qc | Hoy and Miskel (2005) argued that organizational theories evolved from rational to human relations to open systems approaches. A rational approach uses a formal organizational structure and ontology to define the role of organizational members (Taylor 1947; Fayol 1949). In a rational approach to organizational theory, admin- istrators are managers or instruments for the attainment of formal organizational rules and goals. Natural systems perspectives emerged in response to rational system approaches to organization, positing that individuals in organizations do not always adhere to formal rules (Follett 1918). According to natural systems theory (Follett 1918), the informal structure of relations among participants is more influential in guiding the behavior of participants.
+ls7d | In addition to natural system theorists, some organizational theorists conceived organizations as open systems that combine both rational and natural system assump- tions about reality (Simon 1958). From this perspective, while schools are organi- zations that are shaped and defined by the actors within the local school, they also are shaped and defined by the larger societal context within which they exist. Empir- ical studies of leadership from an open systems perspective resulted in combina- tional leadership approaches within organizations. This included early approaches to management in transactional leadership and more relation-oriented and inspirational approaches such as transformational leadership that mediates the external (context) and internal factors that contribute to organizational learning (Leithwood 1992).
+tzt3 | Many leadership scholars have used organizational theories to understand leader- ship in effective schools located in communities with a majority of families with lower socioeconomic status. For example, Hallinger and Murphy (1986) analyzed differences in the operation of school effectiveness factors in effective elementary schools of differing student socioeconomic status (SES). Their findings indicate transformational leaders fostered a well-coordinated curriculum which emphasized the achievement of basic reading and math skills.
+t8vv | Organizational theories have an underlying rationality theory in theoretical logic and provide conceptual tools to understand relations between organizations and the external environment. Rational and open systems theories tend to focus attention on the organizational unit and actors within them with open systems acknowledging a greater role for the external environment. While natural systems theorists such as Follett (1918) explicitly considered informal structures and power relationships, they did not integrate understandings of individuals' habitus and cultural capital into their explanations regarding the creation of informal structures.
+qvnu | 4 Empirical Studies in Culturally Diverse, High Needs Schools
+kggw | Over time, scholars have applied organizational theories and other social theories that emphasize the external environment, including students' socioeconomic and racial/ethnic backgrounds. Since the 1970s, many scholars have examined effec- tive schools in which students perform better than expected given the prerequisites. Classic school effectiveness studies of leaders in high-needs schools (Edmonds 1979; Levine and Lezotte 1990) were conducted in the wake of the Coleman Report (1966) that identified students' socioeconomic background as more important to student success than the work of schools. Thus, Edmonds (1979) and Levine and Lezotte (1990) among many others studied those schools there were effective for all students regardless of socioeconomic status. More recently, the term "turnaround school" has emerged as a description of schools in which school principals led declining schools with high populations of children living in poverty and children of color to educational improvement in a short amount of time (Peck and Reitzug 2014).
+xrd1 | Research on effective schools and turnaround schools (and leaders thereof) focuses on characteristics and practices of school organizations that contribute to student outcomes, including the development of a clear school mission, monitoring of student progress, protection of instructional time from interruptions, and main- tenance of high standards for teachers and students (Bossert et al. 1981; Brookover and Lezotte 1979; Murphy at al. 1985; Stallings and Mohlman 1981; Wellisch et al. 1978). These studies demonstrated the quality of the school principal plays a central role in school management, facilitating effective teacher instructions, and improving student learning outcomes (Chapman at al. 2016; Edmonds 1979; Teddlie & Reynolds, 1999). Studies conducted in the US, Canada and England concluded
+5746 | A Bourdieusian Approach to Educational Leadership ...
+7toz | that student learning outcomes and school improvement cannot be achieved without effective school leaders; leadership has direct and indirect positive effects on student outcomes (Day et al. 2016; Louis et al. 2010). While the above literature refers to the external environment, until recently, few scholars have specifically examined the ways in which school participants, including leaders, respond to student culture.
+j346 | Johnson (2007) applied the notion of culturally responsive pedagogy (Ladson- Billings 1995) to leadership in high needs schools, defining culturally responsive leaders as those who support high academic achievement, value and affirm the home cultures of their students, empower parents from all economically and cultur- ally diverse settings, and actively seek societal change in an effort to make the surrounding communities better places for all. However, even in schools identified as highly successful, principals were inhibited in their abilities to provide a multi- cultural curriculum and involve parents in a meaningful way due to the high stakes policy environment focused solely on closing the achievement gap (Johnson 2007). Johnson (2007) contends, "Culturally responsive leaders also need models of how they might challenge the status quo of inequitable assessment practices, incorporate students' cultural knowledge into the school curriculum, and work with parents and community activists for social change in the larger community" (p. 55). Since 2007, leadership scholars such as Khalifa, Gooden and Davis (2016) also posit the impor- tance of culturally responsive leadership in schools. However, we see a continued need to theorize and apply explanations of culture from Bourdieu as part of leadership capacities needed in effective schools.
+v8uq | As the International Schools Leadership Development Network (ISLDN) researchers and others (Belchetz and Leithwood 2007; Bennis and Thomas 2002; Gurr and Drysdale 2018; Mayo 2007) argue, the vast literature regarding school lead- ership frequently identifies the importance of context regardless of specific leadership approach (instructional, transformational, transformative, or culturally responsive), but the relationship between leadership and community/cultural context is not fully (theoretically) explained nor understood. As Gurr and Drysdale (2018) put it, "The interplay between leadership and context to some extent remains a 'black box': a process whose inputs and outputs (and the relationships between them) are known, but whose internal structure or working is not known or well understood" (p. 149).
+x972 | The ISLDN was developed as a joint initiative of the British Educational Lead- ership, Management, and Administration Society (BELMAS) and the University Council for Educational Administration (UCEA) (Baran and Berry 2015). The aim of ISLDN is to contribute to knowledge in the field of educational leadership by facilitating an international comparative study of how those involved in school lead- ership are supported in their preparation and development as leaders (Barnett and Stevenson 2011).
+cwrw | Selection criteria for participants in ISLDN research across countries such as Mexico, Sweden, USA, and Australia include high percentages of individuals from families with incomes below the poverty line; high teacher/leader turnover rates; and high percentages of historically socially excluded groups. More specifically, in terms of leadership, research teams in the participating countries focused on new principals or principals with greater than two years in their post where the school showed signs
+4i0e | 38
+h2l3 | of improvement. Data collection sources featured interviews with the school leader, teachers and other senior staff members, parents, and students as well as observations and relevant document analysis. Interview questions focused on learning, leadership, and context. In ISLDN literature and related leadership literature (Hallinger 2018a, b), context is challenging to define, as context can be an element or layer or conceived as several layers. Findings from ISLDN scholars (Gurr and Drysdale 2018; Okilwa and Barnett 2018) indicate, not surprisingly, that school leaders adapt their leader- ship practices to suit the context. Okilwa and Barnett (2018) describe this leader- ship ability as contextual acuity. Contextually driven leadership practices include entrepreneurial strategies such as marketing to neighboring schools for students, strategic interventions to improve student outcomes, adaptability to changing circum- stances, building trust and relationships to bring people together around a common purpose of providing quality education, and transformative leadership practices aimed at equity and social justice.
+dfzb | This literature not only synthesized current school leadership practices, but also pointed out the direction of future inquiry and capacity development for leader- ship culturally diversity, responsiveness, and social justice. And while we appreciate extant attempts to define culture as part of the context for empirical study, we see the need to extend and enhance this work theoretically and empirically in light of the contemporary situation of increasing cultural diversity among students. For this, we draw primarily on the work of Pierre Bourdieu (1977a) as well as Lingard and Christie (2003), two scholars who have applied Bourdieu's theories to educational leadership.
+u6ty | 4.1 Leadership Approaches from Social Theories
+```
+
+OUTPUT:
+```

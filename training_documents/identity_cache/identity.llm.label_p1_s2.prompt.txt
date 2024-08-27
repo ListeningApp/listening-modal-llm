@@ -1,0 +1,137 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+1pjs | Visible Identities: Race, Gender, and the Self Linda Martín Alcoff
+o2kr | https://doi.org/10.1093/0195137345.001.0001
+v6sk | Published: 2006 Online ISBN: 9780199785773 Print ISBN: 9780195137347
+1wj6 | 1 The Pathologizing of Identity a
+936l | Downloaded from https://academic.oup.com/book/36020/chapter/313077859 by Acquisitions Dept Serials user on 11 October 2023
+06yq | https://doi.org/10.1093/0195137345.003.0001 Pages 11-19
+dpv6 | Published: January 2006
+8r5j | Abstract
+2taz | This chapter examines the idea that social identity itself is an a priori problem; that identities, under any description, pose dangers and commits one to mistaken assumptions when they are believed to be real and/or acted upon politically. It discusses identity politics and the theories of Arthur Schlesinger. Schlesinger's arguments demonstrate that the critique of identity politics often manifests ambivalence about the relevance of identity to politics. He does not really want to eradicate all identities, but to keep non-European identities from dominating American identity. Given this, one might think that what we need is simply a more consistent opposition to identities, pursued with equality across both the dominant and the subaltern. However, it is argued that such a plan is neither wholly possible nor necessary for social justice. The real danger is not the likelihood of balkanization resulting from identity politics, but the split that results from a wholesale critique of identity that then perceives minority agendas as a threat to progressive politics. It is this mistaken idea that is endangering the future of progressive alliances.
+o3ya | Keywords: identity politics, social identity, alliances, Arthur Schlesinger, American identity Subject: Philosophy, Social and Political Philosophy
+r5il | Collection: Oxford Scholarship Online
+5gui | The ethnic upsurge ... began as a gesture of protest against the Anglocentric culture. It became a cult, and today it threatens to become a counter-revolution against the original theory of America as "one people," a common culture, a single nation.
+82qc | Arthur Schlesinger, The Disuniting of America
+ls7d | There is too much group identification in our society and too little human identification.
+tzt3 | Rudolf Giuliani, mayor of New York City, at a press conference on May 19, 2000, in answer to a question about whether his administration would change its attitude toward blacks and Hispanics in light of charges that it favored white racist police over their victims.
+t8vv | p. 12
+qvnu | When Al Gore announced his choice of running mate in his ill-fated 2000 campaign for the presidency, the very first sentence aired on National Public Radio and CNN news was: "Al Gore has chosen a Jewish vice president." Before many of us knew Joseph Lieberman's name, we knew his ethnicity. And his identity was a topic of discussion for several weeks while news analysts and political pundits discussed whether his strongly felt Jewish identity would hinder his ability to lead a Gentile nation, and whether his Saturday Sabbath observance could be a liability for national security. Even within various Jewish communities there was criticism of Lieberman for emphasizing his Jewish identity too much: Abraham Foxman, national director of the Anti-Defamation League, was reported in the New York Times as saying that "hearing repeated professions of faith from a Jewish candidate" made him very uncomfortable. Fearing that his public profession of faith would incite anti-Semitism, the Anti-Defamation League advised Lieberman to "play it down."" In effect, Lieberman got it from both sides, not just in the sense of having both Jewish and Gentile critics, but in the sense that he was criticized for announcing his identity as if it were relevant, even while its real relevance was precisely what some were worried about. Lieberman's identity was taken as relevant to politics on the grounds, in part, that it might skew his political judgment; in light of this one could well interpret Lieberman's frequent reference to his Jewish identity as an attempt to put his own spin on the relationship between his heritage and his political office. In his view, being Jewish was relevant because it gave him insight 4 into practices of exclusion and oppression and because it provided him a moral compass to temper and guide the necessities of pragmatic politics. Thus, in essence, Lieberman invoked his identity as a means of bringing universal considerations to the table.
+kggw | Downloaded from https://academic.oup.com/book/36020/chapter/313077859 by Acquisitions Dept Serials user on 11 October 2023
+xrd1 | As the Lieberman case might suggest, the critiques of identity politics that warn of separatism, particularism, and narrow group interest often exhibit a weird disconnection with the actual ways in which identities figure into political discourses and practices. There is often a significant disparity between the way in which identity is characterized by the critics of identity politics and the way in which identities are generally lived or experienced as well as how they actually figure in political movements.
+5746 | There is also a strange contradiction between the amount of attention social identity is receiving today in academic inquiry-compared with the scant attention it received in previous eras, when it was all but ignored outside of anthropology and sociology departments-and the increasingly negative assessment identity is given in the academy. Identity is certainly enjoying a growth period in the academy, across the humanities and social sciences, reaching even into law and communication studies. There are sociological accounts of the work histories of various ethnic communities, political analyses of the voting patterns of racially defined groups, art and literature studies focused on the cultural production of marginalized groups, all meant to be correctives to previous practices of academic exclusion. It has been generally recognized that neither medical studies nor psychological studies nor virtually any other discipline of inquiry can claim universal application to all social identity groups when they are based in the experiences of, or experiments on, a single identity group. Thus, many theorists in diverse fields now understand that identity needs to be taken into account before one can claim reliable, general knowledge, whether it is a claim about nutrition, political participation, or poetics. And this has led to an increased study of identities themselves: alongside ethnic studies and women's studies, there are now whiteness studies and men's studies. Thus, it may seem as if identity is "in."
+7toz | However, simultaneous to this focus and, one might say, commodification of identity, there is also an increasing tendency, especially in contemporary social theory, to view strongly felt identities as a political danger for democracy as well as a metaphysically erroneous view about the true or fundamental nature of the self. Some have even argued that the very belief in identity is a kind of social pathology. To an extent, this is an old idea, a remnant of universal and disembodied accounts of the self in modernism, and a continuation of longstanding suspicious and hostile attitudes toward nonwhite ethnic communities. But, as I shall shortly discuss, this suspicion of identity has received new formulations in recent work that takes into account the emergence of identity studies from the 1960s and thus provides a more sophisticated and
+j346 | putatively plausible critique. The upshot is that, today, even while identity is receiving more theoretical focus than ever before, many theorists are troubled by the implications of the claim that identity makes a difference.
+v8uq | Our cultural anxiety about identity is revealed by the way in which identity is sometimes brought center stage inappropriately. The debate over racism in the United States, for example, has come to be formulated largely as a question about 4 the appropriate or inappropriate relevance of identity. Debates over affirmative action have been reformulated as debates over the question "Is it ever legitimate to take into account identity categories of, say, race and gender in assessing job qualifications or district boundaries?" As a result, what could be a debate over alternative methods of reducing race discrimination, which would be a comparative analysis, is transformed into a decontextualized argument about the justifiability of taking identity into account under any circumstances. In this reformulation it is identity that takes center stage as the focus of political argumentation rather than race and sex discrimination, and the court is asked to rule on what is partly a metaphysical question about the salience of identity.
+x972 | p. 13
+cwrw | Downloaded from https://academic.oup.com/book/36020/chapter/313077859 by Acquisitions Dept Serials user on 11 October 2023
+4i0e | After I gave a talk recently on the issue of identity politics, an African American student came up to me and spoke passionately about Eurocentrism in the academy. Standing next to me was a white professor, who responded to the student with the sort of non sequitur that one finds extremely common today when discussions of race occur in mixed white/nonwhite groupings. The exchange went roughly as follows:
+h2l3 | Student: Eurocentrism is a huge problem in the university here, in the selection of required courses as well as the content of courses.
+dfzb | Professor: My family was extremely poor, and I had a very difficult time even getting to college.
+u6ty | Obviously, the student's remarks had no connection whatsoever to the issue of the white professor's class background or the racial exclusivity of suffering. But the professor's response indicates that this is the way such charges of Eurocentrism are evidently heard, nonetheless, as if they imply that white identity is monolithically privileged in all respects.
+awvu | Such responses are a constant problem besetting discussions of racism, inside and outside the academy. One tries to raise a reflective discussion concerning various forms of racism and cultural imperialism, and one is heard as assuming homogeneity, total culpability, and a whole variety of things about all people designated white. A parallel phenomenon still besets feminists routinely when a discussion of the oppression of women is heard as trashing all men or entailing a biologistic determinism about masculinity. Discussions about sexual violence and sexual harassment, in particular, at least in my experience, evoke charges of "male bashing" even when no causal analysis is even broached, much less developed and defended. In one lecture I gave to a religious group, my very reporting of the FBI statistics on rape was characterized as being anti- male. Such responses make us disinclined to speak about racism or sexism in any form unless we are in the mood for a fight. The statement made by Rudolph Giuliani that was quoted at the beginning of this chapter also indicates this strategy: in response to a question about the charges of racism made against his administration-charges based especially on his unconditional support for a police force that had gunned down unarmed black and Latino men-Giuliani deflects to humanism. But clearly, a concern with racism is not antithetical to humanism and should in fact be an integral part of any humanism.
+on9b | p. 14 Despite these clear cases of strategic obfuscation, I want to acknowledge that the anxiety about identity has at times some legitimate motivations. That is, there 4 have been unfair attributions and unrealistic ascriptions of homogeneity, to be sure, coming from within progressive social movements. The problems of enforced conformism within identity groups, and of what the left used to call narrow nationalism or narrow group politics, do exist and deserve critique. And essentialist constructions of cultural, ethnic, racial, and gendered identity are on the upswing, found on both left and right, not only among the less educated but
+a8ge | among the highest academic elite, as in the work of Samuel Huntington, Peter Brimelow, Charles Murray, Allan Bloom, and many others. But my principal interest in this chapter and throughout this book is with the idea that social identity itself is an a priori problem, that identities, under any description, pose dangers and commit one to mistaken assumptions when they are believed to be real and/or acted upon politically. I want to differentiate this formulation of the problem of identity-as an a priori problem-from other kinds of formulations of the problem that express a concern only with overly homogenizing, essentialist, reductive, or simplistic constructions of identity. In my view, there are certainly serious difficulties with some constructions of identity, but I have been curious about the claim that identity itself, under any construction, is a problem and even a kind of mistake.
+h27a | Downloaded from https://academic.oup.com/book/36020/chapter/313077859 by Acquisitions Dept Serials user on 11 October 2023
+pdjh | Identity Politics
+xmgs | If identity has become suspect, identity politics has been prosecuted, tried, and sentenced to death. Like "essentialism," identity politics has become the shibboleth of cultural studies and social theory, and denouncing it has become the litmus test of academic respectability and political acceptability. A partial list of the main liberal or progressive critics would include Todd Gitlin (1995), Eric Hobsbawm (1996), Nancy Fraser (1997), Betty Friedan (1996), Frances Fox Piven (1995), Paul Berman (1996), Arthur Schlesinger (1992), Richard Rorty (1998, 1999), Robert Hughes (1993), Jean Bethke Elshtain (1995), Wendy Brown (1995), and Jean-Luc Nancy (2000), but there are many others. In contrast, there has been a noticeable thaw regarding the concept of essentialism which has sustained such widespread feminist critique since the early 1980s. Christine Battersby, Elizabeth Grosz, and Teresa de Lauretis have pointed out that only the Aristotelian concept of essence has been used in the feminist debates-that is, the idea of a fixed and stable feature common to all members of a natural kind (Battersby 1998; Grosz 1995; de Lauretis 1990). On such an account, an essence is something "real" in a prelinguistic sense. But modern philosophers criticized Aristotle's concept precisely because it would seem to require us to know something that by definition we cannot know: the real as it exists hidden from perception and thus description (this is hardly, then, a contemporary critique). Hobbes and Locke then proposed a concept of nominal essences wherein "the essence of a thing is its verbal definition: it is no more than 'an accident for which we give a certain name to any body, or the accident which denominates its subject'" (Hobbes 1655, quoted in Battersby, 28). In this way, as Battersby argues, "a feminist advocacy of 'nominal essences' could deal comfortably with linguistic, historical, and cultural variations in the way that the female is defined" (Battersby, 29). Susan Babbitt has gone even further to defend a nondeterministic naturalist (and thus non-nominalist) account of essentialism as consistent 4 with feminism's liberatory aims as well as with the heterogeneity of women's experiences (Babbitt 1996). She suggests that the problem for feminism is not the concept of essentialism but the deterministic account of gender, and neither essentialism nor naturalism commit us to a hard determinism about gender identity. On scrutiny it turns out, then, that the denunciations of essentialism were based on an inadequate exploration of the concept, its history, and its variable meanings. I believe it is time we reassess identity politics in the same light.
+```
+
+OUTPUT:
+```

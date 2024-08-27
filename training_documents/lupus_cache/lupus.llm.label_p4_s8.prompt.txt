@@ -1,0 +1,175 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+d09o | In addition, the risk of infection in SLE is higher in the presence of comorbidities and when using glucocorticoids, immunosuppressive and immune modulatory therapy. The incidence of kidney involvement, diabetes, and higher lupus damage index (SDI/SLE international collaborating clinic) scores were dramatically higher in SLE patients with an infection compared to SLE patients without an infection. In fact, the use of aggressive immunosuppressive therapy is a serious risk factor for the development of infections in SLE.46
+ylhz | Impact of Immune Therapy and Risk of Infections
+a3td | The use of immunosuppressive therapy will induce difficulty in mounting an immune response to viral and bacterial infections in SLE, including the exposure to immunosuppressive agents including high-dose glucocorticoids, alkylating agents such as cyclophosphamide, in addition to mycophenolate mofetil, azathioprine, cyclosporin, and hydroxychloroquine.4,6
+ex5k | Importantly, glucocorticoid use is a significant risk factor for serious infections requiring hospitalization. Indeed, the risk for infection in SLE patients is a 10-fold increase in patients at a prednisone dose over 20 mg daily. Thus, the emphasis on keeping the prednisone dose below 7.5 mg daily or the use of pulses of intravenous methylprednisolone to control disease activity.47
+9d4o | Intravenous cyclophosphamide use has been associated with an increased risk in infection in particular HZ infections as described in SLE population studies, whereas the infection rates are similar among users of azathioprine, mycophe- nolate, and methotrexate.46,48 Further, mycophenolate use is associated with a lower risk of infection in non-Asian
+cjq2 | 128
+5esx | Open Access Rheumatology: Research and Reviews 2023:15
+m5ka | Dovepress
+byu8 | patients with lupus nephritis as compared to cyclophosphamide. However poor clinical outcomes with related deaths appeared to be more frequently observed among the Asian population.
+76b0 | Mycophenolate is a protective against Pneumocystis jirovecii pneumonia and Coxsackie virus infections in transplant patients; however, this protective effect in SLE patients requires confirmation. Antimalarial agents are the major anchor medication in lupus and studies have supported fewer infection rates with their exposure.49
+zxz6 | Effective and targeted biological therapy with their steroid-sparing effects, are becoming available, yet many had adverse events, including serious infections. Infections either mild or severe do not seem to be a major concern in patients treated with belimumab as indicated in the post marketing data. On the other hand, rituximab's (an anti-CD-20 monoclonal antibody) use has been associated with severe infections, including bronchopneumonia followed by sepsis, the frequent organisms involved during rituximab therapy include S. pneumonia, followed by E. coli and S. aureus. While severe infections are associated with rituximab exposure occurring within the first 6 months of treatment, these patients have been receiving high doses of glucocorticoids.50
+xnth | Like immunosuppressive therapy, biological therapy in SLE is associated with infectious comparable incidence rates including opportunistic infections. However, Janus kinase targeted therapy has a slightly higher rate of herpes zoster infections, with a dose dependent pattern of infectious risk.51
+vafm | Infections May Trigger the Development of SLE
+2zmw | The SLE disease process is triggered by genetic, immunological, and environmental factors including the possible role of certain microbial agents (viral, bacterial, parasitic, or fungal). Through molecular mimicry, bacterial DNA can also stimulate autoreactive B cells leading to an autoimmune response.52
+bf9k | Viruses associated with SLE onset include, human endogenous retroviruses (HERV), Epstein-Barr virus (EBV), parvovirus B19, CMV and human immunodeficiency virus (HIV-1).53,54
+otkr | The relationship between tuberculosis and SLE suggests an increased risk of SLE in patients exposed to tuberculosis based on molecular and epidemiologic data. 22,55
+ibgs | Exposure to Helicobacter pylori has been linked to a lower risk of SLE or delay in its onset like the protective role of helminth infections in SLE, attributed to the activation of lymphocytes and secretion of interleukin 10. Toxoplasma gondii appears to protect against progression of SLE, while Leishmania infection may trigger polyclonal activation of B cells and activation of ribonucleoproteins. Controversy remains about the role of Plasmodium falciparum in reducing the risk of SLE onset.56
+colo | The onset of SLE is associated with exposure to certain vaccines including Bacillus Calmette- Guérin, and BNT162b2 mRNA, with varying degrees of severity from cutaneous lupus to lupus nephritis.57 A recent systematic review meta- analysis study has emphasized the safety of HPV vaccination in SLE, given the low-level evidence of the temporal relationship between SLE development following the exposure of HPV vaccine.58,59
+d6r4 | Existing SLE May Undergo an Exacerbation Following an Infection
+9mrz | Multiple factors are known to cause SLE flares, including exposure to UV light, certain hormones, and drugs, but infections also worsen existing SLE, leading to poor outcomes.60 Infections may trigger a worsening lupus disease process leading to a feedback loop that may reinforce autoimmunity. The exposure to influenza infection is associated with lupus flares leading to hospitalization within seven days of infection, regardless of patients' age, gender, underlying illnesses, or immunosuppressive therapies.61
+pk06 | Others have confirmed the association of infection and high disease activity in hospitalized lupus patients independent of prednisone dose, comorbid conditions, or disease duration.
+7wn9 | A better understanding of the interactions between viral proteins, bacterial microbiome and lupus related nuclear autoantigens and the host immune system in SLE could help improve the therapeutic management of challenging SLE patients with infections. Thus, vigilance should be borne in mind when challenged by infection in SLE and use of clinical predictors of infection is then fundamental.
+wcd0 | 129
+caos | Open Access Rheumatology: Research and Reviews 2023:15
+qrvy | Dovepress
+pn9j | Clinical Predictors of Infections in SLE
+1pmc | A major challenge in the care of SLE patients is how to differentiate between a clinical presentation of an infection from a lupus flare. Investigators have suggested certain laboratory biomarkers that are indicative of infections, yet these biomarkers remain nonspecific and at times misleading. Further atypical presentation of infectious clinical syndromes in SLE may vary with the array of symptoms that mimic a lupus flare, and individual infections may present concurrently during a lupus flare. A predictor marker must then have high specificity and sensitivity for determining whether the patient is presenting an infection or a lupus flare. 62
+5z6q | Shaking chills, leukocytosis, and neutrophilia with normal dsDNA were associated with infection in SLE.63 Yet leukopenia is common in severe sepsis, and pneumococcal pneumonia, and neutropenia in typhoid infections and brucellosis.
+yeoh | Certain clinical predictors of infections outlined below are applicable in clinical practice:
+b8hf | Serum C-Reactive Protein (CRP)
+hntf | C-reactive protein (CRP) is a key acute phase protein synthesized by the liver and secreted in response to interleukin-6 stimulation. CRP has also the ability to opsonize bacteria, activate the complement pathway, and bind FcR on phagocytes, facilitating elimination of pathogens.64
+99fo | CRP has been an unreliable measure for lupus disease activity (except for serositis).65
+y5r7 | Elevated CRP (in the absence of serositis) is higher in SLE patients with bacterial infections. The cut-off value of 19.2 mg/l has a sensitivity of 81.2% and a specificity of 73.9% during an infectious event.66 However, limitations remain for the application of CRP in the diagnosis of bacterial infections in SLE and other rheumatic diseases.
+lrry | Elevated Procalcitonin (PCT)
+hvhm | Procalcitonin (PCT) a protein consisting of 116 amino acids and the precursor of calcitonin, has a better diagnostic performance than CRP in differentiating bacterial infections from lupus flares. However, the diagnostic value of PCT and CRP in the identification of bacterial infection in SLE remains unsettled.67,68
+863b | Mannose Binding Lectin (MBL)
+fj24 | Mannose binding lectin (MBL) is a protein produced by the liver that activates the complement system by an associated protease, the MBL-associated serine protease. MBL polymorphisms have been associated with SLE development in multiple populations and high MBL levels are predictive of disease activity especially lupus nephritis.69
+uz3c | CD64
+d5bi | CD64 is a receptor observed on monocytes, macrophages and on neutrophils (nCD64). Peripheral nCD74 index combined with elevated CRP improves the ability to predict bacterial infections.70
+ba4l | High Mobility Group Box Chromosomal Protein 1 (HMGB1)
+ffx8 | High mobility group box chromosomal protein 1 (HMGB1) is a nuclear non-histone protein and a damage associated molecular pattern protein.71 Their levels are notably higher in SLE patients, especially those with renal involvement. However, their levels are elevated after onset of sepsis and septic shock.
+s6su | 2'5'-Oligoadenylate Synthetase (OAS)
+y219 | 2'5'-oligoadenylate synthetase (OAS) is an enzyme activated by Type I IFN which leads to the degradation of RNA and is important for the protection from vital infections.72 High OASL expression levels negatively correlate with the presence of certain infections and may provide useful information in differentiating disease lupus flare.
+06ht | Soluble Triggering Receptor Expressed on Myeloid Cells Type 1 (sTREM-1)
+v3r2 | The receptor TREM-1 expressed on the surface of mature neutrophils and monocytes in response to bacterial and fungal infections lead to a higher level of the soluble form (sTREM-1) in lupus patients with flares and in those with infections, compared to quiescent disease or the general population. 73
+nv42 | 130
+xags | Open Access Rheumatology: Research and Reviews 2023:15
+jc47 | Dovepress
+ko3c | CD27
+xek3 | CD27 protein is a TNF receptor expressed on T- and B-lymphocytes where high expression of CD27 corresponds with high disease activity.74
+bbpr | Delta Neutrophil Index (DNI)
+5zyf | Delta neutrophil index (DNI) is a measure of immature granulocytes and is determined by subtracting the number of mature polymorphonuclear leucocytes from myeloperoxidase reactive cells. When compared to CRP, a high DNI correlates better with sepsis and aids in early diagnosis.7
+9own | Cerebrospinal Fluid (CSF) Biomarkers
+bqfb | Patients with neuropsychiatric lupus have elevated levels of interleukin-6 (IL-6), prostaglandin E2 (PGE2) and immu- noglobulin G (IgG) in their cerebrospinal fluid (CSF).75,76 However, in central nervous system (CNS) infections, there are elevated levels of IL-6 and PGE2 but not significantly elevated CSF or IgG.
+wwdt | Sepsis Scores in SLE
+mn1r | The high mortality of SLE patients with sepsis in the intensive care units (ICU) used sepsis scores as good predictors of mortality. These include, Simplified Acute Physiology Score II (SAPS II), Sequential Organ Failure Assessment (SOFA) and Acute Physiology and Chronic Health Evaluation II (APACHE II).77
+5vqw | Despite the discovery of new biomarkers to verify the infections in SLE, none of these biomarkers alone confirm or exclude an infection. A mixture of these tests may be more accurate in predicting the diagnosis and monitoring of infections in SLE patients.78
+meyw | Nonetheless, these biomarkers require further reliability and validity studies in different SLE populations and long- term data in SLE patients with distinct types of infections. An optimal biomarker or combination of biomarkers of infections or lupus flares should be accurate and reproducible and should enhance the approach to early diagnosis, effective treatment, and improved clinical outcome.
+2e62 | Proposed Steps to Take When Challenged with Infection in SLE
+75y3 | Assessment of SLE patients remains crucial when confronted by a major diagnostic challenge of having a presentation with a febrile illness. The need to control lupus disease activity that requires suppression of the immune system to avoid lupus related organ damage and death complicates the care of lupus patients. Yet, crucial, and appropriate evaluation of infectious etiology and prompt initiation of antibiotics will evade serious life-threatening complications.
+s2g2 | Proposed steps to adopt when challenged by an infection in SLE are outlined and depicted in Table 2.
+q1q2 | Fever in SLE is infectious until proven otherwise. While the prevalence of fever in SLE has declined over the past decades related to the intake of non-steroidal anti-inflammatory drugs, glucocorticoids and broad-spectrum antibiotics, the source of fever must be identified. Thus, vigilance warrants efforts in identifying a latent or an opportunistic infection in febrile patients with SLE.
+cb7r | Initial assessment should focus on risk indices based on age, multi-morbidities, use of glucocorticoids, cytotoxic immune suppressive and immune modulatory therapy. High-risk lupus patients require hospitalization. It is vital to deal with evolving sepsis and its complications in the setting of quantitative or qualitative neutropenia be it related to SLE or a complication of cytotoxic immunosuppressive therapy or immune modulatory treatment.
+68xu | Frameworks in the diagnostic work up of fever emphasize ongoing evaluations guided by cultures and clinical data including awareness of antimicrobial resistant infections. Applying the abovementioned clinical predictors of infection including CRP, procalcitonin and others is helpful. Molecular diagnostic assays may be useful if available including those combined with 18F-fluorodeoxyglucose positron-emission tomography and computed tomography (FDG PET-CT) and next-generation sequencing. Nevertheless, the diagnostic yield of these tools in autoimmune disorders remains limited.79
+hd35 | On the other hand, fever, in systemic autoimmune disorders like SLE is linked to adaptive immunity driven by interferon response during the lupus disease activity state and must be suspected when having negative infectious work-ups or
+2zpk | 131
+epu7 | Open Access Rheumatology: Research and Reviews 2023:15
+7od1 | Dovepress
+0bqy | Table 2 Proposed Strategies to Manage an Infectious Challenge in Systemic Lupus (SLE)
+b780 | microbiological control of infections.80 It is imperative to determine disease activity in febrile illnesses in SLE and avoid possible overdiagnosis of lupus disease flare.
+ccmb | There are few examples of overdiagnosis of SLE and lupus flares, but it is important to approach those patients with the understanding of the risk of treatment with immune suppressive therapy and the risk of undertreatment.81
+ma93 | The diagnosis of SLE and lupus flare should be based on diagnostic criteria that include patients with mild disease activity. SLE disease activity must be determined clinically employing clinical questionnaires including SLE disease activity index (SLEDAI), British Isles Lupus Assessment Group disease activity index (BILAG-2004), Systemic Lupus Activity Measure (SLAM), the Systemic Lupus Activity Index (SLAI), European Consensus Lupus Activity Measurements index (ECLAM) and the Systemic Lupus Activity Questionnaire (SLAQ) for Population Studies.82
+c6hh | Clinical features like the presence of scleritis, cytoid bodies on eye examination, lupus dermatitis, splinter hemor- rhages, cutaneous vasculitis or livedo pattern, friction rub of pericarditis and leg edema suggesting myocarditis, and pulmonary hypertension or renal disease of glomerulonephritis are clues to advocate for lupus disease activity.
+```
+
+OUTPUT:
+```

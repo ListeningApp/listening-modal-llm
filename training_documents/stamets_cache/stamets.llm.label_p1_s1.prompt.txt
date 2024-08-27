@@ -1,0 +1,133 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+1pjs | GROWING GOURMET and MEDICINAL MUSHROOMS 食 用 及 び 薬 用 き の こ の 栽 培
+o2kr | a companion guide to The Mushroom Cultivator by Paul Stamets
+v6sk | PDF compression, OCR, web-optimization with CVISION's PdfCompressor
+1wj6 | vii
+936l | GROWING GOURMET AND MEDICINAL MUSHROOMS
+06yq | Table of Contents
+dpv6 | PDF compression, OCR, web-optimization with CVISION's PdfCompressor
+8r5j | GROWING GOURMET AND MEDICINAL MUSHROOMS
+2taz | xiii
+o3ya | Foreword
+r5il | Mushrooms-fleshy fungi-are the premier recyclers on the planet. Fungi are essential to recy- cling organic wastes and the efficient return of nutrients back into the ecosystem. Not only are they recognized for their importance within the environment, but also for their effect on human evolu- tion and health. Yet, to date, the inherent biological power embodied within the mycelial network of mushrooms largely remains a vast, untapped resource. As we enter the 21 st century, ecologists, for- esters, bioremediators, pharmacologists, and mushroom growers are uniting at a new frontier of knowledge, where enormous biodynamic forces are at play.
+5gui | Only in the last half of this century have we learned enough about the cultivation of mushrooms to tap into their inherent biological power. Working with mushroom mycelium en masse will em- power every country, farm, recycling center and individual with direct economic, ecological and medical benefits. As we approach a new century, this myco-technology is a perfect example of the equation of good environmentalism, good health and good business.
+82qc | This book strives to create new models for the future use of higher fungi in the environment. As woodland habitats, especially old growth forests, are lost to development, mushroom diversity also declines. Wilderness habitats still offer vast genetic resources for new strains. The temperate forests of North America, particularly the mycologically rich Pacific Northwest, may well be viewed in the 21st century as the Amazon Basin was viewed by pharmaceutical companies earlier in the 20th cen- tury. Hence, mushroom cultivators should preserve this gene pool now for its incalculable future value. The importance of many mushroom species may not be recognized for decades to come.
+ls7d | In many ways, this book is an off-spring of the marriage of many cultures-arising from the world- wide use of mushrooms as food, as religious sacraments in Mesoamerica, and as medicine in Asia. We now benefit from the collective experience of lifetimes of mushroom cultivation. As cultivators we must continue to share, explore and expand the horizons of the human/fungal relationship. Hu- mans and mushrooms must bond in an evolutionary partnership. By empowering legions of individuals with the skills of mushroom tissue culture, future generations will be able to better man- age our resources and improve life on this planet.
+tzt3 | Now that the medical community widely recognizes the health-stimulating properties of mushrooms, a combined market for gourmet and medicinal foods is rapidly emerging. People with compromised immune systems would be wise to create their own medicinal mushroom gardens.A community-based, resource-driven industry, utilizing recyclable materials in a fashion that strengthens ecological equi- librium and human health will evolve. As recycling centers flourish, their by-products include streams of organic waste which cultivators can divert into mushroom production.
+t8vv | I foresee a network of environmentally sensitive and imaginative individuals presiding over this new industry, which has previously been controlled by a few mega-businesses. The decentraliza- tion began with The Mushroom Cultivator in 1983. It now continues with Growing Gourmet & Medicinal Mushrooms. Join me in the next phase of this continuing revolution.
+qvnu | PDF compression, OGR, web-optimization with CVISION's PdfCompressor
+kggw | CHAPTER 1 Mushrooms, Civilization & History
+xrd1 | H umanity's use of mushrooms extends back to Paleolithic times. Few people-even anthropologists- comprehend how influ- ential mushrooms have been in affecting the course of human evolution. Mushrooms have played pivotal roles in ancient Greece, India and Mesoamerica. True to their beguiling nature, fungi have always elicited deep emotional responses: from adulation by those who understand them to outright fear by those who do not.
+5746 | The historical record reveals that mushrooms have been used for less than benign purposes. Claudius II and Pope Clement VII were both killed by enemies who poisoned them with deadly Amanitas. Buddha died, according to legend, from a mushroom that grew un- derground. Buddha was given the mushroom by a peasant who believed it to be a delicacy. In ancient verse, that mushroom was linked to the phrase "pig's foot" but has never been identified. (Although truffles grow underground and pigs are used to find them, no deadly poisonous species are known.)
+7toz | PDF compression, OCR, web-optimization with CVISION's PdfCompressor
+j346 | MUSHROOMS, CIVILIZATION & HISTORY
+v8uq | 2 -
+x972 | Figure 2. Cruz Stamets holding a Mesoamerican Mushroom Stone, circa 500 B.C.
+cwrw | The oldest archaeological record of mush- room use is probably a Tassili image from a cave dating back 5000 years B. C. (Figure 1). The artist's intent is clear. Mushrooms with electrified auras are depicted outlining a danc- ing shaman. The spiritual interpretation of this image transcends time and is obvious. No won- der that the word "bemushroomed" has evolved to reflect the devout mushroom lover's state of mind.
+4i0e | In the spring of 1991, hikers in the Italian Alps came across the well-preserved remains of a man who died over 5300 years ago, ap- proximately 1700 years later than the Tassili cave artist. Dubbed the "Iceman" by the news media, he was well-equipped with a knapsack, flint axe, a string of dried Birch Polypores (Piptoporus betulinus) and another as yet uni- dentified mushroom. The polypores can be used as tinder for starting fires and as medi-
+h2l3 | PDF compression, OCR, web-optimization with CVISION's PdfCompressor
+dfzb | cine for treating wounds. Further, a rich tea with immuno-enhancing properties can be pre- pared by boiling these mushrooms. Equipped for traversing the wilderness, this intrepid ad- venturer had discovered the value of the noble polypores. Even today, this knowledge can be life-saving for anyone astray in the wilderness.
+u6ty | Fear of mushroom poisoning pervades every culture, sometimes reaching phobic ex- tremes. The term mycophobic describes those individuals and cultures where fungi are looked upon with fear and loathing. Mycophobic cultures are epitomized by the English and Irish. In contrast, mycophilic so- cieties can be found throughout Asia and eastern Europe, especially amongst Polish, Russian and Italian peoples. These societies have enjoyed a long history of mushroom use, with as many as a hundred common names to describe the mushroom varieties they loved.
+awvu | The use of mushrooms by diverse cultures was intensively studied by an investment banker named R. Gordon Wasson. His studies concen- trated on the use of mushrooms by Mesoamerican, Russian, English and Indian cultures. With the French mycologist, Dr. Roger Heim, Wasson published research on Psilocybe mushrooms in Mesoamerica, and on Amanita mushrooms in Euro-Asia/Siberia. Wasson's studies spanned a lifetime marked by a passion- ate love for fungi. His publications include: Mushrooms, Russia, & History, The Wondrous Mushroom: Mycolatry in Mesoamerica; Maria Sabina and her Mazatec Mushroom Velada; and Persephone's Quest: Entheogens and the Ori- gins of Religion. More than any individual of the 20th century, Wasson kindled interest in ethnomycology to its present state of intense study. Wasson died on Christmas Day in 1986.
+on9b | One of Wasson's most provocative findings can be found in Soma: Divine Mushroom of
+```
+
+OUTPUT:
+```

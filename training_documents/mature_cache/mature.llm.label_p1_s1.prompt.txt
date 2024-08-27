@@ -1,0 +1,135 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+1pjs | 471
+o2kr | LIU
+v6sk | LOGICAL
+1wj6 | THE
+936l | British Journal of Developmental Psychology (2004), 22, 471-492
+06yq | 2004 The British Psychological Society
+dpv6 | www.bps.org.uk
+8r5j | Positioning a 'mature' self in interactive practices: How adolescent males negotiate 'physical attraction' in group talk
+2taz | Neill Korobov* and Michael Bamberg Frances L. Hiatt School of Psychology, Clark University, USA
+o3ya | This article presents a discursive psychological approach in examining the ways that adolescent boys (ages 12-15 years) accomplish a sense of 'maturity' by bringing off and managing certain features of 'heterosexuality' in group interaction. We focus on and analyse moments when the boys negotiate implicit challenges, make evaluations and offer assessments concerning their physical and sexual attraction to girls' looks. These moments are highly important for negotiating their peer status, for working toward a distinction between 'childhood' and 'adolescence', and for marking a normatively heterosexual self within the burgeoning institution of adolescence. We will specifically show how 'heterosexual desire' is carefully managed in group discussions where the boys participate in normative heterosexuality, but in ways that are nevertheless designed to appear mature and knowing, rather than shallow, naïve or sexist. Three discursive methods of negotiation are identified and described in detail: (1) underscoring the non-literality of actions by appealing to motives, (2) denials with built-in concessions, and (3) differentiation through caricature. Couched within the proposed discursive framework, we are reversing the traditional logic of develop- mental approaches to 'maturation'. Rather than viewing maturation as the effect of resolving developmental tasks, we argue that 'maturity' comes to existence in the way talk is accomplished; that is, as highly flexible and fragile projections of identity that involve a continuous refinement of 'finely tuned positioning skills'.
+r5il | Developmental psychologists have conceptualized adolescence as a 'betwixt and between' time of development, when there is a constantly shifting and ambiguous experience of sexual identity (Brooks-Gunn & Paikoff, 1997; Graber, Brooks-Gunn, & Galen, 1998). It is a time when adolescents are caught between childish and adult norms of sexuality, where they must negotiate what Eckert (1994) calls the 'developmental imperative' to appear 'mature', or 'the next step older'. Applied to the development of male adolescent sexuality, this typically involves a focus on clusters
+5gui | 472 Neill Korobov and Michael Bamberg
+82qc | of problem-behaviours (e.g. dating, intercourse, contraception use) and their risks, with less emphasis on the developmental processes that characterize young men's negotiation of the 'developmental imperative' (see Eckert, 1994; Savin-Williams, 1995; Schulenberg, Maggs, & Hurrelmann, 1997). As such, adolescent male sexuality is typically broached through a rather individualistic focus on the cognitive product of internalization (their 'attitudes') in studying young men's attempted resolution of problematic 'masculine norms' and 'ideologies' (see Good, Wallace, & Borst, 1994; Levant, 1996). This interest is at the service of explaining the different factors underlying or mediating the developmental internalization of masculine belief systems and masculine ideologies. In these orientations, 'maturation' is typically treated as an effect of psychological construction and is discussed in terms of the successful or unsuccessful resolution of 'tasks' associated with different developmental 'stages'.
+ls7d | For example, one of the more widely discussed psychosocial stages that adolescent boys are thought to begin to work their way through and sort out is 'non-relational sexuality', which refers to a constellation of hegemonic attitudes and behaviours characterized by an experience of sexuality as 'sport' or as lust, an obsession with physical attraction, an objectification of sexual partners, as well as tendencies toward trophyism, voyeurism and hypersexuality (Brooks, 1997; Good & Sherrod, 1997; Levant, 1997). According to Good and Sherrod (1997), non-relational sexuality is a developmental life-stage that most men enter during adolescence and some successfully begin to resolve. The notion, however, of what it means to 'pass through' or 'successfully resolve' these forms of 'hetero-normative masculinity' remains an open and relatively unexplored (at least empirically) question. Much of the work on young men's negotiation of 'hetero-normative masculinity' is derived from clinical observation, theory and speculation (Good & Sherrod, 1997). What is conspicuously absent are in- depth, contextually sensitive explorations that address developmental process, that is, how young men actually comply with and resist (or try to 'resolve') aspects of their sexualities over time and what that conformity and resistance looks like from their own perspectives and in their own words and actions.
+tzt3 | Exploring how adolescent males negotiate hetero-normative masculinity means appreciating that processes of gender-identity formation have a curious negotiability to them, in the sense that gender roles (and role transitions) are often contradictory and inconsistent (Connell, 1995; Pleck, 1995). Connell (1995, p. 77) has stressed that hegemonic forms of masculinity are 'historically mobile relations' with a formidable resourcefulness to them. In other words, the stability of 'hetero-normative masculinity' may very well lie in its flexibility to accommodate ostensibly incongruous values or norms. What this means is that in their everyday talk, young men may not embrace stereotypical masculine norms in the kind of straightforward way that they are asked about them on psychological scales and inventories (Graber et al., 1998). Over the course of adolescence, young men may increasingly learn to manage masculine norms, neither attending nor dis-attending to them in direct or obvious ways. While these processes of managing the norms of masculine sexuality have been intermittently examined by some psychologists (see Edley & Wetherell, 1997; Frosh, Phoenix, & Pattman, 2002; Wetherell & Edley, 1999), they have not been more generally discussed as relevant windows into the larger project of the 'developmental imperative' to appear 'mature' during adolescence.
+t8vv | As such, the aim of this article is to think of 'maturing' in a more local and socially discursive way. We are interested in examining 'maturity' as it is locally and discursively accomplished by young men as part of their everyday interactive social practices. In this
+qvnu | 2044835x, 2004, 4, Downloaded from https://bpspsychub.onlinelibrary.wiley.com/doi/10.1348/0261510042378281 by <Shibboleth>member@biu.ac.il, Wiley Online Library on [06/12/2023]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+kggw | Positioning a 'mature' self 473
+xrd1 | study, our aim is to detail several of the ways that adolescent boys (ages 12-15 years) bring off and manage a 'mature' view of themselves. In other words, we are interested in what 'maturity' means to the boys themselves, and in investigating how they interactively position themselves and each other as 'mature'. To broach 'maturity' within the context of 'hetero-normative masculinity', we will focus on moments in group discussions where the boys negotiate implicit challenges, make evaluations, and offer assessments concerning their physical and sexual attraction to girls' looks. Their talk about such topics proved to be relevant discursive sites where appearing both 'mature' and 'heterosexually interested' become highly relevant and dilemmatic.
+5746 | In examining the boys' talk about attraction and attractive girls, we will show how they position themselves vis-à-vis the adult moderator as 'misunderstood', 'aware' or 'knowing', and thus not as naïve, childish, desperate or shallow. They do this by orienting to the moderator's questions and to each other with subtly crafted, hedged responses and delayed or weak disagreements that preface strategically organized accounts or evaluations. What we will try to document is that these strategies are appropriated to avoid conversational trouble. In other words, these strategies reflect the interactive development of 'finely tuned positioning skills', which refers to the discursive dexterity of speakers in being able to constantly interpret and negotiate conversational possibilities. As such, the boys' discursive development does not necessarily reflect the progressive acquisition of internal dispositions, gender schemas or cognitive scripts.
+7toz | In contrast to a rather transparent view of their discourse as simply reflecting internal processes, we see the conversational positioning of maturity as discursive, culturally relevant ways of attending to the edge of disputability that may be heard in talk that is about potentially self-incriminating topics, such as one's interest in sexual or physical attraction. Part of 'doing maturity' in these contexts means orienting openly and clearly to the features of 'heterosexual desire' (so as to appear 'cool' or 'not gay'), but in ways that fight shy of appearing shallow, sexist, ignorant or desperate. Doing 'hetero-normative masculinity' while appearing to be 'mature' about it is thus an evasive, inscrutable and insinuatingly strategic project. Seen this way, our work is consonant with research that has focused on the discursive strategies used to resist the trouble, prejudice or appearance of complicity with 'hegemonic masculinity' in talk (see Bamberg, in press a; Gough, 2001; Speer & Potter, 2000, Wetherell & Edley, 1999). As developmental psychologists, we are interested in such strategies because they form the discursive means that facilitate the radical re-orientation from a 'normatively asexual peer cohort' during childhood into the 'normatively heterosexual' and contested social arrangements that are characteristic of adolescence (Eckert, 1994).
+j346 | A discursive psychological methodology
+v8uq | Discursive psychology is a social constructionist approach that applies ideas from ethnography, discourse analysis and ethnomethodology to psychological issues and concepts (Edwards & Potter, 1992; Potter, 1996; Potter & Wetherell, 1987). A discursive approach is concerned with identifying the rhetorical and argumentative organization of discourse. This means paying close attention to the way speakers' accounts are rhetorically and argumentatively organized, often taking the form of contradictory and inconsistent versions of people, motives, states of mind or events. It is with this analytic focus that our approach parts company with the majority of
+x972 | 2044835x, 2004, 4, Downloaded from https://bpspsychub.onlinelibrary.wiley.com/doi/10.1348/0261510042378281 by <Shibboleth>member@biu.ac.il, Wiley Online Library on [06/12/2023]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+cwrw | 474
+4i0e | Neill Korobov and Michael Bamberg
+h2l3 | traditional psychological research that attempts to measure adolescents' development of sexual identity through attitude scales and inventories.
+dfzb | One such tradition is the 'masculine gender-role socialization paradigm' that is currently popular within the 'new psychology of masculinity' (see Good et al., 1994; Levant, 1996; Thompson, Pleck, & Ferrera, 1992). This orientation assumes that masculine norms and ideologies are internalized by individuals, and that this internalization often creates negative psychological and physiological effects (or conflict/strain). In a way, the 'new psychology of masculinity' paradigm can be classified as social constructionist, in that it theoretically embraces the broad idea that ideologies and norms are social, cultural and interactive in nature (see Levant, 1996). It does not, however, generally advocate studying such norms and ideologies as they are socially, culturally or interactively constructed. Rather than focusing on the processes of social construction, the empirical focus has been primarily on the product of psychological (not social) construction; that is, on the individualized and internalized 'categorization' and then expression of one's attitudes towards items on questionnaires, items that are ostensibly 'valid' referential mappings of masculine ideologies and norms.
+u6ty | From a discursive perspective, the key problem is that expressing a forced choice or Likert-scale attitude is entirely different than expressing an attitude in daily social interaction. First, questionnaire items tend to reify the issue under scrutiny (sexual/ gender norms) by stabilizing them in the form of relatively stereotypical and arguably facile descriptions that may be easily associated with sexism, shallowness or chauvinism, and thus rejected. Second, the forced choice format systematically strips off the interactive subtleties and rhetorical finessing that are part of the daily expression of attitudes, evaluations and assessments. In a questionnaire, the boys may predominantly disagree with the attitudes that are purportedly associated with the items, especially if those items are measuring something like overt sexism. But in their daily interactions, they may actually put such attitudes to use in myriad ways, constructing them as caricatures, displacing them onto 'other' boys, orienting to them in ironic, tongue-in-cheek ways, or at times even claiming them in order to resist being positioned as effeminate, soft or weak.
+awvu | As such, we are aligning ourselves with a discursive approach that examines evaluative expressions as parts of interactive, social and cultural practices, which entails a close scrutiny of how such expressions are put to use, as opposed to speculating about the mental or attitudinal objects that they putatively reflect (Edwards & Potter, 1992; Potter, 1996; Potter & Wetherell, 1987). Rather than seeing attitudes as mentally held, either/or, and slow to move, we see attitudes as talk's business, as partial and shifting devices (or 'topics') that spring up in a constantly shifting interaction that occasions and makes use of these devices, and then moves on (Antaki, 2004; Edwards & Potter, 1992). As a result, the discursive approach we work from is fully interested in the inconsistencies, contradictions and ambiguities that arise as the boys try to find ways to mitigate the interactive trouble and to appear mature in talking about their attraction to girls' looks. Rather than seeing these shifts and equivocations as an analytic nuisance, they are exactly what are most interesting. They offer a way into examining how the boys are bringing off and managing their social identities (Bamberg, in press a). Seen this way, they no longer appear as contradictions or inconsistencies, but rather as openings into which the analyst can delve and see how such multiple attending and rhetorical finessing is used to work up identity claims that do not appear too obvious, challengeable or immature.
+on9b | 2044835x, 2004, 4, Downloaded from https://bpspsychub.onlinelibrary.wiley.com/doi/10.1348/0261510042378281 by <Shibboleth>member@biu.ac.il, Wiley Online Library on [06/12/2023]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+a8ge | Positioning a 'mature' self 475
+h27a | Positioning
+```
+
+OUTPUT:
+```

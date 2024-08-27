@@ -1,0 +1,207 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+1ujy | -
+qzor | -
+a0by | Amegah's regular application on the flimsy grounds that he was not prepared to let sleeping dogs lie with his petition?
+u1ky | V. Did the Provost consult members of the College A&P Committee before writing to withdraw Dr. Amegah's application?
+htm9 | vi. Based on the Provost's reason given for withdrawing his petition, is Dr Amegah not being punished for holding onto a petition he believes in and for which the A&P board has a statutory responsibility to determine?
+8hul | vii. What caused the over 1-month lag between the date DHR letter was written and when Dr Amegah received his copy? Was it a matter of someone in authority asking DHR to backdate the letter returning of his documents?
+87vz | viii. Was it an A&P Board decision to return Dr. Amegah's regular promotion documents to him?
+ym66 | C. Wrongful and Capricious Interpretation and Illegal Application of a Committee's Recommendation to Override the University's Statutes and Promotion Criteria
+l0a3 | i. In 2016, some persons were appointed to the ranks of Lecturer and Senior Lecturers at the fledgling School of Medical Sciences in accordance with the 2012 Statutes of the University. Some of the persons appointed as Lecturers were later upgraded to the rank of Senior Lecturer.
+u8nw | ii. In their appointment letters, no special criteria other than the promotion criteria would be applied to their next promotion. It was thus understood that promotion from the rank of Senior Lecturer to Associate Professor would require submission of seven papers, while promotion from Lecturer to Senior Lecturer would require submission of five refereed papers for assessment as was the normal requirements.
+l2v9 | iii. Later in the same year, UTAG in a letter dated 5th May 2016, raised concerns that the appointments and upgrade were in breach of the Statutes of the University, particularly because the appointees :-
+afbe | iv. did not possess PhD in the relevant field;
+78r8 | V. did not have the required years of teaching and research experience;and
+320g | vi. did not have the required number of refereed publications.
+tp8g | vii. The issue of assessment of the papers considered in the appointments and upgrade was not one of the issues raised by UTAG.
+gxfd | viii. Council set up a Committee to look into the issue. The Committee concluded that all the appointments were meritorious and in accordance with the Statutes at the time (2012 Statutes) of the University. Some of the appointees indeed possessed PhD, had the required teaching/research experience and had the necessary number of refereed publications. Those who did not have the required number of papers were deemed to have been appointed under the Exceptional Case Clause in Schedule D of the Statutes.
+s2v1 | ix. The Ad Hoc Committee went on to recommend, among others, that "the
+jkp9 | Clinicians who were upgraded to the rank of Senior Lecturer should obtain the required minimum of twelve (12) refereed papers before promotion to the next rank of Associate Professor. Those who do not possess terminal qualifications (Fellowships) should be encouraged to do so".
+z8tt | X. Council adopted the recommendation for implementation but how it was to be enforced was never communicated to the affected members. Convocation learnt that the Appointments and Promotions Board, on the insistence of the Vice-Chancellor, sought the assistance of the Governing Council for interpretation of the above recommendation. The letter from the Appointments and Promotions Board requesting the assistance of Council in interpreting recommendation 6.1.1. of the 2016 Ad hoc Committee was clear that the implementation of the contentious recommendation presented implementation challenges. The Board therefore sought Council's interpretation "to facilitate the work of the Board in considering promotion applications from the category of staff mentioned in the Report ".
+9g22 | xi. That meant that the Board was expected to apply the interpretation to pending applications of any of the Clinicians listed in the Report of the 2016 Committee. Council constituted a Committee to do the interpretation.
+41fx | xii. It has come to our notice that the Committee's interpretation, which was adopted by Council, has been forwarded to the Provost of CoHAS, instead of applying it to the pending applications alluded to.
+7um8 | Convocation therefore, seeks answers to the following questions :-
+uow2 | i. How has the interpretation of the recommendation been applied to promotion applications before the Appointments and Promotions Board cited in the Memorandum which led to the setting up of the Interpretation Committee?
+iat7 | ii. How has the interpretation of the contentious recommendation addressed the so-called implementation challenges encountered by the Appointments and Promotions Committee?
+ywwr | iii. Has the Vice-Chancellor written to the affected person on the status of their promotions in light of the interpretation of the recommendation in question?
+0i6j | iv. Is the Provost of CoHAS aware, as a matter of fact, of the persons whose applications are affected by the interpretation and in any event, is it proper and right for the Provost to apply the interpretation to applications before the Appointments and Promotions Board?
+87cq | v. Has the Appointments and Promotions Board applied the recommendations of the 2016 Ad Hoc Committee on any person and communicated the same to any person?
+0qs3 | vi. Can the Clinicians whose promotion applications are affected by the interpretation add on to the papers already submitted to be assessed in which
+z8f7 | ---
+7w7j | -
+51vd | case the date of first application will determine the effective date of the promotion?
+baj1 | It is hereby requested that, without any satisfactory answers to the above questions, the promotion applications of the affected Clinicians should be brought to Council for consideration in light of the interpretation of the recommendation. This is because it appears that the Appointments and Promotions Board has shown that it is incapable of taking a decision based on the earlier Committees' report or the interpretation by recent Council Committee's interpretation.
+n1wo | D. Undue Delays in Processing of Promotion Papers
+5bq3 | i. The University has always been concerned about undue delays in processing of promotion papers.
+ezla | ii. To address the issues, the Criteria for the Appointments and Promotions have been designed and amended in course of time to address the problem considering the impact of such delays on staff morale.
+rsbu | iii. For instance in the current Criteria for Appointments and Promotions, duration for internal assessment shall not exceed two weeks of receipt of the application by the Head of Department or Dean or Provost: part 7.4. Furthermore, the duration for consideration and submission of a promotion application to the Dean by the Head of Department shall not exceed two weeks; any delay should be explained in writing to the Dean. Similarly, the duration for consideration of submission of the application to the Provost shall not exceed three weeks after consideration by the Faculty/School.
+magd | iv. Finally, and most importantly, the duration for consideration by the Appointments and Promotions Board and submission to external assessors shall not exceed one month. In order that the applicant is updated periodically on the state of the application, the Provost is required to provide formal communication within every two (2) months on the status of applications to applicants.
+tb74 | v. Apart from the timelines spelt out in the Criteria for Appointments and Promotions to deal with the delays, the Criteria has provided that applications that are not processed (received by external assessors) shall be reconsidered by the Provost.
+8l69 | vi. Despite these provisions in the Criteria to ensure speedy consideration of promotion applications, there are instances of unreasonable delays that appear intentional and borne out of vindictiveness.
+1jyv | vii. This has demoralized those affected and resulted in the University losing some experienced Faculty Members to other sister Universities in the country. The others are contemplating leaving the University.
+olce | viii. One such person is Dr. Samuel Essien-Baidoo. The facts of the case are as follows. Dr Essien-Baidoo applied for promotion to the rank of Associate Professor in 2019
+erx1 | -
+b3bt | through the regular mode. However, he did not receive any official communication on the application until 11th February 2021; three clear years after submission of the application. In that correspondence he was only informed that one assessor had submitted his assessment report. It is baffling if not strange that it would take two years for external assessors to submit their report.
+0w8m | ix.It is thus imperative to know, and demand written evidence of submission of the papers (e.g email) that the applications were sent out for assessment and copies of follow-ups done on such applications. Convocation can only deduce that the delay is deliberate. If we do not see evidence of correspondence to that effect.
+vcu3 | 10. The following questions arise to be answered?
+hjzj | i. What is the justification for the undue delay in processing Dr. Essien-Baidoo's application?
+j79f | ii. What is the evidence that the documents were sent out to external assessors within the time limit set out in the Criteria for the Appointments and Promotions Committee?
+6tbv | iii. What prevented the Provost and the Directorate of Human Resources from officially updating the applicant on the application status before the first 12th May, 2021.
+xb13 | iv. What prevented the Vice-Chancellor from sending the papers to fresh assessors if the old ones were delayed unduly?
+cxqi | The delays amount to a clear breach of the letter and the spirit of the Criteria for Appointments and Promotions without any reasonable justification. Furthermore, Dr. Essien-Baidoo is demoralized and indicated his intention to exit the University, especially as applications of his juniors have been fast-tracked and promoted ahead of him. This confirms our earlier suspicion that the delay is deliberate to favour some people so they can occupy administrative positions or due to certain reasons Convocation might know.
+qfmx | E. Concerns on Appointment to Positions
+rut3 | i. The 2016 Statutes of UCC provide for the Appointment of Dean for the Centre for International Education, now called the Office of International Relations. For the avoidance of doubt, statute 26.2 reads, "There shall be a Dean of the Centre for International Education to be known as the Dean of International Education, who shall be of Professorial rank and appointed by the Vice-Chancellor on behalf of Council."
+m3cp | ii. There is no express provision for the Appointment of a Vice-Dean of International Relations. It is to be noted that provision has been made under statutes 19.8 - 19.11, which clearly applies to Vice-Deans of Faculty/School, as the whole of Statutes 19 is on Faculties and Schools.
+mq4s | iii. Recently the Vice-Chancellor appointed a Vice-Dean of the Office of International Relations on behalf of the Council without recourse to any criteria or process. It is to be noted that the Vice-Chancellor's discretion in appointment is unfettered and does not extend to such appointments as prescribed by the University Statutes.
+95el | iv. The Academic Board has not approved the creation of such a position.
+a0a5 | V. Be as it may, the said unwarranted appointment was also done without consideration for seniority and experience. Given that the Dean must be of a Professorial rank, it is prudent that even if the Vice-Chancellor wanted to ignore the Statutes, he could have fallen on one of the numerous professors in the University for Appointment to the position of a Vice-Dean as clearly stated in the Statute.
+gocl | Conclusions/Reliefs
+ob1z | i. A declaration that the promotion of a senior member, as aforesaid hereinafter, to the rank of Associate Professor is in breach of the Criteria for Appointment and Promotion of Senior Member of the University.
+m4cb | ii. The undue delays in the processing of promotion documents of some Senior Members, to the rank of Associate Professor is unfair, tantamount to abuse of process and offensive to the spirit and letter of the Criteria for Appointment and Promotion of Senior Members.
+m61y | iii. All stalled promotion applications including that of Dr. Samuel Essien-Baidoo, Dr. Adeladza Kofi Amegah, Dr. Patrick Kafui Akakpo and Dr. Harold Aryeetey should be expedited.
+u2ob | iv. The application of the recommendations in Report of the 2016 Ad Hoc Committee on UTAG Grievances to any pending application in a manner that overrides the Statutes and Criteria for the appointment and promotion of Senior Members should cease forthwith.
+2gnm | v. The Vice-Chancellor should explain the cause of the undue delay in promotion of some Convocation Members.
+emgw | vi. The appointment of a Senior Lecturer as the Vice-Dean of the Centre for International Education was unlawful and discriminatory and tantamount to abuse of process.
+xaqt | vii. The University should set up a committee to draw up a policy document for appointing and creating of offices that is not addressed by the statute.
+5rcb | -
+524j | viii. This report, sensitive as it may be, Convocation is very resolute in demanding all the answers as requested and further state that the Vice Chancellor and his Management Team should as a matter of importance and urgency, deal with all the issues raised and
+xd3m | any other(s) which has not come to the attention of Convocation appropriately and convincingly to engender good corporate governance and transparency in the management and administration of the University of Cape Coast.
+8qb6 | APPENDIX B
+wkbn | Report of the special Committee of Board of Convocation: Promotional issues and its related developments
+ftfg | Introduction
+7xi5 | . The impetus to form this Committee came from a groundswell of complaints regarding promotions, appointments and interpretation of the University's policies.
+w8r5 | . Based on documents in our possession, the College of Health and Allied Sciences seems to be suffering from promotion-related issues; therefore, most of the lecturers, especially the clinicians, do satisfy their core mandate but are not putting in their maximum effort to continue to enhance teaching and especially research, and also perform their affiliate duties at the teaching hospitals as it used to be.
+ybik | . Also, scholars who have contributed to UCC's current ranking and grooming the medical school to be number one in Ghana, their promotions are treated with disdain.
+gii5 | . Intelligence picked indicates that promotions delays are creating some tension in the University and disaffection because there is undue advantage given to others.
+q5eu | . Additionally, this University's appointment is based on seniority and experience, but this practice has not been adhered to.
+a7ao | · Application for promotion criteria is applied selectively.
+29a3 | · Members believe there is much misinterpretation of statutes and policies by management and boards.
+sb1e | . There are communication lapses in promotion/appointment decisions
+w2yn | Committee Members
+ap6l | · To bring clarity to issues a 4 -member committee was constituted to investigate and seek clarifications from management and council regarding these anomalies.
+iest | · The 4 - member committee comprises:
+cox8 | 0 Prof Kofi Nyarko - Chair
+ppqi | 0 Dr Vincent Assanful - Member
+oxou | 0 Mr Isaac Eliot Nyieku - Member
+495n | 0 Dr Irene Kafui Vorsah Amponsah - Member/Secretary
+awri | Consultation
+bl28 | The Committeeaside the intercepted documents that was brought to their attention,they also interacted with some convocation members and Management as listed below:
+d5bz | Staff
+ap5o | E Registrar, University of Cape Coast
+7zvf | Provost, College of Health and Allied Sciences
+mov9 | Dean, Vice Dean and Faculty Officer - Medical School#
+ks7m | 1
+w1w1 | Convocation Members
+h8gv | Documents
+kwkp | UCC statues - 2012 and vol 59, No.3
+yj0m | Prof Yankson's special committee report
+ewfp | 2 Documents chanced on see attachment . ...
+oczy | Findings
+2ttg | The Committee after its interactions with Convocation Members and Management of Schools, . Colleges and the University, a common trend runs through their narratives. Though not exhaustive, below are the issue found out by the Committee:
+his3 | " Delays in the processing of promotional documents at both the College and the Department, thereby affecting their arrears and pentions or superannuation.
+m50z | " There are challenges relating to external assessment of their promotional documents:
+me84 | · The time it takes to receive an update on assessment outcome is too long (some colleagues have outstanding issues over 3-5 years)
+o56m | · Clarity of assessment results of assessment communicated; an example is "Two reports received to submit two new assessors" even though they have re-submitted the names of assessors countless times
+slz6 | · Delay and clarity on some decisions taken on the promotion of some colleagues at A&P
+90k5 | " That issues revolving around fellowship and the acquisition of terminal degrees before colleagues are considered for promotion to a higher rank pose a demotivation to colleagues who have contributed immensely to the University's achievements
+```
+
+OUTPUT:
+```

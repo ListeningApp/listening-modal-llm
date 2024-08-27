@@ -1,0 +1,109 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document. Your task is to faithfully reproduce the text for our text-to-speech engine so that it is easily read aloud.
+
+Note that the text might not start at the beginning and paragraphs may be split acrosss multiple textboxes. Textboxes may start or end in the middle of a word which is acceptable: do not combine text between textboxes and leave broken words at the start and end of a textbox unchanged.
+
+You will receive one textbox per-line in the format `id | Textbox content`. The output must be in the format `id | Clean content`.
+
+RULES:
+ • Remove inline citations and references e.g. "(Author, 2021)" or "(https://wikipedia.org/article.html)" or "[ECMOS 35b, 47, 49]".
+ • Spell out numbers, dates, and chemical formulas for the TTS engine e.g. "-2.5" -> "negative two point five" or "Jan. 2020" -> "January twenty twenty".
+ • Spell out LaTeX formulas for the TTS engine e.g. "<LATEX>p = 1</LATEX>" -> "P equals one".
+ • Rejoin hyphenated word fragments within the same textbox e.g. "synth -esize" -> "synthesize".
+ • Fix simple typos and OCR errors e.g. "O nce upon a 1ime." -> "Once upon a time.".
+ • Delete nonsequiter textboxes that interrupt the middle of a sentence if they obviously do not belong.
+
+Otherwise, the output should exactly match the input text:
+ • Do not combine text across lines or attempt to fix words broken across lines.
+ • Ensure each ID from the input is included in the output.
+ • Make as few changes as possible while respecting the above rules.
+
+EXAMPLE INPUT:
+```
+ccpt | stigate the effectiveness of psychedelics for ADHD symp- toms in adults.
+0fpw | 2. Materia1 and methods
+dqn8 | 2.1. Study design and participants
+cop0 | The study employed a naturalistic design, assessing the experiences of participants at bas-,
+lhkq | eline before they start, and at 2 and 4 weeks after initiation. The target population included adults with ADHD symptoms who had not been diag- nosed with ADHD before. To be included, participants needed to score on Conner's Adult ADHD Rating Scale (CAARS-S:SV). This cut-off was indicative of clinically elevated symptoms (Conners et al., 1999) (see section 2.3).
+82ju | 2.2. Study procedure
+y2qo | The online advertisement was placed on a website providing information about psychedelics (www.microdo sing.nl). Interested participants were redirected to information explaining the study rationale and procedure. The baseline survey took 20 min to complete. If the survey had not been completed after 24 h, a reminder was sent. Each of the surveys at the 2- and 4-week time points took about 15 min to complete. Par- ticipants were able to pause the surveys. Data collection occurred between Nov. 2020 and Jul. 2021. The study was approved by the Ethics Review Committee of Psy- chology and Neuroscience at Maastricht University (ERCPN- 215_05_11_2019_A1).
+1piq | 2.3. Measures
+7fqw | 2.3.1. Demographic information and history of substance use
+rhaz | At baseline, demographic information was collected. History of substance use assessed experience with psyche- delics (i.e., ayahuasca, DMT, 5-MeO-DMT, LSD, novel lysergamides (e.g., 1P-LSD, ALD-52), psilocybin, salvia divinorum, ibogaine, and mescaline) in both full (psychedelic) doses and microdoses.
+wak1 | 2.3.2. Psychiatric and physiological diagnoses
+wtfz | Participants were asked whether they had a current diagnosis of a disorder. These answer options were chosen because most of the listed diagnoses are often reported to co-occur with ADHD (Kooij et al., 2019), or because these diagnoses were reported to be common in people who microdose (Fadiman and Korb, 2019). We 
+3j2l | REVIEW ARTICLE Frontiers in Psychiatry | www.frontiersin.org
+03k3 | 2
+1k9e | constructed a variable Comorbidity alongside ADHD, differenti- ating respondents with and without a comorbid diagnosis alongside ADHD (<LATEX>p < . 0 0 1 =</LATEX> only ADHD or no ADHD diagnosis; <LATEX>p > . 0 1 =</LATEX> ADHD and at least one other diagnosis). We constructed a variable Medication use alongside microdosing, differentiating respondents who were and were not using conven- tiona1 ADHD medication alongside microdosing (<LATEX>0 =</LATEX> only microdosing; <LATEX>1 =</LATEX> conven-
+```
+
+EXAMPLE OUTPUT:
+```
+ccpt | stigate the effectiveness of psychedelics for ADHD symptoms in adults.
+0fpw | Two. Material and methods
+dqn8 | Two point one. Study design and participants
+cop0 | The study employed a naturalistic design, assessing the experiences of participants at bas-,
+lhkq | eline before they start, and at two and four weeks after initiation. The target population included adults with ADHD symptoms who had not been diagnosed with ADHD before. To be included, participants needed to score on Conner's Adult ADHD Rating Scale. This cut-off was indicative of clinically elevated symptoms (see section two point three).
+82ju | Two point two. Study procedure
+y2qo | The online advertisement was placed on a website providing information about psychedelics. Interested participants were redirected to information explaining the study rationale and procedure. The baseline survey took twenty minutes to complete. If the survey had not been completed after twenty-four hours, a reminder was sent. Each of the surveys at the two and four-week time points took about fifteen minutes to complete. Participants were able to pause the surveys. Data collection occurred between November twenty twenty and July twenty twenty-one. The study was approved by the Ethics Review Committee of Psychology and Neuroscience at Maastricht University.
+1piq | Two point three. Measures
+7fqw | Two point three point one. Demographic information and history of substance use
+rhaz | At baseline, demographic information was collected. History of substance use assessed experience with psychedelics (i.e., ayahuasca, DMT, five-MeO-DMT, LSD, novel lysergamides (e.g., one-P-LSD, ALD-fifty-two), psilocybin, salvia divinorum, ibogaine, and mescaline) in both full (psychedelic) doses and microdoses.
+wak1 | Two point three point two. Psychiatric and physiological diagnoses
+wtfz | Participants were asked whether they had a current diagnosis of a disorder. These answer options were chosen because most of the listed diagnoses are often reported to co-occur with ADHD, or because these diagnoses were reported to be common in people who microdose. We
+3j2l |
+03k3 |
+1k9e | constructed a variable Comorbidity alongside ADHD, differentiating respondents with and without a comorbid diagnosis alongside ADHD (P is less than point zero zero one equals only ADHD or no ADHD diagnosis; P is greater than point zero one equals ADHD and at least one other diagnosis). We constructed a variable Medication use alongside microdosing, differentiating respondents who were and were not using conventional ADHD medication alongside microdosing (zero equals only microdosing; one equals conven-
+```
+
+INPUT:
+```
+kn5c | We're defining entropy with an integral now, unlike a sum as before, and sticking Boltzmann's constant into the definition of entropy, as physicists do, so that entropy has units of energy over temperature.
+mqu9 | Given the formula for the energy E as a function on R", we'll have to find the Boltzmann distribution and then compute (E) as a function of T.
+i0lj | PROOF OF THE EQUIPARTITION THEOREM: 1
+fdab | Special case: a system with 1 degree of freedom where the energy E : R -> R is E(x) = x2/2.
+07he | The Boltzmann distribution is
+v1de | e-Bx2/2 e - Bx2 /2 doc
+7mej | p(x) =
+jw4n | so the expected energy is
+9qfg | ∞ r2 e-Bx2/2 dxc
+ssph | 1 00 Bx2e-Bæ2/2 dx .00
+dves | 23 1-00 00 e-Bx2/2 dx
+3d6a | (E) = -00 .00 E(x)p(x) dx =
+li84 | ∞ e-Bx2/2 dx 2
+y06n | so doing a substitution with u2 = Bx2:
+sipr | (E) = 1 00
+yuxx | 00 e-u2 /2 du u2e-u2/2 du
+dbah | 23 1
+4byb | 23
+u64j | 2
+4lha | since
+uj4l | [° e-u2 /2 du = -00 u2e-u2/2du = V2T
+ojba | We'll do two special cases before proving the general result. First let's do a system with 1 degree of freedom where the energy is E(x) = x2/2. In this case, after a change of variables, the Gibbs distribution becomes a Gaussian with mean 0 and variance 1, and that gives the desired result. Or just do the integrals and see what you get! The expected energy (E) is }kT.
+mwgi | PROOF OF THE EQUIPARTITION THEOREM: 2
+cjze | More general case: a system with n degrees of freedom where the energy E: Rn > R is F(x) = Ml |2= 2
+rtvx | We can reduce this to the case with 1 degree of freedom:
+h0y1 | (E) = Rn
+xxw0 | 2 T
+fv2x | - e-Bl|2|12/2 dn x
+663s | e- Blæ|12/2 dn x
+385i | JIRn
+uhr9 | Next we do a system with n degrees of freedom where the energy is a sum of n terms of the form x2/2. It's no surprise that each degree of freedom contributes AkT to the expected energy, giving
+9w2j | 〈 E>= 5nkT
+usxo | But make sure you follow my calculation above. I skipped a couple of steps!
+5fmi | PROOF OF THE EQUIPARTITION THEOREM: 3
+h8p7 | General case: a system with <LATEX>n</LATEX> degrees of freedom where the energy <LATEX>E : \mathbb{R} ^ { n } \rightarrow \mathbb{R}</LATEX> is any positive definite quadratic form. Then
+gcbc | <LATEX>E \left( x \right) = \frac { 1 } { 2 } \| A x \| ^ { 2 }</LATEX> for some invertible <LATEX>n \times n</LATEX> matrix <LATEX>A .</LATEX> When <LATEX>A</LATEX> is a diagonal matrix this gives
+d9tz | <LATEX>E \left( x \right) = \sum _ { i = 1 } ^ { n } \frac { c _ { i } x _ { i } ^ { 2 } } { 2 } \quad c _ { i } > 0</LATEX> We can reduce the general case to the previous case by a change of variables
+dusw | <LATEX>y = A x :</LATEX> <LATEX>\langle E \rangle = \frac { \int _ { \mathbb{R} ^ { n } } \frac { 1 } { 2 } \| A x \| ^ { 2 } e ^ { - \beta \| A x \| ^ { 2 } / 2 } d ^ { n } x } { \int _ { \mathbb{R} ^ { n } } e ^ { - \beta \| A x \| ^ { 2 } / 2 } d ^ { n } x } = \frac { \int _ { \mathbb{R} ^ { n } } \frac { 1 } { 2 } \| y \| ^ { 2 } e ^ { - \beta \| y \| ^ { 2 } / 2 } d ^ { n } y } { \int _ { \mathbb{R} ^ { n } } e ^ { - \beta \| y \| ^ { 2 } / 2 } d ^ { n } y } = \frac { n } { 2 } k T</LATEX> Finally let's do the general case. A quadratic form on <LATEX>\mathbb{R} ^ { n }</LATEX> is a map <LATEX>Q : \mathbb{R} ^ { n } \rightarrow \mathbb{R}</LATEX> such that
+pk82 | <LATEX>Q \left( x \right) = \sum _ { i , j = 1 } ^ { n } q _ { i j } x _ { i } x _ { j }</LATEX> for some numbers <LATEX>q _ { i j } \in \mathbb{R} .</LATEX> We say it's positive definite if
+blll | <LATEX>x \neq 0 \Longrightarrow Q \left( x \right) > 0 .</LATEX> One can prove that a quadratic form <LATEX>Q : \mathbb{R} ^ { n } \rightarrow \mathbb{R}</LATEX> is positive definite if and only if
+ocgf | <LATEX>Q \left( x \right) = \frac { 1 } { 2 } \| A x \| ^ { 2 }</LATEX> for some invertible <LATEX>n \times n</LATEX> matrix <LATEX>A .</LATEX> The factor of <LATEX>1 / 2</LATEX> here is just to make our calculations easier.
+tybl | Thanks to this, if we have a system whose space of states is <LATEX>\mathbb{R} ^ { n }</LATEX> and its energy function <LATEX>E : \mathbb{R} ^ { n } \rightarrow \mathbb{R}</LATEX> is a positive definite quadratic form, we can compute
+80zt | <LATEX>\langle E \rangle = \frac { \int _ { \mathbb{R} ^ { n } } E \left( x \right) \exp \left( - \beta E \left( x \right) \right) d x } { \int _ { \mathbb{R} ^ { n } } \exp \left( - \beta E \left( x \right) \right) d x }</LATEX> by reducing it to the previous case using a change of variables. We get
+axet | <LATEX>\langle E \rangle = \frac { 1 } { 2 } n k T</LATEX> 51
+drxk | So, each degree of freedom still contributes akT to the expected energy. That's the equipartition theorem!
+08na | But be careful. The equipartition theorem doesn't apply when the energy is an arbitrary function of n variables. It also fails when we switch from classical to quantum statistical mechanics.
+```
+
+OUTPUT:
+```

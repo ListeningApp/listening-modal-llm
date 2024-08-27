@@ -1,0 +1,136 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+1pjs | ENVIRONMENTAL RESEARCH COMMUNICATIONS
+o2kr | PAPER . OPEN ACCESS
+v6sk | 20 cm resolution mapping of tundra vegetation communities provides an ecological baseline for important research areas in a changing Arctic environment
+1wj6 | View the article online for updates and enhancements.
+936l | This content was downloaded from IP address 185.18.190.30 on 24/08/2023 at 11:45
+06yq | https://doi.org/10.1088/2515-7620/ab4a85
+dpv6 | Environmental Research Communications
+8r5j | PAPER 20 cm resolution mapping of tundra vegetation communities provides an ecological baseline for important research areas in a changing Arctic environment
+2taz | Abstract
+o3ya | Arctic tundra vegetation communities are spatially heterogeneous and may vary dramatically from one meter to the next. Consequently, representing Arctic tundra vegetation communities accurately requires very high resolution raster maps (<5 m grid cell size). However, using remotely sensed data to produce maps with sufficient spatial detail at an extent appropriate for understanding landscape-scale ecological patterns is challenging. In this study, we used predictor layers derived from airborne lidar and high-resolution (~5 cm) 4-band airborne imagery to classify vegetation communities at 20 cm spatial resolution for three landscapes (12.5 km2 total) near the Toolik Lake research area in the Alaskan Low Arctic. The maps were built using a Random Forest model that was trained and tested on 800 ground reference plots, using classes derived from commonly used legends on existing polygon maps of the area. Withheld test plots (25% of dataset) had a balanced map accuracy of 0.57, kappa of 0.47, and weighted (fuzzy) kappa of 0.65. These maps provide high-resolution plant community information that can serve as important baseline reference data for vegetation monitoring and change detection in this rapidly changing tundra ecosystem, and as validation for coarser scale maps. They also permit fine-scale characterization of landscape phenomena such as community-level nutrient dynamics and wildlife habitat suitability in an important Arctic research site. Our approach demonstrates that very high resolution mapping results can be achieved and validated by integrating high-resolution remote-sensing datasets from multiple sensors in a machine learning model trained on simple field reference data.
+r5il | 1. Introduction
+5gui | As the Arctic continues to warm rapidly (ACIA 2005), research efforts seeking to improve understanding of potential impacts on human, animal, and vegetation communities are becoming increasingly urgent. To address these challenges, there is often a need to understand the distribution of features across the landscape-for example, to understand how much area is covered by lakes and wetlands that may release increasing quantities of methane (Walter et al 2007), or which permafrost slopes might soon thaw and erode, impacting local and downstream terrestrial, aquatic, and human communities and releasing ancient soil carbon to the atmosphere (Osterkamp 2005).
+82qc | @ 2019 The Author(s). Published by IOP Publishing Ltd
+ls7d | The spatial requirements for mapping these landscape features in a scientifically relevant way depend on the ecological change process under study. Coarse to moderate resolution classification maps covering large extents provide valuable information about general surface features (e.g., Walker et al 2005, Beck et al 2011), and can be important inputs to regional and global climate models (Oechel et al 2000). However, the low spatial resolution and usually coarse classification schemes of these mainly satellite-derived maps cannot represent the heterogeneity of Arctic landscapes accurately enough to reproduce the distribution of diverse vegetation community types or fine-scale ecological phenomena. Capturing the natural variability of Arctic tundra surfaces across complex environmental gradients requires surface mapping at very high spatial resolution, generally 5 m or less (Atkinson and Treitz 2012, Davidson et al 2016, Langford et al 2016). For example, very high spatial resolution mapping is necessary for identification of suitable nesting habitat for migratory songbirds that require open, dry hillsides (Boelman et al 2014), and for determining whether individual patches of small shrubs growing along narrow waterways are expanding (Myers-Smith et al 2011). On the other hand, classification maps derived from unmanned aerial systems (UAS) may be of very high spatial resolution, but the spatial extent of such datasets may be restricted by short flight times and other logistical considerations (Whitehead and Hugenholtz 2014), limiting their general usefulness. High-quality piloted-airborne datasets therefore still represent a gold standard, with the potential for producing high-resolution data products at the moderately large spatial extents necessary for understanding landscape-level influences on fine scale vegetation change.
+tzt3 | Fusing lidar and passive optical data produces a robust combination of structural and spectral information for a surface, and consequently this has proven to be a powerful approach to quantifying geospatial features (Asner et al 2007, Cook et al 2013). For example, Reese et al (2014) found that combining lidar and optical metrics improved classification of low-stature vegetation in an alpine zone over optical data alone, and Greaves et al (2016) similarly found that this approach produced strong models for quantification of shrub biomass in Arctic tundra.
+t8vv | Our objective was to fuse high-quality lidar and optical datasets to produce tundra vegetation community maps with the high spatial resolution and fine classification granularity necessary to be relevant for the study of fine-scale ecological features at a landscape extent. We used predictor layers derived from airborne lidar and multispectral imagery along with simple field reference data to train a Random Forest model to classify vegetation communities at 20 cm resolution across three research areas near Toolik Lake (12.5 km2 total), an area of important long-term and ongoing Arctic ecological research.
+qvnu | 2. Methods
+kggw | 2.1. Study area
+xrd1 | The study was conducted near the Arctic Long Term Ecological Research site at Toolik Lake (Alaska, USA, 68 °38' N latitude, 149 °36' W longitude; figure 1). Located on continuous permafrost tundra in the northern foothills of the Brooks Range, the Toolik Lake area has been an important site for North American Low Arctic research since the 1970s. The region is characterized by cold winters (mean coldest month temperature -30 ℃) and mild summers (mean warmest month temperature 13 ℃), with roughly 300 mm of precipitation annually (Huryn and Hobbie 2012). Complex topography, glacial features, and prevailing weather patterns (notably scouring southerly winds) generate a complex mosaic of microenvironmental gradients driven by parent material, exposure, and drainage, which in turn host a finely heterogeneous patchwork of low-stature tundra vegetation communities. The dominant vegetation is graminoid tundra (especially Eriophorum vaginatum and Carex bigelowii) with abundant Sphagnum and other mosses and erect deciduous shrubs, mainly Betula nana and Salix species.
+5746 | 2.2. Data collection
+7toz | 2.2.1. Airborne data collection
+j346 | Airborne lidar and high-resolution digital imagery were collected August 1st, 2013. Data were collected in three discrete footprints totaling 12.5 km2 (figure 1; Vierling et al 2013a, 2013b). The largest and westernmost footprint (hereafter 'Toolik', ~6 km2) covers research areas near Toolik Field Station at Toolik Lake. The other two footprints are each roughly 3 km2: the 'Pipeline' footprint (~3 km east of Toolik Lake) follows a stretch of the Trans-Alaska Pipeline from a high moraine ridge down a sloping drainage toward the Kuparuk River; the 'Imnavait' footprint includes research areas along Imnavait Creek, roughly 10 km east of Toolik Lake. Lidar collection specifications are shown in table 1. The vendor performed pre-processing of the lidar data, including aircraft attitude adjustments and ground control georectification. Simultaneous 4-band digital imagery (RGB and near infrared, hereafter 'RGBN') was collected by a Leica RCD30 60MP camera mounted to the aircraft. The imagery was orthorectified by the vendor and delivered as orthoimagery mosaics with a pixel resolution of
+v8uq | Figure 1. Airborne data collection footprints are shown in green (A: Toolik, B: Pipeline, C: Imnavait) with locations of reference plots (orange dots). Inset map shows the location of the study area in Alaska.
+x972 | roughly 4.25 cm. A GPS check of 40 stationary objects distributed across the Toolik footprint suggested that the imagery was accurately orthorectified to within ~10 cm.
+cwrw | 2.2.2. Reference plot photo collection
+4i0e | Field reference data were collected from across all footprints in summer 2014 and summer 2015 (figure 1). The majority of plot locations (n = 592) were established in advance using a stratified random scheme to ensure inclusion of wide ranges of slope, aspect, elevation, and glacial history across all footprints. An additional 47 plots were collected in the course of visiting the stratified random plots, to capture a wider range of shrub characteristics, and 92 more plots were collected in 2015 to represent additional shrub types and vegetation across topographic transects. For each of these 731 total field plots, we took nadir photographs from approximately 1 m height using a standard point-and-shoot consumer digital camera, capturing roughly 1 x 1.3 m of ground area. We also recorded brief notes at each plot describing plant species and surface features present in the plot and the general area, including vegetation height measured using a meter stick; thaw depth measured using a steel thaw probe; and moss + organic soil depth, measured using a meter stick after slicing a slit in the moss/ organic mat with a serrated knife. The center coordinates of each plot photo were precisely measured using a TopCon GR-3 survey grade GNSS system operating in real-time kinematic (RTK) mode (nominal accuracy 4 cm).
+h2l3 | 2.3. Reference plot classification
+dfzb | This area has benefited from previous vegetation classification efforts, in particular by the Alaska Geobotany Center at the University of Alaska, Fairbanks, which has produced a hierarchical series of maps for the area depicting multiple landscape features. These include vegetation maps (http://arcticatlas.org) that provided a
+u6ty | valuable benchmark for this project. Vegetation classes for the Alaska Geobotany Center maps were established using the Braun-Blanquet classification approach (Braun-Blanquet 1965, Walker et al 1994), in which species associations are grouped into a hierarchy of successively broader units. The classification system has the potential to precisely describe the finely heterogeneous vegetation community distribution of the Toolik Lake area, but the maps have limited or absent map accuracy information, and are polygon-based rather than raster, with varying minimum mapping units (i.e., resolution) that necessarily simplify the distribution and arrangement of vegetation patches on the landscape (small-extent maps have the smallest minimum mapping units, 2.5 m2). Since it was desirable that the final map classes in this project correspond as well as possible with legends used on previous maps, preliminary vegetation classes for this project were established by examining communities described in available maps and literature, especially Walker and Barry (1991), Walker et al (1994), Walker and Walker (1996), Raynolds et al (2005), and the related hierarchy of maps, particularly Walker and Maier (2007). To assign each plot photo (i.e., each plot location) to a plant community, photo order was randomized, and each photo was visually examined. Based on plant species and other features visible in the photo, as well as plot notes, each plot location was assigned to the class that best described the center of the photo, where GNSS coordinates had been measured. Because it wasn't yet clear how well we would be able to distinguish vegetation classes in the final model, initial class assignments were as granular as possible, to permit more flexible subsequent grouping. Finally, 69 additional reference plots locations were selected from the orthophotos, to provide more reference data for gravel pads, blockfields (rock), and open water-classes that were underrepresented in the field data but could be confidently identified in the orthophotos.
+awvu | 2.4. Input data layer processing
+on9b | A total of 33 predictor variable layers at 20 cm resolution were derived from the airborne lidar and RGBN imagery using a variety of tools (table 2). Most layers fall into three general categories: lidar-derived canopy metrics (e.g., sum and standard deviation of canopy heights), lidar-derived topographic metrics (e.g., topographic position index, SAGA wetness index), and first-order imagery metrics (e.g., NDVI, percent red, standard deviation of hue). Additionally, there is one compound layer, shrub biomass, which was derived previously using lidar canopy metrics and NDVI (Greaves et al 2016, 2018) and downscaled to 20 cm resolution for use here. We also included lidar return intensity (pulse amplitude), which acts as a surface metric (Chust et al 2008, Lang and McCarty 2009). The raw intensity of near-infrared (1550 nm) laser returns is affected by surface characteristics, especially wetness (water absorbs the laser pulse, leading to low return intensity in wet areas), surface roughness (relatively smooth, dry areas may reflect the pulse more strongly), and the presence of green vegetation (which strongly reflects infrared radiation) making it a potentially valuable predictor of surface features and vegetation distribution (Eitel et al 2016). Although our intensity data are not radiometrically calibrated or normalized (Yan and Shaker 2014), the intensity response showed few flight-line artifacts, and the nonparametric nature of the Random Forest modeling approach permits the inclusion of raw, uncorrected data. All predictor metrics were selected to be ecologically meaningful for Arctic vegetation distribution, as well as being likely to improve prediction of vegetation characteristics based on previous work (e.g., Ohmann and Gregory, 2002, Dirnböck et al 2003, Naito and Cairns, 2011, Kushida et al 2015, Greaves et al 2016).
+a8ge | Owing to the prevalence of noise in data layers with such high resolution, most layers were smoothed using a circular mean Focal Statistics filter (Spatial Analyst in ArcGIS, ESRI, Redlands CA). This type of smoothing retains the original spatial resolution, but tends to improve classification predictions (e.g., Gottfried et al 2014) by decreasing the impact of meaningless local variation, instrument noise, and small shadows. We initially processed layers at several smoothing distances (0.5 m, 0.75 m, 1 m, 1.25 m), but we only retained layers that appeared important in preliminary models and had a Spearman correlation less than 0.95 at the reference plot locations. Once the layers were prepared, the values of all predictor layers at the location of each reference plot were extracted for model training and validation.
+h27a | 2.5. Random forest modeling
+pdjh | Random Forest (Breiman 2001) is a machine learning algorithm that uses ensembles ('forests') of classification or regression trees. In a Random Forest, each tree selects and permutes random subsets of predictor variables at each splitting node, which reduces overfitting and improves the strength of predictions. Additionally, Random Forest is non-parametric, models local interactions naturally, and is relatively robust against the collinearity common to ecological variables (but not perfectly; Dormann et al 2013), making it an effective tool for ecological research (e.g., Cutler et al 2007, Evans and Cushman 2009, Reese et al 2014, Belgiu and Drăgu 2016).
+```
+
+OUTPUT:
+```

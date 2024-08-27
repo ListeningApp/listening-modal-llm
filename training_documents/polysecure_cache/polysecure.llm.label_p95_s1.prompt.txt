@@ -1,0 +1,186 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+next | Questions to Consider
+3dfm | · What does expressed delight look like for you right now?
+hjmm | · How could you increase your self-expressed delight?
+s0s6 | . Do you struggle with critical and shameful inner parts that sabotage your ability to value and appreciate yourself?
+cxx7 | . What would become more possible for you in regard to yourself and your relationships if expressed delight was more central to your inner experience?
+uzqc | Things to Try and to Experiment With
+dqwn | . Take yourself on a date or pamper yourself with something that you genuinely enjoy.
+g58m | . Listen to self-hypnosis tracks or positive affirmations that are aligned with what you want to feel about yourself.
+kf9u | . Write yourself a love letter or make a list of all the things you appreciate about yourself.
+tl2g | . Start a gratitude practice and make sure to include yourself as the object of gratitude.
+xy74 | . Start working with your inner critic and shame through modalities such as Internal Family Systems, narrative therapy or compassion-focused therapy, which focus on inner parts work.
+q0se | . Check out Rick Hanson's Hardwiring Happiness or Joe Dispenza's Becoming Supernatural, which both focus on how to create positive changes within your inner landscape.
+tz7u | . Start to identify the parts of you that do function in secure ways and focus on how to make them more prominent in your life. What daily practices or per- spectives can you take on that bring your preferred expression of self more to the front and center in your life?
+jszk | . Let yourself laugh and seek out humor.
+egkh | A: ATTUNING TO YOURSELF
+kbpy | Attunement is at the heart of secure attachment. In its absence, attachment security
+afdp | ceases to be possible. When there are early childhood attachment ruptures, requi- site developments in a person's ability to tune into themself and regulate their inner states can become hindered. When our childhood needs are not met from the outside and our attachment figures are unable to help us learn how to identify and label our inner experiences in order to make sense of them and soothe our- selves, as adults we can then struggle with knowing how to feel our own feelings, identify our own needs, and calm down our own body, mind and heart in the way a nurturing caretaker would have. We can also run into considerable relational diffi- culty when we continue to have an "outside-in" approach to getting our needs met, expecting that our partners act as a substitute for our own inner nurturer. When we are able to tune in and tend to our needs from the inside first, we may still seek outward support, comfort and guidance from our partners, but our fundamental well-being and sense of being OK are not dependent on it.
+5jom | When applied to the self, attunement is our ability to turn inward in order to be- come receptive and aware of our interior world. Self-attunement is the inner inquiry into what you are feeling, needing, thinking and experiencing. Self-attunement facil- itates self-knowing, which furthers our ability to self-regulate and soothe our own physiological and emotional states, as well as respond appropriately to our envi- ronment. Regardless of a person's specific attachment style, people with attach- ment insecurity will all struggle to some degree with emotional regulation and self- soothing. People with more attachment anxiety tend to seek outward regulation from others-they want to be taken care of, try to overprocess with partners, look for someone fix or take away what they're going through, or can even seek some- one else to just tell them what to do. People with an anxious attachment style can struggle with being able to hold and sit with their own feelings and so, like a game of emotional hot potato, they try to pass off their emotions to their partners in order to diffuse their own discomfort. Seeking this external regulation from others is often at the exclusion of their own self-regulation and their own sense of self.
+fdhb | People functioning from a dismissive attachment style steer clear of trying to emotionally regulate with others because, in many ways, they don't even see it as a
+o1k9 | possibility. The co-regulation that a child needs and would experience with an at- tachment figure was not available to them, so they learned to take care of them- selves by disengaging from others and taking space to regulate. From the outside, it may look like people with avoidant attachment are able to self-regulate well since they are comfortable on their own, but usually they are not actually self-attuning and self-soothing as much as they are autoregulating-that is, partaking in activ- ities that are more about zoning out or tuning out in order to dissociate from their internal states than tuning into and intentionally working with their internal states.
+s1uu | Types of Regulation
+22hf | Auto-Regulation (It just happens)
+gici | . Self-stimulation or self-soothing done more automatically than consciously.
+owaw | . Autoregulation is done alone, so there is no interpersonal stress.
+z6xu | . Can be similar to overfocusing on an object or task and can be dissociative or zoning out.
+knw2 | Examples: Thumb-sucking, averting eye contact, reading, doing art, watching TV, alcohol, drugs, masturbating, daydreaming, overeating, swiping or scrolling on your phone.
+mxnw | External Regulation (You do it)
+bdx4 | · Reaching for another to help regulate and soothe you.
+l01c | · Interactive, but only focusing on one person attuning to the other at a time.
+yphh | . Can overfocus on either the self or on the other.
+3yor | Examples: Being held and soothed by a caregiver, talking with a friend about your problems, listening to a live talk or music,
+f9sc | getting a massage.
+o5l0 | Mutual or co-regulation with another where both people are regulating each other.
+c1wq | Interactive Regulation (We do it)
+gr2b | . Skin-to-skin and eye-to-eye contact.
+jkky | . Both people are attuning to each other. Examples: Dancing with a partner, sex, having a mutual dialogue, musicians playing together, cooking together.
+7vxr | Self-Regulation (I do it)
+qzyn | Regulating one's own state through active or intentional techniques that are self-soothing or stimulating.
+rcl1 | Ability to exhibit self-control through managing bodily or emotional impulses.
+9qpf | Examples: Calming down through breath control, mental techniques (e.g., reframing), muscle relaxation, vocal control. Some of the autoregulation behaviors can also be examples of self-regulation when they are intentional.
+y5cx | TABLE 9.1: Types of regulation, adapted from Stan Tatkin's "The Four Regulation (Self-Care) Strategies" from We Do: Saying Yes to a Relationship of Depth, True Con- nection, and Enduring Love.
+hexk | People with a preoccupied style learned that in order to survive they needed to be vigilant about reaching out towards others, often at the expense of losing their sense of self, whereas people with dismissive or fearful-avoidant attachment styles learned the danger or futility of reaching out to others and so in retreating into themselves they lose their sense of other. In my practice, I see that regardless of a person's starting point, all of those with insecure attachment styles need support
+c05v | with knowing themselves better. People with insecure attachment need guidance in connecting more with their authentic needs, preferences and desires instead of de- faulting into their more reflexive insecure defense mechanisms. Just as we need techniques that support us in quieting down and transforming our inner critic, we also need strategies that enhance our inner nurturer. Even when we haven't experi- enced nurturing from others, we still have an innate caregiving behavioral system that we can access and animate through practice. With self-compassion we can learn how to re-parent ourselves in ways we may have never received. All of the insecure styles will benefit from practicing self-attunement and learning how to truly self-regulate and self-soothe, rather than turning to distraction, deflection or avoidance. There can be a healing effect of being with discomfort, of contacting pain or pleasure without collapsing or disconnecting, that can allow people to ac- cess their own inner safe haven and secure base. Each of the insecure attachment styles also has some specific ways that they can further grow.
+1ytq | Ways that each of the insecure attachment styles can focus on growth:
+tkax | Preoccupied
+6mpz | . Focus on strengthening your sense of self. You can begin to do this through identifying your own values, needs, likes and dislikes. What makes you tick, what are your dreams, talents, callings and purposes? Exploring personality tests like the enneagram or Myers-Briggs as well as knowing your love lan- guages can also support this process.
+bi1x | . Boundaries, boundaries, boundaries! The anxious style tends to have more porous boundaries regarding input where other people are defining you, as well as on the output where you are inserting yourself too far into another person's emotional, physical or mental space. Creating more distinct, but not rigid, boundaries is important for learning how to stay in your own skin while being connected to others, rather than leaving yourself behind to be with oth- ers. Also, be aware of not letting other people occupy more of your internal
+bnve | space than you are.
+7gvc | . Recognize when you are abandoning yourself and learn techniques to come back into your own body and your own internal world. Body-based medita- tions and awareness practices can support you being better able to inhabit your own body.
+jf19 | . When co-regulating with partners, make sure that it is reciprocal and that you are not either over-caretaking at the expense of yourself or asking them to take care of you without regard for themselves.
+6hx6 | . Work on being able to receive love. Even though someone with a preoc- cupied attachment style is more likely to complain that they are not getting enough love or attention, when it is given, they often struggle with how to re- ally let it in and receive it. What obstacles or defensive mechanisms arise when love, connection or nourishment is actually being offered?
+xcql | . Learn techniques to ground and work with your anxiety instead of projecting it onto others or directing your anxiety into the relational space.
+xcxb | Dismissive
+ci51 | . Needing support does not mean that you are weak, needy or less than. Peo- ple with this style can carry a lot of toxic shame about needing others or hav- ing any needs at all. Can you begin to accept that wanting support or atten- tion from others is alright, even healthy, and not a negative reflection on your abilities, competence or independence? I invite you to allow the fullness of your humanness.
+jaj7 | · With people who are safe, begin to take the risk of revealing and sharing more of yourself so that people can get a glimpse into your internal world. This could take the form of relaxing some of your more rigid boundaries and letting more of yourself out.
+uc0w | . Also work on letting people in more. Let people have an impact on how you feel or allow their experiences, needs, opinions or feedback to impact your
+494y | perspective.
+5whs | . Work with transforming your self-reliant parts through relying more on or leaning into your partners for support, nourishment and connection. It's OK to start with small requests. I almost had a panic attack the first time I asked my partner to pick up a yogurt for me on the way over to my house. To me, this seemed like an unreasonable ask, even though he was the one who asked me if I needed anything from the store that he was already stopping at.
+kigc | . Wake up your body. Often people with the dismissive style exist primarily in their heads, being cut off from the neck down. Exploring movement prac- tices, body-based meditations and awareness practices can help you wake up your body and begin to allow and tolerate a whole range of sensations and feelings.
+k5st | . Learn how to articulate your feelings and needs. This is easier said than done, since this is a developmental capacity that you have to learn and grow, not just an easy behavioral shift or a switch that you can turn on. Please be pa- tient with yourself.
+d8e8 | Fearful-Avoidant
+gb7b | People with this style either experience alternating aspects of the dismissive and preoccupied styles, or both can occur simultaneously, so try some or all of the above suggestions for both the preoccupied and the dismissive styles that feel rele- vant to you. In addition to the above suggestions you can also:
+jxu0 | . Focus on building an internal sense of safety where you have a bodily felt sense that you are safe and that you can relax, even if it is just with yourself at first. When there has been trauma, this usually requires the support of a pro- fessional.
+l1bb | . Build an inner sense of protection. Doing inner work can support you in iden- tifying the parts of you that can protect you that are not harmful to you or oth- ers. It can also be helpful to invite these protective parts to become more central to your daily experience. Remembering a person or a time when you
+i3e0 | felt protected and allowing that memory to come alive in your body can sup- port you in having a tangible somatic experience of protection that you can ac- cess when you need it. Even when people have had parents who were harmful or not protective, there is usually someone we can identify as having felt a sense of protection with, whether it was another relative, a teacher or some- one in our community. If you are truly unable to access any memories, people or times when you felt protected, explore the mythical, fictional or spiritual realms, where there might be a character that you resonate with or a spiritual and archetypal energy that you can associate protection with.
+78dj | . Learn about the signs of being in an abusive relationship as well as the signs and signals that someone is gaslighting, manipulating or acting in narcis- sistic ways. People functioning in this style can unintentionally normalize what is abusive and unhealthy and so need help in being able to explicitly dis- tinguish what is healthy and unhealthy, what is abusive or caring and what is addictive or genuine.
+c1pj | Surround yourself with people who truly mean well, are more securely at- tached and who want to be a support for you in your healing process.
+6v9y | Questions to Consider
+deen | · What does self-attunement look like for you?
+27bo | . In what ways do you autoregulate or try to use others to regulate, so that you don't have to self-regulate?
+72k6 | · What would self-regulation look like for you?
+emhp | . How would you like to increase your self-attunement and self-regulation?
+tcgw | . What is your relationship with your inner nurturer like and how can this part of you become more front and center in your relationship with yourself?
+4d8s | Things to Try and to Experiment With
+1cmq | . Spend quiet time by yourself.
+u8s6 | . Practice mindfulness or breath-based exercises that help you tune into your body, heart and mind.
+86m5 | . Try self-compassion meditations.
+lzzv | · Experiment with journaling.
+623p | · Try self-hypnosis techniques.
+50lp | . Learn self-empathy practices that help you to identify your feelings and needs and give yourself what you need as best you can.
+i4nn | · Figure out what different kinds of sensory input, such as sights, smells, sounds, touches or tastes, are calming or irritating to you and have certain smells or types of music available for when you are needing some self- support.
+nuk3 | . Develop a relationship with your inner nurturer and, if needed, work with a practitioner to support you in this process.
+y2cn | R: RITUALS AND ROUTINES FOR A SECURE SELF
+hgm4 | Any secure relationship with yourself will include the rituals and routines that sup- port you in your self-care and sanity. If we refer back to early childhood, it is easy to see how children thrive when there is enough structure and predictable routine for the different needs of their bodies and the various transitions within a day. As adults, this does not change. There are natural rhythms to our cycles of sleeping, eating, resting and having sex that suffer when ignored. Both men and women have hormonal cycles that fluctuate, impacting our mood, mental acuity, how sensitive we feel and how short or long our fuse for anger and frustration will be. Secure at- tachment with self includes knowing your inner rhythms (biological, emotional and mental) and figuring out what routines and daily rituals best support you to be in alignment with your own needs and pacing.
+```
+
+OUTPUT:
+```

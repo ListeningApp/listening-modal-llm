@@ -1,0 +1,163 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+l0a3 | f(x) =cx
+u8nw | for any real constant c. But are there any other solutions?
+l2v9 | Yes, if you use the axiom of choice! Treat the reals as a vector space over the rationals. Using the axiom of choice, pick a basis. To get f : R -> R that's linear over the rational numbers, just let f send each basis element to whatever real number you want and extend it to a linear function defined on all of R. This gives a function f that obeys f(x+y) =f(x)+f(y).
+afbe | However, no solutions of f (x +y) = f(x) + f(y) meet our other condition
+78r8 | x < y implies f (x) > f(y) for all x, y ≤ 0
+320g | except for the familiar ones f(x) = cx. For a proof see Wikipedia: they show all solutions except the familiar ones are so discontinuous their graphs are dense in the plane!
+tp8g | · Wikipedia, Cauchy's functional equation.
+gxfd | So, our conditions imply f(x) = cx for some c, and since f is decreasing we need c < 0. So our formula I(p) = f(ln p) says
+s2v1 | I(p)=clnp
+jkp9 | but this equals - log, p if we take b = exp(-1/c). And this number b can be any number > 1. QED.
+z8tt | Thus, if we want a more general concept of the information associated to a proba- bility, we need to drop Condition 1 or 2. For example, we could replace additivity by some other rule. People have tried this! Indeed, there is a world of generalized entropy concepts including Tsallis entropies, Rényi entropies and others.
+9g22 | 12
+41fx | WHAT IS PROBABILITY?
+7um8 | The theory of probabilities is at bottom nothing but common sense reduced to calculus; it enables us to appreciate with exactness that which accurate minds feel with a sort of instinct for which of times they are unable to account. - Pierre-Simon Laplace
+uow2 | In no other branch of mathematics is it so easy for experts to blunder as in probability theory. - Martin Gardner
+iat7 | Since I've defined information in terms of probability, you may naturally wonder "what is probability?" I won't seriously try to answer this. This question has stirred up many debates over the centuries, and even today there's not a fully accepted answer. It deserves a whole book-and this is not that book. Luckily, we don't really need to know exactly what probability is to do calculations with it: we mainly need to set up some rules for working with it. This may seem like a cop-out. But it's a strange and wonderful feature of science that we can achieve great reliability in our results by sidestepping certain difficult questions, like someone who can make their way safely through a jungle by avoiding the quicksand and snakes.
+ywwr | One approach to probability goes like this. Suppose you repeat some experiment N times, doing your best to make the conditions the same each time. Suppose that M of these times some event E occurs. You may then say that the probability of event E happening under these conditions is M/N. This approach is called 'finite frequentism'. Unfortunately, this approach can lead you to say a coin has probability 1 of landing heads up if it does so the first time, or first 3 times, you flip it.
+0i6j | Another approach goes like this. You may say that some event E has probability p under some conditions if when you set up these conditions N times, and the event E happens M times, the fraction M /N approaches p in the limit N > co. This approach is called 'hypothetical frequentism', because in real experiments you can't take the limit N - 00. But you can hope that when N becomes large enough, the fraction M/N usually becomes close to the limiting probability p-whatever that means.
+87cq | Another approach, called 'Bayesianism', treats a probability of an event E under some specified conditions as a measure of your degree of belief that E will happen under these conditions. But what is 'degree of belief'? One answer involves bets. For example, perhaps to believe an event has probability 1/2 means you're willing to take a bet where you win more when the event happens than you lose if it does not.
+0qs3 | Bayesians tend to focus on the rules for updating your probabilities as you learn new things, the most famous being 'Bayes' rule'. Even if agents start by assigning different probabilities to an event, if they follow the same rules for changing these probabilities as they learn new things, under certain circumstances we can prove their probabilities will converge to the same value.
+z8f7 | For a passionate and intelligent discussion of these issues, I recommend E. T. Jaynes' book Probability Theory: the Logic of Science. Later we'll meet his 'principle of max- imum entropy', another important approach to working with probabilities.
+7w7j | 13
+51vd | PROBABILITY MEASURES
+baj1 | A measure on a set X is a function that assigns to certain so-called measurable subsets S C X a number p(S) E [0, 0], obeying these rules:
+n1wo | . Ø, X C X are measurable and
+5bq3 | m(Ø) = 0
+ezla | . If S, T C X are measurable and S C T, then T - S is measurable and
+rsbu | m(T) = m(S) + m(T- S)
+magd | . If a countable collection of disjoint subsets S; C X are measurable, then their union is measurable and
+tb74 | m (US;) = Em(Si) i=1 00
+8l69 | We say m is a probability measure if m(X) = 1.
+1jyv | It is easier to do calculations with probabilities than say exactly what they mean! I will take a rough-and-ready approach to working with them, but first let's take a peek at how mathematicians do it. If you don't care, it's safe to move right on to the next tweet.
+olce | We start with any set. We call elements of X 'outcomes' and subsets of X 'events'. We can sometimes get into trouble trying to assign a probability to every subset of X. So, we'll only try to assign probabilites to events in some collection M with these properties:
+erx1 | · Ø EM and X € M.
+b3bt | . If S, T E M and S CT then the set of elements of T that are not in S, called T - S, is in M.
+0w8m | . If Si E M for i = 1, 2, ... then the union UM1 Si is in M.
+vcu3 | We call elements of M measurable subsets of X. A measure is then a function m: M -> [0, 0] obeying these rules:
+hjzj | · m(Ø) = 0
+j79f | · If S, T & M and S C M then m(T) = m(S) + m(T - S).
+6tbv | . If Si E M then m (Ui-1 Si) = Li-1 m(Si).
+xb13 | 14
+cxqi | If <LATEX>m</LATEX> also obeys <LATEX>m \left( X \right) = 1</LATEX> then we say <LATEX>m</LATEX> is a probability measure, and for any <LATEX>S \in \mathcal{M}</LATEX> we say <LATEX>m \left( S \right)</LATEX> is the probability of the event <LATEX>S .</LATEX> But we will also be interested in other measures, like the measure on the real line called 'Lebesgue measure'. This is closely connected to the symbol <LATEX>d x</LATEX> that shows up in integrals, because for any measurable set <LATEX>S \subseteq \mathbb{R} ,</LATEX> its Lebesgue measure is
+qfmx | <LATEX>\int _ { - \infty } ^ { \infty } \chi _ { S } \left( x \right) d x</LATEX> where <LATEX>\chi _ { S } \left( x \right)</LATEX> is 1 for <LATEX>x \in S</LATEX> and 0 for <LATEX>x \notin S .</LATEX> Indeed, people often get sloppy and say <LATEX>d x</LATEX> 'is' Lebesgue measure, and I may do that too. By the way, Lebesgue measure is one where we cannot take <LATEX>\mathcal{M}</LATEX> to be the collection of all subsets of
+rut3 | <LATEX>\mathbb{R} .</LATEX> There is an extensive theory of measures. We will not need it here, but if you're interested, you can try a book like Halsey Royden's Real Analysis, where I learned the basics myself, or Terry Tao's <LATEX>A n</LATEX> Introduction to Measure <LATEX>T h e o r y ,</LATEX> which has a legal free version online.
+m3cp | Here are some puzzles about measures.
+mq4s | Puzzle 10. Let <LATEX>X</LATEX> be any set and define <LATEX>\mathcal{M}</LATEX> to be the collection of all subsets of <LATEX>X .</LATEX> Show that there is a measure <LATEX>m : \mathcal{M} \rightarrow \left[ 0 , \infty \right]</LATEX> called counting measure such that for any <LATEX>S \subset X ,</LATEX> <LATEX>m \left( S \right)</LATEX> is the number of elements of <LATEX>S ,</LATEX> <LATEX>\infty</LATEX> <LATEX>S</LATEX> is infinite.
+95el | Puzzle 11. Let <LATEX>X</LATEX> be any set and define <LATEX>\mathcal{M}</LATEX> as before. Suppose <LATEX>p \quad i s \quad a \quad p r o b a b i l i t y</LATEX> distribution on <LATEX>X ,</LATEX> meaning a function <LATEX>p : X \rightarrow \left[ 0 , \infty \right)</LATEX> with <LATEX>\sum _ { i \in X } p \left( i \right) = 1 .</LATEX> Show that there is a probability measure <LATEX>m : \mathcal{M} \rightarrow \left[ 0 , \infty \right]</LATEX> such that for any
+a0a5 | <LATEX>S \subset X ,</LATEX> <LATEX>m \left( S \right) = \sum _ { i \in S } p \left( i \right) .</LATEX> In this situation we usually write <LATEX>p \left( i \right)</LATEX> as <LATEX>p _ { i }</LATEX> and call it the probability of the outcome <LATEX>i \in X .</LATEX> For any <LATEX>S \subseteq M</LATEX> we call <LATEX>m \left( S \right)</LATEX> the probability of the event
+gocl | <LATEX>S .</LATEX> In the next puzzles <LATEX>X</LATEX> is any set, <LATEX>\mathcal{M}</LATEX> obeys the three rules for a collection of mea- surable subsets of <LATEX>X ,</LATEX> and <LATEX>m : \mathcal{M} \rightarrow \left[ 0 , \infty \right]</LATEX> is a measure.
+ob1z | Puzzle 12. Show that if <LATEX>S ,</LATEX> <LATEX>T \in \mathcal{M}</LATEX> then the union <LATEX>S \cup T</LATEX> is in
+m4cb | <LATEX>\mathcal{M} .</LATEX> Puzzle 13. Show that if <LATEX>S ,</LATEX> <LATEX>T \in \mathcal{M}</LATEX> then the intersection <LATEX>S \cap T</LATEX> is in
+m61y | <LATEX>\mathcal{M} .</LATEX> Puzzle 14. Show that if <LATEX>S _ { i } \in \mathcal{M}</LATEX> for <LATEX>i = 1 , 2 , \ldots .</LATEX> then the intersection <LATEX>\bigcap _ { i = 1 } ^ { \infty } S _ { i }</LATEX> is in <LATEX>\mathcal{M} .</LATEX> Puzzle 15. Show that if <LATEX>S ,</LATEX> <LATEX>T \in \mathcal{M}</LATEX> and <LATEX>S \subseteq T</LATEX> then
+u2ob | <LATEX>m \left( S \right) \leq m \left( T \right) .</LATEX> Puzzle 16. Show that if <LATEX>S _ { i } \in \mathcal{M}</LATEX> for <LATEX>i = 1 , 2 , \ldots .</LATEX> then
+2gnm | <LATEX>m \left( \bigcup _ { i = 1 } ^ { \infty } S _ { i } \right) \leq \sum _ { i = 1 } ^ { \infty } m \left( S _ { i } \right) .</LATEX> Puzzle 17. Show that if <LATEX>m</LATEX> is a probability measure and <LATEX>S \in \mathcal{M}</LATEX> then
+emgw | <LATEX>0 \leq m \left( S \right) \leq 1 .</LATEX> One of the main uses of a measure <LATEX>m</LATEX> on a space <LATEX>X</LATEX> is that it lets us integrate certain functions <LATEX>f : X \rightarrow \mathbb{R} .</LATEX> Alas, not all functions! It's only reasonable to try to integrate measurable functions <LATEX>f : X \rightarrow \mathbb{R} ,</LATEX> which have the property that if <LATEX>S \subseteq \mathbb{R}</LATEX> is measurable, its inverse image <LATEX>f ^ { - 1 } \left( S \right) \subseteq X</LATEX> is measurable. And even measurable functions can cause trouble, because when we try to integrate them we might get <LATEX>+ \infty ,</LATEX> <LATEX>- \infty ,</LATEX> or something even worse. For example, what's
+xaqt | <LATEX>\int _ { - \infty } ^ { \infty } x ^ { 2 } \sin x d x ?</LATEX> There's no good answer. We say a function <LATEX>f : X \rightarrow \mathbb{R}</LATEX> is integrable if it is measurable and its integral over <LATEX>X ,</LATEX> defined in a certain way I won't explain here, gives a well-defined real number.
+5rcb | 15
+524j | SHANNON ENTROPY: A FIRST TASTE
+xd3m | When you learn an event of probability p has happened, the amount of information you get is - log p.
+8qb6 | Question. Suppose you know a coin lands heads up 2 3 of the time and tails up : of the time. What is the average or 'expected' amount of information you get when you learn which side landed up?
+wkbn | Answer. 2 of the time you get - log 2 of information, and 1 of the time you get - log a. So, the expected amount of information you get is
+```
+
+OUTPUT:
+```

@@ -1,0 +1,139 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+xagm | The largest amount of silver and bromide were determined on the side of the membrane in contact with Ag substrate, whereas for the other side, mainly bromide and potassium signals were detected.
+iwn5 | If the reference membranes were placed directly on GC or Au substrate, unpredictable and unstable potential values were recorded (see Table S-2).
+uooz | 4. EIS Spectra for Electrodes with REF-Br Membranes Deposited on Silver or Nonsilver Substrate. The influence of the Ag phase was inspected by electrochemical impedance (EIS).
+pxbq | A striking difference in the impedance spectra for electrodes with reference membranes deposited on Ag substrate or nonsilver substrate was observed. Namely, the difference is manifested by a disappearance of a low-frequency branch for the membranes deposited on Ag substrate which is present if the substrate is a nonsilver one. The EIS results indicate a slower electrochemical process rate in the membrane without dispersed Ag. The appearance of Warburg type behavior at lower frequencies can be attributed to a slower ion-transport in the membrane. It can be hypothesized that dispersed silver facilitates the overall electrochemical process.
+jfsr | The EIS spectra illustrating this effect, recorded for electrodes with REF-Br-photo membranes deposited on a bare GC substrate and for the GC substrate covered with Ag are presented in Figure S-2.
+u15r | 5. Mechanism of the Br-REF Response. Undoubtedly, the fact that the metallic silver, both as the layer on the substrate and in the form of dispersed nanosilver in the membrane, significantly contribute to stabilizing the potential of the REF-Br systems is of general importance to solid contact
+lq35 | ion-sensor technology with heterogeneous membranes. The composite-like heterogeneous membrane serves as the reservoir of Ag, AgBr, KBr, and respective silver bromide complexes. The coexistence of these three solid phases coupled through the contact with the respective ions (silver, potassium bromoar- gentate, and bromide ions) saturating pores and slow electrolyte outflow from the membrane is the prerequisite of the stability observed. Interestingly, the mean standard potential of the REF-Br electrodes (-157 mV vs Ag/AgCl/3 M KCI (Eº = +210 mV vs NHE)) indicates that the composite reference electrode works as the analogue of the Ag/AgBr reference electrode immersed in the heterogeneous membrane, which plays the role of a stable electrolyte bridge. The bridge provides a stable electrochemical matrix, in respect to the coexistence of the phases, ion concentrations, single ion diffusion, and activity coefficients. Generalized mathematical interpretation which reduces potential stability of the REF-Br electrodes to the fundamental Gibbs' Phase Rule and Eº set by Ag+/Ag redox pair will be provided by the authors in a separate paper.
+3g9w | From the technical perspective, though, the system in focus is sufficiently attractive to be of choice in different analytical applications as shown below.
+d09o | 6. Calibration of the REF-Br Electrodes in KBr and MX Solutions. A crucial question regarding the conceptual and analytical validity of the REF-Br is their insensitivity toward bromides. Figure 3 shows the potential changes of the five
+ylhz | Figure 3. Potential changes of the five electrodes with REF-Br-photo membranes deposited on Ag substrate and Br-ISE (with AgBr/Ag2S solid state membrane) during calibration in KBr solutions in the concentration range 0.0001-0.1 M. The potential of each REF electrode in the calibration does not change more than 1 mV.
+a3td | Analytical Chemistry
+ex5k | electrodes with REF-Br-photo membranes as well as Br-ISE recorded during calibration with KBr solution. A striking difference provides direct proof of the invention reported.
+9d4o | Negligible potential changes were observed for electrodes with REF-Br-nano, REF-Br-QB, and REF-Br-photo reference membranes during up-down-up as well as down-up-down calibrations in KCI solutions with concentration ranging from 1 M up to 10-5 M. As an example, the potential values measured during up-down-up calibration are presented in Table S-3. Similar results were also obtained during calibration in LiCl, NaCl, KBr, KNO3, and CaCl2 solutions. The influence of lipophilic ions was also checked using the representative perchlorate ion. No statistically significant effect was observed between the calibrations performed in chloride and perchlorate salts, see Figures S-3 and S-4.
+cjq2 | 7. Redox Sensitivity of the Electrodes with REF-Br Membranes. The presence of elemental silver can induce undesirable redox sensitivity of the REF-Br membranes. Therefore, all the membranes were studied in the calibration using the mixture of K3[Fe(CN)6]/ K[Fe(CN)6] with total concentration 0.01 M but different molar ratios. Before and after redox calibration, additional measurements in 2 M KBr were performed to check the potential stability. The redox insensitivity was proved for all the REF-Br membranes and different substrates, as shown in Table S-4. The redox effect was not observed as well in the solutions saturated with O2, CO2, and Ar (Figure S-5).
+5esx | 8. Potential Stability of the REF-Br Electrodes during Prolonged Contact with Deionized Water. For every reference electrode, the test of its behavior in water is most challenging and analytically relevant. For this reason, all the electrodes equipped with REF-Br-nano, REF-Br-QB, or REF- Br-photo reference membranes were tested in deionized water. After a due period of soaking, the potential of the REF-Br electrodes was measured for 10 min versus the commercial silver chloride reference electrode (Metrohm). A very good potential stability was observed, and the potentials measured were practically invariant at least for several hours of contact with water (or even up to a few days for some of the electrodes). The results are summarized in Table S-5.
+m5ka | 9. Multisolution Calibration Experiment. To judge the performance of the reference electrodes in real analysis, a multisolution calibration was carried out following the protocol shown by Mousavi et al.15 The potential of the electrodes with REF-Br-nano, REF-Br-QB, and REF-Br-photo reference membranes was measured in several solutions to check the influence of ion concentration, pH and ion mobility. The potential in each solution was recorded for 10 min. After each test, the electrodes were rinsed with deionized water and immersed in the subsequent solution. The exemplary results obtained for electrodes with REF-Br-photo reference mem- branes deposited on Ag substrates and the potential values measured at the end of each 10 min period are shown in Figures 4 and S-6 and collected in Table S-6.
+byu8 | 10. Influence of pH: Potential Stability of the Electrodes with REF-Br Reference Membranes during Acid-Base Titration. To check the pH influence on the potential of the reference electrodes, the REF-Br-photo reference membranes and pH-ISE were employed in the titration of 1 mL of 0.1 M NaOH with 0.1 M HCl, Figure 5. As required, both reference membranes are insensitive to pH changes in the course of the titration performed.
+76b0 | Figure 4. Multi Solution Protocol carried out for five identical REF electrodes with Br-photo membranes deposited on Ag substrate in the following solutions sequence: (1) 2 M KBr, (2) 3 M KCI, (3) H2O, (4) 0.01 M NaCl, (5) 0.01 M KCI, (6) 0.1 M KCI, (7) 0.01 M HCI, (8) 0.1 M NaCl, (9) 0.1 M NaHCO3, (10) 0.1 M KBr, and (11) 0.001 M KOH. Potential changes were recorded from the moment the electrodes were contacted with indicated solutions.
+zxz6 | Figure 5. Potential changes of the two reference electrodes with REF- Br-photo membranes deposited on Ag substrate and pH-sensitive glass electrode recorded during titration of 1 mL of 0.1 M NaOH (diluted to 20 mL) with 0.1 M HCI.
+xnth | 11. Performance of the Microcell with REF-Br Reference and Potassium-Ion Selective Electrodes. In this measurement, a homemade multielectrode platform with a body made of epoxy resin was used. The platform contained five gold wire electrodes (Au 99.99 obtained from Johnson Matthey Company) with a diameter of 0.8 mm. The external diameter of the epoxy body was 8 mm.27-29 All the gold discs were electrochemically covered with silver, and the REF-Br- photo membranes and potassium-selective membranes were deposited by solution cast on selected discs. Negligible potential changes were recorded for both electrodes with REF-Br-photo membranes used and close to theoretical potential changes were recorded for K-ISE, Figure S-7. These results indicate that employing the reference electrodes described here for designing a complete multielectrode microcell is feasible. Moreover, the junctionless REF-Br reference electrode is used in two roles as the external reference electrode and the internal solid-contact of the ion- selective electrode. Interestingly, a similar dual role has been reported by the authors before.30 However, in that case, the same conducting polymer film was employed either as the solid contact or as the electroactive membrane of an ion-selective electrode.
+vafm | CONCLUSIONS
+2zmw | A simple procedure for obtaining analytical quality solid-state reference electrodes by a solution cast method is shown. It is made possible by applying a cocktail containing the mixture of KBr, AgBr, and Ag nanoparticles suspended in PVC/DOS/ THE solution and drop casting of the cocktail on Ag substrates. The soaking in 2 M KBr for approximately several hundred
+bf9k | Analytical Chemistry
+otkr | seconds is sufficient to activate the electrodes characterized with reproducible and stable potential. This potential is in the range of -157 ± 2 mV versus silver chloride electrode, which indicates that the operation mechanism is similar to that of the silver bromide reference electrode, but not the same owing to the role played by the composite heterogeneous membrane. Carefully designed tests to check the performance of the reference electrodes proved the insensitivity of the REF-Br electrodes to repeated and challenging changes in the solution composition, pH, concentration, mobility, and lipophilicity of ions, as well as the presence of redox species. Electrodes of this type possess comparable properties to high-quality commer- cially available reference electrodes. Additionally, as all-solid- state electrodes, they can be fabricated in miniaturized form and thus be applied when designing miniaturized multielectrode platforms and probes.
+ibgs | ASSOCIATED CONTENT
+colo | Supporting Information
+d6r4 | The Supporting Information is available free of charge on the ACS Publications website at DOI: 10.1021/acs.anal- chem.6b02762.
+9mrz | Six additional tables, Tables S1-S6, and seven figures, Figures S-1-S-7 (on pages S-2-S-7). The tables contain data on short-time responses (S-1), influence of the contact (S-2), chloride ion effect (S-3), and the influence of redox potential (S-4), soaking in water (S-5) and in different electrolyte solutions (S-6). The figures illustrate the influence of the electrode body (S-1), electro- chemical impedance (S-2), influence of chloride ions (S- 3) and perchlorate ions (S-4), influence of redox potential change by gas saturation (S-5), influence of electrolyte solutions (S-6), and measurement using solid- contact electrodes in a microcell (S-7; PDF).
+pk06 | AUTHOR INFORMATION
+7wn9 | Corresponding Author
+wcd0 | *E-mail: alewenst@abo.fi. Fax: +358 2 215 4479.
+caos | Andrzej Lewenstam: 0000-0003-3644-7296
+qrvy | Notes
+pn9j | The authors declare no competing financial interest.
+1pmc | ACKNOWLEDGMENTS
+5z6q | National Science Centre (NCN, Poland) financial support via research Grant No. 2014/15/B/ST5/02185 is acknowledged.
+yeoh | . REFERENCES
+```
+
+OUTPUT:
+```

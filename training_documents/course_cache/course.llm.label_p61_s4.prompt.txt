@@ -1,0 +1,273 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+cuin | 2. Food type & time - species use the same food at different times or different foods at the same time
+n1i7 | 3. Habitat & time - species uses the same habitat at different times or different habitats at the same time
+0r5m | 4. Habitat & habitat - species overlapping in horizontal habitat often differ in vertical habitat or vice versa
+ne2o | 5. Food type and food type - species may eat similar-sized foods but different species or types, or vice versa
+sqxn | Differential Niche Overlap & Complementarity(2)
+6pmo | · Seasonal (temporal)variation in habitat and dietary overlap among granivorous birds in an Arizonian grassland (= spatio-temporal dietary niche segregation):
+195r | · Rainy Season (food plenty): Birds specialize on a seed type across overlapping habitat types
+kqmi | · Dry Season (food scarce): Birds specialize on separate habitats foraging on many seed types
+g8rd | Differential Niche Overlap & Complementarity (3)
+nns9 | ODifferential Niche Overlap between 4 hypothetical species (A, B, C, D)
+9uwy | · Horizontal niche dimension considered alone: Species C is apparently in trouble facing diffuse competition from both B and D - coexistence doubtful.
+srly | · Vertical niche dimension considered alone: Species C subject to heavy niche overlap with A, and moderate overlap from B - coexistence doubtful.
+dl6i | · Both Niche dimensions considered simultaneously
+89ub | Resulting Niche Space
+dhle | · A, B, C versus D disjunct
+2nib | · A versus B disjunct
+naev | · A and C abutting
+7h0h | · Only little overlap between species B and C
+a64c | Differential Niche Overlap & Complementarity (4)
+gi7n | OForaging Techniques of 5 sympatric Bird Species in Oak Forest
+3pn1 | · The time spent on 3 foraging tactics for each species monitored: 1.Hovering, 2. Gleaning, 3. Hawking
+wjuz | · All 5 species adopt all strategies, but to a variable degree.
+3yxv | · Gleaners: Parus inornatus (tit), Vermivora celata (warbler).
+d8zj | · Hover-Gleaners: Vireo gilvus, V. huttoni (shrike-warblers).
+ywxn | · Glean-Hover-Hawker: Polioptila caerulea (gnatcatcher)
+uxhs | · Differences in foraging techniques may reduce direct interference and also resource exploitation as each method is best designed for a particular prey type in a particular micro- habitat
+ed6e | Hovering
+6qqm | Equilateral Triangle
+onum | Hawking
+3iir | Differential Niche Overlap & Complementarity (5)
+7a0a | Differential Niche Overlap & Complementarity (6)
+o1qp | OSpatial Foraging Niche Separation of 2 water boatmen/bugs (Heteroptera)
+jrik | · Perch positions monitored quantitatively over time:
+xv78 | · Species (a) prefers near bottom (55%), and least at water surface (5%)
+sdks | · Species (b) prefers middle of water (58%), and least at water surface (7%)
+y8fb | . In this way they separate foraging depth and reduces competition
+521q | Community Wide Niche Partitioning (1)
+yogo | Nine squirrel species in African rainforest:
+2285 | · 3 Habitat types:
+ys0g | · Dense growth (1 sp.), Flooded forest (1 sp.)
+7zvp | . Mature & Disturbed Forest (7 sp.)
+ww6u | · Trophic specialization (1 sp.)
+hpi6 | · Bark scraping on tree trunks
+4uhb | · Frugivores separate spatially (6 sp.):
+epyi | · Ground (3 sp.) & Arboreal (3 sp.)
+y51p | . In each of the two vertical guilds, the 3 species separate on fruit size and hardness both of which is related to jaw musculature which again is related to mere body size (Hutchinson's Body Size Ratio Rule)
+x95m | Community Wide Niche Partitioning (2)
+yfum | Nineteen species of Coral Reef Fish at Great Barrier Reef, Australia:
+ppx4 | · Segregation into 4 main trophic levels (in which size/ body shape vary):
+qf11 | · Generalists <LATEX>\left( 4 \mathrm { s p . } \right) :</LATEX> Typical fish shape, vary in size following Hutchinson's Rule
+8oqt | · Hard corals <LATEX>\left( 8 \mathrm { s p . } \right) :</LATEX> 6 Small (typical shape/ extra deep body), 2 large (deep body)
+6zah | · Soft/ Hard corals (4 sp.) 3 Large, 1 Small (all typical shape)
+4v5o | · Other invertebrates <LATEX>\left( 3 \quad s p . \right) :</LATEX> Large (typical shape/ deep body)
+ha9e | Niche Overlap, Partitioning & Coexistence
+xrnt | Summarizing Flow Chart showing the various ways that ecologically similar species may segregate or differentiate the overlap of their foraging niches (Birds)
+c8ra | Summary: Differential Niche Overlap & Complementarity
+p1l0 | 1. Differential Niche Overlap comprises 3 major dimensions:
+1i8b | · Spatial: Horizontal (habitat types) & vertical (altitude, vegetation strata)
+5sfj | · Temporal: Time of day/night, seasonal variation (dry/wet, summer/winter)
+vk4h | · Trophic: Generalist or Specialist dietary trait, foraging techniques/ strategies
+nsm3 | 2. Niche Differentiation, Complementarity and Coexistence often interrelated:
+jdfw | · Niche dimensionality 1-> Niche differentiation 1-> Complementarity 1
+uc9r | · High niche differentiation predisposes Complementarity -> Coexistence
+l0ap | · High overlap in some niche dimensions tolerated by otherwise low overlaps
+x815 | Summary: Differential Niche Overlap & Complementarity
+epbj | 3. Community wide niche partitioning limits similarity and increase coexistence:
+nmn2 | · High overlap in vertical and horizontal space -> low trophic overlap
+g3tm | · High dietary overlap -> low, abutting, disjunct and spatial niches
+tfra | · High dietary and spatial overlap -> low overlap in temporal niche
+5lm9 | 4. Coexistence facilitated by limiting similarity and hence niche overlap:
+wp2c | · Spatial separation: vertical-horizontal habitat ranges, territoriality
+us5v | · Resource partitioning: Diet and foraging techniques diverging
+rs2m | · Morphological divergence: Body size, feeding apparatus (teeth, claws, beaks)
+uz9y | ABCS 349: Objectives of Lecture 6 - Niche Partitioning & Species Richness
+8ov0 | 1. An Introduction to modelling of species richness using niche partitioning:
+mj9m | · What pertinent factors within the niche concept theory predicts diversity?
+94h3 | . How are these factors interrelated and what are the dynamics among them?
+9jx1 | 2. An Overview of various models to explain species numbers in space and time:
+c3lz | · Are they mathematical stochastic or deterministic models?
+8bwk | · Graphically explained models to support the notational equations?
+ez9s | . How does the models explain the links between niche dimensionality and how many species than can be 'packed' into a natural system or community?
+mqot | 3. A Comparison of various models to explain species numbers on islands:
+oc99 | · The species-area models explained - islands and mainland islands
+gipz | · The island biogeography model: immigration-emigration-speciation-extinction
+b4wj | 4. An Account of the theories behind speciation and extinction processes:
+5xlt | · What drives speciation in relation to niche overlap and competition?
+9bz4 | · What drives extinction in relation to niche overlap and competition?
+yfv2 | Ds = p (1 + Cã), where Du
+pujl | · Based on MacArthur's model, communities diversity is shaped in 3 potentially interacting ways:
+3rqe | 1. Resource base: How big is n in the niche hypervolume. Areas with more available resource have larger Dr and C components (= niche space) and can therefore contain more species (b).
+nsi3 | 2. Niche width or degree of specialization of component species (Du) Narrow niches can be packed tighter and thus contain more species (c)
+nil3 | 3. Niche overlap between species (a). Greater species overlap (i.e. smaller exclusive niches) leads to greater diversity even if two communities are similar in both (a) and (b) areas (d)
+68a1 | 4. Niche curve shape also counts, i.e. in thick-tailed (leptokurtic) curves (e) more species can be packed on the same resource gradient than thin-tailed (platykurtic) curves (e) 73
+seik | Niche Partitioning & Species Richness (2)
+oq7c | Forest Succession and Increased Bird Diversity (Species Richness):
+z4mi | · As habitat heterogeneity increases and more bird species are added, these have to separate on an increasing number of niche dimensions, particularly:
+hkft | > Food type, Foraging techniques, Foraging height, Micro-habitat type
+jai3 | Biogeography - The Species-Area Model (1)
+p57i | · When increasing the area (A) from which one samples various species populations, the total species number (S) increase in a positive way according to the following logarithmic deterministic model: S = C.AZ (Areas = Oceanic islands or Habitat islands on mainlands)
+u5ug | . Factors that specifically contribute to the S-Area relationship are:
+i9k5 | 1. Large islands are also subject to larger sampling sizes of individuals (N) from species populations thereby increasing the probability of encountering new species; hence a mere sampling phenomenon or artefact of more effective species sampling as N increases
+20z2 | 2. As the island size increases, the probability of encountering different habitat types also increases: High landscape heterogeneity: Lakes, mountains, valleys, swamps, oases etc., and such features contain more potential niches that can be filled by species
+4cgs | Biogeography - The Species-Area Model (2)
+htre | 3. Large islands inevitably also contain large populations, and large populations are less vulnerable to local extinction phenomena (e.g. predation, parasites, pathogens)
+da3c | 4. Large island populations also have higher speciation potentials due to higher population variability contained herein (high polymorphism and resource use diversity
+890q | 5. Large islands inevitably represent larger targets for colonizing species (immigration) as the probability of encountering the area increases with size
+jomo | Biogeography - The Species-Area Model (3)
+06fi | · The normal range of Z is 0.20 - 0.40 for true (oceanic) islands and often around 0.25.
+hb4s | · Z is only 0.1 - 0.25 for recently isolated habitat islands (e.g. forest surrounded by farms, a lake, a gap in the forest, or an oasis).
+cqq2 | · Z > 0.26 for long-term isolated habitats on the mainland or very large islands such as Australia.
+1ews | · As habitat connectivity increases, the S-Area relationship is reduced => Low z-value
+afyn | · Habitat connectivity is related to habitat diversity and as oceanic islands are more isolated than mainland habitat islands, they display stronger S-Area relationship (high z-value)
+8sye | Biogeography - The Species-Area Model (4)
+r04h | · Logging both sides of the S-Area power function:
+orpr | log S = log C + z log A
+k36m | · C and Z are constants depending on both habitat type, animal community and is specific to variability in dispersability and mobility of the species herein.
+wnuz | . In a x-y logarithmic plot, log C is the intercept on the y-axis, and z denotes the graph slope.
+sy14 | . The z-value denotes how strong the S and A relationship is (= positive correlation).
+ghss | MacArthur-Wilson's Equilibrium Theory (1)
+3s61 | · Modelling species number (S) on true islands: S depends on two independent variables: 1. Immigration rate (I) 2. Extinction rate (E)
+s3rm | · S is determined when an equilibrium between I and E rates is obtained
+pqxb | · As S 1, I rate is lowered (1) as potential niche space is occupied (saturation 1)
+08qc | . In contrast when S î then E rate 1 due to increased interspecific competition
+hdj2 | . Small islands have high E and low I rates: They are small targets and have small vulnerable populations; the opposite is the case for large islands; high I and low E
+a57g | Immigration rate (I)
+g8m3 | · Distance to mainland also a factor for I rate: Distance islands have low I and close islands have higher I.
+a9av | . Thus, S is highest on large islands nearby mainland (D), and smallest on small islands far from the mainland (A)
+73l3 | MacArthur-Wilson's Equilibrium Theory (2)
+ornm | . Extinction Rate: Depends on 1) Island Size, 2) Distance to mainland (isolation degree)
+u2z1 | · Island Size: Large islands have larger populations, hence genetic population variability is high and populations therefore more resilient towards predators, diseases, and stochastic detrimental events: e.g. storms, tsunamis, floods, drought etc.)
+atmh | · Distance to mainland: If close to mainland, extinctions may be delayed by regular immigration, thus compensating for the species loss over time
+7hgg | MacArthur-Wilson's Equilibrium Theory (3)
+xwsv | · Immigration Rate: Depends on 1) Island Size, 2) Distance to mainland
+756b | · Island Size: A large island represents a greater target for colonisers => higher probability of colonization.
+6bx7 | · Distance to mainland: If the distance is short, the likeliness of species colonizing from the mainland is higher than for more remote islands, to which many species may have difficulties in reaching successfully (depends on mobility and dispersability of animals).
+spl6 | · In effect species number is highest on large islands close to the mainland (CL) and smallest on small islands far away (remote/ isolated) from the mainland (DS)
+7wzm | Modelling Species Number on Habitat Islands
+e9xj | . On habitat islands, species numbers depend on: 1) Speciation rate and 2) Extinction rate
+9vl6 | · Immigration plays a minor role on the large scale and is replaced by speciation processes.
+c2fd | . However, if habitat connectivity is high between islands, immigration from species rich areas is important in ecological time frame; speciation only evolutionary time frame
+jzvp | Speciation Rate
+f71y | · Fewer empty niches reduce the chances of adaptive radiation by virtue of reducing character displacement processes
+31e1 | Extinction Rate
+40ry | As species saturation increases interspecific competition • increases extinction rate through the competitive exclusion principle (similarly to true islands)
+d1j2 | Summary - Niche Partitioning & Species Richness (1)
+wstc | 1. Species richness and the niche concept are interrelated and determined by:
+ba1e | . Niche dimensionality and differentiation: Related to habitat heterogeneity
+en95 | . Niche width and shape: Narrow and leptokurtic niches increase diversity
+l3do | · Niche overlap and competitive coefficient: Complementarity increase S
+u9bo | 2. Species richness and niches also interrelated with the habitat
+7avo | · Habitat complexity: Both vertical and horizontal heterogeneity increase S
+uzo6 | · Habitat area: Large and interconnected habitat areas increase richness
+89b4 | Summary - Niche Partitioning & Species Richness
+5f7e | <LATEX>\left( 2 \right)</LATEX> 3. The species-area model explains the number of species on islands
+h83u | <LATEX>\left( S = C A ^ { z } \right) :</LATEX> · True islands: z-value higher than on mainland islands
+kjoa | <LATEX>\left( z = 0 . 2 0 \quad - \quad 0 . 4 0 , \right.</LATEX> <LATEX>z \approx 0 . 2 5</LATEX> . Mainland islands: Lower than for true islands <LATEX>\left( z = 0 . 1 0 - 0 . 2 5 , \right.</LATEX> z> 0.26, ift 1) · Lakes: Similar to mainland islands but largely depends on connecting rivers.
+wb1c | 4. The theory of island biogeography and species richness depend on
+ak13 | · Area size: Large size has larger populations and higher habitat heterogeneity
+s7el | · Distance to mainland: Nearness -> Higher colonization rate
+0lfu | <LATEX>\rightarrow \mathrm { S } \uparrow</LATEX> · Habitat connectivity: Low connectivity means lower colonization rate
+cnjl | · Speciation-extinction dynamics: Related to time and population size/ area
+rtdl | Lecture 7 - Foraging Theory
+norp | What is Optimal Foraging Theory, OPT?
+chx3 | . It is a behavioral ecology model that helps predict how an animal behaves when searching for food
+sfcf | Aim of the Optimal Foraging Theory
+nuxs | · To predict the foraging strategy of a forager/predator to be expected under specified condition
+umx0 | O Important terminologies
+o306 | . Ideal Free Distribution theory - theory which makes a case of uniform distribution of food for predators such that there is no need for foragers to switch foraging patches.
+qm1b | · Functional response - deals with a predator's intake rate in response to variation in prey distribution and densities
+n9ms | · Aggregate response - explains how predators are distributed in response to prey availability
+icdp | · Total response = Functional response + Aggregate response
+```
+
+OUTPUT:
+```

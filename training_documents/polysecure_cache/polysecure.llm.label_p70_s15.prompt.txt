@@ -1,0 +1,180 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+4zj7 | . You are being asked to keep your relationship a secret or lie about your rela- tionship in front of certain people.
+3wgh | . You get more information from your metamours pertaining to important things about your partner than from your actual partner.
+uvo3 | CNM can create new attachment ruptures.
+yjbv | As people transition into the nonmonogamous relationship paradigm they are re- quired to lay down the privileges as well as the relational map of monogamy. Now walking around in a world that does not yet fully understand, respect or approve of them, these people are left to figure out how to ethically have multiple lovers with- out a clear guidebook to follow. The loss of monogamy's privileges and absence of the clear-cut path that it offers on how to navigate relationships can create new at- tachment ruptures and traumas, both anticipated and unanticipated. These rup- tures can occur over the multiple dimensions of human experience that are pre- sented in the nested model of attachment and trauma. The following section offers the different ways in which people can experience stress, trauma and attachment ruptures when they are practicing nonmonogamy. Some of these experiences are subtler, where difficulty and pain result from an accumulation of stressful experi- ences within the various levels, and other experiences are more overtly oppressive, traumatic or damaging of attachment. The examples that I share here are based on my own personal and professional experiences with CNM, insights from other men- tal health professionals specializing in nonmonogamous relationships, and Elis- abeth Sheff's years of research on people in polyamorous relationships and
+l6it | families. 63 In Sheff's own words,
+h8x1 | Discrimination is hurtful action taken against an identifiable minority group, and anti-poly discrimination takes many different forms. Using data from my 20-year study of polyamorous families with children, I compiled some of the ways in which polyamorous people report experiencing discrimination. It is important to note that many of the people in the research reported positive experiences with polyamory, from family members who fully embraced them, their partners, and metamours, to friends who welcomed the new chosen family members and employers who invited the entire polycule to the employee holiday dinner. People living in urban areas, especially in liberal states, reported less discrimination than people living in conser- vative and/or rural regions. Most respondents were middle-class white people and did not mention racial or class discrimination, though respondents of color did men- tion concern for polyamory to complicate their already challenging interactions with racism.64
+6qtq | I have seen firsthand the many ways that being non-monogamous can facilitate positive experiences with the friends, family and work, as well as how many new and unexpected positive experiences people have with partners, metamours and the new friends and family that come about from being nonmonogamous. That said, I've yet to meet someone who is openly nonmonogamous who has not ex- perienced some form of judgment, criticism, rejection, discrimination or othering because of their lifestyle or orientation. Experiences can vary greatly in terms of severity and impact, and the intersectionality of being polyamorous with other forms of marginalization cannot be ignored or minimized. The nested model of at- tachment and trauma offers a framework to name some of these differences and how they have an effect at each of the different levels.
+wm3n | THE NESTED MODEL OF ATTACHMENT AND TRAUMA APPLIED TO PEOPLE PRACTICING CNM
+1anr | Self Level
+600w | People who wake up to themselves as being nonmonogamous as an orientation
+60w7 | can have a similar coming-out process as people who come out as gay, lesbian, bisexual or transgender. Even though the realization that someone is nonmonog- amous by orientation may come with much personal clarity, relief and alignment of who and how they are, the coming-out process can also bring with it an enormous amount of pain and confusion. Deconstructing monogamy, whether you identify as nonmonogamous by orientation or as a lifestyle choice, is not an easy undoing process for everyone. As people recognize the ways that mono-romantic beliefs have been internalized into their psyche, as well as how these ideas have influ- enced their actions and choices, regret and shame can arise. The experience can cause a person to question their own identity, uncertain about which elements still fit and which do not, uncertain as to exactly what authenticity and integrity look like for them now. Unable to rely on a sense of self for internal safety and security, these people can be left on shaky ground, often without sufficient support to navi- gate what can become a crisis of identity, a dark night of the soul or a complete reinvention of the self.
+1a5g | Relationship Level
+0oof | At the relationship level, trauma and attachment ruptures can arise from:
+p930 | . Your marriage or relationship disintegrating because you identify as non- monogamous.
+xhc7 | . You and your partner transitioning together to CNM, which you are happy about, but experiencing a real loss of the old relationship that the two of you had together. Even though you might still be together, the relationship has changed, and it's common to have grief about the past relationship with your partner that is no longer, as well as grief and loss about the monogamous fu- ture you had envisioned with them.
+6a60 | · Loss, rejection, estrangement, repeated judgment or criticism from friends and family members who you have come out to.
+dfgj | . Being treated differently by friends and family who no longer want you to be around or alone with their spouse or kids because you are nonmonogamous.
+6ptp | . Being subjected to "interventions" from friends and family who are
+qjlj | unaccepting of you being nonmonogamous.
+kva7 | . Feeling unsafe and afraid to come out to certain friends or family members because it may end the relationship or risk your future safety or security in some way.
+ssp0 | . The loss and stress that can occur from no longer being number one to your partner.
+108o | . Breakups or the death of CNM partners, which are just as painful and difficult as breakups or deaths of monogamous partners. Because you have other partners, your friends and family may not recognize or acknowledge the sig- nificance of the loss.
+d2za | · Falling in love with someone who then ends the relationship with you (often suddenly) because their other partner told them to or they decided to close up their relationship with their primary partner.
+r38m | . The loss of metamour relationships when your partner and the metamour break up.
+qq0z | · Being unacknowledged, dismissed, stonewalled or mistreated by metamours.
+rgva | · Needing to break up with a partner because they choose to stay in a rela- tionship with other people who mistreat or abuse them, you, themselves or others.
+mlcd | · Partners making a unilateral decision that changes the structure of your rela- tionship without your consent.
+2qe7 | . Being subjected to vetoes or power dynamics from partners and/or meta- mours.
+lpzf | . Not having a say or voice in what things you can do, places you can go or sex acts you can experience with your partner because of rules and agreements that they have with someone else.
+24rz | . One of your partners enters into a new relationship with someone and they get more attention, time, access or social recognition than you do.
+091m | . Your spouse or primary partner has switched to non-hierarchical polyamory or relationship anarchy, but you still want to be primary partners so you lose
+sot6 | the primacy in your relationship that you want.
+d6sf | . No longer having your partner as your primary safe haven and the person you can tell everything to and process everything with.
+7haq | . Having relationship agreements or safer sex agreements being broken that compromise your health and safety.
+ubwu | . Having to manage your partner's emotional roller-coasters or hurts from the other relationships they are in.
+ucme | Home Level
+qnl5 | At the home level, trauma, discrimination and attachment ruptures can arise from:
+wdx9 | . Becoming a target from neighbors, housing associations or landlords be- cause of being nonmonogamous.
+n1xr | . Evictions or denial of housing because you are nonmonogamous.
+ohpj | . The inability to find housing with your partners because of laws that allow only a certain amount of unrelated people to cohabitate.
+ry5f | . Having to navigate and inhabit homes that are built for the married nuclear family.
+31wg | . Dealing with child custody battles where your children are at risk of being taken out of the home because you are nonmonogamous. Elisabeth Sheff's research has found that most of the child custody court cases that non- monogamous parents face are not initiated by the state or Child Protective Services, but from ex-spouses or the child's grandparents who disapprove of the parent being nonmonogamous.
+celk | Culture and Communities Level
+3mf9 | At the culture and communities level, trauma, discrimination and attachment rup- tures can arise from:
+z2rd | · Being rejected by social groups or communities that you were regularly in- volved with and previously accepted by.
+vqld | . Being ostracized from a church that you belong to.
+ljmz | . Being subjected to "interventions" from teachers or community or religious
+en1l | leaders who are unaccepting of nonmonogamy.
+45gx | · Being unable to bring more than one partner to events, holidays, work func- tions, graduations or weddings, either because of the potential negative consequences or because of the standard plus-one policy of many formal occasions.
+xgur | . Already being a part of a minority group that does not fully fit into more mainstream communities and now having to experience even further community discrimination or isolation.
+iz66 | . Being blocked from online groups or being unfriended or unfollowed on so- cial media because of being nonmonogamous.
+dndq | . Being an outcast at school because of being nonmonogamous.
+xzce | . Losing your job because you are nonmonogamous.
+w4vd | . Losing your polycule or nonmonogamous community because of drama or a breakup.
+cuh0 | . Being unable to be out about being nonmonogamous at work because it could put your job, respect, ranking, promotions, bonuses, clients or social status at risk.
+k36t | · Being a man (usually white and cisgender) who is facing not having certain privileges for the first time. When nonmonogamous, the loss of monog- amous privilege shows up in several of the different levels for everyone, but for men it is usually first noticed in regards to dating, where men practicing CNM no longer have the same ease, accessibility and favor when it comes to dating now that they are nonmonogamous. The transition to CNM can be- come a significant eye-opener to privilege. While it is extremely important for men (especially white and/or cisgender men) to face the power dynamics that they have participated in and benefited from, the experience of going through a privilege flip can be disorienting, painful and even traumatic. Men can also experience further ostracization when they are met with contention from nonmonogamous communities because they still hold other forms of privilege, and when they experience a lack of support and guidance in how to
+z1wx | make sense of the privileges they've lost and those they still hold.
+o6gf | . Being judged or scolded at the doctor's office for being nonmonogamous.
+0hs6 | . Being denied certain STI testing because the doctors or nurses are not aware or accepting of nonmonogamy.
+m05x | . Being given misinformation about sexual health and STIs from health-care practitioners who have been trained from a mononormative perspective.
+ds29 | . Being denied access to partners who are in the hospital because you are not married.
+qcmr | . No longer seeing yourself in popular culture via songs, commercials, movies, television, news, etc.
+7c6p | . Not being able to find a local nonmonogamous community to participate in.
+d1ee | Societal Level
+itx4 | At the societal level, trauma, discrimination and attachment ruptures can arise from:
+vwrs | . People practicing CNM being a legally unprotected class in the US and most other countries.
+xjkw | . Being unable to legally marry more than one partner.
+wght | . Being unable to religiously marry more than one person (this is not true of all religions).
+3lgb | . Nonmonogamy being considered adultery, which is illegal in certain states.
+ttwt | . In the military, nonmonogamy can also be considered adultery, which can put someone's job, ranking and veteran's benefits at risk or even lead to incarceration or being dishonorably discharged from the military.
+x5l2 | Discrimination or the loss of privileges based on the many ways that monogamy and marriage have been institutionalized through tax benefits, health insurance benefits, child rights, estate rights, social security benefits, immigration and citizenship rights and veterans' benefits.
+ilrs | Global Level
+0a03 | At the global level, trauma and attachment ruptures can arise from:
+auae | . The collective traumas, deaths and enslavement that the patriarchal, het- eronormative and mononormative monogamous paradigms have produced.
+5b6y | . The specific hardships that nonmonogamous people face during a global emergency such as a pandemic. As I write this during the 2020 coronavirus pandemic, all of my clients, regardless of their relationship structure, are ex- periencing a maelstrom of fear, overwhelm, anxiety and significant loss. This includes the loss of loved ones, work, home, community, touch, meaning and purpose. However, my nonmonogamous clients are facing additional challenges. Having multiple partners while being asked to practice social dis- tancing and isolation means being separated from important intimate part- nerships for an extended period of time. Uncertainty around how long this will go on and concern about the levels of risk that may come with reuniting are also exacerbating their sense of loss, anxiety and overwhelm.
+1y10 | When someone is no longer a part of a dominant paradigm, trauma can arise from the experience of being separated from the group and the feeling that they are alone with no one to turn to.65 Additionally, some experiences specific to being nonmonogamous can create additional and recurring threats that compromise our ability to attach, connect or even function. However, there is much growth that can come from this hardship. Just as scar tissue is stronger than regular skin tissue, traumas can lead to what researchers and mental health professionals refer to as post-traumatic growth, where 30 to 70 percent of individuals who experienced trau- ma report positive changes arising out of the traumatic experience they went through.66 Psychologists Richard Tedeschi and Lawrence Calhoun define post- traumatic growth as occurring when "someone's development has surpassed what was present before the struggle with crises occurred. The individual has not only survived, but has experienced changes that are viewed as important, and that go beyond the status quo."67 Such people have described profound changes in how they view their relationships, as well as how they conceive of themselves and their philosophy of life.
+6mnx | Nonmonogamy can be a pressure cooker for growth. It is commonly and play- fully known in the nonmonogamous world that you shouldn't enter CNM unless you are ready to process, communicate, grow and then process, communicate and grow some more. This is because having multiple partners will expose all of your relationship baggage, your blind spots, shadows and shortcomings, and all the potential ways you've been asleep to social issues. Because of this, I've seen how nonmonogamy can actually become an accelerated path to growth, specifically when it comes to attachment, where it offers a path to healing that many people would not experience otherwise. When people are able to heal their previous at- tachment wounds, address any attachment changes that have occurred since open- ing up and create relationships that are founded on relational security instead of structural security, what previously felt impossible about CNM becomes possible, even celebratory.
+tynp | Part Three
+```
+
+OUTPUT:
+```

@@ -1,0 +1,153 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+1pjs | Ecology and Evolution
+o2kr | The causal pie model: an epidemiological method applied to evolutionary biology and ecology
+v6sk | Keywords
+1wj6 | Agents of selection, aging, causation, causes of mortality, correlated traits, natural selection, semi-neutral mutations, trade-offs.
+936l | Correspondence
+06yq | Introduction
+dpv6 | Life is all about cause and effect. A general concept for thinking about causality facilitates swift comprehension of results, while the vocabulary that belongs to the concept is instrumental in cross-disciplinary communication. Although in and of itself it does not lead to different results than those obtained with more specific models, a general model provides a quick grasp of the commonali- ties of seemingly diverse situations. Rothman's "causal pie model" (Rothman 1976, 2012) has fulfilled this role in epidemiology, and we propose that it could be of similar value in biology, in particular in evolutionary biology and ecology. We introduce the model, discuss some generali- ties that derive from it, and show a wide-ranging sample
+8r5j | Abstract
+2taz | A general concept for thinking about causality facilitates swift comprehension of results, and the vocabulary that belongs to the concept is instrumental in cross-disciplinary communication. The causal pie model has fulfilled this role in epidemiology and could be of similar value in evolutionary biology and ecol- ogy. In the causal pie model, outcomes result from sufficient causes. Each suffi- cient cause is made up of a "causal pie" of "component causes". Several different causal pies may exist for the same outcome. If and only if all compo- nent causes of a sufficient cause are present, that is, a causal pie is complete, does the outcome occur. The effect of a component cause hence depends on the presence of the other component causes that constitute some causal pie. Because all component causes are equally and fully causative for the outcome, the sum of causes for some outcome exceeds 100 . The causal pie model pro- vides a way of thinking that maps into a number of recurrent themes in evolu- tionary biology and ecology: It charts when component causes have an effect and are subject to natural selection, and how component causes affect selection on other component causes; which partitions of outcomes with respect to causes are feasible and useful; and how to view the composition of a(n appar- ently homogeneous) population. The diversity of specific results that is directly understood from the causal pie model is a test for both the validity and the applicability of the model. The causal pie model provides a common language in which results across disciplines can be communicated and serves as a tem- plate along which future causal analyses can be made.
+o3ya | 2014 The Authors. Ecology and Evolution published by John Wiley Sons Ltd. This is an open access article under the terms of the Creative Commons Attribution License, which permits use, distribution and reproduction in any medium, provided the original work is properly cited.
+r5il | Open Access
+5gui | of applications, from semi-neutral mutations to agents of selection.
+82qc | The Model
+ls7d | To paraphrase Rothman (2012), the lights at home shine because they each have a light bulb, there is wire to the light bulbs, the switches are on, there is a power grid, and there is a power source. Take any of these factors away, and there is no light: The system contains 500 causality, for all five factors are 100 causative for the shining of the light. There is no limit to the sum of causes for some outcome (Rothman 2012).
+tzt3 | The causal pie model, depicted in Figure 1 after Roth- man's original (1976), represents this way of conceptualizing
+t8vv | M. Wensink et al
+qvnu | Figure 1. The causal pie model. Component causes A E add up to sufficient causes | III. Every sufficient cause consists of different component causes. If and only if all the component causes that constitute the causal pie of a sufficient cause are present, does the sufficient cause exist and does the outcome occur. Hence, the effect of a component cause depends on the presence of its complementary component causes, that is, its complementary set. I, II, and III can be sufficient causes for the same outcome, or for different outcomes, in which case the outcomes are correlated through the component causes. Examples are given throughout the text.
+kggw | causality. A sufficient cause is a constellation of component causes, the causal pie, that leads to an outcome. A compo- nent cause can be a component of more than one suffi- cient cause. If and only if all the component causes that make up a causal pie of some sufficient cause are present does the outcome occur. As a result, the effect of a com- ponent cause depends on the presence versus absence of the other component causes that make up some causal pie. These are called complementary component causes, which jointly make up the complementary set of a compo- nent cause. In the absence of any one of the complemen- tary component causes, a component cause in itself has no effect. Referring to the example above, if there is no con- nection to the power grid, varying the position of the switch does not alter the light being on or off.
+xrd1 | This model is deterministic in the sufficient causes: If all component causes of some causal pie are present, then the sufficient cause is present and the outcome occurs. This does not prohibit the model from having statistical properties: If one (or more) of the component causes is described statistically, the (joint) distribution function of the (mixed) statistical model describes the outcome as a random variable.
+5746 | The level of detail required for an analysis determines the biologic outcome of interest, the number of sufficient causes that can exist for the same biologic outcome, and what component causes make up the sufficient causes. For instance, a stroke that is caused by high blood pres- sure may be classified as an outcome different from a stroke that is not caused by high blood pressure. The lat- ter clearly does not include sufficient causes that contain high blood pressure as a component cause, while the out- come "any stroke" would.
+7toz | As discussed above, causality adds up to more than 100 . Variation in the occurrence of an outcome due to
+j346 | 2014 The Authors. Ecology and Evolution published by John Wiley Sons Ltd.
+v8uq | Causal Pies in Ecology and Evolution
+x972 | variation in a specified component cause is bound by 100 . To illustrate this, consider another example (Roth- man 2012): The disease phenylketonuria (PKU) is charac- terized by abnormal metabolism of an amino acid, leading to severe symptoms such as mental retardation. PKU occurs only in people with a mutated gene. The var- ious human diets on planet Earth include the amino acid, so that 100 of the occurrence versus nonoccurrence of PKU on planet Earth is explained genetically. However, consider a hypothetical "other planet", the inhabitants of which all have the genetic mutation, but do not all have a diet that contains the amino acid. On the other planet, 100 of the observed variation in the occurrence of PKU is explained by variation in the diet.
+cwrw | Variation explained is a matter of prevalence of com- ponent causes given some context. Although the percent- age of variation explained might be of interest, of even greater interest are statements that are generally true, not just on planet Earth or on the other planet. Such a state- ment is that 100 of the incident cases of PKU is caused by a mutant gene and 100 is caused by diet. On planet Earth, variation in the prevalence of PKU is explained by genes. Yet, it is another component cause, diet, that is targeted as a treatment. This illustrates why general insights into causality are the more interesting kind of insights.
+4i0e | Application of the Model to Evolutionary) Biology and Ecology
+h2l3 | The causal pie model has a number of implications for (evolutionary) biology and ecology: It charts under what circumstances component causes have an effect and there- fore can be subject to natural selection, and how compo- nent causes modulate the effect of and natural selection on other component causes; it shows which partitions of outcomes are useful and which are not; and it provides a way of viewing the composition of a(n apparently homo- geneous) population. Each of these points is developed below, and examples are given and framed in terms of the causal pie model.
+dfzb | Component causes, their effects, and the force of selection
+u6ty | The causal pie model explains when and why biologic fac- tors (component causes) have an effect. When component causes produce an effect, they could affect Darwinian fit- ness and hence become subject to natural selection. Com- ponent causes also influence whether other component causes have an effect and become subject to natural selec- tion. We outline some generalities regarding this thinking,
+awvu | 1925
+on9b | Causal Pies in Ecology and Evolution
+a8ge | and give examples, which are framed in terms of the cau- sal pie model.
+h27a | The presence of all component causes of a causal pie constitutes a sufficient cause, which implies that the out- come occurs. Each of the component causes is then sub- ject to the full force of natural selection on the outcome, for without any one of them, the outcome would not occur (Fig. 2). The force of selection on the outcome is not partitioned over the component causes. Just like the sum of causes exceeds 100 , the force of selection on causes exceeds the force of selection on outcomes. Some component causes will not be determined intrinsically, such as the environment. These component causes will not be subject to natural selection. Still, it will usually be possible to define an intrinsic component cause that is subject to natural selection, such as avoidance of some environmental factor(s).
+pdjh | In the absence of any one of its complementary com- ponent causes, the emergence of a component cause has no effect and therefore is not subject to natural selection (barring effects through other sufficient causes). However, component causes are part of the complementary sets of all the other component causes in a causal pie. A compo- nent cause that does not give rise to an outcome immediately does change the set of component causes
+xmgs | Figure 2. Natural selection in the causal pie model. Selection depends on the effect of presence versus absence of the component cause. (A) If one of the component causes is absent, the other component causes have no effect (barring effects through other causal pies) and are not subject to natural selection, as indicated by the dots being black. (B) If all the component causes are present, the outcome occurs, and all the component causes are subject to the force of selection on the outcome, because without any one of them, the outcome would not occur. If the component causes are A D and the force of selection on the outcome is S , then the force of selection on every component cause, Sx , equals S : SA = SB = SC = SD =S .
+bd9h | 1926
+m047 | M. Wensink et al
+gy8c | against which yet other component causes arise (e.g., new mutations). It thus affects the chance that another com- ponent cause will arise in the context of its complemen- tary set and hence make the outcome occur. In the long term, this gets picked up by evolution. Below, we give a wide-ranging sample of applications of these principles.
+y4mj | Example 1: Agents of selection
+vpgq | Wade and Kalisz (1990) recognize that "the fitness of an individual is the result of the interaction of the phenotype with the environment and not an intrinsic feature of either one", the phenotype being caused by some gene of interest (Wade and Kalisz 1990, pg. 1949). In this context, they discuss that the selection of a gene that gives a fit- ness (dis)advantage in a particular environment depends on whether that environment is indeed present. They call the environment the "causal agent of selection" of the gene, as the environment causes the gene to be selected.
+ousl | Wade and Kalisz's realization is a special case of the general principle that selection on a component cause depends on the presence or absence of its complementary set. The effect of the component cause "gene" depends on its complementary component cause "environment". The complementary set can certainly be environmental, but can be essentially anything that completes a causal pie. If the interaction of many different genes is necessary to bring about some effect, as in the next example, genes act as each other's complementary component causes.
+m4ju | Example 2: Semi-neutral mutations
+a0mb | Genetic mutations can be semi-neutral: While they do not have an immediate phenotypic effect, they pave the way for non-neutral change over evolutionary time (Wagner 2011). This happens when a number of muta- tions have to be acquired before causing phenotypic change. The order of occurrence and the way in which the mutations are generated may be completely random. Only the last mutation seems non-neutral and causes a change in the phenotype, but it is facilitated by the ear- lier, semi-neutral, mutations. The earlier changes are semi-neutral, because they seem neutral at first sight, but eventually get picked up by evolution.
+ki8m | In terms of the causal pie model, new mutations arise in the context of the existing mutations, which determine whether the complementary set is present. The first few mutations are insufficient to have a phenotypic effect, but they do change the context against which new mutations arise. At one point, the new mutation arises in the pres- ence of the other mutations necessary for phenotypic change, that is, its complementary set of a sufficient cause for phenotypic change. All of the mutations are equally
+km8w | 2014 The Authors. Ecology and Evolution published by John Wiley Sons Ltd.
+wzno | M. Wensink et al
+xagm | causal to the outcome. Yet, all mutations before the one that leads to phenotypic change seem neutral, because their complementary set for phenotypic change is lacking.
+iwn5 | Example 3: selection for versus selection of
+uooz | Selection of refers to an empirical observation of what is selected, while selection for means that there is selection due to a causal effect of some trait on vital rates (Sober 1984; discussed in Endler 1986). These sorts of selection differ if traits are correlated, which is a well-established area of research (Lande 1982; Lande and Arnold 1983; Arnold and Wade 1984; Mitchell-Olds and Shaw 1987). As an example, consider a population of mice in which small mice have a selective advantage, for instance because they are not seen by predators. Suppose also that the same gene that controls body size causes large mice to have blue eyes, while it causes small mice to have green eyes. Finally, suppose that having blue eyes versus green eyes by itself does not affect mortality and fecundity. In this example, there is selection for small body size, because this has a direct effect on the risk of predation. There is selec- tion of not only small body size, but also of green eye color. Although the latter has no effect on fitness, selec- tion results from the correlation of eye color with body size.
+pxbq | In the causal pie model, traits are correlated when they share one or more component cause(s). For instance, in Figure 1, A is a component cause for both sufficient causes I and II, leading to correlation. If one sufficient cause is subject to natural selection, the force of selection extends to all component causes. Some of these compo- nent causes can be component causes also of sufficient causes for neutral traits, leading to selection of. In Figure 1, selection on sufficient causes I and II leads to selection on component causes A E. Sufficient cause III is not selected for (it is in itself a neutral trait). Still, there is selection of sufficient cause III, because there exists selection on all its component causes (B, C, E).
+jfsr | Example 4: Trade-offs
+```
+
+OUTPUT:
+```

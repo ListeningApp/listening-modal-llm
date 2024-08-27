@@ -1,0 +1,79 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document. Your task is to faithfully reproduce the text for our text-to-speech engine so that it is easily read aloud.
+
+Note that the text might not start at the beginning and paragraphs may be split acrosss multiple textboxes. Textboxes may start or end in the middle of a word which is acceptable: do not combine text between textboxes and leave broken words at the start and end of a textbox unchanged.
+
+You will receive one textbox per-line in the format `id | Textbox content`. The output must be in the format `id | Clean content`.
+
+RULES:
+ • Remove inline citations and references e.g. "(Author, 2021)" or "(https://wikipedia.org/article.html)" or "[ECMOS 35b, 47, 49]".
+ • Spell out numbers, dates, and chemical formulas for the TTS engine e.g. "-2.5" -> "negative two point five" or "Jan. 2020" -> "January twenty twenty".
+ • Spell out LaTeX formulas for the TTS engine e.g. "<LATEX>p = 1</LATEX>" -> "P equals one".
+ • Rejoin hyphenated word fragments within the same textbox e.g. "synth -esize" -> "synthesize".
+ • Fix simple typos and OCR errors e.g. "O nce upon a 1ime." -> "Once upon a time.".
+ • Delete nonsequiter textboxes that interrupt the middle of a sentence if they obviously do not belong.
+
+Otherwise, the output should exactly match the input text:
+ • Do not combine text across lines or attempt to fix words broken across lines.
+ • Ensure each ID from the input is included in the output.
+ • Make as few changes as possible while respecting the above rules.
+
+EXAMPLE INPUT:
+```
+ccpt | stigate the effectiveness of psychedelics for ADHD symp- toms in adults.
+0fpw | 2. Materia1 and methods
+dqn8 | 2.1. Study design and participants
+cop0 | The study employed a naturalistic design, assessing the experiences of participants at bas-,
+lhkq | eline before they start, and at 2 and 4 weeks after initiation. The target population included adults with ADHD symptoms who had not been diag- nosed with ADHD before. To be included, participants needed to score on Conner's Adult ADHD Rating Scale (CAARS-S:SV). This cut-off was indicative of clinically elevated symptoms (Conners et al., 1999) (see section 2.3).
+82ju | 2.2. Study procedure
+y2qo | The online advertisement was placed on a website providing information about psychedelics (www.microdo sing.nl). Interested participants were redirected to information explaining the study rationale and procedure. The baseline survey took 20 min to complete. If the survey had not been completed after 24 h, a reminder was sent. Each of the surveys at the 2- and 4-week time points took about 15 min to complete. Par- ticipants were able to pause the surveys. Data collection occurred between Nov. 2020 and Jul. 2021. The study was approved by the Ethics Review Committee of Psy- chology and Neuroscience at Maastricht University (ERCPN- 215_05_11_2019_A1).
+1piq | 2.3. Measures
+7fqw | 2.3.1. Demographic information and history of substance use
+rhaz | At baseline, demographic information was collected. History of substance use assessed experience with psyche- delics (i.e., ayahuasca, DMT, 5-MeO-DMT, LSD, novel lysergamides (e.g., 1P-LSD, ALD-52), psilocybin, salvia divinorum, ibogaine, and mescaline) in both full (psychedelic) doses and microdoses.
+wak1 | 2.3.2. Psychiatric and physiological diagnoses
+wtfz | Participants were asked whether they had a current diagnosis of a disorder. These answer options were chosen because most of the listed diagnoses are often reported to co-occur with ADHD (Kooij et al., 2019), or because these diagnoses were reported to be common in people who microdose (Fadiman and Korb, 2019). We 
+3j2l | REVIEW ARTICLE Frontiers in Psychiatry | www.frontiersin.org
+03k3 | 2
+1k9e | constructed a variable Comorbidity alongside ADHD, differenti- ating respondents with and without a comorbid diagnosis alongside ADHD (<LATEX>p < . 0 0 1 =</LATEX> only ADHD or no ADHD diagnosis; <LATEX>p > . 0 1 =</LATEX> ADHD and at least one other diagnosis). We constructed a variable Medication use alongside microdosing, differentiating respondents who were and were not using conven- tiona1 ADHD medication alongside microdosing (<LATEX>0 =</LATEX> only microdosing; <LATEX>1 =</LATEX> conven-
+```
+
+EXAMPLE OUTPUT:
+```
+ccpt | stigate the effectiveness of psychedelics for ADHD symptoms in adults.
+0fpw | Two. Material and methods
+dqn8 | Two point one. Study design and participants
+cop0 | The study employed a naturalistic design, assessing the experiences of participants at bas-,
+lhkq | eline before they start, and at two and four weeks after initiation. The target population included adults with ADHD symptoms who had not been diagnosed with ADHD before. To be included, participants needed to score on Conner's Adult ADHD Rating Scale. This cut-off was indicative of clinically elevated symptoms (see section two point three).
+82ju | Two point two. Study procedure
+y2qo | The online advertisement was placed on a website providing information about psychedelics. Interested participants were redirected to information explaining the study rationale and procedure. The baseline survey took twenty minutes to complete. If the survey had not been completed after twenty-four hours, a reminder was sent. Each of the surveys at the two and four-week time points took about fifteen minutes to complete. Participants were able to pause the surveys. Data collection occurred between November twenty twenty and July twenty twenty-one. The study was approved by the Ethics Review Committee of Psychology and Neuroscience at Maastricht University.
+1piq | Two point three. Measures
+7fqw | Two point three point one. Demographic information and history of substance use
+rhaz | At baseline, demographic information was collected. History of substance use assessed experience with psychedelics (i.e., ayahuasca, DMT, five-MeO-DMT, LSD, novel lysergamides (e.g., one-P-LSD, ALD-fifty-two), psilocybin, salvia divinorum, ibogaine, and mescaline) in both full (psychedelic) doses and microdoses.
+wak1 | Two point three point two. Psychiatric and physiological diagnoses
+wtfz | Participants were asked whether they had a current diagnosis of a disorder. These answer options were chosen because most of the listed diagnoses are often reported to co-occur with ADHD, or because these diagnoses were reported to be common in people who microdose. We
+3j2l |
+03k3 |
+1k9e | constructed a variable Comorbidity alongside ADHD, differentiating respondents with and without a comorbid diagnosis alongside ADHD (P is less than point zero zero one equals only ADHD or no ADHD diagnosis; P is greater than point zero one equals ADHD and at least one other diagnosis). We constructed a variable Medication use alongside microdosing, differentiating respondents who were and were not using conventional ADHD medication alongside microdosing (zero equals only microdosing; one equals conven-
+```
+
+INPUT:
+```
+8c0j | In Ainsworth's Strange Situation Procedure, children who were classified as being anxiously attached were reluctant to play with the toys in the room even when their parent was present. They showed signs of distress and clinginess even before their parent left the room and struggled to settle down upon reunion with their care- giver. For these children, the attachment system was hyperactivated, in comparison to the deactivating of the attachment system that the avoidant style employs. Hy- peractivating the attachment system ramps up the desire for a caretaker, amplifying the child's attachment bids as a way to capture a parent's attention.
+urfd | Parents who are loving but inconsistent can encourage the adaptation of the anxious style. Sometimes the parent is here and available, attuned and responsive, but then other times they are emotionally unavailable, mis-attuned or even intru- sive, leaving the child confused and uncertain as to whether their parent is going to comfort them, ignore them, reward them or punish them for the very same
+whtg | behavior. This unpredictability can be very dys-regulating for a child who is trying to stabilize a bond with their caregiver so, in an attempt to cope, they then learn that hyperactivating their attachment system through getting louder or needier achieves the attention they need. In this scenario, the child can become dependent on their hyperactivating strategy in order to survive, fearing that if they let their at- tachment system settle and rest then their needs will never be met. This in turn can lead to a chronically activated attachment system that exaggerates threats of poten- tial abandonment, which may or may not actually be there.22
+2u5k | Some factors that can contribute to a child adopting an anxious insecure at- tachment style are:23
+f8wg | . Parents who are unable to consistently co-regulate with their child, which leaves the child dependent on others to regulate their emotions, again and again turning outward to make sense of their inner feelings and unable to emotionally regulate on their own.
+hgz1 | . Over-involving the child in the parent's state of mind, where the parent's emotions or state of mind is more central to the parent-child interaction than the child's. In this case, the child might be asked (whether explicitly or im- plicitly) to be responsible for meeting the parent's needs, making the parent feel better or supplying the parent with meaning and purpose. This is often due to a parent's own level of anxiety, stress or unresolved trauma, or their own anxious attachment history. When the state of mind of the parent is the centerpiece of interactions, the child is left to constantly monitor and be con- cerned about their parent's state of well-being, which can encourage a role reversal in which the child is acting more like the parent in the relationship. As a child, being responsible for a parent's well-being is a misplaced, con- fusing and overwhelming responsibility.
+khf5 | · Overstimulation. We live in an increasingly stimulating world, with fewer spa- ces to rest physically and mentally between interactions with people, tech- nology, billboards, ads and the like. Our nervous systems need breaks from such stimulation in order to develop properly, and parents can impede this
+ya4d | process when they force constant contact, require attention or presence from a child that might be beyond their developmental capacity, hover over the child, interject themselves when the child is calmly playing independently or enjoying time with others, or even push physical boundaries through tickling or affection that is unwanted by the child in that particular moment.
+dzub | . Parents who discourage autonomy. Some parents discourage their child's agency and autonomy through comments or suggestions that insinuate, whether subtly or overtly, that the child is incapable, less than or not enough in some way. Even well-intentioned parents can question their children's ac- tions and decisions in ways that are shaming instead of encouraging. Some parents who are struggling with their own anxiety can easily get overwhelmed by children who want to explore and discourage or overprotect the child in ways that undermine their interests or abilities.
+oidq | Preoccupied Attachment as an Adult
+fp0u | When used to characterize an adult, anxious attachment is called preoccupied. People with this attachment style demonstrate an intense focus and heightened concern about the level of closeness in their relationships. A defining factor of the preoccupied style is how the person's hyperactivated attachment strategy not only amplifies their attachment bids, but also intensifies their focus on their partners. Because of this, they may end up constantly monitoring their partners' level of availability, interest and responsiveness. The partner of someone with a preoc- cupied attachment style may then feel like this constant tracking of relational misat- tunements and mistakes is controlling of them. But for the person with a preoc- cupied attachment style, this behavior is less an attempt to overtly control their partner than it is a symptom of their attachment system being overly sensitive to even the slightest sign they might be left. From their perspective, they're not trying to control their partner; they're just grasping for a relationship they're afraid is slip- ping out of their hands.
+34lv | Hyperfocus on the other can lead to a disconnection or loss of self through
+gmoh | over-functioning and over-adapting in the relationship in an attempt to maintain and preserve the connection. Frequently consumed by fears of abandonment, peo- ple functioning out of a preoccupied style will easily give up their own needs or sense of self, yielding to the needs or identity of their partner in order to ensure proximity and relationship security. Due to their history of unpredictable and inconsistent love, they can have considerable challenges with trusting that their partners truly love them. They may frequently fall into self-critical and self-doubting loops, questioning if they are truly worthy enough to receive their partner's love. They often have a hard time fully taking in the love they so desperately want, even when it is given. People functioning from this style tend to jump into relationships or bond very quickly with people. Often idealizing their partners, they may confuse anxiety and intensity for being in love, hearing and seeing only what they want to see and missing potential red flags. They may not allow enough time to get to know someone beyond the honeymoon phase in order to assess if this person, and the relationship, are truly a good fit.
+2xvo | A person with a preoccupied style can be uncomfortable, even terrified, of being alone. They often promote their own dependency on their partners (or they might promote their partners' dependency on them) in a way that discourages doing things separately from each other. Engaging in compulsive caretaking can also become a way to prevent the discomfort of feeling lonely and enhance the per- ceived security of not being abandoned. Even though people with this style tend to sacrifice themselves for the relationship, the ways in which they are preoccupied and compulsively give care are not necessarily attuned. In such cases, the care- giving is more of a strategy to keep a person close than an actual response to what their partner genuinely needs. If someone with this attachment style perceives even the slightest possibility that their partner is disconnected or disinterested, they can become demanding, possessive or needy for approval, reassurance, connection, contact, and greater emotional or sexual intensity.
+fhh2 | From their partner's perspective, the needs of the person with the preoccupied attachment style may seem insatiable. The partner may feel they can never do
+c2q0 | enough, which can in turn create the very pulling away or even breaking up that the person with the preoccupied style is so desperate to avoid. Compared to people with a more secure attachment style, people with the preoccupied style report in- creased jealousy and relationship conflict,24 as well as feelings of ambivalence about their sex life, since they are less likely to use consistent contraception and more likely to engage in sex they don't fully want. 25
+```
+
+OUTPUT:
+```

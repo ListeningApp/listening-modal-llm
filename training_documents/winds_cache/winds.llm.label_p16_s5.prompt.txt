@@ -1,0 +1,124 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+q1q2 | C. mastigophora is an edible jellyfish species, and a fishery has been established in Indonesia (Java south coast) based on export to Japan (Omori & Nakano, 2001; Kitamura & Omori, 2010). To avoid confusion, it is worth noting here, that Rumpet (1991) provides an excellent description of another sea-east Asian fishery for "red" jellyfish, but it is unlikely that this is <LATEX>C .</LATEX> mastigophora. Rumpet's (1991) report from the South China Sea (Sarawak, Malaysia) almost certainly refers to Rhopilema esculentum Kishinouye 1891 based on the description of fisheries for this species and Rhopilema hispidum (Vanhöffen 1888) (white) else- where in the South China Sea (Vietnam) by Nishikawa
+cb7r | et al. (2008). The economic feasibility of a fishery for <LATEX>C .</LATEX> mastigophora has not been evaluated in Australia and maybe worthy of examination especially if swarms continue to have detrimental economic impacts.
+68xu | Bivalve larvae, pteropods and invertebrate eggs dominated the prey items we found on <LATEX>C .</LATEX> mastigo- phora arms and 26% of all observed prey items were bivalve larvae. Nothing is known of the feeding rates of <LATEX>C .</LATEX> mastigophora; however, at the population sizes we recorded the potential for them to deplete plankton from the water column must be considered. Some jellyfish species feed predominantly and selectively on bivalve mollusc larvae including other rhizostome jellyfish. For example, Larson (1991) found very high feeding rates by Stomolophus meleagris Agassiz 1862 on oyster larvae which made up 56% of prey items and Ballard & Myers (1997) found bivalve larvae made up more than 80% of the diet of Proboscidactyla stellata (Forbes 1846). In the southern Kimberley region where we observed significant swarms in 2006, 2010, 2011, and 2012, the silver lipped pearl oyster Pinctada maxima (Jameson 1901) forms the basis of Australia's pearl industry valued at A$120 million per year (Hart & Joll, 2006). P. maxima spawn in the spring beginning in September when the peak spawning occurs although the spawning season can extend through to April (Rose et al., 1990). The peak spawning period coincides with the same period that C. mastigophora swarms have occurred near Broome and Eighty Mile Beach which is the most important area for pearl oyster broodstock in north-western Australia (Condie et al., 2006), meaning that when they are dense, <LATEX>C .</LATEX> mastigophora might be a significant predator of pearl oyster larvae. Condie et al. (2006) showed how tidal currents dominate pearl oyster larval transport in the Eighty Mile Beach region meaning larvae are retained in the area. This would make them vulnerable to large swarms of <LATEX>C .</LATEX> mastigophora which would be subject to the same transport patterns. Larson (1991) measured the feeding rate of the closely related <LATEX>S .</LATEX> meleagris and found a 325 g jellyfish would consume 6,000 prey items per day over half of which were oyster larvae. Based on these feeding rates, the population numbers of <LATEX>C .</LATEX> mastigophora estimated in this study <LATEX>\left( > 5 0 \times 1 0 ^ { 6 } \right.</LATEX> million, <LATEX>1 . 4 \times 1 0 ^ { 4 }</LATEX> tonnes) could consume upwards of <LATEX>3 \times 1 0 ^ { 1 1 }</LATEX> oyster larvae per day. It is important that a more in-depth study of the diet and feeding rate of <LATEX>C .</LATEX> mastigophora be
+hd35 | Springer
+2zpk | undertaken to determine its significance as a predator of <LATEX>P .</LATEX> maxima and other bivalve larvae as our data on diet represent just a snapshot in time.
+epu7 | Studies on the planktonic system are also required to determine the relative abundance of oyster larvae and other plankton in the water column as well as in the diet of <LATEX>C .</LATEX> mastigophora. The low C:N ratio (3.9:1) and <LATEX>8 C ^ { 1 3 } \left( - 2 0 . 8 \right)</LATEX> of <LATEX>C .</LATEX> mastigophora tissue indicate a dependence on marine derived sources of carbon in its diet (Meyers, 1997). The <LATEX>\mathrm { C } : \mathrm { N }</LATEX> ratio is similar to that found in other jellyfish: 4.0:1 (Faganeli et al., 1988) and 3.1:1 to 4:2:1 (Cui et al., 2012). The <LATEX>8 C ^ { 1 3 } \left( - 2 0 . 8 \right)</LATEX> and <LATEX>8 \mathrm { N } ^ { 1 5 }</LATEX> (8.1) isotopic signatures of <LATEX>C .</LATEX> mastigophora are similar to that recorded for another catostylid jellyfish (Catostylus mosaicus (Quoy and Gaimard 1824), <LATEX>\left. 8 C ^ { 1 3 } = - 2 0 . 9 \text { to } - 2 2 . 2 \right)</LATEX> (Pitt et al., 2008) and a rhizostome jellyfish (8 <LATEX>C ^ { 1 3 } = - 2 2 . 0</LATEX> to -17.4, 8 <LATEX>N ^ { 1 5 } = 4 . 8</LATEX> to 10.6 by Cui et al. (2012) but lower than in Pelagia noctiluca <LATEX>\left( 8 C ^ { 1 3 } = - 1 8 . 8 \right)</LATEX> (Faganeli et al., 1988; Malej et al., 1993). Pitt et al. (2008) found that copepods and mysids were the most important com- ponents of the diet of <LATEX>C .</LATEX> mosaicus based on compar- ative analysis of jellyfish and prey item stable isotope values. The use of stable isotopes can be used to infer the importance of particular food sources integrated over time as opposed to a snapshot in time in the case of prey items sampled from jellyfish arms (Pitt et al., 2009a). However, we can conclude little about the importance of different components of the diet of <LATEX>C .</LATEX> mastigophora over the longer term given we lack stable isotope data for the prey items we found and the difficulties interpreting diet from jellyfish tissue isotopic signatures without adequate temporal, spatial, ontogenetic and between organ sampling (Pitt et al., 2009a).
+7od1 | <LATEX>C .</LATEX> mastigophora have a water content on 95.8% which is almost identical to other species studied (Doyle et al., 2007). Dead jellyfish decay quickly (2-3 days) on tropical beaches (personal observations, see ESM Table 1) meaning that the organic carbon and nitrogen in their bodies indirectly derived from primary and secondary production offshore are made available in the nearshore coastal zone. Using our measurements of density of jellyfish in strandings, frequency of strandings and biomass of jellyfish, it can be calculated that this contribution was of the order of 44 tonnes of carbon and 11 tonnes of nitrogen in 2012. However, although we were able to provide some data on the biomass of stranded jellyfish that this is only a
+0bqy | Springer
+b780 | Hydrobiologia
+ccmb | reflection of the total biomass as we do not know what percentage of the population is stranded at any one time. Other jellyfish species which undergo swarms have been shown to be important in delivering significant quantities of organic matter into coastal food webs (Pitt et al., 2009b; West et al., 2009).
+ma93 | Kramp (1961) records C. mastigophora as reaching 400 mm in diameter, but our specimens were almost all less than half this size. There is no information on growth rates of <LATEX>C .</LATEX> mastigophora, and it is not known if C. mastigophora in Australian waters grow to the size stated by Kramp (1961) whose records drew on studies in Malaysia. Extensive further study of the biology (especially growth and feeding and swarm size) along with better resolution of spatial and temporal occur- rence of <LATEX>C .</LATEX> mastigophora is needed to evaluate the ecological and socioeconomic significance of this phenomenon and whether the frequency or intensity of swarms has changed recently.
+c6hh | Acknowledgments We thank Loisette Marsh and Ian Howcroft (1980s), Corey Hann from Tahlulla Productions (2010) and John Totterdell from the Marine Information and Research Group (2013) for helpful discussions about their observations and knowledge of jellyfish swarms at Ningaloo. We also thank Emily Lewis from the Eighty Mile Beach Caravan Park and Chris Hassell from Global Flyway Network for sharing their observations of jellyfish swarms along Eighty Mile Beach in 2011 and 2012. We also appreciate the assistance of Darren Stevens from the Western Australian Department of Parks and Wildlife and Yawuru Rangers Anthony Richardson and Domanic Matsumoto for their assistance in sampling jellyfish aboard the Patrol Vessel Jangabarri. John Totterdell (Ningaloo), Chris Hassell (80 Mile Beach) and James Brown (Cable Beach) provided some of the photographs used in Figs. 2 and 3 and Francois Dufois assisted with compiling the wind data.
+y7ea | References
+nav4 | Hydrobiologia
+gem8 | Hays, G. C., T. Bastian, T. K. Doyle, S. Fossette, A. C. Gleiss, M. B. Gravenor, V. J. Hobson, N. E. Humphries, M. K. S. Lilley, N. G. Pade & D. W. Sims, 2011. High activity and Lévy searches: jellyfish can search the water column like fish. Proceedings of the Royal Society of London B: Bio- logical Sciences. doi: 10.1098/rspb.2011.0978.
+e8nr | Fossette, S., A. C. Gleiss, J. Chalumeau, T. Bastian, C. D. Armstrong, S. Vandenabeele, M. Karpytchev & G. C. Hays, 2015. Current-oriented swimming by jellyfish and
+k78w | its role in bloom maintenance. Current Biology 25: 342-347.
+g9du | Meyers, P. A., 1997. Organic geochemical proxies of pale- ooceanographic, paleolimnologic and paleoclimatic pro- cesses. Organic Geochemistry 27: 213-250.
+f682 | Mills, C. E., 2001. Jellyfish blooms: are populations increasing globally in response to changing ocean conditions? Hydrobiologia 451: 55-68.
+li1k | Springer
+pbea | Springer
+ccpt | Hydrobiologia
+```
+
+OUTPUT:
+```

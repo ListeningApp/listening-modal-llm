@@ -1,0 +1,137 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+1pjs | m
+o2kr | PROJECT MUSE®
+v6sk | Truth and Consequences: On Paranoid Reading and Reparative Reading
+1wj6 | Criticism, Volume 52, Number 2, Spring 2010, pp. 235-241 (Article)
+936l | For additional information about this article https://muse.jhu.edu/article/421589
+06yq | For content related to this article https://muse.jhu.edu/related_content?type=article&id=421589
+dpv6 | [Thu Oct 12 22:09:13 2023] Access provided at 13 Oct 2023 03:09 GMT from Emory University Libraries
+8r5j | TRUTH AND CONSEQUENCES: ON PARANOID READING AND REPARATIVE READING
+2taz | Perhaps the most common description of Eve Kosofsky Sedgwick's work is enabling-I have used it myself many times to describe her effect on me. But I sometimes wonder whether I know what this word means. The problem could be overdetermination: there are so many things I might mean. Insofar as Sedgwick helped to launch queer literary studies, she played a significant role in allowing me to have a job that I could tolerate in academia, or even in a profession at all; along with a handful of others, she helped to make it possible for me to live a queer life that I could never have imagined. In addition to this most direct sense in which I have been enabled, there is also the fact that Sedgwick in her work explicitly sought to clear intellectual and affective space for others-to grant permission. She really knew how to reach out and touch someone. Reading her work tends to open unexpected conceptual possibilities, ways of thinking, ges- tures, and tones. I think this sense of opening or enlargement is what Ju- dith Butler has in mind when she observes that an encounter with Sedgwick's work has "made her more capacious": she writes that reading and teaching Sedgwick "has moved her to think otherwise ... and ... it has demanded that I think in a way that I did not know that thought could do-and still remain thought."1
+o3ya | Sedgwick's readers describe being pushed-pleasurable-to the limits of what is knowable for them and then over the edge. Her writing allows for an encounter with forms of knowledge that depart from the keyed-up, confident pronouncements of professional critics. Drawing on a phrase of Sedgwick's, Deborah Britzman writes that Sedgwick's work allows her readers to spend time in "theory kindergarten," which she describes as "a fun fair of experiments, thrilling surprises, mis-recognitions, near-missed encounters, and phantasies that lead, in the strangest directions, to our games of 'let's pretend.' "? In two late essays on affect and method, "Para-
+r5il | 235
+5gui | 236 HEATHER LOVE
+82qc | noid Reading and Reparative Reading, or, You're So Paranoid, You Prob- ably Think This Essay Is About You" (2003)3 and "Melanie Klein and the Difference Affect Makes" (2007), Sedgwick associates this realm of ex- perimentation and pleasure with reparative reading. This kind of reading contrasts with familiar academic protocols like maintaining critical dis- tance, outsmarting (and other forms of one-upmanship), refusing to be surprised (or if you are, then not letting on), believing the hierarchy, be- coming boss. Sedgwick's readers have been fantastically responsive to the gifts she has transmitted through her writing: for many readers, including myself, her criticism holds out the possibility of being in some "other" re- lation to the academy, which, despite everything, can still make you feel very bad. This is, according to Britzman, the new "work of theory" that Sedgwick proposes: "The work of love."4
+ls7d | Perhaps the whole point of the "work of love" is that it would dislo- cate one's habitual relation to cognition and forms of mastery, but I admit to some persistent and not necessarily productive confusion about what the work of love is. I am enabled-but to do what? That's sort of like being in kindergarten, too, or at least that's how I remember it: a sense of endless, churning potential, and a half-painful sensation of not knowing how to live it out. I get that feeling reading Sedgwick's reflections on paranoid and reparative reading: perhaps in this case it can be explained by the oddness of the direct address in the essay's subtitle: "You're so paranoid, you probably think this essay is about you." It's true, I do. So what next?
+tzt3 | I don't think I am wrong to take this title as an invitation-albeit an ironic one-to the kind of paranoid, reflexive, and mimetic thinking that the essay is about. I also take it as an act of aggression. Part of the thrill of the title is the suppleness of the address: she could be speaking to anyone. But it's also an address that endlessly produces its own bad objects, readers who take the "you" of the title personally. In my case, I am hailed as one of the latecomers to queer theory who picks up paranoid habits of mind as critical tools or weapons but is detached from the living contexts in which these frameworks were articulated (primarily, the AIDS crisis of the 1980s). I also find myself hailed in another less damning, but more embar- rassing way. In this scenario, I am not the master theorist-exposer but the exposed: my misrecognition of myself as the essay's addressee is in the longing, absurdly hopeful mode of the amorous student-looking for love in all the wrong places. Those places are even more wrong now that my teachers are gone, and I can't indulge my early habits of waiting around cafés and doorways and empty lecture halls hoping for chance encoun- ters-my pedagogical crushes have finally migrated inside the text. If I
+t8vv | TRUTH AND CONSEQUENCES 237
+qvnu | remain unwilling, unreconciled in my heart to a world this empty, still, I've learned my lesson. I'm the teacher now.
+kggw | These two apparently contradictory ways of seeing myself in the essay are actually related according to Sedgwick's understanding of the logic of paranoia. As she argues in "Paranoid Reading and Reparative Reading," the "first imperative of paranoia is There must be no bad surprises." (130). According to Sedgwick, paranoia works to anticipate and to ward off neg- ative feeling, in particular "the negative affect of humiliation" (145). In its resistance to surprise, paranoia is "at once anticipatory and retroactive," thinking about all the bad things that have happened in order to be ready for all the bad things that are still to come. In this sense, the image of the paranoid person is both aggressive and wounded, knowing better but feel- ing worse, lashing out from a position of weakness. I recognize this por- trait of myself as a shamed and longing student trying to get back her own by being right this time.
+xrd1 | Sedgwick addresses herself not just to the aggression but to the losses that inform it, and she offers rich compensations for these losses. But tak- ing up these gifts-allowing them in, allowing them to work on you-is not inevitable. A lot depends on whether you read Sedgwick's essay re- paratively or in a paranoid mode. This might sound too heavy: you need to get right with Sedgwick so that you can accept her gifts. But I don't mean that. Instead, I want to suggest that question of how best to read her work is not settled. It's true that paranoid reading does not come off well in this essay: paranoid reading is described as a way of disavowing affect in order to claim ownership over truth; it is associated with a highly public and stigmatized manifestation of mental illness; it is described as rigid, grim, single-minded, self-defeating, circular, reductive, hypervigilant, scouringly thorough, contemptuous, sneering, risk-averse, cruel, monopolistic, and terri- ble. Look, you don't have to tell me twice.
+5746 | In light of these moments in the essay, it seems clear that the "right" way to read it is as reparative (and we might see "Paranoid Reading and Reparative Reading" as Sedgwick's attempt to make reparations for her earlier paranoid work, most notably Epistemology of the Closet [1990]); but also that we should read the essay reparatively, that is to say, meeting Sedg- wick halfway. Reparation in the essay is on the side of multiplicity, surprise, rich divergence, consolation, creativity, and love. If reparative reading is bet- ter at the level of ethics and affect-and there is really no doubt that it is-it also looks better at the level of epistemology and knowledge. Even though paranoid or, in terms borrowed from Silvan Tomkins, strong the- ory can organize vast amounts of territory and tell big truths, it misses the descriptive richness of weak theory. Weak theory stays local, gives up on
+7toz | 238
+j346 | HEATHER LOVE
+v8uq | hypervigilance for attentiveness; instead of powerful reductions, it prefers acts of noticing, being affected, taking joy, and making whole.5
+x972 | Still, despite the methodological gains and affective appeal of the turn away from critique, I just don't think it's possible to read Sedgwick's essay on paranoid and reparative reading as only a call for reparative reading. There is no doubt that she extends this call. But that is not all that she does. For one thing, Sedgwick acknowledges throughout the essay the benefits of paranoid reading. For another, the essay itself is not only reparative-it is paranoid. The paranoid aspect of the essay is evident not only in the subtitle but throughout the essay, and Sedgwick says so all but directly.
+cwrw | Sedgwick not only acknowledges the paranoid nature of her earlier published work, at one point she characterizes her reading in the "preced- ing section of the present chapter" (145) as an example of strong theory. There are also moments of pique in the essay that do not sound a repara- tive note. I think of the whipsmart exclamations that punctuate the essay. For instance, in a discussion of Michel Foucault's critique of pastoral care, she writes, "As if! I'm a lot less worried about being pathologized by my therapist than about my vanishing mental health coverage" (141). Sedg- wick is more expansive about the negative affects that fuel her turn to re- parative reading in the later essay she published on Klein ("Melanie Klein and the Difference Affect Makes"); she discusses her "barely successful defenses against being devoured by my own cycles of greed, envy, rage and, in particular, overwhelming anxiety."6 The reflexivity and mimesis that Sedgwick identifies as the hallmarks of paranoid thought are evident throughout these two late essays. Perhaps the most striking example is the moment in "Paranoid Reading and Reparative Reading" when Sedgwick takes Fredric Jameson to task for the absolute and mandatory quality of his famous injunction, "Always historicize!" "Always historicize?" she asks (125). In her essay on Klein, Sedgwick describes her intellectual com- mitments, adding that they are never dualistic. Never dualistic ??
+4i0e | I do not point to such moments because I want to catch Sedgwick in her paranoid mode-though I'll try not to disavow entirely the aggressive and self-aggrandizing impulses that might push me in that direction. Still, as far as I can tell, my investment is somewhat different. I am trying to an- swer a call that I read in Sedgwick's work generally but especially in this essay-the call to acknowledge the negativity and the aggression at the heart of psychic life and to recognize that thinking is impossible without this kind of aggression. As in Klein, the schizoid position and the depres- sive position can't really be separated from each other: subjects vacillate between these two positions without ever coming to rest. My own reading of Sedgwick's essay vacillates between a schizoid-paranoid mode and a
+h2l3 | TRUTH AND CONSEQUENCES 239
+dfzb | reparative mode. What the essay argues, and what it performs, is the im- possibility of choosing between them. So many of us feel compelled to answer Sedgwick's call to reparation, which cracks us out of academic business as usual and promises good things both for Sedgwick and for us. But I also think we need to answer the call to paranoia and aggression. Sedgwick taught me to let the affect in, but it's clear that by doing so I won't only be letting the sunshine in.
+u6ty | I would suggest that we do Sedgwick a disservice when we read her solely through a reparative mode. A reading of her work as all about love suggests that we are not listening to her, nor watching how she moves. In his recent book Queer Optimism, Michael Snediker writes that "Sedgwick's theorizations of shame are incontestably magnanimous and good-inten- tioned."8 To which I want to say, incontestably?
+awvu | Sedgwick argues that paranoia, with its aversion to surprises, forecloses not only bad experiences but also unexpected good ones. She writes,
+on9b | Because there can be terrible surprises, however, there can also be good ones. Hope, often a fracturing, even a trau- matic thing to experience, is among the energies by which the reparatively positioned reader tries to organize the frag- ments and part-objects she encounters and creates. Because the reader has room to realize that the future may be differ- ent from the present, it is also possible for her to entertain such profoundly painful, profoundly relieving, ethically crucial possibilities as that the past, in turn, could have hap- pened differently from the way it actually did. (146)
+a8ge | In this fracturing of the rigid temporality of paranoia we see the stakes of Sedgwick's turn to reparative reading. Yet, just as allowing for good sur- prises means risking bad surprises, practicing reparative reading means leaving the door open to paranoid reading. There is risk in love, including the risk of antagonism, aggression, irritation, contempt, anger-love means trying to destroy the object as well as trying to repair it. Not only are these two positions-the schizoid and the depressive-inseparable, not only is oscillation between them inevitable, but they are also bound together by the glue of shared affect. Paranoia is a mode of anxiety about what might hap- pen to you; reparation is also grounded in anxiety. The depressive position for Klein involves anxiety not only about what you may have done to others, but also about the unintended consequences of your actions in the present.
+h27a | Sedgwick worries about the problem of unintended consequences across these two essays. She invokes a fantasy figure-the ultimate
+pdjh | 240 HEATHER LOVE
+xmgs | teacher-who does no harm, "who is able to perceive and be perceived clearly enough that the things he or she does are efficacious, and no more than efficacious."9 But that fantasy of doing no harm can only ever be a fantasy, just as there can be no possibility of acting without unintended consequences. Sedgwick tells us that karmic individuals-that is, all of us-will always be more than efficacious, nontransparent to ourselves, and capable of harms that we cannot begin to imagine. Our own actions produce results that will come as surprises, often unwelcome ones.
+```
+
+OUTPUT:
+```

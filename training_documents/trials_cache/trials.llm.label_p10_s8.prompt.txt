@@ -1,0 +1,148 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+k16v | 8 Adjustments to sample size calculations
+b2lm | In the calculations so far it has been assumed that full information is available on everyone (i.e. no losses to follow-up) and also that every patient receives the treatment they are allocated. In reality this is rarely achieved and some adjustments to the sample size needs to be made to account for this.
+ti7f | In this section the implications of these two scenarios will briefly be considered including what adjustments can be made. Note that these adjustments make certain assumptions but provide useful guidance to the number required. In addition, the situation where more patients will be randomised to one group than the other will also be discussed.
+oksu | 8.1 Losses to follow-up
+wtow | If patients are lost to follow-up for some endpoint then this reduces the effective sample size. For example, if 2% of patients in the UK PACE trial were expected to be lost to follow-up for mortality then the effective sample size of 1926 would be reduced by 2% (although in the UK, the Office of National Statistics can notify the trial when a patient dies).
+o22k | Suppose the proportion expected to be lost to follow-up is 'Q' then, in order to adjust for this, the total sample size needs to be multiplied by
+nwfz | <LATEX>1 / \left( 1 - Q \right) .</LATEX> For example, the UK PACE trial would need to be increased to
+nvfy | <LATEX>1 9 2 6 \times \left( 1 / 0 . 9 8 \right) = 1 9 6 6 .</LATEX> 3.10
+mror | 8.2 Patients who receive the alternative treatment
+zlxc | In many trials some patients will receive the alternative treatment. The impact of this is to make the groups more similar and therefore potentially reduce the observed treatment effect and therefore power is lost. In order to allow for this a correction formula is given below.
+k0bw | Let Q1 = proportion in group 1 getting the treatment for group 2 Let Q2 = proportion in group 2 getting the treatment for group 1
+aq5a | Correction formula: multiply the required sample size by
+sc5y | (1-Q1 -Q2)2
+0yab | For example, suppose in the UK PACE trial:
+w95z | 1% of patients randomised to the single chamber group received the dual chamber treatment 2% of patients randomised to the dual chamber group received the single chamber treatment
+0i1k | The required size = (1-0.01-0.02)2 1926 =2048
+dqlg | Alternatively the treatment effect to be detected might already account for the impact of patients receiving the alternative treatment.
+p6pq | Clearly, it is desirable to limit the number of patients who switch treatments and if the percentages become too large then interpretation becomes increasingly difficult. This is particularly important in non-inferiority trials (see session 7) where the aim is to show treatments are similar.
+zse6 | 8.3 Patients who stop treatment
+p2n3 | One simple adaptation to the formula introduced on the previous page relates to placebo controlled trials where a proportion, Q, on the active therapy stop taking their medication. For the purposes of the sample size adjustment, the proportion who stop their placebo medication is less important (as the randomised treatment contains no active ingredient expected to affect outcome).
+ohh7 | The impact will be to make the active treatment group more similar to the placebo group. The correct formula used is to multiply the sample size by 1/(1-Q)2.
+vbni | As mentioned, certain assumptions are made (for example, that those stopping active therapy do so early in the trial) but the adjustments do provide useful guidance.
+dgcw | 8.4 Other adjustments
+gvwz | A trial which randomises patients to two treatment groups of equal size is usually the most efficient design in terms of total numbers required. However, it is sometimes the case that more patients are randomised to one group than the other.
+sk5m | Suppose patients are to be randomised to two groups in the ratio r:1. Then the total sample size required for equal numbers needs to be increased as follows:
+qws8 | 3.11
+877u | Multiply the sample size by
+rzhj | <LATEX>\left( r + 1 \right) ^ { 2 } / 4 r</LATEX> For example, in the UK PACE trial, suppose the investigators wanted to randomise patients in the ratio 2:1 to the dual chamber treatment. The total sample size would need to be increased as follows:
+bfax | <LATEX>1 9 2 6 \times \left( 2 + 1 \right) ^ { 2 } / 8 = 2 1 6 6 .</LATEX> Since the required ratio is 2:1, the number required in the dual chamber group would be <LATEX>\left( 2 1 6 6 \times 2 / 3 \right)</LATEX> <LATEX>= 1 4 4 4 ,</LATEX> and the number required in the single chamber group 722.
+f2y8 | 9 Trials which are too small and other issues
+o7qm | There are a number of important problems associated with trials which are too small. Such trials will be underpowered to detect realistic treatment differences, i.e. increasing the chance of a false negative result. In addition, the observed treatment effects could be far from the true values (whether the null hypothesis or some alternative hypothesis is true). These observed effects will also be measured imprecisely.
+d52l | Unfortunately many trials are too small and as a result will be unable to reliably answer clinically meaningful questions. In addition they use valuable resources and it could be considered unethical to expose patients in a trial which has little chance of being able to address a clinically meaningful question.
+qlbb | In addition the results can be misleading and potentially lead to publication bias. Suppose a number of small trials are conducted addressing a similar question. It is likely that some small trials will produce results showing a large, statistically significant effect which might be a chance finding or at best an exaggeration of the truth. The trials showing a significant effect are more likely to be written up and accepted for publication.
+nhsg | Trials which are too small are a hindrance to medical progress but finding adequate numbers of patients is not easy. In addition investigators may be over-optimistic in the ability of a trial to recruit eligible patients and recruitment often takes longer than expected. Therefore a realistic appraisal of resources and potential patient accrual is needed.
+hy0l | However, there are a number of ways in which numbers can be potentially increased.
+4jmz | · The trial may need to be conducted as a multi-centre collaboration. Patient accrual will be quicker and more eligible patients available.
+b7cq | . Avoid being too restrictive in respect of the patient entry criteria. This will also have the advantage of making the results more broadly applicable.
+0b39 | · Trials of more than two treatments require more patients so some thought is necessary as to any benefits of including more than two treatment groups. One possible approach would be through the use of a factorial design (see session 8).
+qecd | In this session the main techniques have been covered to calculate sample size when comparing percentages and means for a clinical trial where each individual is randomised. Similar considerations are needed when estimating the required sample size for other measures of effects, e.g. rates which account for varying follow-up times, however a detailed discussion of these formulae is beyond the scope of this module but included in the articles in the references.
+1o7p | 3.12
+cp13 | In addition, other sample size considerations are required depending on the trial design, e.g. when the aim is to show one treatment is equivalent (or non-inferior) to another treatment or when groups (or clusters) are randomised rather than individuals. These will be discussed in more detail later in the module (sessions 7 and 8).
+bgre | 10 Summary
+57lp | In this session the importance of estimating the required number of patients needed to produce a clinically meaningful result has been discussed. Sample size formulae have been introduced for comparing percentages (or proportions) and means together with adjustments which can be made under different conditions. More complex formulae exist but give similar results.
+ukth | Trials which are too small are highly unlikely to produce conclusive results particularly for realistic moderate effects. Such trials could be considered unethical by exposing patients to a trial which has little chance of being able to address a clinically meaningful question.
+kpvt | It is helpful to produce tabulations under different scenarios. Realistic evaluation is needed to as to whether a trial is feasible given the resources both in terms of costs and patient availability.
+jie2 | 3.13
+```
+
+OUTPUT:
+```

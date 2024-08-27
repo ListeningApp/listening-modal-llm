@@ -1,0 +1,86 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document. Your task is to faithfully reproduce the text for our text-to-speech engine so that it is easily read aloud.
+
+Note that the text might not start at the beginning and paragraphs may be split acrosss multiple textboxes. Textboxes may start or end in the middle of a word which is acceptable: do not combine text between textboxes and leave broken words at the start and end of a textbox unchanged.
+
+You will receive one textbox per-line in the format `id | Textbox content`. The output must be in the format `id | Clean content`.
+
+RULES:
+ • Remove inline citations and references e.g. "(Author, 2021)" or "(https://wikipedia.org/article.html)" or "[ECMOS 35b, 47, 49]".
+ • Spell out numbers, dates, and chemical formulas for the TTS engine e.g. "-2.5" -> "negative two point five" or "Jan. 2020" -> "January twenty twenty".
+ • Spell out LaTeX formulas for the TTS engine e.g. "<LATEX>p = 1</LATEX>" -> "P equals one".
+ • Rejoin hyphenated word fragments within the same textbox e.g. "synth -esize" -> "synthesize".
+ • Fix simple typos and OCR errors e.g. "O nce upon a 1ime." -> "Once upon a time.".
+ • Delete nonsequiter textboxes that interrupt the middle of a sentence if they obviously do not belong.
+
+Otherwise, the output should exactly match the input text:
+ • Do not combine text across lines or attempt to fix words broken across lines.
+ • Ensure each ID from the input is included in the output.
+ • Make as few changes as possible while respecting the above rules.
+
+EXAMPLE INPUT:
+```
+ccpt | stigate the effectiveness of psychedelics for ADHD symp- toms in adults.
+0fpw | 2. Materia1 and methods
+dqn8 | 2.1. Study design and participants
+cop0 | The study employed a naturalistic design, assessing the experiences of participants at bas-,
+lhkq | eline before they start, and at 2 and 4 weeks after initiation. The target population included adults with ADHD symptoms who had not been diag- nosed with ADHD before. To be included, participants needed to score on Conner's Adult ADHD Rating Scale (CAARS-S:SV). This cut-off was indicative of clinically elevated symptoms (Conners et al., 1999) (see section 2.3).
+82ju | 2.2. Study procedure
+y2qo | The online advertisement was placed on a website providing information about psychedelics (www.microdo sing.nl). Interested participants were redirected to information explaining the study rationale and procedure. The baseline survey took 20 min to complete. If the survey had not been completed after 24 h, a reminder was sent. Each of the surveys at the 2- and 4-week time points took about 15 min to complete. Par- ticipants were able to pause the surveys. Data collection occurred between Nov. 2020 and Jul. 2021. The study was approved by the Ethics Review Committee of Psy- chology and Neuroscience at Maastricht University (ERCPN- 215_05_11_2019_A1).
+1piq | 2.3. Measures
+7fqw | 2.3.1. Demographic information and history of substance use
+rhaz | At baseline, demographic information was collected. History of substance use assessed experience with psyche- delics (i.e., ayahuasca, DMT, 5-MeO-DMT, LSD, novel lysergamides (e.g., 1P-LSD, ALD-52), psilocybin, salvia divinorum, ibogaine, and mescaline) in both full (psychedelic) doses and microdoses.
+wak1 | 2.3.2. Psychiatric and physiological diagnoses
+wtfz | Participants were asked whether they had a current diagnosis of a disorder. These answer options were chosen because most of the listed diagnoses are often reported to co-occur with ADHD (Kooij et al., 2019), or because these diagnoses were reported to be common in people who microdose (Fadiman and Korb, 2019). We 
+3j2l | REVIEW ARTICLE Frontiers in Psychiatry | www.frontiersin.org
+03k3 | 2
+1k9e | constructed a variable Comorbidity alongside ADHD, differenti- ating respondents with and without a comorbid diagnosis alongside ADHD (<LATEX>p < . 0 0 1 =</LATEX> only ADHD or no ADHD diagnosis; <LATEX>p > . 0 1 =</LATEX> ADHD and at least one other diagnosis). We constructed a variable Medication use alongside microdosing, differentiating respondents who were and were not using conven- tiona1 ADHD medication alongside microdosing (<LATEX>0 =</LATEX> only microdosing; <LATEX>1 =</LATEX> conven-
+```
+
+EXAMPLE OUTPUT:
+```
+ccpt | stigate the effectiveness of psychedelics for ADHD symptoms in adults.
+0fpw | Two. Material and methods
+dqn8 | Two point one. Study design and participants
+cop0 | The study employed a naturalistic design, assessing the experiences of participants at bas-,
+lhkq | eline before they start, and at two and four weeks after initiation. The target population included adults with ADHD symptoms who had not been diagnosed with ADHD before. To be included, participants needed to score on Conner's Adult ADHD Rating Scale. This cut-off was indicative of clinically elevated symptoms (see section two point three).
+82ju | Two point two. Study procedure
+y2qo | The online advertisement was placed on a website providing information about psychedelics. Interested participants were redirected to information explaining the study rationale and procedure. The baseline survey took twenty minutes to complete. If the survey had not been completed after twenty-four hours, a reminder was sent. Each of the surveys at the two and four-week time points took about fifteen minutes to complete. Participants were able to pause the surveys. Data collection occurred between November twenty twenty and July twenty twenty-one. The study was approved by the Ethics Review Committee of Psychology and Neuroscience at Maastricht University.
+1piq | Two point three. Measures
+7fqw | Two point three point one. Demographic information and history of substance use
+rhaz | At baseline, demographic information was collected. History of substance use assessed experience with psychedelics (i.e., ayahuasca, DMT, five-MeO-DMT, LSD, novel lysergamides (e.g., one-P-LSD, ALD-fifty-two), psilocybin, salvia divinorum, ibogaine, and mescaline) in both full (psychedelic) doses and microdoses.
+wak1 | Two point three point two. Psychiatric and physiological diagnoses
+wtfz | Participants were asked whether they had a current diagnosis of a disorder. These answer options were chosen because most of the listed diagnoses are often reported to co-occur with ADHD, or because these diagnoses were reported to be common in people who microdose. We
+3j2l |
+03k3 |
+1k9e | constructed a variable Comorbidity alongside ADHD, differentiating respondents with and without a comorbid diagnosis alongside ADHD (P is less than point zero zero one equals only ADHD or no ADHD diagnosis; P is greater than point zero one equals ADHD and at least one other diagnosis). We constructed a variable Medication use alongside microdosing, differentiating respondents who were and were not using conventional ADHD medication alongside microdosing (zero equals only microdosing; one equals conven-
+```
+
+INPUT:
+```
+y2qo | State court was well suited to Patel's strengths as an attorney, his former colleagues told me. He was personable and quick on his feet, and adept at "marketing" and "presenting" himself. After a few years, however, Patel moved to the federal public defender's office in Miami. There, the work was more complex, more writing- and research-intensive. Despite some successes, he developed a reputation for "style over substance," a former colleague said-one he seemed aware of but not terribly motivated to change. "He always was like, 'Look, I'm really good at trial skill. But all of this reading and writing and arguing about, like, the intricacies of the law-I'm not really interested,'" a second former colleague recalled. (Patel disputed this characterization, referring to a complex drug-trafficking case he'd handled.)
+1piq | "I'm not saying he wasn't capable of it," this person added. "But I think he always liked being the face."
+7fqw | Patel seemed caught between a brewing resentment of elites and an abiding desire to be seen as one.
+rhaz | Transcripts from Patel's cases reveal a lawyer comfortable before the bench, many of his presentations sharp and clever and peppered with flatteries for Your Honor. ("Judge, I think you hit it on the head last week.") They were also embroidered with performative modesties: "On my best day, I'm an average defense attorney"; "I'm not a mathematician, but ... "; "I'm not saying I'm a Spanish expert, Judge, but ... "; "I know I've been doing this by far the shortest time of any lawyer sitting here."
+wak1 | Many times, this worked. "There were certain judges that he kind of had magic in front of," the second former colleague said.
+wtfz | This former colleague began to notice flashes of grievance in the young attorney, but they didn't seem grounded in politics so much as insecurity. This person recalled that when Patel would ask for help on legal research, he would occasionally offer some version of Well, thank God I talked to someone who is book smart and went to all the right schools and checked all the right boxes. "He would always phrase it like a compliment, but there was an edge to it."
+qy1i | It became clear that Patel "did kind of have a chip on his shoulder," this former colleague said-that he seemed caught between a brewing resentment of elites and an abiding desire to be seen as one.
+1k9e | Y EARLY 2014, Patel had left Miami to become a federal prosecutor in Washington, D.C. He'd landed a job in the counterterrorism section of the Justice Department's National Security Division. Yet in Patel's telling, what
+5bjs | B
+uodj | should have been a dream chapter in the career of a young lawyer fast became a study in the rot of bureaucracy-and the malicious repercussions for those who dared to challenge it.
+k16v | This education began with Benghazi.
+b2lm | Patel was one of the attorneys from the main Justice Department office who assisted the U.S. Attorney's Office in Washington in pursuing foreign militants for the September 11, 2012, attacks that killed four Americans. In his book, Patel writes that as the Justice Department moved to bring the Benghazi terrorists to court, "I was leading the prosecution's efforts at Main Justice." He claims that he proceeded to watch firsthand as senior DOJ leadership and other Obama officials-"political gangsters, frauds, and hypocrites" such as Attorney General Eric Holder and his successor, Loretta Lynch-chose to "go soft" on the terrorists by prosecuting only one perpetrator. It was for this reason, Patel writes-a lack of trust in the prosecution's decisions-that when his supervisors asked him to join the trial team itself, he declined.
+ti7f | When I put this version of events to three people familiar with the prosecution, I was met with astonishment. One of these people said simply: "Good God."
+oksu | Although Patel was Main Justice's representative on the case for a period, the U.S. Attorney's Office led the prosecution, they said. The department prosecuted a single suspect, they added, because he was the only one the government had been able to capture. (DOJ later prosecuted a second suspect, and reportedly brought charges against multiple others.) Patel was tasked with coordinating approvals for warrants and indictments, among other responsibilities. Moreover, he did not decline an invitation to join the team working on the actual trial; according to two of his former DOJ colleagues, he was never asked. After clashing with the U.S. Attorney's Office, he was removed from the case altogether. (Patel denied this, saying he was simply reassigned to a different position.)
+wtow | What all parties seem to agree on is that the young attorney had grown bitter toward the system that had employed him for the better part of his career. And an unexpected
+o22k | Kash Patel Will Do Anything for Trump - The Atlantic confrontation in Texas transformed the building friction into a personal declaration of war.
+nwfz | In January 2016, Patel traveled to Tajikistan to interview witnesses for an Islamic State-related case. While he was there, a federal judge in Houston scheduled a surprise hearing in another terrorism case Patel was involved in. He had less than 24 hours to make it to Texas, and having brought only slacks and a blazer on his trip, he contacted the local U.S. Attorney's Office asking for a tie. But when Patel finally arrived at the courthouse, for reasons that remain in dispute, there was no tie.
+nvfy | Judge Lynn Nettleton Hughes lost it. "If you want to be a lawyer, dress like a lawyer," Hughes snapped in chambers. "Act like a lawyer." Hughes proceeded to berate Patel as "just one more nonessential employee from Washington." "What is the utility to me and to the people of America to have you fly down here at their expense?" he said. "You don't add a bit of value, do you?" The judge dismissed Patel from chambers.
+mror | Patel's bosses were furious on his behalf. Hughes, then 74, had a history of eruptions in court, including disturbing remarks about race. Three years earlier, an Indian American plaintiff had tried but failed to have the judge removed from his discrimination case after Hughes held forth in a pretrial conference on "Adolf Hitler's use of swastikas, the origin of Caucasians and the futility of diversity programs at universities," the Texas Observer reported. DOJ officials' attempts to get a transcript of the Patel exchange only enraged Hughes further; the judge issued an "Order on Ineptitude" castigating the "pretentious lawyers" at Main Justice.
+zlxc | The Washington Post included all of this in a report on the incident. In the article, Patel comes across as a sympathetic figure. But the Justice Department chose not to comment, and for Patel, this was what counted. He writes in his book that, although his superiors privately praised him for keeping a level head, they "refused to say any of that publicly," standing by as the media "dragged my name through the mud."
+k0bw | Patel brought complaints again and again to the leadership of the department's National Security Division-adamant that something be done to hold the Texas prosecutors to account for not standing up for him in front of the judge, one of his
+aq5a | former DOJ colleagues recalled. It wasn't that his superiors had failed to understand his frustration; yes, they agreed, the judge was a "wack job," in the words of the second former DOJ colleague, and they had called the U.S. Attorney's Office to express their disappointment. "I finally said, 'I don't really know what else you want,'" the first former colleague recalled. "The U.S. attorney is presidentially appointed, like, I-what do you want us to do?'"
+sc5y | "He just felt so aggrieved," this person added, "and this continued throughout the rest of his tenure. And I actually think it was part of why he left."
+```
+
+OUTPUT:
+```

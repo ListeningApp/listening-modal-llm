@@ -1,0 +1,144 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+0i1k | Where inquiry is focused upon the creative nature of the judiciary, except in very clear cases, the debate often turns to emotive, rather than substantive, questions. Mabo is a very clear example of this. The essential complaint is not about the legal veracity of the Mabo decision. Pace Mr Connolly, few would argue that six of the seven Justices of the High Court
+dqlg | In Defence of Mabo
+p6pq | 1 JCULR
+zse6 | simply got the law wrong. The essential complaint, as I understand it, is that the court ought not have done what it did in this case. Yet Mabo, reduced to fundamentals, says only that: (a) our system of real property law accommodates native title; (b) native title may be extinguished; (c) it may be extinguished in a number of ways by either the Crown or by the indigenous people themselves; and (d) where it has been extinguished there may (or may not) be a right to compensation.
+p2n3 | Whether the High Court ought to have ventured upon this rather modest restatement of the law, so explained, invites conflicting opinions about the proper limits of judicial creativity. In my own respectful opin- ion, the High Court acted appropriately in overturning a doctrine which was inherently discriminatory and which no longer conformed (if it ever did) to modern notions about the rights of indigenous societies and their legitimate claims upon settler societies. In acting as it did, the High Court undoubtedly overturned and restated important and fundamental aspects of the common law of Australia. But in so acting, it was not effecting a usurpation of the legislative function. It was merely performing one as- pect - the creative aspect - of the court's own judicial function and its duty to the Australian community. Let no one doubt that judges of the common law have been making up law for centuries. That is the very nature of the system. That is the reason why its highly practical tech- niques of problem solving have outlasted the British Empire and are in operation in the busy courts of the four corners of the world, serving about one-third of humanity.
+ohh7 | THE HIGH COURT AND THE COMMON LAW
+vbni | The Mabo decision made clear the circumstances in which the common law of Australia may be overruled as it advances to a higher principle. In so doing, it provided invaluable guidance for future courts faced with like problems in completely different areas of the law.
+dgcw | That the courts of Australia have a duty to state the common law is made clear by Mabo. Brennan J stated the relevant principles of this duty in the following manner:121
+gvwz | In discharging its duty to declare the common law of Australia, this Court is not free to adopt rules that accord with contemporary notions of justice and human rights if their adoption would fracture the skeleton of principle which gives the body of our law its shape and internal consistency. Australian law is not only the historical successor of, but is an organic development from, the law of England. Although our law is the prisoner of its history, it is not now bound by decisions of courts in the hierarchy of an Empire then concerned with the development of its colonies. It is not immaterial to the resolution of
+sk5m | (1994)
+qws8 | MICHAEL KIRBY
+877u | the present problem that, since the Australia Act 1986 (Cth) came into opera- tion, the law of this country is entirely free of Imperial control. The law which governs Australia is Australian Law. The Privy Council itself held that the common law of this country might legitimately develop independently of English precedent.122 Increasingly since 1968,123 the common law of Australia has been substantially in the hands of this Court. Here rests the ultimate re- sponsibility of declaring the law of the nation. Although this court is free to depart from English precedent which was earlier followed as stating the com- mon law of this country,124 it cannot not do so where the departure would fracture what I have called the skeleton of principle. The Court is even more reluctant to depart from earlier decisions of its own. 125 The peace and order of Australian society is built on the legal system. It can be modified to bring it into conformity with contemporary notions of justice and human rights, but it cannot be destroyed. It is not possible, a priori, to distinguish between cases that express a skeletal principle and those which do not, but no case can com- mand unquestioning adherence if the rule it expresses seriously offends the values of justice and human rights (especially equality before the law) which are aspirations of the contemporary Australian legal system. If a postulated rule of the common law expressed in earlier cases seriously offends those con- temporary values, the question arises whether the rule should be maintained and applied. Whenever such a question arises, it is necessary to assess whether the particular rule is an essential doctrine of our legal system and whether, if the rule were to be overturned, the disturbance to be apprehended would be disproportionate to the benefit flowing from the overturning.
+rzhj | One may restate this principle in the following form. A rule of com- mon law may be overturned by the appellate court if the postulated rule 'seriously offends the values of justice and human rights'. However, such a rule may not be overturned if 'the disturbance to be apprehended would be disproportionate to the benefit flowing from the overturning'. Thus, a balancing exercise is required involving judgment in each case. The com- peting interests at work are the modification of the legal system 'to bring it into conformity with contemporary notions of justice and human rights' and the peril of destroying the 'skeleton of principle which gives the body of our law its shape and internal consistency'. Where the challenged rule of law is so entrenched and fundamental to our common law system that change cannot be accommodated, the change will not be permissible. Then to change the law would be destructive of our very system of common law. Any such changes must be left to Parliament which, it can be as- sumed, would act with care and justice to most of the interests involved.
+bfax | 1 JCULR
+f2y8 | In Defence of Mabo
+o7qm | According to the High Court in Mabo, the concept of terra nullius was merely a categorisation of the Australian continent's land established by earlier cases. Such a categorisation represented an element of the com- mon law susceptible to change without dire consequence for the totality of our common law. Similarly, and as a consequence, the common law governing real property, properly interpreted, drew a distinction between the Crown, as sovereign, having title to Australia and owning benefi- cially all of the land in Australia. That is, the common law applicable accommodated the Crown's sovereignty to Australia's land subject only to the indigenous native title. In fact, the common law itself (not to say statute law) provides perfectly effective means for that indigenous native title to be extinguished. Thus, according to the principles explained by Brennan J, the recognition of indigenous native title did nothing to frac- ture the skeleton of the common law.
+d52l | The inherently discriminatory nature of the application of the doc- trine of terra nullius meant that it no longer accorded with what Brennan J described as 'values of justice and human rights'. Similarly, the concept of terra nullius being applied to inhabited lands (such as the Murray Is- lands) was itself questionable. Brennan J focused upon the inappropri- ateness of the doctrine of terra nullius in a modern society. His Honour said:126
+qlbb | If the international law notion that inhabited land may be classified as terra nullius no longer commands general support, the doctrines of common law which depend on the notion that native peoples may be 'so low in the scale of social organisation' that it is 'idle to impute to such people some shadow of the rights known to our law'127 can hardly be retained. If it were permissible in past centuries to keep the common in step with international law, it is im- perative in today's world that the common law should neither be nor seen to be frozen in an age of racial discrimination. The fiction by which the rights and interests of indigenous inhabitants in land were treated as non-existent was justified by a policy which has no place in the contemporary law of this country.
+nhsg | Adopting a slightly different approach, one could argue alternatively that all the Mabo decision did was to reject the notion that the Murray Islands were properly categorised as terra nullius and made clear what the applicable common law actually was in that circumstance. If that be the case, the common law was not really overturned at all. It was not even changed (except in as far as the earlier cases held that Australia had been terra nullius at the time of settlement). Instead, a fundamental error of fact about Australia at the time of settlement was corrected.
+hy0l | If one accepts the foregoing, Mabo was essentially nothing more that a clarification of law and a re-finding of fact. In such a case, the spectre of
+4jmz | 127 In re Southern Rhodesia [1919] AC 211, 233-4 (PC).
+b7cq | (1994)
+0b39 | Mabo, as an illegitimate decision of law, is properly answered. The essen- tial question for legal advisers of today is relatively simple. It is: in a par- ticular situation, do the factual circumstances give rise to a prima facie claim for indigenous native title and if so, what, if any, actions by indig- enous people themselves, the Crown or a legislature with power may be said to have extinguished that prima facie claim? The only substantive question of law which then remains, if a claim exists or has been non- consensually terminated, is the disputable question of compensation.
+qecd | THE IMPACT OF INTERNATIONAL LAW
+1o7p | The Mabo decision also provides guidance as to the appropriate influence which international law and instruments may have on the development of Australia's common law in the years ahead.
+cp13 | Before Mabo, there was no doubt that international law was a source of our law. However, the impact of international law was, for the most part, one of influence only. It remains probable that international law is not, as such, part of the domestic law of Australia - as indeed of most countries. International law does not generally become part of domestic law until either Parliament so enacts or the judiciary incorporates the principles into the domestic law.128 In adopting and adapting the princi- ples of international law in domestic decisions, the influence of interna- tional law is increased. Nevertheless, the incorporation of international law into domestic law by the judiciary remains the exception, and not the rule.
+bgre | It is usually only where the issue for determination before a court is uncertain that a judge will seek the guidance of international legal mate- rial.129 Such uncertainty may arise where an established doctrine of the common law, by the passage of time, becomes inappropriate to the re- sponsibilities and demands of modern society. Such was the case in Mabo. It may also arise where a statute is ambiguous and a principle of interna- tional law is relevant to assist in resolving the ambiguity.130
+57lp | Early recognition within the High Court of Australia of the potential role of international instruments to influence Australian law may be found in the judgments of Murphy J.131 However, in recent years, the acceptance of international law and international instruments in performing the ju- dicial function has steadily grown.132 The culmination in Australia of this
+ukth | 73
+kpvt | 1 JCULR
+jie2 | In Defence of Mabo
+d0ik | new-found legitimacy for international law - as an influence upon do- mestic law - was the Mabo decision.
+0x0s | For the purposes of determining what the common law of Australia truly was in Mabo, Brennan J had regard to the influence of international law. He said:133
+4exe | Whatever the justification advanced in earlier days for refusing to recognize the rights and interests in land of the indigenous inhabitants of settled colo- nies, an unjust and discriminatory doctrine of that kind can no longer be ac- cepted. The expectations of the international community accord in this re- spect with the contemporary values of the Australian people. The opening up of international remedies to individuals pursuant to Australia's accession to the Option Protocol to the International Covenant on Civil and Political Rights134 brings to bear on the common law the powerful influence of the Covenant and the international standards it imports. The common law does not neces- sarily conform with international law, but international law is a legitimate and important influence on the development of the common law, especially when international law declares the existence of universal human rights. A common law doctrine founded on unjust discrimination in the enjoyment of civil and political rights demands reconsideration. It is contrary both to inter- national standards and to the fundamental values of our common law to en- trench a discriminatory rule which, because of the supposed position on the scale of social organization of the indigenous inhabitants of a settled colony, denies them a right to occupy their traditional lands.
+0myz | Brennan J's statement is significant for a number of reasons. It is the most explicit recognition of the stated principle yet found in the deci- sions of Australia's highest court. It provides for the future development of the common law of Australia in general harmony with the developing principles of international law. It provides to those who advocate the ben- eficial influence of international law a cause for renewed vigour.135
+xh3i | The impact of Mabo, in this respect, has already been felt to some ex- tent. For example, the High Court in Australian Capital Television Pty Ltd v The Commonwealth136 implied into the Australian Constitution a guaran- tee of freedom of communication as to public and political discussion. Brennan J,137 in particular, had regard to Canadian and United States de- cisions on basic rights as well as decisions in the European Commission of Human Rights. In Dietrich v The Queen, 138 the High Court also consid- ered the International Covenant on Civil and Political Rights. Of the Cov- enant, Brennan J in that case said:139
+syiw | MICHAEL KIRBY
+kg3t | (1994)
+lvae | Although this provision of the Covenant is not part of our municipal law, it is a legitimate influence on the development of the common law.140 Indeed, it is incongruous that Australia should adhere to the Covenant containing the pro- vision unless Australian Courts recognize the entitlement and Australian gov- ernments provide the resources required to carry that entitlement into effect. But the Courts cannot, independently of the legislature and the executive, legitimately declare an entitlement to legal aid.
+o9sc | Similarly, in Chu Keng Lim v The Minister for Immigration, Local Govern- ment & Ethnic Affairs, 141 the International Covenant on Civil and Political Rights was considered once again. While it was not determinative of the deci- sion in that case, Brennan, Deane and Dawson JJ made their position clear. Their Honours said:142
+121u | We accept the proposition that the courts should, in a case of ambiguity, fa- vour a construction of a Commonwealth statute which accords with the obli- gations of Australia under an international treaty.143 The provisions of [the relevant statute] ... are, however, quite unambiguous.
+zh03 | The significance of Mabo in this respect is therefore that it has rein- forced the legitimacy of international law and instruments as proper sources of influence in the development of the domestic common law of Australia. The proper inference to be drawn is that, after Mabo, the astute lawyer in Australia will, where appropriate, direct the attention of Aus- tralian courts to relevant international material. Courts themselves, upon the basis of Mabo and the subsequent cases, will increasingly regard such material as legitimate sources of data. As the cases bear out, such use of international material need not be limited to circumstances in which 'in- ternational law declares the existence of universal human rights'.144 The use will come to extend to other, perhaps more mundane, circumstances. In this respect, Mabo has dictated that the common law of Australia will in future be influenced by legal authority, policy, principle and applica- ble rules of international law.
+```
+
+OUTPUT:
+```

@@ -1,0 +1,152 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+9zmh | . Have conversations about things that are intellectually or emotionally stimu- lating to each other.
+mi3g | · Acknowledge each other's capabilities and possibilities for growth.
+ntjg | . Compassionately bring light to your partner's limitations and blind spots.
+86at | . Offer words of encouragement when your partners take on new responsi- bilities, go on dates with others, take a risk or learn something new.
+bpd2 | Secure Base Reflection Questions
+hkd8 | In each of your relationships that are attachment-based, or for the relationships that you would like to become more attachment-based, ask yourself:
+sptg | . How is this partner already acting as a secure base for me?
+2k40 | . What does growth look like for me? Is it usually a shared or a personal expe- rience, or both?
+krk7 | . Are there other ways that I want encouragement or support in my individual growth or with my visions and dreams?
+4tyc | . How could my partners support me in regard to my other relationships?
+2mjl | . How could | better support or encourage my partners' dreams or aspirations to grow and develop?
+6d9q | . How could | better show genuine interest or curiosity in things that are important to my partners?
+wsc1 | . How could I better support my partners in their other relationships?
+or3l | A benefit of nonmonogamy is that you don't have to provide or expect to receive all of this from one partner. Different partners can be more of a safe haven, a secure base or both, offering different facets of each. We all have different strengths and it can be wonderfully satisfying to have some partners that support you in safe haven ways, while others offer more of a secure base.
+fbyc | When I first began presenting at nonmonogamy conferences, I was nervous. I had experience presenting in academic settings and in leading workshops, but the conference format was different. I didn't know whether the nonmonogamous audi- ence would connect with what I was talking about (I was presenting on emotional triggers, so in retrospect it was a slam-dunk topic for nonmonogamous folks). At this time, I was still nursing my infant son on demand, so being away from him for more than three or four hours felt like a big deal. I needed both emotional support and logistical help with my son. Thankfully, I had two different partners who could take on these roles for me.
+vceo | My co-parent (and husband at the time), Dave, was an amazing secure base. He cleared his day to be with our son and gave me the freedom and encour- agement to go rock it as a presenter. He reassured me that my son would be fine while I was gone and that he wouldn't starve if he couldn't nurse at the exact mo- ment he wanted to. Dave reminded me to remember to have fun while I was pre- senting, which was precisely what I needed to hear right before I gave a talk. In this incident, he was the secure base that I needed to be able to confidently turn away from my family and go take a risk in the larger world. However, since he was care- taking our son, he was understandably not available for any of the safe haven types of emotional support that I also needed. This is where my other partner, Sam, stepped in. Sam wasn't able to be at the conference with me, but they made them- self available to talk on the phone right when my talk was done. They were excited to hear about my experience and gave me their full attention as I debriefed every- thing I needed to. In that instance, Sam was my safe haven. I could let my guard down with them, lean into them, and experience being accepted with love, warmth
+kd78 | and attunement. Both partners came through for me exactly how I needed, and nei- ther needed to be or do more than they did.
+896u | On a separate but similar note, I presented the information in this chapter at a different polyamorous conference and bumped into an attendee from that confer- ence several months later. She told me that after hearing my talk, she realized that all three of her current partners were a safe haven for her, but that none of them were really functioning in secure base ways. This person was fulfilled and content with how her partners were showing up for her, so she decided not to request that any of them take on more of a secure base role. She also felt that it wasn't neces- sary to take on a fourth partner who could provide a secure base. Instead, she de- cided to start acting in more secure base ways for herself, which she did by encour- aging her own growth and expansion. In just a few short months she started a blog that she had long thought about and also bought and renovated the vintage car of her dreams. To me, this demonstrates the importance of how we do not always have to turn to our partners to meet our safe haven or secure base needs, espe- cially when our pre-established relationship dynamics are working well. We can focus on cultivating a more secure attachment with ourselves, which is one of the pillars of being polysecure. Chapter Nine focuses on the importance of being our own safe haven and secure base, so that we can better establish a secure attach- ment with our self. When attachment ruptures and traumas occur, we can lose ac- cess to the parts of ourselves that are able to be a safe haven through self- soothing, self-nurturance, self-compassion and self-acceptance, and to the parts of us that are able to be a secure base through self-encouragement, healthy stan- dards, appropriate boundaries and alignment with our values. While having mul- tiple partners to turn to for a secure base or safe haven is a definite benefit of non- monogamy, we can't forget how powerful and important it is to also rely on our self in these ways.
+o0si | O
+1fx8 | CHAPTER EIGHT THE HEARTS OF BEING POLYSECURE
+tfms | NOW THAT WE'VE COVERED being a safe haven and secure base-the two broader strokes of being polysecure-I want to focus on some more specific things you can do to cultivate being polysecure in your multiple relationships. I've combed through the literature on the conditions needed to create secure attachment in adult romantic relationships and considered what I've experienced and witnessed in the polyamory partnerships that I've counseled. The result is the acronym HEARTS, which I use to encapsulate the different ingredients, skills, capacities and ways of being required for secure functioning in multiple attachment-based part- nerships.
+pfv5 | HHere (being here and present with me) EExpressed Delight AAttunement RRituals and Routines TTurning Towards after Conflict SSecure Attachment with Self
+8gxa | The first five letters in HEARTS cover the relational level of being polysecure. When explaining these, I suggest different behaviors and practices that you can exper- iment with and take on in your attachment-based polyamorous relationships. The S in HEARTS focuses on the individual level of being polysecure. I have dedicated the whole next chapter to this, where I will guide you through suggestions and prac- tices for applying HEART to yourself. An important caveat is that you do not need to be perfect in all of these things all of the time, but my hope is that if you prioritize these things at the heart of your relationships, you will discover beautiful and pow- erful ways to thrive in love.
+fsvi | H: ARE YOU HERE?
+068d | From an infant's perspective, it would be impossible to attach and bond to some- one who is not there. The absence of caregivers can be dangerous and damaging,
+ysz7 | and can have a ripple effect for years to come. Attachment begins in the body, first in utero and then through skin-to-skin contact with our caregivers. Physical prox- imity is needed for the development of attachment, since it is through touch and face-to-face contact that we forge bonds with each other, and it is by responding to a child's cries with our own bodies that we inform them that they are safe and not alone. Voice also plays an important role in the attachment system & The right tone and cadence from our attachment figures can have the powerful ability to soothe us when distressed, and a person's voice and body language can also alert us to how trusting and safe they are.
+k5db | Optimal functioning of the attachment system and the formation of attachment security are best facilitated by consistent interactions with significant others who are responsive to our needs for proximity. We need to know that our attachment figures are available to us, that they are within arm's reach (literally and virtually) and that they will be available and responsive when we call for them. When we experience our partners as being here with us, it results in the positive beliefs that our partners care about us, we matter to them and we are worthy of their love and attention. Conversely, when our partners are unavailable, unresponsive or mentally elsewhere, attachment insecurity can arise, feeding the fears and doubts that we are not valued, loved or worthy.
+7jzh | The Buddhist monk and peace activist Thich Nhat Hanh is widely attributed as providing the quote "the most precious gift we can offer is our presence," but entrepreneur Malcolm Forbes is said to have reminded us that "presence is more than just being there." Being in the same physical space does not necessarily mean that you are here and present with the people you are near. When you are with your partners, are you really focusing on them and giving your full attention, or are you distracted by your phone, by the stresses from the day, by your worries about the future or by your other partners? Are you really listening to your partners when they talk, or are you thinking about other things, only partially listening or mentally pre- paring for what you want to say next? Physical proximity is extremely important and necessary for attachment, but it is not sufficient if the quality of presence is poor.
+vm00 | Being present with your partner is important for people in any relationship struc- ture, but struggling with presence and availability is a common complaint in non- monogamous relationships since there are typically more people to attend to in any given day or week. One of the most common complaints that I hear is of situa- tions where partners are spending quality time together and one partner is mes- saging with other people in ways that feel distracting and interruptive.
+62qe | Attachment is an embodied experience, and it is first through being present with ourselves in our own bodies and present with our loved ones that the rest of the attachment-based skills and capacities of the HEART of being polysecure can be developed and expressed. As an adult who wants to function from a secure place in your relationships, you can't affirm, attune, repair or even play if you are not here with yourself or with your partners. Being present is not just putting your phone down for a few minutes. It is a way of being, from interaction to interaction, where you consciously inhabit your own body and show up with the best of your atten- tion, offering your presence as a gift.
+ypz9 | Questions to Consider
+mpml | . How do you show that you are here with your partners?
+imnm | . How could you be more present when you are with your partners?
+8na8 | . Are there ways that you could be more available and responsive to your part- ners?
+ul2a | . How do your partners demonstrate that they are being present with you?
+4eaf | . Do you trust that your partners will be available and responsive if and when you need them?
+4b6k | . Are there things that your partners could do that would enhance your sense that they are here with you when you are together and here for you in general?
+hxiu | Things to Try and to Experiment With
+1ylw | . In order to be truly present with one another, we need to experience and have access to an inner state that is different from our ordinary state of conscious- ness. To do this, it is important to learn practices that cultivate a state of
+waqw | presence so that you can bring this to the people you are with. Explore dif- ferent practices to create a state of presence and mindfulness.
+nf6a | . Articulate being here and present as a value that you have for yourself and as an intention in your relationships.
+5g96 | . Prioritize regular time with your partners when you are both fully here and present with each other. This is especially important when you only get lim- ited time together, but it is just as important when you live together and spend a lot of time in each other's company, but are not actually connecting without the distractions of kids, house, work, pets, meals, etc.
+d1y5 | . Put your phone down, take your smartwatch off. If you are on a date with a partner, put your electronic devices away. With the exceptions of legitimate situations that need urgent and immediate attention, do your best to take care of any messaging, logistics or calls with other partners before or after your date. If you have partners who can't handle not being in contact with you for a period of time, professional support might be needed to work through at- tachment insecurities or patterns of codependency. Even though attachment- based relationships do require regular maintenance, when we are functioning from secure attachment with our partners we will be flexible, gracious, tol- erant and even appreciative of time apart.
+rl20 | . There will be times when having your phone away is not realistic. For exam- ple, if you nest with your partner and you are both home together, but it's not necessarily designated quality time together, or if you and a partner are on an extended trip and it's not realistic to not talk to other partners for several days. In these situations, I find that it is best to just be transparent about when you need to step away and message or make calls. Do your best not to sneak in messages to others while the partners you are with are in the bath- room or while you're lying in bed together (unless your partners truly take no offense at this, which some people don't). With nesting partners, it can be helpful to have designated times of the day or during the week where you are both off your phone and focused on each other, so that the times when you
+t91r | are on your phone throughout the day do not become problematic. When you are with non-nesting partners, clearly let them know when you need a certain amount of time to be on your phone and that you'll be fully present when you're back. This can go a long way in preventing tensions and strain.
+7s4b | . When you are struggling with being present because you are in conflict with another partner or have other life stressors going on, the next best thing you can do is to just name what is tugging at your presence. You do not neces- sarily have to go fully into what is distracting you since you might not want to spend your time with one partner processing what's going on with another, and some of the things that you are struggling with may require honoring the privacy of your other partners, but being able to name where you are at and what is preventing you from being fully present (instead of trying to pretend that you're fine when you're clearly not) is another way of being present with where you are in that moment. It may not be ideal, but it is honest and part- ners will typically appreciate this.
+ehif | . In your relationships, discuss how available you want to be to each other (i.e., to what extent or at what frequency), be clear about what you can gener- ally offer and follow through regarding time, attention and forms of com- munication.
+buv0 | As best as you can, clearly communicate when you will be unavailable, whether that is times during the day, specific days of the week, standing dates with certain partners, trips, holidays, etc. When we can't be available to our partners, the next best thing for both of our attachment systems is to tell them when we will be out of reach and when we will be back. If you can't be immediately available to one of your partners, the next best thing you can do is let them know when you can, so that they know what to expect.
+wqqa | E: EXPRESSED DELIGHT
+www8 | The next thing that you can do to nurture more polysecurity with your partners is offer expressed delight. Brown and Elliot describe expressed delight as one of the
+```
+
+OUTPUT:
+```

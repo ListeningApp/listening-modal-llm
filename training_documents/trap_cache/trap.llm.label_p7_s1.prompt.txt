@@ -1,0 +1,170 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+km8w | Downloaded from https://www.cambridge.org/core. Seoul National University - Statistics Department, on 27 Nov 2019 at 01:38:53, subject to the Cambridge Core terms of use, available at https://www.cambridge.org/core/terms.
+wzno | https://doi.org/10.1017/S0043887116000095
+xagm | WORLD POLITICS
+iwn5 | withstanding, our quantitative analysis often includes all MI countries, and many of our arguments could travel, in revised form, to other MI countries. Of course, even among our nine large MI countries there are major differences, to which we return in Section V.
+uooz | EDUCATION
+pxbq | Despite steady progress over recent decades in increasing access and spending, educational achievement in MI countries continues to lag. Conversely, countries where education levels have historically exceeded the norm for their income levels have been some of the fastest growing in East Asia and the ones most likely to escape the MI trap.21 Several measures give a clear picture of gaps in educational quality and perfor- mance: Program for International Student Assessment (PISA) scores, proportion of the labor force with tertiary education, and number of technical workers in R and D activities (see Table 1). The gaps show both the problem of low human capital and the enormous challenge to overcoming the MI trap.22
+jfsr | For PISA scores, a forty-point difference is equivalent to about one year of education, which puts fifteen-year-olds in middle-income countries more than two years behind Organization of Economic Cooperation and Development (OECD) countries and more than three years behind HI East Asia. The results reflect cumulative learning, so raising scores requires improving education quality across all levels of primary and secondary education. Differences in the stock of higher education are again stark, with MI countries at less than 60 percent of the levels of HI East Asia and OECD countries. Figure 1 provides another representation of the steep institutional challenge facing large MI countries. The slope conveys the strong relationship between education and income, but also shows that educational attainment in large MI countries is below what would be expected for their income levels.
+u15r | Stocks at highest levels of education-technical personnel in R and D-show the greatest differences (Table 1): MI countries have only about a quarter of the levels of HI Asia and the OECD. These numbers are, of course, correlated with investment in R and D (see below), but the numbers in Table 1 also capture the important point that much invest- ment in R and D goes to paying scientists, engineers, and technicians, so R and D investment cannot be increased overnight. The educational
+lq35 | Downloaded from https://www.cambridge.org/core. Seoul National University - Statistics Department, on 27 Nov 2019 at 01:38:53, subject to the Cambridge Core terms of use, available at https://www.cambridge.org/core/terms.
+3g9w | https://doi.org/10.1017/S0043887116000095
+d09o | TABLE 1 HUMAN CAPITAL IN MI AND HI COUNTRIES
+ylhz | FIGURE 1 PISA SCORES AND GDP PER CAPITAª
+a3td | Downloaded from https://www.cambridge.org/core. Seoul National University - Statistics Department, on 27 Nov 2019 at 01:38:53, subject to the Cambridge Core terms of use, available at https://www.cambridge.org/core/terms.
+ex5k | https://doi.org/10.1017/S0043887116000095
+9d4o | WORLD POLITICS
+cjq2 | system must first produce the personnel that companies, agencies, and institutes can hire.
+5esx | RESEARCH AND DEVELOPMENT
+m5ka | MI countries invest only a third or less of what HI countries invest in R and D (see Table 2). This is one of the differences most clearly con- nected to the prior drivers of growth-especially low-wage, labor-in- tensive manufacturing, multinational corporation (MNC) dominance of manufacturing (MNCs concentrate R and D at home), and raw materials exports-that helped bring countries out of low income but did not promote investment in R and D. R and D does of course tend to increase with development, but Figure 2 also reveals two crucial aspects of the MI trap. First, most large MI countries invest below the expected amount of R and D for their income levels. And, second, for the fitted curve, MI countries are at a point in development where the curve slopes more sharply upward, which conveys the increasing challenges they face.23
+byu8 | The large educational and R and D gaps between HI and MI coun- tries highlight the huge challenge of institution building facing the lat- ter. Increasing, say, investment or exports can be promoted by policies such as tax exemptions that, while rewarding some and hurting others, can be implemented with the stroke of a pen. In contrast, training and employing more technical personnel requires (1) extensive horizontal coordination among private firms, research institutes, and universities to create the new positions and develop specialized curricula, as well as (2) massive vertical coordination among the thousands of teachers and students who will implement the new training and education programs. (Section IV returns to institutional challenges in education.) Both forms of coordination require large investments in a range of institutions that usually includes schools, vocational training institutions, universities, university-business collaborations, and some mix of research consortia or institutes, laws and court systems for intellectual property, agencies to promote R and D, and so forth.
+76b0 | Improved performance by MI countries in productivity-enhancing reforms and investments is more important today, when the bar for up- grading is higher than in the past. As we have seen, levels of education and R and D were much lower in HI countries in the twentieth century than they are currently. The goalposts have moved. Shifts in the tech-
+zxz6 | Downloaded from https://www.cambridge.org/core. Seoul National University - Statistics Department, on 27 Nov 2019 at 01:38:53, subject to the Cambridge Core terms of use, available at https://www.cambridge.org/core/terms.
+xnth | https://doi.org/10.1017/S0043887116000095
+vafm | TABLE 2 INVESTMENT IN R AND D IN MI AND HI COUNTRIES (PERCENTAGE OF GDP) a
+2zmw | b Excluding Hong Kong.
+bf9k | FIGURE 2 R AND D AND GDP PER CAPITAª
+otkr | Downloaded from https://www.cambridge.org/core. Seoul National University - Statistics Department, on 27 Nov 2019 at 01:38:53, subject to the Cambridge Core terms of use, available at https://www.cambridge.org/core/terms.
+ibgs | https://doi.org/10.1017/S0043887116000095
+colo | nological and managerial challenges facing today's MI countries suggest that successful movement out of the MI trap in the twenty-first century will require industrial policies, institutional designs, and political con- figurations that are different from those adopted by earlier developers.24 Yet one component of past success-the development of broad coali- tions in support of effective institutions-is as necessary as ever.
+d6r4 | III. DISARTICULATION POLITICS: OBSTACLES TO FORMING UPGRADING COALITIONS
+9mrz | Making enormous institutional investments requires extraordinary collective action and coalition building. Indeed, Alejandro Foxley and Fernando Sossdorf set it as a top priority: "The most productive thing middle-income countries can do to accelerate their transition to ad- vanced economies is to establish a bipartisan political consensus."25 Yet the evolving political conditions in MI countries have become especially inauspicious for such consensus and coalition building. Our political analysis concentrates on the social cleavages-especially inequality, formal/informal workers, and foreign/domestic business-that impede the emergence of effective upgrading coalitions.26
+pk06 | We focus on coalitions of social groups for two main reasons.27 First is the centrality of coalitions to successful late industrialization and movement into high income.28 Such coalitions varied along several di- mensions, such as their duration, the number of groups involved, and the role of the state in forging them. They range from the "marriage of iron and rye" (large landowners and heavy industry) in nineteenth- century Germany; to Japan's postwar "corporatism without labor";29 to Northeast Asia's postwar "cohesive capitalist states,"30 also labeled "conservative coalitions"31 or "state corporatism," in which authoritar- ian leaders prioritized rapid industrialization by working "closely with
+7wn9 | Downloaded from https://www.cambridge.org/core. Seoul National University - Statistics Department, on 27 Nov 2019 at 01:38:53, subject to the Cambridge Core terms of use, available at https://www.cambridge.org/core/terms.
+wcd0 | https://doi.org/10.1017/S0043887116000095
+caos | MIDDLE-INCOME TRAP
+qrvy | industrialists"; 32 to the more horizontal, "societal" corporatist arrange- ments, usually involving labor as well as business and the state, in the small states of northern Europe, and Ireland.33 Despite their variation, these arrangements served a common purpose: namely, they facilitated intertemporal bargains needed for investing in those upgrading-related investments that required extensive information, negotiation, monitor- ing, and short-term costs, but whose benefits would emerge only in the medium or long term.
+pn9j | Second, recent antidemocratic shifts in South Africa, Thailand, and Turkey notwithstanding, long-term developmental autocracies, such as those in Northeast Asia in the twentieth century, are ever less likely as elections have become routine in our nine cases of large MI coun- tries. In more democratic settings, short political horizons for political incumbents weaken their incentives for long-term investments, thus, sustained political pressure from coalitions that support upgrading be- comes especially important for keeping elected politicians on task. Even in cases where single parties or leaders were in power for more than a decade (as in Argentina, Brazil, Malaysia, South Africa, and Turkey), time horizons were still fairly short term.34 Moreover, these parties were largely populist, redistributive, and/or corrupt; in addition, they did not face strong upgrading coalitions. Malaysia is a partial exception to which we return in Section V.
+1pmc | Our core contention is that strong upgrading coalitions have not emerged in today's MI countries. Owing to the ways these countries grew into MI status-by their reliance on various combinations of cheap labor, foreign investment, and commodity exports-the economic elites and workers in MI countries have different compositions, cleavages, and underlying interests than did those in the earlier industrializers.35 In- deed, we are aware of no existing scholarship on these countries arguing that such upgrading coalitions exist. We can only speculate about what such an upgrading coalition might look like in the future. The past ex- perience of rich countries suggests that it might be cross-class among business and workers, as in Northern Europe, or more elitist and more exclusively among economic elites, as in East Asia. Our goal, though, is
+5z6q | Downloaded from https://www.cambridge.org/core. Seoul National University - Statistics Department, on 27 Nov 2019 at 01:38:53, subject to the Cambridge Core terms of use, available at https://www.cambridge.org/core/terms.
+yeoh | https://doi.org/10.1017/S0043887116000095
+b8hf | not to recommend particular coalitions, but rather to examine the fis- sures that make any potential upgrading coalition less likely.36
+hntf | The fragmentation of social groups is both vertical (high inequality) and horizontal (within business and labor). Of course, business and labor are differentiated everywhere by size and sectoral, geographical, and other divisions. But fragmentation in MI countries is both deeper than in most other cases, and now more consequential. The fragmenta- tion means that firms and workers in different parts of the economy have different strategies and therefore different interests regarding key upgrading reforms (and a range of other policies as well), especially education, as will be discussed in Section IV.
+99fo | INEQUALITY
+y5r7 | Inequality has risen higher and endured longer in today's MI countries than in earlier industrializers (see Table 3). In Figure 3 (note the in- verted scale on the y-axis), the line slopes upward and shows that the large MI countries are more unequal than would have been predicted from their income. Viewed historically, many MI countries have passed the levels of GDP per capita that OECD countries had earlier in the twen- tieth century, when their inequality was falling. Over the course of the twentieth century, for pretax Gini coefficients in ten OECD countries, inequality fell steadily from .48 in 1910 to .35 in 1980 (and then rose to .39 in 2000). By contrast, Gini coefficients for five MI countries rose to above .5 in 1930 and stayed at this very high level until 2000.37 After 2000 inequality fell in most of the nine large MI countries, though only slightly on average, from .5 to .48.38
+lrry | Most scholars would agree that inequality makes politics more dis- cordant and fractious, thus discouraging the centripetal and consensual politics that Foxley and Sossdorf and others urge on MI countries.39 Be- yond general contention, inequality also makes MI politics vulnerable to several kinds of political dysfunction, including elite capture, economic entrenchment, clientelism, and populism, all of which in various ways divert political attention and economic resources away from upgrading and work against the formation of upgrading coalitions.
+hvhm | Most simply, two-actor models of highly unequal societies start with the premise that these political economies have distinct dynamics
+863b | SOURCE: See Doner and Schneider 2016, Table S1.
+fj24 | SOURCE: Doner and Schneider 2016, Table S1.
+uz3c | Gini coefficients (2005-13)
+d5bi | b Excluding Hong Kong.
+ba4l | ª For countries included, see Table 1.
+ffx8 | ª The figure includes all countries with available data.
+s6su | TABLE 3 INEQUALITY IN MI AND HI COUNTRIES ª
+y219 | FIGURE 3 INEQUALITY AND INCOMEª
+06ht | Middle-Income High-Income
+v3r2 | countries
+nv42 | Large
+xags | .49
+jc47 | .41 (.37)b
+ko3c | East Asia
+xek3 | Recent
+bbpr | High-Income OECD
+5zyf | .30
+9own | Downloaded from https://www.cambridge.org/core. Seoul National University - Statistics Department, on 27 Nov 2019 at 01:38:53, subject to the Cambridge Core terms of use, available at https://www.cambridge.org/core/terms.
+bqfb | https://doi.org/10.1017/S0043887116000095
+wwdt | 622
+mn1r | WORLD POLITICS
+5vqw | because elites enjoy greater power and nonelites have less recourse for checking that power.40 In economic versions of such models, elites cre- ate extractive institutions to ensure their rents, even if these institutions slow growth for the economy as a whole.41 Although oversimplified, these models are useful in highlighting the pivotal role of domestic elite participation in potential upgrading coalitions and the ways in which elite privileges can discourage such engagement.
+meyw | One obstacle to such participation involves a form of entrenchment in which longer periods in MI status allow large firms and elite social groups to consolidate their positions in the economy and the polity.42 The domestic firms-mostly huge, conglomerated, family-owned busi- ness groups-that grew large in the late twentieth century were con- centrated in commodities (natural resources, basic metals, and other semiprocessed goods), regulated sectors (especially banking and utili- ties), natural oligopolies (such as cement and beer), and occasionally, low-tech manufacturing (having been boxed out of high-tech manufac- turing by MNCs). They were already very large and powerful coming into the twenty-first century.43 In contrast to business groups in countries that escaped the MI trap, these concentrated business groups have had little to gain from pushing for policies that would help their economies break out of the trap.44 They are entrenched in their own traditional business strategies and in politics and wield power to maintain institu- tions favorable to their existing businesses. 45
+```
+
+OUTPUT:
+```

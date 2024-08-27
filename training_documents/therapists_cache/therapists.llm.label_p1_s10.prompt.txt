@@ -1,0 +1,162 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+1pjs | Copyright 2020. F. A. Davis Company. All rights reserved.
+o2kr | 4
+v6sk | CHAPTER
+1wj6 | Knowing Ourselves as Therapists Introducing the Therapeutic Modes
+936l | LEARNING OUTCOMES
+06yq | 4.1 Describe each of the six modes, including their strengths, cautions, and associated phrases, questions, and facial and body language.
+dpv6 | 4.2 Understand the importance of a clear differentiation between each mode.
+8r5j | 4.3 Differentiate between the therapeutic use of a mode and the three circumstances that characterize the suboptimal use of a mode.
+2taz | 4.4 Apply each of the six modes in a simulation or practice situation.
+o3ya | Introduction
+r5il | Are we obligated to treat clients whose behaviors and atti- tudes may not be desirable or acceptable to us? To what de- gree should we try to do so before we decide to refer out? What attitudes and abilities explain the difference between a therapist who can interact successfully with a wide range of clients and one who attempts to do so but has less suc- cess with more challenging or disengaged clients? One key consideration in defining interpersonal excellence has been mentioned in the previous chapters; it is the willingness to pursue an empathically based understanding of each cli- ent. This allows therapists to accurately identify the critical interpersonal characteristics and events that are likely to complicate the therapeutic relationship. With respect to abilities, the primary means by which therapists may enact an empathic understanding of the client's interpersonal characteristics and events is by adjusting the enactment of his or her interpersonal styles (therapeutic modes) to best meet the needs of the client in a given moment.
+5gui | Initial Self-Assessment
+82qc | Before continuing, please turn to the end of this chapter and complete the Self-Assessment of Modes, Version III. This assessment is provided for you to begin to gain a greater understanding of the modes you might tend to utilize most frequently in a practice situation, and it is highly recommended that you complete this assessment before reading any fur- ther. This questionnaire is presented in Exercise 4.1 in the Exercises section. After responding to the questions in the exercise, you should continue read- ing the chapter. After reading the chapter, it is recom- mended that you score your responses to Exercise 4.1, complete the Personal Modes Profile, and then com- plete Exercise 4.2. It is recommended that you not score your responses until you have finished reading the chapter.
+ls7d | Copyright @ 2020. F. A. Davis Company. All rights reserved.
+tzt3 | CASE EXAMPLE 4.1 Margarita's Daughter
+t8vv | Kamisha, an experienced occupational therapist certified in hand therapy, is assigned to work with Margarita Ramos. Ms. Ramos has recovered enough from her injury, described in Chapter 1, that she is now ready to begin working on the passive range of motion in her hand. Kamisha prefers the Tyromotion Amadeo® as a central approach for persons with Ms. Ramos' type of injury. The Amadeo® is an interactive technology that uses magnets to guide the hand in ways that increase range of motion. This technology has the capacity to accommodate passive stretching exercises as well as more interac- tive game work requiring clients to use the muscles in their hands. Kamisha enjoys the Amadeo® because it allows her to record the client's progress and grade the exercises according to the client's self-reported pain tolerance, overall development of range of motion, muscle strength, and control.
+qvnu | For her first appointment, Kamisha encounters Ms. Ramos and her daughter in the waiting room. Kamisha introduces herself, deliberately making eye contact with Ms. Ramos, who remains seated.
+kggw | Kamisha: "Hello, Ms. Ramos, I am Kamisha, the occupational therapist who will be working with you to strengthen and rehabilitate your hand."
+xrd1 | Before her mother can respond, Margarita's daughter rises quickly, towering over Kamisha, and shakes her hand firmly and rapidly, saying,
+5746 | Dr. Ramos: "Hello, Tamisha (mispronouncing her name), I have learned that you are a certified hand therapist. That's great (wearing an incongruent smile). I'm Dr. Ramos, Margarita's daughter. You can call her Margarita. I will be taking her to her appointments, when I can, and my mom has al- ready signed a HIPAA release allowing me to have access to all information pertinent to her care."
+7toz | Without thinking twice about it, Kamisha responds: Kamisha: "I always appreciate it when family members are involved in a client's care (empathizing mode). I am very pleased to meet you both. I look forward to our work together" (encouraging mode).
+j346 | Chapter 4 Knowing Ourselves as Therapists 81
+v8uq | Together, the three of them proceed into the upper extremity laboratory. Kamisha begins the session by explaining the role of the occupational therapist and by orienting Margarita to the various exercises and activi- ties that will occupy a good portion of her time during the next several weeks and by asking Margarita if she has any questions about the process. Outside of a con- cern about costs, which her daughter quickly resolves, Margarita does not have any questions. Kamisha continues the session by asking Margarita several questions about her various roles and daily activities as a spouse, parent, worker, and homemaker. When Margarita occasionally has difficulty expressing herself in English, her daughter speaks spontaneously on her behalf, sometimes embellishing the responses beyond what Margarita actually says. Though Kamisha has an average proficiency in Spanish, she is not very com- fortable speaking it, so she allows Dr. Ramos to con- tinue to take charge of the translating.
+x972 | After several questions, Margarita pauses, and, in Spanish, asks her daughter why Kamisha is asking so many personal questions. According to the IRM, this represents an interpersonal event (reluctance). Instead of asking Kamisha the same question, Dr. Ramos abruptly interrupts Kamisha and states that the questions are making her mother uncomfortable (another interpersonal event, resistance). Kamisha apologizes and asks Margarita, directly, if she wants her to stop asking the questions (collaborating mode). Margarita responds, again, by wanting to know why Kamisha is asking these questions. Kamisha then explains that her goal is to learn about her daily activ- ities so as to customize the treatment to the greatest extent possible. Margarita looks curious, so Kamisha continues to explain, maintaining eye contact with Margarita (rather than with her daughter):
+cwrw | Kamisha: "The more relevant the treatment ac- tivities are to what you actually do in your daily life, the more likely it is that the home exercises I recommend will be more transferrable and suc- cessful in the long run" (instructing mode).
+4i0e | Although Margarita appears to accept this expla- nation, her daughter does not. Dr. Ramos makes the following comment and abruptly leaves the room.
+h2l3 | 82 Part 1 Theoretical Foundations and Guidelines for Practice
+dfzb | Dr. Ramos: "I understand that the chitchat is im- portant for your rapport-building, but my Mom's hand is the real priority, here. I want her to have as much time on the Amadeo® as possible." (speaking to her mother) "Mom, just have me paged when you are ready for your ride home."
+u6ty | Taken aback, Kamisha pauses to collect her thoughts. At this point, Dr. Ramos has left the room, and Kamisha turns to Margarita to say: Kamisha: "Ms. Ramos, I respect your daughter's de- sire to ensure that you receive the best care possible (empathizing mode). Once I fully understand the occupations that are most important to you, I will make sure that you spend time on the Amadeo® and that you receive the high standard of care that I give to all of my clients" (instructing mode).
+awvu | It is becoming clear to Kamisha that Margarita's daughter places a high value on information-seeking and has a high need for control (a client interpersonal char- acteristic, in this case, attributable to the client's family member). The case example illustrates how Kamisha ef- fectively used the empathizing, encouraging, collaborat- ing, and instructing modes to address the interpersonal events that emerged during Margarita's first session.
+on9b | A therapeutic mode is a specific way of relating to a client. Six therapeutic modes have been identified in pre- vious work as occurring with a high level of frequency in occupational therapy practice relationships (Taylor, 2008). In this chapter, each of these six modes is described, and examples are provided to illustrate the multiple ways in which the primary modes can be combined and utilized during therapeutic interactions with clients. Practical applications of each mode for specific client character- istics and interpersonal events are discussed. Moreover, the chapter provides a rationale for the importance of the modes to the interpersonal reasoning process within the Intentional Relationship Model (IRM).
+a8ge | Copyright 2020. F. A. Davis Company. All rights reserved.
+h27a | Our Interpersonal Behavior
+pdjh | How we relate to others in our day-to-day lives may vary as a function of our current mood state, social and en- Although a primary interpersonal style such as this is likely to work well in some competitive work or sport- vironmental context, and the interpersonal behavior of Taylor, Refleks.The White Andrer Raisonsmil bodaapartofa Therapyaan ofseeing, in A. DWig Simpatijogos, introduest Enobkvconika,well in group situations http://ebookcentral.proquest.com/lib/ubs/det
+xmgs | Created from ubc on 2025-09-07 0449.fries With context. Psychologically where people value the sharing of power and other
+bd9h | Margarita smiles, with sincerity, and responds: Margarita: "Sure, I will do my best for you" (Fig. 4.1).
+m047 | adaptive individuals utilize a wide range of natural inter- personal strategies to adapt to the social demands of liv- ing (Beck, Freeman, & Davis, 2004). Examples of these strategies are empathy, compassion, hopefulness, altru- ism, kindness, assertiveness, competitiveness, deference, dominance, passivity, resistance, avoidance, emotionality, restraint, power, aggression, suspiciousness, emotional disengagement, and isolative behavior.
+gy8c | Highly adaptive individuals are able to draw upon these and other strategies in an ever-changing and flex- ible manner in an attempt to adapt to the social demands of life (Beck et al, 2004). For example, a woman who is otherwise outgoing and gregarious at parties may signifi- cantly limit the extent to which she talks and socializes at a funeral if the social atmosphere is such that it requires silence and solemnity.
+y4mj | By contrast, individuals who are not as interper- sonally adaptive tend to overutilize a small set of interpersonal strategies in inflexible, maladaptive, or com- pulsive ways (Beck et al, 2004). For example, an individ- ual whose primary objectives in relating to others involve self-preservation, resource acquisition, and a desire for power concerning others may consistently come across as confident, charming, competitive, and, at times, dominant, even when the situation requires humility and deference.
+vpgq | Copyright 2020. F. A. Davis Company. All rights reserved.
+ousl | mutually supportive behaviors. If the previously described individual is unable to demonstrate other characteristics necessary for collaborative activities, such as deference, thoughtfulness, kindness, and empathy, negative conse- quences are likely to result when these characteristics are needed. For example, an individual with a more fixed style may become emotionally fatigued, may struggle to move into alternative roles within the group, or may even act to interfere with someone else's attempt to move into a position of power. Others in the group may grow fearful or resentful if they are not able to witness this person's humil- ity, vulnerability, or attempts to share and be supportive.
+m4ju | An individual with a greater capacity to draw on a wider range of characteristics is better able to establish appropriate relationships in both social situations. Thus, although our interpersonal behavior is relatively stable, we function best when we utilize interpersonal strategies in a flexible way and adapt to a wide range of individuals in a variety of social situations.
+a0mb | Interpersonal Behavior and Therapeutic Modes
+ki8m | Therapists' interpersonal behaviors are reflected in:
+km8w | Their fundamental motivation to serve others
+wzno | Their preferred approach to serving
+xagm | The values they hold while serving
+iwn5 | The way in which therapists interact in their personal lives (outside of therapy) may also be reflected in the specific ways in which they behave and interact with their clients during therapy (i.e., therapeutic modes). Chapter 3 noted that therapeutic communication is optimal when therapists draw on a variety of modes consciously and flexibly. This has several implications. First, therapists should develop an awareness of their natural modes (i.e., the ones that flow from their interpersonal behavior in their daily personal lives). Second, they should develop the self-discipline to use these modes in response to client needs rather than in response to their own internal comfort levels. Third, ther- apists should be aware of the limits of the modes they use and, in some instances, develop the capacity to use modes beyond those that come naturally (Fig. 4.2).
+uooz | The Six Therapeutic Modes
+pxbq | Taylor, ReneelRh The intentboalaRetation ship Ocdesationat dherapy sandfw sept Seit Fy. Al Davis itoppanya2020 aroQ tesaledok Dental,is subject to the interpreta- http://ebookcentral.proquest.com/lib/ubc/detail.action?docID=6915779. Created from Q6CUP202326 67 berg.Dy. practice are presented in Figure 4.3. tion of the client, who is the receiver of that mode. Thus,
+jfsr | Chapter 4 Knowing Ourselves as Therapists 83
+u15r | FIGURE 4.2 Kristin Alfredsson Ågren draws on a wide range of modes while working at a community-based daytime activity center in Sweden.
+lq35 | Collaborating
+3g9w | Encouraging
+d09o | FIGURE 4.3 The six therapeutic modes.
+ylhz | The idea that a therapist merely needs to select the correct mode to produce a desirable outcome carries an
+a3td | Copyright 2020. F. A. Davis Company. All rights reserved.
+ex5k | 84 Part 1 Theoretical Foundations and Guidelines for Practice
+9d4o | the same mode applied to similar situations may produce two opposing reactions in two different clients. A client's reactions are less a function of the mode choice and more a function of the interpersonal characteristics and imme- diate needs of the client. The case example at the begin- ning of this chapter illustrates this point with respect to the instructing mode. When Kamisha explained why she was asking Margarita questions about her daily occupa- tions and roles, Margarita's daughter reacted negatively, whereas Margarita appeared to accept the explanation as being valid. It is important to keep in mind that modes are perceived, relativistic, and subjective. As such, they are best interpreted through the mind's eye of the client. Rather than the mode itself, the client's interpretation and experi- ence of the mode is what determines which mode is most desirable at any given time.
+cjq2 | Carrying this point a step further, it is even possible that the same mode applied to similar situations may produce vastly different reactions in the same client. For example, when Rigel used the instructing mode to ed- ucate Mr. Johnson about the assessment he was using, Mr. Johnson's nonverbal cues revealed that he was not interested (refer to the case example in Chapter 1). How- ever, when Rigel used the same mode to explain the con- cept of brain plasticity as justification for why his early engagement in therapy is likely to facilitate functional improvement, Mr. Johnson's body language became more positive. Ultimately, he invites Rigel to return to work with him on the following day.
+```
+
+OUTPUT:
+```

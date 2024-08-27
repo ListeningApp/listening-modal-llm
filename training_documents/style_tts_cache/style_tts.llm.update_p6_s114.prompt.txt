@@ -1,0 +1,82 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document. Your task is to faithfully reproduce the text for our text-to-speech engine so that it is easily read aloud.
+
+Note that the text might not start at the beginning and paragraphs may be split acrosss multiple textboxes. Textboxes may start or end in the middle of a word which is acceptable: do not combine text between textboxes and leave broken words at the start and end of a textbox unchanged.
+
+You will receive one textbox per-line in the format `id | Textbox content`. The output must be in the format `id | Clean content`.
+
+RULES:
+ • Remove inline citations and references e.g. "(Author, 2021)" or "(https://wikipedia.org/article.html)" or "[ECMOS 35b, 47, 49]".
+ • Spell out numbers, dates, and chemical formulas for the TTS engine e.g. "-2.5" -> "negative two point five" or "Jan. 2020" -> "January twenty twenty".
+ • Spell out LaTeX formulas for the TTS engine e.g. "<LATEX>p = 1</LATEX>" -> "P equals one".
+ • Rejoin hyphenated word fragments within the same textbox e.g. "synth -esize" -> "synthesize".
+ • Fix simple typos and OCR errors e.g. "O nce upon a 1ime." -> "Once upon a time.".
+ • Delete nonsequiter textboxes that interrupt the middle of a sentence if they obviously do not belong.
+
+Otherwise, the output should exactly match the input text:
+ • Do not combine text across lines or attempt to fix words broken across lines.
+ • Ensure each ID from the input is included in the output.
+ • Make as few changes as possible while respecting the above rules.
+
+EXAMPLE INPUT:
+```
+ccpt | stigate the effectiveness of psychedelics for ADHD symp- toms in adults.
+0fpw | 2. Materia1 and methods
+dqn8 | 2.1. Study design and participants
+cop0 | The study employed a naturalistic design, assessing the experiences of participants at bas-,
+lhkq | eline before they start, and at 2 and 4 weeks after initiation. The target population included adults with ADHD symptoms who had not been diag- nosed with ADHD before. To be included, participants needed to score on Conner's Adult ADHD Rating Scale (CAARS-S:SV). This cut-off was indicative of clinically elevated symptoms (Conners et al., 1999) (see section 2.3).
+82ju | 2.2. Study procedure
+y2qo | The online advertisement was placed on a website providing information about psychedelics (www.microdo sing.nl). Interested participants were redirected to information explaining the study rationale and procedure. The baseline survey took 20 min to complete. If the survey had not been completed after 24 h, a reminder was sent. Each of the surveys at the 2- and 4-week time points took about 15 min to complete. Par- ticipants were able to pause the surveys. Data collection occurred between Nov. 2020 and Jul. 2021. The study was approved by the Ethics Review Committee of Psy- chology and Neuroscience at Maastricht University (ERCPN- 215_05_11_2019_A1).
+1piq | 2.3. Measures
+7fqw | 2.3.1. Demographic information and history of substance use
+rhaz | At baseline, demographic information was collected. History of substance use assessed experience with psyche- delics (i.e., ayahuasca, DMT, 5-MeO-DMT, LSD, novel lysergamides (e.g., 1P-LSD, ALD-52), psilocybin, salvia divinorum, ibogaine, and mescaline) in both full (psychedelic) doses and microdoses.
+wak1 | 2.3.2. Psychiatric and physiological diagnoses
+wtfz | Participants were asked whether they had a current diagnosis of a disorder. These answer options were chosen because most of the listed diagnoses are often reported to co-occur with ADHD (Kooij et al., 2019), or because these diagnoses were reported to be common in people who microdose (Fadiman and Korb, 2019). We 
+3j2l | REVIEW ARTICLE Frontiers in Psychiatry | www.frontiersin.org
+03k3 | 2
+1k9e | constructed a variable Comorbidity alongside ADHD, differenti- ating respondents with and without a comorbid diagnosis alongside ADHD (<LATEX>p < . 0 0 1 =</LATEX> only ADHD or no ADHD diagnosis; <LATEX>p > . 0 1 =</LATEX> ADHD and at least one other diagnosis). We constructed a variable Medication use alongside microdosing, differentiating respondents who were and were not using conven- tiona1 ADHD medication alongside microdosing (<LATEX>0 =</LATEX> only microdosing; <LATEX>1 =</LATEX> conven-
+```
+
+EXAMPLE OUTPUT:
+```
+ccpt | stigate the effectiveness of psychedelics for ADHD symptoms in adults.
+0fpw | Two. Material and methods
+dqn8 | Two point one. Study design and participants
+cop0 | The study employed a naturalistic design, assessing the experiences of participants at bas-,
+lhkq | eline before they start, and at two and four weeks after initiation. The target population included adults with ADHD symptoms who had not been diagnosed with ADHD before. To be included, participants needed to score on Conner's Adult ADHD Rating Scale. This cut-off was indicative of clinically elevated symptoms (see section two point three).
+82ju | Two point two. Study procedure
+y2qo | The online advertisement was placed on a website providing information about psychedelics. Interested participants were redirected to information explaining the study rationale and procedure. The baseline survey took twenty minutes to complete. If the survey had not been completed after twenty-four hours, a reminder was sent. Each of the surveys at the two and four-week time points took about fifteen minutes to complete. Participants were able to pause the surveys. Data collection occurred between November twenty twenty and July twenty twenty-one. The study was approved by the Ethics Review Committee of Psychology and Neuroscience at Maastricht University.
+1piq | Two point three. Measures
+7fqw | Two point three point one. Demographic information and history of substance use
+rhaz | At baseline, demographic information was collected. History of substance use assessed experience with psychedelics (i.e., ayahuasca, DMT, five-MeO-DMT, LSD, novel lysergamides (e.g., one-P-LSD, ALD-fifty-two), psilocybin, salvia divinorum, ibogaine, and mescaline) in both full (psychedelic) doses and microdoses.
+wak1 | Two point three point two. Psychiatric and physiological diagnoses
+wtfz | Participants were asked whether they had a current diagnosis of a disorder. These answer options were chosen because most of the listed diagnoses are often reported to co-occur with ADHD, or because these diagnoses were reported to be common in people who microdose. We
+3j2l |
+03k3 |
+1k9e | constructed a variable Comorbidity alongside ADHD, differentiating respondents with and without a comorbid diagnosis alongside ADHD (P is less than point zero zero one equals only ADHD or no ADHD diagnosis; P is greater than point zero one equals ADHD and at least one other diagnosis). We constructed a variable Medication use alongside microdosing, differentiating respondents who were and were not using conventional ADHD medication alongside microdosing (zero equals only microdosing; one equals conven-
+```
+
+INPUT:
+```
+d0ik | B. Visualization of Style Vectors
+0x0s | To verify that our model can learn meaningful style represen- tations, we projected the style vectors extracted from reference audios into a 2-D plane for visualization using t-SNE [62]. We selected 50 samples of each emotion from a single speaker in ESD and projected the style vectors of each audio into the 2-D space. It can be seen in Fig. 2(a) that our style vector distinctively encodes the emotional tones of reference sentences even though the training does not use emotion labels. We also computed the style vectors using speech samples from the same speaker with our single-speaker model. This model is only
+4exe | trained on the LJSpeech dataset and therefore has never seen the selected speaker from ESD during training. Nevertheless, in Fig. 2(b), we see that our model can still clearly capture the emotional tones of the sentences, indicating that even when the reference audio is from a speaker different from the single speaker seen during training, it still can synthesize speech with the correct emotional tones. This shows that our model can implicitly extract emotions from an unlabeled dataset in a self- supervised manner. Lastly, we show projected style vectors from 10 unseen VCTK speakers each with 50 samples in Fig 2(c). Different speakers are perfectly separated from each other in the 2-D projection. This indicates that our model can learn speaker identities without explicit speaker labels and hence perform zero-shot speaker adaptation.
+0myz | C. Style-Enabled Diverse Speech Synthesis
+xh3i | To show that the learned style vectors indeed enable diverse speech synthesis, we provide an example of synthesized speech with two different reference audios using our single-speaker model trained on the LJSpeech dataset in Figure 3. It can be seen clearly that the synthesized speech captures various aspects of the reference speech, including the pitch, prosody, pauses, and formant transitions. To systematically quantify this effect, we drew six scatter plots showing the correlations
+syiw | between synthesized and reference speech in acoustic features traditionally used for speech emotion recognition (Figure 4). The six features are pitch mean, pitch standard deviation, energy mean, energy standard deviation, harmonics-to-noise ratio, and speaking rate [63]. All six features demonstrate a significant correlation between the synthesized and reference speech (p < 0.001) with the correlation coefficients all above 0.6. Our model also outperforms other models on multi-speaker datasets in acoustic feature correlations (Table V). The results indicate that multiple aspects of the synthesized speech are matched to the reference, allowing flexible control over synthesized speech simply by selecting appropriate reference audios. Since our models also allow fully controllable pitch, energy, and duration, our approach is among the most flexible models in terms of controllability for speech synthesis.
+kg3t | D. Ablation Study
+lvae | We further conduct an ablation study to verify the effec- tiveness of each component in our model with experiments of subjective human evaluation. We instructed the subjects to compare our single-speaker model to those with one component ablated. We converted the ratings into comparative mean opinion scores (CMOS) by taking the difference between the MOS of the baseline and ablated models. The results are shown in table VII, and more details are in Appendix A.
+o9sc | The leftmost table shows the results related to the proposed Transferable Monotonic Aligner (TMA) training. When training consists of 100% hard alignments so that no gradient is back- propagated to the parameters of the text aligner (equivalent to using an external aligner such as in FastSpeech 2), the rated MOS is decreased by -0.26. This is due to the covariate shift between the pre-training data (LibriSpeech) and TTS
+121u | data (LJ Speech). An example of bad alignment of the pre- trained external aligner is shown in Figure 5. This shows that fine-tuning the aligner is effective in improving the quality of synthesized speech. However, when using 0% hard alignment (100% soft attention alignment), the model gets overfitted to reconstruct speech with soft alignment and is unable to produce audible speech using hard alignment during inference (-2.98 CMOS). We also see that both TMA objectives (equations 3 and 4) are important for high-quality speech synthesis.
+zh03 | The table in the middle shows the effects of removing various training techniques and components. Using an external pitch extractor (such as acoustic-based methods) decreases MOS by -0.11. This is likely caused by the acoustic-based pitch extraction method sometimes failing to extract the correct F0 curve, and fine-tuning the pitch extractor along with the decoder makes the model learn better pitch representation (see Appendix A-C). Without a pre-trained text aligner (such as VITS), the rated MOS is decreased by -0.39. This indicates that our transfer learning is helpful for mitigating overfitting problems when training internal aligners with a relatively small dataset. Removing our novel duration-invariant data augmentation also lowers the performance. Lastly, training without discriminators significantly affects the perceived sound quality.
+1mvw | The rightmost table shows architecture changes by removing the residual features and replacing the AdaIN components in the decoder and predictor with instance normalization (IN), AdaLN, and simple feature concatenation (Concat). Their effects on style reflection are also shown in Table VIII. Removing the residual features in the decoder decreases both naturalness and correlations between synthesized and reference speech. Layer normalization is also worse than IN for both metrics. Concatenating styles in place of AdaIN dramatically decreases the correlations and lowers rated naturalness, confirming our observation that all previous methods that use concatenation to incorporate style information ([1], [9], [64], [12], [13], [15], [16]) are not as effective as AdaIN due to the lack of temporal modulations (see Appendix A-B). Lastly, we see that replacing AdaIN with IN does not significantly affect the rated naturalness,
+6d4s | suggesting that the improved naturalness is not due to the introduction of styles but our novel technical improvements including TMA, data augmentation, use of IN, pitch extractor, and residual features. Nevertheless, styles enable diverse speech synthesis which models without styles cannot do.
+mqah | V. CONCLUSIONS
+xxr8 | We introduced StyleTTS, a novel natural and diverse text- to-speech (TTS) synthesis approach. Our research takes a distinctive step forward in leveraging the strengths of parallel TTS systems with several novel constitutions that include a unique transferable monotonic aligner (TMA) training while integrating style information via AdaIN. We demonstrated that this method can effectively reflect stylistic features from reference audio. Moreover, the style vectors from our model encode a rich set of information present in the reference audio, including pitch, energy, speaking rates, formant transitions, and speaker identities. This allows easy control of the synthesized speech's prosodic patterns and emotional tones by choosing an appropriate reference style while benefiting from robust and fast speech synthesis of parallel TTS systems. Collectively, they enable natural speech synthesis with diverse speech styles that go beyond what was achieved in previous TTS systems.
+rl4j | Our contribution lies not only in the theoretical underpinnings but also in its practical applicability. Our approach empowers various new applications, including movie dubbing, book narration, unsupervised speech emotion recognition, personal- ized speech generation, and any-to-any voice conversion (see Appendix C and our follow-up work [65] for more details). Our source code and pre-trained models are publicly available 3 to assist research in this area further.
+vz32 | VI. ACKNOWLEDGMENTS
+ncb0 | In this section, we describe the detailed settings of each condition in Table VII and provide more discussions of the results in Table VII and Table VIII.
+8mp0 | A. TMA-related
+```
+
+OUTPUT:
+```

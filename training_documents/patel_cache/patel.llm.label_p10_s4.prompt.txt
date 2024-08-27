@@ -1,0 +1,144 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+iwn5 | State court was well suited to Patel's strengths as an attorney, his former colleagues told me. He was personable and quick on his feet, and adept at "marketing" and "presenting" himself. After a few years, however, Patel moved to the federal public defender's office in Miami. There, the work was more complex, more writing- and research-intensive. Despite some successes, he developed a reputation for "style over substance," a former colleague said-one he seemed aware of but not terribly motivated to change. "He always was like, 'Look, I'm really good at trial skill. But all of this reading and writing and arguing about, like, the intricacies of the law-I'm not really interested,'" a second former colleague recalled. (Patel disputed this characterization, referring to a complex drug-trafficking case he'd handled.)
+uooz | "I'm not saying he wasn't capable of it," this person added. "But I think he always liked being the face."
+pxbq | Patel seemed caught between a brewing resentment of elites and an abiding desire to be seen as one.
+jfsr | Transcripts from Patel's cases reveal a lawyer comfortable before the bench, many of his presentations sharp and clever and peppered with flatteries for Your Honor. ("Judge, I think you hit it on the head last week.") They were also embroidered with performative modesties: "On my best day, I'm an average defense attorney"; "I'm not a mathematician, but ... "; "I'm not saying I'm a Spanish expert, Judge, but ... "; "I know I've been doing this by far the shortest time of any lawyer sitting here."
+u15r | Many times, this worked. "There were certain judges that he kind of had magic in front of," the second former colleague said.
+lq35 | This former colleague began to notice flashes of grievance in the young attorney, but they didn't seem grounded in politics so much as insecurity. This person recalled that when Patel would ask for help on legal research, he would occasionally offer some version of Well, thank God I talked to someone who is book smart and went to all the right schools and checked all the right boxes. "He would always phrase it like a compliment, but there was an edge to it."
+3g9w | It became clear that Patel "did kind of have a chip on his shoulder," this former colleague said-that he seemed caught between a brewing resentment of elites and an abiding desire to be seen as one.
+d09o | Y EARLY 2014, Patel had left Miami to become a federal prosecutor in Washington, D.C. He'd landed a job in the counterterrorism section of the Justice Department's National Security Division. Yet in Patel's telling, what
+ylhz | B
+a3td | should have been a dream chapter in the career of a young lawyer fast became a study in the rot of bureaucracy-and the malicious repercussions for those who dared to challenge it.
+ex5k | This education began with Benghazi.
+9d4o | Patel was one of the attorneys from the main Justice Department office who assisted the U.S. Attorney's Office in Washington in pursuing foreign militants for the September 11, 2012, attacks that killed four Americans. In his book, Patel writes that as the Justice Department moved to bring the Benghazi terrorists to court, "I was leading the prosecution's efforts at Main Justice." He claims that he proceeded to watch firsthand as senior DOJ leadership and other Obama officials-"political gangsters, frauds, and hypocrites" such as Attorney General Eric Holder and his successor, Loretta Lynch-chose to "go soft" on the terrorists by prosecuting only one perpetrator. It was for this reason, Patel writes-a lack of trust in the prosecution's decisions-that when his supervisors asked him to join the trial team itself, he declined.
+cjq2 | When I put this version of events to three people familiar with the prosecution, I was met with astonishment. One of these people said simply: "Good God."
+5esx | Although Patel was Main Justice's representative on the case for a period, the U.S. Attorney's Office led the prosecution, they said. The department prosecuted a single suspect, they added, because he was the only one the government had been able to capture. (DOJ later prosecuted a second suspect, and reportedly brought charges against multiple others.) Patel was tasked with coordinating approvals for warrants and indictments, among other responsibilities. Moreover, he did not decline an invitation to join the team working on the actual trial; according to two of his former DOJ colleagues, he was never asked. After clashing with the U.S. Attorney's Office, he was removed from the case altogether. (Patel denied this, saying he was simply reassigned to a different position.)
+m5ka | What all parties seem to agree on is that the young attorney had grown bitter toward the system that had employed him for the better part of his career. And an unexpected
+byu8 | Kash Patel Will Do Anything for Trump - The Atlantic confrontation in Texas transformed the building friction into a personal declaration of war.
+76b0 | In January 2016, Patel traveled to Tajikistan to interview witnesses for an Islamic State-related case. While he was there, a federal judge in Houston scheduled a surprise hearing in another terrorism case Patel was involved in. He had less than 24 hours to make it to Texas, and having brought only slacks and a blazer on his trip, he contacted the local U.S. Attorney's Office asking for a tie. But when Patel finally arrived at the courthouse, for reasons that remain in dispute, there was no tie.
+zxz6 | Judge Lynn Nettleton Hughes lost it. "If you want to be a lawyer, dress like a lawyer," Hughes snapped in chambers. "Act like a lawyer." Hughes proceeded to berate Patel as "just one more nonessential employee from Washington." "What is the utility to me and to the people of America to have you fly down here at their expense?" he said. "You don't add a bit of value, do you?" The judge dismissed Patel from chambers.
+xnth | Patel's bosses were furious on his behalf. Hughes, then 74, had a history of eruptions in court, including disturbing remarks about race. Three years earlier, an Indian American plaintiff had tried but failed to have the judge removed from his discrimination case after Hughes held forth in a pretrial conference on "Adolf Hitler's use of swastikas, the origin of Caucasians and the futility of diversity programs at universities," the Texas Observer reported. DOJ officials' attempts to get a transcript of the Patel exchange only enraged Hughes further; the judge issued an "Order on Ineptitude" castigating the "pretentious lawyers" at Main Justice.
+vafm | The Washington Post included all of this in a report on the incident. In the article, Patel comes across as a sympathetic figure. But the Justice Department chose not to comment, and for Patel, this was what counted. He writes in his book that, although his superiors privately praised him for keeping a level head, they "refused to say any of that publicly," standing by as the media "dragged my name through the mud."
+2zmw | Patel brought complaints again and again to the leadership of the department's National Security Division-adamant that something be done to hold the Texas prosecutors to account for not standing up for him in front of the judge, one of his
+bf9k | former DOJ colleagues recalled. It wasn't that his superiors had failed to understand his frustration; yes, they agreed, the judge was a "wack job," in the words of the second former DOJ colleague, and they had called the U.S. Attorney's Office to express their disappointment. "I finally said, 'I don't really know what else you want,'" the first former colleague recalled. "The U.S. attorney is presidentially appointed, like, I-what do you want us to do?'"
+otkr | "He just felt so aggrieved," this person added, "and this continued throughout the rest of his tenure. And I actually think it was part of why he left."
+ibgs | The lesson of the bench slap and its aftermath, as Patel explains in Government Gangsters, was this: Although he had tried "to do my best to serve my country," senior government officials had "refused to step up to the plate" for him in return. Patel decided to stop working for "cowards."
+colo | The next year, he met Devin Nunes.
+d6r4 | I N PATEL's children's book The Plot Against the King, Duke Devin bursts into the home of Kash, the wizard. The duke is distressed because ever since Choosing Day, a "shifty knight" (otherwise known as Democratic Representative Adam Schiff) has been proclaiming that King Donald cheated his way past Hillary Queenton to the throne. He begs Kash, known throughout the Land of the Free as the "Distinguished Discoverer," to enlist in "the Quest for the Truth about the Plot against the King," and after some consideration, Kash agrees.
+9mrz | Patel tends to emphasize his reluctance when he recounts going to work for the House Permanent Select Committee on Intelligence in April 2017, whether he is a teal-caped wizard in the telling or just another 30-something civil servant looking for the next thing. He has said that when he first met with Nunes, the committee's Republican chair, about a staff opening on the committee's investigation into Russian interference in the 2016 election, he thought the job sounded boring; what Patel had really wanted, since Trump's election, was to work in the White House. But Nunes won him over, Patel writes in Government Gangsters, by promising to recommend him for a spot on Trump's National Security Council once the probe concluded.
+pk06 | Patel would devote the next several months to examining the FBI's rationale for wiretapping the former Trump-campaign adviser Carter Page, and to uncovering the origins of the infamous Steele dossier. In interviews, staffers and committee members recalled Patel as personable, hardworking, and not noticeably partisan. "He was instrumental in helping us understand what the FBI would have had in their possession," Mike Conaway, a Republican member of the committee at the time, said. A former Democratic committee staffer told me that Patel at first impressed even some in the minority as "exceedingly nice."
+7wn9 | Some of the Republicans on the committee grew frustrated, however, by Patel's emerging tendency to go rogue. One of the more surprising examples of this came just a few months into his tenure, when Patel and a colleague turned up unannounced at the London office of Christopher Steele's lawyer, where Patel left his business card. ("We did everything by the book," Patel later wrote of the incident.) One Republican staffer, initially taken by Patel's charisma, came to view him as a "spotlight ranger."
+wcd0 | In January 2018, as the committee's majority neared the completion of a report on its findings, Nunes and his staff, including Patel, met with then-Deputy Attorney General Rod Rosenstein at the Justice Department. By all accounts, the conversation grew contentious as Nunes pressed Rosenstein to furnish more documents to the committee. According to a statement later issued by the Justice Department, Nunes warned that he would act to hold Rosenstein in contempt of Congress, and Rosenstein issued a warning of his own: Should Nunes pursue that route, Rosenstein was prepared to subpoena the committee's communications to defend himself.
+caos | Patel interpreted Rosenstein's warning as a "direct and personal threat against" him- one of the nation's top officials retaliating against a House staffer out of fear of the "corruption I was about to expose." As Patel tells it in his book, he immediately contacted senior staff to House Speaker Paul Ryan to share news of the attack on one of their own employees, and Ryan's office "flatly refused to have my back." A former Ryan aide described the exchange to me this way: "Kash seemed to think there was some magic wand the speaker had to stop people from saying things Kash didn't like."
+qrvy | Suddenly everything seemed to make sense to Patel. Different setting, different time, but same deep state, same story: Here, in new form, was the Justice Department refusing to defend him against "the unstable judge in Houston," he writes; here was Washington's dogmatic lack of interest in "defending what's right" made coldly manifest.
+pn9j | The majority's four-page report, of which Patel was a primary author, was ultimately found to have credibly identified errors and omissions in the FBI and DOJ's applications to surveil Carter Page, though an inspector general did not corroborate the memo's suggestion that the surveillance was politically motivated. When it was released, the so-called Nunes memo was framed by much of the media as politically charged fiction, and Patel was identified for his role in writing it. On February 2, 2018, The New York Times published an article headlined "Kashyap Patel, Main Author of Secret Memo, Is No Stranger to Quarrels."
+1pmc | The article cited Patel's run-in with the Houston judge as a key example of his history of "quarrels," offering a pared-down version of events that seemed to render Patel the irresponsible offender of a sober-minded judge. The incident, in other words, had been elevated to a defining place in the public narrative of Patel's career-just as he'd always seemed to fear. "He felt extraordinarily mistreated," another former Republican member of the House Intelligence Committee told me.
+5z6q | Somewhere along the way, the plot against the king had turned into a plot against the wizard himself.
+yeoh | As Patel came to feature in more and more stories about the Russia investigation, he seemed to embrace the view that any criticism of him or his work-valid or not-was evidence of a coordinated smear campaign. "All their attacks only convinced me that we were on to something big," Patel writes in his book.
+b8hf | A few months later, by his own admission, he decided to leak intelligence-committee emails regarding Rosenstein's "chilling" and "sustained personal attack" against him to Fox News. Shortly after an article ran, according to Patel, Ryan approached him on the House floor and asked him to stop shopping stories to the press.
+hntf | "Absolutely," Patel claims to have replied. "I would have no problem doing that the moment he, as the Speaker of the House, started having the backs of people falsely attacked for their work on behalf of the House." (A spokesperson for Ryan told me that neither Ryan nor his staff has "any recollection of this occurring.")
+99fo | They'd given him no choice, Patel reasoned. Somewhere along the way, the plot against the king had turned into a plot against the wizard himself.
+y5r7 | B Y THE WINTER of 2018, Republicans had lost the House, and Schiff was set to take over the intelligence committee. Patel later wrote that Nunes, as promised, urged Trump to hire his protégé onto the National Security Council. According to Patel, when Trump realized just whom Nunes was referring to -the man who "had saved his presidency by revealing the unprecedented political hit job designed to take him down"-he ordered his chief of staff to onboard Patel at once.
+lrry | Former administration officials told me that, from his first days as a staffer on the National Security Council, in February 2019, Patel was fixated on trying to get face time with Trump. He had a script, and it wasn't long before many of his colleagues could recite it themselves: "Mr. President, the deep state is out to get you," as the longtime Trump adviser paraphrased it, "and I'm going to save you from it." Five months into his tenure, Patel was made the senior director of the NSC's counterterrorism directorate.
+hvhm | Much has been written about Patel's year on the National Security Council, including the early suspicions among his colleagues that he was funneling information about Ukraine directly to Trump, outside official channels. In the former president's first impeachment inquiry, the NSC official Fiona Hill testified about learning from another colleague that Trump apparently viewed Patel as the council's director on
+```
+
+OUTPUT:
+```

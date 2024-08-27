@@ -1,0 +1,80 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document. Your task is to faithfully reproduce the text for our text-to-speech engine so that it is easily read aloud.
+
+Note that the text might not start at the beginning and paragraphs may be split acrosss multiple textboxes. Textboxes may start or end in the middle of a word which is acceptable: do not combine text between textboxes and leave broken words at the start and end of a textbox unchanged.
+
+You will receive one textbox per-line in the format `id | Textbox content`. The output must be in the format `id | Clean content`.
+
+RULES:
+ • Remove inline citations and references e.g. "(Author, 2021)" or "(https://wikipedia.org/article.html)" or "[ECMOS 35b, 47, 49]".
+ • Spell out numbers, dates, and chemical formulas for the TTS engine e.g. "-2.5" -> "negative two point five" or "Jan. 2020" -> "January twenty twenty".
+ • Spell out LaTeX formulas for the TTS engine e.g. "<LATEX>p = 1</LATEX>" -> "P equals one".
+ • Rejoin hyphenated word fragments within the same textbox e.g. "synth -esize" -> "synthesize".
+ • Fix simple typos and OCR errors e.g. "O nce upon a 1ime." -> "Once upon a time.".
+ • Delete nonsequiter textboxes that interrupt the middle of a sentence if they obviously do not belong.
+
+Otherwise, the output should exactly match the input text:
+ • Do not combine text across lines or attempt to fix words broken across lines.
+ • Ensure each ID from the input is included in the output.
+ • Make as few changes as possible while respecting the above rules.
+
+EXAMPLE INPUT:
+```
+ccpt | stigate the effectiveness of psychedelics for ADHD symp- toms in adults.
+0fpw | 2. Materia1 and methods
+dqn8 | 2.1. Study design and participants
+cop0 | The study employed a naturalistic design, assessing the experiences of participants at bas-,
+lhkq | eline before they start, and at 2 and 4 weeks after initiation. The target population included adults with ADHD symptoms who had not been diag- nosed with ADHD before. To be included, participants needed to score on Conner's Adult ADHD Rating Scale (CAARS-S:SV). This cut-off was indicative of clinically elevated symptoms (Conners et al., 1999) (see section 2.3).
+82ju | 2.2. Study procedure
+y2qo | The online advertisement was placed on a website providing information about psychedelics (www.microdo sing.nl). Interested participants were redirected to information explaining the study rationale and procedure. The baseline survey took 20 min to complete. If the survey had not been completed after 24 h, a reminder was sent. Each of the surveys at the 2- and 4-week time points took about 15 min to complete. Par- ticipants were able to pause the surveys. Data collection occurred between Nov. 2020 and Jul. 2021. The study was approved by the Ethics Review Committee of Psy- chology and Neuroscience at Maastricht University (ERCPN- 215_05_11_2019_A1).
+1piq | 2.3. Measures
+7fqw | 2.3.1. Demographic information and history of substance use
+rhaz | At baseline, demographic information was collected. History of substance use assessed experience with psyche- delics (i.e., ayahuasca, DMT, 5-MeO-DMT, LSD, novel lysergamides (e.g., 1P-LSD, ALD-52), psilocybin, salvia divinorum, ibogaine, and mescaline) in both full (psychedelic) doses and microdoses.
+wak1 | 2.3.2. Psychiatric and physiological diagnoses
+wtfz | Participants were asked whether they had a current diagnosis of a disorder. These answer options were chosen because most of the listed diagnoses are often reported to co-occur with ADHD (Kooij et al., 2019), or because these diagnoses were reported to be common in people who microdose (Fadiman and Korb, 2019). We 
+3j2l | REVIEW ARTICLE Frontiers in Psychiatry | www.frontiersin.org
+03k3 | 2
+1k9e | constructed a variable Comorbidity alongside ADHD, differenti- ating respondents with and without a comorbid diagnosis alongside ADHD (<LATEX>p < . 0 0 1 =</LATEX> only ADHD or no ADHD diagnosis; <LATEX>p > . 0 1 =</LATEX> ADHD and at least one other diagnosis). We constructed a variable Medication use alongside microdosing, differentiating respondents who were and were not using conven- tiona1 ADHD medication alongside microdosing (<LATEX>0 =</LATEX> only microdosing; <LATEX>1 =</LATEX> conven-
+```
+
+EXAMPLE OUTPUT:
+```
+ccpt | stigate the effectiveness of psychedelics for ADHD symptoms in adults.
+0fpw | Two. Material and methods
+dqn8 | Two point one. Study design and participants
+cop0 | The study employed a naturalistic design, assessing the experiences of participants at bas-,
+lhkq | eline before they start, and at two and four weeks after initiation. The target population included adults with ADHD symptoms who had not been diagnosed with ADHD before. To be included, participants needed to score on Conner's Adult ADHD Rating Scale. This cut-off was indicative of clinically elevated symptoms (see section two point three).
+82ju | Two point two. Study procedure
+y2qo | The online advertisement was placed on a website providing information about psychedelics. Interested participants were redirected to information explaining the study rationale and procedure. The baseline survey took twenty minutes to complete. If the survey had not been completed after twenty-four hours, a reminder was sent. Each of the surveys at the two and four-week time points took about fifteen minutes to complete. Participants were able to pause the surveys. Data collection occurred between November twenty twenty and July twenty twenty-one. The study was approved by the Ethics Review Committee of Psychology and Neuroscience at Maastricht University.
+1piq | Two point three. Measures
+7fqw | Two point three point one. Demographic information and history of substance use
+rhaz | At baseline, demographic information was collected. History of substance use assessed experience with psychedelics (i.e., ayahuasca, DMT, five-MeO-DMT, LSD, novel lysergamides (e.g., one-P-LSD, ALD-fifty-two), psilocybin, salvia divinorum, ibogaine, and mescaline) in both full (psychedelic) doses and microdoses.
+wak1 | Two point three point two. Psychiatric and physiological diagnoses
+wtfz | Participants were asked whether they had a current diagnosis of a disorder. These answer options were chosen because most of the listed diagnoses are often reported to co-occur with ADHD, or because these diagnoses were reported to be common in people who microdose. We
+3j2l |
+03k3 |
+1k9e | constructed a variable Comorbidity alongside ADHD, differentiating respondents with and without a comorbid diagnosis alongside ADHD (P is less than point zero zero one equals only ADHD or no ADHD diagnosis; P is greater than point zero one equals ADHD and at least one other diagnosis). We constructed a variable Medication use alongside microdosing, differentiating respondents who were and were not using conventional ADHD medication alongside microdosing (zero equals only microdosing; one equals conven-
+```
+
+INPUT:
+```
+favz | In the ventral striatum, impaired insulin signalling reduces DA release in response to stimuli (food, electrical or insulin) (see Appendix, Tables S3-S4); this effect is evident in neuron-specific IR knock-out (NIRKO) mice (Kleinridders et al., 2015) and HFD-induced insulin resistance (Chen et al., 2019a; Fordahl and Jones, 2017; Stouffer et al., 2015). However, it is important to note, that Fordahl et al. (2017) could not detect any change in evoked DA release in insulin-resistant rodents.
+7szx | 3.3.2. Insulin dysregulation impacts baseline DA levels
+hx9e | Equally to evoked DA release, reports about baseline DA concen- trations in the NAc are heterogeneous: While Kleinridders et al. (2015) could not detect any differences in DA content (but only in DA release) between rodents with low insulin levels (prolonged fasting) and insulin resistance (HFD) compared to normal insulin sensitivity, Chen et al. (2019b) observed lower baseline DA levels in insulin resistance. As Oginsky et al. (2019) pointed out, a considerable source of heterogeneity in rodent studies might be caused by the various rodent strains and their susceptibility to weight gain, because intrinsic excitability of NAc core neurons differs between obesity-susceptible and -resistant rats. It is generally assumed that reduced excitatory synaptic transmission on MSNs (Oginsky and Ferrario, 2019) is a key mechanism by which insulin resistance abolishes the capability of insulin to increase DA release in the
+ywn2 | ventral striatum (Stouffer et al., 2015). In line, the modulation of MSN activity was attenuated in NIRKO mice (Kleinridders et al., 2015) and DA release in the NAc is equally decreased if insulin signalling in NAc astrocytes is disrupted leading to reduced ATP exocytosis and purinergic signalling cascades in DA neurons (Cai et al., 2018a).
+a63r | 3.3.3. Insulin resistance reduces DA turnover
+dqvj | Insulin resistance reduces DAT expression, and DA reuptake via attenuated AKT signalling (Bellush et al., 1991; Cumming et al., 2015). Moreover, selective inhibition of the insulin receptor has been shown to attenuate DA reuptake (Fordahl and Jones, 2017). The observation that both lack of insulin due to prolonged starvation and prolonged hyper- insulinemia reduce dopamine reuptake indicates that hyperinsulinemia leads to a desensitization of the IR and impacts downstream signalling pathways, that control DAT expression (Bitar et al., 1987; Fukuhara et al., 2019; Kleinrok et al., 1983). This effect is time-dependent. While 2 weeks of HFD did not have an effect, 6 weeks of HFD reduced DAT levels in the synaptosomal membrane-associated fractions (Cone et al., 2013). Notably, the effects of insulin resistance are reversible. Eight weeks of aerobic exercise restored insulin AKT/GSK3-ß signalling, baseline DA levels, and DA release after food intake (Chen et al., 2019b).
+r17u | Taken together, reduced insulin signalling/insulin resistance in the NAc reduces DA release and DA reuptake in DA axon terminals.
+3c47 | 3.4. Effect of insulin resistance on reward behaviour and food intake in rodents
+g345 | To date, only a few studies have examined how compromised insulin signalling in the mesolimbic pathways affects reward behaviour and food intake (see Appendix, Tables S5 and S6).
+svhz | 3.4.1. Insulin resistance modulated food intake behavior
+oaen | Selective inactivation of IR in VTA/SN DA neurons increases food intake, resulting in higher fat mass and body weight (Könner et al., 2011). In line, insulin depletion in STZ-treated mice and insulin resis- tance after HFD resulted in increased food approach behaviour (Liu et al., 2016; Speed et al., 2011). In fact, increased calorie intake after HFD was associated with impaired AKT signalling and reduced striatal DAT expression indicating an IR-dependent mechanism. In line with this, viral rescue of AKT signalling and striatal DA expression decreased calorie intake (Speed et al., 2011). However, there are also opposing findings. In congenital IR knockouts in DA neurons, there was no dif- ference in daily calorie intake, body weight or energy metabolism (Evans et al., 2018), suggesting that the alterations in food intake and body weight by IR signalling are not solely attributable to the DA system.
+5u67 | 3.4.2. Insulin resistance impacts the motivation to work for food
+dvms | In line with increased food intake, the motivation to work for food increases with insulin resistance (see Fig. 3 for an overview of rodent tasks). Rats fed a high-fat diet for five weeks exhibited more lever presses in a progressive ratio task using sucrose reward, and ICV insulin was unable to suppress this effect (Figlewicz et al., 2006, 2008a, 2008b). Furthermore, obese insulin-resistant OLETF rats exhibited increased operant performance for sucrose reward (Hajnal et al., 2007). This is in contradiction, however, with evidence for reduced sucrose preference in insulin resistance (Cai et al., 2018b; Chen et al., 2019a). Moreover, McNeilly et al. (2016) demonstrated that 3-4 weeks of HFD, sufficient to induce insulin resistance, diminished the motivation to respond for su- crose pallets in Wistar rats. This deficit was ameliorated, but not totally reversed, by a dietary intervention (chow diet) that restored insulin sensitivity (McNeilly et al., 2016). However, it is significant to note that McNeilly et al. (2016) did not carry out a conventional progressive ratio task. They performed a delayed matching to place (DMTP) and a delay-non-matching to place operant task, that require cognitive flexi- bility and working memory, both of which are known to be impaired in
+qrd3 | obesity and insulin resistance without being related explicitly to DA-signalling.
+rxrg | 3.4.3. Insulin resistance has an impact on reward sensitivity
+tf43 | The effect of insulin on motivation and reward sensitivity goes beyond food intake. Insulin deficiency due to fasting increased reward sensitivity in an intracranial self-stimulation task. This effect was reversed by insulin (Carr et al., 2000) and leptin administration (Fulton et al., 2000). Equally, insulin deficiency due to STZ-application increased reward sensitivity, but only in the first (three) weeks (Carr et al., 2000). Afterward, this effect was abolished (Carr et al., 2000) or even turned to the opposite showing reduced reward sensitivity (Ho et al., 2012b). In this case, insulin application improved reward sensi- tivity. Equally HFD for 15-17 weeks reduced the attraction of male ro- dents to female urine, that is normally perceived as rewarding (Dutheil et al., 2016a) indicating that insulin resistance over a longer period of time leads to anhedonia - the loss of experiencing pleasure from usually rewarding activities.
+fcco | 3.4.4. Insulin resistance leads to a depressive, anxious phenotype
+```
+
+OUTPUT:
+```

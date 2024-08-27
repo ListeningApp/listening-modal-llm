@@ -1,0 +1,146 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+1pjs | MILBANK QUARTERLY A MULTIDISCIPLINARY JOURNAL OF POPULATION HEALTH AND HEALTH POLICY
+o2kr | Making the Case for Laws That Improve Health: A Framework for Public Health Law Research
+v6sk | Context: Public health law has received considerable attention in recent years and has become an essential field in public health. Public health law research, however, has received less attention.
+1wj6 | Methods: Expert commentary.
+936l | Findings: This article explores public health law research, defined as the sci- entific study of the relation of law and legal practices to population health. The article offers a logic model of public health law research and a typol- ogy of approaches to studying the effects of law on public health. Research on the content and prevalence of public health laws, processes of adopting and implementing laws, and the extent to which and mechanisms through which law affects health outcomes can use methods drawn from epidemiology, economics, sociology, and other disciplines. The maturation of public health law research as a field depends on methodological rigor, adequate research funding, access to appropriate data sources, and policymakers' use of research findings.
+06yq | Conclusions: Public health law research is a young field but holds great promise for supporting evidence-based policymaking that will improve popu- lation health.
+dpv6 | Keywords: Public health, law, legal, scholarship, research.
+8r5j | 169
+2taz | S. Burris et al.
+o3ya | 170
+r5il | L AW IS AN IMPORTANT DISCIPLINE WITHIN PUBLIC HEALTH (Gostin, Burris, and Lazzarini 1999). Legal "powers, duties and re- straints" structure the mission of public health agencies and shape how it is carried out (Gostin 2008). Law is a prominent intervention tool to achieve particular public health goals. Laws and their implementation also have important unintended effects, both positive and negative, on population health. Although public health law has a long history in the United States (Tobey 1939), it was one of the fields of public health that fell into neglect when public health was thought to have conquered infectious disease. Over the past two decades, though, the reemergence of infectious disease as a major public health concern and a growing awareness of the complexity of health regulation at the local, national, and global levels have restored law to importance in public health and academic law. No longer confined to end-of-the-day conference panels on "legal and ethical issues," public health law now has its own office at the Centers for Disease Control and Prevention, academic centers, journals, national and international professional societies, and a shelf of important treatises (Larkin and McGowan 2008).
+5gui | Notwithstanding all the writing and commentary on public health law, there has been little discussion of public health law research and its place in the fields of law and public health. The evidence produced by empirical research is important to both public health law practice and scholarship. It constitutes the "facts" justifying regulatory action and supporting normative arguments about what policies are most desirable, effective, or consistent with human rights or other legal standards. To be sure, law legitimately serves as a site for the articulation and clash of values, and lawmaking often necessitates decisions that cannot await full information. Furthermore, not all law is or can be "evidence based," even in public health. At the same time, empirical research is not just an ammunition dump for adversarial legal battle. The responsible use of law as a tool for improving public health requires a commitment to the pursuit and consideration of scientific evidence when possible. In public health, just as in health care (Sox and Greenfield 2009), evidence should inform the investment in and implementation of policy, and a consciousness of data and the scientific method can improve the decisions of policymakers and practitioners even in the absence of data. This is the promise of public health law research. At a time when empirical health law has emerged from a general flowering of empirical legal research as a distinct scholarly field (Mello and Zeiler 2008), scientific research is a
+82qc | Making the Case for Laws That Improve Health
+ls7d | tie that can now bind law to public health. In this article, we describe and chart a future for public health law research. Our discussion was occasioned by the launch of a major initiative by the Robert Wood Johnson Foundation (RWJF) to sponsor public health law research and expand the field (RWJF Public Health Law Research Program 2009). It thus is an opportune time to reflect on the field: its definition and boundaries, the types of research that a robust field of public health law research should include, and the challenges to be faced in growing and strengthening the field. (Although we are participating in the RWJF initiative as the leaders of its National Program Office, this article concerns the field of public health law research generally, not the specific priorities or funding areas of the Public Health Law Research program.)
+tzt3 | Defining Public Health Law Research
+t8vv | We define public health law research (PHLR) as "the scientific study of the relation of law and legal practices to population health." This includes both direct relationships between law and health, and relation- ships mediated through the effects of law on health behaviors and other processes and structures that affect population health. In this section, we elaborate on this definition in order to distinguish PHLR from other fields and forms of public health law knowledge.
+qvnu | Distinguishing PHLR from Public Health Law
+kggw | Lawrence Gostin's widely cited definition of public health law is
+xrd1 | the study of the legal powers and duties of the state to ensure the conditions for people to be healthy (e.g., to identify, prevent, and ameliorate risks to health and safety in the population), and the limitations on the power of the state to constrain the autonomy, privacy, liberty, proprietary, or other legally protected interests of individuals for protection or promotion of community health. (Gostin 2000, 4)
+5746 | Using this power/duty/restraint formula, Gostin succeeds in focusing the field on the state's role in managing collective action to protect the pop- ulation's health while still encompassing a diverse range of cooperating
+7toz | S. Burris et al.
+j346 | 172
+v8uq | actors and related functions, including private actors and the health care system. His claims for public health law are broad enough to earn libertarian criticism: scholars have argued from diverse standpoints that Gostin and his colleagues in public health are expanding the jurisdic- tion of public health beyond its legitimate mission and into a realm of wrongful-and counterproductive-meddling in the autonomy of citi- zens (Epstein 2003; Hall 2003; Rothstein 2002). Yet for others, Gostin's definition may be too narrow. Regulatory researchers, for example, ques- tion the importance of distinguishing between public and private actors in health governance (Black 2008; Lobel 2004; Trubek 2006). Other commentators insist that public health law must include the role of law as a determinant and mechanism for the health effects of social and physical environments (Burris, Kawachi, and Sarat 2002; Magnusson 2007; Mariner 2009).
+x972 | Debate over the boundaries of public health law plays out differ- ently in the realm of public health law research. In defining PHLR, we are concerned not with what is right, proper, or legitimate to include within the jurisdiction of public health law but with whether law can be empirically shown to have an impact on the health of the population. Commentators might disagree on whether equality, for example, ought to be considered a public health issue, but that question is different from whether it is possible to empirically identify the ways in which law affects health inequalities. Empirical data can be highly salient to disputes about normative concepts and positions but cannot themselves resolve disputes about the legitimate scope of public health or public health law or the extent to which health promotion should be traded off against other social goods, such as civil liberties. PHLR, then, is distin- guished from public health law by its focus on description, explanation, and prediction-that is, its focus on empirical investigation.
+cwrw | Research versus Scholarship
+4i0e | When we refer to "research," we intend a particular meaning: the use of systematic methods within an explicit theoretical framework to col- lect and analyze data. PHLR seeks methodological rigor in all phases of research, from the careful articulation and operationalization of theory through thoughtful and innovative study design to analysis, interpreta- tion, and dissemination.
+h2l3 | Making the Case for Laws That Improve Health
+dfzb | 173
+u6ty | PHLR includes both qualitative and quantitative studies using ex- perimental, quasi-experimental, observational, or participatory designs. It ranges from health impact assessments gathering limited data on le- gal effects in order to inform policymaking in real time, to complex experiments and quasi experiments studying the effects of law on health over extended periods of time. Formal decision analyses, simulations, econometric analyses, laboratory and social experiments, survey, inter- view, and focus-group studies, systematic reviews, and meta-analyses are included, as is legal research to systematically and reproducibly collect, classify, and quantify laws and judicial decisions for analytic purposes (Hall and Wright 2008; Tremper, Thomas, and Wagenaar 2010).
+awvu | Theory and methods may be drawn from a variety of disciplines in the social sciences, including epidemiology, biostatistics, law, sociology, his- tory, political science, economics, anthropology, and psychology. From the natural sciences, PHLR imports the scientific method, approaching research questions with a hypothesis to be tested rather than a position to be defended; gathering data for the purpose of proving or disproving the hypothesis (or disproving a null hypothesis); and reaching conclu- sions based on a careful and restrained analysis and interpretation of all relevant data.
+on9b | As we define it, public health law research is thus distinguishable from public health law scholarship. "Scholarship" embraces a range of nonempirical but no less valid and useful work on public health law, ranging from work grounded in philosophy or ethics (Ruger 2006), to doctrinal exegesis (Lazzarini and Rosales 2002), to the crafting of model laws, and to legal analysis arguing how the law ought to be applied in various situations (Ruhl, Stephens, and Locke 2003). What we call PHLR does not exhaust all forms of knowledge gathering or analysis concerning public health law. Indeed, public health law scholarship includes many outstanding and influential works that have shaped the field of public health law but do not fall within our definition of PHLR.
+a8ge | "Law" and "Public Health"
+h27a | A key challenge in defining PHLR arises from the potential breadth of the definitions of "law" and "public health" (Magnusson 2007). In linking the two in PHLR, we take a broad sociological stance, encom- passing not simply written laws on one side and morbidity and mortality
+pdjh | S. Burris et al.
+xmgs | 174
+bd9h | on the other, but the whole range of institutions, practices, and beliefs through which laws influence health and the determinants of health. This is particularly important given that the timelines for law to in- fluence health may be long and data on key outcome variables scarce; it may be important to examine the effects of law on mediating factors such as health behaviors. From the perspective of whether it is properly classified as PHLR, the key aspect of such a study is that it examines the relationship between a law variable and a public health variable.
+m047 | Social epidemiology, the branch of epidemiology aimed at understand- ing social determinants of health (Berkman and Kawachi 2000), pro- vides a theoretical framework into which PHLR can readily fit (Burris, Kawachi, and Sarat 2002). Most things human beings do, and most characteristics of our environments, have some impact on the level and distribution of health in a population. Whether styled as health in- equities or health disparities, differences in health among identifiable subpopulations have become a major concern in health and policy (Com- mission on Social Determinants of Health 2008). Health law scholars, too, increasingly recognize the need to examine individual interests and choices through the lens of population health, recognizing that "the choices individuals exercise and the health risks they face are deter- mined, to a large degree, by the environments they experience and the populations they comprise" (Parmet 2009, 268; Sage 2008). PHLR, however, does not encompass the full scope of social epidemiology. That is, we confine our definition of PHLR to the study of law and regulatory practices and not the full spectrum of contributing factors.
+gy8c | Another distinctive aspect of PHLR's conception of "law" is that it is not confined to "law on the books": constitutions, statutes, judicial opin- ions, and so on. The mainstream of empirical legal research over the past thirty years has acknowledged the salience of law as it is implemented in practice and experienced by those it targets. Studies of legality or legal consciousness (Ewick and Silbey 1998), behavioral law and eco- nomics research (Jolls 2006), scholarship on compliance theory (Tyler 1990), scholarship on deterrence theory and tort law (Mello and Brennan 2002), and regulation and governance studies (Braithwaite, Coglianese, and Levi-Faur 2007) all explore this theme. PHLR is necessarily in- terested in the psychosocial mechanisms through which compliance is achieved (Tyler 1990), the range of regulatory techniques that may be deployed (Braithwaite, Coglianese, and Levi-Faur 2007), and how law "operates through social life as persons and groups deliberately interpret
+y4mj | Making the Case for Laws That Improve Health
+vpgq | 175
+ousl | and invoke law's language, authority and procedures to organize their lives and manage their relationships" (Ewick and Silbey 1998, 20). Law is fundamentally a social practice embedded in institutions and imple- mented by agents. It is part of, not distinct from, the social environment whose influence on health is the focus of social epidemiology.
+m4ju | PHLR also properly encompasses both laws that were intended to affect population health and laws that have unintended health effects. What has been referred to as "interventional public health law" is law or legal practices that are intended to influence health outcomes or me- diators directly. Likewise, "infrastructural public health law" establishes the powers, duties, and institutions of public health (Moulton et al. 2009). But much of the law that influences population health was not adopted for that purpose and may on its face seem to have no connection to health at all. For example, criminal laws aimed at controlling illicit drug use may increase the risk of users acquiring HIV (Friedman et al. 2006). Research that investigates the relationship of law and legal prac- tices to population health falls within PHLR when it investigates health effects or otherwise deploys an explicit population health framework, whether or not the law on its face is oriented toward health. We label this important category of PHLR "incidental public health law."
+a0mb | Finally, PHLR is distinguishable from other kinds of public health research in that it evaluates not merely the effectiveness of a public health intervention but also the effectiveness of law as the tool used to implement or facilitate the intervention. For example, research on whether abstinence-only education reduces teenage pregnancy is not PHLR merely because abstinence-only education happens to be required by law. PHLR does, however, encompass research on how abstinence- only education rules are implemented (Sonfield and Gold 2001) and whether the existence of state-level, abstinence-only legal mandates is associated with differences in states' reproductive health outcomes.
+ki8m | Health Services Research and Public Health Systems and Services Research
+```
+
+OUTPUT:
+```

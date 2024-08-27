@@ -1,0 +1,132 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+gy8c | Phil. Trans. R. Soc. Lond. B (1999)
+y4mj | Questions for neuroimaging S. M. Kosslyn 1285
+vpgq | system, and hence be recognized well, and then would be identified immediately. In this case, although all of the other processes would be running at the outset, they would not need to run to completion to perform the task. (Figure 1 is misleading in that it might suggest that each process waits for the products of the previous one before operating. On the contrary, there is good reason to assume that all parts of the brain are 'running' at the same time, and that what changes during task perfor- mance is how intensively each one is operating. When processing shifts over time, this is reflected by increased activity in areas that implement the relevant processes.)
+ousl | In contrast, when faced with a non-canonical view, the object would not be recognized with confidence initially (if it were novel, as ours were). Thus, it would be identified only tentatively, and this best-matching representation in associative memory would serve as the basis for a hypothesis. At this point, the information look-up process would continue to operate, looking up characteristics associated with this hypothesized object, and would pass information needed to shift attention appropriately and to prime the object-properties- encoding system to encode the expected characteristic. A characteristic at the specified location would then be encoded into the visual buffer, and would thereafter be processed in the object-properties-encoding and spatial- properties-encoding systems, which would then provide input to associative memory. If the expected part or characteristic was in fact located (as indicated by a match in the object-properties-encoding system) and was located in the correct place (as registered in the spatial- properties-encoding system), this might be enough input to associative memory to identify the object. If not, an additional cycle might be necessary.
+m4ju | In short, we expected the entire system to cycle more times for the objects seen from non-canonical perspec- tives; and in fact, we found activation in areas that correspond directly to those subsumed by figure 1. The only mystery was activation in what we initially took to be the motor strip; however, subsequent evidence (see, for example, Paus 1996), has shown that this area probably corresponds to the human frontal eye fields.
+a0mb | However, many areas were activated, and one cannot help wondering what sort of results would have disproved the theory. One can make two (non-exclusive) moves at this point. First, a set of results such as ours can be viewed as a set of structured hypotheses. One has now identified areas that are theorized to perform specific roles in information processing (such as matching visual input to stored modality-specific visual memories, or encoding spatial properties), and hence one now knows where to look for additional, more focused evidence (as I shall discuss in the next two sections).
+ki8m | Second, one need not study the putative function of each area separately, but rather one can design studies of the entire system that rely on different tasks. Ideally, the tasks should on the surface not appear similar, and thus one can have confidence that the interpretation of the functions of the areas is coherent if the same areas are activated in both tasks. For example, Kosslyn et al. (1997) expected the system of figure 1 also to be used when one forms visual mental images. In this case, one 'primes' the object-properties-encoding system so strongly that
+km8w | 1286 S. M. Kosslyn Questions for neuroimaging
+wzno | information lookup
+xagm | attention shifting
+iwn5 | Figure 1. Major structures and processes used in later visual perception and visual mental imagery, according to the theory of Kosslyn (1994).
+uooz | efferent connections literally force a pattern of activation in the areas that implement the visual buffer. This pattern of activation corresponds to the mental image, which once present can in turn be scanned by the attention window, portions recognized individually, locations noted, and so forth, in the same way that occurs during visual perception. For example, when asked to report the number of windows in their living room from memory, most people claim that they visualize the room and shift their attention along the walls, 'seeing' each window in turn. In the course of counting, they may notice charac- teristics of the windows (such as the types of locks that are present) that they had not previously considered. The information was implicit in the representations in visual memory (in the object-properties-encoding system) but never identified. Similarly, if asked what shape are a cat's ears, most people visualize the animal's head and 'look' at the ears, categorizing their shape. If asked this question several times in succession, they memorize the answer explicitly and no longer need to use the image (see Kosslyn 1980).
+pxbq | In addition, if multiple parts need to be added to an image, one can visualize an overall shape envelope, and then shift attention to the location of a part to be added, just as one would during top-down hypothesis testing during perception; however, in this case, once one is focused on the appropriate location, one forms an image of the part (via the priming mechanism, as just described).
+jfsr | Kosslyn et al. (1988) used a task originally designed by Podgorny & Shepard (1978) to test the idea that visual mental images are built up a part at a time. In this task, subjects see a 4 x 5 grid that contains a single X mark in one cell. The subjects are asked to visualize a block letter in the grid, and report whether the X mark would have fallen on part of the letter if it were actually present. Kosslyn et al. (1988) found that the time to respond depended on the location of the X mark. In fact, when other subjects were surreptitiously observed drawing block letters in such grids, they typically drew the segments in very consistent orders. For example, for an upper case letter F, they drew the vertical line on the left first, the top horizontal line second, and the middle horizontal line third. The order in which these subjects drew the segments neatly predicted how quickly other
+u15r | Phil. Trans. R. Soc. Lond. B (1999)
+lq35 | subjects could determine whether an X mark would have fallen on the letter if it had been in the grid. Indeed, the more segments one would need to draw to reach the loca- tion of the X, the longer it took to determine whether the X would have fallen on the letter if it had been in the grid (see also Kosslyn 1988). This result is exactly as expected if one were in fact sequentially shifting attention, and forming an image of each segment in sequence.
+3g9w | The theory outlined in figure 1, then, led us to expect the same set of areas to be involved in the two tasks, identifying named pictures seen from non-canonical versus canonical points of view and deciding whether an X mark would fall on an imaginary letter. Thus, Kosslyn et al. (1997) replicated the experiment of Kosslyn et al. (1994) and also asked the subjects to perform the image- in-grid task. The control condition for the imagery task was the identical set of stimuli, but presented before subjects had seen the block letters or knew anything about the imagery task. For the control, subjects simply responded as soon as they saw each stimulus, alternating the side of response over trials. The results revealed that two thirds of the areas activated during either task were activated in common. The functions of these areas are organized well by the theory outlined in figure 1.
+d09o | However, we must note that to address this type of question, one must design pairs of tasks that differ in a single way, which is not as straightforward as it might seem. One problem is that we cannot know in advance whether manipulating a single feature of the task in fact alters only one aspect of processing. As noted by Kosslyn et al. (1994), it has long been known that changing one aspect of a task can lead subjects to adopt qualitatively different strategies. Nevertheless, in my view this approach is still superior to using rest (or an 'off' state) as the baseline; a rest condition surely differs in more than one way from most experimental conditions, and it is impossible to know in which ways the conditions differ.
+ylhz | In any event, the results of this sort of research, in my view, can only be viewed as preliminary. They provide some support for a structured set of hypotheses, but to be compelling each aspect of the overall system must be studied in more depth individually. However, the virtue is that these more precise and circumscribed hypotheses are not conceived in a vacuum, isolated from conceptions of the operation of the system as a whole. The theory outlined above treats each structure and process as part of an integrated system, and this seems highly desirable for questions about how the brain performs information processing.
+a3td | (b) Which areas implement 'simple systems' (linked operations)?
+ex5k | A second kind of question focuses not on the operation of an entire system that underlies a particular function, but instead on a portion of such a system. The simplest subsystem is the interaction between two processes or between a process and a structure. For example, perhaps the most controversial aspect of the theory illustrated in figure 1 is the interpretation of the dorsolateral frontal function as being involved in information look-up, and of the angular gyrus or Area 19 areas as implementing associative memory. Kosslyn et al. (1995b) tested this
+9d4o | interpretation. We made use of a finding originally reported by Jolicoeur et al. (1984).
+cjq2 | Jolicoeur et al. (1984) asked subjects to view pictures and to decide whether simultaneously presented words described the pictures appropriately. There were two important variables: first, the words were either at the 'entry' level (such as 'dog' for a picture of a cocker spaniel, or 'apple' for a picture of a Delicious apple), or were superordinate to that (e.g. 'animal' or 'fruit') or were subordinate (e.g. 'cocker spaniel' or 'Delicious apple'). The idea was that people spontaneously name objects at the 'entry' level, which usually corresponds to the 'basic level' of Rosch et al. (1976); this is the name that is as general as possible and that names as many similar objects as possible. So, for example, 'Delicious apple' is too specific because 'MacIntosh apple,' 'Granny Smith apple,' and so on look similar, but 'fruit' is too general because water- melons, grapes, bananas and so on are not very similar; 'apple' is about as general as one can get while still naming a set of similar objects. As expected, subjects could evaluate an entry-level term faster and more accu- rately than either a subordinate or superordinate term (see Smith & Medin 1981).
+5esx | Second, the pictures were presented for either 1s or 75 ms. We had two pivotal ideas. (i) If one names a picture spontaneously at the entry level, then one will need to process additional perceptual information to eval- uate a subordinate term (e.g. to check whether there are bumps on the bottom of an apple to determine whether it is a Delicious apple, or to see whether the dog has rounded floppy ears). If so, then it should be much more difficult to evaluate subordinate terms than entry-level ones when given only 75 ms than when given a full 1 s. This was in fact so. (ii) In contrast, and here is the crucial idea for present purposes, if one names a picture spontaneously at the entry level, then one will not need to process additional perceptual information to evaluate a superordinate term. In this case, the additional informa- tion need only be looked up in associative memory. For example, once one has named a Delicious apple as 'apple,' one needs only to search memory to discover that apples are indeed members of the category 'fruit'. If so, we reasoned, then the exposure time of the pictures should have comparable effects on one's ability to evaluate entry and superordinate terms, because one did not need to encode additional perceptual information after producing the entry-level name. In fact, this was true. Although subjects required more time to evaluate superordinate terms, they required the same amount of additional time compared with entry-level terms in the two exposure conditions.
+m5ka | Given these findings, Kosslyn et al. (1995b) reasoned that if we used PET to compare the additional activation when subjects evaluated superordinate terms compared with when they evaluated entry-level terms, we should find just the areas involved in looking up information from associative memory. Indeed, Kosslyn et al. (1995b) found only two areas to be more active during the superordinate condition than during the entry-level condition, namely the left dorsolateral prefrontal cortex and the left angular gyrus. We expected only left-hemisphere activation because the subjects were evaluating words, and therefore the results make good sense in the context of the theory.
+byu8 | Phil. Trans. R. Soc. Lond. B (1999)
+76b0 | Questions for neuroimaging S. M. Kosslyn 1287
+zxz6 | These findings were very welcome, but they were not ideal. The specific loci that we found were not precisely the same as those found in the original experiment. However, these were different subjects, and different aver- aged data. Nevertheless, the locus of the dorsolateral prefrontal area was considerably different in this and the studies described above, which led us to expect activation consequent upon use of the information look-up process and associative memory. It simply is not clear what to make of this; the a priori predictions were clear-cut, and the results were close to the expected areas; but how close is close enough? A major advantage of fMRI is that it is possible to perform many experiments with the same subjects, and to analyse each subject's data separately. If the variability that we noted between the different PET studies was simply sampling error, then for a given person precisely the same dorsolateral prefrontal cortex and posterior areas should have been activated in the original tasks (both picture-verification and imagery) and in this comparison between superordinate and entry-level terms.
+xnth | It is important to recognize two important assumptions that underlie the logic of this sort of research. First, as noted above, changing the task in small ways can alter the strategy that subjects use, in which case different structures and processes might be used, and hence different areas might be activated. Even a small shift in the location of an activated area could reflect differences in the precise process being used (see, for example, Wilson et al. 1993). Second, note that this logic assumes that the same piece of tissue implements the same structure or process when it is embedded in different combinations of other processes. It is possible that some neural tissue is not dedicated to implementing a single process, and that different neural regions can implement more than one process. If so, the precise locus of activation that reflects the use of a given structure or process can shift, depending on what other structures or processes are used at the same time (for a more detailed discussion of this point, see the epilogue of Kosslyn & Koenig (1995)). We shall return to this general issue shortly.
+vafm | (c) What operation is performed by a specific brain area?
+```
+
+OUTPUT:
+```

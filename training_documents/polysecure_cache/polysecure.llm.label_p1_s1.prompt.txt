@@ -1,0 +1,183 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+1pjs | polysecure
+o2kr | Attachment, Trauma and Consensual Nonmonogamy
+v6sk | Jessica Fern
+1wj6 | with a foreword by Eve Rickert and Nora Samaran
+936l | PRAISE FOR POLYSECURE
+06yq | "Anyone even considering nonmonogamy would benefit from reading Polysecure. Jessica Fern does an excellent job of not only explaining attachment theory and applying it to nonmonogamy but also offering real steps readers can take and skills they can hone to help create the secure, satisfying relationships they want."
+dpv6 | -JoEllen Notte, sex educator and author of The Monster Under the Bed: Sex, De- pression, and the Conversations We Aren't Having
+8r5j | "This is required reading for people in open relationships and should be used as a textbook for every therapist who works with people in polyamorous relationships."
+2taz | -Kathy Labriola, counselor, nurse and author of The Polyamory Breakup Book, The Jealousy Workbook and Love in Abundance
+o3ya | "Polysecure gives people a way to understand how they may be recreating old pat- terns by bringing their own childhood attachment styles into their adult relation- ships. And even more importantly, it offers concrete skills for how to use this knowledge to create healthier, more satisfying and secure relationship dynamics."
+r5il | -Max Rivers, intimacy coach and author of Loving Conflict: How Conflict Is Re- ally Your Relationship Trying to Go Deeper
+5gui | "An extremely helpful addition to the literature on consensual nonmonogamy, and the first self-help book to focus on applying attachment theory to nonmonog- amous relationships."
+82qc | -Dr. Meg-John Barker, author of Rewriting the Rules: An Anti Self-Help Guide to Love, Sex and Relationships
+ls7d | "I whole-heartedly recommend this book to anyone interested in self-acceptance and self-mastery, as well as their own emotional well-being as they build loving, sustainable, healthy multiple relationships."
+tzt3 | -Kitty Chambliss, relationship coach and author of Jealousy Survival Guide: How to Feel Safe, Happy and Secure in an Open Relationship
+t8vv | "A great read for both therapists who serve people in consensually nonmonog- amous relationships and laypeople who are interested in what makes for secure at- tachments in such relationships."
+qvnu | -Dr. Elisabeth Sheff, author of The Polyamorists Next Door, Stories from the Polycule, When Someone You Love is Polyamorous and Children in Polyamorous Families
+kggw | polysecure
+xrd1 | polysecure Attachment, Trauma and Consensual Nonmonogamy
+5746 | Jessica Fern with a foreword by Eve Rickert and Nora Samaran
+7toz | Thorntree Press
+j346 | Polysecure
+v8uq | Attachment, Trauma and Consensual Nonmonogamy
+x972 | Copyright @ 2020 by Jessica Fern. All rights reserved. No part of this book may be used or reproduced in any manner whatsoever without written permission from the publisher except in the case of brief quotations in critical articles and reviews.
+cwrw | Thorntree Press, LLC P.O. Box 301231 Portland, OR 97294 press@thorntreepress.com
+4i0e | Thorntree Press's activities take place on traditional and ancestral lands of the Coast Salish people, including the Chinook, Musqueam, Squamish and Tsleil- Waututh nations.
+h2l3 | Cover design by Brianna Harden
+dfzb | Interior design by Jeff Werner Substantive editing by Andrea Zanin Copy-editing by Hazel Boydell Proofreading by Heather van der Hoop
+u6ty | Library of Congress Cataloging-in-Publication Data
+awvu | Names: Fern, Jessica, author.
+on9b | Title: Polysecure : attachment, trauma and consensual nonmonogamy / by Jes- sica Fern.
+a8ge | Description: [Portland] : [Thorntree Press], [2020] | Includes bibliographical references and index.
+h27a | Identifiers: LCCN 2020009992 (print) | LCCN 2020009993 (ebook) | ISBN 9781944934989 (paperback) | ISBN 9781952125003 (kindle edition) | ISBN 9781944934996 (epub) | ISBN 9781952125010 (pdf)
+pdjh | Subjects: LCSH: Nonmonogamous relationships -- Psychological aspects. |
+xmgs | Attachment behavior.
+bd9h | Classification: LCC HQ980 .F47 2020 (print) | LCC HQ980 (ebook) | DDC 306.84/23 -- dc23 LC record available at https://lccn.loc.gov/2020009992 LC ebook record available at https://lccn.loc.gov/2020009993
+m047 | Digital edition v1.0
+gy8c | In loving dedication to Chris Kaminskas (1961-2009) and my madrina, Maria Pusz (1947-2014).
+y4mj | You were the safe havens and secure bases that I owe my resiliency to.
+vpgq | CONTENTS
+ousl | Foreword Acknowledgments Glossary Introduction
+m4ju | PART ONE Chapter One: An Overview of Attachment Theory Chapter Two: The Different Dimensions of Attachment Chapter Three: The Nested Model of Attachment and Trauma
+a0mb | PART TWO Chapter Four: Consensual Nonmonogamy Chapter Five: Attachment and Nonmonogamy Chapter Six: The Importance of Attachment in Consensual Nonmonogamy
+ki8m | PART THREE Chapter Seven: The Foundations of Being Polysecure in Your Relationships Chapter Eight: The HEARTS of Being Polysecure Chapter Nine: The S in HEARTS-Secure Attachment with Self Chapter Ten: Common Questions and Final Thoughts
+km8w | Notes Bibliography
+wzno | FOREWORD
+xagm | EVE
+iwn5 | The literature on polyamory has come a long way since The Ethical Slut and Polyamory: The New Love Without Limits were first published in 1997. Both books broke new ground and offered a new identity and community for nonmonogamous people who had previously struggled in isolation. But these books were written from the perspectives of specific subcultures, and they didn't (couldn'tl) deal with the full range of issues confronted by the newly polyamorous.
+uooz | Options began to proliferate in the late 20005, with books like Opening Up and many lesser-known titles. These offered a wider range of practical advice, but as the title Opening Up suggests, this wave of poly practice presumed the centrality of a primary couple and popularized a hierarchical model in which primary partners were to have rights and safety that secondary or casual partners were not granted to the same degree. Early polyamorous media representation through shows like Polyamorous: Married and Dating fiercely reinforced this view.
+pxbq | This was the kind of polyamory I was introduced to when I first began exploring in the early 2000s. The hierarchical relationship structures that were the norm in the online circles I frequented (and nearly all media representation of polyamory) kept some of the feeling of security offered by monogamy by protecting attachment needs, and often masking potential attachment disruptions, for those who were in so-called primary relationships. At the same time, they did a dismal job of hon- ouring the attachment needs of partners who were considered "secondary": those outside a primary, usually presumed to be nesting, couple, whose bond was pre- sumed to be more valid or worthy of protection than the others "opened up" to.
+jfsr | But some people were making noise. In 2003 the publication of "A Proposed Secondary's Bill of Rights" caused a stir in online polyamorous circles, and pro- vided secondary partners with an important tool to advocate for their needs. Andie Nordgren published "The Short Instructional Manifesto for Relationship Anarchy" in 2006, questioning the need for relational hierarchies, and by the early 2010s, an
+u15r | increasing number of popular bloggers-many building on Nordgren's work- were pushing for recognition of a wider range of relationship styles, and in partic- ular, of the needs of secondary partners.
+lq35 | Then, in 2014, my co-author and I published More Than Two, attempting to dis- till the last decade's worth of debate into an instructional manual that promised a non-hierarchical, more egalitarian way of thinking about polyamorous relation- ships.
+3g9w | When More Than Two encouraged polyamorous people to sweep away the exter- nal supporting structures of both monogamy and polyamorous hierarchy, though, what it offered in exchange fell short. It placed the onus of building security almost entirely on the individual who felt insecure. Despite the many people who were helped by the book, this inappropriate focus caused harm, and over time, I grew to understand there was something missing in our framework-I just didn't have the words for what.
+d09o | It was Nora's blog, where in 2016 she proposed that "The Opposite of Rape Culture Is Nurturance Culture," that began to help me find words for what had been missing from More Than Two. I reached out to her on Twitter to talk about our work.
+ylhz | NAAVA
+a3td | When Eve first said hello in summer 2016, we were both living in East Vancouver. My essay "The Opposite of Rape Culture Is Nurturance Culture" had gone viral ear- lier that year, and Eve reached out to talk shop.
+ex5k | Meeting over iced drinks at a little East Van cafe, we tossed around the idea of a collaboration combining attachment theory and ethical polyamory. We also quickly realized that we were neighbours who lived across the street from one another.
+9d4o | Over the next months we did what neighbours do: she invited me over to pick figs at her house and I dropped off some of the fig jam; we went for the occasional walk debating ethics and politics; I sometimes fed the cat. Life went on, as it does, and the idea moved to the back burner, as they do.
+cjq2 | It was three years later when Eve sent me a link to a talk by Jessica Fern with a note: "Fern is doing what we talked about." I watched, fascinated, as Fern firmly drew connections between attachment theory and ethical polyamory with grace, style and wit.
+5esx | Fern's intervention is a groundbreaking development in the trajectory of writing about ethical polyamory and relationships. The tools provided here will be helpful for those who are practising ethical polyamory; they will also help those who are monogamous, who also navigate dating, communicating needs, and making deci- sions about commitment. Polysecure expands on the existing literature in a signif- icant-per-haps even paradigm-shifting-way.
+m5ka | Fern is uniquely qualified to write this book. She is a psychotherapist who is nonmonogamous and works with nonmonogamous people and families. She holds a master's in conflict analysis and resolution. Her insights come out of both professional training and extensive hands-on experience working with clients as a therapist. She has also experienced trauma, along with the nonlinear healing jour- ney that follows.
+byu8 | In a sense, Fern's book picks up where More Than Two left off. Dubbed by many of its readers a sort of poly bible, More Than Two is one of the most popular and widely read polyamory guidebooks, and it remains relevant and useful today. Pub- lished by Thorntree Press in 2014, More Than Two moved the conversation along and changed the way many people think about and organize their relationships. But as Eve has reflected elsewhere, with all of its strengths, More Than Two also has drawbacks, as any book will.
+76b0 | As I've come to expect of Eve, when confronted with new insights and infor- mation she is willing, even eager, to look back over her own work and grow in ethics and analysis. This commitment to try, assess, seek out new insight and chal- lenge, and change one's thinking is a professional practice I greatly respect. As publisher at Thorntree Press, Eve has helped bring this book out into the public conversation, and it promises to be pathbreaking.
+zxz6 | In Polysecure, Jessica Fern has again moved the conversation forward. Although
+xnth | we cannot know for certain how a book will translate when it encounters the cul- tural context that receives it, my sense is that this book will increase the availability of tools for navigating needs, desires and commitments for those who want secure bonds; it will also offer vocabulary to aid in transparency for those who do not.
+vafm | When done well, these conversations may help readers enjoy the possibilities- and fulfill the responsibilities-of fully informed consent.
+2zmw | As Fern so beautifully illustrates in these pages, true security builds in an inter- woven way. It can be cultivated within, yes, but it grows in and through the bonds we share with others: in relationships, in communities and in the larger cultural fabric to which we belong.
+bf9k | The collaboration we discussed that summer day over coffee is no longer need- ed. This book has stepped into the gap and filled it, with rigour and care. I hope that readers will find it as calming, and as compelling, as I did when I first read the manuscript.
+otkr | Eve Rickert, Victoria, BC
+ibgs | Naava Smolash, Vancouver, BC July 2020
+colo | Eve Rickert is the co-author of More Than Two: A Practical Guide to Ethical Polyamory (Thorntree Press, 2014).
+d6r4 | Naava Smolash, who sometimes writes under the pen name Nora Samaran, is the author of Turn This World Inside Out: The Emergence of Nurturance Culture (AK Press, 2019).
+9mrz | ACKNOWLEDGMENTS
+pk06 | Mom and Dad: Thank you for the spark of love that brought me into this world. Each of us has been through a shit ton in our lives and, as Mom would frequently say, we did most of our growing up together. Mom, thank you for your enthusiasm and unshakable support for whatever I do, as well as how much freedom you gave me to be me. Dad, thank you for your bravery and willingness to dive into some of the most difficult conversations a parent and child can have.
+7wn9 | John Leporati: There would be no me without you and there would definitely be no writing without you. From my college entrance essay to job cover letters, to probably every significant paper I wrote in college and grad school, to this very book, you have been there for me like no other! Our bond has been unbreakable from day one and thank you for adopting me as yours.
+wcd0 | Dave: Oh the irony that the first book I publish is the one piece of work that you weren't my ghostwriter for. Thank you for all of the ways that you have supported my writing through the years. You have such an incredible gift with language that I can only hope has rubbed off on me. Our marriage was also the testing ground for many of the personal insights that are captured in this book. Our ability to fluidly, lovingly and consciously navigate togetherness, separateness, connection and par- enting is an impossibly precious gift. You will always be one of the most important attachments of my life.
+caos | Diego: Before you were born I knew how important it was for you to experience me as your safe haven and secure base, but I had no clue how profound my own healing of attachment would be through being your mother. Thank you for the full- ness of your love.
+qrvy | Shane: Thank you for being the secure attachment love salve that my heart so desperately needed during our first year together. You stayed strong, secure and so sweet with me during my fearful flare-ups. You held me in the ways I needed, and when this book opportunity arose, you also challenged me to not lose sight of my- self, my work-life balance or us while taking on this project. Thank you for keeping
+pn9j | me in check. I'm so grateful for where we've already been and continually excited about where we're headed.
+1pmc | Eve Rickert, thank you immensely for this opportunity to create this book. An- drea Zanin, thank you for your valuable feedback regarding content, style and voice. Hazel Boydell, thank you for your support with copy-editing and tending to all the details. Heather van der Hoop, thank you for your detailed proofreading. Kate and Sarah, thank you for creating the space at Southwest Love Fest for Eve and me to connect. Nolan Lawless, thank you for geeking out with me about at- tachment and nonmonogamy. Our conversations and your insights have been important additions to my work.
+```
+
+OUTPUT:
+```

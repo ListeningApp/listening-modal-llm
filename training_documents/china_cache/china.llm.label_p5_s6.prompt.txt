@@ -1,0 +1,137 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+vpgq | Town Talk of 2 August said that several people had suggested that the British Government should now launch a full separate investigation into the Godber case. As against this, a UK enquiry would be a major blow to Hong Kong's amour propre.41
+ousl | This suggests that MOOD, a significant enhancement to Town Talk, was taken into account by officials in the policymaking process.
+m4ju | State records on the Golden Jubilee Incident in 1977 and 1978 provided a good account of how MOOD influenced government's administration. The MOOD report was found carefully kept in one of the files on the Golden Jubilee Incident in the National Archives in London, indicating that the Foreign and Commonwealth Office did consider it an important document. Most importantly, the content found in the telegram sent by MacLehose to the Foreign and Commonwealth Office on 31 May 1978 closely resem- bled the MOOD report which was published a week earlier. On 24 May, MOOD described the mixed opinions found in Hong Kong society:
+a0mb | Overall public reaction was still very mixed, different people taking different sides according to their own education background, convictions and basic attitudes. The government's publicity efforts to redress the balance during the next few days were successful to some extent in enabling the public to see the situation in better perspective .... Unfortunately, this message came rather late and the more critical sectors of the public were inclined to be incredulous ....
+ki8m | 71
+km8w | Mok
+wzno | There was still not much support for the 16 teachers. Only radical students, free thinkers and critics of the government sympathized with them. However, there was much more sympathy towards the displaced students whose schooling had been thus disrupted .... Secondary and post-secondary students were inclined to criticize the closure of the school as suppressive and Draconian action.42
+xagm | Similar records were found in the Governor's telegram:
+iwn5 | Vocal opinion is split fairly down the middle between those supporting and those opposing the Government's action. Much of the criticism is directed at the closure itself and appears to have derived from sympathy for the pupils whose education has been disrupted .... There has not been much public sympathy for the 16 teachers who claimed to have been victimized for revealing financial mismanagement of the school .... Nevertheless, the revelation of this earlier complaint has understandably caused confusion and some damage to the Education Department and government's credibility. Some people have clearly found it difficult to believe the true situation.43
+uooz | MOOD's account, which suggested that the secondary and post-secondary students were 'particularly sensitive and resentful to any government measure which appeared to them to be high-handed or dictatorial', was clearly being taken into consideration by the Education Department.44 In encountering the tutorial classes organized by radical post-secondary stu- dents, the non-interventionist approach was deliberately taken by the Department as it was believed that 'to do so [intervene] would have brought post-secondary students directly into the arena'.45 The Department instead offered to place Golden Jubilee students in other schools. To ensure that 'decisions would be taken on an intelligent understanding of com- munity aspirations and sensitivities' and that decisions would respond to the call for 'more opportunities for public consultation', a Committee of Inquiry was set up.46 A 'public invi- tation' was issued to invite Hong Kong citizens to share their views on the incident.47 Lord Goronwy-Roberts was also aware of the public confusion stated in MOOD. To reduce 'prevailing tension and distrust', he recommended the Director of Education to 'make pub- lic his findings of the financial mismanagement' of the school and make clarifications regarding the school's closure and its change of sponsorship.48 These records suggest that MOOD had influenced the state's ruling strategies.
+pxbq | The credibility of MOOD was always questioned. The Commissioner for Census and Statistics, for example, pointed out that the 'MOOD method has areas where it can be improved', such as the choice of samples and statisticians' conduct.49 As better-informed respondents were contacted frequently, reports did not 'truly reflect the attitudes and thinking of an average citizen or a man in the street'.50 In no way was MOOD a wholly representative sample which revealed comprehensive views of a cross-section of com- munities in Hong Kong. Issued on a weekly basis, there was insufficient time for thor- ough investigations.51 Another criticism of MOOD was that it could be biased. Officials used MOOD as 'an axe of their own to grind'.52 City District Officers' and monitors' personal opinions distorted public attitudes. People who were approached may also have been reserved, knowing that the MOOD monitor was a civil servant.
+jfsr | As MOOD was 'not comparable with that of a professional public opinion survey and exact accuracy is not claimed', the administration sought to improve its methodologies,
+u15r | 72
+lq35 | China Information 33(1)
+3g9w | Figure 1. Chain of command in the operation of MOOD* in 1977. Notes: EO = Executive Officers; CO = Community Organizers *The total number of staff engaged in MOOD exercises ranged from 280 to 380.
+d09o | which reinforces the view that MOOD was valuable to bureaucrats.53 Its highly restric- tive nature also suggests that its findings were acknowledged and handled carefully. Archival evidence indicates that MOOD was a sizable unit with a clear chain of account- ability (see Figure 1).54 Records also reveal that the Home Affairs Department was sys- tematic in observing and soliciting public opinion. Each MOOD exercise began with the debriefing given by the Deputy Director at the Home Affairs Department Headquarters. Policy papers were provided to ensure MOOD Officers, who were nominated by City District Officers, had 'an intelligent and accurate understanding of the subject [topic]'. Similar documents were disseminated to the Community Information Unit in the Home Affairs Department, which consisted of six experienced liaison civil servants. During each meeting, the City District Officers were given a topic and the number of respond- ents required. On the next day, every City District Officer, assisted by his or her MOOD Officer, held a meeting to explain and discuss the subject with the district MOOD team.55
+ylhz | To reach the grass roots, the MOOD staff then created samples using data supplied by Mutual Aid Committees and kaifong associations, by liaising with community leaders. Each monitor had a 50-person contact list, of which every week, one-third of the people were removed from the list and replaced by new contacts. On special occasions, the City District Officers could add previous contacts to the list and use them more than once.56 The Community Information Unit also monitored comments made through the mass media and attempted to determine the sentiments of groups and areas that were poten- tially sensitive, such as coolies and hawkers in some circumstances. It also conducted random sampling through telephone calls, using the data provided by the Census and Statistics Department.57 Each MOOD drew data from approximately 2500 people.58 MOOD also advised its staff to be indirect and pay close attention to their interviewing techniques. This avoided giving the impression of surveillance and could 'take the
+a3td | Mok
+ex5k | 73
+9d4o | respondents off their guards'.59 When the reports were returned, the City District Officers convened a meeting in which findings were checked, discussed, analysed, and compiled in note form. The officers had to provide details of the respondents, including age group, class, educational background, type of residence, gender, and occupation. A final MOOD meeting, attended by all MOOD Officers, the Deputy Director and Assistant Director, was then held at the Home Affairs Department Headquarters. During the meeting, feed- back collected from all districts was examined as a whole and compared with data obtained by the Community Information Unit.60 An editor analysed all findings to pro- duce one MOOD report for circulation. In 1975, MOOD was printed on every Thursday for circulation on Friday.61 In 1977, MOOD became a biweekly report.62
+cjq2 | By 1977, there were between 150 and 250 monitors. They were either full-time Executive Officers or part-time Community Organizers working outside office hours. The Home Affairs Department built up a regularly updated contact list of about 10,000 people. 63 The list was claimed to 'cover a wide cross-section of occupation groups, strati- fied in respect of age and educational background'.64 About 300 to 400 people were selected from the list for each MOOD issue. Apart from interviewing people on the con- tact list, the Home Affairs Department staff spoke to people in the community. The num- ber of these incidental samples varied in different districts. It ranged from 2000 to 3000 in total. In normal circumstances, no respondent was interviewed more than once in less than four months.65 As the Chief Secretary and the Secretary for Administration imposed the duties of assessing and predicting public reactions towards proposed and existing policies, on request, the Home Affairs Department was obliged to report opinion trends on specific topics to relevant departments directly.66
+5esx | MOOD was a qualitative research project, which adopted an informal interviewing system modelled on the Osaka Feedback Scheme and the Japanese Monitor System for National Policy.67 Each report had tailor-made topics and targeted groups. Tests and pilot surveys were carried out in advance, such as checking the sample coverage and anticipat- ing non-response rate. This was done to determine the method used in soliciting views, for example, whether through observations, sending out questionnaires, or interviews.68 If it was in the format of interviews, 'informal' techniques were employed. Questions were not standardized. Staff could tailor the wording and alter the order of the questions which they believed were appropriate for the contacts. Such unstructured approach, it was judged, succeeded 'better than set questions in getting to the heart of the respond- ent's opinion'.69
+m5ka | To further improve the methodology of MOOD, it was recommended that a depart- mental representative should attend discussions if that report was requested by a particu- lar department.70 As MOOD only covered Kowloon and Hong Kong island, the presence of the staff of the New Territories Administration, such as the District Officer of Tsuen Wan, was useful. Not only could they learn the techniques for contacting interview sub- jects, but information from the New Territories could also be gathered and used for com- parison.71 On important topics, such as Green Papers on constitutional development, the department used 'more scientific methods' to gather and ascertain public views regu- larly.72 To enhance the report's credibility, three-quarters of the contacts in each issue of MOOD were incidental casual respondents. The established contact lists in different dis- tricts were renewed and the categorical breakdown, such as age and occupation of
+byu8 | 74
+76b0 | China Information 33(1)
+zxz6 | respondents, was sent to the Census and Statistics Department.73 These new arrange- ments were made possibly because City District Officers and monitors approached some better-informed and responsive respondents repeatedly, affecting the representativeness of MOOD. These changes also lowered the risks that officials carried out fewer inter- views than required.
+xnth | By 1979, the Home Affairs Department was still reluctant to change the sampling method extensively due to 'the extra work involved' and the fact that 'it was impractical with the then limited resources'.74 Nonetheless, the frequency was changed and MOOD was issued on a monthly basis, allowing more time for fieldwork.75 It was not until April 1980 that the Home Affairs Department switched to a quota sampling method. The selec- tion of contacts according to gender, age and occupation was now in proportion to the number and distribution of the overall population in the area. This new method was adopted probably because of the changing geographical distribution of Hong Kong's population. According to the government census in 1971, 25 per cent of the total popula- tion lived on Hong Kong island, 18 per cent in Kowloon, 37 per cent in New Kowloon, and 17 per cent in the New Territories. By 1981, the distribution had changed, with a large increase in the New Territories: 24 per cent of the total population lived on Hong Kong island, 16 per cent in Kowloon, 33 per cent in New Kowloon and 26 per cent in the New Territories.76 This per district approach represented a better division of labour as it reduced the cost and time for travelling to other districts. City District Officers also had better understanding of the areas and neighbourhoods in their own districts. The new methodology reduced the sampling size from 2500 to 993. These 993 respondents now included people in Tsuen Wan and Kwai Chung.77
+vafm | This section has demonstrated how the bureaucracy invested considerable resources polling a representative sample of people, a mass made structurally invisible by the colo- nial state. The colonial government regularly collected and analysed public opinion, and closely monitored the movement of opinion direction. The circulation of sensitive public opinion was restricted to senior policymakers, including the Governor and his policy advisers, and was referenced in policy formulation.
+2zmw | Political attitudes and identities of Hong Kong Chinese
+bf9k | The improved methodologies allowed MOOD to deconstruct changing popular senti- ments by class and age, and hence assess public reactions to administrative reforms and identify potential threats to the colonial state. MOOD investigated topics which were either 'of current interest or political importance chosen by the Home Affairs Department', or which had been requested by a Secretary or Head of Department.78 During the period from March 1975 to June 1976, MOOD covered a number of ad hoc affairs, including public reactions to the Labour Relations Bill, the proposed increase in public transport charges, school fees, and electricity prices. The colonial government also displayed a clear interest in political attitudes and identities, and what influenced them. Changing political attitudes of Hong Kong Chinese towards the colonial government, the United Kingdom, and China were the state's main concerns in this period. For an alien state to retain legitimacy without introducing an electoral system, 'not only must legitimate demands be satisfied, but the population must be convinced that such satisfaction is
+otkr | 75
+ibgs | Mok
+colo | genuinely the objective of the government'.79 The colonial regime was desperate to develop a sense of 'civic pride' as a substitute for 'national loyalty' among the Chinese population.80 It was believed that this not only enhanced the state's legitimacy, but also provided Britain with powerful bargaining chips in their negotiations with China.81 Along with the Hong Kong Festival and the 'Keep Hong Kong Clean' campaign, the state introduced legislative changes, such as legalizing Chinese to become the official language in 1974.82
+d6r4 | Nonetheless, there were increased tensions between Hong Kong and Britain. The devaluation of the pound in 1967 had drastically affected public confidence in the British government. To add fuel to the fire, Britain's entry into the European Economic Community curtailed Hong Kong's textile exports to the British Isles under more restric- tive quotas. London also increased Hong Kong's contribution to the maintenance of the British garrison from 29 per cent in 1970 to 75 per cent in 1978.83 On the other hand, the 1967 riots had already demonstrated the significance of the 'China factor': a surge in Chinese nationalism could lead to violence and chaos, shattering political stability. Nationalism did not diminish but flourished in the early 1970s, which could be observed from the emergence of patriotic social movements, such as the Chinese Language Campaign and the Senkaku Islands Movement. Given the uncertainty imposed by the end of the Cultural Revolution, the death of Mao and the fall of the Gang of Four after 1976, the state had to observe changing perceptions towards China. In this context, it was vital for the state to be fully informed of changing political attitudes and identities so that it could measure the success of its community-building project, continue fostering a sense of belonging among the community, and avoid any anti-colonial or British senti- ments being exploited and turned into disturbances.
+9mrz | Attitudes towards colonial rule
+```
+
+OUTPUT:
+```

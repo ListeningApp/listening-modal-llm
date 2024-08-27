@@ -1,0 +1,151 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+y2qo | Worden, J. W. (1996a). Children & grief: When a parent dies. New York, NY: Guilford Press.
+1piq | Worden, J. W. (1996b). Tasks and mediators of mourning: A guideline for the mental health practitioner. In Session: Psychotherapy in Practice, 2, 73-80. doi:10.1002/(SICI)1520-6572(199624)2:4<73 :: AID-SESS7>3.0.CO;2-9
+7fqw | Yu, W., He, L., Xu, W., Wang, J., & Prigerson, H. G. (2016). How do attachment dimensions affect bereavement adjustment? A mediation model of continuing bonds. Psychiatry Research, 23, 893-899. doi:10.1016/j .psychres.2016.02.030
+rhaz | 1 ATTACHMENT, LOSS, AND THE EXPERIENCE OF GRIEF
+wak1 | ATTACHMENT THEORY
+wtfz | Before one can fully comprehend the impact of a loss and the human behavior associated with it, one must have some understanding of the meaning of attachment. There is considerable writing in the psychologi- cal and psychiatric literature as to the nature of attachments-what they are and how they develop. One of the key figures and primary think- ers in this area is the late British psychiatrist John Bowlby. He devoted much of his professional career to the area of attachment and loss and wrote several substantial volumes as well as a number of articles on the subject.
+qy1i | Bowlby's attachment theory provides a way for us to conceptu- alize the tendency in human beings to create strong affectional bonds with others and a way to understand the strong emotional reaction that occurs when those bonds are threatened or broken. To develop his theories, Bowlby casts his net wide and includes data from ethology, control theory, cognitive psychology, neurophysiology, and develop- mental biology. He takes exception to those who believe that attachment bonds between individuals develop only in order to have certain bio- logical drives met, such as the drive for food or the drive for sex. Citing Lorenz's work with animals and Harlow's work with young monkeys, Bowlby (1977a) points to the fact that attachment occurs in the absence of the reinforcement of these biogenic needs.
+1k9e | Bowlby's thesis is that these attachments come from a need for security and safety; they develop early in life, are usually directed toward a few specific individuals, and tend to endure throughout a large part of the life cycle. Forming attachments with significant others
+5bjs | 15
+uodj | Grief Counseling and Grief Therapy
+k16v | is considered normal behavior not only for the child but for the adult as well. Bowlby argues that attachment behavior has survival value, citing the occurrence of this behavior in the young of almost all species of mammals. But he sees attachment behavior as distinct from feeding and sexual behavior.
+b2lm | Attachment behavior is best illustrated by the young animal and the young child, who, as they grow, leave the primary attachment figure for increasingly long periods of time to search an ever-widening radius of their environment. But they always return to the attachment figure for support and safety. When the attachment figure disappears or is threatened, the response is one of intense anxiety and strong emotional protest. Bowlby suggests that the child's parents provide the secure base of operation from which to explore. This relationship determines the child's capacity to make affectional bonds later in life. This is similar to Erikson's (1950) concept of basic trust; through good parenting, the individual sees himself as both able to help himself and worthy of being helped should difficulties arise. Obvious pathological aberrations can develop in this pattern. Inadequate parenting can lead people either to form anxious attachments or to form very tenuous attachments, if any at all (Winnicott, 1953, 1965). Various attachment styles can be found in Chapter 3.
+ti7f | If the goal of attachment behavior is to maintain an affectional bond, situations that endanger this bond give rise to certain very spe- cific reactions. The greater the potential for loss, the more intense and the more varied these reactions are. "In such circumstances, all the most powerful forms of attachment behavior become activated-clinging, crying, and perhaps angry coercion .... When these actions are suc- cessful, the bond is restored; the activities cease and the states of stress and distress are alleviated" (Bowlby, 1977b, p. 429). If the danger is not removed, withdrawal, apathy, and despair then ensue.
+oksu | Animals demonstrate this behavior as well as humans. In The Expression of Emotions in Man and Animals, written during the latter part of the 19th century, Darwin (1872) described the ways in which sorrow is expressed by animals as well as by children and adult human beings. Ethologist Lorenz (1963) has described this grief-like behavior in the separation of a greylag goose from its mate:
+wtow | The first response to the disappearance of the partner consists in the anxious attempt to find him again. The goose moves about rest- lessly by day and night, flying great distances and visiting places where the partner might be found, uttering all the time the pene- trating trisyllable long-distance call .... The searching expeditions are extended farther and farther and quite often the searcher itself
+o22k | 1 Attachment, Loss, and the Experience of Grief
+nwfz | gets lost, or succumbs to an accident .... All the objective observ- able characteristics of the goose's behavior on losing its mate are roughly identical with human grief. (Lorenz, 1963, quoted in Parkes, 2001, p. 44)
+nvfy | There are many other examples of grieving in the animal world. Several years ago, there was an interesting account about dolphins in the Montreal zoo. After one of the dolphins died, its mate refused to eat, and the zookeepers had the difficult, if not impossible, task of keeping the surviving dolphin alive. By not eating, the dolphin was exhibiting manifestations of grief and depression akin to human loss behavior.
+mror | Psychiatrist George Engel, speaking at the psychiatric grand rounds at the Massachusetts General Hospital, described a case of bereavement in great detail. This case sounded typical of the kinds of reactions that you would find in a person who has lost a mate. Later in his lecture, after reading a lengthy newspaper account of this loss, Engel revealed that he was describing the behavior of an ostrich that had lost her mate!
+zlxc | Because of the many examples in the animal world, Bowlby con- cludes that there are good biological reasons for every separation to be responded to in an automatic, instinctive way with aggressive behav- ior. He also suggests that irretrievable loss is not taken into account, and that in the course of evolution, instinctual equipment developed around the fact that losses are retrievable and the behavioral responses that make up part of the grieving process are geared toward reestab- lishing a relationship with the lost object (Bowlby, 1980). This biological theory of grief has been influential in the thinking of many, including that of British psychiatrist Colin Murray Parkes (Parkes, 1972; Parkes & Stevenson-Hinde, 1982; Parkes & Weiss, 1983). Other prominent attach- ment theorists include Mary Ainsworth (Ainsworth, Blehar, Waters, & Wall, 1978) and Mary Main (Main & Hesse, 1990). The mourning responses of animals show what primitive biological processes are at work in humans. However, there are features of grieving specific only to human beings, and these normal grief reactions are described in this chapter (see Kosminsky & Jordan, 2016).
+k0bw | There is evidence that all humans grieve a loss to one degree or another. Anthropologists who have studied other societies, their cul- tures, and their reactions to the loss of loved ones report that whatever the society studied, in whatever part of the world, there is an almost universal attempt to regain the lost loved object and/or there is the belief in an afterlife where one can rejoin the loved one. In preliterate societies, however, bereavement pathology seems to be less common than it is in more civilized societies (Parkes, Laungani, & Young, 2015; Rosenblatt, 2008; Rosenblatt, Walsh, & Jackson, 1976).
+aq5a | Grief Counseling and Grief Therapy
+sc5y | IS GRIEF A DISEASE?
+0yab | George Engel (1961) raised this interesting question in a thought-pro- voking essay published in Psychosomatic Medicine. Engel's thesis is that the loss of a loved one is psychologically traumatic to the same extent that being severely wounded or burned is physiologically traumatic. He argues that grief represents a departure from the state of health and well-being, and just as healing is necessary in the physiological realm in order to bring the body back into homeostatic balance, a period of time is likewise needed to return the mourner to a similar state of psycholog- ical equilibrium. Therefore, Engel sees the process of mourning as simi- lar to the process of healing. As with healing, full function, or nearly full function, can be restored, but there are also incidents of impaired func- tion and inadequate healing. Just as the terms healthy and pathological apply to the various courses in the physiological healing process, Engel argues that these same terms may be applied to the courses taken by the mourning process. He sees mourning as a course that takes time until restoration of function can take place. How much functional impair- ment occurs is a matter of degree (Engel, 1961). Rather than using terms like restoration and recovery, I prefer to use the term adaptation: some peo- ple make a better adaptation to the loss while others make a less good adaptation. In Chapter 5, we look at complicated mourning, where indi- viduals are making a less than adequate adaptation to the loss.
+w95z | Before we look at the characteristics of normal grief, it would be useful to look at three terms that are often used interchangeably: grief, mourning, and bereavement. For purposes of common understanding, in this book I am using the term grief to indicate the experience of one who has lost a loved one to death. It is comprised of thoughts, feelings, behaviors, and physiological changes that vary in pattern and inten- sity over time. The term grief can be applied to other losses, but in this book, it primarily addresses losses due to death. Mourning is the term applied to the process that one goes through in adapting to the death of the person. The finality and consequences of the loss are understood and assimilated into the life of the mourner. Bereavement defines the loss to which the person is trying to adapt and the experience of having lost someone close.
+0i1k | NORMAL GRIEF
+dqlg | Normal grief, also referred to as uncomplicated grief, encompasses a broad range of feelings, cognitions, physical sensations, and behavioral
+p6pq | 1 Attachment, Loss, and the Experience of Grief
+zse6 | 19
+p2n3 | changes that are common after a loss.1 One of the earliest attempts to look at normal grief reactions in any systematic way was done by Erich Lindemann (1944) when he was chief of psychiatry at the Massachusetts General Hospital.
+ohh7 | In the Boston area, there are two Catholic colleges well known for their football rivalry. Back in the fall of 1942, they met for one of their traditional Saturday encounters. Holy Cross beat Boston College, and after the game many people went to Cocoanut Grove, a local nightclub, to celebrate. During the revelries, a busboy lit a match while trying to change a lightbulb and accidentally set a decorative palm tree on fire. Almost immediately, the whole nightclub, which was packed beyond its legal capacity, was engulfed in flames. Nearly 500 people lost their lives in that tragedy.
+vbni | Afterward, Lindemann and his colleagues worked with the fam- ily members who had lost loved ones in that tragedy, and from these data and others he wrote his classic paper "Symptomatology and Management of Acute Grief" (1944). From his observations of 101 recently bereaved patients he discovered similar patterns, which he described as the pathognomonic characteristics of normal or acute grief:
+dgcw | 1. Somatic or bodily distress of some type
+gvwz | 2. Preoccupation with the image of the deceased
+sk5m | 3. Guilt relating to the deceased or circumstances of the death
+qws8 | 4. Hostile reactions
+877u | 5. The inability to function as one had before the loss
+rzhj | In addition to these five, he described a sixth characteristic exhib- ited by many patients: they appeared to develop traits of the deceased in their own behavior.
+bfax | There are many limitations to Lindemann's study. Some of these have been outlined by Parkes (2001), who points out that Lindemann does not present figures to show the relative frequency of the syndromes described. Lindemann also neglects to mention how many interviews he had with the patients, and how much time had passed between the interviews and the date of the loss. Nevertheless, this remains an important and much cited study.
+f2y8 | 1 I am using the word normal in both a clinical and a statistical sense. Clinical defines what the clinician calls normal mourning behavior, while statistical refers to the frequency with which such behavior is found among a randomized bereaved population. The more frequent the behavior, the more it is defined as normal.
+o7qm | Grief Counseling and Grief Therapy
+d52l | What is of particular interest to me is that the bereaved we see today at the Massachusetts General Hospital exhibit behaviors very similar to those described by Lindemann more than 70 years ago. In a large number of people undergoing an acute grief reaction, we find some or most of the following phenomena. Because the list of normal grief behaviors is so extensive and varied, I have placed them under four general categories: feelings, physical sensations, cognitions, and behaviors. Anyone counseling the bereaved needs to be familiar with the broad range of behaviors that falls under the description of normal grief.
+qlbb | Feelings
+nhsg | Sadness
+hy0l | Sadness is the most common feeling found in the bereaved and really needs little comment. This feeling is not necessarily manifested by cry- ing behavior, but often it is. Parkes and Weiss (1983) conjecture that cry- ing is a signal that evokes a sympathetic and protective reaction from others and establishes a social situation in which the normal laws of competitive behavior are suspended. Some mourners have a fear of sad- ness, especially the fear of its intensity (Taylor & Rachman, 1991). It is not uncommon to hear a person say, "I lost it at the funeral." Still others try to block sadness through excessive activity only to discover that the sadness comes out at night. Not allowing the sadness to be experienced, with or without tears, can frequently lead to complicated mourning (see Chapter 5).
+4jmz | Anger
+b7cq | Anger is frequently experienced after a loss. It can be one of the most confusing feelings for the survivor and as such is at the root of many problems in the grieving process (Cerney & Buskirk, 1991). A woman whose husband died of cancer said to me, "How can I be angry? He didn't want to die." The truth is that she was angry at him for dying and leaving her. If the anger is not adequately acknowledged, it can lead to complicated mourning.
+0b39 | This anger comes from two sources: from a sense of frustration that there was nothing one could do to prevent the death, and from a kind of regressive experience that occurs after the loss of someone close. You may have had this type of regressive experience when you were a very young child on a shopping trip with your mother. You were in a department store and suddenly you looked up to find that she had disappeared. You
+qecd | 1 Attachment, Loss, and the Experience of Grief
+```
+
+OUTPUT:
+```

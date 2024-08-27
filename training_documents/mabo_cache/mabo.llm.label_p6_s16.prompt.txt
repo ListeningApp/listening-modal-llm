@@ -1,0 +1,164 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+u15r | 33 Ibid. See also at 88 and 110 per Deane and Gaudron JJ and at 187 per Toohey J.
+lq35 | 1 JCULR
+3g9w | In Defence of Mabo
+d09o | and unenforceable by, the common law.34 Native title is not an institution of the common law.35 Instead, it is distinct from the common law.
+ylhz | To prove native title, an entitlement to occupy or use particular land needs to be established. The entitlement must be of sufficient significance to demonstrate a locally recognised special relationship between the in- digenous users and the land.36
+a3td | The central concepts to native title are 'presence' upon the land37 and 'connexion' with the land.38 Traditional connexion with the land will be evidenced by the indigenous people's substantial continued acknowledg- ment of traditional laws and customs with respect to the land.39 Native title requires presence on the land which amounts to occupancy.40 How- ever, this need not necessarily amount to possession as it is understood by the common law.41 Such presence must be established at least from the time the Crown asserted its general sovereignty.42
+ex5k | What will amount to 'presence' or 'connexion' is governed by the de- mands of the land and the indigenous society in question. Brennan J said:43
+9d4o | The nature and incidents of native title must be ascertained as a matter of fact by reference to those laws and customs. The ascertainment may present a problem of considerable difficulty ....
+cjq2 | By this reasoning, a nomadic lifestyle per se is not inconsistent with the existence of native title. However, the presence on the land must be more than merely coincidental or truly random.44 Thus, as noted by Deane and Gaudron JJ, native title can result from an indigenous people's established use of land to obtain food, either by cultivation or hunting.45
+5esx | Native title is not, ordinarily, individual title. Presence upon, or connexion with, a particular land giving rise to native title may relate to land either communally or individually held.46 Thus, to note the example provided by Toohey J, a number of groups of indigenous people may come onto the land for ceremonial purposes.47 Upon this basis, native title may be shared between different indigenous groups.48
+m5ka | Because native title is not an institution of the common law, it is alien- able only in conformity with traditional customs and law. Thus, native
+byu8 | 58
+76b0 | (1994)
+zxz6 | title cannot be alienated outside the indigenous clan or group,49 though it can be surrendered voluntarily or upon purchase to the Crown.50 Only the Crown can acquire native title. This it can do by virtue of the Crown's capacity as sovereign over the whole of Australian territory. Native title cannot be acquired by those who do not acknowledge and observe the laws and customs of the indigenous people. Brennan J said:51
+xnth | It follows that a right or interest possessed as a native title cannot be acquired from an indigenous people by one who, not being a member of the indig- enous people, does not acknowledge their laws and observe their customs; nor can such a right or interest be acquired by a clan, group or member of the indigenous people unless the acquisition is consistent with the laws and cus- toms of that people. Such a right or interest can be acquired outside those laws and customs only by the Crown.
+vafm | Notwithstanding the Mabo decision, the exact legal character of the native title remains unclear. Brennan J took the view that native title is, in some circumstances, 'proprietary' in nature and thus capable of accom- modating personal usufructuary rights.52 Deane and Gaudron JJ took the view that native title is 'personal' in nature, upon the premise that it is inalienable.53 However, such a personal nature was more than a mere 'per- missive occupancy'.54 Dawson J, who dissented, took the view that na- tive title is only 'permissive occupancy'. Toohey J declined to decide the nature of native title given that, in any case, the Crown, acting appropri- ately, could readily extinguish it.55
+2zmw | According to the majority view in Mabo, where an indigenous clan or group have continued to observe tradition and customs concerning their land, the native title remains in existence. Change in the traditional soci- ety over time does not, of itself, extinguish native title. Similarly, native title will not be lost by an indigenous society modifying its traditional way of life.56 However, if the indigenous people abandon their laws and customs relating to the land, or abandon the land or surrender it to the Crown, the native title is lost. Once native title is lost, it cannot be re- vived.57
+bf9k | The recognition of native title by the common law of Australia thus allows native title to be protected by any legal or equitable remedies which are appropriate to the particular rights and interests as established by the evidence. Such rights and interests may include proprietary, personal and
+otkr | 57 Id. 60 per Brennan J and at 110 per Deane and Gaudron JJ.
+ibgs | 1 JCULR
+colo | In Defence of Mabo
+d6r4 | usufructuary interests, whether possessed by a community or a group or an individual.58
+9mrz | An indigenous people's claim to possession of land, based upon na- tive title, can be protected, or their entitlement enforced, by a representa- tive action brought on the community's behalf.59 That is, a single member of an indigenous community has standing to bring a Mabo-style claim on behalf, and for the benefit, of the indigenous community.60
+pk06 | HOW MAY NATIVE TITLE BE EXTINGUISHED?
+7wn9 | With the Crown's sovereignty over the whole of Australia came power to create and extinguish private rights and interests in land within the sov- ereign's territory. It follows that, with sovereignty, came the power to ex- tinguish native title with complete legality.61 Essentially, any Crown grant or alienation which is clearly inconsistent with the continued exercise and enjoyment of native title over the land extinguishes the native title to the extent of the inconsistency.62 In order effectively to extinguish native title, a clear intention to do so must be manifested. Brennan J said:63
+wcd0 | . the exercise of a power to extinguish native title must reveal a clear and plain intention to do so, whether the action be taken by the Legislature or by the Executive.
+caos | Such an intention will depend upon all the circumstances of the case, including the terms of any relevant legislation.64
+qrvy | However, to focus attention exclusively upon the intent of the Crown may be misleading. Rather, what appears to be crucial under Mabo is how, in fact, the Crown action, if any, affected the right of the indigenous peo- ple to enjoy the native title. Brennan J said:65
+pn9j | The extinguishing of native title does not depend on the actual intention of the Governor in Council (who may not have adverted to the rights and inter- ests of the indigenous inhabitants or their descendants), but on the effect which the grant has on the right to enjoy the native title.
+1pmc | Upon this basis, the essential inquiry concerning claims to land under the Mabo decision must be the capacity of the indigenous people to con- tinue to enjoy native title. Upon such a premise, it is clear that native title
+5z6q | (1994)
+yeoh | would be extinguished by a grant of the subject land in fee simple or grant of a lease (unless the lease purports to preserve native rights to enjoy the subject land).66 Similarly, appropriation of land for a road, rail- way or any other purpose, which necessarily precludes continued enjoy- ment of native title to the land, would also extinguish native title.67
+b8hf | If the Crown's actions are more limited, in the sense that they merely regulate the enjoyment of native title or create a regime of control which is consistent with the continued enjoyment of native title, then native title to the land will not be extinguished.68 Thus, a law reserving, or authoris- ing reservation of, land for indigenous people does not extinguish native title to the area.69 Nor would the dedication of land as a national park or the grant of an authority to prospect for minerals.70
+hntf | This approach is well illustrated by an example provided by Brennan J. A reservation of land for a public purpose, other than for the benefit of indigenous persons, will not of itself extinguish native title if a right to continue to enjoy native title is not inconsistent with that public purpose. However, if such land is then used in a manner inconsistent with the continued enjoyment of native title, then native title will be extinguished. Thus, a reservation of land for use as a school, public office or courthouse does not, of itself, extinguish native title. But the construction of a build- ing on the reserved land would be inconsistent, as it is incompatible with the maintenance of the enjoyment of native title.71
+99fo | As may be inferred from the foregoing discussion concerning the na- ture of native title, that native title may also be extinguished by surrender to the Crown voluntarily or by the indigenous people's abandonment of their presence on, or connexion with, the land.72
+y5r7 | Where native title is extinguished, the Crown becomes the absolute beneficial owner of the land.73 In all of the great torrent of words about Mabo, there was precious little discussion about the derogation from na- tive title fully recognised in the High Court's decision. Landholders in the suburbs and towns of Australia became alarmed that their hard-earned assets may be lost to claims by Aboriginal Australians based on supposed native use hundreds of years ago. As is made clear from the Mabo deci- sion itself, such fears are, in general, completely groundless.
+lrry | 66 Id. 69 per Brennan J and at 110 per Deane and Gaudron JJ.
+hvhm | 68 Id. 64 per Brennan J and at 196 per Toohey J.
+863b | 69 Id. 64-65 and 68 per Brennan J.
+fj24 | 70 Id. 69 per Brennan J.
+uz3c | 72 Id. 70 per Brennan J and at 110 per Deane and Gaudron JJ.
+d5bi | 73 Id. 70 per Brennan J.
+ba4l | 1 JCULR
+ffx8 | In Defence of Mabo
+s6su | COMPENSATION FOR THE EXTINCTION OF NATIVE TITLE
+y219 | As stated earlier, the majority of the High Court took the view that the Crown's extinguishment of native title since 1788 was not 'wrongful' in the sense that it gave rise to a claim for compensation. However, Deane, Gaudron and Toohey JJ took the view that the extinguishment of native title after the introduction in 1975 of the Racial Discrimination Act (Cth) would be invalid unless accompanied by the payment of compensation.74 Toohey J noted that any claim for compensation for wrongful extinguish- ment of native title would be subject to the operation of limitation stat- utes.75 Dawson J disagreed with this position. Brennan J (with whom Mason CJ and McHugh J agreed) did not finally decide the point.76 Deane and Gaudron JJ, further, took the view that such extinguishment of na- tive title would have to accord with s 51(xxxi) of the Australian Constitu- tion - that is, it would have to be on 'just terms'.77 In the face of these differing views, the issue of compensation remains unclear. However, the majority appears to have sent out reassuring messages concerning the scope for rights of compensation.
+06ht | Fair-minded Australians, I assume, would not object to the notion that Australian Aboriginals be justly compensated by the Crown for the ex- tinguishment of their legitimate native title. For surely, such fair-minded citizens would expect just compensation if their own title to land were extinguished by the Crown. Indeed, as noted by Deane and Gaudron JJ, such a right to just compensation is enshrined, in certain circumstances, within the Australian Constitution itself. We should accord to the indig- enous people of this continent in our law no lesser fundamental rights than we decided to reserve to ourselves in the charter of our Federal Com- monwealth.
+v3r2 | THE HIGH COURT AND THE SEPARATION OF POWERS DOCTRINE
+nv42 | The High Court of Australia has been criticised by commentators, includ- ing thoughtful and temperate ones, for acting legislatively rather than judicially in the Mabo decision. As will be shown, such criticism may be unwarranted given the true nature of the judicial function and the High Court's proper role as a court of ultimate authority in this country.
+xags | 77 Id. 111 per Deane and Gaudron JJ.
+jc47 | (1994)
+ko3c | Typical of the criticisms of this kind is that voiced by the Tasmanian Premier, Mr Groom. He is reported to have said of the High Court and the Mabo decision:78
+xek3 | It seems to me extraordinary that the High Court, an unelected body, could move in one decision to overthrow all of our land tenure laws that have served Australia so well for 200 years.
+bbpr | Mr Groom's statement appears prompted by a belief that 'the High Court in the Mabo case, and many others, had taken on a legislative role that should be confined to democratically elected representatives'.79 Simi- larly, in emphatic terms, the former Connolly J of Queensland wrote, in response to the rhetorical question: 'What was wrong with the decision?'.80
+5zyf | The first answer is that it was sheer invention or, if you prefer a politer word, sheer legislation. As Dr Colin Howard has observed, 'The philosophy of the common law is, above all, evolutionary, not revolutionary. Mabo is above all, revolutionary, not evolutionary.' In order to emphasise this point, I shall here- after refer to the decision as the legislation of 3 June 1992. Now, if we had a Bill of Rights, there might conceivably be something in it upon which to hang such legislation, but there was nothing. My thesis is, and I regret to have to put it so bluntly, that this is the naked assumption of power by a body quite unfitted to make the political and social decisions which are involved.
+9own | Another example of this same accusation will be sufficient to allow this point to be made. Professor Geoffrey de Q. Walker, Dean of the Fac- ulty of Law in the University of Queensland, has written:81
+bqfb | The polemic that has followed Mabo highlights the fact that from a constitu- tional viewpoint it was not (except in relation to the Murray islanders) a judi- cial decision at all. Most of the controversy has centred on how the Court's decision should be 'implemented', by federal or State legislation, or both. Yet the hallmark of a genuine judicial decision is that it requires no legislative implementation, for the simple reason that it declares what the current law is, and applies it to the facts. Each time a court applies a principle to new facts it is to a degree developing the law, but sweeping new proclamations of policy, or calls to arms that require Acts of parliament to put them into effect, are quite outside the judicial function. The Mabo case, therefore, except in relation to the Murray islanders, represents yet another usurpation by the Court of the constitutional powers of the Australian parliaments and people.
+wwdt | 1 JCULR
+mn1r | In Defence of Mabo
+5vqw | The comments of Dawson J in his lonely dissent in Mabo also give some support to the claim that the High Court, in this case, intruded im- permissibly into the legislative province. After concluding that any tradi- tional land rights of the Australian indigenes had long since been extin- guished,82 Dawson J wrote:83
+meyw | Accordingly, if traditional land rights (or at least rights akin to them) are to be afforded to the inhabitants of the Murray Islands, the responsibility, both le- gal and moral, lies with the legislature and not with the courts.
+2e62 | Similarly, in the context of Australia's history of European settlement, Dawson J concluded:84
+```
+
+OUTPUT:
+```

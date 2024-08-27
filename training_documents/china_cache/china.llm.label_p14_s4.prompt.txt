@@ -1,0 +1,145 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+xek3 | The number of 'celebration dinner parties' has increased significantly. It appears that invitations have been very widely distributed to non-communist groups, including associations known to have right-wing connections or sympathies. Many more 'neutral' people have accepted the invitations. They feel much less inhibited about attending such parties. Some of them even regard it as an honour to have been invited.126
+bbpr | Different views were shared by former migrants from China and the locally born young generation. A large proportion of middle-aged and elderly groups still viewed commu- nism with scepticism. The young generation took a relatively 'relaxed attitude' about 'the likelihood of Hong Kong returning to China'. Most post-war baby boomers however 'still preferred the status quo' and did not 'cherish returning to live in China under a com- munist regime'.127 The general optimism towards China stretched into the late 1970s: 'a general feeling of relief and confidence currently prevails'.128 While it was convention- ally believed that 'older Chinese had often kept their negative views of the PRC', MOOD shows that attitudes of the middle-aged and elderly towards China had improved signifi- cantly in 1978.129 Many were 'now more relaxed about China and welcome the improve- ment of Hong Kong and Beijing relations'.130 For the young generation, the Return Home Movement lost momentum and MOOD detected 'no significant trend' of students wanting to return to China.131
+5zyf | The mass media in Hong Kong played an important role in shaping views towards China. By the mid-1970s, most Hong Kong Chinese had greater access to the mass media. The literacy rate in Hong Kong was high: 83 per cent in 1971 with an anticipated increase of 8 per cent over the next 10 years.132 Most households owned radios. Television sets were becoming prevalent. Before the 1970s, the liberal mass media had avoided reporting on Chinese news, except atrocities and chaos during political upheavals. In the early 1970s, the press and media in Hong Kong 'began to change perceptibly'.133 Right- wing newspapers stopped focusing on the shortfalls of the communist regime and started providing less biased accounts. The communist press ceased to attack misdeeds of the colonial state to 'make their papers more credible, acceptable or attractive to Hong Kong'. 134 For instance, to increase the readership in Hong Kong, Wen Wei Po ( 文 匯 報 ) no longer used simplified characters in their papers. Cheng Ming ( !! ), a new magazine sponsored by the communists, featured debates and philosophical dissertations on com- munist policies and doctrines to appeal for the support of Hong Kong's young and intel- lectual audience.135
+9own | Chinese policies after 1976 also convinced people that China would 'gradually shift from communism to socialism'.136 Many believed that the use of Western technologies and modernization in China would 'inevitably have an impact on the political and ideo- logical stand of China's leadership'. The emergence of an intelligentsia who were partial
+bqfb | 80
+wwdt | China Information 33(1)
+mn1r | to Western philosophies was a sign that the state would soon 'evolve into a new type of regime'.137 After the fall of the Gang of Four in 1976, it was crucial for Beijing to main- tain the stability of Hong Kong. Increased optimism could be observed with many start- ing to refer to the Chinese Communist Party as 'the Chinese government' and the mainland as 'China'. Taiwan was now labelled 'a territory'.138 Economic modernization and increased visits to the mainland led many to believe that the living standard there had risen 'very considerably'.139 The 'dull and colourless' life and 'apparent backwardness', however, prevented many from considering a return to and settlement in the mainland permanently.140
+5vqw | Conclusion
+meyw | The Home Affairs Department monitored popular political attitudes and social aspira- tions on important topics and sensitive issues. Such constructed public opinion influ- enced policymaking, and bureaucrats created a structurally invisible concept of public opinion. Thus, by implication, the state did not rule indirectly and did not view the Chinese communities as self-regulating. These MOOD reports were circulated restric- tively among senior officials. Ordinary people were unaware that they were exercising political influence: this was covert colonialism. They believed that the undemocratic administrative system only gave certain social elites access to policy formulation processes.
+2e62 | Throughout the period from 1975 to 1980, MOOD's techniques improved. The Home Affairs Department and the City District Office broadened their contact lists, expanded the samples, and increased incidental contacts. They then adopted a per district quota sampling method and incorporated the New Territories. To maintain and improve the qualitative aspect of MOOD, informal and unstructured techniques were adopted in interviews. MOOD became increasingly scientific.
+75y3 | The MOOD materials provided Hong Kong bureaucrats with intelligence on shift- ing popular sentiments on the reformed colonial state, the British government, and China. Findings in MOOD were largely reassuring. In general, there was improved communication between the state and society. Political culture was changing, espe- cially among those of the young generation and at the grass-roots level, although polit- ical conservatism was still deeply rooted in the middle-aged and elderly groups, particularly among entrepreneurs and professionals within the upper and middle classes. Neither group advocated major constitutional reforms. They did not pose a major threat to the colonial rule as they were not cohesive. Even the post-war baby boomers were divided. On the whole, the public at large supported colonialism; a desire to maintain the status quo, an open economy, low tax rates, and social stability; and a lifestyle which blended Chinese culture with cosmopolitanism - although the public was indifferent to the British government and political allegiance to the monar- chy was non-existent. By contrast, the public adopted a more positive attitude towards the PRC, a shift that affected even the middle-aged and elderly, who formerly viewed the communist regime with fear, hostility, and contempt. Nonetheless, patriotic student movements waned in the mid-1970s.
+s2g2 | Mok
+q1q2 | Notes
+cb7r | 19. Ibid., 19.
+68xu | 20. Ibid., 158.
+hd35 | 21. Ibid., 159.
+2zpk | 81
+epu7 | 82
+7od1 | China Information 33(1)
+0bqy | 22. Stephan Haggard, Pathways from the Periphery: The Politics of Growth in the Newly Industrializing Countries, Ithaca, NY: Cornell University Press, 1990, 116 and 123; King, Administrative absorption of politics, 424.
+b780 | 54. The information about the chain of command and the estimated size of the unit is extracted from HKRS 925/1/1, Information paper for recipients of MOOD: How MOOD is produced, MOOD, 5 May 1977, 2-4. There are no data available regarding the budget of MOOD.
+ccmb | Mok
+ma93 | 83
+c6hh | 55. Ibid., 2-3.
+y7ea | 56. HKRS 394/27/9, Town Talk, 1-2.
+nav4 | 57. HKRS 394/27/9, Extract from minutes from Governor's Committee, 21 March 1975.
+gem8 | 84. HKRS 925/1/1, Changes in public attitude towards the Hong Kong government, MOOD, 18 September 1975, 2.
+e8nr | 84
+k78w | 85. Ibid., 5.
+g9du | 86. Ibid.
+f682 | 122. Ibid.
+li1k | 123. Ibid
+pbea | 124. Ibid., 2.
+ccpt | China Information 33(1)
+0fpw | Mok
+dqn8 | References
+cop0 | 85
+lhkq | 86
+82ju | China Information 33(1)
+y2qo | HKRS 394/27/9 (1975) Needle point, session on MOOD, minutes of Home Affairs Department meeting held on 21 July 1975, 28 July.
+1piq | Ma, Ngok (2007) Political Development in Hong Kong: State, Political Society, and Civil Society. Hong Kong: Hong Kong University Press.
+7fqw | Mok
+rhaz | 87
+```
+
+OUTPUT:
+```

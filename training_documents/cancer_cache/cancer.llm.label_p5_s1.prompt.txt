@@ -1,0 +1,137 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+vpgq | Int. J. Mol. Sci. 2023, 24, 11915
+ousl | reproducibility, rapid generation, and homogenous size distribution, qualities that are essential for drug screening assays [58]. This last feature in particular is crucial, ensuring that the spheroids can be used immediately without the need to select the appropriate spheroids [67]. Furthermore, with these types of plates, it is possible to use the spheroids in an automated drug-screening platform, which may be relevant to the pharmaceutical industry [58]. However, due to plate incompatibility with microscopes and uncentered spheroids in the well plates, hanging drop plates can be difficult to image [68]. Moreover, media exchange is a difficult process in traditional plates, whereas specialized open-top plates are costly and difficult to adapt to the experimental requirements [59].
+m4ju | Table 1. Cancer 3D models in metallodrug preclinical testing: a summary of the advantages, disad- vantages, and complexity (from low to high) of each 3D model, and examples from the literature of the application of these 3D models in this context.
+a0mb | 3.1.3. Liquid Overlay Technique and Low Adhesion Plates
+ki8m | In the liquid overlay technique, cells are cultured on a nonadherent surface and centrifuged to induce spheroid formation [48,79]. Nevertheless, it is necessary to take
+km8w | Int. J. Mol. Sci. 2023, 24, 11915
+wzno | into consideration that this technique differs according to the type of plate used [57,80,81] and that the plate surface has to be coated with nonadherent materials, such as agarose or poly-HEMA, to induce spheroid formation [57,82]. This protocol allows for quickly producing single, compact spheroids with a uniform size on a large scale that are suitable for high-throughput assays. Another significant feature of this method is the easiness to manipulate the spheroids for further cultivation or analysis. MCTS from more than 20 different tumor cell lines were already established using this method. Nonetheless, there are certain cell lines, such as MDA-MB-231, MDA-MB-468, SK-BR-3, and MDA-MB-361, which do not form round spheroids using this technique, a problem that can be solved using a reconstituted basement membrane extract [57]. A commercial alternative of this basement membrane extract is Matrigel®, a basement membrane preparation derived from Engelbreth-Holm-Swarm (EHS) mouse sarcoma, rich in laminin, collagen IV, entactin, heparan sulfate proteoglycan, and growth factors, in order to induce the formation of an organized 3D structure. Similar to the liquid overlay method, low adhesion plates are able to promote spheroid formation due to the absence of cell attachment surfaces [11]. These pre-coated low-adhesion plates have the advantage that, in most cases, prolonged cultures and experimental assays can be performed without the need to transfer the spheroids to another type of plate [11]. In comparison with the liquid overlay technique, low-adhesion plates are easier to manipulate, as the plates are already pre-coated, although this aspect results in a higher cost [59]. Regardless of cost, low adhesion plates are the superior method for drug screening of all spheroid manufacturing methods.
+xagm | 3.2. Microengineering-Based Models
+iwn5 | The implementation of micro- and nanoscale technologies with biomaterials has cre- ated great prospects for the development of 3D models for cancer research. Through this combination, it is possible to precisely control important variables involved in tu- mor growth, such as cellular spatial organization, biochemical gradients, and mechanical properties, among others [83]. Techniques such as micropatterning, 3D bioprinting, and microfluidics have been used as platforms for the discovery and preclinical evaluation of anti-tumoral drugs due to their exceptional adaptability in creating precise experi- ments [84].
+uooz | 3.2.1. Micropatterning 3D Models
+pxbq | Controlling cellular adhesion, shape, and spread based on the control of the spatial features of the culture surface is the aim of micropatterning techniques [85]. The micropat- terning of surfaces allows for recapitulating the structure of the microenvironment found in vivo, making it possible to further understand the correlations between microarchitec- ture and cellular function [86]. Using these approaches, it is possible to precisely position the cells in certain areas of the substrate, allowing for the control of its shape and the overall tissue architecture [87]. The most often used micropatterning procedures include seeding cells on a surface with regions of varied adhesiveness, which correspond to differ- ent patterns [88], and depending on the application and size of the cells to be patterned, these patterns can range from a few microns to hundreds of microns. Micropatterning models have been used to assess the efficacy of anti-tumoral drugs and to study cancer development at the microscale level [89-91]; however, generating stencils, which are used to generate the patterns, with small feature sizes using soft lithography, is a significant limitation of this technique [85].
+jfsr | 3.2.2. 3D Bioprinting Models
+u15r | Three-dimensional bioprinting consists of building 3D structures by accurately arrang- ing biological and biochemical elements layer by layer [7], and allows for the production of interesting and accurate tumor models using bioinks, which contain cells, cytokines, and biomaterials similar to the in vivo ECM [92]. There are several methods of 3D bioprinting, such as biomimicry, where one attempts to recreate the tissue found in vivo; autonomous
+lq35 | Int. J. Mol. Sci. 2023, 24, 11915
+3g9w | self-assembly, which simulates organ development through the manipulation of tissue genesis and organogenesis; and mini-tissue building blocks, which consist of building smaller constructs and combining them into a larger structure. Additionally, material deposition can be performed through inkjet, in which a nozzle produces droplets that are precisely placed on a scaffold; extrusion, similar to inkjet but for viscous materials; and laser-assisted printing, where an energy-absorbing layer is exposed to a laser beam, causing a bubble to form in the bioink solution [93].
+d09o | Contrary to scaffold-based 3D models, bioprinting technology provides a greater vascularization because of the process's reliability, scalability, and enhanced control over vascular growth, resulting in the design of scaffolds that better represent tumor microenvi- ronment heterogeneity and in the creation of superior 3D in vitro models of cancer [7,94]. Additionally, 3D bioprinting technology enables the modular and standard construction of in vitro models for a high-throughput method for personalized drug screening [95]. Some limitations inherent to 3D bioprinting are related to the materials used and the manufac- turing process, such as unwanted biological interactions, bioink-printing compatibility, resolution, and low efficiency [96]. Another aspect that has to be further studied is the development of bioinks that are biocompatible, non-toxic, do not induce immune responses, and properly support the cells for each application [93]. Nevertheless, several platforms based on 3D bioprinting have been used to test anti-tumoral drugs and for cancer basic research [97,98].
+ylhz | 3.2.3. Microfluidic Models
+a3td | In microfluidic devices, cells are cultured in chambers with dimensions on the microm- eter scale [99]. These devices are probably mostly used for perfusion-based cell cultures, allowing for a consistent supply of oxygen and nutrients while also eliminating waste, providing an environment similar to the one found in vivo [11]. Furthermore, in perfusion systems, the culture medium perfusion recapitulates the shear forces caused by blood flow in vivo [11]. However, besides the perfusion-based microfluidic devices, static models have also been developed for cancer research [100,101].
+ex5k | These microfluidic systems allow for the culture of multiple cell types, which can be separated by porous membranes or cultured in different chambers, in order to obtain a more complex tumor model where cell interactions can be recapitulated [102,103]. Additionally, microfluidic devices can be adapted to study several biological changes that occur in cancer, such as metastasis and angiogenesis [104]. A major advantage of microfluidic devices is the capacity to control the tumor microenvironment, allowing for a controlled release of several molecules, such as growth factors and nutrients [7,105]. Microfluidic systems have other advantages, such as affordability, transparency, and the power to establish a physiologically accurate environment, making them suitable alternatives for anti-tumoral drug testing [84]. Overall, microfluidic devices are able to mimic different aspects of the tumor microenvironment, such as vasculature, pressure, co-culture, shear stress, and oxygen and nutrient gradients [106]. Despite being an interesting platform for high-throughput drug screening, the manipulation of microfluidic devices requires specific equipment and the number of cells cultured may be lower than what is needed for certain assays [107]. To overcome this last problem, several laboratorial assays have been adapted to be compatible with lower cell numbers, and systems that are able to produce higher cell numbers have also been developed [7,108].
+9d4o | 3.3. Scaffold-Based Models
+cjq2 | Scaffolds are 3D biomaterials designed to resemble the ECM, promoting cellular in- teractions and proliferation while remaining non-toxic. Scaffolds can be used to produce spheroid-like aggregates, or their surface can be functionalized in order to allow for cell adhesion [36]. The 3D scaffold-based models are particularly used for cancer cell prolifer- ation and to mimic the complexity of the tumor microenvironment, being an interesting tool to study cellular functions and interactions [109,110]. These biomaterials can be pro-
+5esx | Int. J. Mol. Sci. 2023, 24, 11915
+m5ka | duced from natural or synthetic materials, such as chitosan and Poly(lactic-coglycolic acid) (PLGA), respectively, according to the desired application. Additionally, hybrid materials, made of biological and synthetic components, can also be used, such as poly(ethylene glycol) (PEG) associated with collagen and Matrigel® [111,112]. Porous scaffolds and hydrogels are two scaffolding techniques commonly used [113].
+byu8 | 3.3.1. Porous Scaffolds
+76b0 | Porous scaffolds can have a sponge, foam, or mesh appearance, and their porosity enables cell seeding and adequate nutrient exchange [113,114]. Porous scaffolds provide a surface for cells to adhere to and build their own ECM, as well as enhance nutrient delivery via interconnected pores, lowering the likelihood of a necrotic center forming [114]. However, this type of scaffold presents thickness and non-transparency as its key disad- vantages, making observing biological events through high-content imaging approaches quite challenging [36].
+zxz6 | 3.3.2. Hydrogels
+xnth | Hydrogels are cross-linked three-dimensional networks of hydrophilic polymers that are rich in water content and are important for the development of 3D cancer models due to their ability to mimic the in vivo ECM [115]. In this type of scaffold, cells can be grown on top of the matrix after it has solidified, or they can be mixed with the liquid hydrogel and embedded inside the matrix during gelation [7]. Despite being interesting for their similar mechanics, chemistry, and structural properties to in vivo tissues, hydrogels still have some limitations [7]. Similar to other scaffolds, hydrogels derived from natural materials, such as collagen or Matrigel®, have weak mechanical properties, may be subject to batch-to-batch variation and rapid degradation, and can result in immunogenic responses [116]. Therefore, synthetic materials, such as PEG, present themselves, in some cases, as a better alternative, allowing for better reproducibility, control over microenvironmental cues, and molecule transport [115,117,118]. Nevertheless, synthetic hydrogels may present some problems, such as the availability of oxygen, discrepancy in the distribution of soluble growth factors, microenvironment variability, and imaging and cell analysis complications [116]. Another important issue is that scaffold-based 3D models have a low propensity for vascularization, which is crucial in cancer development research [92].
+vafm | 3.4. Organoids and Tumoroids
+2zmw | Organoids are in vitro aggregates derived from stem cells that are capable of self- organization, forming a structure similar to an organ with several cell types while main- taining similarities with the in vivo tissue. The utilization of organoids in research aims to replicate the organ's structure, organization, and function [119,120]. Despite several protocols that have been established for the production of cancer organoids, as far as we know, all of them require exogenous ECM [36,121,122]. This represents a limitation as it is known that cancer development triggers several biological changes, such as ECM remodeling, which affects drug resistance [36].
+bf9k | Tumoroids are organoids derived from patient biopsies that are able to recapitulate the patients' tumors more accurately as they preserve the genetic characteristics and hetero- geneity of the original tumor, hence better capturing inter-patient heterogeneity [36,123]. This makes tumoroids a crucial model for studying rare cancers for which there are no immortalized cell lines [36,124]. Tumoroid growth protocols for several types of cancer have been established [78,125,126]. Similar to some organoid protocols, tumoroids need to be supplemented with external growth factors and be in the presence of exogenous ECM, such as Matrigel® [36,127]. An important advantage of using tumoroids is that drug response in these models more accurately represents the patient's drug response and thus may allow for a personalized therapy selection [128]. A drawback of this model, as well as organoids, is the need for highly trained staff to perform patient cell isolation and manipu- lation [36]. Moreover, these cell models may be prone to ethical concerns, regarding the
+otkr | Int. J. Mol. Sci. 2023, 24, 11915
+ibgs | source of the stem cells, and the informed consent and privacy of cell donors. Nevertheless, when comparing these models' advantages and disadvantages, the potential outcomes are considered to outweigh the ethical questions when these are properly addressed [129].
+colo | As mentioned before, cancer 3D models can be applied to various fields of research and development, such as the preclinical testing of metallodrugs. Next, we describe and discuss the importance of metallodrugs in cancer, as well as the application of cancer 3D models for the preclinical evaluation of these types of drugs.
+d6r4 | 4. Metallodrugs in Cancer
+9mrz | Currently, there are several targeted therapies available to treat different types of cancer, for example, anti-hormonal treatments and monoclonal antibodies against cancer cell-specific receptors. Nevertheless, conventional chemotherapy and radiotherapy remain the key tools for cancer treatment. Thus, there is an unmet need to develop innovative and improved pharmacological options for cancer therapy [130,131], but the design and development of effective anti-cancer drugs with high selectivity, minimal toxicity, and reduced side effects is still a challenging endeavor [132,133].
+```
+
+OUTPUT:
+```

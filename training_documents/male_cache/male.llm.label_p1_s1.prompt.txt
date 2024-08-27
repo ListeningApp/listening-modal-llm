@@ -1,0 +1,186 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+1pjs | MALE REPRODUCTIVE PHYSIOLOGY dis
+o2kr | avizo
+v6sk | Written By:
+1wj6 | Hollomrš lbO gibyo I ban ilotra8
+936l | vousubor ton
+06yq | 4.1
+dpv6 | M (d
+8r5j | d
+2taz | wond (o
+o3ya | OBJECTIVES
+r5il | 1) Know the Basic Structures of the Male Reproductive System
+5gui | a) Describe Testicular Anatomy
+82qc | b) Describe the Cell Types in the Testis
+ls7d | c) Describe the Organs and Structures that Compose the Male Genitourinary System
+tzt3 | 2) Know the Differentiation and Development of the Male Genitourinary Organs and Tract a) Describe the steps involved in the Development of the Bipotential Gonad and the Sex Specific Pathways that Regulate Gonadal Differentiation into a Testis
+t8vv | i) Know the disorders of sexual determination (DSD)
+qvnu | (1) Sex chromosome DSD
+kggw | (2) Disorders of ovarian development
+xrd1 | (3) Disorders Causing 46,XY DSD
+5746 | b) Describe the Normal Development and the Congenital Anomalies of the Genitourinary Tract (Upper and Lower Tracts)
+7toz | i) Know the hormonal controls of sexual differentiation of the genital tracts (1) Mechanisms underlying the sex specific establishment of the wolffian duct
+j346 | (2) Mechanisms underlying the sex specific establishment of the müllerian duct
+v8uq | (3) The morphogenic factors involved in reproductive tract development
+x972 | ii) Know the development of the external genitalia (1) Development of the genital tubercle and the endocrine control of this process
+cwrw | (a) Formation of the genital tubercle
+4i0e | (b) Formation of the urethra
+h2l3 | (2) Differentiation of the external genitalia
+dfzb | (3) Descent of the testis during development
+u6ty | iii) Understand the birth defects of the genitourinary system and their importance to male infertility
+awvu | 3) Know the functions of the testis
+on9b | a) Describe the Function of the Sertoli Cell and Leydig Cell
+a8ge | b) Describe the Regulation of Sertoli and Leydig Cell Function
+h27a | 4) Understand the Process of Spermatogenesis and Spermiogenesis
+pdjh | a) Mitosis
+xmgs | b) Meiosis
+bd9h | c) Differentiation
+m047 | 5) Understand the Hormonal Control of Spermatogenesis
+gy8c | a) Testicular Hormone Production
+y4mj | b) The Hypothalamic-Pituitary-Testicular Axis
+vpgq | 6) Know the structure and functions of the genital tract and accessory sexual organs
+ousl | a) Efferent Ducts
+m4ju | b) Epididymis
+a0mb | c) Vas Deferens
+ki8m | d) Seminal Vesicles
+km8w | e) Prostate
+wzno | 4.2
+xagm | Sp liet
+iwn5 | Giove
+uooz | ning
+pxbq | 4.3
+jfsr | svitouborg TelsM erIT
+u15r | FOTTEST
+lq35 | T
+3g9w | Figure 1. Anatomy of the male reproductive system. From L. Glasser, Diagnostic Medicine July/August 1981.
+d09o | 1) TESTICULAR ANATOMY (Figure 1)
+ylhz | a) The Organization of the Testis: The testes are paired ovoid organs located in the scrotum of the male. The average testicular volume is 20cc in healthy young men and decreases in
+a3td | 4.4
+ex5k | elderly men. Normal longitudinal length of the testis is approximately 4.5-5.1 cm. This extra- abdominal location maintains the testis at a temperature about 2°C-3℃ lower than normal body temperature and this is required for normal spermatogenesis. The testis is surrounded by the tunica albuginea, a thick protective covering of the testis. It is suspended by the spermatic cord, which also contains the vas deferens, spermatic artery, and venous and lymphatic plexus. This tunica is thickened to form the mediastinum where the rete testis is found. The testis itself is composed of a series of lobules (in humans approximately 300 lobules) divided by fibrous septa from the mediastinum. The testis contains seminiferous tubules and interstitial cells. The tubules are segregated into regions by connective tissue septa and occupy approximately 80% of the testicular volume. The tubules are long, V-shaped tubules, the ends of which terminate in the rete testis (see Figure 1).
+9d4o | i) Function of the Tunica: This capsule contains blood vessels, smooth muscle fibers and nerve fibers sensitive to pressure. The functional role of the testicular capsule is unknown but may relate to movement of fluid out through the rete testis or control of blood flow to the testis. In humans, it creates a partition between groups of seminiferous tubules, which are present within these lobules. The tough, fibrous tunica may also serve a protective function because of the position of the testes external to the pelvis. There are three layers that comprise the tunica-the tunica vasculosa, tunica albuginea, and tunica vaginalis.
+cjq2 | ii) The lobules are composed of one to four seminiferous tubules, which are long looping structures that open at both ends into the rete testis. Within these lobules are the seminiferous tubules and the interstitial tissue that includes the blood and lymphatic vessels, nerves, Leydig cells, and macrophages.
+5esx | iii) Seminiferous Tubules are long tubes lined with stratified epithelium about 150-250 um in diameter and 30-70 cm long. The combined length of the seminiferous tubules in a testis is approximately 250 m! The tubuli recti or straight tubules connect these seminiferous tubules to the rete testis, a complex series of channels that connect to the epididymis by the ductuli efferentes.
+m5ka | iv) Mediastinum supports the blood vessels, lymphatic system, and the ducts within the testis that transport the sperm and connect to the rete testis.
+byu8 | v) Rete Testis/Efferent Ducts (Ductuli efferentes): The rete testis receives drainage from the central, superior, and posterior regions of the testicular seminiferous tubules. The rete coalesces in the superior portion of the testis to form efferent ducts, which leave the testis, entering the head or caput of the epididymis. The sperm move through the tubuli recti (straight tubules lined by simple cuboidal epithelium) to the rete testis (anastomosing channels in the mediastinum of the testis) to the efferent ducts (lined by columnar epithelium) that connect the testis to the initial segment of the epididymal duct. In the human, there are about 10-20 efferent ducts that have cilia that beat in the direction of the epididymis. This region plays an important role in the absorption of fluids secreted by the seminiferous epithelium. This region is surrounded by large lymphatic channels and blood vessels associated with large clusters of Leydig cells. The efferent ducts coalesce into a variable pattern within the caput to form a single epididymal tubule.
+76b0 | 4.5
+zxz6 | vi) The artery to the testis is specialized in that it is highly coiled and intimately associated with a network of anastomotic veins that form the pampiniform plexus (Figure 1). This vascular arrangement facilitates the exchange of heat and small molecules, including testosterone. The counter-current exchange of heat in the spermatic cord provides blood to the testis that is 2ºC-4º C lower than rectal temperature in the normal individual.
+xnth | b) Genitourinary Tract and Accessory Gland Anatomy
+vafm | i) An Overview of the Major Organs and Tracts In the Male Genito- urinary System (Figure 1): The genitourinary system of both males and females includes two kidneys, each with a ureter leading from the kidney to the urinary bladder, and one urethra. In both genders, the reproductive organs are closely aligned and included in this body system. In males the reproductive organs and tract include two testes, two epididymites, two ductus deferens, one prostate gland, and two seminal vesicles, as well as the two ampullas and ejaculatory ducts leading from the ductus deferens to the prostate gland, and a single urethra through which both urine and semen flow. The urethra leads from the urinary bladder through the prostate gland through the penis to end at the urethral meatus or opening. The bulbourethral gland or Cowper's gland sits at the base of the prostate. The penile structures include the corpora cavernosa, corpora spongiosum, the penile shaft, glans penis, and the prepuce or foreskin.
+2zmw | ii) Each of These Organs and Tracts Will Be Described in More Detail Below
+bf9k | 2) THE DEVELOPMENT OF THE MALE REPRODUCTIVE TRACT: SEX DETERMINATION AND SEX DIFFERENTIATION: There are two processes that occur during development of the gonads and the reproductive tract, its organs, and external genitalia- these processes are termed sex determination followed by sex differentiation
+otkr | a) Sex determination: During early embryogenesis for the first 6 weeks, there are no observable sexual differences between XX and XY fetuses apart from their chromosomes. A urogenital ridge (the precursor of the adrenals, urinary, and genital systems) forms on the ventral side of the mesonephros and appears as a paired thickening of intermediate mesoderm, which will ultimately be composed of somatic and germ cells. For the genital ridge to form, there must be sufficient expression of two proteins, Wilms Tumor 1 (WT1) and SF1, an orphan nuclear receptor. SF1 is a dosage sensitive gene, and loss of a copy can induce sex reversal in XY individuals. The primordial germ cells, cells derived from the proximal epiblast, migrate through the primitive streak into the extra-embryonic region at the base of the yolk sack by the 4th week of gestation. This migration is driven by the kit ligand signaling system (KITL, also known as stem cell factor, steel factor, or mast cell growth factor) expressed in the gonadal ridge and hindgut along the pathway of migration.
+ibgs | b) Testis Determination: In the 1940s a fascinating series of experiments by Dr. Alfred Jost showed that the presence of a testis during development drives the development of the internal and external genitalia along the male pathway. In the absence of any gonad, the internal reproductive tract and external genitalia develop along the female pathway.
+colo | 4.6
+d6r4 | Figure 2. Molecular Controls of Testicular or Ovarian Differentiation: Black arrows indicate a positive regulation; double arrows indicate a positive feedback loop; red lines indicate a negative regulation; double red lines indicate a mutual antagonism. Adapted from Rey et al., 2000.
+9mrz | i) Male Sexual Determination: The Importance of the sex-determining region on the Y chromosome (SRY), but sex determination is more complex than just one gene: SRY is the testis-determining factor because it upregulates SOX9 gene expression and the transcription factor SOX9 is now considered by many to be the master testis determining factor. Thus, SRY, which tilts the balance between testis and ovarian directing gene expression, is necessary but not sufficient for testis determination, and both the timing of expression and the level of expression are critical factors. SOX9 either succeeds in determining Sertoli cell differentiation or is silenced by other genes that enact ovarian differentiation-it is a true battle of the sexes! It is important to be aware that there are a number of genes that must be expressed during early fetal gonadal sexual differentiation to effectively elicit the development of a functional testis or ovary (Figure 2). For the purposes of this course the take home message is that both SRY and SOX9 actions are required for testis differentiation.
+pk06 | (1) Sertoli cell differentiation requires the actions of not only SRY, but also fibroblast growth factor 9 (FGF9), and cord formation is dependent on the basal lamina deposition between the Sertoli and peritubular myoid cells-these cords will form the seminiferous tubules.
+7wn9 | (2) Leydig cell differentiation: the origin of the fetal Leydig cells is not clearly understood, but they are present at around 8 weeks of gestation and begin to produce testosterone, which is needed for the maintenance of the wolffian ducts and masculinization of the external genitalia. At this time the Leydig cell is stimulated by placental hCG (first and second trimesters) and later by fetal pituitary LH. The Leydig cells also secrete insulin-like growth factor 3 (INSL3) that is responsible for the first, transabdominal phase, of testicular descent.
+wcd0 | (3) Germ cell differentiation: By the end of the 5th week of gestation, the germ cells have arrived at the genital ridge and proliferate. These germ cells are encompassed by the cells forming the seminiferous cords and differentiate into spermatogonial precursors but do not enter
+caos | 4.7
+qrvy | the meiotic pathway, unlike the events occurring in the fetal ovary during development. In the absence of germ cell migration to the genital ridge or lack of survival, the testis will continue to develop, unlike the fetal ovary which requires germ cell migration through meiosis (if this does not occur the follicular cells degenerate and streak gonads develop) (Figure 3).
+pn9j | (1) The wolffian ducts are derived from the intermediate mesoderm and ultimately give rise to the kidney and the proximal male genital tract. As a result, when kidney development is abnormal it is likely that there are other malformations of the urinary and/or reproductive systems.
+1pmc | (2) The müllerian ducts are derived from the coelomic epithelium and will later form to develop the Fallopian tubes, the ducts in the pelvic region fuse to give rise to the uterovaginal canal. In the female, the wolffian duct begins to regress at about 2 months of gestation.
+5z6q | (3) Regression of müllerian ducts and differentiation of the wolffian duct into the male accessory organs is a key element of male differentiation of the internal reproductive tract organs: The initial indication of male differentiation of the genital tract occurs in about 55-60 day old embryos. The müllerian duct first undergoes epithelial to Bipotential Gonad mesenchymal transformation and a wave of Genads apoptosis spreads along the müllerian duct. The connections between the mesonephric Müllerian Duct tubules and gonadal primordium are Male Hormones: Wolffian MIS Duct No Male established by week 6 of gestation and give Testosterone Hormones Ins13 rise to the rete testis. The wolffian duct survives and the upper part gives rise to the epididymis and, below that, the vas deferens. Male Gonad Epididymis Oviduct Female Gonad The seminal vesicle emerges from a dilation Testes Ovarles of the terminal portion of the vas deferens in Vas the male fetus at 3 months gestation. Deterens Uterus Cervix
+yeoh | iii) Testicular Descent (Figure 5): The upper pole of the testis is
+b8hf | 4.8
+```
+
+OUTPUT:
+```

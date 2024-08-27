@@ -1,0 +1,155 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+xb13 | Much more can be accomplished interpersonally if a therapist shifts modes clearly and intentionally by apply- ing interpersonal reasoning. When shifting modes, three powerful techniques may be used to separate the com- munication of one mode from another. The first involves
+cxqi | between the two phrases or sentences that characterize the different modes, the more likely it is that the client will understand that a different approach to communication is being used. The second concerns body language. If appro- priate within the therapeutic context, the therapist should move to a different part of the room, change posture, or, if appropriate, shift the therapeutic activity to mark the new idea being communicated. The third involves announcing one's intention to shift modes to the client. Ideally, any two or, if appropriate, all three of these techniques will maximize the likelihood that the mode shift will take place in a way that the client fully understands that a different approach to communication is being used.
+qfmx | In the example about the client with alcoholism, the therapist could have applied any three of these techniques to shift modes cleanly, improving the clarity and inten- tionality of communication with the client. If the therapist would have used the pausing technique, she would have taken considerable time to listen to and understand the client's perspective on alcohol use, asking a few additional deepening questions to better understand what initiated and is sustaining the addiction, if appropriate. Then, after the therapist received some nonverbal or verbal indica- tion from the client indicating that she has felt fully seen and heard, the therapist would shift into an instructing
+rut3 | Copyright 2020. F. A. Davis Company. All rights reserved.
+m3cp | mode in an attempt to communicate her perspective of educating the client about her balance. If the therapist also applied the second technique involving body lan- guage, she could have walked across the room to sit in a different chair and before shifting into the instructing mode. Applying the third technique, the therapist could have stated: "Now that I have learned a little more about why drinking is important to you, I feel an obligation to switch modes and talk with you about some of the possible consequences of your drinking in terms of your overall functioning."
+mq4s | These and other suggestions for ensuring that each of the modes a therapist selects are received as intended are summarized in the following list:
+95el | Announce the mode shift to the client, if appropriate.
+a0a5 | · When shifting, let as much time pass between modes as appropriate. This may involve seconds or minutes, depending upon what is appropriate.
+gocl | Shift your body language or the task or activity to earmark your shift in the mode of communication being used.
+ob1z | Think about what message you believe the client needs to hear at the moment and remain utterly loyal to that message. Apply the same process for the new mode upon shifting.
+m4cb | Seek justification through interpersonal reasoning for why it is therapeutic for the client to receive the new mode. Is the mode appropriate for the client's interper- sonal characteristics and for any interpersonal events of the moment? If you are confident about the appro- priateness of the mode, it will be easier to convey that confidence when communicating with the client within the mode.
+m61y | Take responsibility for what you say or ask of a client, even if you are communicating in a mode that feels in- terpersonally risky or outside of your own comfort zone. Additional examples of ways in which therapists have drawn upon the various therapeutic modes to manage various interpersonal events in practice are included in later chapters.
+u2ob | Therapeutic Style: Using the Modes
+2gnm | Chapter 4 Knowing Ourselves as Therapists 105
+emgw | modes more often than others when treating clients. Accordingly, they develop a therapeutic style, or a skill set that incorporates the therapeutic modes they view as being maximally therapeutic for their clients.
+xaqt | For example, Jane Melton describes herself as having a "natural optimistic belief in people" and as drawing upon her determination, patience, and ability to empathize and listen to clients reflectively as well as her honesty, tact, resilience, and gentleness when providing feedback and working with clients. Although Jane utilizes several inter- personal modes and adapts them thoughtfully depending on the unique needs of each client, her self-description indicates that she draws most heavily on her natural hope and optimism, her belief in her clients' capacity for au- tonomy and independence, her self-discipline as it mani- fests in the form of patience, her preference for listening and understanding over activity-focusing or rushing into doing, and her overall gentleness of style. To summarize this in terms of mode, empathizing, collaborating, and encouraging are Jane's primary modes of interaction.
+5rcb | However, we saw earlier in this chapter that she also uses the advocating mode to ensure that her clients receive the entitlements they deserve, such as fully acces- sible housing. Although Jane mostly uses the empathiz- ing, collaborating, and encouraging modes, she maintains and utilizes additional modes as required by the unique demands of any given client or therapeutic situation. As an experienced therapist, Jane possesses a broad repertoire of therapeutic modes.
+524j | Broadening One's Repertoire of Modes: A Central Objective of the Intentional Relationship Model
+xd3m | The broader the repertoire of modes a therapist can draw upon to adjust to clients' various interpersonal presenta- tions and demands, the more likely it is that the therapist can function effectively with even the most resistant and interpersonally challenging clients. Because therapists' personalities are relatively stable, it is a natural inclination for them to invoke modes that fall within their "comfort zone." For example, a person who is reserved, quiet, and mostly other-oriented during most social interactions likely feels more comfortable in the empathizing and collaborative modes (i.e., empathizing with and listening to clients, allowing them to take the lead in therapy, and facilitating their independence, autonomy, and choice).
+8qb6 | Copyright 2020. F. A. Davis Company. All rights reserved.
+wkbn | 106 Part 1 Theoretical Foundations and Guidelines for Practice
+ftfg | This same therapist may feel less comfortable working with passive clients or those who require a therapist to be more directive, assertive, frank, evaluative, or even appro- priately confrontational.
+7xi5 | Conversely, a therapist who is extroverted, comfort- able asserting her needs in relationships, and self-assured in sharing her knowledge with others may find it rela- tively easy to be directive, assertive, frank, evaluative, or even confrontational with her clients. This therapist's pre- ferred modes may be the instructing and problem-solving modes. However, a therapist such as this one may unwit- tingly undermine a client's autonomy and choice; he or she may lack patience, may pace the therapy too quickly, or may be vulnerable to becoming involved in power struggles with clients who behave in resistant or confron- tational ways.
+w8r5 | Any preferred mode that falls within our comfort zone has a benefit and a downside. Moreover, one's preferred modes do not work for all clients or in all circumstances. To function with as much intentionality in therapeutic relationships as possible, therapists have a responsibility to extend their capacity to function within a wide range of interpersonal modes during therapy. A more extensive repertoire of interpersonal modes allows you to commu- nicate more effectively with a wider range of clients. More specifically, it allows you to respond to clients in ways that more accurately address their interpersonal needs. Accu- rately identifying each client's preference for therapeutic interaction and responding in ways that meet each client's interpersonal preferences conveys to our clients that we are willing to interact and work with them in their com- fort zones rather than in our own.
+ybik | Adjusting our own responses to the covert or ex- pressed interpersonal needs of each client is possible only if we possess the capacity to exhibit a wide enough range of interpersonal behaviors in therapy. When we draw on ways of interacting that are inconsistent with our values or that we simply have not learned or practiced as often in social situations, we are immediately forced out of our own interpersonal comfort zones. However, the departure from our own comfort zone is sometimes the only means by which it is possible to enter the interpersonal worlds of our clients.
+gii5 | For example, Michele Shapiro works with pediatric clients, some of whom are nonverbal and severely devel- opmentally disabled. With these low-functioning clients,
+q5eu | a structured and goal-directed approach to therapy. Once she broadened her approach to include careful vigilance toward her clients' needs and nondirective strategies, Michele recognized that she was more able to engage a wider range of her clients in therapy. During our inter- view, Michele disclosed:
+a7ao | Years ago when I worked with learning disabled kids, I remember sometimes feeling that I must try to "con- trol" the child's behavior. Now I prefer working with a child who has special needs and is out of control. When I do my detective work and decipher the base of the sensory problem, then it makes me feel good. In the past I needed to see things happening to know I was successful-today a child's smile makes me feel that the session was successful.
+29a3 | Locating One's Comfort Zone of Preferred Modes
+sb1e | A central objective of the IRM is to identify one's current "comfort zone" of interpersonal behavior during therapy. As you develop as a therapist, it is similarly important to practice broadening that comfort zone to include increas- ingly unfamiliar and unutilized interpersonal styles, or modes. The beginning of the chapter asked you to com- plete the Self-Assessment of Modes Questionnaire, Ver- sion III, located in the Exercises section (Exercise 4.1). Now, you should use those responses to fill out the Per- sonal Modes Profile that follows. Doing so will indi- cate your preferred therapeutic modes and their relative strength. Following this, you should identify less famil- iar modes that might strengthen your relationships with clients or allow you to practice more successfully with a broader range of client personalities in Exercise 4.2.
+w2yn | Therapeutic Style and Daily Interpersonal Behavior: Striving Toward Integration
+ap6l | The idea of developing a therapeutic style and using modes can be misunderstood as lacking a sense of genu- ineness. However, this conclusion emanates from a mis- understanding of the role of genuineness in therapy. The genuine therapist is one who sincerely wants and makes an effort to do what is best for the client. Genuineness is not simply being yourself. It is being the best person you can be, given the client's needs.
+iest | Copyright 2020. F. A. Davis Company. All rights reserved.
+cox8 | That said, it is nonetheless important for therapists to strive toward and integrate their therapeutic style and their more innate daily ways of interacting with others. The closer one's everyday interpersonal behavior is to one's therapeutic style, the more likely it is that a ther- apist feels able to interact therapeutically with clients in ways that feel natural. Thus, although it is important to broaden one's repertoire of therapeutic modes, it is equally important to develop a therapeutic style that feels true and is generally consistent with one's everyday ways of interacting.
+ppqi | To a certain extent, every therapist must practice a degree of interpersonal self-discipline. That is, you must exercise restraint regarding the extent to which you re- veal all aspects of your personality to clients. The Occu- pational Therapy Code of Ethics (American Occupational Therapy Association [AOTA], 2015) and occupational therapy's core values statement (AOTA, 1993) reinforce that it is in the best interest of clients to conduct therapy with prudence and circumspection. This sometimes in- cludes controlling one's interpersonal impulses and always avoiding interactions with clients that may be perceived as exploitive or emotionally harmful. Any experienced ther- apist knows that at certain moments during therapy prac- tice, particularly with more challenging clients, it takes impulse control and significant restraint to draw only on the aspects of oneself that have the potential to be ther- apeutic. It is impossible to appreciate all clients equally, and there are moments when we may wish to show clients we find more difficult how we really feel about them, but our values, ethics, and better judgment prevent us from doing this.
+oxou | As therapists develop expertise in the therapeutic use of self, they find that they do not have to work as hard as they did before to exercise this capacity for circum- spection and self-restraint. As therapists become more experienced in the use of self, the act of interacting therapeutically comes to feel natural. This sense of nat- uralness comes from knowing the benefits and limits of one's natural modes and developing comfort utilizing the modes that were not, at first, as easy to use. In addition, therapists often feel they can function more seamlessly with certain types of clients and in settings that match their natural inclinations, using certain modes rather than others. For example, a therapist once shared that she en- joys working with young children because she can freely
+495n | Chapter 4 Knowing Ourselves as Therapists 107
+awri | if she happens to overuse the mode with a given client. Similarly, another therapist once told me that she prefers working in physical rehabilitation settings because she en- joys functioning in the role of teacher in that much of her job involves demonstrating certain tasks and instructing clients to relearn important daily living skills.
+bl28 | More experienced therapists often see little difference between their therapeutic styles and the ways they typi- cally behave with friends and family. Even though they may feel more relaxed and spontaneous in their rela- tionships with clients, therapists for whom there is lit- tle difference between their therapeutic styles and their everyday interpersonal interactions tend to make fewer interpersonal oversights with their clients; they tend to say and do the appropriate things at the right times. For example, when they provide feedback to a client that might be difficult to hear, it is well timed-consistent with their general way of relating-and presented with great sensitivity and tact. Therapists whose therapeutic style matches their everyday style generally feel they do not have to exercise considerable emotional restraint and extensive tactical thinking during therapy.
+d5bz | Vardit Kindler provides a succinct description of this match. She describes her therapeutic style and her behav- ior in everyday life as relatively indistinguishable.
+ap5o | My general style of relating is very informal. I accept everyone as an equal. I look at people's strengths with- out being overly critical. This is my style of relating both inside and outside therapy.
+7zvf | -Vardit Kindler
+mov9 | Similarly, Carmen-Gloria de las Heras explains:
+ks7m | I flow easily between the two. I keep my way of being. I am spontaneous and generous. I am firm when I have to be, but I keep my fundamental belief in people. I am myself with clients as I am with everyone else.
+w1w1 | -Carmen-Gloria de las Heras
+h8gv | This ability to integrate and see an increasing number of parallels between one's therapeutic style and one's in- terpersonal style outside of therapy, combined with the ability to draw on a wide repertoire of interpersonal be- haviors as appropriate for any given interaction, may be associated with decreased feelings of burnout and frustra- tion. Having a therapeutic style that feels consistent with one's day-to-day personality is referred to as an integrated use of self.
+kwkp | Copyright 2020. F. A. Davis Company. All rights reserved.
+yj0m | 108 Part 1 Theoretical Foundations and Guidelines for Practice
+ewfp | Assessing Mode Use
+oczy | To date, nine assessments of mode use based on the IRM have been developed. One of these assessments is featured in this chapter: The Self-Assessment of Modes, Version III. The Self-Assessment of Modes, Version III, consists of nine different clinical scenarios, each portraying a client or caregiver facing a dilemma. Four possible therapeutic responses (i.e., modes) are presented beneath each clinical scenario. Respondents are required to rank-order the re- sponses from one to four based upon the degree to which they agree with the given response. The additional IRM assessments, most of which have been validated or are in the process of being validated, are available at the IRM website: http://irm.ahslabs.uic.edu/.
+2ttg | Exercises for Learning and Reflection
+his3 | 1. Please complete Exercises 4.1 to 4.3. Reflect upon your responses.
+m50z | 2. Provide a description of each of the six modes.
+```
+
+OUTPUT:
+```

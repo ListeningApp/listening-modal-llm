@@ -1,0 +1,134 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+nyqt | theoretically want to be poly, but emotionally they don't know if they can do it be- cause they feel like they are losing their mind.
+7odd | People struggling with a transition from monogamy to CNM may also find themselves without practical support from their friends, family and community. Sometimes, the people closest to them, even therapists, advise these struggling couples or individuals to go back to being monogamous. I have heard such cou- ples receive advice that sounds something like, "Well, if you're struggling more in your relationship or with yourself now that you're polyamorous, you should just go back to being monogamous and everything will be OK again."
+0le2 | To me, telling people who are struggling with the transition from monogamy to CNM to go back to monogamy because CNM is just too difficult would be like telling the new parents of an infant who are struggling without sleep or personal time that maybe they should just send the kid back since they didn't have any of these issues before the child arrived. This analogy may seem ridiculous because you literally can't send the kid back, but that can be exactly what it can feel like for people who have made the transition out of monogamy into CNM, especially for people who experience CNM not as a lifestyle choice but as who they fundamentally are. Culturally, we know better than to tell people to give their kids away when they're struggling with the realities of parenthood. We also know not to tell a per- son who is struggling with the realities of coming out as lesbian, gay, bisexual or transgender that they should just go back to being straight or go back to being their birth gender since being LGBT in a mostly straight and gender-binarized world is just too hard. But when it comes to CNM, our well-intentioned friends, family and even helping professionals do not necessarily know better and they can be quick to point the finger at CNM as the problem. This mindset is often fueled by the fear that if a couple opens up their relationship, it is inevitable that they will then break up or get divorced. Even though many couples stay together after opening up, it is true that many will eventually split up. But relationships do not end because CNM was the problem or the cause of relationship struggles, but because of the experience of a major relationship paradigm shift that can create so much tumult.
+5dw0 | Going from monogamy to CNM means that people are taking on a massive shift in their world view. Almost every aspect of love, romance, sex, partnership and family now has a different set of expectations, practices, codes of conduct and even language compared to the dominant monogamous paradigm of relationships. Deconstructing monogamy for yourself, with all of its ingrained beliefs and behav- iors that you may have been practicing for your entire life, can be extremely diffi- cult. The science of change has much to tell us about the necessary time and effort it takes to break habits, rewire beliefs and integrate into different paradigms based on new and different realities. Even when people identify as nonmonogamous as orientation and the transition might feel like a homecoming, there can still be deep- seated internalized polyphobia to work through.
+i4yq | Furthermore, when couples transition to CNM from a monogamous rela- tionship together, there is the added layer of also deconstructing and recon- structing not just yourself, but your relationship as well. When you've shared years or even decades with someone in a monogamous identity together, this can be a particularly arduous transformation process and not every couple survives it. The paradigm shift can expose all of the underground issues that a relationship already had brewing and that would have eventually ended the relationship anyway. In these cases, the shift to CNM just expedited that process. Or a relationship might have been perfectly healthy and stable, but the transformational process of entering a new relationship paradigm changes one or both partners to the point that staying together is no longer what they genuinely want. I also see couples who definitely want to stay together but since they have little to no support in navigating the para- digm shift, they wind up losing each other, drowning in the process.
+fj3g | Over the past few years, there are increasingly more resources available for peo- ple transitioning to CNM. These materials have a predominant focus on helping individuals or couples figure out what type of CNM works best for them, how to de- sign relationship agreements, practice safer sex, communicate better and how to manage jealousy. These are extremely important topics, and in many ways they are foundational to doing CNM well, but I've seen people come to my office struggling
+zuua | with agreements that have been broken, communication that isn't working or jeal- ousy that seems immutable. Within several sessions we usually find that these are not the main issues but actually symptoms of other, deeper challenges that are arising from the change to CNM. If we are going to point the finger at a cause of distress, it is not nonmonogamy itself, but rather the paradigm shift that people try to navigate without a map to guide them through to the other side.
+elwn | In a talk titled "Couples Transitioning from Monogamy to Polyamory," I high- light six challenges that I see emerge in the paradigm shift from monogamy to polyamory (they are also applicable to people transitioning from other forms of CNM, such as swinging or open relationships, to polyamory, especially when transi- tioning into nonhierarchical polyamory or solo polyamory). These challenges are:
+jnqv | 1. Resistance to the paradigm shift itself. People want to change the structure of their relationship but don't actually want the relationship itself to change and grow in the ways needed to make the paradigm shift.
+unp3 | 2. Insufficient skills. The skills and abilities that people used to keep their rela- tionship healthy and happy in monogamy are no longer sufficient in a non- monogamous context, so couples find themselves with only a percentage of the skills they need to be healthy, happy and functional in the paradigm of polyamory.
+v8vk | 3. Couples never decoupled or went through healthy differentiation before they transitioned. Much of the mono-romantic ideal encourages forms of code- pendency, which can remain invisible and even functional for a couple until they open up. It is commonly believed and culturally reinforced that your partner completes you, that your identity should be fused with your partner or the relationship and that your partner is the main source of meaning, love and happiness in your life. True intimacy does not come from enmeshment, but from two differentiated individuals sharing themselves with each other. Trying to practice nonmonogamy while still enmeshed with a partner can cause much strife for you and anyone new you are trying to date.
+sr40 | 4. One partner being more nonmonogamous in orientation and the other
+5zjj | partner identifying as nonmonogamous as a lifestyle choice. The difference in pursuing CNM from a lifestyle choice versus an orientation usually influences how each person moves forward with and approaches CNM. This difference can cause conflicts, hurt and many misunderstandings.
+f56l | 5. The paradigm shift creates an awakening of the self, where what was previ- ously unexpressed and unrealized is now awakening in someone, potentially turning their entire world and relationships upside down. People may not just be waking up to their nonmonogamous desires or orientation, but also aspects of their sexuality, important identities or forms of oppressions that have previously been denied, exiled or completely unacknowledged.
+ar2z | 6. An attachment crisis gets catalyzed from the transition into nonmonogamy. I've found that the first four points, once identified, are relatively simple to address and move forward from. The last two points are more complicated and typically need more time and attention to address. The fifth point of how to recover and reinvent yourself when you are going through an awakening of the self-what I also call a crisis of deconstruction-requires more attention than I can allot here, since the focus of this book is the sixth point of how transitioning from monogamy to CNM impacts our attachment.
+yad0 | I've observed that the attachment changes in a person's relationship (s) that occur from becoming nonmonogamous are at the foundation of struggles with being CNM (as well as any previous insecure attachment traumas that can get brought into their relationships). Attempting to do CNM with an insecure attach- ment style or having attachment insecurity arise as a result of becoming non- monogamous can seriously disrupt a person's sense of self, as well as their inner and outer safety in ways that can feel unbearable and be unsustainable. When tran- sitioning into nonmonogamy there are several different ways that people expe- rience challenges with their attachment system. Knowing where your specific at- tachment challenges stem from is an important part in healing. Addressing the cause can help you move from being polyinsecure to polysecure. Here are the ways that I see attachment disruptions occur in CNM:
+3g38 | Going CNM can expose your individual attachment insecurity.
+vtbo | For some people, monogamy can serve as a stand-in for actual secure attachment. Since the rules and structure of monogamy are so well-known and so strongly rein- forced, many times all you have to do is fall back on the structure of monogamy it- self to create a sense of safety in a relationship. The very fact of being monoga- mously exclusive, verbally committed or legally married can be sufficient enough for some people to feel secure in the relationship. When these people then remove the structure of monogamy by going nonmonogamous, their own insecure attach- ment style can get exposed. In such cases, being monogamous shielded the part- ners from having to face their own insecure attachment history. They may have been somewhat aware of their painful past, but being in a committed monog- amous partnership was enough to assuage their own attachment insecurity. Once the security blanket of monogamy is lifted, these people are flooded with the pains of their insecure attachment past, as well as awareness of the ways they were actu- ally relying on, even clinging to, monogamy to feel secure within themselves and in their relationship.
+q8pa | Monogamy can also buffer us from our own personal insecurities. These may or may not be attachment-based, but can be rooted in relational and cultural trau- mas or anxieties about our achievements, looks, intellectual abilities, likability, etc. When we commit to a long-term monogamous partnership or get married, these insecurities may still show up every now and again, but many of them get eclipsed by the very fact that we have someone who has devoted themselves to us, some- one who we think will love us and stay with us no matter how pimply our butt gets, no matter how much our body changes or no matter how stained and worn-out our underwear becomes. In such cases, our self-esteem and sense of self-worth are contingent on our partner being monogamously committed to us instead of an- chored in our own internal sense of self-worth, self-love and self-esteem. When people have depended on their partner's exclusivity for their own self-confidence, going nonmonogamous can pop the cork on all of their personal insecurities, mak- ing it painfully difficult to manage the fears and threats that surface in relation to
+uc9x | what it means for them or their partner to be dating again.
+zy7o | Examples of signs that your transition to CNM has exposed your own attach- ment insecurity:
+kcar | . You intellectually want to be nonmonogamous, but you're having trouble with emotionally getting on board.
+00aw | . Even though your partner has been wonderful about meeting enough of your relationship needs and is doing a good job reassuring you that you matter to them, you still experience a roller-coaster of anxiety before and/or during the time they spend with other people, or you start to withdraw to protect your- self.
+351p | . You intellectually want to feel compersion for your partner having positive ex- periences with others, but you keep interpreting them being with others as a sign of your deficiency.
+zzcb | . After opening up, you are flooded with many of your childhood experiences and/or past traumas.
+mxnx | . After opening up, you realized that you have patterns of emotional/relational avoidance or codependency.
+11k8 | Going CNM can expose attachment insecurity in the relationship that is opening up.
+twwy | In the same way that monogamy can mitigate personal attachment insecurities, it can also conceal attachment insecurities that are relationally based. As a couple opens up from a monogamous relationship, they usually perceive themselves as having been healthy and secure together. But, as the structure of monogamy is lift- ed, issues in the relationship that the couple didn't have to face before can appear, or issues that were ignored or tolerated can no longer be ignored or tolerated in the new structure of nonmonogamy. On both this point and the previous point, I see people depending on the relationship structure for their security instead of their ac- tual relational experience with their partner. When the structure is removed, they are faced with all of the ways that the relationship was not functioning. CNM is inherently insecure.
+fyp8 | Unlike the built-in security that can ostensibly come from being monogamous, CNM is a relationship structure that is inherently insecure. In CNM, we don't have the security of knowing that a partner is with us because they see us as the best, one or only partner out there for them. In CNM we may not be the only or first per- son that our partner turns to or the last one they say goodnight to. In CNM we are less likely to meet new partners when they or we are single and able to create a new life together. Instead, we often have to figure out how to fit together alongside pre- existing structures and commitments with other partners. Furthermore, in CNM we are opening ourselves up to people who could become game changers for us or for our partner. Of course, game changers arise in monogamous relationships too, but in CNM we are intentionally going out to open our hearts and our bodies to more and different people who can potentially shake up our other relationships in un- foreseen ways. Also, and importantly, in CNM we don't have all of the cultural and institutionalized support that our society has created for the monogamous couple.
+z994 | The insecurity in CNM can actually be a good thing in that it can keep us from taking our partners for granted or becoming complacent in our relationships in ways that are often found in monogamous relationships. Personally, I find security in the fact that when I'm in CNM relationships I know that my partners are not with me because they are obliged to be, but because they continue to choose to be. However, the inherent insecurity in CNM relationships can be grinding. This form of relationship can bring up levels of uncertainty that many people are not yet equipped for, especially when they don't have enough internal secure attachment. To create sustainable healthy relationships with multiple partners, it's crucial to learn how to build polysecurity in your CNM relationships and even more so to cultivate secure attachment and equanimity within yourself.
+vvqn | Having multiple partners can replicate the conditions of attachment insecurity.
+p6xg | For many of us, our lives are complicated and overscheduled. The baseline mainte- nance of life has grown beyond what previous generations had to manage. Many of us juggle multiple life factors including businesses to run, work to go to, children
+```
+
+OUTPUT:
+```

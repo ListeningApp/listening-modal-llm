@@ -1,0 +1,139 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+1pjs | Antonio et al. Journal of the International Society of Sports Nutrition https://doi.org/10.1186/s12970-021-00412-w
+o2kr | REVIEW
+v6sk | Common questions and misconceptions about creatine supplementation: what does the scientific evidence really show?
+1wj6 | Abstract
+936l | Supplementing with creatine is very popular amongst athletes and exercising individuals for improving muscle mass, performance and recovery. Accumulating evidence also suggests that creatine supplementation produces a variety of beneficial effects in older and patient populations. Furthermore, evidence-based research shows that creatine supplementation is relatively well tolerated, especially at recommended dosages (i.e. 3-5 g/day or 0.1 g/kg of body mass/day). Although there are over 500 peer-refereed publications involving creatine supplementation, it is somewhat surprising that questions regarding the efficacy and safety of creatine still remain. These include, but are not limited to: 1. Does creatine lead to water retention? 2. Is creatine an anabolic steroid? 3. Does creatine cause kidney damage/renal dysfunction? 4. Does creatine cause hair loss / baldness? 5. Does creatine lead to dehydration and muscle cramping? 6. Is creatine harmful for children and adolescents? 7. Does creatine increase fat mass? 8. Is a creatine 'loading-phase' required? 9. Is creatine beneficial for older adults? 10. Is creatine only useful for resistance / power type activities? 11. Is creatine only effective for males? 12. Are other forms of creatine similar or superior to monohydrate and is creatine stable in solutions/beverages? To answer these questions, an internationally renowned team of research experts was formed to perform an evidence-based scientific evaluation of the literature regarding creatine supplementation.
+06yq | Keywords: Social Media, Anecdotal, Research, Adverse Effects, Safety
+dpv6 | Introduction
+8r5j | Creatine (methylguanidine-acetic acid) is endogenously formed from reactions involving the amino acids argin- ine, glycine and methionine in the kidneys and liver [1]. Exogenously, creatine is primarily consumed from meat and/or as a dietary supplement. According to PubMed (archive of biomedical and life sciences journal literature at the U.S. National Institutes of Health's National Library of Medicine) there are over 500 peer-refereed publications involving various aspects of creatine
+2taz | (2021) 18:13
+o3ya | Journal of the International Society of Sports Nutrition
+r5il | Open Access
+5gui | supplementation. Based on the enormous popularity of creatine supplementation, the International Society of Sports Nutrition (ISSN) published an updated position stand in 2017 on the safety and efficacy of creatine sup- plementation in exercise, sport, and medicine [2]. This comprehensive paper provided an evidence-based review of the literature examining the effects of creatine supple- mentation on performance, recovery, injury prevention, exercise tolerance and rehabilitation, neuroprotection, aging, clinical and disease state populations, and preg- nancy. Importantly, the safety profile of creatine was also reviewed. As of September 1, 2020, the paper has been viewed 179,000 times and cited 100 times (according to Web of Science). Furthermore, Altmetric data indicates
+82qc | Antonio et al. Journal of the International Society of Sports Nutrition
+ls7d | that the paper has been mentioned in 19 news outlets, 4 blogs, 492 tweets, 54 Facebook pages, and been uploaded 69 times in video posts. Instagram stories and posts are not included as Altmetric data.
+tzt3 | Despite the widespread outreach of the 2017 ISSN position stand paper [2], along with other evidence- based review/meta-analysis papers involving various as- pects of creatine supplementation published after the 2015 Creatine in Health, Sport and Medicine Conference in Germany [3-34], questions and misconceptions involving creatine supplementation still remain. These include, but are not limited to: 1. Does creatine supple- mentation lead to water retention? 2. Is creatine is an anabolic steroid? 3. Does creatine supplementation cause kidney damage / renal dysfunction? 4. Does creatine supplementation cause hair loss / baldness? 5. Does cre- atine supplementation lead to dehydration and muscle cramping? 6. Is creatine supplementation harmful for children and adolescents? 7. Does creatine supplementa- tion increase body fat? 8. Is a creatine supplementation 'loading-phase' required? 9. Is creatine supplementation beneficial for older adults? 10. Is creatine supplementa- tion only useful for resistance/power type activities? 11. Is creatine supplementation only effective for males? 12. Are other forms of creatine similar or superior to mono- hydrate? Is creatine stable in solutions/beverages? To ad- dress these questions, an internationally renowned team of research experts, who have collectively published over 200 peer-refereed articles involving creatine supplemen- tation, was formed to perform an evidence-based scien- tific evaluation of the literature. Each question was answered by one researcher, chosen according to her/his expertise on the topic. Then, the final version of this manuscript was reviewed and approved by all authors, therefore reflecting the group opinion.
+t8vv | Does creatine lead to water retention?
+qvnu | The purported myth of creatine supplementation in- creasing body water (TBW) is likely due to early re- search which showed that creatine supplementation at 20 g/day for six days was associated with water retention [35]. It does appear that the most common adverse ef- fect of creatine supplementation is water retention in the early stages (first several days) [36]. For example, studies have shown that three days of creatine supple- mentation increased TBW and extracellular body water (ECW) [37] and intracellular water (ICW) [38]. Unfortu- nately, based on these short-term responses, this notion that creatine increases water retention over the long- term has been widely accepted [39].
+kggw | Creatine is an osmotically active substance. Thus, an increase in the body's creatine content could theoretic- ally result in increased water retention. Creatine is taken up into muscle from circulation by a sodium-dependent
+xrd1 | (2021) 18:13
+5746 | Page 2 of 17
+7toz | creatine transporter [1]. Since the transport involves so- dium, water will also be taken up into muscle to help maintain intracellular osmolality. However, considering the activity of the sodium-potassium pumps, it is not likely that intracellular sodium concentration is dramat- ically affected by creatine supplementation [39].
+j346 | A number of exercise training studies (e.g., 5-10 weeks) incorporating creatine supplementation have shown no increases in total body water (TBW). For example, resistance-trained males who received creatine at a dose of 0.3 g/kg lean body mass/day for 7 days (approximately 20 g/day) followed by 4 weeks at 0.075 g/kg lean body mass/day for 28 days (approximately 5 g/day) experienced no significant change in ICW, ECW, or TBW [40]. Fur- thermore, resistance-trained males who consumed creat- ine supplementation (20 g/day for seven days followed by 5 g/day for 21 days) had no significant increase in ICW, ECW, or TBW [41]. Similarly, males and females ingesting creatine (0.03 g/kg/day for six weeks) experienced no sig- nificant increase in TBW [42]. Six weeks of creatine sup- plementation in non-resistance-trained males at a dosage of 0.3 g/kg lean body mass for five days followed by 0.075 <LATEX>\mathrm { g / k g }</LATEX> lean body mass for 42 days produced no significant changes in TBW [43]. In contrast, when assessing TBW, ICW, and ECW content before and after 28 days of creat- ine supplementation in healthy males and females <LATEX>\left( n = \right.</LATEX> 32), Powers et al. [44] showed that creatine supplementa- tion was effective at increasing muscle creatine content which was associated with an increase in body mass and TBW but did not alter ICW or ECW volumes. In a recent study examining the effects of creatine supplementation combined with resistance exercise for 8 weeks, Ribeiro et al. [45] found a significant increase in TBW (7.0%) and ICW (9.2%) volume compared to placebo (TBW: 1.7%; ICW: 1.6%), with both groups similarly increasing ECW (CR: 1.2% vs. Placebo = 0.6%). Importantly, the ratio of skeletal muscle mass to ICW remained similar in both groups. It is important to highlight that the ICW is an im- portant cellular signal for protein synthesis and thus drives an increase in muscle mass over time [46].
+v8uq | In summary, while there is some evidence to sug- gest that creatine supplementation increases water retention, primarily attributed to increases in intracellular volume, over the short term, there are several other studies suggesting it does not alter total body water (intra or extracellular) relative to muscle mass over longer periods of time. As a result, creatine supplementation may not lead to water retention.
+x972 | Is creatine an anabolic steroid?
+cwrw | Anabolic steroids are a synthetic version of testosterone, an androgenic hormone which is also produced
+4i0e | Antonio et al. Journal of the International Society of Sports Nutrition
+h2l3 | endogenously within both males and females, and is used in conjunction with resistance training with the in- tent of enhancing muscle mass and strength due to in- creases in muscle protein synthesis [47]. This increase in MPS is due to testosterone's ability to enter the muscle cell, bind with the intracellular androgen receptor, and increase the expression of various muscle-specific genes [48]. Creatine is converted to phosphocreatine (PCr), regulated by the enzyme creatine kinase (CK) in muscle and used to create intracellular adenosine triphosphate (ATP) production [1]. Creatine supplementation, how- ever, can increase the capacity of ATP and energy pro- duced during heavy anaerobically-related exercise, thereby possibly increasing muscle power, repetitions and exercise volume which can subsequently contribute to muscle performance and hypertrophy over the course of a training period [2].
+dfzb | While the physiological and performance outcomes of anabolic steroids and creatine can be similar, their mechanisms of action and legal categorization are not. Anabolic steroids are drugs, with a different chemical structure than creatine, and are Class C, Schedule III controlled substances regulated by the Food and Drug Administration (FDA) and subject to the regulatory con- trol provisions of the Controlled Substances Act (CSA) set forth by the Drug Enforcement Association (DEA). Creatine, on the other hand, like many other dietary supplements fits well within the confines of The Dietary Supplement Health and Education Act of 1994 ("DSHEA"), which is a statute of United States Federal legislation which defines and regulates dietary supple- ments by the Federal Drug Administration (FDA) for Good Manufacturing Practices (GMP). It is illegal to possess and administer anabolic steroids without a phy- sician's prescription. However, there are no legal ramifi- cations for the possession or ingestion of creatine.
+u6ty | In summary, because creatine has a completely different chemical structure, it is not an anabolic steroid.
+awvu | Does creatine cause kidney damage/renal dysfunction? Questions and concerns involving creatine supplementa- tion and kidney damage/renal dysfunction are common. In terms of pervasive misinformation in the sport nutri- tion arena, the notion that creatine supplementation leads to kidney damage/renal dysfunction is perhaps sec- ond only to the myth that protein supplementation and high habitual protein intake causes kidney damage. Today, after > 20 years of research which demonstrates no adverse effects from recommended dosages of creat- ine supplements on kidney health, unfortunately, this concern persists. While the origin is unknown, the con- nection between creatine supplementation and kidney
+on9b | (2021) 18:13
+a8ge | Page 3 of 17
+h27a | damage/renal dysfunction could be traced back to two things: a poor understanding of creatine and creatinine metabolism and a case study published in 1998.
+pdjh | In skeletal muscle, both creatine and PCr are degraded non-enzymatically to creatinine, which is exported to the blood and excreted in the urine [1]. Healthy kidneys filter creatinine, which would otherwise increase in the blood. Therefore, blood creatinine levels can be used as a proxy marker of kidney function. However, the amount of creatinine in the blood is related to muscle mass (i.e. males have higher blood creatinine than fe- males) and both dietary creatine and creatinine intake [35]. Both blood and urinary creatinine may be increased by ingestion of creatine supplementation and creatine containing foods, such as meat. Creatine is normally not present in urine, but can reach very high levels (>10 g/ day) during creatine supplementation [49]. There ap- pears to be an unsubstantiated perspective that if the kidneys are "forced" to excrete higher than normal levels of creatine or creatinine, some sort of kidney "overload" will take place, causing kidney damage and/or renal dys- function. In reality, transient increases in blood or urin- ary creatine or creatinine due to creatine supplementation are unlikely to reflect a decrease in kid- ney function. Additionally, one must exercise caution when using blood creatinine and estimated creatinine clearance/glomerular filtration rate in individuals who consume high meat intake or supplement with creatine. In a review of creatine supplementation studies, Persky and Rawson [50] found no increase in serum creatinine in 12 studies, 8 studies showed an increase that remained within the normal range, and only 2 studies showed an increase above normal limits (although not different from the control group in one study).
+xmgs | In 1998, a case study of a young male with focal seg- mental glomerulosclerosis and relapsing nephrotic syn- drome was reported [51]. The young male, who had kidney disease for 8 years and was treated with cyclo- sporine (i.e., immunosuppressant) for 5 years, had re- cently begun ingesting creatine supplementation (15 g/ day for 7 days; followed by 2 g/day for 7 weeks). Based on increased blood levels of creatinine and subsequent estimate of calculated creatinine clearance, his kidney health was presumed to be deteriorating, although he was otherwise in good health. The patient was encour- aged to discontinue creatine supplementation. At this time, it was already known that blood and urine creatin- ine levels can increase following ingestion of creatine containing food products, including creatine supple- ments [35]. This was ignored by the authors of this case study, as was the inclusion of two investigations which demonstrated that creatine supplementation did not negatively impact renal function [52, 53]. The dosage of creatine during the maintenance phase, which was also
+bd9h | Antonio et al. Journal of the International Society of Sports Nutrition
+m047 | ignored, was only slightly higher than the daily creatine intake of a typical omnivore's dietary intake, or in terms of food, a large hamburger or steak per day (meat con- tains about 0.7 g of creatine / 6 oz. serving; see [54]). In response to this case study, two separate teams of ex- perts in creatine metabolism wrote letters to the editor of Lancet [53, 55]. However, the notion that creatine supplementation leads to kidney damage and/or renal dysfunction gained traction and momentum.
+```
+
+OUTPUT:
+```

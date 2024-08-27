@@ -1,0 +1,150 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+d0ik | Some of these special circumstances may also help to explain China's rapid growth into-and possible early shift out of-middle income. True, inequality increased dramatically (.47 Gini coefficient), raising debates about possible "Latin Americanization." Yet on other dimen- sions, China shows that it is already advancing out of MI status with lower informality (a shadow economy of 12 percent), extremely high investment (49 percent), low FDI (10 percent), high R and D spending
+0x0s | Downloaded from https://www.cambridge.org/core. Seoul National University - Statistics Department, on 27 Nov 2019 at 01:38:53, subject to the Cambridge Core terms of use, available at https://www.cambridge.org/core/terms.
+4exe | https://doi.org/10.1017/S0043887116000095
+0myz | (2 percent, not far below the OECD average), and educational institu- tions producing large numbers of engineers and technicians, includ- ing 21 percent of secondary students enrolled in technical education.104 This potential for moving quickly through MI status reflects China's resemblance to earlier Asian developmental states by virtue of a clear connection for political elites between development and the capacity to address geopolitical challenges,105 a connection missing in other MI countries, and by virtue of the stability of its authoritarian regime.
+xh3i | In sum, these comparisons across a wide range of periods and con- texts help illuminate cases where politics were more conducive to build- ing and sustaining upgrading coalitions due to factors ranging from elite cohesion around things like EU accession, to more bottom-up pressures (as in Malay party dominance), to state-assisted upgrading in some successful sectors. These positive cases raise hopes that it is not impossible to escape the MI trap, but at the same time they highlight a range of rare facilitating factors that are as yet not common in most MI countries.
+syiw | VI. CONCLUSIONS AND IMPLICATIONS
+kg3t | Many contemporary MI countries find themselves on a path-dependent trajectory where the very factors that contributed to and/or accompa- nied their movement into middle-income status (such as informality, high FDI stocks, inequality, and low levels of human capital) both rein- force each other and constitute obstacles to progressing out of MI.106 By fragmenting business and labor, they undercut the potential demand for upgrading institutions. These conditions contrast with earlier HI gradu- ates that, when transitioning to HI, did not face the combined, divisive cleavages of high and persistent inequality, informality, and reliance on FDI.
+lvae | This article focuses on the primary domestic cleavages among social groups that impede the coalition building required for institutional up- grading. A fuller analysis of the MI trap would also need to incorporate further analysis of state capacity (and related pathologies of corruption and clientelism). For example, taxation is one core area of state capacity where MI states lag in terms of their ability to collect revenue, overall and especially in income taxes-a weakness commonly associated with large informal sectors.107 Institution building of the sort analyzed here
+o9sc | Downloaded from https://www.cambridge.org/core. Seoul National University - Statistics Department, on 27 Nov 2019 at 01:38:53, subject to the Cambridge Core terms of use, available at https://www.cambridge.org/core/terms.
+121u | https://doi.org/10.1017/S0043887116000095
+zh03 | is costly and is likely to rely heavily on public funding, so tax capac- ity becomes a critical component. Coalition building is decisive in our view, and bureaucratic resistance and fragmentation can pose additional obstacles to effective policy and institution building. It is important, for example, to understand why education bureaucracies are often large, politicized sources of rents at the primary and secondary levels and fragmented at the tertiary level, while state-sponsored postsecondary vocational and technical education is fragmented and weakly related to business needs.
+1mvw | Our analysis of FDI and the shifting development requirements of the twenty-first century indirectly incorporates some international factors. A fuller analysis would also need to examine in greater depth a range of issues, from microlevel dynamics in GPNs to shifting international trade regimes (for example, the limits WTO membership places on industrial policy), to the overall opportunities for expanding high value-added exports. However, the international factors that were crucial in earlier industrializers-especially geostrategic threats and economic integra- tion-are less relevant for large MI countries. The Cold War is over and the countries of Latin America and Southeast Asia, as well as South Africa and Turkey, face no imminent existential threat. Nor are recent trends in economic integration likely to help forge domestic upgrading coalitions. If EU accession returns to the agenda in Turkey, it could have this enabling effect. By contrast, Mexican integration through NAFTA did bring elites together, but it was around a common set of neo- liberal policies rather than around institution building for upgrading.108 In Asia, regional integration through ASEAN was more politically driven, with little engagement by business, especially domestic business. 109
+6d4s | Understanding this path-dependent dynamic is all the more impor- tant in light of some important shifts in the global economy that did not confront earlier successful industrializers. Following Alexander Ger- schenkron, the advance of technology and the prior industrialization of other countries change the challenges and opportunities for the next graduates to HI. So, while twentieth-century industrializers could rely on relatively autarchic growth, Fordist mass production, and integrated industrial sectors, today's would-be graduates to HI face a much more open global economy characterized by rapid product cycles, intensely competitive markets, GPNs, and dominant service sectors.110 Therefore, the specific economic trajectories to HI will be different in the twenty-
+mqah | Downloaded from https://www.cambridge.org/core. Seoul National University - Statistics Department, on 27 Nov 2019 at 01:38:53, subject to the Cambridge Core terms of use, available at https://www.cambridge.org/core/terms.
+xxr8 | https://doi.org/10.1017/S0043887116000095
+rl4j | first century, but they will still require strong institutions and enduring support coalitions to create and sustain them.
+vz32 | Our analysis of the MI stall has several practical and theoretical impli- cations. First, on the practical side, it is necessary to recognize that the policy recommendations typically proposed are difficult to implement and require institutions with significant capacity to mobilize resources and coordinate diverse interests. This phase of institutional develop- ment is not just about getting the rules right and providing broad in- centives to attract capital and labor into new sectors; more important, it is also about building effective organizations like schools and research centers, as well as various forums where different economic agents can cultivate long-term collaborations. The neoliberal Washington consen- sus of the 1990s revolved primarily around a set of policies. The new, more pragmatic consensus of the 2000s emphasizes, by contrast, insti- tutions in industrial policy, human capital, and governance generally. This represents progress, but the next step is to reach a better under- standing of what it takes to build institutions.
+ncb0 | Thus, a further implication of our analysis bears on institutional ori- gins. Economists are correct that building such institutions is best un- derstood as a contractarian process allowing interdependent actors to reap gains from trade. But on its own, this formulation is incomplete, as it fails to acknowledge that strong institutions typically emerge through the incremental interactions of a small number of large, mutually vul- nerable actors.111 These are precisely the conditions undermined by the structural factors or societal disarticulation so common in today's MI countries. Indeed, although accounts of coalitional bases of prior move- ment into high income do acknowledge differences within and among business and labor, the kinds of foreign-local and formal-informal splits within business and labor respectively are striking in their absence from these accounts.
+8mp0 | At a broader theoretical level, our analysis adopts a more structural perspective-one that is focused on the long-term evolution of social and economic groups-than the widespread institutional consensus in development studies. Much recent debate has revolved around which insti- tutions are the most important, often pitting liberal arguments (property rights and the rule of law) against statist alternatives (in- dustrial policy and effective bureaucracies). But much of this debate is premature and misplaced. We must first achieve a better understanding of the coalitional foundations needed to create and sustain these insti-
+xjyk | Downloaded from https://www.cambridge.org/core. Seoul National University - Statistics Department, on 27 Nov 2019 at 01:38:53, subject to the Cambridge Core terms of use, available at https://www.cambridge.org/core/terms.
+mt0f | https://doi.org/10.1017/S0043887116000095
+awab | tutions, as well as of the structural factors that shape the potential for coalition building.
+ixcc | SUPPLEMENTARY MATERIAL
+8p6h | Supplementary material for this article can be found at http://dx.doi.org/10.1017 /S0043887116000095.
+pmgl | REFERENCES
+90no | Downloaded from https://www.cambridge.org/core. Seoul National University - Statistics Department, on 27 Nov 2019 at 01:38:53, subject to the Cambridge Core terms of use, available at https://www.cambridge.org/core/terms.
+jt0y | https://doi.org/10.1017/S0043887116000095
+qb7o | MIDDLE-INCOME TRAP
+oae5 | Policy Research Working Paper 7104. Washington, D.C .: World Bank. At http://documents.worldbank.org/curated/en/2014/11/20373154/transition ing-low-income-growth-high-income-growth-middle-income-trap.
+s0fl | Flechtner, Svenja, and Stephan Panther. 2016. "Economic Inequality, Political Power and Political Decision-Making: The Case of the 'Middle-Income Trap.""
+43ia | Downloaded from https://www.cambridge.org/core. Seoul National University - Statistics Department, on 27 Nov 2019 at 01:38:53, subject to the Cambridge Core terms of use, available at https://www.cambridge.org/core/terms.
+3g2y | https://doi.org/10.1017/S0043887116000095
+gc7v | In Sebastiano Fadda and Pasquale Tridico, eds., Varieties of Economic Inequalty. London, UK: Routledge.
+wqfv | Iversen, Torben, and David Soskice. 2015. "Democratic Limits to Redistribution: Inclusionary versus Exclusionary Coalitions in the Knowledge Economy." World Politics 67, no. 2 (April): 185-225.
+j30a | Downloaded from https://www.cambridge.org/core. Seoul National University - Statistics Department, on 27 Nov 2019 at 01:38:53, subject to the Cambridge Core terms of use, available at https://www.cambridge.org/core/terms.
+7bdk | https://doi.org/10.1017/S0043887116000095
+fim0 | MIDDLE-INCOME TRAP
+ojro | Jeong, Insook, and Michael Armer. 1994. "State, Class, and Expansion of Educa- tion in South Korea." Comparative Education Review 34, no. 4: 531-45.
+l6t9 | Mazzuca, Sebastián L. 2013. "The Rise of Rentier Populism." Journal of Democ- racy 24, no. 2: 108-22.
+1ujy | Downloaded from https://www.cambridge.org/core. Seoul National University - Statistics Department, on 27 Nov 2019 at 01:38:53, subject to the Cambridge Core terms of use, available at https://www.cambridge.org/core/terms.
+qzor | https://doi.org/10.1017/S0043887116000095
+a0by | McDermott, Gerald. 2007. "The Politics of Institutional Renovation and Eco- nomic Upgrading: Recombining the Vines That Bind in Argentina." Politics and Society 35, no. 1: 103-44.
+u1ky | Rhodes, Martin. 2001. "The Political Economy of Social Pacts: Competitive Cor-
+htm9 | Downloaded from https://www.cambridge.org/core. Seoul National University - Statistics Department, on 27 Nov 2019 at 01:38:53, subject to the Cambridge Core terms of use, available at https://www.cambridge.org/core/terms.
+8hul | https://doi.org/10.1017/S0043887116000095
+87vz | poratism and European Welfare Reform." In Paul Pierson, ed., The New Poli- tics of the Welfare State. New York, N.Y .: Oxford University Press: 165-94.
+ym66 | Downloaded from https://www.cambridge.org/core. Seoul National University - Statistics Department, on 27 Nov 2019 at 01:38:53, subject to the Cambridge Core terms of use, available at https://www.cambridge.org/core/terms.
+l0a3 | https://doi.org/10.1017/S0043887116000095
+```
+
+OUTPUT:
+```

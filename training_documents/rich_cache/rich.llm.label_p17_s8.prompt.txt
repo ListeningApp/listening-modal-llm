@@ -1,0 +1,184 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+sc5y | Benefit from the insights, experiences, and thoughts of other like-minded people in the online discussion group at www.scienceofgettingrich.net
+0yab | No thought of form can be impressed upon original sub- stance without causing the creation of the form.
+w95z | A person is a thinking center and can originate thought. All the forms that a person fashions with his hands must first exist in his thought. He cannot shape a thing until he has thought that thing.
+0i1k | So far, humankind has confined its efforts wholly to the work of its hands, applying manual labor to the world of forms and seeking to change or modify those already existing. Humankind has never thought of trying to cause the creation of new forms by impressing thought upon formless substance.
+dqlg | www.scienceofgettingrich.net 7
+p6pq | The Science of Getting Rich
+zse6 | When a person has a thought-form, he takes material from the forms of nature and makes an image of the form which is in his mind. People have, so far, made little or no effort to cooperate with formless intelligence - to work "with the Father." The individual has not dreamed that he can "do what he seeth the Father doing." An individual reshapes and modifies existing forms by manual labor and has given no attention to the question of whether he may produce things from formless substance by communicating his thoughts to it.
+p2n3 | We propose to prove that he may do so - to prove that any man or woman may do so - and to show how. As our first step, we must lay down three fundamental propositions.
+ohh7 | First, we assert that there is one original formless stuff or substance from which all things are made. All the seemingly many elements are but different presentations of one element. All the many forms found in organic and inorganic nature are but different shapes, made from the same stuff. And this stuff is thinking stuff - a thought held in it produces the form of the thought. Thought, in thinking substance, produces shapes. A human being is a thinking center, capable of original thought. If a person can communicate his thought to original thinking substance, he can cause the creation, or formation, of the thing he thinks about. To summarize this:
+vbni | There is a thinking stuff from which all things are made, and which, in its original state, permeates, penetrates, and fills the interspaces of the universe.
+dgcw | A thought in this substance produces the thing that is imaged by the thought.
+gvwz | A person can form things in his thought, and, by impressing his thought upon formless substance, can cause the thing he thinks about to be created.
+sk5m | It may be asked if I can prove these statements, and without going into details I answer that I can do so, both by logic and experience.
+qws8 | Reasoning back from the phenomena of form and thought, I come to one original thinking sub- stance, and reasoning forward from this thinking substance, I come to a person's power to cause the formation of the thing he thinks about.
+877u | And by experiment, I find the reasoning true. This is my strongest proof.
+rzhj | If one person who reads this book gets rich by doing what it tells him to do, that is evidence in support of my claim, but if every person who does what it tells him to do gets rich, that is positive proof until someone goes through the process and fails. The theory is true until the process fails, and this process will not fail, for everyone who does exactly what this book tells him to do will get rich.
+bfax | I have said that people get rich by doing things in a certain way, and in order to do so, people must become able to think in a certain way.
+f2y8 | A person's way of doing things is the direct result of the way he thinks about things.
+o7qm | To do things in the way you want to do them, you will have to acquire the ability to think the way you want to think. This is the first step toward getting rich.
+d52l | And to think what you want to think is to think TRUTH, regardless of appearances.
+qlbb | Every individual has the natural and inherent power to think what he wants to think, but it requires far more effort to do so than it does to think the thoughts which are suggested by appearances. To think according to appearances is easy; to think truth regardless of appearances is laborious and requires the expenditure of more power than any other work we are called upon to perform.
+nhsg | There is no labor from which most people shrink as they do from that of sustained and consecutive thought. It is the hardest work in the world. This is especially true when truth is contrary to appearances.
+hy0l | 8
+4jmz | www.scienceofgettingrich.net
+b7cq | CHAPTER 4: The First Principle in The Science of Getting Rich
+0b39 | Every appearance in the visible world tends to produce a corresponding form in the mind which observes it, and this can only be prevented by holding the thought of the TRUTH.
+qecd | To look upon the appearances of poverty will produce corresponding forms in your own mind, unless you hold to the truth that there is no poverty; there is only abundance.
+1o7p | To think health when surrounded by the appearances of disease or to think riches when in the midst of the appearances of poverty requires power, but whoever acquires this power becomes a master mind. That person can conquer fate and can have what he wants.
+cp13 | This power can only be acquired by getting hold of the basic fact which is behind all appearances, and that fact is that there is one thinking substance from which and by which all things are made.
+bgre | Then we must grasp the truth that every thought held in this substance becomes a form, and that man can so impress his thoughts upon it as to cause them to take form and become visible things.
+57lp | When we realize this we lose all doubt and fear, for we know that we can create what we want to create, we can get what we want to have, and can become what we want to be. As a first step toward getting rich, you must believe the three fundamental statements given previously in this chapter, and in order to emphasize them, I repeat them here:
+ukth | There is a thinking stuff from which all things are made, and which, in its original state, permeates, penetrates, and fills the interspaces of the universe.
+kpvt | A thought in this substance produces the thing that is imaged by the thought.
+jie2 | A person can form things in his thought, and, by impressing his thought upon formless substance, can cause the thing he thinks about to be created.
+d0ik | You must lay aside all other concepts of the universe, and you must dwell upon this until it is fixed in your mind and has become your habitual thought. Read these statements over and over again. Fix every word upon your memory and meditate upon them until you firmly believe what they say. If a doubt comes to you, cast it aside. Do not listen to arguments against this idea. Do not go to churches or lectures where a contrary concept of things is taught or preached. Do not read magazines or books which teach a different idea. If you get mixed up in your understanding, belief, and faith, all your efforts will be in vain.
+0x0s | Do not ask why these things are true nor speculate as to how they can be true. Simply take them on trust. The science of getting rich begins with the absolute acceptance of this.
+4exe | www.scienceofgettingrich.net
+0myz | CHAPTER 5
+xh3i | Increasing Life
+syiw | YOU MUST GET RID OF THE LAST VESTIGE OF THE OLD IDEA that there is a Deity whose will it is that you should be poor or whose purposes may be served by keeping you in poverty.
+kg3t | The intelligent substance which is all, and in all, and which lives in all and lives in you, is a consciously living substance. Being a consciously living substance, it must have the nature and inherent desire of every living intelligence for increase of life. Every living thing must continually seek for the enlargement of its life, because life, in the mere act of living, must increase itself.
+lvae | A seed, dropped into the ground, springs into activity, and in the act of living produces a hundred more seeds; life, by living, multiplies itself. It is forever becoming more. It must do so, if it continues to be at all.
+o9sc | Intelligence is under this same necessity for continuous increase. Every thought we think makes it necessary for us to think another thought; consciousness is continually expanding. Every fact we learn leads us to the learning of another fact; knowledge is continually increasing. Every talent we cultivate brings to the mind the desire to cultivate another talent; we are subject to the urge of life, seeking expression, which ever drives us on to know more, to do more, and to be more.
+121u | In order to know more, do more, and be more we must have more. We must have things to use, for we learn, and do, and become only by using things. We must get rich so that we can live more.
+zh03 | The desire for riches is simply the capacity for larger life seeking fulfillment. Every desire is the effort of an unexpressed possibility to come into action. It is power seeking to manifest which causes desire. That which makes you want more money is the same as that which makes the plant grow; it is life seeking fuller expression.
+1mvw | The one living substance must be subject to this inherent law of all life. It is permeated with the desire to live more, and that is why it is under the necessity of creating things. The one substance desires to live more in and through you. Therefore it wants you to have all the things you can use.
+6d4s | It is the desire of God that you should get rich. He wants you to get rich because he can express himself better through you if you have plenty of things to use in giving him expression. He can live more in you if you have unlimited command of the means of life.
+mqah | The universe desires you to have everything you want to have.
+xxr8 | Nature is friendly to your plans.
+rl4j | Everything is naturally for you.
+vz32 | Make up your mind that this is true.
+ncb0 | It is essential, however, that your purpose should harmonize with the purpose that is in all.
+8mp0 | You must want real life, not mere pleasure or sensual gratification. Life is the performance of function, and the individual really lives only when he performs every function - physical, mental, and spiritual - of which he is capable, without excess in any.
+xjyk | www.scienceofgettingrich.net
+mt0f | =
+awab | The Science of Getting Rich
+ixcc | You do not want to get rich in order to live swinishly, for the gratification of animal desires. That is not life. But the performance of every physical function is a part of life, and no one lives completely who denies the impulses of the body a normal and healthful expression.
+8p6h | You do not want to get rich solely to enjoy mental pleasures, to get knowledge, to gratify ambition, to outshine others, to be famous. All these are a legitimate part of life, but the person who lives for the pleasures of the intellect alone will only have a partial life, and he will never be satisfied with his lot.
+pmgl | You do not want to get rich solely for the good of others, to lose yourself for the salvation of mankind, to experience the joys of philanthropy and sacrifice. The joys of the soul are only a part of life, and they are no better or nobler than any other part.
+90no | You want to get rich in order that you may eat, drink, and be merry when it is time to do these things; in order that you may surround yourself with beautiful things, see distant lands, feed your mind, and develop your intellect; in order that you may love others and do kind things, and be able to play a good part in helping the world to find truth.
+jt0y | But remember that extreme altruism is no better and no nobler than extreme selfishness; both are mistakes.
+qb7o | Get rid of the idea that God wants you to sacrifice yourself for others and that you can secure his favor by doing so. God requires nothing of the kind.
+oae5 | What God wants is that you should make the most of yourself, for yourself, and for others. And you can help others more by making the most of yourself than in any other way.
+s0fl | You can make the most of yourself only by getting rich, so it is right and praiseworthy that you should give your first and best thought to the work of acquiring wealth.
+43ia | Remember, however, that the desire of substance is for all, and its movements must be for more life to all. It cannot be made to work for less life to any, because it is equally in all, seeking riches and life.
+3g2y | Intelligent substance will make things for you, but it will not take things away from someone else and give them to you.
+gc7v | You must get rid of the thought of competition. You are to create, not to compete for what is already created.
+wqfv | You do not have to take anything away from anyone.
+j30a | You do not have to drive sharp bargains.
+7bdk | You do not have to cheat or to take advantage. You do not need to let anyone work for you for less than he earns.
+fim0 | You do not have to covet the property of others or to look at it with wishful eyes. No one has anything of which you cannot have the like, and that without taking what he has away from him.
+ojro | You are to become a creator, not a competitor. You are going to get what you want, but in such a way that when you get it every other person whom you affect will have more than he has now.
+l6t9 | I am aware that there are those who get a vast amount of money by proceeding in direct opposition to the statements in the paragraph above, and may add a word of explanation here. Individuals of that type who become very rich do so sometimes purely by their extraordinary ability on the plane of com- petition, and sometimes they unconsciously relate themselves to substance in its great purposes and movements for the general upbuilding through industrial evolution. Rockefeller, Carnegie, Morgan, et al., have been the unconscious agents of the supreme in the necessary work of systematizing and orga- nizing productive industry, and in the end their work will contribute immensely toward increased life
+1ujy | www.scienceofgettingrich.net
+qzor | CHAPTER 5: Increasing Life
+a0by | for all. But their day is nearly over. They have organized production and will soon be succeeded by the agents of the multitude, who will organize the machinery of distribution.
+u1ky | They are like the monster reptiles of the prehistoric eras. They play a necessary part in the evolu- tionary process, but the same power which produced them will dispose of them. And it is well to bear in mind that they have never been really rich; a record of the private lives of most of this class will show that they have really been most abject and wretched.
+htm9 | Riches secured on the competitive plane are never satisfactory and permanent. They are yours to- day and another's tomorrow. Remember, if you are to become rich in a scientific and certain way, you must rise entirely out of competitive thought. You must never think for a moment that the supply is limited. Just as soon as you begin to think that all the money is being "cornered" and controlled by others, and that you must exert yourself to get laws passed to stop this process, and so on - in that moment you drop into the competitive mind and your power to cause creation is gone for the time being.
+8hul | And what is worse, you will probably arrest the creative movements you have already begun.
+87vz | KNOW that there are countless millions of dollars' worth of gold in the mountains of the earth, not yet brought to light. And know that if there were not, more would be created from thinking sub- stance to supply your needs.
+ym66 | KNOW that the money you need will come, even if it is necessary for a thousand men to be led to the discovery of new gold mines tomorrow.
+l0a3 | Never look at the visible supply. Look always at the limitless riches in formless substance, and KNOW that they are coming to you as fast as you can receive and use them. Nobody, by cornering the visible supply, can prevent you from getting what is yours.
+```
+
+OUTPUT:
+```

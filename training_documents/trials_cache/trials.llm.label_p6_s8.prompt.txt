@@ -1,0 +1,163 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+uz3c | Note that the aim of a sample size calculation is to approximate the number of patients required rather than provide exact figures. There are several assumptions that need to be made including the anticipated true values which of course cannot be known.
+d5bi | 5.2 More general formula for any combination of significance and power
+ba4l | The formula given for the comparison for two proportions is based on a type I error of <LATEX>\alpha = 0 . 0 5</LATEX> (equating to a significance level of 5%) and a type II error of <LATEX>\beta = 0 . 1</LATEX> (equating to 90% power). However, a more general formula for different values of <LATEX>\alpha</LATEX> and <LATEX>\beta</LATEX> is needed.
+ffx8 | A more general formula is as follows:
+s6su | where <LATEX>\mathrm { f } \left( \alpha , \beta \right)</LATEX> is a function of a and B. The table below provides the value of <LATEX>\mathrm { f } \left( \alpha , \beta \right)</LATEX> for different values of <LATEX>\alpha</LATEX> and B.
+y219 | Table 4: Values of <LATEX>\mathrm { f } \left( \alpha , \beta \right)</LATEX> for different levels of <LATEX>\alpha</LATEX> and
+06ht | 3.6
+v3r2 | Note that the value of <LATEX>\mathrm { f } \left( \mathrm { \alpha } , \beta \right)</LATEX> can be calculated for any level of <LATEX>\alpha</LATEX> and <LATEX>\beta</LATEX> and this is given by the formula below (you will need to understand what <LATEX>Z 1 - \alpha / 2</LATEX> and <LATEX>Z _ { 1 - \beta }</LATEX> represent: the z-distribution has a mean of 0 with a standard deviation of 1).
+nv42 | <LATEX>f \left( \alpha , \beta \right) = \left( z _ { 1 - \alpha / 2 } + z _ { 1 - \beta } \right) ^ { 2 }</LATEX> For example, for <LATEX>\alpha = 0 . 0 5</LATEX> and <LATEX>\beta = 0 . 1 :</LATEX> <LATEX>f \left( \alpha , \beta \right) = \left( 1 . 9 6 + 1 . 2 8 \right) ^ { 2 } = 1 0 . 5</LATEX> For example, for <LATEX>\alpha = 0 . 0 5</LATEX> and
+xags | <LATEX>\beta = 0 . 2 :</LATEX> <LATEX>f \left( \alpha . \beta \right) = \left( 1 . 9 6 + 0 . 8 4 \right) ^ { 2 } = 7 . 8 5</LATEX> 6 Impact of choice of scientific criteria on sample size
+jc47 | The key factors required in order to calculate the required sample size and needed for a trial comparing two percentages have been introduced. Assuming the primary outcome variable has been identified these are (1) the expected percentage or risk in the control arm (2) the smallest clinically important difference that needs detecting (3) the level of significance, and (4) the power to detect the difference specified in (2) if such a true difference exists.
+ko3c | While a set significance (usually 5%) and power (usually 90% or 80%) can be specified perhaps the most important assumptions that need to be considered are for the unknown underlying risk in the control group and the smallest clinically important decision that needed to be detected.
+xek3 | Some flexibility is usually needed in assessing sample size requirements and it is a useful exercise to calculate the numbers needed for several different scenarios. In this section the impact of altering each of the four criteria given above on the sample size for comparing two percentages will be demonstrated using the UK PACE trial. Note that previous calculations showed 1926 patients were required based on the following criteria:
+bbpr | Expected mortality in the single chamber arm <LATEX>\left( \pi _ { 1 } \right) = 2 4 \%</LATEX> Expected mortality in the dual chamber arm <LATEX>\left( \pi _ { 2 } \right) = 1 8 \%</LATEX> (i.e. one quarter reduction) <LATEX>\alpha = 0 . 0 5 ,</LATEX> <LATEX>\beta = 0 . 1</LATEX> (power =90%) i.e.
+5zyf | <LATEX>\mathrm { f } \left( \alpha , \beta \right) = 1 0 . 5</LATEX> (1) Impact of reducing the difference to detect.
+9own | Suppose one quarter reduction is considered unrealistically high and decide an absolute difference of 3% from 24% would clinically important to detect (i.e. <LATEX>\pi _ { 1 } - \pi _ { 2 } = 3 \% .</LATEX> The total sample size required is 8128. Halving the absolute difference to detect for a given expected percentage outcome in the control arm resulted in more than quadrupling the sample size.
+bqfb | (2) Impact of overestimating the event rate in each group.
+wwdt | Suppose the true mortality is half that expected in both groups i.e. <LATEX>\pi _ { 1 } = 1 2 \% ,</LATEX> <LATEX>\pi _ { 2 } = 9 \% .</LATEX> Note that this is still a one quarter reduction in mortality. The total sample size required is 4376, more than double the initial estimate.
+mn1r | Note however that this assumes the relative effect remains the same i.e. a quarter reduction. For a given absolute difference to detect, the total number decreases as the event rate decreases (for event rates below 50%). For example, suppose it is required to detect a difference of 12% vs. 6% then the total sample size would be 946 but this represents a halving in mortality.
+5vqw | 3.7
+meyw | (3) Impact of reducing the significance level (i.e. reducing risk of a type I error).
+2e62 | Suppose more stringent evidence for a treatment difference is required and the level of significance is set to be 1% i.e. require p<0.01 to claim a treatment difference. f(a,ß) now becomes 14.9 and the total sample size needs to be increased to 2732.
+75y3 | (4) Impact of increasing the power (i.e. the risk of a type II error).
+s2g2 | Suppose it is required for the study to give more chance of finding a treatment difference and 95% power is used. f(a,ß) now becomes 13.0 and the total sample size needs to be increased to 2384.
+q1q2 | In practice, these calculations are usually done using computer packages, such as Stata, R or Epi- Info. The number of patients which different packages arrive at may differ slightly from those above as slightly different approximations are used.
+cb7r | In deciding upon the required size of a trial the numbers are often disappointingly large in respect of investigators expectations and available patients. For example reducing the absolute required difference to detect by half meant increasing the sample size more than fourfold.
+68xu | Sample sizes entail some judgement, and some compromise between using stringent statistical criteria and what can practically be achieved is required. However, the choices to be made need to be realistic.
+hd35 | Comparing two means 7
+2zpk | In some clinical trials the primary endpoint is a continuous outcome, e.g. kidney functioning as measured by glomerular filtration rate or systolic blood pressure, rather than the occurrence of some binary event, e.g. mortality. The principles behind calculating the required sample size when the outcome is a comparison of two means are the same as when comparing two percentages.
+epu7 | 7.1 Sample size formula
+7od1 | However, one additional factor that needs to be considered is the standard deviation of the outcome in each treatment group. In this section it is assumed that the standard deviation is the same for each treatment group although alternative formulae are available when this is clearly not the case. The standard deviation can be estimated from previous observational studies or in some cases a pilot study will be required. However, as when considering two percentages, it is advisable to calculate the required sample size for a number of different scenarios.
+0bqy | To distinguish between means and percentages ut1 and u2 will be used to refer to the anticipated means in the two treatment groups.
+b780 | 3.8
+ccmb | As for the comparison of percentages, there are certain assumptions and decisions that need to be made. These are as follows:
+ma93 | Į1 = anticipated mean response on the standard treatment
+c6hh | <LATEX>\mu _ { 2 } = \text { anticipated mean response on the alter }</LATEX> treatment
+y7ea | <LATEX>\sigma =</LATEX> standard deviation of response (assumed the same on both treatments)
+nav4 | <LATEX>\alpha = \mathrm { r i s k }</LATEX> of a type I error (significance level)
+gem8 | <LATEX>\beta = \text { risk of a type II error } \left( 1 - \beta = \text { power } \right)</LATEX> Once these values have been decided upon the required number per group can be calculated as follows:
+e8nr | <LATEX>n = f \left( \alpha , \beta \right) \times \frac { 2 \sigma ^ { 2 } } { \left( \mu _ { 1 } - \mu _ { 2 } \right) ^ { 2 } } \quad \text { in each group }</LATEX> Note that the actual values of <LATEX>\mu _ { 1 }</LATEX> and <LATEX>\mu _ { 2 }</LATEX> are less important than the treatment difference to be detected. Suppose <LATEX>8</LATEX> is the anticipated treatment difference then the above formula can be written as:
+k78w | <LATEX>n = f \left( \alpha , \beta \right) \times \frac { 2 \sigma ^ { 2 } } { \delta ^ { 2 } } \quad \text { in \underline{each } \underline { \mathrm { g r o u p } } }</LATEX> 7.2 Example in kidney transplantation
+g9du | The REPAIR trial was designed to assess the impact of remote ischaemic preconditioning (RIPC) using repeated inflations of a blood pressure cuff on kidney function in patients undergoing kidney transplantation. The outcome of interest is a glomerular filtration rate at 1 year.
+f682 | The assumptions are as follows:
+li1k | <LATEX>8 = 4 . 7 3 m l / m i n / 1 . 7 3 m ^ { 2 } \text { superiority with RIPC } \left( = \mu _ { 1 } - \mu _ { 2 } \text { equivalent to a } 1 0 9 6 \text { improrement } \right)</LATEX> o = 13.9 ml/min/1.73m2 from a previous study
+pbea | <LATEX>\alpha = 0 . 0 5</LATEX> <LATEX>\beta = 0 . 2 \text { i.e. power } = 0 . 8 \text { or } 8 0 \%</LATEX> The number required in each group is 2 2 2 <LATEX>7 . 8 5 \times \frac { 2 \times 1 3 . 9 ^ { 2 } } { 4 . 7 3 ^ { 2 } } = 1 3 6 .</LATEX> 272 in total.
+ccpt | To allow for losses to follow-up the trial requires approximately 320 patients.
+0fpw | It has been seen already when estimating the sample size for comparing percentages that as the absolute difference to detect decreases then the number required increases. In addition, as the significance level decreases or as the power increases this also leads to an increase in the numbers required (by increasing f(a,B)). The same principles apply when comparing means as can be seen from the sample size formula.
+dqn8 | 3.9
+cop0 | The impact of the standard deviation (o) also needs to be considered when comparing means. As the standard deviation increases so the number required in each group also increases. For example, suppose that the standard deviation was estimated to be 14.9 instead of 13.9 in the example given previously.
+lhkq | The number required in each group becomes 2 2 2 <LATEX>7 . 8 5 \times \frac { 2 \times 1 4 . 9 ^ { 2 } } { 4 . 7 3 ^ { 2 } } = 1 5 6 .</LATEX> 312 in total.
+82ju | Conversely, as the estimated standard deviation decreases so does the number of patients required. For example, suppose that the standard deviation was estimated to be 12.9%.
+y2qo | The number required in each group would be 2 2 2 <LATEX>7 . 8 5 \times \frac { 2 \times 1 2 . 9 ^ { 2 } } { 4 . 7 3 ^ { 2 } } = 1 1 7</LATEX> i.e. 234 in total.
+1piq | 7.3 Potential of adjustment in the analysis on the sample size for comparing two means
+7fqw | It has already been stated that sample sizes are often disappointingly large even before making any adjustments. However, there is one scenario where it may be possible to reduce the required size if the primary outcome is a continuous measure which is also measured at baseline.
+rhaz | A detailed discussion is beyond the scope of this session and requires an understanding of an analysis technique call 'analysis of co-variance' (ANCOVA). Basically this method takes advantage of the fact that the outcome measure for individual patients is likely to be strongly correlated to the baseline value. For example, in the REPAIR trial an estimate of the glomerular filtration rate of the transplanted kidney from the living donor is available and is expected to be correlated to the kidney function at 1 year following transplantation. This information was used in the analysis of the data.
+wak1 | 8 Adjustments to sample size calculations
+wtfz | In the calculations so far it has been assumed that full information is available on everyone (i.e. no losses to follow-up) and also that every patient receives the treatment they are allocated. In reality this is rarely achieved and some adjustments to the sample size needs to be made to account for this.
+qy1i | In this section the implications of these two scenarios will briefly be considered including what adjustments can be made. Note that these adjustments make certain assumptions but provide useful guidance to the number required. In addition, the situation where more patients will be randomised to one group than the other will also be discussed.
+1k9e | 8.1 Losses to follow-up
+5bjs | If patients are lost to follow-up for some endpoint then this reduces the effective sample size. For example, if 2% of patients in the UK PACE trial were expected to be lost to follow-up for mortality then the effective sample size of 1926 would be reduced by 2% (although in the UK, the Office of National Statistics can notify the trial when a patient dies).
+uodj | Suppose the proportion expected to be lost to follow-up is 'Q' then, in order to adjust for this, the total sample size needs to be multiplied by
+```
+
+OUTPUT:
+```

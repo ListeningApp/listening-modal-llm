@@ -1,0 +1,170 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+u8nw | Riches secured on the competitive plane are never satisfactory and permanent. They are yours to- day and another's tomorrow. Remember, if you are to become rich in a scientific and certain way, you must rise entirely out of competitive thought. You must never think for a moment that the supply is limited. Just as soon as you begin to think that all the money is being "cornered" and controlled by others, and that you must exert yourself to get laws passed to stop this process, and so on - in that moment you drop into the competitive mind and your power to cause creation is gone for the time being.
+l2v9 | And what is worse, you will probably arrest the creative movements you have already begun.
+afbe | KNOW that there are countless millions of dollars' worth of gold in the mountains of the earth, not yet brought to light. And know that if there were not, more would be created from thinking sub- stance to supply your needs.
+78r8 | KNOW that the money you need will come, even if it is necessary for a thousand men to be led to the discovery of new gold mines tomorrow.
+320g | Never look at the visible supply. Look always at the limitless riches in formless substance, and KNOW that they are coming to you as fast as you can receive and use them. Nobody, by cornering the visible supply, can prevent you from getting what is yours.
+tp8g | So never allow yourself to think for an instant that all the best building spots will be taken before you get ready to build your house, unless you hurry. Never worry about the trusts and combines, and get anxious for fear they will soon come to own the whole earth. Never get afraid that you will lose what you want because some other person "beats you to it." That cannot possibly happen. You are not seeking anything that is possessed by anybody else; you are causing what you want to be created from formless substance, and the supply is without limits. Stick to the formulated statement:
+gxfd | There is a thinking stuff from which all things are made, and which, in its original state, permeates, penetrates, and fills the interspaces of the universe.
+s2v1 | A thought, in this substance produces the thing that is imaged by the thought.
+jkp9 | A person can form things in his thought, and, by impressing his thought upon formless substance, can cause the thing he thinks about to be created.
+z8tt | www.scienceofgettingrich.net
+9g22 | CHAPTER 6
+41fx | How Riches Come To You
+7um8 | WHEN I SAY THAT YOU DO NOT HAVE TO DRIVE SHARP BARGAINS, I do not mean that you do not have to drive any bargains at all or that you are above the necessity for having any dealings with your fellow men. I mean that you will not need to deal with them unfairly. You do not have to get something for nothing, but can give to every person more than you take from him.
+uow2 | You cannot give everyone more in cash market value than you take from him, but you can give him more in use value than the cash value of the thing you take from him. The paper, ink, and other material in this book may not be worth the money you pay for it, but if the ideas suggested by it bring you thousands of dollars, you have not been wronged by those who sold it to you. They have given you a great use value for a small cash value.
+iat7 | Let us suppose that I own a picture by one of the great artists, which, in a developed society, is worth thousands of dollars. I take it to Baffin Bay and by "salesmanship" induce a native dweller to give a bundle of furs worth $500 for it. I have really wronged him, for he has no use for the picture. It has no use value to him; it will not add to his life.
+ywwr | But suppose I give him a gun worth $50 for his furs. Then he has made a good bargain. He has use for the gun. It will get him many more furs and much food; it will add to his life in every way. It will make him rich.
+0i6j | When you rise from the competitive to the creative plane, you can scan your business transactions very strictly, and if you are selling any person anything which does not add more to his life than the thing he give you in exchange, you can afford to stop it. You do not have to beat anybody in business. And if you are in a business which does beat people, get out of it at once.
+87cq | Give everyone more in use value than you take from him in cash value. Then you are adding to the life of the world by every business transaction.
+0qs3 | If you have people working for you, you must take from them more in cash value than you pay them in wages, but you can so organize your business that it will be filled with the principle of advance- ment, and so that each employee who wishes to do so may advance a little every day.
+z8f7 | You can make your business do for your employees what this book is doing for you. You can so conduct your business that it will be a sort of ladder by which every employee who will take the trouble may climb to riches himself. And given the opportunity, if he will not do so, it is not your fault.
+7w7j | And finally, just because you are to cause the creation of your riches from formless substance which permeates all your environment, it does not follow that they are to take shape from the atmosphere and come into being before your eyes.
+51vd | If you want a sewing machine, for instance, I do not mean to tell you that you are to impress the thought of a sewing machine on thinking substance until the machine is formed without hands, in the room where you sit or elsewhere. But if you want a sewing machine, hold the mental image of it with the most positive certainty that it is being made or is on its way to you. After once forming the thought,
+baj1 | www.scienceofgettingrich.net
+n1wo | The Science of Getting Rich
+5bq3 | have the most absolute and unquestioning faith that the sewing machine is coming. Never think of it or speak of it in any other way than as being sure to arrive. Claim it as already yours.
+ezla | It will be brought to you by the power of the supreme intelligence, acting upon the minds of men. If you live in Maine, it may be that a person will be brought from Texas or Japan to engage in some transaction which will result in your getting what you want.
+rsbu | If so, the whole matter will be as much to that person's advantage as it is to yours.
+magd | Do not forget for a moment that the thinking substance is through all, in all, communicating with all, and can influence all. The desire of thinking substance for fuller life and better living has caused the creation of all the sewing machines already made, and it can cause the creation of millions more - and will, whenever people set it in motion by desire and faith and by acting in a certain way.
+tb74 | You can certainly have a sewing machine in your house, and it is just as certain that you can have any other thing or things which you want and which you will use for the advancement of your own life and the lives of others.
+8l69 | You need not hesitate about asking largely. "It is your Father's pleasure to give you the kingdom," said Jesus.
+1jyv | Original substance wants to live all that is possible in you, and wants you to have all that you can use and will use for the living of the most abundant life.
+olce | If you fix upon your consciousness the fact that your desire for the possession of riches is one with the desire of the supreme power for more complete expression, your faith becomes invincible.
+erx1 | Once I saw a little boy sitting at a piano, vainly trying to bring harmony out of the keys. I saw that he was grieved and provoked by his inability to play real music. I asked him the cause of his vexation, and he answered, "I can feel the music in me, but I can't make my hands go right." The music in him was the URGE of original substance, containing all the possibilities of all life. All that there is of music was seeking expression through the child.
+b3bt | God, the one substance, is trying to live and do and enjoy things through humanity. He is saying "I want hands to build wonderful structures, to play divine harmonies, to paint glorious pictures. I want feet to run my errands, eyes to see my beauties, tongues to tell mighty truths and to sing marvelous songs," and so on.
+0w8m | All that there is of possibility is seeking expression through people. God wants those who can play music to have pianos and every other instrument and to have the means to cultivate their talents to the fullest extent. He wants those who can appreciate beauty to be able to surround themselves with beau- tiful things. He wants those who can discern truth to have every opportunity to travel and observe. He wants those who can appreciate dress to be beautifully clothed, and those who can appreciate good food to be luxuriously fed.
+vcu3 | He wants all these things because it is himself that enjoys and appreciates them; they are his creation. It is God who wants to play, and sing, and enjoy beauty, and proclaim truth, and wear fine clothes, and eat good foods. "It is God that worketh in you to will and to do," said the apostle Paul.
+hjzj | The desire you feel for riches is the infinite, seeking to express himself in you as he sought to find expression in the little boy at the piano.
+j79f | So you need not hesitate to ask largely.
+6tbv | Your part is to focus on and express that desire to God.
+xb13 | This is a difficult point with most people. They retain something of the old idea that poverty and self-sacrifice are pleasing to God. They look upon poverty as a part of the plan, a necessity of nature.
+cxqi | www.scienceofgettingrich.net
+qfmx | CHAPTER 6: How Riches Come To You
+rut3 | They have the idea that God has finished his work, and made all that he can make, and that the majority of people must stay poor because there is not enough to go around. They hold to so much of this erroneous thought that they feel ashamed to ask for wealth. They try not to want more than a very modest competence, just enough to make them fairly comfortable.
+m3cp | I recall now the case of one student who was told that he must get in mind a clear picture of the things he desired, so that the creative thought of them might be impressed on formless substance. He was a very poor man, living in a rented house and having only what he earned from day to day, and he could not grasp the fact that all wealth was his. So, after thinking the matter over, he decided that he might reasonably ask for a new rug for the floor of his best room and a coal stove to heat the house during the cold weather. Following the instructions given in this book, he obtained these things in a few months.
+mq4s | And then it dawned upon him that he had not asked enough.
+95el | He went through the house in which he lived, and planned all the improvements he would like to make in it. He mentally added a bay window here and a room there until it was complete in his mind as his ideal home, and then he planned its furnishings.
+a0a5 | Holding the whole picture in his mind, he began living in the certain way and moving toward what he wanted - and he owns the house now and is rebuilding it after the form of his mental image. And now, with still larger faith, he is going on to get greater things.
+gocl | It has been unto him according to his faith, and so it is with you - and with all of us.
+ob1z | www.scienceofgettingrich.net
+m4cb | CHAPTER 7
+m61y | Gratitude
+u2ob | THE ILLUSTRATIONS GIVEN IN THE LAST CHAPTER will have conveyed to the reader the fact that the first step toward getting rich is to convey the idea of your wants to the formless substance.
+2gnm | This is true, and you will see that in order to do so it becomes necessary to relate yourself to the formless intelligence in a harmonious way.
+emgw | To secure this harmonious relation is a matter of such primary and vital importance that I shall give some space to its discussion here and give you instructions which, if you will follow them, will be certain to bring you into perfect unity of mind with the supreme power, or God.
+xaqt | The whole process of mental adjustment and atunement can be summed up in one word: Gratitude.
+5rcb | First, you believe that there is one intelligent substance, from which all things proceed. Second, you believe that this substance gives you everything you desire. And third, you relate yourself to it by a feeling of deep and profound gratitude.
+524j | Many people who order their lives rightly in all other ways are kept in poverty by their lack of gratitude. Having received one gift from God, they cut the wires which connect them with him by failing to make acknowledgment.
+xd3m | It is easy to understand that the nearer we live to the source of wealth, the more wealth we shall receive, and it is easy also to understand that the soul that is always grateful lives in closer touch with God than the one which never looks to him in thankful acknowledgment. The more gratefully we fix our minds on the supreme when good things come to us, the more good things we will receive, and the more rapidly they will come. And the reason simply is that the mental attitude of gratitude draws the mind into closer touch with the source from which the blessings come.
+8qb6 | If it is a new thought to you that gratitude brings your whole mind into closer harmony with the creative energies of the universe, consider it well, and you will see that it is true. The good things you have already have come to you along the line of obedience to certain laws. Gratitude will lead your mind out along the ways by which things come, and it will keep you in close harmony with creative thought and prevent you from falling into competitive thought.
+wkbn | Gratitude alone can keep you looking toward the all, and prevent you from falling into the error of thinking of the supply as limited - and to do that would be fatal to your hopes.
+ftfg | There is a law of gratitude, and it is absolutely necessary that you should observe the law if you are to get the results you seek. The law of gratitude is the natural principle that action and reaction are always equal and in opposite directions.
+7xi5 | The grateful outreaching of your mind in thankful praise to the supreme intelligence is a liberation or expenditure of force. It cannot fail to reach that to which it addressed, and the reaction is an instan- taneous movement toward you.
+w8r5 | 19
+ybik | www.scienceofgettingrich.net
+gii5 | The Science of Getting Rich
+q5eu | "Draw nigh unto God, and he will draw nigh unto you." That is a statement of psychological truth. And if your gratitude is strong and constant, the reaction in formless substance will be strong and continuous; the movement of the things you want will be always toward you. Notice the grateful atti- tude that Jesus took, how he always seems to be saying, "I thank thee, Father, that thou hearest me." You cannot exercise much power without gratitude, for it is gratitude that keeps you connected with power.
+a7ao | But the value of gratitude does not consist solely in getting you more blessings in the future. Without gratitude you cannot long keep from dissatisfied thought regarding things as they are.
+29a3 | The moment you permit your mind to dwell with dissatisfaction upon things as they are, you begin to lose ground. You fix attention upon the common, the ordinary, the poor, the squalid, and the mean - and your mind takes the form of these things. Then you will transmit these forms or mental images to the formless. And the common, the poor, the squalid, and the mean will come to you.
+```
+
+OUTPUT:
+```

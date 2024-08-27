@@ -1,0 +1,99 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document. Your task is to faithfully reproduce the text for our text-to-speech engine so that it is easily read aloud.
+
+Note that the text might not start at the beginning and paragraphs may be split acrosss multiple textboxes. Textboxes may start or end in the middle of a word which is acceptable: do not combine text between textboxes and leave broken words at the start and end of a textbox unchanged.
+
+You will receive one textbox per-line in the format `id | Textbox content`. The output must be in the format `id | Clean content`.
+
+RULES:
+ • Remove inline citations and references e.g. "(Author, 2021)" or "(https://wikipedia.org/article.html)" or "[ECMOS 35b, 47, 49]".
+ • Spell out numbers, dates, and chemical formulas for the TTS engine e.g. "-2.5" -> "negative two point five" or "Jan. 2020" -> "January twenty twenty".
+ • Spell out LaTeX formulas for the TTS engine e.g. "<LATEX>p = 1</LATEX>" -> "P equals one".
+ • Rejoin hyphenated word fragments within the same textbox e.g. "synth -esize" -> "synthesize".
+ • Fix simple typos and OCR errors e.g. "O nce upon a 1ime." -> "Once upon a time.".
+ • Delete nonsequiter textboxes that interrupt the middle of a sentence if they obviously do not belong.
+
+Otherwise, the output should exactly match the input text:
+ • Do not combine text across lines or attempt to fix words broken across lines.
+ • Ensure each ID from the input is included in the output.
+ • Make as few changes as possible while respecting the above rules.
+
+EXAMPLE INPUT:
+```
+ccpt | stigate the effectiveness of psychedelics for ADHD symp- toms in adults.
+0fpw | 2. Materia1 and methods
+dqn8 | 2.1. Study design and participants
+cop0 | The study employed a naturalistic design, assessing the experiences of participants at bas-,
+lhkq | eline before they start, and at 2 and 4 weeks after initiation. The target population included adults with ADHD symptoms who had not been diag- nosed with ADHD before. To be included, participants needed to score on Conner's Adult ADHD Rating Scale (CAARS-S:SV). This cut-off was indicative of clinically elevated symptoms (Conners et al., 1999) (see section 2.3).
+82ju | 2.2. Study procedure
+y2qo | The online advertisement was placed on a website providing information about psychedelics (www.microdo sing.nl). Interested participants were redirected to information explaining the study rationale and procedure. The baseline survey took 20 min to complete. If the survey had not been completed after 24 h, a reminder was sent. Each of the surveys at the 2- and 4-week time points took about 15 min to complete. Par- ticipants were able to pause the surveys. Data collection occurred between Nov. 2020 and Jul. 2021. The study was approved by the Ethics Review Committee of Psy- chology and Neuroscience at Maastricht University (ERCPN- 215_05_11_2019_A1).
+1piq | 2.3. Measures
+7fqw | 2.3.1. Demographic information and history of substance use
+rhaz | At baseline, demographic information was collected. History of substance use assessed experience with psyche- delics (i.e., ayahuasca, DMT, 5-MeO-DMT, LSD, novel lysergamides (e.g., 1P-LSD, ALD-52), psilocybin, salvia divinorum, ibogaine, and mescaline) in both full (psychedelic) doses and microdoses.
+wak1 | 2.3.2. Psychiatric and physiological diagnoses
+wtfz | Participants were asked whether they had a current diagnosis of a disorder. These answer options were chosen because most of the listed diagnoses are often reported to co-occur with ADHD (Kooij et al., 2019), or because these diagnoses were reported to be common in people who microdose (Fadiman and Korb, 2019). We 
+3j2l | REVIEW ARTICLE Frontiers in Psychiatry | www.frontiersin.org
+03k3 | 2
+1k9e | constructed a variable Comorbidity alongside ADHD, differenti- ating respondents with and without a comorbid diagnosis alongside ADHD (<LATEX>p < . 0 0 1 =</LATEX> only ADHD or no ADHD diagnosis; <LATEX>p > . 0 1 =</LATEX> ADHD and at least one other diagnosis). We constructed a variable Medication use alongside microdosing, differentiating respondents who were and were not using conven- tiona1 ADHD medication alongside microdosing (<LATEX>0 =</LATEX> only microdosing; <LATEX>1 =</LATEX> conven-
+```
+
+EXAMPLE OUTPUT:
+```
+ccpt | stigate the effectiveness of psychedelics for ADHD symptoms in adults.
+0fpw | Two. Material and methods
+dqn8 | Two point one. Study design and participants
+cop0 | The study employed a naturalistic design, assessing the experiences of participants at bas-,
+lhkq | eline before they start, and at two and four weeks after initiation. The target population included adults with ADHD symptoms who had not been diagnosed with ADHD before. To be included, participants needed to score on Conner's Adult ADHD Rating Scale. This cut-off was indicative of clinically elevated symptoms (see section two point three).
+82ju | Two point two. Study procedure
+y2qo | The online advertisement was placed on a website providing information about psychedelics. Interested participants were redirected to information explaining the study rationale and procedure. The baseline survey took twenty minutes to complete. If the survey had not been completed after twenty-four hours, a reminder was sent. Each of the surveys at the two and four-week time points took about fifteen minutes to complete. Participants were able to pause the surveys. Data collection occurred between November twenty twenty and July twenty twenty-one. The study was approved by the Ethics Review Committee of Psychology and Neuroscience at Maastricht University.
+1piq | Two point three. Measures
+7fqw | Two point three point one. Demographic information and history of substance use
+rhaz | At baseline, demographic information was collected. History of substance use assessed experience with psychedelics (i.e., ayahuasca, DMT, five-MeO-DMT, LSD, novel lysergamides (e.g., one-P-LSD, ALD-fifty-two), psilocybin, salvia divinorum, ibogaine, and mescaline) in both full (psychedelic) doses and microdoses.
+wak1 | Two point three point two. Psychiatric and physiological diagnoses
+wtfz | Participants were asked whether they had a current diagnosis of a disorder. These answer options were chosen because most of the listed diagnoses are often reported to co-occur with ADHD, or because these diagnoses were reported to be common in people who microdose. We
+3j2l |
+03k3 |
+1k9e | constructed a variable Comorbidity alongside ADHD, differentiating respondents with and without a comorbid diagnosis alongside ADHD (P is less than point zero zero one equals only ADHD or no ADHD diagnosis; P is greater than point zero one equals ADHD and at least one other diagnosis). We constructed a variable Medication use alongside microdosing, differentiating respondents who were and were not using conventional ADHD medication alongside microdosing (zero equals only microdosing; one equals conven-
+```
+
+INPUT:
+```
+k5db | If no one quite filled his present place, you can see that there must be a going backward in every- thing. Those who do not quite fill their present places are dead weight upon society, government, commerce, and industry. They must be carried along by others at a great expense. The progress of the world is slowed only by those who do not fill the places they are holding. They belong to a former age and their tendency is toward degeneration. No society could advance if everyone was smaller than his place; social evolution is guided by the law of physical and mental evolution.
+7jzh | In the animal world, evolution is caused by excess of life. When an organism has more life than can be expressed in the functions of its own plane, it develops the organs of a higher plane, and a new species is originated.
+vm00 | There never would have been new species had there not been organisms which more than filled their places. The law is exactly the same for you: Your getting rich depends upon your applying this principle to your own affairs.
+62qe | Every day is either a successful day or a day of failure, and it is the successful days which get you what you want. If every day is a failure you can never get rich, while if every day is a success, you cannot fail to get rich.
+ypz9 | If there is something that may be done today and you do not do it, you have failed insofar as that thing is concerned - and the consequences may be more disastrous than you imagine.
+mpml | You cannot foresee the results of even the most trivial act. You do not know the workings of all the forces that have been set moving in your behalf. Much may be depending on your doing some simple act, and it may be the very thing which is to open the door of opportunity to very great possibilities. You can never know all the combinations which supreme intelligence is making for you in the world of things and of human affairs. Your neglect or failure to do some small thing may cause a long delay in getting what you want.
+imnm | Do, every day, ALL that can be done that day.
+8na8 | There is, however, a limitation or qualification of the above that you must take into account.
+ul2a | You are not to overwork, nor to rush blindly into your business in the effort to do the greatest possible number of things in the shortest possible time.
+4eaf | You are not to try to do tomorrow's work today, nor to do a week's work in a day. It is really not the number of things you do, but the EFFICIENCY of each separate action that counts.
+4b6k | The Science of Getting Rich
+hxiu | Every act is, in itself, either a success or a failure.
+1ylw | Every act is, in itself, either effective and efficient or ineffective and inefficient.
+waqw | Every inefficient act is a failure, and if you spend your life in doing inefficient acts, your whole life will be a failure. The more things you do, the worse for you - if all your acts are inefficient ones.
+nf6a | On the other hand, every efficient act is a success in itself, and if every act of your life is an efficient one, your whole life must be a success.
+5g96 | The cause of failure is doing too many things in an inefficient manner and not doing enough things in an efficient manner.
+d1y5 | You will see that it is a self-evident proposition that if you do not do any inefficient acts and if you do a sufficient number of efficient acts, you will become rich. If, now, it is possible for you to make each act an efficient one, you see again that the getting of riches is reduced to an exact science, like math- ematics.
+rl20 | The matter turns, then, on the question of whether you can make each separate act a success in itself. And this you can certainly do. You can make each act a success, because ALL power is working with you, and ALL power cannot fail.
+t91r | Power is at your service, and to make each act efficient you have only to put power into it.
+7s4b | Every action is either strong or weak, and when every action is strong, you are acting in the certain way which will make you rich.
+ehif | Every act can be made strong and efficient by holding your vision while you are doing it and putting the whole power of your FAITH and PURPOSE into it.
+buv0 | It is at this point that the people who separate mental power from personal action fail. They use the power of mind in one place and at one time, and they act in another way in another place and at another time. So their acts are not successful in themselves; too many of them are inefficient. But if ALL power goes into every act, no matter how commonplace, every act will be a success in itself. And since it is the nature of things that every success opens the way to other successes, your progress toward what you want and the progress of what you want toward you, will become increasingly rapid.
+wqqa | Remember that successful action is cumulative in its results. Since the desire for more life is inher- ent in all things, when a person begins to move toward larger life, more things attach themselves to him, and the influence of his desire is multiplied.
+www8 | Do, every day, all that you can do that day, and do each act in an efficient manner.
+zhvt | In saying that you must hold your vision while you are doing each act, however trivial or common- place, I do not mean to say that it is necessary at all times to see the vision distinctly to its smallest details. It should be the work of your leisure hours to use your imagination on the details of your vision and to contemplate them until they are firmly fixed upon memory. If you wish speedy results, spend practically all your spare time in this practice.
+yv1q | By continuous contemplation you will get the picture of what you want - even to the smallest details - so firmly fixed upon your mind and so completely transferred to the mind of formless sub- stance, that in your working hours you need only to mentally refer to the picture to stimulate your faith and purpose and cause your best effort to be put forth.
+u7jx | Contemplate your picture in your leisure hours until your consciousness is so full of it that you can grasp it instantly. You will become so enthused with its bright promises that the mere thought of it will call forth the strongest energies of your whole being.
+03u9 | Let us again repeat our syllabus, and by slightly changing the closing statements bring it to the point we have now reached.
+8sqd | There is a thinking stuff from which all things are made, and which, in its original state, permeates, penetrates, and fills the interspaces of the universe.
+vlyz | A thought in this substance produces the thing that is imaged by the thought.
+5034 | A person can form things in his thought, and, by impressing his thought upon formless substance, can cause the thing he thinks about to be created.
+9lvu | In order to do this, a person must pass from the competitive to the creative mind. He must form a clear mental picture of the things he wants, and must do - with faith and purpose - all that can be done each day, doing each separate thing in an efficient manner.
+uy7a | CHAPTER 13
+lqs6 | Getting Into The Right Business
+ri4s | SUCCESS, IN ANY PARTICULAR BUSINESS, depends for one thing upon your possessing, in a well-devel- oped state, the faculties required in that business.
+2j8o | Without good musical faculty no one can succeed as a teacher of music. Without well-developed mechanical faculties no one can achieve great success in any of the mechanical trades. Without tact and the commercial faculties no one can succeed in mercantile pursuits. But to possess in a well-developed state the faculties required in your particular vocation does not insure getting rich. There are musicians who have remarkable talent, and who yet remain poor. There are blacksmiths, carpenters, and so on who have excellent mechanical ability, but who do not get rich. And there are merchants with good faculties for dealing with people who nevertheless fail.
+```
+
+OUTPUT:
+```

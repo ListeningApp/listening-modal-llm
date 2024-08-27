@@ -1,0 +1,141 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+1pjs | AA
+o2kr | ACADEMY OF Management
+v6sk | EDITOR'S COMMENTS: THE CRAFT OF WRITING THEORY ARTICLES-VARIETY AND SIMILARITY IN "AMR"
+1wj6 | Author(s): Ingrid Smithey Fulmer Source: The Academy of Management Review, July 2012, Vol. 37, No. 3 (July 2012), pp. 327-331
+936l | Published by: Academy of Management Stable URL: https://www.jstor.org/stable/23218091
+06yq | JSTOR is a not-for-profit service that helps scholars, researchers, and students discover, use, and build upon a wide range of content in a trusted digital archive. We use information technology and tools to increase productivity and facilitate new forms of scholarship. For more information about JSTOR, please contact support@jstor.org.
+dpv6 | Your use of the JSTOR archive indicates your acceptance of the Terms & Conditions of Use, available at https://about.jstor.org/terms
+8r5j | Academy of Management is collaborating with JSTOR to digitize, preserve and extend access to The Academy of Management Review
+2taz | JSTOR
+o3ya | EDITOR'S COMMENTS: THE CRAFT OF WRITING THEORY ARTICLES- VARIETY AND SIMILARITY IN AMR
+r5il | Over the years, a host of articles and edito- rial commentaries in this journal and else- where have been written with the aim of help- ing management scholars understand (1) what theory is and (2) how to develop better (i.e., more novel, useful, and interesting) theory (e.g., Bacharach, 1989; Kilduff, 2006; LePine & King, 2010; Suddaby, 2010; Sutton & Staw, 1995; Thompson, 2011; Weick, 1989; Whetten, 1989). However, it is also worth remembering that journals don't publish big ideas; they publish manuscripts where authors have successfully communicated their big ideas in such a way that they can be readily understood and eval- uated by others (Daft, 1995; Kilduff, 2006; King & Lepak, 2011). As the mission statement for this journal notes, "AMR publishes novel, in- sightful, and carefully crafted conceptual work" (emphasis mine). Of course, a necessary part of the crafting is in the conceptualization of good theory, but equally important is struc- turing the paper well.
+5gui | To use an analogy, the organization of a manuscript (i.e., "macrostructure"; Daft, 1995) and the quality of the writing therein are like a window. A manuscript's window is "dirty" when its organization is awkward, unclear, or a poor fit with the concepts being ex- plained, or when the writing is sloppy. The effect is to distract the reader by causing him or her to focus on the window (the poor struc- ture), rather than to look through it to the un- derlying message. In early rounds of the jour- nal review process, editors and reviewers all too often have to advise authors to clean up their paper (e.g., streamline the writing, coor- dinate the text with the figures, add or reword propositions) before they can begin to actually evaluate the merits of any theoretical contri- bution. And that is if the authors are lucky; confusing structure or poor writing may so dominate a manuscript that it diminishes any perceived potential theoretical contribution the paper might have, leading to a first-round rejection.
+82qc | Although in reality the two are often inextri- cably connected (Van Maanen, 1995), in this essay I focus on the window-that is, on the craft of constructing a theory paper-rather than on the process of generating theory per se. And while there is much to be said about grammar, sentence structure, language usage, and specifics of writing technique (what Daft calls "microstructure"), I mostly focus on is- sues of manuscript organization and presen- tation, including the title and abstract, head- ings and sections, the use (or nonuse) of formal propositions, and the use of tables and figures.
+ls7d | In a recent editorial essay King and Lepak recommended that aspiring authors "outline or map out the structure of exemplar articles and then customize the learning gained in this process to come up with new and more effec- tive approaches for communicating funda- mentally good ideas" (2011: 209). Modeling this approach, I use AMR Best Articles from the last ten years (published 2001 through 2010) to il- lustrate both the structural variety and the similarities in articles published in AMR.1
+tzt3 | FIRST IMPRESSIONS: THE TITLE AND ABSTRACT
+t8vv | It is a sobering thought, but the only parts of a published paper that most people will ever read are the title and abstract. Whether re- trieved in long lists of search engine results or appearing in table of contents notifications, these either grab the reader's attention imme- diately or never. The title and abstract are also
+qvnu | Academy of Management Review
+kggw | often the only information that potential re- viewers see in the journal's request to review a paper and, of course, are the first things that reviewers, and ultimately readers, will see if and when they do encounter the full manu- script. Although these elements of a paper are the smallest, they do a lot of work. We as authors need to think of them as appetizers.
+xrd1 | Good authors know how to make the title and abstract "hook" a reader, but they don't all do it in the same way. Among the ten Best Articles, for example, seven exhibit what one of my colleagues refers to, tongue in cheek, as the "colonic" title-that is, a longish title con- sisting of two phrases separated by a colon. Of the remaining three, two articles go to the other extreme, with simple two- or three-word titles ("Systems of Exchange" and "Manage- ment Innovation"). One advantage of the latter is that brevity, especially in academic writing, is novel and therefore attention grabbing. An advantage of the longer style is that the author can use the "precolonic" part of the title either to succinctly state the topic (e.g., "Social Cap- ital: ... ") or to artfully begin to tell the story using some sort of image or metaphor ("Steal- ing Fire: ... "), while still being able to give additional clarifying information after the co- lon to help position the idea in the read- er's mind.
+5746 | What most of these articles' titles have in common is that they reference the core con- struct or idea of the paper in simple language. Rather than trying to impress with an ostenta- tious title, they aim to draw the reader in. More pragmatically, they aim to draw the right reader in-that is, the audience most likely to understand and appreciate the paper.
+7toz | As with the titles, the abstracts of these ar- ticles vary considerably. Some present a brief outline of the article in three to four sentences (e.g., Dane & Pratt, 2007; Makadok & Coff, 2009; Mitchell & James, 2001), whereas others simply state succinctly what the authors create or argue in the article (e.g., Adler & Kwon, 2002; George, Chattopadhyay, Sitkin, & Barden, 2006). One even starts with a hypothetical question and then uses the answer to lead into a description of what the article does (Maine- melis, 2010).
+j346 | Again, what these abstracts have in common is that they clearly name and describe the core constructs and aims of the article. For the most
+v8uq | July
+x972 | part, they also steer clear of jargon and are relatively conversational in tone.
+cwrw | MACROSTRUCTURE: ORGANIZATION OF MAJOR SECTIONS
+4i0e | Among the ten Best Articles, authors differ in how they use the formal structure of the article as a device for advancing the narrative. With the exception of the conclusion or discussion section, which is usually labeled as such, not one of the ten award-winning articles uses solely generic section headings, such as Back- ground, Literature Review, Model and Propo- sitions, and so on. Instead, each employs de- scriptive headings that introduce concepts or mirror the structure and flow of the theoretical model. As an example, "Social Capital: Pros- pects for a New Concept," by Adler and Kwon (2002), has five main headings-"Defining So- cial Capital," "Sources of Social Capital," "Benefits and Risks of Social Capital," "The Contingencies and Value of Social Capital," and "Conclusion"-that roughly map onto the conceptual model depicted in the first figure of their article.
+h2l3 | In terms of similarities, the authors identify and define key constructs very early in most of these articles, typically either in the introduc- tion or in the first formal section. This is most noticeable in several of the headings of the first sections: "Defining Social Capital" (Adler & Kwon, 2002), "What is Management Innovation?" (Birkinshaw, Hamel, & Mol, 2008), "Defining Cre- ative Deviance" (Mainemelis, 2010), and "What Intuition Is: Bringing Together Intuitive Pro- cesses and Outcomes" (Dane & Pratt, 2007).
+dfzb | As noted above, all the articles have a discus- sion and/or conclusion section. In addition to bringing the manuscript to a close and offering implications for future research, in many cases the authors also offer suggestions for manage- rial practice (e.g., Adler & Kwon, 2002; Dane & Pratt, 2007; Makadok & Coff, 2009), recalling Lewin's (1945) oft-cited statement about the prac- ticality of good theory.
+u6ty | ILLUMINATING THE PATH: PROPOSITIONS AND OTHER TOOLS
+awvu | In his editorial advice about writing theory, Kilduff (2006) argued that while some ap- proaches to theory development lend them-
+on9b | selves to propositions, others do not; indeed, in many cases, propositions may be more dis- tracting than helpful. It is an interesting exer- cise to study how the authors use propositions, as well as other techniques, to advance their ideas in the award-winning articles. Among the ten Best Articles, in five the authors com- municate their theoretical contribution quite effectively without any formal propositions, using other means to accomplish the objec- tives of the paper. Among the five, one article focuses on conceptual synthesis across disci- plines and theoretical perspectives (Adler & Kwon, 2002), one presents an analytic classifi- cation scheme (Biggart & Delbridge, 2004), one is an essay on the self-fulfilling nature of the- ory (Ferraro, Pfeffer, & Sutton, 2005), one fo- cuses on defining and illustrating a process (Birkinshaw et al., 2008), and one utilizes a summary of configurations and theoretical ex- amples, as well as figures (Mitchell & James, 2001). Of those articles that contain proposi- tions, four develop comprehensive sets of propositions; three of these relate to theoreti- cal models aimed at predicting organizational outcomes (innovation and adaptation, organi- zational actions, creative products; Benner & Tushman, 2003; George et al., 2006; Maineme- lis, 2010) and one predicts individual decision- making effectiveness (Dane & Pratt, 2007). The remaining article (Makadok & Coff, 2009) pri- marily uses a formal model with a theorem and formal proof to communicate its main in- sights but also offers an example proposition that illustrates one of the cases derived from the model.
+a8ge | Among the articles in which the authors do use propositions, there are important similari- ties. First, the propositions themselves are clearly worded, using the same terminology as is used in the rest of the paper, and they de- scribe the expected direction (positive or nega- tive) of relevant relationships. Many of the prop- ositions in these articles are fairly complex and lengthy; therefore, clarity is especially critical. Further, moderating relationships are identified as such, and the effects of moderators on under- lying relationships are clearly explained in the propositions. One final observation is that the propositions are an organic part of the article and have a logical and coherent flow. By "or- ganic" I mean that the logical arguments in the article build to each proposition and that the
+h27a | series of arguments and propositions appears in the text this way, rather than as a lengthy dis- course followed by a list of propositions all "or- phaned" together on the last page of the manu- script. A quick way to check for logical and coherent flow is to simply read through the paper from one proposition to the next. Are they consis- tently worded? Taken together do they tell a story that fits with the manuscript's theoretical model as described in the paper and/or figure(s)?
+pdjh | ACCESSORIZING: THE USE OF TABLES AND FIGURES
+xmgs | With the exception of the essay by Ferraro et al. (2005), the ten award-winning articles all include at least one figure or table. Many of the articles illustrate conceptual constructs and relationships using boxes and arrows models, although not all of them use formal propositions to describe those relationships (e.g., Adler & Kwon, 2002). Makadok and Coff (2009) include a figure illustrating a three- dimensional taxonomy of governance forms, to which they refer frequently. Birkinshaw et al. (2008) also use a figure to illustrate a process framework. And in their paper on the role of time in the conceptualization of causal rela- tionships, Mitchell and James (2001) use a va- riety of graphs and figures to convey their arguments. In several of the articles the au- thors use tables to summarize the defining elements of a typology or to organize and pres- ent lengthy literature reviews concisely (e.g., Adler & Kwon, 2002; Biggart & Delbridge, 2004; Birkinshaw et al., 2008; Dane & Pratt, 2007). In addition to creating useful visual aids to help the reader quickly understand a framework or grasp a large body of information, tables can also sometimes help streamline and reduce the length of a manuscript.
+bd9h | One common feature of the articles with multiple formal propositions is that in all of them the propositions are labeled as such (Pl, P2, etc.) in the relevant figure. This is im- mensely helpful for guiding the reader through the propositions and for linking the text to the figure. Even in articles without propositions, figures and tables are well inte- grated with the text. As one is constructing a paper, it is important to visualize the final published piece, with the tables and figures embedded adjacent to the ideas being ex-
+m047 | Academy of Management Review
+gy8c | plained. This requires conscious effort, since when we prepare manuscripts for submission, we append the figures and tables to the end of the document, which may make it more likely that they are treated as afterthoughts (i.e., out of sight, out of mind). Effective authors not only use figures and tables that correspond to the text (e.g., same construct labels) but also actively integrate them (e.g., by giving an overview or by referring to them periodically in the text). While it is true, as Sutton and Staw noted, that "diagrams are not theory" (1995: 376), these accessories can be powerful tools for clarifying and enhancing the theoretical ideas in a paper.
+y4mj | CONCLUSION
+```
+
+OUTPUT:
+```

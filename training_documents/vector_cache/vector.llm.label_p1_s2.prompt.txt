@@ -1,0 +1,126 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+1pjs | genes
+o2kr | MDPI
+v6sk | Review
+1wj6 | AAV Vector-Mediated Gene Delivery to Substantia Nigra Dopamine Neurons: Implications for Gene Therapy and Disease Models
+936l | Abstract: Gene delivery using adeno-associated virus (AAV) vectors is a widely used method to transduce neurons in the brain, especially due to its safety, efficacy, and long-lasting expression. In addition, by varying AAV serotype, promotor, and titer, it is possible to affect the cell specificity of expression or the expression levels of the protein of interest. Dopamine neurons in the substantia nigra projecting to the striatum, comprising the nigrostriatal pathway, are involved in movement control and degenerate in Parkinson's disease. AAV-based gene targeting to the projection area of these neurons in the striatum has been studied extensively to induce the production of neurotrophic factors for disease-modifying therapies for Parkinson's disease. Much less emphasis has been put on AAV-based gene therapy targeting dopamine neurons in substantia nigra. We will review the literature related to targeting striatum and/ or substantia nigra dopamine neurons using AAVs in order to express neuroprotective and neurorestorative molecules, as well as produce animal disease models of Parkinson's disease. We discuss difficulties in targeting substantia nigra dopamine neurons and their vulnerability to stress in general. Therefore, choosing a proper control for experimental work is not trivial. Since the axons along the nigrostriatal tract are the first to degenerate in Parkinson's disease, the location to deliver the therapy must be carefully considered. We also review studies using AAV-x-synuclein (x-syn) to target substantia nigra dopamine neurons to produce an x-syn overexpression disease model in rats. Though these studies are able to produce mild dopamine system degeneration in the striatum and substantia nigra and some behavioural effects, there are studies pointing to the toxicity of AAV-carrying green fluorescent protein (GFP), which is often used as a control. Therefore, we discuss the potential difficulties in overexpressing proteins in general in the substantia nigra.
+06yq | Keywords: adeno-associated virus; alpha-synuclein; Parkinson's disease; substantia nigra; dopamine; neurotrophic factors; GDNF; striatum; gene therapy; GFP
+dpv6 | 1. Introduction
+8r5j | Our goal is to review adeno-associated virus (AAV) vector-based gene therapy approaches to overexpress neurotrophic proteins in the striatum or substantia nigra and discuss the use of AAVs as tools to produce Parkinson's disease models in animals. AAV vector has several characteristics that favour its use for gene therapy in humans. The main advantage is that it is a non-replicating vector that rarely integrates into the host genome, and, indeed, a wild-type (WT) AAV is not known to cause any disease in humans, making it one of the safest viral vectors of choice for gene delivery to the brain [1]. In addition to safety, AAV is able to efficiently transduce various cell types and confer long-term expression in post-mitotic cells in the brain [2]. However, it is possible to insert only a limited size
+2taz | Genes 2017, 8, 63; doi:10.3390/genes8020063
+o3ya | www.mdpi.com/journal/genes
+r5il | Genes 2017, 8, 63
+5gui | of transgenic DNA, up to 4.7 kb, slightly restricting the applicability [3]. Different combinations of AAV serotypes and promoters can mediate the transduction of different neuron types with varying transgene expression levels in the brain. AAV serotype-2 (AAV2) has been most commonly studied in the rodent brain [4-6] and used in clinical trials, though there has been evidence that AAV5 may diffuse better in the brain parenchyma and transduce neurons more efficiently [6]. Additionally, serotypes may be combined together in different ratios to change expression and transduction [7]. With many AAV options available (serotype, promoter, titer, volume), as well as with consideration of how the protein of interest will interact with the target cells, outcomes can vary [3].
+82qc | Among degenerative brain diseases, Parkinson's disease has been the focus for gene therapy [3], and as such there are currently seven ongoing clinical trials for Parkinson's disease using AAVs [8]. In Parkinson's disease, the nigrostriatal dopamine neurons that project from substantia nigra to the striatum [9,10] degenerate during disease progression [11]. The death of dopamine neurons in the substantia nigra results in the cardinal motor symptoms of the disease such as tremor, rigidity, bradykinesia, and postural instability [12]. A number of factors contribute to the neurodegeneration, including disturbances in mitochondrial respiration [13], environmental risk to certain toxins [14], chronic endoplasmic reticulum stress, and gene mutations [15]. Though the etiology of sporadic Parkinson's disease (85%-90% of cases [16]) is currently unknown, it seems that the substantia nigra dopamine neurons are particularly vulnerable to stress and protein aggregation [10]. This population of neurons has higher intrinsic levels of metabolic stress and also mitochondrial dysfunction, partially due to the oxidation of dopamine [17]. Additionally, increased intrinsic stress vulnerability of substantia nigra dopamine neurons, as compared to ventral tegmental area dopamine neurons, could be due to their distinct autonomous rhythmic activity at a low frequency with broad action potentials [18].
+ls7d | Regarding the genetic causes of Parkinson's disease, some of the familial forms are related to mitochondria dysfunction or «-synuclein («-syn) mutations and duplications or triplications of the x-syn locus [19,20]. Interestingly, the pathological hallmark of both sporadic and genetic forms of Parkinson's disease are the Lewy bodies, inclusions containing «-syn and many other proteins [21]. Moreover, Lewy pathology is also observed in non-dopaminergic neurons during Parkinson's disease progression [22].
+tzt3 | Results from various studies suggest that the neuroprotective and neurorestorative properties of neurotrophic factors have great potential as a new disease modifying therapy for Parkinson's disease [23]. A seminal study showed that long-term overexpression of the glial cell line-derived neurotrophic factor (GDNF) protein using recombinant AAV-GDNF driven by the MD (a combination of CMV (cytomegalovirus) enhancer and part of human ß-globin) promoter in the rat striatum before a 6-hydroxydopamine (6-OHDA) lesion led to protection of the nigrostriatal system [24]. AAV-GDNF under control of the CMV promoter injected after the 6-OHDA lesion into the rat striatum also showed functional recovery of the nigrostriatal system [25]. Both of these studies showed behavioural recovery on drug-induced rotations and cylinder test assays, two tests often used to measure the severity of a unilateral lesion in rat Parkinson's disease models. AAV-GDNF has been effective in promoting functional recovery not only in rat models but also in primate models of Parkinson's disease [26,27] and is currently in a clinical trial coordinated by the NIH Clinical Center [28,29]. Another AAV-based neurotrophic factor therapy for human Parkinson's disease patients has been neurturin (NRTN), a protein in the same family as GDNF [30]. AAV-NRTN has been shown to be safe as well as efficacious for targeting the substantia nigra in rats and primates, and it was effective in improving the outcomes of a rat 6-OHDA model [31]. However, when AAV2-NRTN was given to the putamen (striatum in rodents) [32] or simultaneously to the putamen and substantia nigra [33] in a double-blind, randomized, controlled trial in parkinsonian patients, it did not show clinically significant benefits over sham surgery. Though interestingly, secondary analysis of a double-blind controlled Phase 2b clinical study of AAV-NRTN identified a more robust response to AAV-NRTN in Parkinson's disease patients diagnosed within five years prior to treatment, relative to those diagnosed ten years prior or more [34]. In addition, a recent study has identified NRTN variants that may be
+t8vv | Genes 2017, 8, 63
+qvnu | more effective [35]. Considering gene therapy for Parkinson's disease patients other than neurotrophic factors, AAV carrying glutamic acid decarboxylase (AAV2-GAD) was administered to the subthalamic nucleus and showed a significant benefit over sham surgery [36]. AAV-AADC (aromatic L-amino decarboxylase, the enzyme that converts levodopa to dopamine) has also shown clinical promise on motor symptoms in particular [37] and is currently in clinical trials [38]. There have also been studies in animals with AAV-TH (tyrosine hydroxylase) or AAV-TH combined with AAV-AADC [39] and with AAV-TH combined with GTP cyclohydrolase I [40] that have shown success. These studies also clearly demonstrated the safety of AAV as a vehicle for protein expression.
+kggw | The trials described above bring up an important aspect of human gene therapy when targeting dopamine neurons for restoration purposes: whether to target the striatum/putamen or the substantia nigra. This is especially relevant since in Parkinson's disease the axons along the nigrostriatal tract are degenerating before the dopamine neuron bodies in the substantia nigra [41], and it is not clear how axonopathy impacts the efficacy of functional restoration after striatum/putamen administration. Also, it is likely that the optimal location, striatum/putamen or substantia nigra, as anatomical target for AAV injection is different depending on the therapeutic protein [23].
+xrd1 | 2. Delivering Neurotrophic Factor-Encoding Genes Carried by AAV to the Striatum
+5746 | Targeting the striatum in gene therapy has been a common approach with neurotrophic factors. Though as with any AAV, there is the issue of specificity and spreading. For example, in a previous clinical trial, the spreading of AAV2-NRTN was limited when injected to the putamen and particularly so when injected to the substantia nigra [42]. However, vectors carrying neurotrophic factor genes that were injected into the striatum can be transported retrogradely to the substantia nigra. For example, in the primate brain, AAV9-carrying green fluorescent protein (GFP) injected to the putamen has been shown to be transported in the anterograde and retrograde directions [43]. This has also been particularly true for AAV2-GDNF [44]. GDNF gene therapy targeting the striatum has restored nigral neurons after 6-OHDA injections in rats, but how AAV retrograde transport to the substantia nigra affects the therapeutic efficacy is unknown [24,45-47]. The results of limited efficacy for the AAV-NRTN trial when injected into putamen, together with findings that four to five years after diagnosis of Parkinson's disease there are few tyrosine hydroxylase (TH) fibres left in the putamen [48], led to clinical trials targeting the substantia nigra [31]. This brings up the question of whether striatally injected AAVs can restore dopamine neurocircuitry only when there are dopamine fibres that can transport neurotrophic factors from the striatum to the substantia nigra. However, in the absence of functional nigrostriatal fibres, GDNF expressed in striatal medium spiny projection neurons can be anterogradely transported to the substantia nigra pars reticulata and may thus signal locally in the substantia nigra on the nearby substantia nigra pars compacta dopamine neurons [49]. Moreover, there is a large body of experimental evidence indicating that striatal AAV delivery may be better than delivery into the substantia nigra. A neuroprotective study in mice with striatal AAV-GDNF injection against MPTP (1-methyl-4-phenyl-1,2,3,6-tetrahydropyridine)-induced experimental parkinsonism showed preserved synaptic plasticity and protected against the loss of dopamine; however its transport was not measured here [50]. AAV-GDNF in the 6-OHDA model of Parkinson's disease has shown efficacy in both neuroprotective and neurorestorative studies in rats. When AAV-GDNF was injected before the 6-OHDA to striatum, in both cases it was able to protect substantia nigra dopamine neurons [24,51]; perhaps unsurprisingly since the tract likely remained intact. Only the striatal delivery led to the functional recovery of the rats, whereas substantia nigra delivery in the same study resulted in substantia nigra dopamine neurons remaining protected but no recovery of behaviour [24]. More importantly, when AAV-GDNF was infused to the striatum after the 6-OHDA, this also led to behavioural recovery as well as the restoration of dopamine neurons due to retrograde transport to the substantia nigra [25]. AAV-GDNF can also be expressed in monkey substantia nigra via axonal transport when delivered to the putamen [27]. Similar to AAV-GDNF, AAV2-NRTN delivered to rat striatum before 6-OHDA showed neuroprotection in the substantia nigra dopamine neurons [51].
+7toz | Genes 2017, 8, 63
+j346 | AAV2-NRTN striatal delivery in monkeys led to its expression in both the striatum and substantia nigra, as well as increased levels of TH in the nigrostriatal system [52,53]; though again this is not surprising but does demonstrate the ability of AAV2 carrying NRTN to also transport to the substantia nigra after striatal injection. As in rats, AAV2-NRTN injected to both the striatum and substantia nigra has been shown to be neurorestorative in the monkey MPTP model [54], indicating its ability to be transported after the toxin damage and result in neuronal recovery. There is also evidence of recovery with another neurotrophic factor: CDNF (cerebral dopamine neurotrophic factor) carried by AAV2. When AAV2-CDNF was injected before [55] and after [56] the 6-OHDA to the striatum, it showed the recovery of striatal fibres as well as nigral neurons in addition to behavioural recovery, and CDNF protein was present in both structures.
+v8uq | In general, while the dopamine nerve terminals are destroyed in the striatum/putamen after toxin administration, transport of neurotrophic molecules to the substantia nigra may still be possible retrogradely, as described above, or anterogradely via medium spiny projection neurons, thus demonstrating that striatal injection of AAV carrying neurotrophic factors is a viable therapy for Parkinson's disease. Although, the anterograde transport of GDNF to the substantia nigra may not be as effective on functional restoration as compared with retrograde transport, it may be beneficial not to overexpress proteins in stressed substantia nigra dopamine neurons in patients.
+x972 | 3. AAV to Target Substantia Nigra
+```
+
+OUTPUT:
+```

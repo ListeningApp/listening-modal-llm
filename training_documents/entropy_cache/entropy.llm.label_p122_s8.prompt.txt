@@ -1,0 +1,196 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+o7vc | I'll state versions of the three laws of thermodynamics in the language we've devel- oped here. But please be aware that my versions are idiosyncratic and will make some people raise their eyebrows. I'm afraid you'll have to go elsewhere, like Reif's book, to learn these laws in their traditional form!
+ikzp | We've been maximizing entropy subject to a constraint on the expected value of one quantity. What if we do two or more? Everything works the same way, but the fundamental relation between temperature, energy and entropy, d(E) = TdS, gets one extra term for each constraint. The resulting equation is a version of the 'First Law of Thermodynamics'.
+o2co | I'll explain the case with one extra constraint. Suppose we've got a measure space X whose points are states of some system. Choose two functions on it. They could be anything, but let's call them energy and volume and write them as E: X -> R and V : X -> R. These terms are favored because thermodynamics arose in part from the study of steam engines, where you've got a cylinder of steam with some energy and some volume. For any probability distribution p: X -> [0, 0), we can write down a formula for its Shannon entropy
+932d | H = - | p(x) In p(x) dx
+eab8 | 115
+78uf | and also the expected values
+d4u8 | (E) = | E(x) dx, (V) = V(x) dx.
+hi2c | Let's not worry now about whether these integrals converge.
+xhx2 | Suppose we only know (E) and (V), and we are trying to choose the 'best' prob- ability distribution p with these expected values. What should we do? Following the principle of maximum entropy, we seek the probability distribution p that maximizes H subject to our constraints on (E) and (V). If we do this, we are led to a Lagrange multipliers problem, much as in the the simpler case of one constraint. But now we need two Lagrange multipliers: let's call them ß and y. We get this equation:
+64tz | dH = Bd(E) + yd(V).
+myvp | This is the First Law!
+nr73 | But this isn't the way physicists usually write it. To get the First Law in its usual form, first let's switch to using Gibbs entropy S = kH, and emphasize the role of energy by solving for d(E):
+a2o9 | d( E) = ds - 2(v).
+e4rj | Then, to simplify the look of this equation, let's introduce variables called temperature and pressure:
+7u2p | T = kß' 1 P = B.
+l5og | Now the First Law of Thermodynamics looks like this:
+x06y | d(E) = TdS - Pd(V).
+lhv3 | It says that as we move around among probability distributions that maximize entropy subject to constraints on expected energy and volume, the change in expected energy is the sum of two terms:
+d14u | · heat, meaning TdS
+w90k | · work, meaning -Pd(V).
+2vn7 | For example, if we have a cylinder of steam with pressure P and we increase its expected volume by a little bit A(V), its expected energy goes down by about PA(V): that's how we understand the minus sign. In this situation the external world has done an amount of work -PA(V) on the cylinder of steam, but most people say the cylinder of steam has done an amount of work PA(V) on the external world.
+mv86 | Here are a few puzzles if you want to dig deeper. In the first two, I ask you to generalize ideas from our earlier work on maximizing entropy subject to a single constraint.
+8miy | Puzzle 51. Let X = {1, ... , n} and let E, V : X -> R be two functions whose values at i E X we call E; and Vi. Suppose p is a probability distribution maximizing the Shannon entropy H on the surface where
+h5l3 | (E) = e, (V) = v,
+77nj | and also suppose p1, ... , Pn > 0. Show that at p we have
+wa9j | dH = Bd(E) + yd(V)
+pj74 | 116
+tv7e | for some 3, y E R. (Hint: first do the case where not all the E; are equal and not all the Vi are equal. This guarantees that d(E) and d(V) are nonzero. You can handle the other cases separately.)
+cicu | Puzzle 52. Under the conditions of Puzzle 51 show that
+m5cf | n exp(-BEi - yVi)
+ug1e | Pi
+txjz | Lexp(-BEi - yVi)
+tahh | Puzzle 53. Generalize the results of Puzzles 51 and 52 to the case of any finite number of constraints.
+rja2 | Puzzle 54. Generalize the results of Puzzle 53 to the case of a system with a count- able infinity of states, or an arbitrary measure space of states. You will need to add assumptions to ensure that the sums or integrals converge.
+jk9f | 117
+lu5d | THE SECOND LAW OF THERMODYNAMICS
+mw2y | Suppose a system has some measure space X of states and at any time t there is a probability distribution p(t) on X.
+kba4 | We say the second law of thermodynamics holds if t1 ≤ t2 => S(p(t1)) ≤ S(p(t2))
+lxpp | This seems to be widely true, yet the conditions under which it holds are subtle and much-argued.
+xvte | The Second Law of Thermodynamics, as commonly stated, says that the entropy of a closed system never decreases. This appears to be a profound fact about our universe. A huge challenge to physics is to understand where this law comes from. Can it be derived from some realistic assumptions? One problem is that the laws of classical mechanics are invariant under time-reversal. Thus, if we evolve probability distributions on some space of states according to these laws, for any probability distribution whose entropy is nondecreasing, there is a time-reversed one whose entropy is nonincreasing.
+3qkr | This is called the problem of the arrow of time: briefly, why does the future look so different from the past? Quantum mechanics makes the problem subtler, but does not provide an easy resolution. The solution may be that we happen to live in a universe a particular solution of the laws of physics-where entropy was very low at the Big Bang, making it easy for entropy to increase after that. But if you get ten physicists in a room and ask them to explain the arrow of time, you are likely to hear ten different opinions. Thus, I will not attempt to resolve it here. For more on that, I recommend this book:
+5y46 | . H. D. Zeh, The Physical Basis of The Direction of Time, Springer, Berlin, 2010.
+9dqf | Instead, let's see how the Second Law sheds light on the meaning of temperature. You'll notice that in our course I never talked about systems evolving in time, and I never talked about two systems interacting: always just a single system. Now let's imagine two systems, each in thermal equilibrium, but at possibly different tempera- tures. Say the first has entropy S1, expected energy (E1) and temperature T1. As usual, these are related by
+vugf | dS1 = d(E1) T1 .
+7d5n | Say the second system works similarly, with
+22rs | dS2 = d(E2) T2 .
+bjpt | We can define the total entropy of the two systems by
+vkpg | S = S1 +S2
+yix9 | 118
+iaod | and the total expected energy by
+t8jd | (E)=(E1)+(E2).
+nz5q | Suppose now that the two systems can exchange energy with each other, but in a slow and gentle way, so we can approximately treat each one as in thermal equilibrium at any moment. If no energy flows in or out of the combined system, the total expected energy is conserved, so d(E) dt .= 0
+a2fr | and thus
+hm2f | d(E1) dt
+rrgl | What does the Second Law give us in this situation? It implies
+yf3c | ds dt ≥ 0 or
+ptp0 | Si + S2 > dS2 dt
+qtyd | dt dS1
+ju7r | It follows that
+ggbe | 1 d(E1) T1 dt + T2 dt 1 d(E2) > 0 or
+vefl | T1 dt 1 d(E1)
+k6et | T2 dt 1 d(E1) ≥ 0.
+mw5f | We can rewrite this as
+m1ik | - T1 1
+aj2w | 此
+xhz8 | Now suppose both T1 and T2 are positive. Then we get a remarkable consequence: as two systems exchange energy, with each staying in thermal equilibrium at every moment, expected energy can only flow from the system with higher temperature to the system with lower temperature!
+aqos | Puzzle 55. Suppose one or both of the temperatures T1, T2 are negative. How does this conclusion change?
+209y | 119
+yrjp | THE THIRD LAW OF THERMODYNAMICS: REVISITED
+hzcm | If a system has countably many states, with just one of lowest energy, and thermal equilibrium is possible for this system for some temperature T > 0, then its entropy in thermal equilibrium approaches zero exponentially fast as a function of 1/T as T approaches zero from above.
+dz5o | In our earlier work on the Third Law, we only studied systems with finitely many states. Later we saw how to compute entropy from the free energy and expected energy. This makes it a bit easier to handle systems with a countable infinity of states. In the following puzzles, which are only for the most devoted readers, let's use these ideas to prove and improve the Third Law for systems with countably many states.
+m2rl | Earlier we worked with temperature, but it's cooler to use coolness. For all the following puzzles, let's suppose we have a system with a countable infinity of states n =1,2, 3, ... with energies En. Also suppose thermal equilibrium is possible for some Bo > 0, i.e., the sum
+ek0a | Z (Bo) = Lexp(-BoEn) n=1 00
+e4tl | converges. (Our arguments also apply to systems with finitely many states, where this convergence condition is automatic.)
+voil | Puzzle 56. Show that the system's partition function, expected energy, free energy and entropy are well-defined for all B > Bo-
+24g5 | Puzzle 57. Show that if we add some constant to the energy of each state
+j1i2 | Èn = En + c
+22xo | we get a new 'shifted' system whose partition function, expected energy, free energy and entropy are related to those of our original system by
+ye4p | Ž = exp(-ßc)Z, (Ē) = (E) + c, F = F + c, Š = S
+xdal | for all B > Bo.
+i4yy | Now further suppose that our original system has just one state of least energy. Earlier we saw that we could reindex the states so that E1 < E2 ≤ E3 ≤ . . . and En -> +00. The same is true of our new shifted system, and let's choose c = - E1 so that the lowest energy of the shifted system is zero. With this shift we have
+3e6g | 0 = Ễ1 < Ě2 < 3 <...
+p9wt | and En -> +00.
+bg6v | 120
+ek18 | Puzzle 58. Show that for any coolness <LATEX>\beta \geq \beta _ { 0 }</LATEX> we have
+hdkt | <LATEX>\widetilde { Z } \left( \beta \right) - 1 = \sum _ { n = 2 } ^ { \infty } e ^ { - \beta \widetilde { E } _ { n } } .</LATEX> Using this equation show
+yyzt | <LATEX>| \widetilde { Z } \left( \beta \right) - 1 | \leq e ^ { - \left( \beta - \beta _ { 0 } \right) \widetilde { E } _ { 2 } } | \widetilde { Z } \left( \beta _ { 0 } \right) - 1 |</LATEX> and thus
+7lvc | <LATEX>| \widetilde { Z } \left( \beta \right) - 1 | < \mathrm { c o n s t } e ^ { - \left( \beta - \beta _ { 0 } \right) \widetilde { E } _ { 2 } }</LATEX> for some constant independent of <LATEX>\beta .</LATEX> Use the fact that <LATEX>\widetilde { F } \left( \beta \right) = - \frac { 1 } { \beta } \ln \widetilde { Z } \left( \beta \right)</LATEX> to show that for large enough
+rt7z | <LATEX>\beta ,</LATEX> <LATEX>| \widetilde { F } \left( \beta \right) | < \mathrm { c o n s t } e ^ { - \left( \beta - \beta _ { 0 } \right) \widetilde { E } _ { 2 } }</LATEX> possibly for a different constant independent of <LATEX>\beta .</LATEX> Using Puzzle 57, conclude that
+wpui | <LATEX>| F \left( \beta \right) - E _ { 1 } | < \mathrm { c o n s t } e ^ { - \left( \beta - \beta _ { 0 } \right) \left( E _ { 2 } - E _ { 1 } \right) } .</LATEX> Voilà! This shows that for a system with countably many states and just one state of lowest energy, if thermal equilibrium is possible at some positive temperature, then the free energy must approach this lowest energy exponentially fast as <LATEX>\beta \rightarrow + \infty .</LATEX> Now let's show something similar for the expected energy. Again we use the shifted system to simplify the calculations. I'll leave more work to you this time.
+23tt | Puzzle 59. Show that at any coolness <LATEX>\beta > \beta _ { 0 }</LATEX> we have
+v3cv | <LATEX>\frac { d } { d \beta } \widetilde { Z } \left( \beta \right) = - \sum _ { n = 2 } \widetilde { E } _ { n } e ^ { - \beta \widetilde { E } _ { n } } .</LATEX> Use this to show that <LATEX>\frac { d } { d \beta } \widetilde { Z } \left( \beta \right)</LATEX> goes to zero exponentially fast as <LATEX>\beta \rightarrow + \infty .</LATEX> Using
+o6hl | <LATEX>\langle \widetilde { E } \rangle \left( \beta \right) = - \frac { d } { d \beta } \ln Z \left( \beta \right) = - \frac { 1 } { Z \left( \beta \right) } \frac { d } { d \beta } Z \left( \beta \right)</LATEX> and Puzzle 58, show that <LATEX>\langle \widetilde { E } \rangle \left( \beta \right)</LATEX> goes to zero exponentially fast as <LATEX>\beta \rightarrow + \infty .</LATEX> Using Puzzle 57, conclude that <LATEX>\langle E \rangle \left( \beta \right)</LATEX> approaches <LATEX>E _ { 1 }</LATEX> exponentially fast as <LATEX>\beta \rightarrow + \infty .</LATEX> Finally, since
+pv9r | <LATEX>S = k \beta \left( F - \langle E \rangle \right)</LATEX> and both <LATEX>F</LATEX> and <LATEX>\langle E \rangle</LATEX> approach <LATEX>E _ { 1 }</LATEX> exponentially fast as <LATEX>\beta \rightarrow + \infty ,</LATEX> conclude that <LATEX>S</LATEX> approaches 0 exponentially fast as
+```
+
+OUTPUT:
+```

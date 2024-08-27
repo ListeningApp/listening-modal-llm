@@ -1,0 +1,146 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+1pjs | GRIEF COUNSELING and GRIEF THERAPY FIFTH EDITION
+o2kr | A Handbook for the Mental Health Practitioner
+v6sk | J. WILLIAM WORDEN
+1wj6 | PREFACE
+936l | The idea for this book came out of a series of workshops that I presented at the University of Chicago for mental health professionals who spent 2 days of continuing education time exploring their own loss history as well as learning a model-the task model-for understanding grief, bereavement, and the process of mourning. These workshops began in 1976; they were offered twice a year for groups of 100 and were oversub- scribed each year. Over time we offered such workshops in other parts of the United States. The first edition of the book was published in 1982 and contained much of the material presented at these grief workshops,
+06yq | The title of the book came out of a lecture that I presented at the University of Florida, Gainesville. I was invited to present the annual Arthur G. Peterson lecture for a large group of mental health profession- als. I titled my lecture "Grief Counseling & Grief Therapy." This was the first time that I had made such a distinction, but it made sense to me and its usefulness has persisted over the years. Grief counseling refers to the interventions counselors make with people recent to a death loss to help facilitate them with the various tasks of mourning. These are people with no apparent bereavement complications. Grief therapy, on the other hand, refers to those techniques and interventions that a pro- fessional makes with persons experiencing one of the complications to the mourning process that keeps grief from progressing to an adequate adaptation for the mourner. Often there are conflicts of separation with the deceased that need to be addressed. This requires more skill, under- standing, and training than doing grief counseling, which can often be facilitated by a skilled friend or family member.
+dpv6 | Do we really need grief counselors? I had asked this question in the first edition of this book 35 years ago and said that I don't believe
+8r5j | xiv
+2taz | that we need to establish a new profession of grief counselors. I still believe this. D. M. Reilly (1978), a social worker, says, "We do not neces- sarily need a whole new profession of . . . bereavement counselors. We do need more thought, sensitivity, and activity concerning this issue on the part of the existing professional groups, that is, clergy, funeral direc- tors, family therapists, nurses, social workers, and physicians" (p. 49). To this, Lloyd (1992) adds, "Skills in working with grief and loss remain core essential tools for professionals who are not necessarily specialist counselors" (p. 151). I agree with this. What I want to do in this book is address those of you in these traditional professions who are already in a position to extend care to the bereaved and have the knowledge and skills required to do effective intervention and, in some cases, preven- tive mental health work.
+o3ya | In this fifth edition of Grief Counseling and Grief Therapy, new information is presented throughout the book. Previous information is updated when possible. The world has changed since 1982 when the first edition of this book was published. There are more traumatic events, drills for school shootings, and faraway events that may cause a child's current trauma. There is also the emergence of social media and online resources, all easily accessible by smartphones at any time. Bereavement research and services have tried to keep up with these changes. In the following pages I have tried to present what is current for your consideration so that you, as a mental health professional, can be most effective in your interventions with bereaved children, adults, and families.
+r5il | Special acknowledgments are due to the many people who have assisted me with this project. Three of my close friends and colleagues who are familiar with earlier editions of this book made specific sugges- tions that they felt would strengthen a fifth edition and bring it up-to- date. These colleagues who have encouraged me and given me specific suggestions are (a) Bill Hoy, clinical professor of medical humanities at Baylor University; (b) Mark de St. Aubin, from the College of Social Work at the University of Utah; and (c) Michele Post, a therapist from One Legacy in Los Angeles. I have incorporated most of their sugges- tions in the book.
+5gui | Keeping up with current literature on this subject is an enormous task. I have over 5,000 annotated references in my database that was started at Harvard back in the 1970s. Those most current research assis- tants helping me were Alexes Flates and Haleigh Barnes, both of whom have now completed their doctoral training in clinical psychology and are working in the field. Making this assistance possible was help from
+82qc | Preface
+ls7d | Dr. Clark Campbell, Dean of the Rosemead School of Psychology, and I also wish to thank him.
+tzt3 | The professionals in the Worden group that meet every month for support and supervision have helped me and clarified my thinking. These include Ron Attrell, Dennis Bull, Paula Bunn, Galen Goben, Ann Goldman, Linda Grant, Annette Iversen, Laurie Lucas, Mike Meador, Gayle Plessner, and Michele Post.
+t8vv | A special thanks to Sheri W. Sussman, Executive Editor of Behavioral Sciences at Springer Publishing Company. She has added her wisdom and encouragement for each of the five editions of this book and has been a friend for 35 years. And, as always, my family and friends have provided important emotional support.
+qvnu | J. William Worden Boston, Massachusetts Laguna Niguel, California
+kggw | REFERENCES
+xrd1 | Lloyd, M. (1992). Tools for many trades: Reaffirming the use of grief counselling by health, welfare and pastoral workers. British Journal of Guidance and Counselling, 20, 150-163. doi:10.1080/03069889208253617 Reilly, D. M. (1978). Death propensity, dying, and bereavement: A family systems perspective. Family Therapy, 5, 35-55.
+5746 | As an aid for using the fifth edition of Grief Counseling and Grief Therapy in class, qualified instructors can access the book's ancillary materials (Instructor's Manual, test bank, and PowerPoints) by email- ing textbook@springerpub.com.
+7toz | INTRODUCTION
+j346 | Over the 35 years since the first edition of this book was written, there have been a number of new concepts introduced into the field of grief, loss, and bereavement. Before we get into the content of this current edition, I would like to highlight some that I believe are worth noting. Many of these appeared during the past 20 years, and some of these I discuss in more detail in the book. Although tempted to put these into the top 10 in order of importance, I will merely list them. They are all important.
+v8uq | SOCIAL MEDIA AND ONLINE RESOURCES
+x972 | One emerging trend is the use of social media and other online resources to help people who are grieving. These cyber mourning resources can be used (a) as ways to remember the deceased, (b) as ways to conduct intervention for the bereaved, and (c) as a way to do further research on bereavement and the mourning process (Stroebe, van der Houwen, & Schut, 2008). Let me outline several ways that social media and online resources are currently being used.
+cwrw | 1. Online memorials. Families, friends, and others can go online and post thoughts about the deceased and send condolences to the family and friends of the deceased. These memorial pages are often set up by the funeral director who served the family or by non-funeral-related groups such as Open to Hope (www. opentohope.com) or nonprofit organizations such as Heal
+4i0e | Grief Counseling and Grief Therapy
+h2l3 | Grief (www.healgrief.org) where individuals can light online memorial candles or post eulogies, memorial art, or photo projects. There are also Facebook Memorial pages that can be used to announce the death or funeral service, post memories, and celebrate the life of the deceased. For some reason, these pages may attract strangers who did not know the deceased but will follow the entries and sometimes post messages (De Groot, 2014).
+dfzb | 2. Internet-based intervention. Websites have been set up to offer online treatment for people suffering from various types of losses and diagnoses. Such interventions are conducted by a therapist. These include such conditions as posttraumatic stress disorder (PTSD), depression, and prolonged grief disorder. They can also assist people who are experiencing disenfranchised grief from losses that are difficult to talk about, such as a loss during pregnancy or LGBT partner loss. Anonymity that can promote self-disclosure seems to be one of the key attractions for this type of therapy, but this can be fraught with danger. If the patient becomes suicidal or homicidal, it is important that the therapist be able to contact the patient directly and provide direct resources. This type of treatment is not suitable for all patients, and a careful online or telephone-based diagnosis must be made before treatment begins.
+u6ty | 3. Internet bereavement support groups. These can be found online, and are set up to address special types of losses such as suicide deaths (Feigelman,Gorman, Beal, & Jordan, 2008), while others are established to help those with a general variety of bereavement losses (M. Post, "Grief in the Digital Age" seminar, November 2, 2016). These groups are led, or at least monitored, by professionals who are able to admit or reject people from participation (Paulus & Varga, 2015). Outcome measures can be used pre- and postgroup to measure change due to participation in the group (van der Houwen, Schut, van den Bout, Stroebe, & Stroebe, 2010).
+awvu | 4. Peer-support web pages. Such self-help pages are set up after natural disasters (floods, hurricanes, earthquakes), mass shootings, and other catastrophes, allowing those interacting with the site to express feelings and questions, and to generally feel a part of a community grappling with these events (Miller, 2015). These sites offer no personalized professional feedback. However, they can be particularly effective for helping the person who cannot find help elsewhere (Aho, Paavilainen, & Kaunonen, 2012).
+on9b | Introduction
+a8ge | 5. Psychoeducational purposes. Persons who need information about grief and loss and to normalize what they are experiencing can use such pages to obtain information about the grief process (Dominick et al., 2009). These are generally not interactional pages but are pages set up to give information on a topic. There are, however, some sites that allow the reader to ask a question about a particular topic that may or may not be answered by another person reading that particular page.
+h27a | 6. Communicating with the deceased. Some sites and some Facebook pages are set up in the name of the deceased. Mourners may use these pages to regularly write to the deceased, often in a letter format, expressing their thoughts, feelings, and questions. Those who have studied this phenomenon find that such communications with the deceased are primarily used for the purpose of meaning making and second for providing a continuing bond with the deceased (Bell, Bailey, & Kennedy, 2015; De Groot, 2012; Irwin, 2015).
+pdjh | For more information on Internet resources for cyber mourn- ing, I would refer you to the book Dying, Death, and Grief in an Online Universe, edited by Sofka, Cupit, and Gilbert, and published by Springer Publishing in 2012.
+xmgs | WHAT IS THE NATURE OF COMPLICATED BEREAVEMENT?
+bd9h | For years, most of those working with complicated mourning and grief therapy have used terms like chronic grief, delayed grief, and absent grief to delineate the diagnosis of those with complicated bereavement or complicated mourning. In fact, some of these concepts were defined by consensus when Beverly Raphael and Warwick Middleton (Middleton, Moylan, Raphael, Burnett, & Martinek, 1993) conducted a survey to determine which terms were the most frequently used by leading ther- apists in the field. Although there was a surprising degree of consen- sus, the problem is that complicated grief is a Z code in the Diagnostic and Statistical Manual of Mental Disorders, and Z code diagnoses do not qualify for third-party payment through insurance carriers. Another problem has been the lack of precise definitions of these terms, which makes rigorous research of them difficult. The easiest solution has been to conduct research using well-defined pathological entities like depres- sion, anxiety, and somatization, for which there are good standardized measures. Although these clinical entities may be part of the mourn- er's experience, they clearly are not measures of grief. There were a few
+m047 | Grief Counseling and Grief Therapy
+gy8c | measures of grief like the Texas Revised Grief Inventory (Faschingbauer, Devaul, & Zisook, 2001) and the Hogan Grief Reaction Checklist (2001), but most were normed on a clinical population.
+y4mj | Beginning with the work of Holly Prigerson, Kathryn Shear, and Mardi Horowitz in the 1990s, there has been a 20-year-plus attempt to come up with a diagnosis of complicated grief that would be accept- able to go into the DSM-5, which was released in 2013. Such a diagnosis would make insurance money available for the treatment of patients with this diagnosis and would make research funds available for fur- ther investigation on this clinical entity. Details on this diagnosis, its development, and its current status can be found in Chapter 5.
+vpgq | DISENFRANCHISED GRIEF
+ousl | This term, coined by Ken Doka and further developed by Attig (2004), has been an important addition to the field. Although Doka's first vol- ume came out in 1989, he updated the concept in a second volume that came out in 2002 (Doka, 1989, 2002). Disenfranchised grief refers to losses in the mourner's life of relationships that are not socially sanc- tioned. A classic example would be the death of someone with whom the mourner is having an affair. If this affair is not widely known, the mourner will not be invited to participate in the funeral rituals and may not receive the social support that many people find helpful after a death. Alternate lifestyles may not be socially sanctioned, and the friend or lover may be ostracized by the family of the deceased. There are numerous other examples of disenfranchised grief, and there are suggestions in this book for re-enfranchising some of these losses to aid the mourner in adapting to the loss.
+m4ju | Aaron Lazare (1979, 1989), an early colleague at Massachusetts General Hospital, talked about two kinds of loss that are directly related to this concept of disenfranchised grief. Socially negated losses are those losses that society treats as nonlosses. An example of this would be pregnancy loss, either spontaneous or induced. The second kind of loss related to disenfranchised grief would be socially unspeakable losses. These are specific losses about which the mourner has a difficult time talking. Common examples would be death by suicide and death by AIDS. Both of these losses carry some stigma in the broader society. One intervention that can be helpful to those experiencing these types of losses is assisting them in talking about them and exploring their thoughts and feelings about the death. Re-enfranchising suggestions for these types of losses can be found in Chapter 7 of this volume.
+a0mb | Introduction
+ki8m | CONTINUING BONDS
+```
+
+OUTPUT:
+```

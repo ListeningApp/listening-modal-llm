@@ -1,0 +1,81 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document. Your task is to faithfully reproduce the text for our text-to-speech engine so that it is easily read aloud.
+
+Note that the text might not start at the beginning and paragraphs may be split acrosss multiple textboxes. Textboxes may start or end in the middle of a word which is acceptable: do not combine text between textboxes and leave broken words at the start and end of a textbox unchanged.
+
+You will receive one textbox per-line in the format `id | Textbox content`. The output must be in the format `id | Clean content`.
+
+RULES:
+ • Remove inline citations and references e.g. "(Author, 2021)" or "(https://wikipedia.org/article.html)" or "[ECMOS 35b, 47, 49]".
+ • Spell out numbers, dates, and chemical formulas for the TTS engine e.g. "-2.5" -> "negative two point five" or "Jan. 2020" -> "January twenty twenty".
+ • Spell out LaTeX formulas for the TTS engine e.g. "<LATEX>p = 1</LATEX>" -> "P equals one".
+ • Rejoin hyphenated word fragments within the same textbox e.g. "synth -esize" -> "synthesize".
+ • Fix simple typos and OCR errors e.g. "O nce upon a 1ime." -> "Once upon a time.".
+ • Delete nonsequiter textboxes that interrupt the middle of a sentence if they obviously do not belong.
+
+Otherwise, the output should exactly match the input text:
+ • Do not combine text across lines or attempt to fix words broken across lines.
+ • Ensure each ID from the input is included in the output.
+ • Make as few changes as possible while respecting the above rules.
+
+EXAMPLE INPUT:
+```
+ccpt | stigate the effectiveness of psychedelics for ADHD symp- toms in adults.
+0fpw | 2. Materia1 and methods
+dqn8 | 2.1. Study design and participants
+cop0 | The study employed a naturalistic design, assessing the experiences of participants at bas-,
+lhkq | eline before they start, and at 2 and 4 weeks after initiation. The target population included adults with ADHD symptoms who had not been diag- nosed with ADHD before. To be included, participants needed to score on Conner's Adult ADHD Rating Scale (CAARS-S:SV). This cut-off was indicative of clinically elevated symptoms (Conners et al., 1999) (see section 2.3).
+82ju | 2.2. Study procedure
+y2qo | The online advertisement was placed on a website providing information about psychedelics (www.microdo sing.nl). Interested participants were redirected to information explaining the study rationale and procedure. The baseline survey took 20 min to complete. If the survey had not been completed after 24 h, a reminder was sent. Each of the surveys at the 2- and 4-week time points took about 15 min to complete. Par- ticipants were able to pause the surveys. Data collection occurred between Nov. 2020 and Jul. 2021. The study was approved by the Ethics Review Committee of Psy- chology and Neuroscience at Maastricht University (ERCPN- 215_05_11_2019_A1).
+1piq | 2.3. Measures
+7fqw | 2.3.1. Demographic information and history of substance use
+rhaz | At baseline, demographic information was collected. History of substance use assessed experience with psyche- delics (i.e., ayahuasca, DMT, 5-MeO-DMT, LSD, novel lysergamides (e.g., 1P-LSD, ALD-52), psilocybin, salvia divinorum, ibogaine, and mescaline) in both full (psychedelic) doses and microdoses.
+wak1 | 2.3.2. Psychiatric and physiological diagnoses
+wtfz | Participants were asked whether they had a current diagnosis of a disorder. These answer options were chosen because most of the listed diagnoses are often reported to co-occur with ADHD (Kooij et al., 2019), or because these diagnoses were reported to be common in people who microdose (Fadiman and Korb, 2019). We 
+3j2l | REVIEW ARTICLE Frontiers in Psychiatry | www.frontiersin.org
+03k3 | 2
+1k9e | constructed a variable Comorbidity alongside ADHD, differenti- ating respondents with and without a comorbid diagnosis alongside ADHD (<LATEX>p < . 0 0 1 =</LATEX> only ADHD or no ADHD diagnosis; <LATEX>p > . 0 1 =</LATEX> ADHD and at least one other diagnosis). We constructed a variable Medication use alongside microdosing, differentiating respondents who were and were not using conven- tiona1 ADHD medication alongside microdosing (<LATEX>0 =</LATEX> only microdosing; <LATEX>1 =</LATEX> conven-
+```
+
+EXAMPLE OUTPUT:
+```
+ccpt | stigate the effectiveness of psychedelics for ADHD symptoms in adults.
+0fpw | Two. Material and methods
+dqn8 | Two point one. Study design and participants
+cop0 | The study employed a naturalistic design, assessing the experiences of participants at bas-,
+lhkq | eline before they start, and at two and four weeks after initiation. The target population included adults with ADHD symptoms who had not been diagnosed with ADHD before. To be included, participants needed to score on Conner's Adult ADHD Rating Scale. This cut-off was indicative of clinically elevated symptoms (see section two point three).
+82ju | Two point two. Study procedure
+y2qo | The online advertisement was placed on a website providing information about psychedelics. Interested participants were redirected to information explaining the study rationale and procedure. The baseline survey took twenty minutes to complete. If the survey had not been completed after twenty-four hours, a reminder was sent. Each of the surveys at the two and four-week time points took about fifteen minutes to complete. Participants were able to pause the surveys. Data collection occurred between November twenty twenty and July twenty twenty-one. The study was approved by the Ethics Review Committee of Psychology and Neuroscience at Maastricht University.
+1piq | Two point three. Measures
+7fqw | Two point three point one. Demographic information and history of substance use
+rhaz | At baseline, demographic information was collected. History of substance use assessed experience with psychedelics (i.e., ayahuasca, DMT, five-MeO-DMT, LSD, novel lysergamides (e.g., one-P-LSD, ALD-fifty-two), psilocybin, salvia divinorum, ibogaine, and mescaline) in both full (psychedelic) doses and microdoses.
+wak1 | Two point three point two. Psychiatric and physiological diagnoses
+wtfz | Participants were asked whether they had a current diagnosis of a disorder. These answer options were chosen because most of the listed diagnoses are often reported to co-occur with ADHD, or because these diagnoses were reported to be common in people who microdose. We
+3j2l |
+03k3 |
+1k9e | constructed a variable Comorbidity alongside ADHD, differentiating respondents with and without a comorbid diagnosis alongside ADHD (P is less than point zero zero one equals only ADHD or no ADHD diagnosis; P is greater than point zero one equals ADHD and at least one other diagnosis). We constructed a variable Medication use alongside microdosing, differentiating respondents who were and were not using conventional ADHD medication alongside microdosing (zero equals only microdosing; one equals conven-
+```
+
+INPUT:
+```
+m4cb | To summarise the available data, insulin in the VTA reduces extra- cellular somatodendritic DA concentrations through increased DA re- uptake, reduces LTD of excitatory inputs, and decreases PPTg-evoked DA release in the NAc.
+m61y | 2.3. Insulin action in the ventral striatum
+u2ob | In the NAc, DA-projections target GABA-ergic MSN, which form several subpopulations depending on the expression of D one or D two receptors. The activity of MSNs is modulated by inputs from cholinergic and GABA-ergic interneurons as well as glial cells. All of these different cell types within the NAc express insulin receptors. Hence, insulin can activate a complex signalling pathway in downstream DA target areas independent of its action in the VTA.
+2gnm | Two point three point one. Insulin increases DA release and reuptake
+emgw | Similar to its action on somatodendritic DA release in the VTA, in- sulin increases DAT surface expression and DA reuptake (Patel et al., 2019a; Williams et al., 2007) through PI3K-signalling in the DA termi- nals (Garcia et al., 2005; Patel et al., 2019b). Despite their role in re- uptake, DATs are also known to mediate AMPH-induced DA-efflux through reversed transport. In line with this, insulin has been shown to facilitate AMPH-stimulated DA release mediated by DAT in hypo- insulinemic mice (Williams et al., 2007). In ex-vivo slices of the NAc and the dorsal striatum, Stouffer et al. (2015) demonstrated that insulin increases terminal DA release by acting on cholinergic interneurons. Furthermore, acute insulin administration has been shown to stimulate ATP release from astrocytes, which activates purinergic signalling cas- cades in DA neurons to facilitate DA efflux (Cai et al., 2018a). Due to the dynamic action of insulin on DA outflow and reuptake, the net effect is
+xaqt | difficult to predict. However, Stouffer et al. (2015) demonstrated that insulin-mediated DA release is higher than DA reuptake suggesting a positive net effect of insulin on extracellular DA concentrations in DA downstream targets. In line with this, systemic intra-peritoneal appli- cation of insulin has been shown to increase DA release in the NAc (30 min after the injection) and the dorsal striatum (80 min after the injection) in a dose-dependent manner (Potter et al., 1999). Likewise, ICV administration increased DA-release and DA content in the striatum (McCaleb and Myers, 1979). More specifically, while insulin application in the striatum has been shown to increase DA release, insulin admin- istration in the VTA induces a long-lasting decrease of DA release in the striatum (Naef et al., 2019). Notably, the insulin release after food intake inhibits excitatory synaptic transmission in the VTA for 3 h - and hence considerably longer that the duration of the postprandial insulin spike itself - (Labouebe et al., 2013b; Liu et al., 2016) likely underlying the long-lasting depression of DA release in the striatum (Naef et al., 2019).
+5rcb | 2.3.2. Insulin modulates excitatory inputs on MSN
+524j | Besides, its direct effect on MSN, insulin has been shown to modulate excitatory transmission on MSN in a concentration-dependent manner. While low physiological insulin concentrations increased excitatory
+xd3m | transmission on MSN neurons, high insulin concentrations suppressed excitatory transmission on MSNs (Oginsky and Ferrario, 2019).
+8qb6 | In summary, the effect of insulin on terminal DA release in the striatum is dependent on the site of administration. While insulin applied in the striatum increases terminal DA release, insulin applied to the VTA suppresses phasic DA release by inhibiting excitatory inputs.
+wkbn | 2.4. Impact of insulin signalling on reward behaviour in rodents
+ftfg | Unsurprisingly, the aforementioned effects of insulin on DA signal- ling within the mesolimbic pathway have been linked to changes in reward-seeking behaviour (see Fig. 3 for a brief description of the rodent tasks). The differential effects of insulin in the DA midbrain and the downstream targets result in different behavioural alterations depend- ing on the site of insulin administration and the homeostatic status (hungry/sated) (see Appendix, Table S2).
+7xi5 | 2.4.1. The effect of insulin on food approach behavior
+w8r5 | Injections of insulin into the VTA decreased food anticipatory behaviour (Labouèbe et al., 2013b) and food approach behaviour in a light-dark box (Liu et al., 2016). Insulin infusions in the VTA as well as in
+ybik | the NAc reduced regular chow consumption in rodents (Bruijnzeel et al., 2011a; Finnell and Ferrario, 2022a). The insulin action in the VTA is dose and time-dependent. While low doses of insulin (0.005-0.5 mU) do not modulate food intake behaviour, reduced food consumption can only be observed for high insulin levels (5 mU) in the first 24 h after the intervention. Mebel et al. (2012) investigated the influence of hunger and satiety status and demonstrated that 500 nM insulin applied to the VTA did not modulate regular chow feeding in hungry mice within the first four hours, but rather suppressed sweetened high-fat diet intake when applied in sated mice suggesting that insulin primarily suppresses "hedonic feeding" through modulating reward behaviour. Consistent with this, mice lacking insulin receptors in DA neurons had increased food intake, leading to increased body weight and adiposity (Könner et al., 2011).
+gii5 | 2.4.2. Impact of insulin on reward sensitivity
+q5eu | In rats fed ad libitum intra-VTA application of low levels of insulin increased the threshold for intracranial self-stimulation suggesting reduced reward sensitivity (Bruijnzeel et al., 2011a). Opioid-stimulated feeding - a model for hedonic feeding - was only suppressed, when in- sulin was applied in the VTA (Figlewicz et al., 2008a, 2008b). Neither insulin application in the NAc nor in the hypothalamic nuclei showed a similar effect suggesting that this effect is specific to the VTA. ICV-insulin application combined with the D2-receptor antagonist raclopride reduced the lick rate in a sucrose-licking task (fixed-ratio), while insulin alone was not sufficient to induce this effect, confirming that insulin action is dependent on DA signalling (Sipols et al., 2000). Both ICV and intra-VTA insulin infusions have been shown to inhibit conditioned place preference to a high-fat diet or sweetened froot loops in a concentration-dependent manner in ad-libitum-fed rodents; again suggesting a reduced reward sensitivity (Figlewicz et al., 2004; Lab- ouèbe et al., 2013b).
+a7ao | 2.4.3. Role of insulin in learning and motivation
+```
+
+OUTPUT:
+```

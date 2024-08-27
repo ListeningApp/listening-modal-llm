@@ -1,0 +1,133 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+1pjs | CULTURAL ANTHROPOLOGY
+o2kr | WRITING THE IMPLOSION: Teaching the World One Thing at a Time
+v6sk | JOSEPH DUMIT University of California, Davis
+1wj6 | I have taught a course called Science and Politics for a number of years and one year in particular, it was very early in the morning, a big lecture class at 8:00am. To get to the lecture hall we all passed this little shop that sold good coffee and chocolate croissants. . . . And just as a way of waking up in the morning, I would ask people to unpack objects, to take a chocolate croissant and lead me through flour and chocolate and butter and sugar and coffee and connect us to world histories that way. I would ask people to pick an object, the T-shirt that the person sitting next to them was wearing, what was printed on it, the label, the very fact of labeling, the fibre com- position. If it's got polyester, then take me through the history of Purity Hall and research labs at Du Pont; you know, back me up into nitrogen chemistry. If it's cotton, then back me into pesticides and the California water projects and where cotton is grown and the length of the fibre and what about what you are wearing on your chest? I would ask people, as a way of talking about science and politics, to take a pencil, a piece of paper, the architecture of the lecture hall that you walked past; pick something and get the class started by giving me an account of it.
+936l | -Donna Haraway, in Live Theory (emphasis added)
+06yq | 15481360, 2014, 2, Downloaded from https://anthrosource.onlinelibrary.wiley.com/doi/10.14506/ca29.2.09 by University Of Oslo, Wiley Online Library on [25/08/2023]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+dpv6 | WAKING UP TO CONNECTIONS .. .
+8r5j | Coffee is not enough, alas. Necessary for some of us, but not enough to properly wake up to the connectedness of the world, to our connectedness to world histories. But why not? How do T-shirts, croissants, and pencils contain their histories without our being aware of them? Why does even Donna Haraway, a historian of these particular connections, need to wake <LATEX>u p</LATEX> each day to them again?
+2taz | The everyday, it seems, conspires against us, or with that part of us that wants to live in an everyday in which objects are mere parts of the world and it all makes a certain kind of sleepy sense. The connections Haraway instigates in the coffee shop may strike one as outrageous, certainly so early in the morning. They require promiscuous knowledge; they seem to accuse one of not having done enough homework. Anxieties arise, some look for an exit. Even worse, the connections may threaten the well-made world one lives in. One senses a poten- tially dangerous demand in them. The dormant activist stirs, "If I find out that <LATEX>\mathrm { T }</LATEX> shirts contribute to environmental degradation or coffee to poverty, how am I going to get out of bed at all?" How to live, how to know, how to be comfortable. How did comfort get wired in anyway?
+o3ya | Published in the same year as Haraway's "Manifesto for Cyborgs," Gilles Deleuze's Cinema 2 considered post-World War II cinema and described a similar opposition between films that use the everyday to "make us grasp something intolerable and unbearable" and those that "no matter how violent, are directed to a pragmatic visual function which 'tolerates' or 'puts up with' practically anything" (Deleuze 1989, 19). The words intolerable and unbearable may seem overblown for T-shirts and coffee, but I ask your indulgence with this matter to understand how Deleuze (in dialogue with Michel Foucault) wants to use these terms to signal an embodied form of politics aspiring to something different, opposed to a commonsense body and business as usual, a politics that indicates a (perhaps grudging) acceptance of the order of things and people.1 I want to put Deleuze's Cinema 2 in dialogue with Haraway's work on connections, because working through the former helps me unpack the process of Haraway's inquisitive implosion method and some of its aims better.2 Following this exegesis, I offer a homework project for putting this method into practice.
+r5il | Haraway wakes up to connections precisely to rewire her common sense that every day conspires against this new physiology. For both Haraway and Deleuze, it is in our bodies that we are most vulnerable to comfort.
+5gui | 345
+82qc | 15481360, 2014, 2, Downloaded from https://anthrosource.onlinelibrary.wiley.com/doi/10.14506/ca29.2.09 by University Of Oslo, Wiley Online Library on [25/08/2023]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+ls7d | Neither everyday nor limit-situations are marked by anything rare or ex- traordinary. . . . It is just a factory, a school. . . . We mix with all that, even death, even accidents, in our normal life or on holidays. We see, and we more or less experience, a powerful organization of poverty and op- pression. And we are precisely not without sensory-motor schemata for recognizing such things, for putting up with and approving them. . . . We have schemata for turning away when it is too unpleasant, for prompting resignation when it is terrible and for assimilating when it is too beautiful. It should be pointed out here that even metaphors are sensory-motor eva- sions, and furnish us with something to say when we no longer know what to do. (Deleuze 1989, 20)
+tzt3 | Hovering about, haunting all sides of our everyday worlds are other stories, other accounts, other connections that we may suspect, yet that paralyze us sometimes due to their enormity. Writing about cutting-edge films for their formation of new concepts, Deleuze does not analyze the processes of sensory- motor enculturation produced by more popular media. Haraway's Primate Visions takes on this challenge, examining the excruciating ways in which "nature stories" about primates, primitives, women, and civilization are produced in post-World War II films and scientific articles. She explains how the processes of iconically and categorically dividing nature from history both give us our common sense about the neat world and therapeutically inoculate us against worrying about the loose ends.
+t8vv | In summary, in all of these stories humans from scientific cultures are placed in "nature" in gestures that absolve the reader and viewer of unspoken transgressions, that relieve the anxieties of separation and solitary isolation on a threatened planet and for a culture threatened by the consequences of its own history. But the films and articles rigorously exclude the contex- tualizing politics of decolonization and exploitation of the emergent Third World. . . . 3 Instead the dramas of communication, origin, extinction and reproduction are played out in a nature that seems innocent of history. . . . It is precisely to renaturalize "man" after the calamities of advanced indus- trialism, and especially after the bomb, that apes and (white) people are placed together in both the "natural" world of the forest and the "cultural" world of language-users and pet-keepers. (Haraway 1989, 156)
+qvnu | 15481360, 2014, 2, Downloaded from https://anthrosource.onlinelibrary.wiley.com/doi/10.14506/ca29.2.09 by University Of Oslo, Wiley Online Library on [25/08/2023]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+kggw | WRITING THE IMPLOSION
+xrd1 | Key to war movies featuring bands of brothers and heroism are bits of complex threads about even horrific events, used in ways that isolate them into nice nuggets. The universal myth here is that most comfortable of epistemic objects, a cliché, a story that should be redundant yet whose enjoyment and function is to be repeated: the comfort of a McDonald's in times of peace and war. And weaving though our lives from start to finish, clichés are part of us.
+5746 | The image constantly sinks to the state of the cliché: because it is introduced into sensory-motor linkages, because it itself organizes or induces these linkages, because we never perceive everything that is in the image, because it is made for that purpose. . . . Civilization of the image? In fact, it is a civilization of the cliché where all the powers have an interest in hiding images from us, not necessarily hiding the same thing from us, but in hiding something in the image. (Deleuze 1989, 21)
+7toz | Thus we are not awake when we are awake. Our eyes are open, but we perceive only clichés, "only what we are interested in perceiving" (Deleuze 1989, 20). Even if we read newspapers, watch cable news (CNN, BBC, or FOX), or follow and resend Facebook posts, the war-torn, poverty- and disease-stricken, unequal, unbearable world is tragic-but somehow tolerable. A problem shared, I would argue, by Haraway and Deleuze, is how to disrupt our own tolerance, how to see the intolerable in the everyday. "If our sensory-motor schema jam or break, then a different type of image can appear" (Deleuze 1989, 20). Deleuze detects in cinema a potential to shock thinking, beyond imagination (for imagi- nation is precisely what popular cinema aims to reproduce). "For it is not in the name of a better or truer world that thought captures the intolerable in this world, on the contrary, it is because this world is intolerable that it can no longer think a world or think itself" (Deleuze 1989, 169-70). Deleuze points to another kind of thinking, another kind of politics to come, as something to be invented that does not already make sense.4
+j346 | While Haraway looks to science fiction for ways of imagining how the world could be otherwise, her primary method of analysis is resolutely empirical.5 By looking differently, through other eyes human fleshy, mouse murine, cyborg- she confronts intolerable and unbearable worlds within everyday objects. "Vision is always a question of the power to see and perhaps of the violence implicit in our visualizing practices. With whose blood were my eyes crafted?" (Haraway 1988, 192). In this double practice, seeing and the apparatus of seeing are both interrogated and held accountable. This is not a reflexive practice of the seen and
+v8uq | 348
+x972 | 15481360, 2014, 2, Downloaded from https://anthrosource.onlinelibrary.wiley.com/doi/10.14506/ca29.2.09 by University Of Oslo, Wiley Online Library on [25/08/2023]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+cwrw | the seer, because reflection implies a self-presence, a comfortable sense of one's identities and stakes. Rather, it is diffracted. One only sees at all through eyes that are themselves devices with histories of their own. Haraway (1988, 192) continues: "These points also apply to testimony from the position of 'oneself.' We are not immediately present to ourselves. Self-knowledge requires a semiotic- material technology linking meanings and bodies. Self-identity is a bad visual system."
+4i0e | Non-innocence and complicity are necessary if one is to confront world histories as histories that one is a part of and accountable to. Without these stances, one easily falls into some incarnation of a god-trick, claiming to see the world from nowhere in particular. Situated knowledge as a method begins at this point of bloody eyes seeing a violent world and not turning away because that would only add to the violence: commitment. One will pursue connections like a bloodhound to try and make better stories, fuller world histories, stronger objectivity.6 One fights for one's own eyes as well as for those of others. "Struggles over what will count as rational accounts of the world are struggles over how to see. . . . [O]bjectivity cannot be about fixed vision when what counts as an object is precisely what world history turns out to be about" (Haraway 1988, 194, 195).
+h2l3 | This commitment to investigate is something we come to have to do. De- leuze described Franz Kafka's commitment similarly: "The impossibility of not 'writing,' the impossibility of writing in the dominant language, the impossibility of writing differently" (Deleuze 1989, 217).7 For Haraway (1997, 68), the stakes are always high, but they are also everywhere:
+dfzb | The relations of democracy and knowledge are up for materialized refiguring at every level of the onion of doing technoscience, not just after all the serious epistemological action is over. I believe that last statement is a fact; I know it is my hope and commitment. This position is not relativism; it is a principled refusal of the stacked deck that forces choice between loaded dualities such as realism and relativism.
+u6ty | TAKE A WALK ON THE WILY SIDE . . .
+awvu | When my students read Haraway, they are often struck by the density of descriptions that span centuries and cultures, corporations and identities, without ever being nonspecific. Her stories of the bomb, gene, brain, mouse, vampire, and the like are not generic stories of mice, for instance, but of OncoMouse™ and even of particular OncoMice™ at specific labs. Students complain sometimes
+on9b | 15481360, 2014, 2, Downloaded from https://anthrosource.onlinelibrary.wiley.com/doi/10.14506/ca29.2.09 by University Of Oslo, Wiley Online Library on [25/08/2023]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+```
+
+OUTPUT:
+```

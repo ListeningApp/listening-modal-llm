@@ -1,0 +1,176 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+3pn1 | www.scienceofgettingrich.net
+wjuz | The Science of Getting Rich
+3yxv | As this impression spreads, all things are set moving toward its realization. Every living thing, every inanimate thing, and the things yet uncreated are stirred toward bringing into being that which you want. All force begins to be exerted in that direction. All things begin to move toward you. The minds of people everywhere are influenced toward doing the things necessary to the fulfilling of your desires, and they work for you, unconsciously.
+d8zj | But you can check all this by starting a negative impression in the formless substance. Doubt or unbelief is as certain to start a movement away from you as faith and purpose are to start one toward you. It is by not understanding this that most people make their failure. Every hour and moment you spend in giving heed to doubts and fears, every hour you spend in worry, every hour in which your soul is possessed by unbelief, sets a current away from you in the whole domain of intelligent substance. All the promises are unto them that believe, and unto them only.
+ywxn | Since belief is all important, it behooves you to guard your thoughts, and as your beliefs will be shaped to a very great extent by the things you observe and think about, it is important that you should carefully govern to what you give your attention.
+uxhs | And here the will comes into use, for it is by your will that you determine upon what things your attention shall be fixed.
+ed6e | If you want to become rich, you must not make a study of poverty.
+6qqm | Things are not brought into being by thinking about their opposites. Health is never to be attained by studying disease and thinking about disease; righteousness is not to be promoted by studying sin and thinking about sin; and no one ever got rich by studying poverty and thinking about poverty.
+onum | Medicine as a science of disease has increased disease; religion as a science of sin has promoted sin, and economics as a study of poverty will fill the world with wretchedness and want.
+3iir | Do not talk about poverty, do not investigate it, or concern yourself with it. Never mind what its causes are; you have nothing to do with them.
+7a0a | What concerns you is the cure.
+o1qp | Do some of these bold statements challenge or confuse you? Get the insights and thoughts of other like-minded people in the online discussion group at www.scienceofgettingrich.net
+jrik | Do not spend your time in so-called charitable work or charity movements; most charity only tends to perpetu- ate the wretchedness it aims to eradicate. I do not say that you should be hard-hearted or unkind and refuse to hear the cry of need, but you must not try to eradicate poverty in any of the conventional ways. Put poverty behind you, and put all that pertains to it behind you, and "make good."
+xv78 | Get rich. That is the best way you can help the poor.
+sdks | And you cannot hold the mental image which is to make you rich if you fill your mind with pictures of poverty and all its attendant ills. Do not read books or papers which give circumstantial accounts of the wretch- edness of the tenement dwellers, of the horrors of child labor, and so on. Do not read anything which fills your mind with gloomy images of want and suffering.
+y8fb | You cannot help the poor in the least by knowing about these things, and the wide-spread knowl- edge of them does not tend at all to do away with poverty.
+521q | What tends to do away with poverty is not the getting of pictures of poverty into your mind, but getting pictures of wealth, abundance, and possibility into the minds of the poor.
+yogo | 26 www.scienceofgettingrich.net
+2285 | You are not deserting the poor in their misery when you refuse to allow your mind to be filled with pictures of that misery.
+ys0g | Poverty can be done away with, not by increasing the number of well-to-do people who think about poverty, but by increasing the number of poor people who purpose with faith to get rich.
+7zvp | The poor do not need charity; they need inspiration. Charity only sends them a loaf of bread to keep them alive in their wretchedness, or gives them an entertainment to make them forget for an hour or two. But inspiration can cause them to rise out of their misery. If you want to help the poor, demon- strate to them that they can become rich. Prove it by getting rich yourself.
+ww6u | The only way in which poverty will ever be banished from this world is by getting a large and constantly increasing number of people to practice the teachings of this book.
+hpi6 | People must be taught to become rich by creation, not by competition.
+4uhb | Every person who becomes rich by competition knocks down the ladder by which he rises, and keeps others down, but every person who gets rich by creation opens a way for thousands to follow - and inspires them to do so.
+epyi | You are not showing hardness of heart or an unfeeling disposition when you refuse to pity poverty, see poverty, read about poverty, or think or talk about it, or to listen to those who do talk about it. Use your will power to keep your mind OFF the subject of poverty and to keep it fixed with faith and purpose ON the vision of what you want and are creating.
+y51p | www.scienceofgettingrich.net
+x95m | CHAPTER 10
+yfum | Further Use of The Will
+ppx4 | YOU CANNOT RETAIN A TRUE AND CLEAR VISION OF WEALTH if you are constantly turning your atten- tion to opposing pictures, whether they be external or imaginary.
+qf11 | Do not tell of your past troubles of a financial nature, if you have had them. Do not think of them at all. Do not tell of the poverty of your parents or the hardships of your early life. To do any of these things is to mentally class yourself with the poor for the time being, and it will certainly check the movement of things in your direction. Put poverty and all things that pertain to poverty completely behind you.
+8oqt | You have accepted a certain theory of the universe as being correct, and are resting all your hopes of happiness on its being correct. What can you gain by giving heed to conflicting theories?
+6zah | Do not read books which tell you that the world is soon coming to an end, and do not read the writing of muckrakers and pessimistic philosophers who tell you that it is going to the devil. The world is not going to the devil; it is going to God. It is a wonderful becoming.
+4v5o | True, there may be a good many things in existing conditions which are disagreeable, but what is the use of studying them when they are certainly passing away and when the study of them only tends to slow their passing and keep them with us? Why give time and attention to things which are being removed by evolutionary growth, when you can hasten their removal only by promoting the evolution- ary growth as far as your part of it goes?
+ha9e | No matter how horrible in seeming may be the conditions in certain countries, sections, or places, you waste your time and destroy your own chances by dwelling on them.
+xrnt | You should interest yourself in the world's becoming rich.
+c8ra | Think of the riches the world is coming into instead of the poverty it is growing out of, and bear in mind that the only way in which you can assist the world in growing rich is by growing rich yourself through the creative method, not the competitive one.
+p1l0 | Give your attention wholly to riches. Do not focus on poverty. Whenever you think or speak of those who are poor, think and speak of them as those who are becoming rich, as those who are to be congratulated rather than pitied. Then they and others will catch the inspiration, and begin to search for the way out.
+1i8b | Because I say that you are to give your whole time and mind and thought to riches, it does not follow that you are to be sordid or mean.
+5sfj | To become really rich is the noblest aim you can have in life, for it includes everything else.
+vk4h | On the competitive plane, the struggle to get rich is a Godless scramble for power over others, but when we come into the creative mind, all this is changed. All that is possible in the way of greatness, of service and lofty endeavor, comes by way of getting rich, because all is made possible by the use of things. You can aim at nothing so great or noble, I repeat, as to become rich, and you must fix your attention upon your mental picture of wealth to the exclusion of all that may tend to dim or obscure the vision.
+nsm3 | 29
+jdfw | www.scienceofgettingrich.net
+uc9r | The Science of Getting Rich
+l0ap | Some people remain in poverty because they are ignorant of the fact that there is wealth for them, and these can best be taught by showing them the way to affluence in your own person and practice.
+x815 | Others are poor because, while they feel that there is a way out, they are too intellectually indolent to put forth the mental effort necessary to find that way and travel it. For these, the very best thing you can do is to arouse their desire by showing them the happiness that comes from being rightly rich.
+epbj | Others still are poor because, while they have some notion of science, they have become so swamped and lost in the maze of theories that they do not know which road to take. They try a mixture of many systems and fail in all. For these, again, the very best thing to do is to show the right way in your own person and practice. An ounce of doing things is worth a pound of theorizing.
+nmn2 | The very best thing you can do for the whole world is to make the most of yourself.
+g3tm | You can serve God and humanity in no more effective way than by getting rich; that is, if you get rich by the creative method and not by the competitive one.
+tfra | Another thing. We assert that this book gives in detail the principles of the science of getting rich, and if that is true, you do not need to read any other book upon the subject. This may sound narrow and egotistical, but consider: There is no more scientific method of computation in mathematics than by addition, subtraction, multiplication, and division; no other method is possible. There can be but one shortest distance between two points. There is only one way to think scientifically, and that is to think in the way that leads by the most direct and simple route to the goal. No one has yet formulated a briefer or less complex "system" than the one set forth here. It has been stripped of all non-essentials. When you commence on this, lay all others aside. Put them out of your mind altogether.
+5lm9 | Read this book every day. Keep it with you. Commit it to memory, and do not think about other "systems" and theories. If you do, you will begin to have doubts and to be uncertain and wavering in your thought, and then you will begin to make failures. After you have made good and become rich, you may study other systems as much as you please.
+wp2c | And read only the most optimistic comments on the world's news - those in harmony with your picture. Also, do not dabble in theosophy, spiritualism, or kindred studies. Perhaps the dead still live and are near, but if they are, let them alone; mind your own business.
+us5v | Wherever the spirits of the dead may be, they have their own work to do, and we have no right to interfere with them. We cannot help them, and it is very doubtful whether they can help us, or whether we have any right to trespass upon their time if they can. Let the dead and the hereafter alone, and solve your own problem: Get rich. If you begin to mix with the occult, you will start mental cross-currents which will surely bring your hopes to shipwreck.
+rs2m | Now, this and the preceding chapters have brought us to the following statement of basic facts:
+uz9y | There is a thinking stuff from which all things are made, and which, in its original state, permeates, penetrates, and fills the interspaces of the universe.
+8ov0 | A thought in this substance produces the thing that is imaged by the thought.
+mj9m | A person can form things in his thought, and, by impressing his thought upon formless substance, can cause the thing he thinks about to be created.
+94h3 | In order to do this, a person must pass from the competitive to the creative mind; he must form a clear mental picture of the things he wants, and hold this picture in his thoughts with the fixed PURPOSE to get what he wants, and the unwavering FAITH that he does get what he wants, closing his mind against all that may tend to shake his purpose, dim his vision, or quench his faith.
+9jx1 | And in addition to all this, we shall now see that he must live and act in a certain way.
+c3lz | www.scienceofgettingrich.net
+8bwk | CHAPTER II
+ez9s | Acting in The Certain Way
+mqot | THOUGHT IS THE CREATIVE POWER or the impelling force which causes the creative power to act. Thinking in a certain way will bring riches to you, but you must not rely upon thought alone, paying no attention to personal action. That is the rock upon which many otherwise scientific thinkers meet shipwreck - the failure to connect thought with personal action.
+oc99 | We have not yet reached the stage of development, even supposing such a stage to be possible, in which a person can create directly from formless substance without nature's processes or the work of human hands. A person must not only think, but his personal action must supplement his thought.
+gipz | By thought you can cause the gold in the hearts of the mountains to be impelled toward you, but it will not mine itself, refine itself, coin itself into double eagles, and come rolling along the roads, seeking its way into your pocket.
+b4wj | Under the impelling power of the supreme spirit, people's affairs will be so ordered that someone will be led to mine the gold for you. Other people's business transactions will be so directed that the gold will be brought toward you. And you must so arrange your own business affairs that you may be able to receive it when it comes to you. Your thought makes all things, animate and inanimate, work to bring you what you want, but your personal activity must be such that you can rightly receive what you want when it reaches you. You are not to take it as charity, nor to steal it. You must give every man more in use value than he gives you in cash value.
+5xlt | The scientific use of thought consists in forming a clear and distinct mental image of what you want, in holding fast to your purpose to get what you want, and in realizing with grateful faith that you do get what you want.
+9bz4 | Do not try to "project" your thought in any mysterious or occult way, with the idea of having it go out and do things for you. That is wasted effort and will weaken your power to think with sanity.
+yfv2 | The action of thought in getting rich is fully explained in the preceding chapters: Your faith and purpose positively impress your vision upon formless substance, which has the same desire for more life that you have, and this vision, received from you, sets all the creative forces at work in and through their regular channels of action, but directed toward you.
+pujl | It is not your part to guide or supervise the creative process. All you have to do with that is to retain your vision, stick to your purpose, and maintain your faith and gratitude.
+3rqe | But you must act in a certain way, so that you can appropriate what is yours when it comes to you and so that you can meet the things you have in your picture and put them in their proper places as they arrive.
+nsi3 | You can really see the truth of this. When things reach you, they will be in the hands of others, who will ask an equivalent for them. And you can only get what is yours by giving the other person what is rightfully his.
+nil3 | www.scienceofgettingrich.net
+68a1 | The Science of Getting Rich
+seik | Your pocketbook is not going to be transformed into a Fortunata's purse, which shall be always full of money without effort on your part.
+```
+
+OUTPUT:
+```

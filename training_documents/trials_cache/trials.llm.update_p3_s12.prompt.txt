@@ -1,0 +1,106 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document. Your task is to faithfully reproduce the text for our text-to-speech engine so that it is easily read aloud.
+
+Note that the text might not start at the beginning and paragraphs may be split acrosss multiple textboxes. Textboxes may start or end in the middle of a word which is acceptable: do not combine text between textboxes and leave broken words at the start and end of a textbox unchanged.
+
+You will receive one textbox per-line in the format `id | Textbox content`. The output must be in the format `id | Clean content`.
+
+RULES:
+ • Remove inline citations and references e.g. "(Author, 2021)" or "(https://wikipedia.org/article.html)" or "[ECMOS 35b, 47, 49]".
+ • Spell out numbers, dates, and chemical formulas for the TTS engine e.g. "-2.5" -> "negative two point five" or "Jan. 2020" -> "January twenty twenty".
+ • Spell out LaTeX formulas for the TTS engine e.g. "<LATEX>p = 1</LATEX>" -> "P equals one".
+ • Rejoin hyphenated word fragments within the same textbox e.g. "synth -esize" -> "synthesize".
+ • Fix simple typos and OCR errors e.g. "O nce upon a 1ime." -> "Once upon a time.".
+ • Delete nonsequiter textboxes that interrupt the middle of a sentence if they obviously do not belong.
+
+Otherwise, the output should exactly match the input text:
+ • Do not combine text across lines or attempt to fix words broken across lines.
+ • Ensure each ID from the input is included in the output.
+ • Make as few changes as possible while respecting the above rules.
+
+EXAMPLE INPUT:
+```
+ccpt | stigate the effectiveness of psychedelics for ADHD symp- toms in adults.
+0fpw | 2. Materia1 and methods
+dqn8 | 2.1. Study design and participants
+cop0 | The study employed a naturalistic design, assessing the experiences of participants at bas-,
+lhkq | eline before they start, and at 2 and 4 weeks after initiation. The target population included adults with ADHD symptoms who had not been diag- nosed with ADHD before. To be included, participants needed to score on Conner's Adult ADHD Rating Scale (CAARS-S:SV). This cut-off was indicative of clinically elevated symptoms (Conners et al., 1999) (see section 2.3).
+82ju | 2.2. Study procedure
+y2qo | The online advertisement was placed on a website providing information about psychedelics (www.microdo sing.nl). Interested participants were redirected to information explaining the study rationale and procedure. The baseline survey took 20 min to complete. If the survey had not been completed after 24 h, a reminder was sent. Each of the surveys at the 2- and 4-week time points took about 15 min to complete. Par- ticipants were able to pause the surveys. Data collection occurred between Nov. 2020 and Jul. 2021. The study was approved by the Ethics Review Committee of Psy- chology and Neuroscience at Maastricht University (ERCPN- 215_05_11_2019_A1).
+1piq | 2.3. Measures
+7fqw | 2.3.1. Demographic information and history of substance use
+rhaz | At baseline, demographic information was collected. History of substance use assessed experience with psyche- delics (i.e., ayahuasca, DMT, 5-MeO-DMT, LSD, novel lysergamides (e.g., 1P-LSD, ALD-52), psilocybin, salvia divinorum, ibogaine, and mescaline) in both full (psychedelic) doses and microdoses.
+wak1 | 2.3.2. Psychiatric and physiological diagnoses
+wtfz | Participants were asked whether they had a current diagnosis of a disorder. These answer options were chosen because most of the listed diagnoses are often reported to co-occur with ADHD (Kooij et al., 2019), or because these diagnoses were reported to be common in people who microdose (Fadiman and Korb, 2019). We 
+3j2l | REVIEW ARTICLE Frontiers in Psychiatry | www.frontiersin.org
+03k3 | 2
+1k9e | constructed a variable Comorbidity alongside ADHD, differenti- ating respondents with and without a comorbid diagnosis alongside ADHD (<LATEX>p < . 0 0 1 =</LATEX> only ADHD or no ADHD diagnosis; <LATEX>p > . 0 1 =</LATEX> ADHD and at least one other diagnosis). We constructed a variable Medication use alongside microdosing, differentiating respondents who were and were not using conven- tiona1 ADHD medication alongside microdosing (<LATEX>0 =</LATEX> only microdosing; <LATEX>1 =</LATEX> conven-
+```
+
+EXAMPLE OUTPUT:
+```
+ccpt | stigate the effectiveness of psychedelics for ADHD symptoms in adults.
+0fpw | Two. Material and methods
+dqn8 | Two point one. Study design and participants
+cop0 | The study employed a naturalistic design, assessing the experiences of participants at bas-,
+lhkq | eline before they start, and at two and four weeks after initiation. The target population included adults with ADHD symptoms who had not been diagnosed with ADHD before. To be included, participants needed to score on Conner's Adult ADHD Rating Scale. This cut-off was indicative of clinically elevated symptoms (see section two point three).
+82ju | Two point two. Study procedure
+y2qo | The online advertisement was placed on a website providing information about psychedelics. Interested participants were redirected to information explaining the study rationale and procedure. The baseline survey took twenty minutes to complete. If the survey had not been completed after twenty-four hours, a reminder was sent. Each of the surveys at the two and four-week time points took about fifteen minutes to complete. Participants were able to pause the surveys. Data collection occurred between November twenty twenty and July twenty twenty-one. The study was approved by the Ethics Review Committee of Psychology and Neuroscience at Maastricht University.
+1piq | Two point three. Measures
+7fqw | Two point three point one. Demographic information and history of substance use
+rhaz | At baseline, demographic information was collected. History of substance use assessed experience with psychedelics (i.e., ayahuasca, DMT, five-MeO-DMT, LSD, novel lysergamides (e.g., one-P-LSD, ALD-fifty-two), psilocybin, salvia divinorum, ibogaine, and mescaline) in both full (psychedelic) doses and microdoses.
+wak1 | Two point three point two. Psychiatric and physiological diagnoses
+wtfz | Participants were asked whether they had a current diagnosis of a disorder. These answer options were chosen because most of the listed diagnoses are often reported to co-occur with ADHD, or because these diagnoses were reported to be common in people who microdose. We
+3j2l |
+03k3 |
+1k9e | constructed a variable Comorbidity alongside ADHD, differentiating respondents with and without a comorbid diagnosis alongside ADHD (P is less than point zero zero one equals only ADHD or no ADHD diagnosis; P is greater than point zero one equals ADHD and at least one other diagnosis). We constructed a variable Medication use alongside microdosing, differentiating respondents who were and were not using conventional ADHD medication alongside microdosing (zero equals only microdosing; one equals conven-
+```
+
+INPUT:
+```
+m50z | In a clinical trial conclusions are based on observed treatment effects rather than the true, unknown effects. These observed effects could be larger (i.e. further away from the null hypothesis of no effect) but could also be smaller (i.e. closer to the null hypothesis of no effect) than the true effects. The trials need to give a good chance of providing evidence for a treatment difference even if the observed effects are smaller than the true effects. The chances of this can be improved by increasing the numbers in our trial.
+me84 | For example, the investigators in the UK PACE trial wanted to be 90% sure of picking up a statistically significant (at <LATEX>\left. p < 0 . 0 5 \right)</LATEX> result if a true difference of 24% vs. 18% existed.
+o56m | 3.3
+slz6 | In total, the UK PACE trial needed to recruit approximately 2000 patients to satisfy the above criteria as will be seen in later sections.
+90k5 | 4 Type I and type II errors
+9m8s | Note the true population values in each treatment group are not known but in calculating the sample size some estimate of these values are needed based on the alternative hypothesis. In the following sections the observed and anticipated percentages will be distinguished using the following notation:
+893y | p1 = the observed percentage in those on standard treatment <LATEX>p _ { 2 } = t h</LATEX> observed percentage in those on 'new' treatment
+favz | i.e. <LATEX>p _ { 1 } - p _ { 2 }</LATEX> is the observed treatment effect (observed absolute percentage reduction on 'new' treatment)
+7szx | <LATEX>\pi _ { 1 } =</LATEX> percentage in those on standard treatment <LATEX>\pi _ { 2 } =</LATEX> anticipated percentage in those on 'new' treatment
+hx9e | i.e. <LATEX>\pi _ { 1 } - \pi _ { 2 }</LATEX> is the true difference which has been decided it is important to detect
+ywn2 | Further notations are as follows:
+a63r | α = significance level for detecting a difference (usually set at 0.05 (or 5%))
+dqvj | 1-ß = degree of certainty that a true difference of <LATEX>\pi _ { 1 } - \pi _ { 2 }</LATEX> would be detected i.e. the power (often aim for 1- <LATEX>\beta = 0 . 9</LATEX> (or 90% power))
+r17u | Consider the table below. Ideally, the results of the trial should fall either:
+3c47 | (i) in the top left hand cell of the table, i.e. if, in truth, no difference exists (the null hypothesis), then no evidence for a difference is observed in the trial, or
+g345 | (ii) in the bottom right hand cell of the table, i.e. if, in truth, a difference of <LATEX>\pi _ { 1 } - \pi _ { 2 }</LATEX> does exist (the alternative hypothesis), then evidence for a difference is observed in the trial.
+svhz | These are marked by <LATEX>X</LATEX> in the table.
+oaen | Table 2: Observed trial results compared to the 'truth' of (i) no difference
+5u67 | (ii) a true <LATEX>\pi _ { 1 } - \pi _ { 2 }</LATEX> difference
+dvms | <LATEX>X</LATEX> 3.4
+qrd3 | However, there are two particular types of errors that can be made in interpreting trial results. These are referred to as type I and type II errors.
+rxrg | · Type I error. A type I error is when a treatment difference is claimed based on a statistically significant observed result when in truth no such difference exists i.e. a false positive result.
+tf43 | . Type II error. A type II error is when in truth there exists a difference of T1 - 72 but the observed results fail to reach statistical significance, i.e. a false negative result.
+fcco | Alternative ways of describing a and B are as follows and represented in the table below:
+8uji | (ii) the alternative hypothesis being true
+df3e | It needs to be decided in advance what levels will be set for a and 1-ß and in the following sections the influences of the choice of these on the required sample size will be demonstrated.
+53eu | 5 Comparing two percentages (or proportions) - power calculation
+a5u1 | 5.1 Sample size formula using 5% significance and 90% power
+ry7u | Up to now the key factors needed in calculating a sample size have been considered and the concept of power in this process has been introduced.
+5mda | In the UK PACE example the intended power was set at 90%. This means that if the true underlying percentages are 24% and 18%, there is a 10% probability that the observed results will give p>0.05. This will occur if the observed difference is less than the true difference to the extent that it is more compatible with the null hypothesis of no difference. Some risk of a false negative result has to be accepted (otherwise an infinitely large study is needed).
+i4li | Note that some risk of a false positive result also has to be accepted: it is quite possible that p<0.05 might be observed even if there is no true treatment difference.
+r8sm | 3.5
+cuin | Common choices for a (significance level) and 1-ß (power) are 0.05 and 0.90 respectively as already stated. Based on these choices, the equation to calculate the required sample size in each group for the comparison of two proportions is given below:
+n1i7 | There are two key notes that you need to be aware of given below.
+0r5m | Note 1: The above equation calculates the required number of patients required in each group. Therefore for a trial with two treatments (with equal numbers planned for each group), the required number of patients in total is double this amount.
+ne2o | Note 2: Up to this point the outcomes have been considered as percentages. If proportions are preferred in the calculation of the sample size then the above equation must be adapted by substituting '1' in place of '100' throughout.
+sqxn | By using the sample size formula above, the total sample size required for the UK PACE trial is 1926 (963 in each group). In practice the UK PACE trial aimed to recruit 2000 patients.
+6pmo | Note that the aim of a sample size calculation is to approximate the number of patients required rather than provide exact figures. There are several assumptions that need to be made including the anticipated true values which of course cannot be known.
+195r | 5.2 More general formula for any combination of significance and power
+kqmi | The formula given for the comparison for two proportions is based on a type I error of <LATEX>\alpha = 0 . 0 5</LATEX> (equating to a significance level of 5%) and a type II error of <LATEX>\beta = 0 . 1</LATEX> (equating to 90% power). However, a more general formula for different values of <LATEX>\alpha</LATEX> and <LATEX>\beta</LATEX> is needed.
+g8rd | A more general formula is as follows:
+nns9 | where <LATEX>\mathrm { f } \left( \alpha , \beta \right)</LATEX> is a function of a and B. The table below provides the value of <LATEX>\mathrm { f } \left( \alpha , \beta \right)</LATEX> for different values of <LATEX>\alpha</LATEX> and B.
+9uwy | 3.6
+```
+
+OUTPUT:
+```

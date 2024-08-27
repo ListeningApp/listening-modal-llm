@@ -1,0 +1,252 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+1pjs | Extraordinary
+o2kr | Federal Republic of Nigeria Official Gazette
+v6sk | No. 114
+1wj6 | Lagos - 24th June, 2022
+936l | Vol. 109
+06yq | Government Notice No.74
+dpv6 | The following is published as supplement to this Gazette :
+8r5j | S. I. No. Short Title Page 45 Nigeria Upstream Petroleum Host Communities Development Regulations, 2022. B2115-2142
+2taz | Extraordinary
+o3ya | Federal Republic of Nigeria Official Gazette
+r5il | No. 114
+5gui | Lagos - 24th June, 2022
+82qc | Vol. 109
+ls7d | Government Notice No.74
+tzt3 | The following is published as supplement to this Gazette :
+t8vv | S. I. No. Short Title Page 45 Nigeria Upstream Petroleum Host Communities Development Regulations, 2022. B2115-2142
+qvnu | PETROLEUM INDUSTRY ACT, NO. 6, 2021 NIGERIA UPSTREAM PETROLEUM HOST COMMUNITIES DEVELOPMENT REGULATIONS, 2022.
+kggw | Regulations :
+xrd1 | PART I - OBJECTIVES AND APPLICATION
+5746 | 1. Objectives.
+7toz | 2. Application.
+j346 | 3. General Powers of the Commission.
+v8uq | 4. Responsibility for compliance.
+x972 | 5. Determination of operational area.
+cwrw | 6. Determination of host community.
+4i0e | PART III - HOST COMMUNITIES DEVELOPMENT TRUST AND TRUST FUND
+h2l3 | 7. Pre-approval of Host Community Development Trust registration by the Commission.
+dfzb | 8. Approval by the Commission.
+u6ty | 9. Failure to Incorporate a trust.
+awvu | 10. Trust administration.
+on9b | 11. Winding up and dissolution of trust and the Fund.
+a8ge | 12. Appointment of trustees.
+h27a | 13. Approval of trustees by the Commission.
+pdjh | 14. Minimum qualifications of a trustee.
+xmgs | 15. Duties of the Board of Trustees.
+bd9h | 16. Removal of a trustee by the settlor.
+m047 | 17. Resignation by a trustee.
+gy8c | PART IV - HOST COMMUNITIES DEVELOPMENT TRUST COMMITTEES
+y4mj | 18. Management Committee for the Host Community Development Trust.
+vpgq | 19. Host Communities Advisory Committee.
+ousl | 20. Host Communities Needs Assessment, Host Communities Development Plan and Fund Distribution Matrix.
+m4ju | 21. The Host Communities Development Plan.
+a0mb | 22. Fund Distribution Matrix.
+ki8m | B 2116
+km8w | 23. Establishment of the Host Communities Development Trust Fund by the settlor.
+wzno | 24. Contribution to the Fund.
+xagm | 25. Utilisation of the Fund.
+iwn5 | 26. Withdrawals from the Fund.
+uooz | 27. Reduction of administrative costs.
+pxbq | 28. Management of the Capital Fund and the Administrative Cost Fund.
+jfsr | 29. Management of the Reserve Fund.
+u15r | 30. Oversight powers of the Commission over the Fund.
+lq35 | 31. Appointment of the fund manager.
+3g9w | 32. Duties of the fund manager.
+d09o | 33. Cessation of office of the fund manager and appointment of interim fund manager.
+ylhz | PART VI - INVESTMENT OF THE RESERVE FUND AND REPORTING OBLIGATIONS
+a3td | 34. Criteria for investment in securities.
+ex5k | 35. Mid-year and annual reports.
+9d4o | PART VII - MISCELLANEOUS PROVISIONS
+cjq2 | 36. Offences, penalties and sanctions
+5esx | 37. Vandalism.
+m5ka | 38. Cessation of settlor's interests.
+byu8 | 39. Grievance mechanism and conflict resolution procedure.
+76b0 | 40. Transfer of existing host community development projects and schemes.
+zxz6 | 41. Interpretations.
+xnth | 42. Citation.
+vafm | S. I. No. 45 of 2022
+2zmw | PETROLEUM INDUSTRY ACT, NO. 6, 2021
+bf9k | NIGERIA UPSTREAM PETROLEUM HOST COMMUNITIES DEVELOPMENT REGULATIONS, 2022
+otkr | [23rd Day of June, 2022]
+ibgs | In exercise of the powers conferred on it by sections 10(f), 234(2) and 235(6)(a) of the Petroleum Industry Act, No. 6, 2021 ("the Act") and of all other powers enabling it in that behalf, the Nigerian Upstream Petroleum Regulatory Commission ("Commission") makes the following Regulations-
+colo | PART I - OBJECTIVES AND APPLICATION
+d6r4 | 1. The objectives of these Regulations are to-
+9mrz | Objective.
+pk06 | (a) provide substantive and procedural requirements for the establishment and administration of the trust and the Fund for Nigerian Upstream Petroleum host communities ;
+7wn9 | (b) outline the parameters for the administration and safeguard of the Fund ;
+wcd0 | (c) prescribe a grievance resolution mechanism for settlement of disputes between host communities and settlors ; and
+caos | (d) provide general rules for the implementation of the provisions of section 234 (1) (a)-(d) of the Act for the development of host communities.
+qrvy | 2. These Regulations shall apply to Nigerian Upstream Petroleum host communities and a holder of a licence or lease engaged in upstream petroleum operations as defined in section 318 of the Act.
+pn9j | Application.
+1pmc | PART II - GENERAL POWERS OF THE COMMISSION
+5z6q | 3. Pursuant to section 235(6) of the Act, the Commission shall have powers to-
+yeoh | (a) conduct a periodic assessment of the performance of each fund using a performance matrix published on its website ;
+b8hf | (b) investigate and report pursuant to section 26 of the Act, cases of fraud, mismanagement, misappropriation or misapplication of the Fund to relevant authorities, including the Nigeria Police Force, Economic and Financial Crimes Commission and the Corporate Affairs Commission ;
+hntf | (c) initiate action to trace and recover the funds of the trust, where the funds are mismanaged or misappropriated ;
+99fo | (d) set up a mechanism for members of the upstream petroleum communities under a trust to report any incidents of fraud, mismanagement, misappropriation or misapplication of the Fund ; and
+y5r7 | B 2118
+lrry | (e) ensure implementation of proposed projects of upstream petroleum communities at all stages, which includes project initiation, contract award, project execution and project completion.
+hvhm | 4 .- (1) A licensee or lessee shall ensure compliance with these Regulations and the Act.
+863b | (2) Where a licence or lease is held by more than one licensee or lessee operating under a joint operating agreement, the operator appointed under the joint operating agreement or other agreement, shall be responsible for compliance on their behalf.
+fj24 | (3) Notwithstanding the provisions of sub-regulation (2) of this regulation, a licensee or lessee shall be liable for any failure on the part of the operator to comply with the provisions of the Act or these Regulations.
+uz3c | 5. An area of operation shall be a territory within the boundary of the area to which a licence or a lease relates and any area which hosts a licensee or lessee's facilities used in upstream petroleum operations in accordance with the provisions of section 318 of the Act.
+d5bi | 6 .- (1) A host community shall be as defined under section 318 of the Act.
+ba4l | (2) In determining host communities situated in or appurtenant to shallow water and deep-water areas of operation, the following criteria shall apply-
+ffx8 | (a) a littoral community to a deep-water area of operation located along the Gulf of Guinea of the Nigerian shoreline up to about 500 metres inland, provided that such community is gazetted by the National Boundary Commission ;
+s6su | (b) littoral communities to shallow water areas of operations within Nigeria's shallow waters, identified as a host community by a settlor prior to the enactment of the Act, and any other community identified and determined by the settlor ;
+y219 | (c) littoral communities to shallow water and deep-water areas of operations, which include any other community selected by the settlor pursuant to section 235(3) of the Act ; and
+06ht | (d) littoral communities to deep-water area of operations shall be categorised by their respective state coastlines and shall be assigned to a settlor by the Commission for the purpose of setting up the trust and other responsibilities provided under Chapter 3 of the Act.
+v3r2 | (3) Any host community which is a beneficiary of the trust shall not be excluded by the settlor or Commission from a trust except in the following circumstances-
+nv42 | (a) where the boundary of the area of operation changes as a result of relinquishment, such that a community previously selected as a beneficiary is no longer within the area of operation of the retained area of the lease ; or
+xags | (b) where a court of competent jurisdiction has by a final unappealed judgment, determined that a community previously selected as a host community, does not qualify as a host community under the Act or any other law.
+jc47 | PART III - HOST COMMUNITY DEVELOPMENT TRUST AND TRUST FUND
+ko3c | 7. Prior to a registration of a trust at the Corporate Affairs Commission, not later than 60 days prior to the deadline prescribed under section 236 (a) (d) and (e) of the Act, a settlor or through the operator, where applicable, shall submit to the Commission for approval, the following documents in relation to the trust to be registered-
+xek3 | (a) a copy of the proposed constitution of the trust to be registered, which shall be in compliance with sections 239(1), 239(2), 240(1), 241, 242(1), 247(1), 249(1), 254 and 255 of the Act and section 827 of the Companies and Allied Matters Act ;
+bbpr | (b) the details of the proposed trustees of the trust, intended to form the Board of Trustees as stipulated in regulation 13(2) of these Regulations ;
+5zyf | (c) the criteria for the selection of the trustees, subject to regulation 13(2) of these Regulations ;
+9own | (d) a copy of the applicant's licence or lease, with a map identifying the settlor's area of operations annexed to it ;
+bqfb | (e) the list and location of host communities to be covered by the trust ;
+wwdt | (f) the host community development plan specifying matters described in regulation 20 of these Regulations ; and
+mn1r | (g) a fund matrix specifying matters described in regulation 22(1) of these Regulations.
+5vqw | 8 .- (1) The Commission shall within 30 days of receipt of the documents submitted by the settlor pursuant to regulation 8 of these Regulations, notify the settlor of its approval or refusal of the application.
+meyw | Approval by the Commission.
+2e62 | (2) Where the Commission refuses the settlor's application, the Commission shall provide the settlor with the reason for refusal and may direct the settlor to amend its application and resubmit it within 30 days.
+75y3 | (3) Where the Commission does not communicate its decision to the settlor within the 30-day period specified in sub-regulation (2) of this regulation, the settlor's application shall be deemed to have been approved, and the settlor shall be entitled to proceed with the incorporation of the trust.
+s2g2 | B 2120
+q1q2 | 9 .- (1) Where a settlor fails to incorporate a trust as stipulated in section 236 (a), (d) and (e) of the Act, the Commission may within 14 days issue to such defaulting settlor or operator where applicable, a notice in writing of its failure to establish a trust and direct the settlor to register the trust within 45 days.
+cb7r | (2) A settlor that fails to incorporate a trust within the timeline stated in the notice under sub-regulation (1) of this regulation, shall be liable to an administrative penalty of $2,500 or its equivalent in Naira per day from the date of expiration of 45 days' notice period issued under sub-regulation (1) of this regulation until the trust is incorporated.
+68xu | (3) The Commission may make recommendations to the Minister, for the revocation of the licence or lease of the defaulting settlor where the settlor fails to incorporate a trust within 30 days after the expiration of the 45 days' timeline specified by the Commission in the notice issued under sub-regulation (1) of this regulation.
+hd35 | 10 .- (1) A trust shall be administered in accordance with the provisions of the Act, these Regulations, the constitution of the trust and any other applicable law.
+2zpk | (2) The Commission may, in the exercise of its supervisory and oversight powers-
+epu7 | (a) require information from the settlor, the Board of Trustees or the fund manager relating to the administration of the trust or the Fund, where the Commission believes that there is or has been any misconduct or mismanagement in the administration of the trust or the Fund ;
+7od1 | (b) enter into any project site owned by or being administered by the trust for the purpose of inspecting the progress of any project embarked on by the trust ;
+0bqy | (c) carry out enquiries, audits or investigations and take other steps to monitor the activities of the trust ; and
+b780 | (d) take any other steps prescribed by the Act to ensure compliance with the provision of the Act and these Regulations.
+ccmb | (3) The Commission shall give the settlor reasonable time to provide the information requested pursuant to sub-regulation (2) of this regulation and thè settlor shall make available the information requested within the timeline specified by the Commission.
+ma93 | (4) The Board of Trustees of a trust shall ensure that the trust and the Fund are equitably administered and managed in accordance with the provision of the Act and these Regulations.
+c6hh | B 2121
+y7ea | (5) Where it appears to the Commission that there is, there has been or likely to be a contravention of the Act, these Regulations or the constitution of the trust, or there has been any misconduct or mismanagement in the administration of the Fund, the Commission shall give notice to the settlor, Board of Trustees or the operator where applicable, and require it to take remedial actions specified by the Commission.
+nav4 | (6) Where the settlor fails to take any remedial actions pursuant to sub- regulation (5) of these Regulations, the settlor shall be liable to administrative penalty of $2,500 or its equivalent in Naira per day for each day it remains in default.
+gem8 | (7) The administration of the trust shall be subject to the provisions of the Companies and Allied Matters Act and any other applicable law.
+e8nr | 11 .- (1) The trustees and the settlor shall not dissolve the trust except with the approval of the Commission.
+k78w | (2) The trustees or settlor as the case may be, shall give the Commission sufficient details of its reason, where they intend to dissolve the trust.
+g9du | (3) The Commission may in its discretion, approve or refuse to approve the proposed dissolution of the trust.
+f682 | (4) The Commission may approve the dissolution of a trust where-
+li1k | (a) in its estimation, the trust is no longer required ;
+pbea | (b) the object of the trust has been fully realised ;
+ccpt | (c) the licence of the settlor has expired and is not renewed ; and
+0fpw | (d) the licence of the settlor is revoked and the oil field or block has not been reallocated, and in each case, the Fund has been fully exhausted.
+dqn8 | (5) Where the Commission refuses to approve the proposed dissolution of a trust, it shall give reasons for doing so.
+cop0 | (6) Where the Commission approves the dissolution of a trust, the trust shall be dissolved in accordance with the provisions of the Companies and Allied Matters Act.
+lhkq | 12 .- (1) Subject to regulation 13(2) of these Regulations, a settlor shall-
+82ju | (a) prior to the incorporation of a trust, appoint in consultation with the host communities, the first trustees ; and
+y2qo | (b) in consultation with the advisory committee, appoint additional or replacement trustees, other than the first trustees.
+1piq | (2) The number of the trustees shall be an odd number, not exceeding nine members, but subject to size and diversity of the host community.
+7fqw | (3) The settlor shall determine the criteria for the appointment of trustees, the selection process, remuneration, discipline, qualification, disqualification, suspension and removal of any member of the Board of Trustees.
+rhaz | (4) Without prejudice to the provisions of the Act and these Regulations, a settlor shall give due consideration to diversity as it relates to age, gender and physical disability in determining the criteria for appointment to the Board of Trustees.
+wak1 | (5) Members of the Board of Trustees shall serve a term of four years in the first instance and may be reappointed for another term of four years and no more.
+wtfz | 13 .- (1) Prior to appointment of a trustee, the settlor shall submit an application to the Commission in the prescribed form for approval.
+qy1i | (2) The application referred to under sub-regulation (1) of this regulation shall be accompanied with the following information and documents-
+1k9e | (a) the draft constitution of the trust ;
+```
+
+OUTPUT:
+```

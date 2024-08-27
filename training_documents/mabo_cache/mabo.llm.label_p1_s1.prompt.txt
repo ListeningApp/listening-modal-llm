@@ -1,0 +1,153 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+1pjs | In Defence of Mabo
+o2kr | CORRECTION OF AN ENDURING WRONG OR A ‘PITIFUL' DECISION?
+v6sk | The decision of the High Court of Australia in Mabo & Ors v The State of Queensland1 has attracted unprecedented comment. Brennan J (with whom Mason CJ and McHugh J agreed) envisaged that his decision would af- ford a new, just and appropriate 'skeleton of the common law' in Aus- tralia concerning the title to land of its indigenous peoples. Many have applauded the decision as long overdue. Others have condemned it as a judicial usurpation of power. The Honourable Peter Connolly, a former Judge of the Supreme Court of Queensland, described it in emphatic terms: ' ... as law, the decision is pitiful.'2 Rarely has a decision of an Australian court attracted so much praise and so much calumny. Most commenta- tors have, of course, not read the decision. Most do not really know ex- actly what the case decides.
+1wj6 | That the Mabo decision would attract such varied comment was prob- ably inevitable. After all, the decision rejected the legal concept of terra nullius - a fundamental assumption, until now, in Australia's legal his- tory. It is the extent of the public debate, and its vehemence, which is notable and virtually unique. Needless to say, the recognition, in princi- ple, of a form of native title, lying as a substratum to Australia's estab- lished systems of real property law, has excited ambition, consternation and vituperation on the part of those who perceive that their interests may fall within the domain of the emerging Mabo principle.
+936l | For some, the Mabo decision is correct, morally and legally. For others, it stands as a nearly insurmountable obstacle to their perceived rights and as an impediment to economic progress in Australia as they perceive it. The issues, the subject of popular debate, will only ultimately be clari-
+06yq | 2 P. Connolly, 'Should the Courts Determine Social Policy?' In The Association of Mining & Exploration Companies Inc., The High Court of Australia in Mabo (1993), 9.
+dpv6 | (1994)
+8r5j | MICHAEL KIRBY
+2taz | fied by legislative intervention, or, in the absence of legislative initiative, by decisions of the courts as they have to consider the individual claims to land presented to them.
+o3ya | The Mabo decision is legally significant in a number of respects. First, it recognised the entitlement of indigenous people of Australia to a form of native land title. This recognition required the overruling of the com- mon law doctrine of terra nullius. For this, the High Court has been criti- cised upon the basis that it thereby usurped a legislative function and so breached the separation of powers doctrine enshrined in the Australian Constitution. Second, the High Court offered guidance as to the circum- stances in which an established common law doctrine may be overruled by a court. Third, guidance was offered as to the proper influence which international law and international instruments may have upon the de- velopment of the common law in Australia. Finally, the decision implic- itly brings to the fore an important question of judicial policy.
+r5il | The most telling criticism which has been targeted at Mabo concerns not how the High Court came to its decision, but whether, as a matter of judicial policy, it ought not to have left such a seemingly radical change of the law to the elected representatives of the Australian people in their democratic Parliaments.
+5gui | AN OVERVIEW OF THE MABO DECISION
+82qc | The scope of this article forbids a detailed analysis of the Mabo decision. However, it is essential to offer a broad description of the decision if only because most observers have little or no idea of what the case actually holds.
+ls7d | The Meriam people (a people of Melanesian descent) live on the Murray Islands. This small group of islands is situated in the Torres Strait. The islands in question comprise an area of nine square kilometres. The largest island is called Mer. There had not been a migration of permanent settlers to the Murray Islands. The islands remain today basically as they were when Australia was acquired by Britain.
+tzt3 | The indigenous inhabitants of the islands live in village communities. Property is passed, by custom, from one generation to another. The evi- dence taken by the primary judge in Mabo suggested that the cultivation of gardens was a primary activity. The Meriam people of today retain a strong sense of 'affiliation with their forebears and with the society and culture of earlier times'.3 Brennan J noted that 'the findings show that Meriam society was regulated more by custom than by law'.4
+t8vv | 1 JCULR
+qvnu | In Defence of Mabo
+kggw | In 1879, the islands were annexed to the then colony of Queensland.5 In 1882, the Queensland Government reserved the islands for the native inhabitants. It leased two acres to a society of missionaries. In 1931, a lease of two of the smaller islands in the group was granted by the Queens- land Government so that a sardine factory could be established there. However, the lease made express reference to the native interest in the islands by prohibiting interference with the natives' use of the islands.
+xrd1 | In Mabo the Meriam people sought, in part, a declaration that, not- withstanding the annexation of the islands by Queensland in 1879 and subsequent related actions, they retained native title to the islands enti- tling 'the Meriam people ... as against the whole world to possession, occupation, use and enjoyment of the island'.6 They were successful in this application.
+5746 | The actual decision of the High Court of Australia was neatly summa- rised, with the authority of the court, by Mason CJ and McHugh J in their short note expressing agreement with the judgment of Brennan J. Their Honours said:7
+7toz | In the result, six members of the Court (Dawson J. dissenting) are in agree- ment that the common law of this country recognizes a form of native title which, in cases where it has not been extinguished, reflects the entitlement of the indigenous inhabitants, in accordance with their laws or customs, to their traditional lands and that, subject to the effect of some particular Crown leases, the land entitlement of the Murray Islanders in accordance with their laws or customs is preserved, as native title, under the law of Queensland.
+j346 | The essential difference between the several majority judgments was that Mason CJ and Brennan and McHugh JJ did not agree with the
+v8uq | ... conclusion to be drawn from the judgments of [Justices] Deane, Toohey and Gaudron ... that, at least in the absence of clear and unambiguous statu- tory provision to the contrary, extinguishment of native title by the Crown is wrongful and gives rise to a claim for compensatory damages.8
+x972 | The summary provided by Mason CJ and McHugh J outlines the legal outcome of the case. However, it does not outline the reasoning of the judges towards this outcome. That reasoning can be outlined in the fol- lowing way.
+cwrw | (1994)
+4i0e | THE REASONING BEHIND THE RECOGNITION OF NATIVE TITLE
+h2l3 | There is no doubt that the Crown is sovereign in Australia. Necessarily, it is sovereign in those territories annexed to Australia.9 However, sover- eignty is a concept distinct, in law, from the absolute beneficial owner- ship of land.10 Hence, while the Crown is sovereign in all of the territory of Australia, the Crown's 'ultimate', 'final' or 'radical' title enabling the beneficial use of the land remains subject to any pre-existing indigenous native title which has not been extinguished in a manner recognised by the law. That is, the radical beneficial title to land is a potential outcome of the doctrine of sovereignty - it is not a necessary incident to sover- eignty.11
+dfzb | Prior to Mabo, Australian courts had accepted that customary native title, if it in fact originally existed, was necessarily extinguished when the British Crown asserted sovereignty over the Australian colonies.12 That is, the Crown's radical title entailed, of itself without more, the universal and beneficial ownership and use of the land to the exclusion of any na- tive title.13 Simply stated, the High Court in Mabo took the view that the acquisition of Australia in the name of the British Crown did not neces- sarily extinguish native title. Hence, the Crown's radical title did not nec- essarily confer full beneficial ownership of the land.14
+u6ty | Upon this view, when sovereignty was asserted over the Australian territories, the only land which the Crown could have absolute beneficial title to was land to which no native title extended or land to which the native title, although extending, had been extinguished.15 Nevertheless, an incident to the Crown's radical title was a power to appropriate land to itself or to alienate land to others to the exclusion of native title.16 If, however, the Crown did not so act to appropriate or alienate the land, the title of the indigenous people to the land remained, until the Crown so acted.17
+awvu | This approach necessarily exploded the common myth of terra nullius. For, if the Australian territories were properly terra nullius, there could be no legitimate claim to any pre-existing native title.18
+on9b | 18 Id. 45 per Brennan J.
+a8ge | 1 JCULR
+h27a | In Defence of Mabo
+pdjh | 55
+xmgs | According to the commentaries of Blackstone, English municipal law became the law of a newly discovered land if upon the first settlement by English colonists, the discovered land was a 'desert uninhabited' coun- try. Alternatively, where the subject land had been conquered or ceded, English municipal law applied by exercise of the Sovereign's legislative power.19 Importantly, after conquest or cession the law continued to rec- ognise the legal rights of the conquered or ceded inhabitants. However, where the land was terra nullius, the law did not recognise the continued legal rights of the inhabitants in a settled land.20 As a matter of decided case law, the inhabited territory of New South Wales came to be treated as 'desert uninhabited' country upon the logic that the condition of the indigenous people before British settlement was 'barbarous' or the terri- tory was 'practically unoccupied, without settled inhabitants or settled law'.21
+bd9h | In the Mabo case itself, it was held that there was sufficient evidence of the Meriam people's continuous occupation and settlement of the islands. They had cultivated gardens, established a system of customary law and provided for the passage of property from one generation to the next. Such a substratum of complementary native title was clearly consistent with the law of real property which was inherited by the Australian terri- tories upon their settlement by British and later immigrants.
+m047 | When the Crown asserted its sovereignty over Australia, the law gov- erning real property which immediately applied was that of tenure. Ten- ure, upon its true analysis, was a relationship which existed between the Crown and the land occupier, not as between the land and the land occu- pier.22 The doctrine of tenure is said to derive in England from the actions of King William I when he acquired all land, either by conquest, forfei- ture or surrender, and then granted that land to his tenants-in-chief. Simi- larly, land in Australia, which had been granted by the Crown, was held on some kind of tenure and such titles, under the accepted Australian land law of tenure, cannot be disturbed.23 However, in Australia this fun- damental premise of the doctrine of tenure - that is, the granting of in- terests in all land by the Crown - was not true for all land. Some Crown land remained unalienated.24 Hence, in Australia, the doctrine of tenure, and its subsequent recognition of land title, could only correctly be said to apply to land which has been granted or alienated by the Crown.25 Of necessity, then, it could not be said to apply to deny the existence of inter- ests concerning land - native title being one example - which owed
+gy8c | (1994)
+y4mj | their existence to something other than a Crown grant or Crown aliena- tion.26
+vpgq | As such, the radical title to the beneficial use of land was subject to a number of interests where the territory was not the subject of a Crown grant or alienation and where the land was not terra nullius. Among those interests was indigenous native title. The Crown, therefore, took the land subject to native title (which could be extinguished by the Crown by le- gally recognised actions or extinguished by the indigenous people them- selves). The occupiers of land took the land subject to the Crown although, in the vast majority of cases, the Crown's conduct in giving beneficial title to land occupiers was sufficient, in law, to extinguish native title. This was because that was tantamount to an alienation of land by the Crown inconsistent with the continued enjoyment of native title.27
+ousl | The decision in Mabo affects the notion of terra nullius in a number of ways. The most important is that, for the Meriam people to be successful, it was essential that they should dispel the notion of terra nullius. Clearly, there was evidence suggesting a society beyond that which could be con- sidered the proper subject of the terra nullius doctrine, at least in respect of the Murray Islands. However, inherent in the reason which sustained the decision of the court in Mabo, appears to be a logic that the whole of mainland Australia is similarly not the proper subject of the terra nullius doctrine.28 While the actual decision concerned only the land annexed by Queensland in the Murray Islands, the consideration of the legal status of that land parallels the status of other land in mainland Australia.29 This is so even if the case be that no similar claims will be successful within the mainland.30 The rejection of the terra nullius doctrine was made more easy by its inherently discriminatory nature and the fact that international law had also earlier rejected the doctrine.31
+m4ju | WHAT IS NATIVE TITLE?
+a0mb | Native title (or 'traditional', 'customary' or 'indigenous' title) has its 'ori- gin in and is given its content by the traditional laws acknowledged by and the traditional customs observed by the indigenous inhabitants of a territory".32 Its existence is primarily a question of fact 'by reference to those laws and customs'.33 It may possess characteristics unknown to,
+ki8m | 33 Ibid. See also at 88 and 110 per Deane and Gaudron JJ and at 187 per Toohey J.
+km8w | 1 JCULR
+wzno | In Defence of Mabo
+xagm | and unenforceable by, the common law.34 Native title is not an institution of the common law.35 Instead, it is distinct from the common law.
+iwn5 | To prove native title, an entitlement to occupy or use particular land needs to be established. The entitlement must be of sufficient significance to demonstrate a locally recognised special relationship between the in- digenous users and the land.36
+uooz | The central concepts to native title are 'presence' upon the land37 and 'connexion' with the land.38 Traditional connexion with the land will be evidenced by the indigenous people's substantial continued acknowledg- ment of traditional laws and customs with respect to the land.39 Native title requires presence on the land which amounts to occupancy.40 How- ever, this need not necessarily amount to possession as it is understood by the common law.41 Such presence must be established at least from the time the Crown asserted its general sovereignty.42
+pxbq | What will amount to 'presence' or 'connexion' is governed by the de- mands of the land and the indigenous society in question. Brennan J said:43
+jfsr | The nature and incidents of native title must be ascertained as a matter of fact by reference to those laws and customs. The ascertainment may present a problem of considerable difficulty ....
+```
+
+OUTPUT:
+```

@@ -1,0 +1,121 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document. Your task is to faithfully reproduce the text for our text-to-speech engine so that it is easily read aloud.
+
+Note that the text might not start at the beginning and paragraphs may be split acrosss multiple textboxes. Textboxes may start or end in the middle of a word which is acceptable: do not combine text between textboxes and leave broken words at the start and end of a textbox unchanged.
+
+You will receive one textbox per-line in the format `id | Textbox content`. The output must be in the format `id | Clean content`.
+
+RULES:
+ • Remove inline citations and references e.g. "(Author, 2021)" or "(https://wikipedia.org/article.html)" or "[ECMOS 35b, 47, 49]".
+ • Spell out numbers, dates, and chemical formulas for the TTS engine e.g. "-2.5" -> "negative two point five" or "Jan. 2020" -> "January twenty twenty".
+ • Spell out LaTeX formulas for the TTS engine e.g. "<LATEX>p = 1</LATEX>" -> "P equals one".
+ • Rejoin hyphenated word fragments within the same textbox e.g. "synth -esize" -> "synthesize".
+ • Fix simple typos and OCR errors e.g. "O nce upon a 1ime." -> "Once upon a time.".
+ • Delete nonsequiter textboxes that interrupt the middle of a sentence if they obviously do not belong.
+
+Otherwise, the output should exactly match the input text:
+ • Do not combine text across lines or attempt to fix words broken across lines.
+ • Ensure each ID from the input is included in the output.
+ • Make as few changes as possible while respecting the above rules.
+
+EXAMPLE INPUT:
+```
+ccpt | stigate the effectiveness of psychedelics for ADHD symp- toms in adults.
+0fpw | 2. Materia1 and methods
+dqn8 | 2.1. Study design and participants
+cop0 | The study employed a naturalistic design, assessing the experiences of participants at bas-,
+lhkq | eline before they start, and at 2 and 4 weeks after initiation. The target population included adults with ADHD symptoms who had not been diag- nosed with ADHD before. To be included, participants needed to score on Conner's Adult ADHD Rating Scale (CAARS-S:SV). This cut-off was indicative of clinically elevated symptoms (Conners et al., 1999) (see section 2.3).
+82ju | 2.2. Study procedure
+y2qo | The online advertisement was placed on a website providing information about psychedelics (www.microdo sing.nl). Interested participants were redirected to information explaining the study rationale and procedure. The baseline survey took 20 min to complete. If the survey had not been completed after 24 h, a reminder was sent. Each of the surveys at the 2- and 4-week time points took about 15 min to complete. Par- ticipants were able to pause the surveys. Data collection occurred between Nov. 2020 and Jul. 2021. The study was approved by the Ethics Review Committee of Psy- chology and Neuroscience at Maastricht University (ERCPN- 215_05_11_2019_A1).
+1piq | 2.3. Measures
+7fqw | 2.3.1. Demographic information and history of substance use
+rhaz | At baseline, demographic information was collected. History of substance use assessed experience with psyche- delics (i.e., ayahuasca, DMT, 5-MeO-DMT, LSD, novel lysergamides (e.g., 1P-LSD, ALD-52), psilocybin, salvia divinorum, ibogaine, and mescaline) in both full (psychedelic) doses and microdoses.
+wak1 | 2.3.2. Psychiatric and physiological diagnoses
+wtfz | Participants were asked whether they had a current diagnosis of a disorder. These answer options were chosen because most of the listed diagnoses are often reported to co-occur with ADHD (Kooij et al., 2019), or because these diagnoses were reported to be common in people who microdose (Fadiman and Korb, 2019). We 
+3j2l | REVIEW ARTICLE Frontiers in Psychiatry | www.frontiersin.org
+03k3 | 2
+1k9e | constructed a variable Comorbidity alongside ADHD, differenti- ating respondents with and without a comorbid diagnosis alongside ADHD (<LATEX>p < . 0 0 1 =</LATEX> only ADHD or no ADHD diagnosis; <LATEX>p > . 0 1 =</LATEX> ADHD and at least one other diagnosis). We constructed a variable Medication use alongside microdosing, differentiating respondents who were and were not using conven- tiona1 ADHD medication alongside microdosing (<LATEX>0 =</LATEX> only microdosing; <LATEX>1 =</LATEX> conven-
+```
+
+EXAMPLE OUTPUT:
+```
+ccpt | stigate the effectiveness of psychedelics for ADHD symptoms in adults.
+0fpw | Two. Material and methods
+dqn8 | Two point one. Study design and participants
+cop0 | The study employed a naturalistic design, assessing the experiences of participants at bas-,
+lhkq | eline before they start, and at two and four weeks after initiation. The target population included adults with ADHD symptoms who had not been diagnosed with ADHD before. To be included, participants needed to score on Conner's Adult ADHD Rating Scale. This cut-off was indicative of clinically elevated symptoms (see section two point three).
+82ju | Two point two. Study procedure
+y2qo | The online advertisement was placed on a website providing information about psychedelics. Interested participants were redirected to information explaining the study rationale and procedure. The baseline survey took twenty minutes to complete. If the survey had not been completed after twenty-four hours, a reminder was sent. Each of the surveys at the two and four-week time points took about fifteen minutes to complete. Participants were able to pause the surveys. Data collection occurred between November twenty twenty and July twenty twenty-one. The study was approved by the Ethics Review Committee of Psychology and Neuroscience at Maastricht University.
+1piq | Two point three. Measures
+7fqw | Two point three point one. Demographic information and history of substance use
+rhaz | At baseline, demographic information was collected. History of substance use assessed experience with psychedelics (i.e., ayahuasca, DMT, five-MeO-DMT, LSD, novel lysergamides (e.g., one-P-LSD, ALD-fifty-two), psilocybin, salvia divinorum, ibogaine, and mescaline) in both full (psychedelic) doses and microdoses.
+wak1 | Two point three point two. Psychiatric and physiological diagnoses
+wtfz | Participants were asked whether they had a current diagnosis of a disorder. These answer options were chosen because most of the listed diagnoses are often reported to co-occur with ADHD, or because these diagnoses were reported to be common in people who microdose. We
+3j2l |
+03k3 |
+1k9e | constructed a variable Comorbidity alongside ADHD, differentiating respondents with and without a comorbid diagnosis alongside ADHD (P is less than point zero zero one equals only ADHD or no ADHD diagnosis; P is greater than point zero one equals ADHD and at least one other diagnosis). We constructed a variable Medication use alongside microdosing, differentiating respondents who were and were not using conventional ADHD medication alongside microdosing (zero equals only microdosing; one equals conven-
+```
+
+INPUT:
+```
+yhew | For a better approximation, we can use
+aqjo | <LATEX>\ln N ! \approx \left( \ln N - 1 \right) N + \frac { 1 } { 2 } \ln 2 \pi N</LATEX> where the error goes to zero as <LATEX>N \rightarrow \infty .</LATEX> This gives a correction to the Sackur-Tetrode equation:
+opdt | <LATEX>S _ { i } \approx k N \left( \ln \frac { V } { N \Lambda ^ { 3 } } + \frac { 5 } { 2 } \right) - \frac { 1 } { 2 } \ln 2 \pi N .</LATEX> Here if we multiply both <LATEX>V</LATEX> and <LATEX>N</LATEX> by a constant c, we don't just multiply the entropy by c: we also have to subtract <LATEX>\frac { 1 } { 2 } \ln 2 \pi c .</LATEX> So the entropy is not quite extensive but this effect is tiny when you've got a mole of gas.
+j6d4 | THE ENTROPY OF AN IDEAL MONATOMIC GAS
+wmtt | In thermal equilibrium, an ideal gas of N indistinguishable classical particles in a 3-dimensional box of volume V has entropy given approximately by the Sackur-Tetrode equation:
+u5uc | But the thermal wavelength A is
+0d2r | A =
+gly4 | V2TmkT
+w1gv | so we can rewrite this as
+f69a | 3 2 KT + 3 1 2mm + 5
+ycgz | S ~ KN In V N
+jb3e | We've done it: we've figured out the entropy of a gas of N indistinguishable classical free particles in a 3-dimensional box of volume V. Above I've written it in two different ways. Let's mull over the meaning of each term in each formula.
+e580 | The first formula says
+kwv3 | Like the entropy of the classical harmonic oscillator and the classical free particle in a box, this breaks up into two parts, thanks to the formula
+wxdu | S = (E) - F T .
+zdfh | But it does so a bit subtly. The two parts are not what you might naively think! They are:
+i1dq | 1. The free energy part:
+hwux | T F & kN (In 1 NA3 V +1).
+9opd | 2. The expected energy part:
+sco5 | (E)
+8wy0 | T = KN.
+a505 | As usual, the free energy part of the entropy is k times the logarithm of the number of accessible states. The expected energy part of the entropy is &N times k by the equipartition theorem, since there are N particles each of whose energy depends on 3 momentum degrees of freedom.
+tv1d | The expected energy part of the entropy is small compared to the free energy part when V/N > A3: that is, when the volume available per particle greatly exceeds the cube of its thermal wavelength. This happens for a gas that is sufficiently warm and dilute, made of sufficiently massive particles. We will see that this is true for helium at standard temperature and pressure. It's even more true for the heavier monatomic gases: the noble gases like neon, argon, and krypton.
+yuul | The surprise is the extra "+1" in the first part of the entropy-the free energy part. It's telling us that the logarithm of the number of accessible states, divided by the number of particles, is
+n7uk | ln NA3 + 1. V
+aeaj | What's the physical origin of this mysterious extra nat?
+tlut | Mathematically it comes from Stirling's formula, which showed up when we switched from a gas of distinguishable particles to a gas of indistinguishable particles. It may seem odd that indistinguishability would increase the entropy by 1 nat per particle, but don't be confused: as we've seen, it greatly reduces it. For a gas of distinguishable particles the log of the number of accessible states, divided by the number of particles, is In(V/A3). When we switch to indistinguishable particles this drops to In(V/NA3)+1.
+izqq | Here is a rough heuristic explanation of what's going on. For a single particle in a box of volume V, the number of accessible states is V/A3. In a gas of distinguishable free particles, each roams independently around the whole volume V. Thus, the log of the number of accessible states is In(V/A3) per particle.
+r93i | For a gas of indistinguishable particles, the story changes. For starters, we can crudely pretend each particle is trapped in its own tiny box of volume V/N. After all, if it leaves this tiny box by trading places with another particle in another tiny box, nothing really changes. In this approximation, the log of the number of accessible states is In(V/NA3) per particle.
+milo | But it's not really true that each particle can only leave its tiny box by trading places with another. We can have more than one particle in the same tiny box-or none. That is, our gas can have density fluctuations. An exact treatment of the problem gives, not In(V/NA3) nats per particle, but
+hs4w | In (V/A3) - In N!
+voba | Stirling's formula says this is approximately
+tyxu | In(V/A3) - (In N-1) = In(V/NA3) +1.
+q342 | This explains the mysterious extra nat. The extra nat of entropy per particle is due to density fluctuations!
+au1k | As we've seen, even this is an oversimplification. A still better approximation, again coming from Stirling's formula, says
+jt2s | In (V/A3) - In N! ~ In(V/NA3) +1 - 2 In(2TN)/N.
+p530 | But as we saw in Puzzle 47, this further correction is negligible for a mole of gas. It only becomes interesting for microscopic systems.
+zxwg | Now let's look at our second formula for the entropy of a gas of N indistinguishable classical free particles:
+di8f | S ~ KN (In + + , In kT + ; In 2Tm h2 + 3) .
+1ipu | Not only is this harder to remember, it's generally less friendly to physical intuition. First of all, three of the terms involve the logarithm of dimensionful quantities. Thus, when we change units they change, not by rescaling in the usual way, but by addition or subtraction. Secondly, the important role of the thermal wavelength is concealed in this formula.
+o68o | The main advantage of this formula is that it separates out three contributors to the entropy per particle:
+rvp9 | · The volume available per particle, V/N. The bigger this is, the more entropy the gas has per particle.
+wwgc | · The temperature, T. The bigger this is, the more entropy per particle.
+bjgk | · The particle mass, m. The bigger this is, the more entropy per particle.
+vz7z | The first two should be rather intuitive. But what about the third? We need to combine V/N and T with the particle mass m and some constants of nature to get a dimensionless quantity, which we can then take the logarithm of. This leads us straight to the thermal wavelength:
+wk43 | In v + , In kT + - In 3 2Tm h2
+1002 | = ln NA3 V
+ujk8 | Thus, my best explanation of why a gas of heavier particles has more entropy per particle is that they have a shorter thermal wavelength, so we can specify their position more accurately, and it takes more information to do so.
+fqbt | WHERE ARE WE NOW?
+rkbk | The mystery: why does each molecule of hydrogen have ~ 23 bits of entropy at standard temperature and pressure?
+u1bd | The goal: derive and understand the formula for the entropy of a classical ideal monatomic gas:
+q22z | N (In + , InkT + y 2 3
+l8vb | Y = 21 2 +2
+jrb6 | The subgoal: compute the entropy of a single classical particle in a 1-dimensional box:
+ptaj | S = k In L + - InkT + 1 12 +2) ✓
+nusy | The sub-subgoal: explain entropy from the ground up, and compute the entropy of a classical harmonic oscillator:
+gsnv | : k ( In Ka kT +1 ✓
+0mnu | how
+```
+
+OUTPUT:
+```

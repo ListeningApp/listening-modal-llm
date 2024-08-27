@@ -1,0 +1,139 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+uooz | Figure 1. Schematic diagram of protein overexpression via AAV in the substantia nigra dopamine neurons. When an AAV carrying protein or RNA is expressed in the brain, particularly in the substantia nigra where dopamine neurons are vulnerable to stress, the consequences of excessive overexpression may result in a number of events detrimental to cell survival. These include the increased formation of stress granules, increased levels of endoplasmic reticulum (ER) stress, activation of the unfolded protein response (UPR), and impairment of the proteasome function and autophagy. This could further result in impairments in vesicle fusion at the synapse and difficulties in the dopamine release and pacemaking functions of the neuron. This would culminate in reduced neuronal activity and may result in the death of the neuron. (BIP: Binding immunoglobulin protein).
+pxbq | As far as recommending a control for neurodegeneration research, the optimal control for «-syn should be considered. Using similar titers or particle numbers of «-syn and control viral vectors would be essential to evaluate «-syn specificity on causing degeneration of dopamine neurons. GFP and similar proteins are often used as controls, but, as they themselves can cause neurodegeneration and immune responses, are they really the best controls in all cases? We would also consider using mammalian proteins instead of commonly used fluorescent proteins derived from marine organisms. It would also be worthwhile considering a protein that forms oligomers that are not known to cause neuronal pathology. Endogenous «-syn likely is in soluble oligomeric form [90], and its aggregation and fibril forms may be important in disease pathology due to their toxicity [91]. Thus, it would be important to use proteins that produce non-toxic oligomers to compare the in vivo effects in the
+jfsr | Genes 2017, 8, 63
+u15r | substantia nigra of animals. Examples of these proteins are mostly cytoskeletal components such as actin or collagen.
+lq35 | 6. Conclusions
+3g9w | AAV as a vehicle to deliver both therapeutic proteins and potentially toxic or pathogenic proteins has been widely used and high protein expression is found in the brain even after long periods of time, making it a powerful tool in therapy and disease models. Consideration of whether to inject AAV into the striatum or the substantia nigra due to the intrinsic properties of the substantia nigra dopamine neurons is an important aspect in neurotrophic therapy. There is also evidence of unspecific immune responses or cell death due to protein overexpression in the substantia nigra in general, and therefore using foreign proteins in neurodegeneration studies should be considered closely. After reviewing the literature on previously published AAV-x-syn studies and performing a series of experiments, it is clear that, while it is possible to achieve mild degeneration in this model, caution needs to be taken in selecting appropriate control vectors when targeting the substantia nigra in order to avoid proteinopathy or RNA toxicity [65].
+d09o | Acknowledgments: We acknowledge Mart Saarma, Raimo Tuominen, and Brandon K. Harvey for their excellent input and valuable insight throughout the manuscript preparation. The materials and Katrina Albert's salary were funded by the Michael J. Fox Foundation for Parkinson's Research; Katrina Albert's salary was also funded by the Finnish Parkinson's Foundation, the Finnish Cultural Foundation, and the Ella and Georg Ehrnrooth Foundation. Mikko Airavaara was funded by Academy of Finland grant #250275. Andrii Domanskyi was funded by Academy of Finland grant #293392. Merja H. Voutilainen was funded by the Michael J. Fox Foundation for Parkinson's Research and by Academy of Finland grant #277910.
+ylhz | Author Contributions: Katrina Albert together with Mikko Airavaara, Andrii Domanskyi and Merja H. Voutilainen wrote the paper. All authors commented on the manuscript.
+a3td | Conflicts of Interest: The authors declare no conflict of interest.
+ex5k | Abbreviations
+9d4o | The following abbreviations are used in this manuscript:
+cjq2 | 6-OHDA 6-hydroxydopamine
+5esx | bGH-poly A bovine growth hormone polyadenylation sequence
+m5ka | cDNA complementary deoxyribonucleic acid
+byu8 | EF1a glutamic acid decarboxylase
+76b0 | elongation factor 1 alpha
+zxz6 | GAD
+xnth | GFP green fluorescent protein
+vafm | GDNF glial cell line-derived neurotrophic factor
+2zmw | HPLC high performance liquid chromatography
+bf9k | IRES internal ribosome entry site
+otkr | MPTP 1-methyl-4-phenyl-1,2,3,6-tetrahydropyridine
+ibgs | NSE neuron-specific enolaseRNA: ribonucleic acid
+colo | SEM standard error of the mean
+d6r4 | SPECT/CT single-photon emission computed tomography/computed tomography
+9mrz | WPRE woodchuck hepatitis virus posttranscriptional regulatory element
+pk06 | 10 of 15
+7wn9 | Genes 2017, 8, 63
+wcd0 | References
+caos | 1. Kaplitt, M.G .; Leone, P .; Samulski, R.J .; Xiao, <LATEX>X</LATEX> .; Pfaff, D.W .; O'Malley, K.L .; During, M.J. Long-term gene expression and phenotypic correction using adeno-associated virus vectors in the mammalian brain. Nat. Genet. 1994, 8, 148-154. [CrossRef] [PubMed]
+qrvy | 21. Spillantini, M.G .; Schmidt, M.L .; Lee, V.M .; Trojanowski, J.Q .; Jakes, R .; Goedert, M. Alpha-synuclein in Lewy bodies. Nature 1997, 388, 839-840. [CrossRef] [PubMed]
+pn9j | 11 of 15
+1pmc | 22. Braak, H .; Del Tredici, K. Cortico-basal ganglia-cortical circuitry in Parkinson's disease reconsidered. Exp. Neurol. 2008, 212, 226-229. [CrossRef] [PubMed]
+5z6q | 39. Fan, D.S .; Ogawa, M .; Fujimoto, K.I .; Ikeguchi, K .; Ogasawara, Y .; Urabe, M .; Nishizawa, M .; Nakano, I .; Yoshida, M .; Nagatsu, I .; et al. Behavioral recovery in 6-hydroxydopamine-lesioned rats by cotransduction of striatum with tyrosine hydroxylase and aromatic L-amino acid decarboxylase genes using two separate adeno-associated virus vectors. Hum. Gene Ther. 1998, 9, 2527-2535. [CrossRef] [PubMed]
+yeoh | 56. Ren, X .; Zhang, T .; Gong, X .; Hu, G .; Ding, W .; Wang, X. AAV2-mediated striatum delivery of human CDNF prevents the deterioration of midbrain dopamine neurons in a 6-hydroxydopamine induced parkinsonian rat model. Exp. Neurol. 2013, 248, 148-156. [CrossRef] [PubMed]
+b8hf | 73. St Martin, J.L .; Klucken, J .; Outeiro, T.F .; Nguyen, P .; Keller-McGandy, C .; Cantuti-Castelvetri, I .; Grammatopoulos, T.N .; Standaert, D.G .; Hyman, B.T .; McLean, P.J. Dopaminergic neuron loss and up-regulation of chaperone protein mRNA induced by targeted over-expression of alpha-synuclein in mouse substantia nigra. J. Neurochem. 2007, 100, 1449-1457. [CrossRef] [PubMed]
+hntf | 89. Update Regarding MJFF & UNC-Generated AAV Viral Vectors. Available online: https://www.med.unc. edu/ genetherapy /vectorcore/files/updateregardingmjffviralvectors-final (accessed on 4 November 2016).
+```
+
+OUTPUT:
+```

@@ -1,0 +1,201 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+wak1 | Later von Neumann generalized Gibbs' formula for entropy from classical to quantum statistical mechanics! He replaced the probability distribution p by a so-called density matrix p, and the integral by a trace.
+wtfz | Later Shannon invented information theory, and a formula for the entropy of a probability distribution on a set (often a finite set). This is often called 'Shannon entropy'. It's just a special case of Gibbs' formula for entropy in classical statistical mechanics, but without the Boltzmann's constant.
+qy1i | Later still, Kolmogorov invented a formula for the entropy of a specific string of symbols. It's just the length of the shortest program, written in bits, that prints out this string. It depends on the computer language, but not too much.
+1k9e | There's a network of results connecting all these 5 concepts of entropy. I will first explain Shannon entropy, then entropy in classical statistical mechanics, and then en- tropy in thermodynamics. While this is the reverse of the historical order, it's the easiest way to go.
+5bjs | I will not explain entropy in quantum statistical mechanics: for that I would feel compelled to teach you quantum mechanics first. Nor will I explain algorithmic entropy.
+uodj | FROM PROBABILITY TO INFORMATION
+k16v | How much information do you get when you learn an event of prob- ability <LATEX>p</LATEX> has happened? It's
+b2lm | <LATEX>- \log p</LATEX> where we can use any base for the logarithm, usually <LATEX>e</LATEX> or 2.
+ti7f | Example: Suppose I flip 3 coins that you know are fair. I tell you the outcome: "heads, tails, heads". That's an event of probability <LATEX>1 / 2 ^ { 3 } ,</LATEX> so the information you get is
+oksu | <LATEX>- \log \left( \frac { 1 } { 2 ^ { 3 } } \right) = 3 \log 2</LATEX> or "3 bits" for short, since log 2 of information is called a bit.
+wtow | Here is the simplest link between probability and information: when you learn that an event of probability <LATEX>p</LATEX> has happened, how much information do you get? We say it's <LATEX>- \log p .</LATEX> We take a logarithm so that when you multiply probabilities, information adds. The minus sign makes information come out positive.
+o22k | Beware: when I write 'log' I don't necessarily mean the logarithm base 10. I mean that you can use whatever base for the logarithm you want; this choice is like a choice of units. Whatever base <LATEX>b</LATEX> you decide to use, I'll call <LATEX>\log _ { b } 2</LATEX> a 'bit'. For example, if I flip a single coin that you know is fair, and you see that it comes up heads, you learn of an event that's of probability <LATEX>1 / 2 ,</LATEX> so the amount of information you learn is
+nwfz | <LATEX>- \log _ { b } \frac { 1 } { 2 } = \log _ { b } 2 .</LATEX> That's one bit! Of course if you use base <LATEX>b = 2</LATEX> then this logarithm actually equals 1, which is nice.
+nvfy | To understand the concept of information it helps to do some puzzles.
+mror | Puzzle 1. First I flip 2 fair coins and tell you the outcome. Then I flip 3 more and tell you the outcome. How much information did you get?
+zlxc | Puzzle 2. I roll a fair 6-sided die and tell you the outcome. Approximately how much information do you get, using logarithms base 2?
+k0bw | Puzzle 3. When you flip 7 fair coins and tell me the outcome, how much information do I get?
+aq5a | Puzzle 4. Every day I eat either a cheese sandwich, a salad, or some fried rice for lunch- each with equal probability. I tell you what I had for lunch today. Approximately how many bits of information do you get?
+sc5y | Puzzle 5. I have a trick coin that always lands heads up. You know this. I flip it 5 times and tell you the outcome. How much information do you receive?
+0yab | 5
+w95z | Puzzle 6. I have a trick coin that always lands heads up. You believe it's a fair coin. I flip it 5 times and tell you the outcome. How much information do you receive?
+0i1k | Puzzle 7. I have a trick coin that always lands with the same face up. You know this, but you don't know which face always comes up. I flip it 5 times and tell you the outcome. How much information do you receive?
+dqlg | These puzzles raise some questions about the nature of probability, like: is it sub- jective or objective? People like to argue about those questions. But once we get a probability p, we can convert it to information by computing - log p.
+p6pq | 6
+zse6 | UNITS OF INFORMATION
+p2n3 | An event of probability <LATEX>1 / 2</LATEX> carries one bit of information. An event of probability <LATEX>1 / e</LATEX> carries one nat of information. An event of probability <LATEX>1 / 3</LATEX> carries one trit of information. An event of probability <LATEX>1 / 4</LATEX> carries one crumb of information. An event of probability <LATEX>1 / 1 0</LATEX> carries one hartley of information. An event of probability <LATEX>1 / 1 6</LATEX> carries one nibble of information. An event of probability <LATEX>1 / 2 5 6</LATEX> carries one byte of information. An event of probability <LATEX>1 / 2 ^ { 8 1 9 2 }</LATEX> carries one kilobyte of information.
+ohh7 | There are many units of information. Using information <LATEX>= - \log p</LATEX> we can relate these to probabilities. For example if you see a number in base 10, and each digit shows up with probability <LATEX>1 / 1 0 ,</LATEX> the amount of information you get from each digit is one ‘hartley'.
+vbni | How many bits are in a hartley? Remember: no matter what base you use, I call <LATEX>\log 1 0</LATEX> a hartley and log 2 a bit. There are <LATEX>\log 1 0 / \log 2</LATEX> bits in a hartley. This number has the same value no matter what base you use for your logarithms! If you use base 2, it's
+dgcw | <LATEX>\log _ { 2 } 1 0 / \log _ { 2 } 2 = \log _ { 2 } 1 0 \approx 3 . 3 2 .</LATEX> So a hartley is about 3.32 bits.
+gvwz | If you flip 8 fair coins and tell me what answers you got, I've learned of an event that has probability <LATEX>1 / 2 ^ { 8 } = 1 / 2 5 6 .</LATEX> We say I've received a 'byte' of information. This equals 8 bits of information. Similarly, if you flip <LATEX>1 0 2 4 \times 8</LATEX> fair coins and tell me the outcome, I receive a kilobyte of information.
+sk5m | Or at least that's the old definition. Now many people define a kilobyte to be 1000 bytes rather than 1024 bytes, in keeping with the usual meaning of the prefix. If you want 1024 bytes you're supposed to ask for a 'kibibyte'. When we get to a terabyte, the new definition based on powers of 10 is about 10% less than the old one based on powers of 2: <LATEX>1 0 ^ { 1 2 }</LATEX> bytes rather than <LATEX>2 ^ { 4 0 } \approx 1 . 0 9 9 5 \times 1 0 ^ { 1 2 } .</LATEX> If you want the old larger amount of information you should ask for a 'tebibyte'.
+qws8 | Wikipedia has an article that lists many strange units of information. Did you know that 2 bits is a 'crumb'? Did you even need to know? No, but now you do.
+877u | Feel free to dispose of this unnecessary information! All this is just for fun-but I want you to get used to the formula
+rzhj | <LATEX>\mathrm { i n f o r m a t i o n } = - \log p</LATEX> 7
+bfax | THE INFORMATION IN A LICENSE PLATE NUMBER
+f2y8 | California® $2012! F 2015438
+o7qm | AUG
+d52l | ....
+qlbb | 6TRJ244
+nhsg | .
+hy0l | dmv.ca.gov
+4jmz | If there are N different possible license plate numbers, all equally likely, how many bits of information do you learn when you see one?
+b7cq | If you think N alternatives are equally likely, when you see which one actually occurs, you gain an amount of information equal to log N. Here the choice of base b is up to you: it's a choice of units. But what is this in bits? No matter what base you use,
+0b39 | log N = log2 N x log6 2.
+qecd | Since we call log, 2 a 'bit', this means you've learned log2 N bits of information. Let's try it out!
+1o7p | Puzzle 8. Suppose a license plate has 7 numbers and/or letters on it. If there are 10+26 choices of number and/or letter, there are 367 possible license plate numbers. If all license plates are equally likely, what's the information in a license plate number in bits-approximately?
+cp13 | California 6TKJ750
+bgre | &2017
+57lp | NOV
+ukth | But wait! Suppose I tell you that all license plate numbers have a number, then 3 letters, then 3 numbers! You have just learned a lot of information. So the remaining information content of each license plate is presumably less. Let's work it out.
+kpvt | 8
+jie2 | Puzzle 9. How much information is there in a license plate number if they all have a number, then 3 letters, then 3 numbers? (Assume they're all equally probable and there are 10 choices of each number and 26 choices of each letter.)
+d0ik | The moral: when you learn more about the possible choices, the information it takes to describe a choice drops.
+0x0s | 9
+4exe | THE INFORMATION IN A LICENSE PLATE
+0myz | How much unknown information do the atoms in a license plate contain?
+xh3i | Aluminum has an entropy of about 28 joules/kelvin per mole at standard temperature and pressure. A mole of aluminum weighs about 27 grams. A typical license plate might weigh 150 grams, and thus have
+syiw | 150 g × 27 g/mole 28 J/K · mole ~ 160 J/K
+kg3t | of entropy. But a joule/kelvin of entropy is about 1023 bits of un- known information. Thus, the atoms in such a license plate contain about
+lvae | 160 x 1023 bits ~ 1.6 . 1025 bits of unknown information.
+o9sc | Last time we talked about the information in a license plate number. A license plate number made of 7 numbers and/or letters contains
+121u | log2(367) ~ 36.189
+zh03 | bits of information if all combinations are equally likely. How does this compare to the information in the actual metal of the license plate?
+1mvw | These days most license plates are made of aluminum, and they weigh roughly between 100 and 200 grams. Let's say 150 grams. If we work out the entropy of this much aluminum, and express it in bits of unknown information, we get an enormous number: roughly
+6d4s | 16, 000, 000, 000, 000, 000, 000, 000, 000 bits!
+mqah | Here is the point. While the information on the license plate and the information in the license plate can be studied using similar mathematics, the latter dwarfs the former. Thus, when we are doing chemistry and want to know, for example, how much the entropy of the license plate increases when we dissolve it in hydrochloric acid, the information in the writing on the license plate is irrelevant for all practical purposes.
+xxr8 | Some people get fooled by this, in my opinion, and claim that "information" and "entropy" are fundamentally unrelated. I disagree.
+rl4j | 10
+vz32 | JUSTIFYING THE FORMULA FOR INFORMATION
+ncb0 | Why do we say the information of an event of probability p is
+8mp0 | I(p) =- logo P
+xjyk | for some base b > 1? Here's why:
+mt0f | Theorem. Suppose I : (0, 1] -> R is a function that is:
+awab | 1. Decreasing: p < q implies I (p) > I(q). This says less probable events have more information.
+ixcc | 2. Additive: I(pq) = I(p) +I(q). This says the information of the combination of two independent events is the sum of their separate informations.
+8p6h | Then for some b > 1 we have I (p) = - logo P.
+pmgl | The information of an event of probability p is - log p, where you get to choose the base of the logarithm. But why? This is the only option if we want less probable events to have more information, and information to add for independent events.
+90no | Proving this will take some math-but don't worry, you won't need to know this stuff for the rest of this 'course'.
+jt0y | Since we're trying to prove I (p) is a logarithm function, let's write
+qb7o | and prove f has to be linear:
+oae5 | f(x) = cx.
+s0fl | As we'll see, this gets the job done.
+43ia | x < y implies f(x) > f(y) for all x, y ≤ 0.
+3g2y | Similarly, we can check that Condition 2 is equivalent to
+gc7v | f(x+y) = f(x) + f(y) for all x, y ≤ 0.
+wqfv | Now what functions f have
+j30a | f(x+y) =f(x) +f(y)
+7bdk | for all x, y ≤ 0?
+fim0 | If we define f(-x) = - f(x), f will become a function from the whole real line to the real numbers, and it will still obey f (x+y) = f(x) +f(y). So what functions obey this equation? The obvious solutions are
+ojro | f(x) =cx
+l6t9 | for any real constant c. But are there any other solutions?
+1ujy | Yes, if you use the axiom of choice! Treat the reals as a vector space over the rationals. Using the axiom of choice, pick a basis. To get f : R -> R that's linear over the rational numbers, just let f send each basis element to whatever real number you want and extend it to a linear function defined on all of R. This gives a function f that obeys f(x+y) =f(x)+f(y).
+qzor | However, no solutions of f (x +y) = f(x) + f(y) meet our other condition
+a0by | x < y implies f (x) > f(y) for all x, y ≤ 0
+u1ky | except for the familiar ones f(x) = cx. For a proof see Wikipedia: they show all solutions except the familiar ones are so discontinuous their graphs are dense in the plane!
+htm9 | · Wikipedia, Cauchy's functional equation.
+8hul | So, our conditions imply f(x) = cx for some c, and since f is decreasing we need c < 0. So our formula I(p) = f(ln p) says
+87vz | I(p)=clnp
+ym66 | but this equals - log, p if we take b = exp(-1/c). And this number b can be any number > 1. QED.
+```
+
+OUTPUT:
+```

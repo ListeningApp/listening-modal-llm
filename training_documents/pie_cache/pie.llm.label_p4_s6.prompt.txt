@@ -1,0 +1,155 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+u15r | In the causal pie model, traits are correlated when they share one or more component cause(s). For instance, in Figure 1, A is a component cause for both sufficient causes I and II, leading to correlation. If one sufficient cause is subject to natural selection, the force of selection extends to all component causes. Some of these compo- nent causes can be component causes also of sufficient causes for neutral traits, leading to selection of. In Figure 1, selection on sufficient causes I and II leads to selection on component causes A E. Sufficient cause III is not selected for (it is in itself a neutral trait). Still, there is selection of sufficient cause III, because there exists selection on all its component causes (B, C, E).
+lq35 | Example 4: Trade-offs
+3g9w | Correlated traits of particular interest are trade-offs (e.g., Stearns 1989; Stearns 1992). For instance, an organism could have to balance the risk of starvation against the risk of being eaten by a predator while foraging. The pre- ferred choice under this trade-off obviously depends on the presence of food versus the presence of predators. To give an example at a molecular level, consider the case in which a higher metabolic rate leads to higher short-term survival, for instance by higher vigilance, but also leads to increased damage accumulation due to oxygen radicals. This trade-off depends on the presence of scavengers for
+d09o | 2014 The Authors. Ecology and Evolution published by John Wiley Sons Ltd.
+ylhz | Causal Pies in Ecology and Evolution
+a3td | oxygen radicals and on the vulnerability of the macromol- ecules to oxygen radicals.
+ex5k | A component cause has an effect only in the presence of its complementary set. This is true also for component causes that give rise to trade-offs. Therefore, trade-offs depend on the presence or absence of complementary sets. In the first example above, predators and food (comple- mentary component causes) may be distributed probabi- listically over the habitat or over time. As the causal pie model is also probabilistic, it fits the examples above well. The probability distribution of either outcome depends on the probability distributions of the complementary com- ponent causes, which determine the preferred behavior.
+9d4o | Trade-offs depend on the presence of complementary component causes. There is selection toward optimal out- comes given the complementary component causes that are present: Evolution will have the tendency to optimize within the limitations of the trade-off. For instance, in the molecular example in the first paragraph of this section, the trade-offs depend on the presence of scavengers for oxygen radicals and on the vulnerability of the macromolecules to oxygen radicals. Given the vulnerability of macromolecules to oxygen radicals, and given a certain concentration of scavengers, evolution will optimize metabolism. At the same time, there is selection on the complementary compo- nent causes: Evolution will have the tendency to push the boundaries of the trade-off, such that the trade-off becomes less restrictive. To stay with the example of oxidative dam- age, evolution will tend toward using less vulnerable mac- romolecules (if possible), and toward increasing scavenging capacity, thus changing the trade-off that it faces.
+cjq2 | Example 5: The problem with age-specific genes
+5esx | The evolutionary theory of aging is sometimes defined in terms of "age-specific genes", genes that are active at a par- ticular age or during a particular age range and not before or after. The idea is that natural selection acts less forcefully against detrimental genes the later they are expressed (Me- dawar 1952; Williams 1957; Hamilton 1966; Charlesworth 1994). However, age as such causes nothing and cannot activate or deactivate genes (Kirkwood 1977; Kirkwood and Shanley 2010; Wensink 2013). At first sight, a way around this objection is to define a "substance S" (for senescence, deterioration with age), that is not in itself "deleterious in any normal sense" (Dawkins 2006), in line with Williams's genes that "act differently in a different somatic environ- ment" (Williams 1957). Some independent somatic change would trigger the expression of deleterious genes at high ages, thus making them "age-specific".
+m5ka | The causal pie model shows that it is not logically correct to say that substance S is not deleterious "in any normal sense". The causal pie is made up of two component causes
+byu8 | 1927
+76b0 | Causal Pies in Ecology and Evolution
+zxz6 | a certain concentration of substance S, and a substance S- sensitive gene which together form a sufficient cause for deterioration and death. Completing the causal pie, sub- stance S is as causal to the detrimental effect as is the sub- stance S-sensitive gene. Without substance S, there would be no senescence, just like without the substance S-sensitive gene, there would be no senescence. As a result, the force of natural selection on deterioration that results from the expression of the deleterious gene extends to both the gene and substance S (Wensink 2013). Theories about age-spe- cific genes are in fact theories about state-specific genes and some state variable, in this case, the concentration of sub- stance S. Both are part of the evolutionary analysis.
+xnth | Partitioning of outcomes
+vafm | Generally speaking, partitions are useful only when they are based on qualities that are mutually exclusive. If this is not the case, something could belong to more than one partition. Because the whole point of partitioning is to divide things up, making partitions based on qualities that are not mutually exclusive should not be attempted, because it will fail.
+2zmw | In the causal pie model, multiple component causes need to interact for an outcome to occur. It is not useful to partition outcomes as caused by one versus the other component cause, as an outcome could be caused by both component causes at the same time. It can be useful, however, to make a partition between outcomes in which a particular component cause plays a role, versus out- comes in which it does not.
+bf9k | Example: Extrinsic mortality
+otkr | Although they acknowledge a role for vulnerability of an organism to extrinsic threats, Carnes et al. (2006) set out to partition mortality "based on whether the primary cause of death does or does not originate from within the organism". Extrinsic mortality has been invoked at many points in evolution (e.g., Medawar 1952; Williams 1957; Kirkwood 1977; but see Caswell 2007).
+ibgs | Mortality, however, is a prime example in biology of interacting component causes, some extrinsic, some intrin- sic to the organism. Therefore, it is not possible to charac- terize mortality either extrinsic or intrinsic. A typical example is predation, where the presence of a predator (component cause 1) interacts with a state of vulnerability of the prey (component cause 2) and an environment that co-determines if prey and predator effectively meet, for instance a quality of vegetation (component cause 3). These three component causes could be partitioned in more detailed component causes if required, such as the cardio- pulmonary capacity or fur color of predator and prey.
+colo | 1928
+d6r4 | M. Wensink et al
+9mrz | Component causes of mortality can be partitioned in extrinsic and intrinsic, but mortality itself cannot, for the simple reason that extrinsic and intrinsic mortality are not mutually exclusive. Acknowledging a role for vulnera- bility in "extrinsic mortality" does not take away this objection. None of the component causes is more causa- tive to the outcome, as without any one of them, the out- come would not occur. One could propose that there can be no predation without a predator and that therefore the (extrinsic) presence of a predator must be the most caus- ative cause for death by predation. However, neither is there predation without a prey. Being prey is something "intrinsic". There is no such thing as "most causative cause". A partitioning that could have some utility is a partition of mortality in which an extrinsic component cause plays a role, versus mortality in which it does not. The term "extrinsic mortality" retains some meaning in this respect, although one could wonder whether purely intrinsic mortality exists at all.
+pk06 | Population heterogeneity
+7wn9 | Populations are heterogeneous, and an observation at the population level may be quite different from individual- level processes (Vaupel and Yashin 1985). A population may seem homogeneous, but below the surface, organism may differ greatly. Any change that may happen may have differential effects on each organism.
+wcd0 | A way to look at heterogeneity in a population is to view all members of the population as different collec- tions of causal pies that are sufficient causes for some outcome, for instance death. Some of those members will have many causal pies that are almost "filled in", that is, most component causes that make up the causal pie are present. Others will have mostly "empty" causal pies. Yet, others will have roughly equally filled causal pies, but the causal pies will be made up of different component causes. These individuals will be vulnerable to some types of stress, but robust to others, differing from individual to individual. How newly imposed stress affects each member of the population depends on the component causes that are yet present.
+caos | Example: Frailty along the life course
+qrvy | A physiological view of human aging proposed by Izaks and Westendorp (2003) is that there exist multiple causal pies that form sufficient causes for deterioration and death which are slowly and steadily being filled in over the lifetime of an individual. Even apparently healthy older individuals are more vulnerable, because they have accumulated damages that in and of themselves do not cause disease or mortality, but that are part of causal pies
+pn9j | 2014 The Authors. Ecology and Evolution published by John Wiley Sons Ltd.
+1pmc | M. Wensink et al
+5z6q | that steadily have more component causes present. With more component causes already present, even if organ- isms appear healthy, it is easier to acquire the remaining component causes, leading to disability and death (Fig. 3).
+yeoh | This view is by no means limited to humans, but applies to all living organisms. Vital rates may be improving dur- ing part of the life cycle, but causal pies of disability and death are being filled in concurrently, making the distance to disability and death shorter. While physiological mark- ers of aging are already deteriorating, that is, physiological aging, they may not yet lead to deterioration of mortality and fecundity, that is, demographic aging. Yet, any addi- tional stress will have a much larger chance of completing a causal pie in older individuals, leading to quick deterio- ration of vital rates later in life. This explains why demo- graphic aging can trail physiological markers (component causes) with a delay and why apparently healthy organisms may differ greatly in their vulnerability to stress. Together with trade-offs, causal pie models of aging may also con- tribute to explain the recently revealed diversity of aging patterns across the tree of life (Jones et al. 2013).
+b8hf | Discussion
+hntf | All the results discussed in this paper derive from one and the same principle: the causal pie model. Still, any and all of these results can be derived without reference to the causal pie model. For instance, no evolutionary biologist would be surprised to learn that if genetic variation in some respect is initially subject only to random drift, it can suddenly become subject to natural selection if the envi- ronment changes such that the genetic variation becomes relevant to Darwinian fitness. This is standard evolutionary theory; no causal pie model is needed to explain it. Then what is the utility of the causal pie model, in particular when compared to other models of causation?
+99fo | In reality, science is subject to significant uncertainty. In a given natural system, not all causal pies may be known or identifiable, or the presence versus absence of (some of) the component causes may be ascertained only at a statistical level. More involved models, such as struc- tural equation modeling (Pearl 2009), are then necessary to discover the underlying causal relationships. Causation is then expressed in probabilistic terms, such that A causes B if the probability of B in the presence of A is greater than in the absence of A, that is, P(B|A) > P(B|-A). As pointed out in section "The model", even though it is not itself a statistical model, the causal pie model is fully compatible with this probabilistic representation of causal relationships. The probability of the presence of all com- ponent causes of a pie chart is the product of the proba- bilities of the presence of each individual component
+y5r7 | 2014 The Authors. Ecology and Evolution published by John Wiley Sons Ltd.
+lrry | Causal Pies in Ecology and Evolution
+hvhm | Figure 3. Frailty along the life course. An organism has a number of sufficient causes for mortality, that is, causal pies. A black dot in a part of a pie means that the component cause is present. Along the life course, more and more component causes become present, but the organism seems healthy when mortality and fecundity are considered. Yet, fewer and fewer additional damages are necessary to lead to death: The organism gets frailer. When the last component cause of some causal pie emerges, indicated by the cross at age 3, the deterioration becomes clearly manifest and the organism dies.
+863b | cause, such that if A D are all the component causes of causal pie I, it holds that P(I) = P(A)P(B)P(C)P(D). If there are more than one sufficient causes I III
+fj24 | 1929
+uz3c | Causal Pies in Ecology and Evolution
+d5bi | (causal pies) for outcome , it holds that P( ) = P(I) P(II) P(III).
+ba4l | To reveal underlying causal relations in a data set, the causal pie model offers no alternative to the appropriate tools of data analysis, such as structural equation modeling [Shipley (2000) and Grace (2006) are helpful references for such modeling in biology] or quantitative methods of natu- ral selection (e.g., Lande 1982). However, we do not propose the causal pie model to take the place of these methods. Rather, it should be seen as a helpful tool of conceptualizing causation whenever this simplest model suffices. The causal pie model is a very simple model, perhaps the simplest, that captures the basic workings of causation. The model is instrumental in understanding a range of results, such as those discussed in this paper, and in avoiding common mis- takes, such as partitions between nonmutually exclusive component causes and summing causes to 100 . In the meantime, it contains little jargon and no mathematics, so that the model is easily and intuitively accessible.
+ffx8 | Although we use different words in various disciplines, we describe the same phenomena. The causal pie model can help to make bridges, so that various disciplines can draw on and be inspired by each other's finding. The range of examples that we give is a good demonstration of the utility of the causal pie model in this respect. We pro- pose that the causal pie model provides an effective frame- work for thinking about causation, that it helps to avoid mistakes, and that it provides a simple common language in which results can be communicated across disciplines.
+s6su | Acknowledgments
+y219 | We thank Kenneth Rothman for an extraordinarily clear explanation of epidemiology during the Erasmus Summer Program 2012, which MJW attended, Marc Morrissey for directing us to specific literature, and two anonymous reviewers for helpful comments.
+06ht | Conflict of Interest
+v3r2 | None declared.
+nv42 | References
+xags | 1930
+jc47 | M. Wensink et al
+ko3c | Dawkins, R. 2006. The selfish gene, 30th ed. First ed 1976. Oxford Univ. Press, Oxford, U.K.
+xek3 | 2014 The Authors. Ecology and Evolution published by John Wiley Sons Ltd.
+```
+
+OUTPUT:
+```

@@ -1,0 +1,124 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+1pjs | WHAT IS SPIRITUAL INTELLIGENCE?
+o2kr | FRANCES VAUGHAN, Ph.D., is a psychologist in private practice in Mill Valley, California, and author of several books integrating psychological and spiri- tual development. Her most recent book, Shadows of the Sacred: Seeing Through Spiritual Illusions, draws on many years of experience as a practitioner of humanistic and transpersonal psychology and explores issues that individuals encounter on the spiritual path. She is coeditor of Paths Beyond Ego: The Transpersonal Vision, and she is a contributor to the Encyclopedia of Psychology (APA Books, 2000). She was formerly on the clinical faculty at the University of California Medical School at Irvine and has served as president of the Association for Transpersonal Psychology and the Association of Humanistic Psychology. She is currently serving as a trustee of the Fetzer Institute.
+v6sk | Summary
+1wj6 | This inquiry into spiritual intelligence suggests that it is one of sev- eral types of intelligence and that it can be developed relatively inde- pendently. Spiritual intelligence calls for multiple ways of knowing and for the integration of the inner life of mind and spirit with the outer life of work in the world. It can be cultivated through questing, inquiry, and practice. Spiritual experiences may also contribute to its development, depending on the context and means of integration. Spiritual maturity is expressed through wisdom and compassionate action in the world. Spiritual intelligence is necessary for discern- ment in making spiritual choices that contribute to psychological well-being and overall healthy human development.
+936l | Spirituality exists in the hearts and minds of men and women everywhere, within religious traditions and independently of tra- dition. If, following theologian Paul Tillich, we define spirituality as the domain of ultimate concern, then everyone is spiritual because everyone has ultimate concerns. However, the term ulti- mate concern can be interpreted in many different ways. Some peo- ple do not consider themselves or their concerns to be spiritual.
+06yq | 16
+dpv6 | Frances Vaughan
+8r5j | 17
+2taz | Spirituality, like emotion, has varying degrees of depth and expres- sion. It may be conscious or unconscious, developed or undevel- oped, healthy or pathological, naive or sophisticated, beneficial or dangerously distorted.
+o3ya | Some current definitions of spirituality can be summarized as follows: (a) Spirituality involves the highest levels of any of the developmental lines, for example, cognitive, moral, emotional, and interpersonal; (b) spirituality is itself a separate developmental line; (c) spirituality is an attitude (such as openness to love) at any stage; and (d) spirituality involves peak experiences not stages. An integral perspective would presumably include all these different views, and others as well (Wilber, 2000).
+r5il | Spirituality may also be described in terms of ultimate belong- ing or connection to the transcendental ground of being. Some peo- ple define spirituality in terms of relationship to God, to fellow humans, or to the earth. Others define it in terms of devotion and commitment to a particular faith or form of practice. To under- stand how spirituality can contribute to the good life, defined in humanistic terms as living authentically the full possibilities of being human (Anastoos, 1998), it seems necessary to differentiate healthy spirituality from beliefs and practices that may be detri- mental to well-being. This leads to the challenge of defining and cultivating spiritual intelligence.
+5gui | Because there is little agreement about definitions of spiritual- ity, discussions of spiritual intelligence need to be exploratory rather than definitive. By asking what is meant by spiritual intelli- gence, I hope to stimulate further discussion of this topic that I think merits further investigation.
+82qc | MULTIPLE INTELLIGENCES
+ls7d | Intelligence is sometimes defined as the ability to manage cog- nitive complexity. In current usage, the distinction between intelli- gence and reason has been largely lost. For example, as defined in Webster's Dictionary (Mish, 1993), intelligence includes the ability to understand, to apply knowledge, to use reason skillfully, and to manipulate one's environment. The view that intelligence com- prises many different abilities is supported by current trends in neurology and cognitive psychology.
+tzt3 | Among researchers who have identified various types of intelli- gence, Howard Gardner's (1993) pioneering work at Harvard on
+t8vv | 18
+qvnu | What Is Spiritual Intelligence?
+kggw | multiple intelligences has helped people understand that intelli- gence is multifaceted. His work is currently being applied in many schools across America. Gardner's research indicates that differ- ent kinds of intelligence develop relatively independently of each other, and proficiency in one area does not imply proficiency in another.
+xrd1 | For example, linguistic skill with words can be differentiated from logical mathematical skill with numbers and from the spatial intelligence that perceives spatial relationships. Excellence in one area does not necessarily tell us anything about abilities in another. In addition, Gardner (1993) discussed kinesthetic intelligence that enables a person to use the body in highly differentiated and skilled ways, such as dance or athletics; musical intelligence neces- sary for all different kinds of musical aptitude; intrapersonal intel- ligence that implies awareness of one's own thoughts and feelings; and interpersonal intelligence that enables us to relate to others empathically. He does not discuss spiritual intelligence as a sepa- rate line of development.
+5746 | Daniel Goleman's (1995) research on emotional intelligence, based primarily on intrapersonal and interpersonal intelligence, indicates that success in many areas of life depends on emotional skills as much as on cognitive capacities. Emotional intelligence includes self-awareness and self-control, as well as the ability to get along well with others. Getting along with others implies an ability to listen, to communicate, to accept feedback, and to empa- thize with different points of view.
+7toz | According to Goleman and others, different kinds of intelligence are associated with different areas of the brain. Although little research has been done to isolate areas of the brain associated with spirituality, numerous studies in meditation research indicate that significant physiological changes result from even limited practice (Murphy & Donovan, 1999; Shapiro & Walsh, 1984; Walsh & Vaughan, 1993). Studies that measure the effects of intensive, long-term practice point to significant psychological benefits in addition to deepening emotional and spiritual sensitivity.
+j346 | An interesting anecdote about Emmanuel Swedenborg, the 18th-century scientist who became a visionary mystic and founded the Swedenborgian church, says that when Swedenborg suffered a stroke that left him paralyzed on one side of his body, he lost his visionary capacity (Wulff, 1991). This certainly suggests that a spiritual gift may be associated with specific areas of the brain. However, the fact that spiritual experiences have physiological cor-
+```
+
+OUTPUT:
+```

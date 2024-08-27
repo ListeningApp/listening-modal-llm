@@ -1,0 +1,150 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+1pjs | Safety and effectiveness of self-managed medication abortion provided using online telemedicine in the United States: A population based study
+o2kr | Summary
+v6sk | Background As access to clinical abortion care becomes increasingly restricted in the United States, the need for self-managed abortions (i.e. abortions taking place outside of the formal healthcare setting) may increase. We exam- ine the safety, effectiveness, and acceptability of self-managed medication abortion provided using online telemedicine.
+1wj6 | Methods We retrospectively examined records of the outcomes of abortions provided by the sole online telemedicine service providing self-managed medication abortion in the U.S. We calculated the prevalence of successful medica- tion abortion (the proportion who ended their pregnancy without surgical intervention); the prevalence of serious adverse events (the proportions who received intravenous antibiotics and blood transfusion); and assessed whether any deaths were reported to the service. We also examined the proportions who were satisfied and felt self-manage- ment was the right choice.
+936l | Findings Between March 20th 2018 and March 20th 2019, abortion medications were mailed to 4,584 people and 3,186 (70%) provided follow-up information. Among these, 2,797 (88%) confirmed use of the medications and pro- vided outcome information, while 389 (12%) confirmed non-use. Overall, 96.4% (95% CI 95.7% to 97.1%) of those who used the medications reported successfully ending their pregnancy without surgical intervention and 1.0% (CI 0.7%-1.5%) reported treatment for any serious adverse event. Among these, 0.6% (CI 0.4% to 1.0%) reported receiv- ing a blood transfusion, and 0.5% (CI 0.3% to 0.9%) reported receiving intravenous antibiotics. No deaths were reported to the service by family, friends, the authorities, or the media. Among 2,268 who provided information about their experience, 98.4% were satisfied and 95.5% felt self-management was the right choice.
+06yq | Interpretation Self-managed medication abortion provided using online telemedicine can be highly effective with low rates of serious adverse events. In light of increasingly restricted access to in-clinic abortion in the U.S., it may offer a safe and effective option for those who cannot access clinical care.
+dpv6 | Funding The Society of Family Planning and The National Institutes of Health.
+8r5j | Copyright 2022 The Author(s). Published by Elsevier Ltd. This is an open access article under the CC BY license (http://creativecommons.org/licenses/by/4.º/)
+2taz | Keywords: Abortion; Self-managed; Online telemedicine; United States
+o3ya | Introduction
+r5il | Abortion access is approaching cross-roads in the United States. The Supreme Court is currently consid- ering an enacted Mississippi law that bans abortion at 15 weeks' gestation" and recently allowed a 6-week ban in effect in Texas to stand.2 Although the right to choose established by Roe v. Wade in 1973 still currently stands,
+5gui | www.thelancet.com Vol 10 Month June, 2022
+82qc | Articles
+ls7d | access to abortion in the clinic setting is moving further out of reach due to restrictive state legislation. One hun- dred and eight abortion restrictions were enacted in state legislatures in 2021, more than any other year since Roe.3 These laws make clinical abortion harder to access by imposing waiting periods and medically unnecessary medical tests on patients and requiring clinics and providers to conform to unnecessary admin- istrative regulations.3
+tzt3 | I
+t8vv | Articles
+qvnu | Research in context
+kggw | Evidence before this study
+xrd1 | In many U.S. states, access to abortion in the clinic setting is becoming increasingly restricted. In the face of dwin- dling access, there is evidence that people in the United States are self-managing their abortions (i.e. sourcing and conducting them outside of the formal healthcare setting). While self-managed abortions have been hap- pening in North America for centuries using botanicals, and later misoprostol, one important contemporary method of self-management is the use of online tele- medicine to provide the abortion medications mifepris- tone and misoprostol. No studies, however, have examined the safety, effectiveness, and acceptability of self-managed medication abortion using this model in the United States. We conducted a systematic search of MEDLINE and PubMed using the MeSH terms 'Abortion', 'Self-managed', 'United States', 'Safety' and 'Effectiveness' with no language or date restrictions, and found no rele- vant reports as of September 2021. Using data from the sole online telemedicine organization that provides self- managed medication abortion to people in the United States, we provide here an analysis of the reported out- comes of self-managed abortions provided between March 20th 2018 and March 20th 2019. We report both the proportion that resulted in successful termination of pregnancy and the proportion that resulted in serious adverse events. We also describe the acceptability of these self-managed abortions based on user experience.
+5746 | Added value of this study
+7toz | This study presents the first evidence that self-managed medication abortion provided through online telemedi- cine in the United States is effective, acceptable to users, and has a very low rate of serious adverse outcomes. This evidence adds to a global body of data showing that self-managed medication abortion is safe and effec- tive. In this study, 70% of those to whom medications were shipped provided follow-up information about their abortions, and among these 2,797 (88%) confirmed use of the medications and provided outcome information, while 389 (12%) confirmed non-use. Among those who used the medications, 96% were able to end their preg- nancies without surgical intervention from a clinical pro- vider, a rate comparable with the in-clinic setting. Treatment for serious adverse events was uncommon with 1% receiving a blood transfusion or intravenous antibiotics. No deaths were reported to the service by family, friends, the authorities, or the media. Among the 2,268 people who provided information about their experience, 98% expressed satisfaction with their abor- tion experience and 96% said it was the right choice.
+j346 | Implications of all the available evidence
+v8uq | As restrictive abortion legislation continues to create substantial barriers to in-clinic abortion in many U.S. states, abortion self-managed outside of the formal healthcare setting is an important option for those who
+x972 | cannot or prefer not to access clinical care. This study provides key evidence for clinicians, policymakers, and the public that safe, effective, self-managed medication abortion is available in the United States. However, peo- ple who self-manage are still vulnerable to legal risks and in some states unjust prosecutions have occurred. Rather than being subject to criminalization, self-man- aged abortion should be a legitimate part of a spectrum of options for abortion care that must be made avail- able in the United States.
+cwrw | Recent research suggests that one possible conse- quence of increasing barriers to in-clinic abortion is that more people will self-manage.4,5 A self-managed abor- tion is one that takes place outside of the formal health- care setting, and includes a spectrum of methods, such as the abortion pills mifepristone and/or misoprostol, menstrual extraction, botanicals, herbs, vitamins, bever- ages, and ingestion of toxic substances and physical injury. Self-managed abortion has been happening in North America for centuries and recent estimates sug- gest that approximately 7 percent of U.S. women have attempted a self-managed abortion in their lifetime.6
+4i0e | An important consideration for people who self-man- age is the safety and effectiveness of the method they are using. Since 2018, self-managed abortion using mifepris- tone and misoprostol has been available through online telemedicine in the U.S. via a non-profit service called Aid Access.7 The service received 57,506 requests from people in the U.S. in its first two years of operation.4 While clinic-based and physician-led telemedicine mod- els that provide medication abortion within the formal healthcare setting are also available in some U.S. states,8 -10 Aid Access is distinct from these service models because it offers self-managed abortion, operating out- side of the formal U.S. healthcare setting in all 50 states. Provision of self-managed medication abortion using similar services, such as Women on Web and Women Help Women, has been explored in other countries,11-13 but outcomes have not been studied in any U.S .- based population. Using data from Aid Access, the objective of this study is to examine the safety, effectiveness, and acceptability of self-managed medication abortion pro- vided via online telemedicine in the U.S.
+h2l3 | Methods
+dfzb | Data
+u6ty | Aid Access currently provides medication abortion up to 10 weeks gestation at the time of request, which is made using an online consultation form. A doctor reviews the form to ensure no contraindications and provides a prescription of 200mg mifepristone to be taken orally and 800mcg misoprostol to be taken sub- lingually, along with an additional 800mcg of
+awvu | www.thelancet.com Vol 10 Month June, 2022
+on9b | misoprostol for use if needed, according to the World Health Organization (WHO) recommended dosage reg- imen for medication abortion.14 A partner organization then mails the medications along with usage instruc- tions. A donation of $110 to support the service is requested, but those who cannot afford it are asked to donate what they can. An online non-clinical helpdesk team is available to answer questions. Four weeks after receipt of the medications, users are invited to report their abortion outcomes using an online evaluation form or via an email to the helpdesk.
+a8ge | Our dataset includes all U.S. residents to whom abortion medications were shipped between March 20th 2018 and March 20th 2019. Since Aid Access is the sole organization of its kind serving the U.S., our sample represents the universe of people in the U.S. self-managing a medication abortion using online tele- medicine outside the formal healthcare system. De- identified data from the online consultation form, fol- low-up form, and emails were provided by Aid Access. All individuals in the sample consented to the anony- mized use of their data at the aggregate level for research purposes.
+h27a | The online consultation form includes self-reported information about age, weeks' gestation, parity, feelings about the decision to have an abortion, any medical con- traindications, whether or not a person has had an ultra- sound scan for the current pregnancy, knows someone who can be with them during their abortion, and lives within 60 min of a hospital. We categorized age as "Under 20 years", "20-24 years" and into 5-year incre- ments thereafter, with a final group of "40 years and over". Gestation was reported as "< 7 weeks" or "7-10 weeks", which represents gestation at the time of the consultation. Those who did not have an ultrasound scan used a pregnancy calculator based on their last menstrual period. Number of children was reported numerically, and we constructed categories of "o" and "I or more". Feelings about the decision to have an abor- tion were reported as "I can cope with my feelings regarding my decision" and "I have some worries about my decision and would like further information". Those who expressed worries were directed to appropriate sources of information. Medical history questions included the presence of any contraindications (e.g. bleeding disorders, inherited porphyrias, allergies to mifepristone or misoprostol) or medical conditions that required additional medical screening (e.g. having an IUD in place or having a suspected STI).
+pdjh | The evaluation form is based on similar follow-up instruments used in the clinical setting and is sent to participants 4 weeks after receipt of the medication. Available information included the number who con- firmed delivery of the medications, the number who confirmed whether or not they used the medications, and the outcome of the pregnancy or abortion. Those who confirmed using the medications were asked about
+xmgs | www.thelancet.com Vol 10 Month June, 2022
+bd9h | Articles
+m047 | gestation at the time of use, whether or not they were still pregnant, whether or not they received any clinical intervention to help end the pregnancy (Dilation and Curettage (D&C) or vacuum aspiration), and any other treatment they received for a possible serious adverse event following their abortion. Those who confirmed not using the medications were asked about the out- come of their pregnancy.
+gy8c | Analysis
+y4mj | We compared available clinical and demographic char- acteristics among those who provided follow-up infor- mation and those who did not. We conducted chi- squared difference of proportions tests using an alpha level of 0.05 to indicate statistical significance to check for any systematic differences between the two groups that might affect the outcome of their abortions.
+vpgq | Among those for whom self-reported information on outcomes was available, we examined these in the over- all sample as well as constructing two groups: those reported a gestation of 10 weeks or fewer at the time of using the pills, and those who reported a gestation of over 10 weeks. This threshold was chosen to allow com- parison with outcomes of medication abortion in the clinic setting, where the mifepristone-misoprostol com- bined regimen is approved by the FDA through 70 days gestation.15 While requestors must be 10 weeks preg- nant or less at the time of filling out the consultation form, the medications may take I-3 weeks to arrive and thus some individuals may be over 10 weeks at the time of use. We first examined the proportion who reported that they were no longer pregnant, and then the propor- tion for whom medication abortion was successful according to the standard definition of success in the Medical Abortion Reporting of Efficacy (MARE) Guide- lines, i.e. the proportion who were able to expel their pregnancy without the need for surgical intervention.16 Next, we examined the prevalence of reported serious adverse events, following to the extent possible the cate- gories defined by Cleland et al.17 Information was avail- able on receipt of IV antibiotics and blood transfusion and we also assessed whether any deaths were reported, recognizing that we are relying on reporting by friends, family members, the authorities, or the media. We cal- culated point-estimates and exact binomial 95% confi- dence intervals (CI) both for the overall population and for the binary gestation categories available in our data- set. To compare outcomes between the two gestation groups we used Fisher's exact test and considered find- ings statistically significant at an alpha level of 0.05.
+ousl | The follow-up form also included a series of "yes/no" questions asking about the abortion experience, includ- ing satisfaction with the service, and whether: using it had been the right choice; affording the full donation (which at the time of data collection was $90) had been difficult; enough information had been provided about
+m4ju | I
+a0mb | Articles
+ki8m | the abortion process; and enough support was available from family and friends. We calculated the proportions of people answering "yes" and "no" to each question.
+km8w | Data analysis was conducted using Stata version 15.1.18 The Institutional Review Board of the University of Texas at Austin approved the study.
+wzno | Role of the funding source
+xagm | Neither funding source that supported the investigators during the study had any involvement in study design, data collection, analysis or interpretation, and had no role in the writing of this manuscript or the decision to submit for publication.
+iwn5 | Results
+```
+
+OUTPUT:
+```

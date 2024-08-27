@@ -1,0 +1,139 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+1pjs | Se THE ROYAL SOCIETY
+o2kr | If neuroimaging is the answer, what is the question?
+v6sk | S. M. Kosslyn
+1wj6 | It is unclear that we will come to a better understanding of mental processes simply by observing which neural loci are activated while subjects perform a task. Rather, I suggest here that it is better to come armed with a question that directs one to design tasks in ways that take advantage of the strengths of neuroimaging techniques (particularly positron emission tomography and functional magnetic resonance imaging). Here I develop a taxonomy of types of questions that can be easily addressed by such techni- ques. The first class of questions focuses on how information processing is implemented in the brain; these questions can be posed at a very coarse scale, focusing on the entire system that confers a particular ability, or at increasingly more specific scales, ultimately focusing on individual structures or processes. The second class of questions focuses on specifying when particular processes and structures are invoked; these questions focus on how one can use patterns of activation to infer that specific processes and struc- tures were invoked, and on how processing changes in different circumstances. The use of neuroimaging to address these questions is illustrated with results from experiments on visual cognition, and caveats regarding the logic of inference in each case are noted. Finally, the necessary interplay between neuroi- maging and behavioural studies is stressed.
+936l | Keywords: neuroimaging; visual imagery; visual perception; cognitive theory
+06yq | 1. INTRODUCTION
+dpv6 | Attending a poster session at a recent meeting, I was reminded of the old adage 'To the man who has only a hammer, the whole world looks like a nail'. In this case, however, instead of a hammer we had a magnetic resonance imaging (MRI) machine and instead of nails we had a study. Many of the studies summarized in the posters did not seem to be designed to answer questions about the functioning of the brain; neither did they seem to bear on specific questions about the roles of particular brain regions. Rather, they could best be described as 'exploratory'. People were asked to engage in some task while the activity in their brains was monitored, and this activity was then interpreted post hoc.
+8r5j | Sometimes, in the hands of a particularly talented investigator, this 'let's-try-it-and-see' approach can pay off. Usually, however, it does not; the result is a story made up after the fact, and many other stories could equally easily characterize the findings. In this article I wish to explore another approach to neuroimaging, one designed to answer specific questions. I wish to describe different types of questions that seem particularly well- suited to contemporary neuroimaging techniques, such as functional MRI (fMRI), positron emission tomography (PET) and magnetoencephalography (MEG). I shall illustrate approaches to most of the questions with examples from my laboratory, which is the research I happen to know best.
+2taz | We shall consider two large classes of questions. The first class focuses on how information processing systems are organized in neural tissue. We ask which processes
+o3ya | Phil. Trans. R. Soc. Lond. B (1999) 354, 1283-1294
+r5il | and structures confer specific functions, such as the ability to recognize objects or to form visual mental images. For present purposes, I use the word 'process' to refer to an operation or set of operations that transforms an input to an output, and 'structure' to refer to two types of entities: a 'representation' is a physical state that serves as a reposi- tory of information, and a 'buffer' stores representations. A metaphor might help: a blackboard is a buffer, marks made with chalk can serve as representations, and the movement of chalk on the board, the movement of an eraser on the board, and the act of interpreting the patterns of marks are all examples of processes. However, the distinction between structure and process is not clear- cut, as neural network modelling has demonstrated well: some structures actively transform input to output (see, for example, Kosslyn & Koenig 1995; McClelland & Rumelhart 1986; Churchland & Sejnowski 1992). Nevertheless, for present purposes this simple-minded characterization will serve as a useful organizational device.
+5gui | The second class of questions focuses on when, on the specific circumstances under which, specific types of information processing are used. In some sense, one can answer such questions only if one has provisional answers to at least some questions of the first type. Once one has identified activation in a brain area with the operation of a structure or process, one can then ask in what circum- stances such activation occurs. (I shall use the term 'acti- vation' to refer both to increases in regional cerebral blood flow (rCBF) observed in PET and also to increases in signal strength observed in fMRI, which presumably reflect rCBF.) We look at two types of specific questions.
+82qc | 1283
+ls7d | 1999 The Royal Society
+tzt3 | 1284 S. M. Kosslyn Questions for neuroimaging
+t8vv | The first addresses whether one can infer the use of a particular structure or process on the basis of specific brain activation; the second examines whether one can use neuroimaging to consider ways in which context and other factors alter the use of a given structure or process.
+qvnu | Before launching into this far-reaching overview, it is useful to make explicit a key assumption: I am trying to organize types of question that one can sensibly try to answer using neuroimaging, but this does not guarantee that each such question will necessarily be answered by using these techniques. As we progress, I shall briefly note major methodological and conceptual stumbling blocks that can obstruct even the most clear-headed and systematic attack on an issue.
+kggw | 2. HOW ARE INFORMATION PROCESSING SYSTEMS IMPLEMENTED IN NEURAL TISSUE?
+xrd1 | Perhaps most of the current research with neuro- imaging techniques is designed to reveal the functional architecture underlying a specific ability. By 'functional architecture' I mean the set of structures and processes that are used to perform a class of tasks. The areas acti- vated while one uses the ability are taken to reflect the use of such structures and processes, and each area is characterized in terms of its role in implementing a parti- cular structure or process. Sometimes researchers talk about a set of areas as a circuit, but this is usually misleading: in most studies all that is revealed are a set of activated (and/or deactivated) areas, with no information about the flow of information between the areas. Thus, what we see are the footprints of components of the func- tional architecture that are evoked during the task, but we do not see a specific circuit.
+5746 | The initial questions that we will consider focus on a 'big picture' overview of a system of processes (setting aside for now details of how structures are involved with the processes), and later questions focus more narrowly on specific aspects of the system. I personally prefer to start with 'big picture' questions, which lead to research that provides a road map guiding the formulation of more specific questions.
+7toz | (a) Which areas implement systems that confer specific functions?
+j346 | Perhaps the most common type of neuroimaging study today is intended to reveal the neural events that confer a specific 'function' (i.e. ability), such as reading, object recognition or visualization. For any given function there are many different tasks that will engage some or all of the relevant structures and processes. I shall provide an example from our own work. We focused on the ability to identify objects, and examined the task of deciding whether a name is appropriate for a picture of an object. We began with a (coarse) theory of the functional architecture underlying such performance, and wanted to know whether it predicted the pattern of results. This theory is based in large part on research findings with non- human primates. Because I shall be using this work to illus- trate my main points in what follows, I shall summarize the theory here (for a detailed treatment, see Kosslyn (1994)). As illustrated in figure 1, we posit a functional architecture with six major components, as follows.
+v8uq | Phil. Trans. R. Soc. Lond. B (1999)
+x972 | The visual buffer is a set of topographically organized areas in the occipital lobe (see, for example, Felleman & Van Essen 1991; Van Essen 1985). These areas preserve, roughly, the spatial structure of images striking the back of the retina (and are therefore called retinotopically mapped areas), and have a key role in organizing visual input into perceptual units. The visual buffer serves both as a structure (as discussed below) and a process (by actively organizing input into perceptual units).
+cwrw | The attention window is a process that selects some localized portion of the visual buffer for more detailed processing (Cave & Kosslyn 1989; Posner & Petersen 1990; Treisman & Gelade 1980).
+4i0e | The pattern selected by the attention window is sent along two major pathways for further processing. The object-properties-encoding system analyses object proper- ties (e.g. shape and colour) and runs from the occipital lobe to the inferior temporal lobe in the monkey; the human analogue seems to be the inferior temporal and/or middle temporal gyrus (see Haxby et al. 1991; Levine 1982; Mishkin et al. 1983; Sergent et al. 1992; Ungerleider & Mishkin 1982). There is good evidence that this system actually stores visual memories (reviewed by Kosslyn 1994). Input from the attention window is matched to these stored representations, leading to object recognition.
+h2l3 | The second major pathway is the spatial-properties- encoding system, which encodes properties such as location, size and orientation, and runs from the occipital lobe to the posterior parietal lobe. There is considerable evidence that this system has a key role in guiding move- ments (see, for example, Goodale & Milner 1992). Not only are the areas in this system active when people or animals engage in spatial tasks, but also damage to it disrupts the encoding of spatial properties (see, for example, Andersen 1987; reviewed by Kosslyn 1994).
+dfzb | The two pathways must converge somewhere in memory; this inference is dictated by the simple fact that one can recall where things are located (e.g. the furniture in one's living room, objects on one's desk), which requires the cross-indexing of object and spatial properties. The object-properties-encoding system stores modality-specific visual representations. However, much of our knowledge is not modality specific; we can access this knowledge by multiple routes. For example, we can identify a cat when we see it, hear its meow, or feel it snuggling against our shin. This underlines an important distinction: recognition occurs when an input matches a stored unimodal repre- sentation, whereas identification occurs when we access information associated with that stimulus. When we recognize something, we know only that we have perceived it before, that it is familiar; when we identify something, we know that it has a certain name, belongs to specific categories, is found in certain locales, and so forth. Seeing a face and knowing that you have seen it before but not knowing when, where, or the person's name or other particulars, is an example of recognition without identification.
+u6ty | Such reasoning led us to posit an associative memory, which we hypothesize to rely on the angular gyrus and Area 19 (largely on the basis of clinical findings (see Kosslyn 1994)). Representations in associative memory are amodal ('abstract') and multimodal, and store
+awvu | associations to objects, scenes and events. These represen- tations are activated by converging input from the object- properties-encoding and spatial-properties-encoding systems.
+on9b | In situations in which an object cannot be recognized well (because the input does not match well any previously stored representations), the best-matching representation in associative memory is treated as a hypothesis about the identity of the stimulus. The information look-up process accesses stored information associated with the hypothesized object, and uses such information to guide a top-down search. The information look-up process essentially shunts information from one part of the brain to another.
+a8ge | According to our theory, information stored in associa- tive memory is used during a top-down search not only to guide the mechanisms that shift attention (to look for a distinctive part or characteristic that should be present if the hypothesis about the stimulus' identity is correct), but also to 'prime' representations in the object-properties- encoding system. One of the more striking facts about the neuroanatomy of the visual system is that virtually all areas connected by afferent fibres are also connected by efferent fibres (i.e. the connections are reciprocal); there is an enormous amount of information flowing backwards in the visual system (see, for example, Felleman & Van Essen 1991). We conjecture that the efferent connections are used for 'cooperative computation', and that the sort of priming posited here is at the heart of such processing. This sort of priming facilitates the encoding of an expected part or property (possibly by lowering thresh- olds, or by increasing sampling rates). Dorsolateral prefrontal cortex is critical in implementing the informa- tion look-up system (see, for example, Damasio 1985; Goldman-Rakic 1987, 1988; Luria 1980; see also Kosslyn et al. 1995b).
+h27a | Finally, there are processes that actually shift attention. These attention shift processes are implemented in several parts of the brain. Posner & Petersen (1990) distinguish between three different components of this system, one in the posterior parietal lobe that disengages attention from its current location; one in the superior colliculus, frontal eye fields and other neural structures that guides the attention window, as well as the eyes, head and body to a new location; and one in the thalamus that re-engages attention at a new location.
+pdjh | Kosslyn et al. (1994) set out to discover whether this theory could be generalized to humans. In our view, a good neuroimaging experiment hinges on comparing two tasks that are minimally different. In most cases, it is best if only a single aspect of the task is varied at a time; if more than one characteristic is varied, the variables should be manipulated orthogonally (keeping everything else constant while manipulating each one). Thus, in this study we examined the same task, deciding whether words name pictures, but in two conditions: in one, the pictures were presented from canonical (typical) points of view, whereas in the other the pictures were presented from non-canonical (atypical) points of view. Counter- balancing over subjects ensured that the same pictures and words were used equally often in both conditions. Our reasoning was that the canonical views would match stored representations in the object-properties-encoding
+xmgs | Phil. Trans. R. Soc. Lond. B (1999)
+bd9h | Questions for neuroimaging S. M. Kosslyn 1285
+m047 | system, and hence be recognized well, and then would be identified immediately. In this case, although all of the other processes would be running at the outset, they would not need to run to completion to perform the task. (Figure 1 is misleading in that it might suggest that each process waits for the products of the previous one before operating. On the contrary, there is good reason to assume that all parts of the brain are 'running' at the same time, and that what changes during task perfor- mance is how intensively each one is operating. When processing shifts over time, this is reflected by increased activity in areas that implement the relevant processes.)
+```
+
+OUTPUT:
+```

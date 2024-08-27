@@ -1,0 +1,120 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+2zmw | Springer
+bf9k | Hydrobiologia
+otkr | association was not significant (P = 0.061, x2 statis- tic = 3.522, 1 d.f.). However, tide range <5 m that occurred 1 and 2 days prior to the stranding days were both significantly associated with stranding events (P = 0.013, x2 statistic = 6.158, 1 d.f. for both 1 and 2 day lags). This result indicates that strandings were significantly more likely to follow days of small tidal range than those of larger tidal ranges. However, as shown in Fig. 4, not all stranding events occurred on days which followed smaller than average tide ranges.
+ibgs | Water temperature increased from 20.5 to 28.5℃ over the two-month period from early August until late October (ESM Fig. 1). The most significant change was during September water temperatures of Cable Beach increasing from 24℃ to 27℃ between 28 August and 29 September. Chlorophyll-a levels of Cable Beach were low (0.4-0.5 mg m 3) from 4 August to 4 September and then increased to 1.3-1.5 mg m-3 as chlorophyll-a levels increased first in Roebuck Bay and south and north to Cable Beach and beyond (ESM Fig. 2). Winds
+colo | Hydrobiologia
+d6r4 | were easterly on average from 4 to 19 August before shifting south-westerly to westerly between 20 August and 4 September (Fig. 5). Winds were again easterly from 4 to 12 September before shifting westerly to south-westerly between 13 September and 6 October. From 7 October, winds were variable but predominantly southerly and south-westerly before turning westerly again from 15 to 22 October. From 23 to 30 October, winds were again variable from the south and west (Fig. 5). Among the 35 days that satellite wind data were available during the 58-day period analysed (24 August to 20 October), 7 of 11 (63.6%) of strandings occurred when winds were blowing onshore (north-west through to southwest). However, the direction of the wind (all four quadrants compared) was not signif- icantly associated with jellyfish strandings on the days they occurred <LATEX>\left( P = 0 . 4 3 2 , \right.</LATEX> <LATEX>x ^ { 2 }</LATEX> statistic <LATEX>= 2 . 7 5 1 ,</LATEX> 3 d.f.). Neither was it significantly associated with wind direction one or 2 days prior to strandings <LATEX>\left( P = 0 . 9 2 1 , \right.</LATEX> <LATEX>= 0 . 4 9 1 ,</LATEX> 3 <LATEX>d . f .</LATEX> and <LATEX>\left( P = 0 . 4 1 3 , \right.</LATEX> <LATEX>\begin{array}{} { \text { x statstic } = 0 } \\ { x ^ { 2 } \text { statistic } = 2 . 8 6 7 } \end{array} ,</LATEX> 3 d.f. respectively) despite 90.9% of strandings occurring when winds were blowing onshore (north-west through to south- west) with a 2-day time lag. It is likely that the small sample size which was affected by the absence of wind data from 23 of the days during the period of observation during which time there were 8 stranding events. During the 58 days, 12 of 19 (63.2%) of strandings occurred when currents flowed onshore. However, current direction (all four quadrants com- pared) was not significantly associated with jellyfish strandings on the days they occurred <LATEX>\left( P = 0 . 8 6 3 , \right.</LATEX> <LATEX>x ^ { 2 }</LATEX> statistic <LATEX>= 0 . 7 4 1 ,</LATEX> 3 d.f.) or one or 2 days prior to strandings <LATEX>\left( P = 0 . 2 9 0 , \right.</LATEX> <LATEX>\chi ^ { 2 }</LATEX> statistic <LATEX>= 3 . 7 4 8 , 3 \quad d . f .</LATEX> and <LATEX>\left( P = 0 . 5 0 1 , \right.</LATEX> <LATEX>x ^ { 2 }</LATEX> statistic <LATEX>= 2 . 3 6 3 , 3 \quad d . f .</LATEX> respectively). Logistic regression analysis reinforced the importance of tide range as a predictor of strandings. The strongest individual predictor was tide range 2 days before strandings <LATEX>\left( P = 0 . 0 0 9 , \right.</LATEX> see Table 1), and the next best was current direction, also with a 2-day lag. Wind direction was a worse predictor than either tide or current. The best logistic regression model which combined the two predictors of tide range (2 day lag) and wind speed (2 day lag) provided only slight improvement in the fit over tide range alone accord- ing to Aikaike's Information Criteria (AIC) (Table 1). The Bayesian Information Criteria (Shwartz's BIC) did not show any improvement in the model fit when tide range and wind speed were combined (Table 1).
+9mrz | This difference in model selection is easily explained by the way that Shwartz's BIC penalises attempts to improve model fit simply by an exhaustive exercise of adding more parameters and in analyses with small sample sizes such as ours. For this reason, Shwartz's BIC is favoured by some statisticians (Neath & Cavanaugh, 2012). Nevertheless, the improvement gained by the inclusion of current direction <LATEX>\left( P = 0 . 0 1 8 \right)</LATEX> or wind speed with tide range in the model <LATEX>\left( P = 0 . 0 0 8 \right)</LATEX> was slight, and the difference in wind speed between jellyfish stranding days (with a 2 day lag) and other days was negligible (means of <LATEX>1 1 . 7 k m h ^ { - 1 } ,</LATEX> <LATEX>S D = 3 . 6</LATEX> and 12.8 km <LATEX>\mathrm { h } ^ { - 1 } ,</LATEX> <LATEX>S D = 3 . 2 ,</LATEX> respectively). Both the univariate and multivariate approaches reinforced the importance of tide range as an important predictor of strandings. Neither of the two approaches found wind or current direction as a significant predictor of strandings.
+pk06 | Size frequency and individual biomass
+7wn9 | Diameter of <LATEX>C .</LATEX> mastigophora collected offshore of Gantheaume Point on 19 September ranged from 3.5 to 18.0 cm in diameter with size frequency greatest at 5.0-5.9 cm and 11.0-11.9 cm (Fig. 6). Individuals between 10.0 and 12.9 cm made up 34.6% of the population and those <6.0 cm made up 17.0%. Diameter of jellyfish collected from Cable Beach on 5 October ranged from 4.3 to 21.5 cm in diameter with a peak in abundance at 10.0-10.9 cm. This sample had fewer small jellyfish (7.5% <6.0 cm), but there was no significant difference in mean size of medusa collected on 19 September and 5 October between the two samples (9.9 cm <LATEX>\left( \mathrm { S D } = 3 . 5 \right)</LATEX> and 10.1 cm <LATEX>\left( \mathrm { S D } = 3 . 0 \right)</LATEX> respectively), Mann-Whitney <LATEX>U</LATEX> test, <LATEX>U = 1 4 , 0 7 6 ,</LATEX> <LATEX>P = 0 . 4 4 2 .</LATEX> Despite having equal variances <LATEX>\mathrm { \left( F \right. }</LATEX> test: <LATEX>F _ { \left( 1 5 8 , 1 8 5 \right) } = 1 . 2 9 8 ,</LATEX> <LATEX>\left. P = 0 . 0 8 7 \right) ,</LATEX> the samples were non- normally distributed (Shapiro-Wilk test, <LATEX>W = 0 . 9 7 9 ,</LATEX> <LATEX>P = 0 . 0 1 5</LATEX> and <LATEX>W = 0 . 9 8 3 ,</LATEX> <LATEX>P = 0 . 0 2 5</LATEX> respectively) and could not be satisfactorily transformed, so the non- parametric test was applied instead of a <LATEX>t</LATEX> test. Biomass of <LATEX>C .</LATEX> mastigophora collected offshore of Gantheaume Point increased exponentially with diameter (Fig. 7), as estimated from the equation <LATEX>W = 0 . 2 6 6 5 \times D ^ { 2 . 8 9 4 3 }</LATEX> (Fig. 7) where <LATEX>\mathrm { W }</LATEX> is whole wet weight in grammes and <LATEX>\mathrm { D }</LATEX> is bell diameter in cm. The linear regression of <LATEX>\log _ { 1 0 }</LATEX> <LATEX>\mathrm { W }</LATEX> against D was highly significant with <LATEX>R ^ { 2 } =</LATEX> 0.844, <LATEX>P < 0 . 0 0 0 1 .</LATEX> In the population, sampled
+wcd0 | Springer
+caos | Hydrobiologia
+qrvy | Fig. 5 Satellite-derived sea-surface wind speed and direction (WindSat Polarimetric Radiometer 0.25° x 0.25°). instrument for the period from 4th August, 2012 to 30th October, 2012
+pn9j | Springer
+1pmc | Hydrobiologia
+5z6q | Table 1 Summary of logistic regression analysis using predictor variables of wind speed, wind direction and tide range <LATEX>\left( J = t h e \quad d a y \right.</LATEX> of a mass jellyfish stranding event, <LATEX>\mathrm { J - 1 } = 1</LATEX> day before stranding, <LATEX>\mathrm { J } - 2 = 2</LATEX> days before stranding)
+yeoh | Descriptive measures of goodness of fit are provided for each variable by log likelihood, McFadden's <LATEX>\rho ^ { 2 } ,</LATEX> Cox and Snell <LATEX>R ^ { 2 } ,</LATEX> Nagelkerke <LATEX>\mathrm { R } ^ { 2 }</LATEX> and receiver operating characteristic (ROC) analysis. Models with combined variables were evaluated using Aikaike's information criterion (AIC) and Bayesian information criterion (BIC). The best parameter or model determined by each statistic is underlined and those that were significant <LATEX>\left( p < 0 . 0 5 \right)</LATEX> are bolded
+b8hf | individuals <LATEX>\geq 1 3</LATEX> cm made up 46.6% of the biomass but only 17.6% of the abundance. The mean water content of the jellyfish after drying was 95.8% <LATEX>\left( S E = 1 . 2 5 , \right.</LATEX> <LATEX>\left. n = 2 1 \right) ,</LATEX> and after ashing, the mean percentage of dry weight that was found to be organic matter was 34.0% <LATEX>\mathrm { \left( S E \right. } = 1 . 2 6 ,</LATEX> <LATEX>\left. n = 1 0 \right) .</LATEX> The mean organic carbon and total nitrogen content of the dried tissue were 7.5% <LATEX>\mathrm { \left( S E \right. } = 0 . 4 ,</LATEX> <LATEX>\left. n = 2 1 \right)</LATEX> and 2.0% <LATEX>\mathrm { \left( S E \right. } = 0 . 1 ,</LATEX> <LATEX>\left. n = 2 1 \right) ,</LATEX> respectively. The tissue of the jellyfish had carbon <LATEX>\left( \partial ^ { 1 3 } C \right)</LATEX> and nitrogen <LATEX>\left( \delta ^ { 1 5 } \mathrm { N } \right)</LATEX> isotopic signatures of -20.79 <LATEX>\mathrm { \left( S E \right. } = 0 . 0 6 ,</LATEX> <LATEX>\left. n = 2 1 \right)</LATEX> and 8.14 <LATEX>8 ^ { 1 5 } N</LATEX> <LATEX>\mathrm { \left( S E \right. } = 0 . 0 8 ,</LATEX> <LATEX>\left. n = 2 1 \right) ,</LATEX> respectively. Mean C:N ratio was 3.9
+hntf | <LATEX>\left( \pm 0 . 0 2 \mathrm { S E } \right. ,</LATEX> <LATEX>\left. n = 2 1 \right) .</LATEX> Abundance and biomass of <LATEX>C .</LATEX> mastigophora stranded on Cable Beach
+```
+
+OUTPUT:
+```

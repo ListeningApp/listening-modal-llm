@@ -1,0 +1,132 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+bf9k | El-Guindi et al. [46] used stool colour (clay), US signs (tri- angular cord sign, contractile gallbladder, gallbladder length ≥20.5 mm, hepatic artery diameter <LATEX>\geq 2 . 0 5 m m ,</LATEX> hepatic artery diameter/portal vein diameter ≥0.445 mm, hepatic subcapsular flow), laboratory tests and histopathology to develop a 12- parameter diagnostic score to discriminate biliary atresia from other causes of neonatal cholestasis, reporting a sensitivity and specificity of 100% each. The main concern is the reproducibil- ity of these measurements and of this diagnostic score; Macaluso et al. [47], applying the same diagnostic score to their population, obtained less encouraging results: global sensitivity was 31% (5/16) with a specificity of 90.9% (10/11).
+otkr | Chen et al. [48] developed a noninvasive algorithm to iden- tify biliary atresia in cholestasis using five predictors (shear wave <LATEX>\mathrm { s p e e d } > 1 . 3 5 m / s ,</LATEX> triangular cord sign, gamma-glutamyl transpeptidase, abnormal gallbladder and clay stool). They divided patients into three risk groups and achieved high di- agnostic performance (sensitivity of 98.7% and specificity of 91.4%) in the high and intermediate risk groups.
+ibgs | Discussion
+colo | According to this analysis, MR cholecystopancreatography has no role in the diagnosis of biliary atresia mainly because of the absence of visibility of the normal extrahepatic bile duct, con- sidered a diagnostic criterion by most authors, is observed in almost 40% of non-cholestatic neonates leading to low speci- ficity [18]. Moreover, MR cholecystopancreatography is more complex to perform than US and has lower diagnostic perfor- mance. This conclusion is in agreement with ESPGHAN
+d6r4 | (European Society for Paediatric Gastroenterology, Hepatology and Nutrition) and NASPGHAN (North American Society for Pediatric Gastroenterology, Hepatology and Nutrition) guidelines [49].
+9mrz | Concerning hepatobiliary scintigraphy, this analysis shows its very limited role in the diagnosis of biliary atresia because its specificity is very limited with false-positive results in pa- tients presenting with severe medical cholestasis with very limited or even absent choleresis. This again is in agreement with ESPGHAN and NASPGHAN guidelines [49].
+pk06 | More invasive imaging techniques with direct opacification of the biliary tract using percutaneous cholecysto-cholangiography or endoscopic retrograde cholangiopancreatography have been evaluated and show good diagnostic performance. However, the use of endoscopic retrograde cholangiopancreatography is very limited by the need of specific endoscopic equipment with trained operators. Percutaneous cholecysto-cholangiography has very good diagnostic performance to confirm or rule out biliary atresia in difficult cases.
+7wn9 | Percutaneous liver biopsy remains an important but imperfect tool for the diagnosis of biliary atresia since histological biliary atresia features vary with time related to the evolution of the dis- ease and may overlap with non-biliary atresia cholestatic diseases.
+wcd0 | According to the results of our systematic review, parts 1 [13] and 2, and consensus of the ESPR Abdominal Taskforce, we proposed at the 2019 ESPR annual meeting in Helsinki a biliary atresia decisional flowchart (Fig. 6). In a neonate with conjugated hyperbilirubinemia with or without acholic stools, US should be the first imaging examination. The sufficient duration of fasting for US <LATEX>\left( > 4 \quad h \right)</LATEX> is of paramount importance, and we suggest re- peating US on the same day after adequate fasting in doubtful cases. Gallbladder abnormalities, triangular cord sign, micro- or macrocyst, polysplenia, intestinal malrotation, preduodenal portal vein, interrupted inferior vena cava and abdominal heterotaxia have to be searched for and, if possible, elastography should be applied to assess liver stiffness. Dilated intrahepatic bile ducts can rule out biliary atresia. In an infant (<30 days old) with low clinical suspicion and normal US findings, we could consider repeating clinical examination, US and biological tests every week; if US findings are normal and cholestasis resolves, no further imaging is needed, but if cholestasis with acholic stools persists or occurs, percutaneous cholecysto-cholangiography or endoscopic retrograde cholangiopancreatography should be per- formed at the same time as liver biopsy. In cases of equivocal findings on US and very young patients with partially acholic stools, atypical patterns suggestive of medical causes or normal US findings and children between 30 and 60 days of age, we propose percutaneous cholecysto-cholangiography or endoscopic retrograde cholangiopancreatography, according to local facili- ties, and liver biopsy. In cases of suggestive US liver findings and syndromic presentation or suggestive US liver findings and high clinical and biological suspicion, biliary opacification should be done under general anesthesia in the operating room and
+caos | Springer
+qrvy | Fig. 6 Decisional flowchart for biliary atresia proposed by the European Society of Paediatric Radiology (ESPR) Abdominal Taskforce at the 2019 ESPR annual meeting in Helsinki. Syndromic presentation: polysplenia (asplenia), intestinal malrotation, preduodenal portal vein, interrupted inferior vena cava, abdominal heterotaxia. US liver suggestive findings: gallbladder anomalies + triangular cord sign or gallbladder anomalies + hilar cyst, or triangular cord sign + hilar cyst
+pn9j | followed by surgical biopsy and a Kasai procedure if normal bile ducts are absent.
+1pmc | Our study has several limitations. The papers included a patient age range of 3-360 days, which is very large for an evolutive pathology that we must diagnose as early as possi- ble, and it creates a real bias especially because some US signs (triangular cord sign and hilar cysts) are age dependent as are the results of liver biopsy. Patient characteristics among stud- ies were different; for example, cystic forms of biliary atresia were excluded in some studies. There is a heterogeneity of study design and we included only English language papers.
+5z6q | Conclusion
+yeoh | Early diagnosis of biliary atresia is of paramount prognostic im- portance and is the main goal of imaging. No single diagnostic test has an accuracy of 100% and, because biliary atresia is a progres- sive disease, the diagnostic signs could have a late onset; hence, sensitivity and specificity will vary with age. Among imaging techniques, US has a high specificity, although a normal US ex- amination does not rule out biliary atresia diagnosis. Other imag- ing techniques with direct opacification of the biliary tree associ- ated with percutaneous liver biopsy have roles in doubtful cases. MR cholecystopancreatography and hepatobiliary scintigraphy have no role in diagnosing biliary atresia. According to the results of our systematic review parts 1 [13] and 2 and consensus of the ESPR Abdominal Taskforce, we propose a decisional flowchart for biliary atresia diagnosis based on US signs, including
+b8hf | Springer
+hntf | elastography, percutaneous cholecysto-cholangiography or endo- scopic retrograde cholangiopancreatography and liver biopsy.
+99fo | Declarations
+y5r7 | Conflicts of Interest None
+lrry | References
+hvhm | Pediatr Radiol (2021) 51:1545-1554
+863b | Pediatr Radiol (2021) 51:1545-1554
+fj24 | prelaparotomy liver biopsy in developing countries. J Gastroenterol Hepatol 24:97-102
+uz3c | 29. Nwomeh BC, Caniano DA, Hogan M (2007) Definitive exclusion of biliary atresia in infants with cholestatic jaundice: the role of percutaneous cholecysto-cholangiography. Pediatr Surg Int 23: 845-849
+d5bi | 30. Meyers RL, Book LS, O'Gorman MA et al (2004) Percutaneous cholecysto-cholangiography in the diagnosis of obstructive jaun- dice in infants. J Pediatr Surg 39:16-18
+ba4l | Publisher's note Springer Nature remains neutral with regard to jurisdic- tional claims in published maps and institutional affiliations.
+ffx8 | Springer
+s6su | Affiliations
+y219 | Springer
+06ht | Pediatr Radiol (2021) 51:1545-1554
+```
+
+OUTPUT:
+```

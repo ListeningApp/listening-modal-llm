@@ -1,0 +1,81 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document. Your task is to faithfully reproduce the text for our text-to-speech engine so that it is easily read aloud.
+
+Note that the text might not start at the beginning and paragraphs may be split acrosss multiple textboxes. Textboxes may start or end in the middle of a word which is acceptable: do not combine text between textboxes and leave broken words at the start and end of a textbox unchanged.
+
+You will receive one textbox per-line in the format `id | Textbox content`. The output must be in the format `id | Clean content`.
+
+RULES:
+ • Remove inline citations and references e.g. "(Author, 2021)" or "(https://wikipedia.org/article.html)" or "[ECMOS 35b, 47, 49]".
+ • Spell out numbers, dates, and chemical formulas for the TTS engine e.g. "-2.5" -> "negative two point five" or "Jan. 2020" -> "January twenty twenty".
+ • Spell out LaTeX formulas for the TTS engine e.g. "<LATEX>p = 1</LATEX>" -> "P equals one".
+ • Rejoin hyphenated word fragments within the same textbox e.g. "synth -esize" -> "synthesize".
+ • Fix simple typos and OCR errors e.g. "O nce upon a 1ime." -> "Once upon a time.".
+ • Delete nonsequiter textboxes that interrupt the middle of a sentence if they obviously do not belong.
+
+Otherwise, the output should exactly match the input text:
+ • Do not combine text across lines or attempt to fix words broken across lines.
+ • Ensure each ID from the input is included in the output.
+ • Make as few changes as possible while respecting the above rules.
+
+EXAMPLE INPUT:
+```
+ccpt | stigate the effectiveness of psychedelics for ADHD symp- toms in adults.
+0fpw | 2. Materia1 and methods
+dqn8 | 2.1. Study design and participants
+cop0 | The study employed a naturalistic design, assessing the experiences of participants at bas-,
+lhkq | eline before they start, and at 2 and 4 weeks after initiation. The target population included adults with ADHD symptoms who had not been diag- nosed with ADHD before. To be included, participants needed to score on Conner's Adult ADHD Rating Scale (CAARS-S:SV). This cut-off was indicative of clinically elevated symptoms (Conners et al., 1999) (see section 2.3).
+82ju | 2.2. Study procedure
+y2qo | The online advertisement was placed on a website providing information about psychedelics (www.microdo sing.nl). Interested participants were redirected to information explaining the study rationale and procedure. The baseline survey took 20 min to complete. If the survey had not been completed after 24 h, a reminder was sent. Each of the surveys at the 2- and 4-week time points took about 15 min to complete. Par- ticipants were able to pause the surveys. Data collection occurred between Nov. 2020 and Jul. 2021. The study was approved by the Ethics Review Committee of Psy- chology and Neuroscience at Maastricht University (ERCPN- 215_05_11_2019_A1).
+1piq | 2.3. Measures
+7fqw | 2.3.1. Demographic information and history of substance use
+rhaz | At baseline, demographic information was collected. History of substance use assessed experience with psyche- delics (i.e., ayahuasca, DMT, 5-MeO-DMT, LSD, novel lysergamides (e.g., 1P-LSD, ALD-52), psilocybin, salvia divinorum, ibogaine, and mescaline) in both full (psychedelic) doses and microdoses.
+wak1 | 2.3.2. Psychiatric and physiological diagnoses
+wtfz | Participants were asked whether they had a current diagnosis of a disorder. These answer options were chosen because most of the listed diagnoses are often reported to co-occur with ADHD (Kooij et al., 2019), or because these diagnoses were reported to be common in people who microdose (Fadiman and Korb, 2019). We 
+3j2l | REVIEW ARTICLE Frontiers in Psychiatry | www.frontiersin.org
+03k3 | 2
+1k9e | constructed a variable Comorbidity alongside ADHD, differenti- ating respondents with and without a comorbid diagnosis alongside ADHD (<LATEX>p < . 0 0 1 =</LATEX> only ADHD or no ADHD diagnosis; <LATEX>p > . 0 1 =</LATEX> ADHD and at least one other diagnosis). We constructed a variable Medication use alongside microdosing, differentiating respondents who were and were not using conven- tiona1 ADHD medication alongside microdosing (<LATEX>0 =</LATEX> only microdosing; <LATEX>1 =</LATEX> conven-
+```
+
+EXAMPLE OUTPUT:
+```
+ccpt | stigate the effectiveness of psychedelics for ADHD symptoms in adults.
+0fpw | Two. Material and methods
+dqn8 | Two point one. Study design and participants
+cop0 | The study employed a naturalistic design, assessing the experiences of participants at bas-,
+lhkq | eline before they start, and at two and four weeks after initiation. The target population included adults with ADHD symptoms who had not been diagnosed with ADHD before. To be included, participants needed to score on Conner's Adult ADHD Rating Scale. This cut-off was indicative of clinically elevated symptoms (see section two point three).
+82ju | Two point two. Study procedure
+y2qo | The online advertisement was placed on a website providing information about psychedelics. Interested participants were redirected to information explaining the study rationale and procedure. The baseline survey took twenty minutes to complete. If the survey had not been completed after twenty-four hours, a reminder was sent. Each of the surveys at the two and four-week time points took about fifteen minutes to complete. Participants were able to pause the surveys. Data collection occurred between November twenty twenty and July twenty twenty-one. The study was approved by the Ethics Review Committee of Psychology and Neuroscience at Maastricht University.
+1piq | Two point three. Measures
+7fqw | Two point three point one. Demographic information and history of substance use
+rhaz | At baseline, demographic information was collected. History of substance use assessed experience with psychedelics (i.e., ayahuasca, DMT, five-MeO-DMT, LSD, novel lysergamides (e.g., one-P-LSD, ALD-fifty-two), psilocybin, salvia divinorum, ibogaine, and mescaline) in both full (psychedelic) doses and microdoses.
+wak1 | Two point three point two. Psychiatric and physiological diagnoses
+wtfz | Participants were asked whether they had a current diagnosis of a disorder. These answer options were chosen because most of the listed diagnoses are often reported to co-occur with ADHD, or because these diagnoses were reported to be common in people who microdose. We
+3j2l |
+03k3 |
+1k9e | constructed a variable Comorbidity alongside ADHD, differentiating respondents with and without a comorbid diagnosis alongside ADHD (P is less than point zero zero one equals only ADHD or no ADHD diagnosis; P is greater than point zero one equals ADHD and at least one other diagnosis). We constructed a variable Medication use alongside microdosing, differentiating respondents who were and were not using conventional ADHD medication alongside microdosing (zero equals only microdosing; one equals conven-
+```
+
+INPUT:
+```
+b3bt | <LATEX>\left( M d n = 0 . 0 9 , \right.</LATEX> <LATEX>M _ { R a n k } = 1 4 . 9</LATEX> <LATEX>U = 7 5 . 0 ,</LATEX> <LATEX>z = 3 . 1 8 ,</LATEX> <LATEX>\left. P S _ { \text { est } } = . 2 0 , p = . 0 0 1 \right) .</LATEX> Discussion. subjects the opportunity to report changes in their experience of happiness and sadness as they occurred with J. T. Larsen et al.'s (2004) button press measures (Study 1a) and J. T. Larsen et al.'s (2009) continuous ESG (Study 1b). Just as subjects were more likely to report feeling both happy and sad after Life Is Beautiful than before (J. T. Larsen et al., 2001) and recall feeling both happy and sad during a bittersweet clip than during a control clip from The Son of the Bride (Carrera & Oceja, 2007), our subjects who watched the bittersweet clip spent more time reporting simultaneously mixed emotions (Study 1a) and reported more intense simultaneously mixed emotions (Study 1b) than those who watched the control clip.
+0w8m | These results provide the first evidence from online continuous measures of emotion that people can feel happy and sad at the same time. They extend prior research involving less sophisticated measures of emotion by providing evidence against the vacillation hypothesis, which contends that people can merely vacillate be- tween happiness and sadness. The results do not imply that all
+vcu3 | events containing pleasant and unpleasant aspects elicit mixed emotions (see Duncan et al., 2006), but they do indicate that Life Is Beautiful can.
+hjzj | In terms of their implications for contemporary models of the structure of affect, the results of Study 1 are inconsistent with the valence-arousal model, which contends that happiness and sadness are mutually exclusive (Russell & Carroll, 1999), but are consis- tent with the ESM (Cacioppo & Berntson, 1994), which contends that happiness and sadness can co-occur. More generally, they bear upon an age-old debate over the nature of emotion. Specifically, they provide evidence against the claim that valence is an irreduc- ible aspect of emotional experience (Bain, 1859; Titchener, 1908; Wundt, 1896) and for the rival claim that positivity and negativity are separable in experience (Hume, 1739/2000; Ebbinghaus, 1902, cited in Wohlgemuth, 1919).
+j79f | Study 2: Demand Characteristics
+6tbv | One alternative interpretation for the results of Study 1 is that subjects who watched the bittersweet clip inferred that they were expected to report mixed emotions. If so, demand characteristics may have led them to report mixed emotions (see Schimmack, 2005). The fact that Study la's subjects reported having no idea that we were interested in mixed emotions provides evidence against the operation of demand characteristics, but studies in which subjects are explicitly told that the researchers' hypothesis was that people could not feel both happy and sad at the same time would provide stronger tests.
+xb13 | In Study 2, we told subjects in the bipolarity hypothesis- bittersweet clip group that we had hypothesized that people cannot feel happy and sad at the same time and then showed them the bittersweet clip. We told subject in the no-hypothesis- control clip group that we were indifferent about mixed emo- tions and then showed them the control clip. All subjects completed the continuous ESG throughout the clip. If Study 1's subjects reported more mixed emotions because they actually experienced more mixed emotions, Study 2's bipolarity hypothesis-bittersweet clip group should report more mixed emotions than the no-hypothesis-control clip group. On the other hand, if demand characteristics led Study 1's subjects to report more mixed emotions, Study 2's bipolarity hypothesis- bittersweet clip group should report no more or even less mixed emotions than the no-hypothesis-control clip group. The bipo- larity hypothesis-bittersweet clip and no-hypothesis-control clip were sufficient to test our hypothesis, so we intentionally confounded film clip (bittersweet vs. control) with stated hy- pothesis (bipolarity vs. no hypothesis).
+cxqi | Method. Subjects were 39 Texas Tech undergraduates (21 women; 54%). Data from two additional subjects were lost due to computer error.
+qfmx | Subjects were seated in separate cubicles and randomly assigned to the bipolarity hypothesis-bittersweet clip condition <LATEX>\left( n = 2 1 \right)</LATEX> or the no-hypothesis-control clip condition
+rut3 | <LATEX>\left( n = 1 8 \right) .</LATEX> Before showing them the bittersweet clip, the experimenter told subjects in the bipolarity hypothesis-bittersweet clip condition
+m3cp | MIXED EMOTIONS
+mq4s | that our hypothesis was that people could not experience mixed emotions:
+95el | Some evidence indicates that emotions can also affect language com- prehension, so we also need to keep track of how you're feeling during the film. We've also realized that the current study allows us to test a hypothesis we have about emotions. We do not think people can feel both happy and sad at the same time, and this study gives us a chance to see whether that's true.
+a0a5 | After providing the continuous ESG instructions, the experimenter said,
+gocl | As I mentioned a moment ago, we have hypothesized that people cannot feel both happy and sad at the same time, but we'll let the data decide. So if you ever feel both happy and sad at the same time during the movie, then move into the interior of the grid, the portion that indicates that you're feeling both happy and sad to some degree.
+ob1z | Following the clip, subjects were presented with several pairs of statements about what the experimenter had said during the in- structions. The final pair of statements was "The experimenter that (a) we believe that people cannot feel happy and <LATEX>\begin{array}{} { \text { ent sal } } \\ { \text { sad at the } } \end{array}</LATEX> same time, or (b) we believe that people can feel happy and sad at the same time." We discarded the data from the two subjects who answered incorrectly, leaving 19 subjects in the bipolarity hypothesis-bittersweet clip condition.
+m4cb | To ensure that the question of mixed emotions would be com- parably salient for subjects in the no-hypothesis-control clip con- dition, the experimenter told these subjects that a peripheral aim of the study involved mixed emotions. The experimenter also indi- cated, however, that we were indifferent about the results:
+m61y | Some evidence indicates that emotions can also affect language com- prehension, so we also need to keep track of how you're feeling during the film. We've also realized that the current study allows us to settle a debate that other psychologists have been having. Some researchers think that people can feel happy and sad at the same time; others think people cannot feel happy and sad at the same time. We really don't care one way or the other, but this study will allow us to find out.
+```
+
+OUTPUT:
+```

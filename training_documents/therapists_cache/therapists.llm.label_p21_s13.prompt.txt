@@ -1,0 +1,148 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+a0by | 1 The Socratic method of questioning is a structured approach to asking a client questions. In the case of the IRM, the questions are designed to test or challenge a client's thinking about a situation to enable the client to think more clearly, rationally,
+u1ky | Copyright @ 2020. F. A. Davis Company. All rights reserved.
+htm9 | CASE EXAMPLE 4.7 The Problem-Solving Mode
+8hul | Madam Bouchard is a 47-year-old woman with schizoaffective disorder. She was admitted to the inpatient unit after a police officer arrested her for driving on the wrong side of traffic on a highway at 5:00 in the morning. She was brought to the hospi- tal because she seemed lost and confused about the incident.
+87vz | At the beginning of therapy, Madam Bouchard was hypersensitive about the sounds, expressions, and movements made by me and the other ther- apists on her care team. She would often misin- terpret the intentions behind very benign and meaningless body movements as being judgmental, menacing, or threatening. When participating in activities, she fixated on environmental stimuli and on my nonverbal reactions to her rather than con- centrating on the activity itself. She often expressed a fear that staff (including me) would keep her in the hospital indefinitely and that we intended to physically harm her. (I discovered that these fears stemmed from an abusive relationship with her hus- band, and I initiated a social work intervention to address the situation.)
+ym66 | One of the many goals of individual therapy sessions with Madam Bouchard involved reducing her interpersonal anxiety, hypersensitivity, and misinterpretations of nonverbal behaviors during interactions. I arranged a series of structured craft activities with specific steps that would lead to rep- lication of a real-life object (e.g., weaving a basket, painting watercolor according to a model, making a drinking cup out of clay according to a model). These activities allowed Madam Bouchard to orient to reality and center her thinking in the present moment. To address her interpersonal anxieties, I also engaged in other types of craft activities along- side her. I selected my activities based on their po-
+l0a3 | Chapter 4 Knowing Ourselves as Therapists 101
+u8nw | tential to force me to move and be physically active during our sessions.
+l2v9 | The fact we worked beside each other on a separate activity gave ample opportunity for Madam Bouchard to interpret my gestures and reactions. Once she was emotionally stable and centered in her activity, I would initiate a medium level of phys- ical activity in the room related to completing my craft. Then I would invite her to share her percep- tion of a specific recent situation in which I moved in her presence. If her perception was correct, I would affirm its accuracy.
+afbe | If her perception was incorrect and not based in reality, I used strategic questions to inquire about the basic point of reference that prompted her to arrive at her conclusion. If my questioning did not lead her to recognize that the reality of our here-and-now interaction was different from her internal thoughts and worries, I invited Madam Bouchard to engage in hypothesis testing. I would introduce a set of alternative hypotheses for inter- preting my movements and nonverbal reactions during the session. Together, we analyzed each pos- sibility using a problem-solving approach. To make our analysis concrete, I wrote the options down on paper or on a dry-erase board. The objective of this problem-solving exercise was to introduce the possibility of doubt into her misperceptions and to broaden her viewpoint regarding the myriad possi- ble motives behind another person's actions.
+78r8 | This process allowed Madam Bouchard to verbally express and describe her perceptions with- out fear of judgment. It also allowed her to practice utilizing reasoning as a means of testing the accu- racy of her interpretations of other people's social behaviors. Over time, she naturally used problem- solving as a means of coping with her worries and fears concerning her relationships with others.
+320g | -René Bélanger
+tp8g | Copyright 2020. F. A. Davis Company. All rights reserved.
+gxfd | 102 Part 1 Theoretical Foundations and Guidelines for Practice
+s2v1 | FIGURE 4.9 Problem-solving mode. René Bélanger and his client analyze the past and consider choices for the future.
+jkp9 | for example, facilitate their clients to better manage and clarify their time, priorities, and plan for the future by listing plans and activities on a calendar and comparing them practically and ideologically. To resolve interper- sonal difficulties with clients, therapists functioning in the problem-solving mode are likely to structure the dialogue and outline guidelines for the negotiation of differences.
+z8tt | Strengths of the Problem-Solving Mode
+9g22 | By asking questions, co-creating lists, and enabling clients to think differently about problems or obstacles, thera- pists interact with their clients on a more cognitive and intellectual level. Thus, this mode is most appropriate for clients (young or old) who are able to engage verbally, and in a reciprocally cerebral way, with the therapist. Clients uncomfortable with a more emotion-focused approach to the therapeutic relationship may feel more at ease with the structure, predictability, and intellectualism (in the case of more advanced dialogue) conveyed by therapists using the problem-solving mode (Fig. 4.9).
+41fx | Cautions of the Problem-Solving Mode
+7um8 | As with other modes, it is impossible for the problem-solving mode to work with all clients in all situations. When thera- pists function in the problem-solving mode, some are vul- nerable to overutilize agenda-focused questioning without paying enough attention to other interpersonal needs that the client may bring to the relationship. Some may find a therapist's adoption of such questions reassuring or en- lightening, whereas others may interpret the therapist's behavior as too strategic or even manipulative. Therapists
+uow2 | comfortable with approaches that require more emotion- ally intense levels of interaction and communication. Ad- ditionally, as stated earlier, not all clients will be able or inclined to engage in a reciprocal verbal exchange of this nature with their therapists.
+iat7 | Modes in Perspective
+ywwr | The six therapeutic modes described in this chapter are based on frequently observed interpersonal behaviors that occur in occupational therapy. Although examples of how each of these modes is used in practice are provided, there is no single "typical" manner in which a therapist might enact a mode or a set of modes when working with a client. For example, as noted in Table 4.1, a mode may be delivered with a statement, a question, or, in some cases, nonverbally. It is important to remember that, with the exception of the advocating mode and the problem-solving mode, the four other modes may be delivered nonverbally or verbally. For example, the empathizing mode may be enacted by sitting with a client silently until the client feels ready to talk. The instructing mode may be conveyed by wearing a serious expression and extending a hand to greet a client rather than indulging the client's ongoing attempts to embrace.
+0i6j | Similar to all forms of communication, the intensity with which each mode is enacted may (and should) change according to the client's interpersonal characteristics and the therapeutic context. For example, the encouraging mode may be communicated to a client in a quiet and sub- tle manner when a client smiles slightly and quietly states: "When I walked by your room this morning, I saw that you were sitting up. It looked like you were practicing your fin- ger exercises." It may be enacted with the same client in a more obvious manner when the therapist wears a big smile and, with an enthusiastic tone of voice, states more loudly: "You made that toilet transfer on your very first try!"
+87cq | Mode Shifting
+0qs3 | According to the IRM, mode shifting (i.e., shifting from one of the six modes to another of the six modes) is de- sirable. It is the central part of the interpersonal reason- ing process; blended and incongruent mode use, which will be covered in the next section, is not. Thus far, the modes have been discussed and illustrated in isolation of each other. However, there are countless possibilities for ways in which it is optimal for a therapist to switch modes in specific sequences. Modes may and should be used
+z8f7 | Copyright 2020. F. A. Davis Company. All rights reserved.
+7w7j | interchangeably, provided they do not become confused (i.e., mixed) with one another during a single communi- cation point. As introduced in Chapter 3, to be most ther- apeutic a mode must be used purely, without confusion with another mode. Pure use of modes communicates a single message, and it ensures that the therapist is taking responsibility for his or her chosen means of communi- cating within a given moment.
+51vd | For example, when a therapist functioning in the col- laborative mode during the time a client is engaging in a familiar task notes that a client appears to need more structure and guidance when engaging in an unfamiliar task, this observation would naturally prompt a shift from the collaborating mode to the instructing mode. In this case, the therapist may cease turning to the client for input and may, instead, make a statement such as: "Would you like me to provide you with some guidance for this task?" Assuming that the client wishes for this guidance, the therapist would then begin to provide clear instruc- tion, making suggestions along the way and providing constructive feedback, where necessary.
+baj1 | Mode Mismatch, Mixed and Incongruent Mode Use
+n1wo | There are three circumstances that characterize subop- timal mode use: a mode mismatch, mixed mode use, and incongruent mode use. A mode mismatch occurs when a therapist communicates within a mode that does not meet the client's interpersonal needs or is inconsistent with the client's interpersonal characteristics or any in- terpersonal events that happen to be occurring in that moment. In Chapter 1, when the topic of chemotherapy came up between Erika and her client Vera, Erika pre- sented a research article about recent advances in che- motherapy while smiling to illustrate her point. In this instance, Erika's attempt to use the instructing mode of communication should be considered a mode mismatch. As a mode mismatch, her attempt failed for two reasons. First, the instructing mode would not be the first mode that the IRM would recommend for a client whose pre- dominant interpersonal characteristic involves a high need for control. Clients that need to be in control do not always appreciate receiving unsolicited information. Sec- ond, the interpersonal event that occurred between Vera and Erika, a power dilemma, also characterizes a situation
+5bq3 | Chapter 4 Knowing Ourselves as Therapists 103
+ezla | typically be avoided. Vera and Erika were debating or ar- guing with a client about a given topic (Erika supporting the use of chemotherapy versus Vera not supporting the use of chemotherapy). In this circumstance, Erika provid- ing information to justify her opposing position was not appreciated by Vera. Although Vera did not share her re- action directly with Erika at the time, she later requested to be assigned to a different therapist.
+rsbu | The second circumstance of suboptimal mode use concerns mixing modes. Mixing modes occurs when a therapist is not clear about his or her intended message and conveys two modes simultaneously within a single moment of communication (typically within the same sentence). When one wishes to shift from one mode to another, one should ensure that there is a strong rationale for the mode shift and that the two modes can be easily distinguishable by the type of phrase, action, or question chosen, and by the congruity of one's facial expression and body language. In doing this, the word but should not be used to join the modes. The rationale for avoiding the word but is that it is a word that conveys contradiction. When joining two ideas, using this word undermines the first idea, and, at the same time, the second idea is not any more convincing (because the first idea remains, undeniably, a part of the sentence). When a therapist in- tends to empathize with a client and, instead, blends the empathizing mode with the instructing mode, he or she sends a mixed message to the client about his or her true thoughts, feelings, and intentions. For example, a thera- pist locked in a power struggle with her client regarding the client's alcohol use sends a mixed message by saying in a single breath: "I understand why you want to use alco- hol, but I am concerned that, among other things, it will interact with your other medications and exacerbate your balance problems." This can be confusing for clients, and it weakens the intended message or messages. Ultimately, it may weaken the therapist's influence within the rela- tionship and the client's trust in the process.
+magd | The third circumstance of suboptimal mode use in- volves mode incongruence. Incongruent mode use occurs when a therapist shows emotional incongruence when communicating with a client. Emotional incongruence occurs when a person is communicating one statement verbally and the same person's emotional expression, fa- cial expression, or body language contradicts or does not support what the person is saying. Correspondingly, mode incongruence occurs when a therapist delivers a mode
+tb74 | Copyright 2020. F. A. Davis Company. All rights reserved.
+8l69 | 104 Part 1 Theoretical Foundations and Guidelines for Practice
+1jyv | Table 4.2 The Three Circumstances of Suboptimal Mode Use
+olce | Mode Mismatch
+erx1 | Mode Incongruence
+b3bt | verbally but his or her facial expression or body language is inconsistent with the mode or with the overall interper- sonal context of the communication. In Chapter 1, when Erika smiled as she delivered the instructing mode, her smile was a nervous smile, and it was emotionally incon- gruent. Typically, it is not appropriate to smile during an intense dialogue or argument. Mode incongruence hap- pens frequently, particularly when a therapist is nervous or uncomfortable during an interaction. Table 4.2 presents a synopsis of the three circumstances of suboptimal mode use and additional examples. It is important to note that emotional incongruence, in general, is most likely to occur within the overall context of suboptimal communication; it is not something that occurs exclusively during mode use. This will be covered in more detail in a later chapter.
+0w8m | Mode Shifting: Avoiding Suboptimal Communication
+vcu3 | Much more can be accomplished interpersonally if a therapist shifts modes clearly and intentionally by apply- ing interpersonal reasoning. When shifting modes, three powerful techniques may be used to separate the com- munication of one mode from another. The first involves
+hjzj | between the two phrases or sentences that characterize the different modes, the more likely it is that the client will understand that a different approach to communication is being used. The second concerns body language. If appro- priate within the therapeutic context, the therapist should move to a different part of the room, change posture, or, if appropriate, shift the therapeutic activity to mark the new idea being communicated. The third involves announcing one's intention to shift modes to the client. Ideally, any two or, if appropriate, all three of these techniques will maximize the likelihood that the mode shift will take place in a way that the client fully understands that a different approach to communication is being used.
+j79f | In the example about the client with alcoholism, the therapist could have applied any three of these techniques to shift modes cleanly, improving the clarity and inten- tionality of communication with the client. If the therapist would have used the pausing technique, she would have taken considerable time to listen to and understand the client's perspective on alcohol use, asking a few additional deepening questions to better understand what initiated and is sustaining the addiction, if appropriate. Then, after the therapist received some nonverbal or verbal indica- tion from the client indicating that she has felt fully seen and heard, the therapist would shift into an instructing
+6tbv | Copyright 2020. F. A. Davis Company. All rights reserved.
+```
+
+OUTPUT:
+```

@@ -1,0 +1,136 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+pk06 | Int. J. Mol. Sci. 2023, 24, 11915
+7wn9 | source of the stem cells, and the informed consent and privacy of cell donors. Nevertheless, when comparing these models' advantages and disadvantages, the potential outcomes are considered to outweigh the ethical questions when these are properly addressed [129].
+wcd0 | As mentioned before, cancer 3D models can be applied to various fields of research and development, such as the preclinical testing of metallodrugs. Next, we describe and discuss the importance of metallodrugs in cancer, as well as the application of cancer 3D models for the preclinical evaluation of these types of drugs.
+caos | 4. Metallodrugs in Cancer
+qrvy | Currently, there are several targeted therapies available to treat different types of cancer, for example, anti-hormonal treatments and monoclonal antibodies against cancer cell-specific receptors. Nevertheless, conventional chemotherapy and radiotherapy remain the key tools for cancer treatment. Thus, there is an unmet need to develop innovative and improved pharmacological options for cancer therapy [130,131], but the design and development of effective anti-cancer drugs with high selectivity, minimal toxicity, and reduced side effects is still a challenging endeavor [132,133].
+pn9j | Metal-based compounds have been used throughout history for their therapeutic properties [134]. Despite the widespread use of this type of compound, the absence of a clear demarcation between therapeutic and hazardous dosages posed a significant obstacle [135]. In the 1960s, the "accidental" discovery by Barnett Rosenberg of cisplatin (cis-[Pt(NH3)2Cl2]), a platinum (Pt) compound, paved the way for modern metal-based anti-cancer drugs [136,137]. Besides platinum, research regarding the application of other transition metals, such as ruthenium (Ru), gold (Au), silver (Ag), iron (Fe), copper (Cu), arsenic (As), and cobalt (Co), as anti-tumoral compounds have gained increasing interest among the scientific community, and a wide range of metal-based compounds has been developed [138-144].
+1pmc | Transition metal complexes have been particularly explored for therapeutic applica- tions in cancer due to their distinctive properties such as redox activity, various coordination modes (allowing for the design of different metal complexes), d orbitals partially filled (al- lowing for electrons to be easily removed or added to these orbitals, making them suitable to act as catalysts or to develop compounds with multiple oxidation states), and reactivity towards organic substrates (allowing for the design of drugs that preferentially interact with a biomolecular target) [145]. Additionally, metals have the important characteristic of forming positively charged ions in an aqueous solution, which can bind to negatively charged biomolecules. Therefore, the compound 's charge can be modified according to the coordination environment, directing the drug to the desired biological target [134,146-148]. Furthermore, the metal itself, the ligand, and the metal-ligand interactions endow different characteristics to metal complexes, and thus metal-based anticancer agents can be generally classified as functional compounds, structural compounds, metal ions as carriers of active ligands, metal compounds that behave as catalysts, and photoactive metal compounds.
+5z6q | The chemical and anti-tumoral properties, as well as the potential mechanism of action of metallodrugs, have been extensively reviewed elsewhere, and the reader is referred to excellent publications for further information on this topic, which is out of the scope of the present review [149-153].
+yeoh | Despite the intense research in the design and biological evaluation of novel anti-cancer metallodrugs with very promising results that, in some instances led to advancement to clinical trials (particularly for Pt and Ru-based compounds), very few have been approved for clinical use. Cisplatin was approved in 1978 for the treatment of advanced bladder, testicular, and ovarian cancers [154], followed by two other Pt-based drugs: carboplatin, which started to be used in clinical practice in 1989 for the treatment of initial ovarian cancer, and oxaliplatin, which was approved in 1996, in Europe, and 2003, in the USA, for advanced colorectal cancer [144,155]. Other than these, the only metallic non-Pt drug that was clinically approved in the 2000s for cancer therapy is arsenic trioxide (As2O3) [144].
+b8hf | Int. J. Mol. Sci. 2023, 24, 11915
+hntf | 5. Three-Dimensional Models as Tools to Test Metallodrugs
+99fo | When considering the preclinical testing scenario of different types of anticancer drugs such as organic and inorganic small molecules, antibodies, or biological-based drugs and metallodrugs, 3D cellular models present favorable characteristics that promote a more realistic evaluation of the antitumoral potential of these different classes of drugs, and potentially improve drug discovery and development. However, in the pharmaceutical in- dustry, drug portfolios are increasingly diversified with only 40-50% being small molecules, and there are now a broad diversity of chemistries and mechanisms of action or toxicity to consider [156]. Therefore, for 3D models to become widely implemented as new preclinical models, there is still the need for a demonstration that their performance is reliable across a suitably broad set of compounds, such as large molecules and biologic therapies in a robust and repeatable manner, and the definition of ways for companies to implement the technology within routine preclinical workflows [156].
+y5r7 | In the case of metallodrugs, despite the numerous advantages of 3D models described in the previous sections, the application of these platforms is still quite scarce. Conventional 2D and animal models appear to be the standard tools to test the biological response to metallodrugs. As mentioned previously, there is not an ideal model that is able to fully recapitulate in vivo tumor characteristics; therefore, 2D, 3D, and animal models should be incorporated into cancer research, each one allowing for evaluating different aspects of the therapeutic potential of a metallodrug.
+lrry | Particularly relevant for metallodrugs is the establishment of oxygen gradients within the 3D multicellular structure, as some complexes are redox active, and this feature allows for a more realistic evaluation of their predicted in vivo activity. Additionally, the availabil- ity of several analytical techniques suitable for the determination of the metal distribution and the metallodrug's active species is an experimental advantage in the applicability of 3D models for this type of anticancer drug. Nevertheless, there are some important practical challenges in the adaptability of cancer 3D models for metallodrug testing that need to be acknowledged. For instance, suspension cultures might not be the ideal model for high-throughput assays, while some of the materials used in microengineering-based and coating-dependent models may absorb hydrophobic compounds, a common feature in several classes of metallodrugs. Several other important hurdles still need to be overcome, such as a lack of harmonization of protocols and assays, limited access to biological materi- als in uncommon tumor types, and particularly the time-sensitiveness o tumoroids due to the number of passages between tissue collection and drug testing.
+hvhm | To the best of our knowledge, most of the metallodrug evaluation studies that incor- porate 3D models use spheroid-based models, as summarized in Table 1, which depicts the advantages, disadvantages, and complexity of each cancer 3D model, as well as published literature on the application of 3D models for metallodrug preclinical testing. This could be related to the fact that protocols for the spheroid production of several cancer cell lines have already been well established. In comparison with other 3D models, spheroids are relatively easy and inexpensive to obtain, while still providing a 3D structure that can replicate the aspects of in vivo tumors. More recently, some studies have already started incorporating organoid and tumoroid models in their research. The complexity of these models not only allows for better mimicking the in vivo tumor, increasing the relevancy of the study, but also introduces aspects of precision medicine, which are essential for future clinical applications. Additionally, microengineering approaches, especially 3D bioprinting, have gained interest lately, due to their ability to precisely control key aspects of experimental conditions. In the following sections, a brief description of the types of assays performed in these models will be presented, as well as the most illustrative examples of preclinical biological evaluation of metallodrugs in 3D models.
+863b | 5.1. Assays Performed on 3D Models
+fj24 | The application of 3D models to test the anti-tumoral activity of metallodrugs has mainly focused on the assessment of cytotoxicity, penetration, and evaluation of metabolic effects.
+uz3c | Int. J. Mol. Sci. 2023, 24, 11915
+d5bi | 5.1.1. Cytotoxicity Assays
+ba4l | Cytotoxicity can be defined as the toxicity induced by chemotherapeutic drugs in live cells [157]. The viability of 3D models can be assessed after incubation with the metallo- drugs through several methods, such as the alamar blue assay, MTT (3-(4,5-dimethyl-2- thiazolyl)-2,5-diphenyl-2H-tetrazolium bromide) assay, CellTiter-Glo® 3D Viability Assay, or acid phosphatase (APH) assay. These methods use different metabolic reactions to eval- uate the number of viable cells in the 3D models after exposure to the metallodrug [70-73]. The alamar blue and MTT assays are based on the reduction of resazurin or tetrazolium salts, measuring the mitochondrial activity [158], while the CellTiter-Glo® 3D Viability Assay indicates cell viability through ATP measurement [159] and the APH assay quantifies the cytosolic acid phosphatase activity [160].
+ffx8 | 5.1.2. Penetration Assays
+s6su | One of the factors responsible for drug resistance may be the inability of anti-cancer drugs to penetrate solid tumors [161]. The tumor penetration of the compound is thus an essential aspect that needs to be studied to obtain optimal drug efficiency [74]. As discussed previously, fluorescence imaging is a complex technique to image spheroids and tumoroids, which has some disadvantages. Additionally, in most circumstances, metal complexes have to be tagged with fluorophores to be detected through this technique, which may affect the distribution of the compound [162,163]. The capacity of the metallodrugs to penetrate tumor models can also be assessed using a combination of analytic and imaging tools, such as laser ablation inductively coupled plasma mass spectrometry (LA-ICP-MS), synchrotron X-ray fluorescence (SXRF), or matrix-assisted laser desorption/ionization mass spectrometric imaging (MALDI-MSI) [69,74,75].
+y219 | 5.1.3. Metabolomics Assays
+06ht | Omics approaches have been proven to be strong methods for studying drug suscep- tibility, drug resistance, and mechanisms of action [164]. Metabolic patterns are widely considered accurate predictors of phenotypes and such patterns could be used to predict or better understand the anti-tumoral activity of metallodrugs [165,166]. One approach to studying the metabolites of spheroids after exposure to metallodrugs is using LC-MS- based metabolomics, in which liquid chromatography and mass spectrometry are com- bined [76,167]. Although not described so far for the study of metallodrugs, other omics studies with different approaches for liquid chromatography and mass spectrometry, sea- horse assay, and metabolic imaging have already been used in cancer 3D models [168-173].
+v3r2 | 5.2. Selected Examples of the Evaluation of Metallodrugs in 3D Models
+nv42 | In order to highlight the relevance of the use of 3D models in cancer research, the most relevant applications of these models for metallodrug evaluation will be presented, focusing on discrete metal complexes rather than nanomaterials. From a limited number of reports in the literature, the examples presented next were selected based on the diversity of metals (and metalloids) explored, on the different 3D models and types of assays performed, and on the tumor types (Table 1).
+xags | 5.2.1. A ruthenium-Based 5-Fluorouracil Complex with Enhanced Cytotoxicity in Colon Carcinoma
+jc47 | Silva et al. synthesized a novel Ru-based compound, [Ru(5-FU)(PPh3)2(bipy)]PF6, and tested its effect on cell-based models [71]. Complexes containing 5-fluorouracil (5-FU) are commonly used to treat colon and rectal carcinoma, so the cytotoxicity of this compound was studied in human colon carcinoma HCT116 cells [71,174].
+ko3c | The cytotoxicity of the complex was first tested in several tumoral and healthy cell lines using the alamar blue assay. The cytotoxicity was presented in terms of IC50, which corresponds to the amount of a drug required to inhibit a biological process or response by 50% [175]. The HCT116 cells were determined as the most sensitive to the compound
+xek3 | Int. J. Mol. Sci. 2023, 24, 11915
+bbpr | [Ru(5-FU)(PPh3)2(bipy)]PF6, with an IC50 of 1.5 uM. The cytotoxicity was also evaluated in HCT116 spheroids grown at a density of 5000 cells/well in U-bottom low adhesion plates, presenting an IC50 of 1.7 uM, as depicted in Figure 2. As 2D models are reported to be less resistant to drugs than 3D models, it is expected that the IC50 is lower. However, comparing the IC50 obtained for the 2D and 3D models it is possible to see that the difference between the two types of models is very small. So, this complex also presents high cytotoxicity at lower concentrations in 3D models, which suggests that it has great potential for treating solid tumors [71]. This should be further studied in more complex models, such as tumoroids, in order to verify the therapeutic potential of the compound. Overall, [Ru(5-FU)(PPh3)2(bipy)]PF6 presented higher cytotoxicity in tumoral cells than 5-FU in both 2D and 3D cell models [71].
+5zyf | Figure 2. [Ru(5-FU)(PPh3)2(bipy)]PF6 (RU/5-FU) effect on HCT116 spheroids. (A) Spheroids ob- served using light microscopy after incubation with the compounds. (B) IC50 values in uM and their respective 95% confidence intervals from three separate experiments completed in duplicate, evaluated using the alamar blue test 72 h after incubation with the compounds. The negative control (CTL) was incubated with DMSO. The positive controls comprised doxorubicin (DOX), oxaliplatin (OXA), and 5-fluorouracil (5-FU) [71].
+9own | 5.2.2. Boron Clusters as a Novel Therapy against Glioblastoma
+bqfb | Metallacarboranes ([M(C2B9H11)2] ) are 3D aromatic complexes composed of a cen- tral metal ion, usually Co or Fe, that is the common vertex of two joined icosahedrons, with interesting advantages in terms of their high stability, water solubility, and redox potential [176-178]. Similar to carboranes, these compounds are tunable, but the metal core adds additional features regarding the redox potential and the charge of the molecule [70].
+```
+
+OUTPUT:
+```

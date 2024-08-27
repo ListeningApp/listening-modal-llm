@@ -1,0 +1,141 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+1pjs | CDO scheme VS Torn Talk 4 leaders/ middle elite random people
+o2kr | gather feedback meet the people ression but there may not be any changes china
+v6sk | Article rather than democratic
+1wj6 | more of government surveillance
+936l | INFORMATION
+06yq | Public opinion polls and covert colonialism in British Hong Kong
+dpv6 | China Information 2019, Vol. 33(1) 66-87 The Author(s) 2018 Article reuse guidelines: sagepub.com/journals-permissions DOI: 10.1177/0920203X18787431 journals.sagepub.com/home/cin ®SAGE
+8r5j | Florence Mok University of York, UK
+2taz | Abstract
+o3ya | This article examines colonial statecraft and state-society relations in a pivotal period for Hong Kong. Using historical methods and archival evidence, it overcomes the limitations in existing research, which is often theoretically driven and reliant on published sources. The article reveals that the Hong Kong masses were made structurally invisible by the Movement of Opinion Direction (MOOD), a polling exercise introduced by the reformist colonial state. The public were unaware that their views were disseminated to policymakers and that they affected policy formulation: this was covert colonialism. The article investigates confidential MOOD reports generated by the Home Affairs Department from 1975 to 1980, demonstrating why and how the colonial administration constructed public opinion. By disclosing what these secret files reveal about changing public attitudes towards the colonial government, the United Kingdom and the People's Republic of China (PRC), the article also provides new insights into public receptions of the state's reforms and potential threats to the colonial regime in the 1970s.
+r5il | Keywords
+5gui | state-society relations, public opinion, surveys, political culture, identity, Sino- Hong Kong relations
+82qc | From the 1980s, there has been considerable polling of public opinion in Hong Kong, undertaken for example for the Hong Kong Transition Project and the Hong Kong University Public Opinion Programme. Prior to the 1960s, the colonial state in Hong Kong did not consult the public directly. Ambrose King described the administrative sys- tem as a 'synarchy': 'a joint administration shared by both British rulers and non-British,
+ls7d | Email: ywfm500@york.ac.uk
+tzt3 | Mok
+t8vv | 67
+qvnu | predominantly Chinese leaders'.1 There were few channels for the public to raise their grievances. The Urban Council was the only institution with democratically elected mem- bers. Nonetheless, only two of 10 were elected councilors and its franchise remained extremely limited. Although the franchise was slightly widened in 1965, its authority was rarely extended. This was mainly because of the colonial government's reluctance to introduce a 'significantly more democratic local government'. Senior civil servants firmly believed in the efficiency of a centralized administration and were concerned that an increasingly democratic local government would lead the Chinese government to believe that Hong Kong was 'moving down the path to independence'.2 As a result, a strong sense of 'alienation' was felt by Hong Kong society.3 The Star Ferry Riots in 1966 first 'revealed the existence of considerable social discontent' in the colony.4 A communication gap between the state and society was evident.5 It was then when the colonial government started recognizing that 'an unreformed law and order' was 'unsustainable' and 'new forms of legitimation' were required.6 Nonetheless, no regular opinion polls were con- ducted at this point. Opinions of the public were only gauged on an ad hoc basis in response to the riots by the Commission of Inquiry, the Secretary of Chinese Affairs, and the police force.7 The leftist-inspired riots in 1967 represented a new ""test" or a "ques- tion" of legitimacy' for the colonial government.8 To prevent future upheavals, the state reformed.9 The introduction of the City District Officer Scheme in 1968 widened channels of political participation without introducing democratization or delegating further execu- tive power to the Urban Council.10 It signified a departure from the colonial government's ruling strategies. The scheme was 'a multifunctional political structure'.11 Ten City District Offices were set up to provide policymakers with intelligence about public opin- ion, to explain the state's policies, to answer public enquiries, and to manage district affairs. This reform sought to incorporate the lower strata of society into the administra- tive authority. City District Officers observed the people of Hong Kong in their everyday lives and surveyed them collectively via District Monthly Meetings and Study Groups, which were new devices 'geared primarily to reach local leaders'; Town Talk, a new con- fidential official publication, was oriented towards ordinary people.12
+kggw | The City District Officer Scheme has not been thoroughly explored. Most of the schol- arship so far touches on it briefly and is theoretically driven. Steve Tsang, John Carroll, and Ian Scott, for example, have provided a short institutional history of the scheme, mainly focusing on the background in which it was introduced and its functions.13 King's article published in 1975 is the most recent article with a detailed account of the scheme. King's work mainly relies on published sources and small-scale oral interviews: it is impressionistic. His article does not show how the colonial state constructed and moni- tored public opinion using the Movement of Opinion Direction (MOOD), a significant innovation, and state-funded public opinion polling before the 1980s.
+xrd1 | The 1970s was an important period for Hong Kong. It was an age of rising affluence, political consciousness, and policy initiatives. A detailed and longitudinal view of state- society relations in the 1970s is vital because these years were precursors to political and social changes in the 1980s and beyond. Using historical methods, this study exam- ines MOOD, a bureaucratic instrument, which was produced by the Home Affairs Department to monitor shifts in public sentiments, complementing the City District Officer Scheme and other longer-established indirect mechanisms to gauge public
+5746 | 68
+7toz | China Information 33(1)
+j346 | attitudes. The department started producing confidential MOOD reports in 1975 and the last issue of MOOD accessible at the Hong Kong Public Record Office was printed in 1980: this is the range covered by this article. This article demonstrates how the state, by observing and surveying ordinary people, constructed public opinion. It argues that by using MOOD, the bureaucracy was making the Hong Kong masses structurally invisible. Although high-ranked officers were fully aware of MOOD, which was embed- ded in the City District Officer programme, its presence was concealed from the public. People therefore unconsciously took part in policy formulation: this was covert coloni- alism. Deploying relatively sophisticated sampling techniques, MOOD informed colo- nial bureaucrats about popular responses to its reforms.
+v8uq | The invisible structure
+x972 | Prior to the 1980s, some outside observers and expatriates portrayed the colonial govern- ment as a 'night watchman'. Unlike most colonial regimes, the state in Hong Kong did not have 'comprehensive control over the colonial society'.14 These scholars promoted the idea that the city-state was a peculiar late 20th-century example of laissez-faire in a colo- nial setting. The government possessed 'a limited reach in society as a result of its deliber- ate policy of indirect rule, a combination of economic laissez-faire and political non-intervention'.15 George Endacott, for instance, described the state in Hong Kong as 'a minimum of government' in the style of 'Benthamite laissez-faire'.16 From the 1980s, sociologists reinforced this abstract notion of a laissez-faire state. Lau Siu-kai asserted that Hong Kong was a 'minimally-integrated social-political system'. The colony was 'largely exempted from interference by social and economic forces in the system'. Hong Kong Chinese were politically apathetic and the state did not pursue any kind of 'activ- ism' to 'intrude unnecessarily into society to restructure it'. The links between an 'autono- mous bureaucratic polity' and 'atomistic Chinese society' were extremely limited.17 Being atomistic, the Chinese households in Hong Kong relied on familial networks and were capable of self-regulating.18 'Boundary maintenance' was sustained, meaning that politics only took place at the boundary between the state and society, and was 'not highly insti- tutionalized in a formal or legal sense'.19 There were no 'political institutions which enable[d] non-bureaucratic "outsiders" to acquire or exercise political power'.20 Equally, the state lacked 'the organizational penetration into the Chinese society'.21 Other sociolo- gists purported the notion of a 'highly insulated state', in which only a limited number of elites were absorbed into the administrative system to legitimize the foreign rule.22
+cwrw | Lau's position was ahistorical, based on partial evidence that was primarily drawn from interview data. He acknowledged that his 'theoretical approach' inevitably led to the omission of 'many historical and empirical details' and failed to examine the com- plex nature of Hong Kong's social-political system 'in a particular structural-historical context'.23 Since the 1990s, revisionists have refuted the concept of laissez-faire and convincingly argued that a 'minimally-integrated social-political system' misrepresented state-society relations in Hong Kong. The state's power was 'far more penetrating' and state-society relations were 'complex and contingent upon particular situations'.24 At times, the colonial government deliberately created 'social cleavages' and collaborated with different social groups, ranging from marginalized industrialists to social activists,
+4i0e | Mok
+h2l3 | 69
+dfzb | to manipulate public opinion and maintain effective governance.25 Ma Ngok observed that 'the mutual non-intervention between polity and society was over-stated'.26 Wai- man Lam asserted. that Lau's study failed to demonstrate that the colonial state was 'underdeveloped' and that Chinese society was 'overdeveloped'. Insufficient evidence suggested that the Chinese communities in Hong Kong could satisfy their needs through 'private means'. Throughout the post-war period, social movements challenged state policies.27 Michael Ng argued that the press was 'continuously and systematically moni- tored and pervasively censored through the collaborative efforts of executive actions, legislation provisions and judicial decisions'. The Control of Publications Ordinance passed in 1951 strengthened the state's power of press control, which previously could only be exercised by the Governor during emergencies.28 The freedom to protest in pub- lic was also restricted by statutory controls, showing implicitly that the state was con- scious that it had to monitor social unrest.29
+u6ty | Although an erroneous view of state-society relations has been refuted, how the reformist Hong Kong colonial state interacted with its Chinese communities and improved political communications remains under-investigated. It is also unknown whether constructed public opinion had an impact on policymaking. Using archival evi- dence, this article offers an understanding of how this non-democratic and at times repressive late colonial state functioned. It argues that 'the masses' were made structur- ally invisible by the bureaucracy, and involved in the policymaking process through MOOD, a formally institutionalized programme coordinated by the Home Affairs Department. MOOD's methods and disseminations also demonstrate how it was used to understand changing public sentiments in Hong Kong. Containing a substantial amount of valuable and rich qualitative data about ordinary Hong Kong Chinese, there is no comparable surviving state document. Analysis of this data also contests the dominant narrative which argues that political culture in Hong Kong shifted in the 1970s due to the emergence of local identity, especially among the post-war baby boomers.30 The existing literature portrays Hong Kong as a homogenous entity. This article analyses how class and age impacted on these complex social processes.
+awvu | Constructing public opinion at the local level
+on9b | From 1968, to detect grievances and solicit views of the 'man in the street' from 'differ- ent walks of life', the City District Officers produced the confidential Town Talk, 'one of the most important channels for soliciting public opinions'.31 It emphasized the qualita- tive aspect of opinions, for department heads and high-ranked government officials. Opinions of the public were gathered by observing and having casual conversations with ordinary people. Nonetheless, the existing knowledge about these opinion polls is extremely limited as they were 'not officially included in the CDO [City District Officer] Scheme'.32 To understand how public opinion was constructed in the 1970s and in the absence of access to confidential state records, King resorted to interviewing several officers. The only thing that was commonly known was that no clear guidelines were provided in the late 1960s and early 1970s on who the City District Officers should inter- view, which resulted in interviewees being consulted spontaneously and repeatedly. This put the report's authoritativeness in question. As Augustine Kam Chui, the Deputy Director of the Home Affairs Department, noted:
+a8ge | 70
+h27a | China Information 33(1)
+pdjh | The major criticism of Town Talk over years has been that it was unsystematic and had no statistical basis. This will always be the case but its credibility can be increased very considerably if the staff involved each contact a predetermined number of people every week to ensure that the coverage is as widely extend[ed] as feasible.33
+xmgs | MOOD, a successor of Town Talk, was introduced in March 1975. It intended to be a 'more authoritative and therefore influential' public opinion poll.34 It was a confidential report generated by the Home Affairs Department. The main purpose of MOOD was 'to draw attention to subjects which are currently or potentially of public concern, and to assess public reactions, attitudes and feelings in appropriate instances'.35 Like Town Talk, MOOD placed its priority on collecting opinions that were not reported by the news media. It examined the impact of the press on public opinion, public misconceptions and voices of 'the less articulated classes' who 'cannot get their views heard and have there- fore suffered in silence'.36 Controversial topics and anti-government activities were investigated, as well as the opinions of civil servants who disagreed with state policies.37 Due to the sensitivity of the intelligence gathered, the reports only circulated among senior officials.38 Heads of departments were reminded to store their MOOD reports 'securely all the time'.39
+bd9h | MOOD was important for colonial bureaucrats. It was stated clearly that MOOD was given 'the first priority over all other work' as it was 'read by the Governor and his policy advisers every week, and was referenced during policy making'.40 It remains difficult for historians to determine exactly how this information was used. Surviving records are partial. Nonetheless, piecemeal evidence in archives suggests that MOOD was read by high-ranked officials and fed into policymaking. R. B. Crowson referred to the predeces- sor of MOOD when examining the possibility of introducing a British enquiry into alleged corruption in Hong Kong:
+m047 | Town Talk of 2 August said that several people had suggested that the British Government should now launch a full separate investigation into the Godber case. As against this, a UK enquiry would be a major blow to Hong Kong's amour propre.41
+gy8c | This suggests that MOOD, a significant enhancement to Town Talk, was taken into account by officials in the policymaking process.
+y4mj | State records on the Golden Jubilee Incident in 1977 and 1978 provided a good account of how MOOD influenced government's administration. The MOOD report was found carefully kept in one of the files on the Golden Jubilee Incident in the National Archives in London, indicating that the Foreign and Commonwealth Office did consider it an important document. Most importantly, the content found in the telegram sent by MacLehose to the Foreign and Commonwealth Office on 31 May 1978 closely resem- bled the MOOD report which was published a week earlier. On 24 May, MOOD described the mixed opinions found in Hong Kong society:
+```
+
+OUTPUT:
+```

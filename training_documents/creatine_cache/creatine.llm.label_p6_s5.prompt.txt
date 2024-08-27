@@ -1,0 +1,137 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+zxz6 | The majority of dietary supplement survey data indicates that a relatively high percentage of youth and adolescent athletes are currently or have previously supplemented with creatine. For example, Kayton et al. [84] found that in a sample of 270 high school boys and girls, 21% of boys and 3% of girls reported supplementing with creatine. Further- more, in a sample of elite Olympic level sample of young German athletes (14-18 yrs), 12% of those surveyed re- ported supplementing with creatine [85]. Therefore, these trends warrant additional research to determine with greater certainly whether creatine supplementation, both acute and longer-term, is safe for children and adolescents.
+xnth | In summary, based on the limited evidence, creat- ine supplementation appears safe and potentially beneficial for children and adolescents.
+vafm | Does creatine increase fat mass?
+2zmw | The theory that creatine supplementation increases fat mass is a concern amongst exercising individuals, pos- sibly because some experience a gain in body mass from creatine supplementation. However, randomized con- trolled trials (one week to two years in duration) do not validate this claim. Acute creatine supplementation (7 days) had no effect on fat mass in young and older adults; however, fat-free mass was increased [86, 87]. Furthermore, three weeks of creatine supplementation had no effect on body composition in swimmers [88].
+bf9k | (2021) 18:13
+otkr | Page 6 of 17
+ibgs | The addition of creatine to high-intensity interval train- ing had no effect on body composition in recreationally active females [89]. In addition, the effects of creatine supplementation during resistance training overreaching had no effect on fat mass [70]. Moreover, in a group of healthy recreational male bodybuilders, 5 g/day of creat- ine consumed either pre- or post-training had no effect on fat mass [90]. In other short-terms studies lasting 6-8 weeks, there were no changes in fat mass from creatine supplementation. Becque et al. [91] found no changes in fat mass after six weeks of supplementation plus resist- ance training. In another 6-week investigation, no sig- nificant differences in fat mass or percentage body fat were observed after creatine supplementation [42]. Fur- thermore, creatine supplementation during an 8-week rugby union football season also had no effect on fat mass [92].
+colo | One might suggest that eight weeks or less of creatine supplementation is insufficient to arrive at a definitive conclusion regarding creatine's effect on fat mass. None- theless, there are several investigations that have used much longer treatment periods. For example, healthy resistance-trained males were randomly assigned in a double-blind fashion to supplement with creatine (i.e., 20 g/day for 1 week followed by 5 g/day for 11 weeks) or placebo [93]. Lean body mass and muscle fiber size in- creased; percent body fat and fat mass were unaffected over the 12-week training period [93]. In older males (~70 yrs), 12 weeks of creatine supplementation during resistance training had no effect (compared to placebo) on fat mass [94]. Furthermore, Gualano et al. assessed the effects of creatine supplementation (24 weeks), with and without resistance training, in older females. Results showed no effect from creatine on fat mass [95]. Candow et al. [96] examined the effects of creatine supplementation in older adults (50-71 years) over a 32- week treatment period. Study participants were random- ized to supplement with creatine or placebo before or after resistance training (3 days per week). There was an increase over time for lean tissue and strength with a de- crease in fat mass. From a clinical perspective, children with acute lymphoblastic leukemia who supplemented with creatine (0.1 g/kg/day) for two sequential periods of 16 weeks experienced a significant reduction in fat mass. In contrast, the children who did not consume creatine gained fat mass [97]. In two studies involving postmeno- pausal women, Lobo et al. [98] found no change in abso- lute or relative body fat from one-year of low-dose creatine supplementation. Furthermore, two years of cre- atine supplementation also had no effect on fat mass [99].
+d6r4 | Recently, Forbes et al. [100] conducted a systematic re- view and meta-analysis on randomized controlled trials involving creatine supplementation in conjunction with resistance training on fat mass in older adults (≥ 50 yrs).
+9mrz | Antonio et al. Journal of the International Society of Sports Nutrition
+pk06 | Nineteen studies with a total of 609 participants were in- cluded. Participants supplementing with creatine had a greater reduction in body fat percentage. There was <LATEX>n o</LATEX> significant difference in absolute fat mass loss; however, the creatine group lost ~0.5 kg more fat mass compared to those on placebo.
+7wn9 | In summary, creatine supplementation does not increase fat mass across a variety of populations.
+wcd0 | Is a creatine 'loading-phase' required?
+caos | Pioneering research in the early 1900's using animal models showed that creatine supplementation could augment creatine content by 70% [101, 102]. Decades later, Harris et al. [60] published a seminal paper which showed that 'loading' with creatine increased skeletal muscle creatine stores, as evaluated from muscle biop- sies collected from the vastus lateralis in young, healthy human participants. This research sparked incredible interest in studying creatine supplementation strategies that would increase intramuscular creatine content, helping shape current recommendations.
+qrvy | Creatine 'loading' is defined as supplementing with oral creatine for 5-7 days with a dosage of 20-25 g/day, often divided into smaller doses throughout the day (e.g., four to five, 5 g servings/day). Creatine 'loading' may also be prescribed relative to body mass, for ex- ample, 0.3 g/kg/d for 5-7 days (i.e., 21 g/day for a 70 kg individual). The 'loading' phase of creatine supplementa- tion is followed by a daily 'maintenance' phase often ran- ging from daily 3-5 g servings/day (Figure 1, side A). In addition to the seminal work of Harris et al. [60], several other investigations have demonstrated increased intra- muscular creatine stores in humans from the creatine 'loading' phase [35, 103, 104]. A common misconception regarding creatine supplementation is that individuals must 'load' with creatine to increase intramuscular
+pn9j | (2021) 18:13
+1pmc | <LATEX>B</LATEX> Page 7 of 17
+5z6q | creatine stores and subsequently experience the pur- ported ergogenic benefits of creatine supplementation. However, lower daily creatine supplementation dosing strategies (i.e., 3-5 g/day) are well established throughout the scientific literature for increasing intramuscular cre- atine stores leading to greater improvements in muscle mass, performance and recovery compared to placebo [2]. While effective, these non-loading creatine supple- mentation dosing strategies (Figure 1, side B) delay max- imum intramuscular creatine storage. For example, in the classic 'loading' vs. daily 'maintenance' dose compari- son study by Hultman et al. [35], creatine accumulation in muscle was similar <LATEX>\left( \sim 2 0 \right.</LATEX> increase) after participants consumed 3 g/day for 28 days or 20 g/day for 6 days [35]. Thus, it is currently recommended that individuals consume ~3-5 g/day of creatine for a minimum of 4 weeks in order to experience similar skeletal muscle sat- uration levels. Determination of which creatine supple- mentation strategy is preferred may depend on the goal of the individual. For instance, if an athlete is hoping to maximize the ergogenic potential of creatine supplemen- tation in a very short period of time <LATEX>\left( < 3 0 \right.</LATEX> days), adopt- ing the creatine 'loading' strategy may be advised. However, if an athlete or exercising individual is plan- ning to ingest creatine over an extended period of time (> 30 days), or if avoiding potential weight gain which can sometimes occur during creatine 'loading', the creat- ine 'maintenance' strategy would be a viable option. Ath- letes who are carrying out a creatine loading phase (i.e., 20 g/day) should emphasize the smaller dosing strategies (e.g. less than or equal to 10 gram servings) throughout the day, as dosages of greater than 10 grams may poten- tially lead to gastrointestinal distress (i.e., diarrhea) [105].
+yeoh | In summary, accumulating evidence indicates that you do not have to 'load' creatine. Lower, daily dosages of creatine supplementation (i.e.
+b8hf | Antonio et al. Journal of the International Society of Sports Nutrition
+hntf | 3-5 g/day) are effective for increasing intra- muscular creatine stores, muscle accretion and muscle performance/recovery.
+99fo | Is creatine beneficial for older adults?
+y5r7 | There has been an increasing number of studies showing that creatine supplementation plays a therapeutic role in a variety of clinical conditions (see Gualano et al. [106] for a comprehensive review on this topic).
+lrry | Perhaps one of the most promising conditions that could benefit from creatine supplementation is age- related sarcopenia. Sarcopenia is defined as a progressive and generalized skeletal muscle condition (i.e. decrease in muscle mass, strength, and functionality) that is asso- ciated with increased likelihood of adverse outcomes in- cluding falls, fractures, physical disability and mortality [107]. While resistance training is considered corner- stone in the treatment of sarcopenia [108], accumulating evidence indicates that creatine supplementation may enhance the anabolic environment produced by resist- ance training, subsequently mitigating indices of sarco- penia [9, 10, 19, 27].
+hvhm | Creatine supplementation can increase functionality (e.g., strength, activities of daily living, delay fatigue) and muscle mass in older adults [9, 10, 19, 87, 95, 109, 110]. However, the literature indicates that creatine alone (that is, without a concomitant resistance training pro- gram) is unlikely to result in substantial gains in muscle strength and functional performance [95, 111-113], al- though it does improve some parameters of muscle fatigue [114-116]. Likewise, most studies failed to show a beneficial effect of chronic creatine supplementation alone (≥ 30 days) on lean mass [98, 99, 113, 114]. For instance, we recently showed that creatine supplementa- tion was not able to increase lean mass in postmeno- pausal women who supplemented with creatine (3 g/ day) for 2 years, suggesting that creatine supplementa- tion without exercise may be ineffective to prevent sar- copenia [99]. It is likely that increases in lean mass occasionally attributed to creatine supplementation in short-term studies (e.g., 7 days) are explained by in- creased body water, since creatine is osmotically active and it can sometimes induce water retention.
+863b | Conversely, substantial evidence indicates that creatine supplementation is capable of augmenting the hyper- trophic response to resistance training in young adults [117], which is extended to older adults, as confirmed by three systematic reviews and meta-analyses [19, 118, 119]. The fact that creatine is more effective when com- bined with a training stimulus suggests that the main mechanistic action of creatine is its ability to enhance training volume and/or intensity, which may influence muscle protein kinetics, growth factors, satellite cells,
+fj24 | (2021) 18:13
+uz3c | Page 8 of 17
+d5bi | inflammation and/or oxidative stress [9, 10, 19], ultim- ately resulting in greater skeletal muscle adaptations.
+ba4l | Regarding aging bone, emerging research over the past decade has shown some benefits from creatine supple- mentation. For example, healthy older males (> 50 yrs) who supplemented with creatine and performed whole- body resistance training for 10-12 weeks experienced an increase in upper limb bone mineral content [120] and a reduction in bone resorption compared to placebo [121]. More recently, Chilibeck et al. [122] showed that 52 weeks of creatine supplementation and supervised whole-body resistance training attenuated the rate of bone mineral loss in the hip region compared to placebo in postmenopausal females. However, a 2 year creatine supplementation protocol was infective for improving bone mass or bone geometry in post-menopausal women, again suggesting that creatine should be com- bined with resistance-type exercise to produce beneficial bone adaptations [99].
+ffx8 | From a clinical and healthy aging perspective, it is recom- mended that creatine supplementation be combined with resistance training to produce the greatest adaptations in older adults. Future clinical trials involving frail populations with long-term follow-up(s) and larger samples are needed. The therapeutic potential of creatine supplementation for cachexia, myopathies, post-surgery rehabilitation, bed rest, other muscle/bone wasting condition/diseases and brain health warrants further investigation.
+s6su | In summary, there is growing body of evidence showing that creatine supplementation, particularly when combined with exercise, provides musculoskel- etal and performance benefits in older adults.
+y219 | Is creatine only useful for resistance / power type activities?
+06ht | Although creatine supplementation has been theorized to primarily benefit athletes involved in high-intensity intermittent resistance/power type activities, there is a growing body of evidence suggesting that creatine sup- plementation may also provide beneficial effects for other activities. For example, creatine supplementation with carbohydrate [123] or carbohydrate and protein [124] has been reported to promote greater muscle glycogen storage than carbohydrate supplementation alone. Since glycogen replenishment is important for promoting recovery and preventing overtraining during intensified training periods [2, 125], creatine supplemen- tation may help athletes who deplete large amounts of glycogen during training and/or performance (i.e., sport- ing events) to maintain optimal glycogen levels. Second, there is evidence that creatine supplementation may re- duce muscle damage and/or enhance recovery from in- tense exercise. For example, Cooke and colleagues [126]
+v3r2 | Antonio et al. Journal of the International Society of Sports Nutrition
+```
+
+OUTPUT:
+```

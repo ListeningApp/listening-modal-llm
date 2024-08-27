@@ -1,0 +1,156 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+nhsg | Even when a client invites or appears comfortable with the empathizing mode, overutilizing it can overprotect clients. Listening and validating may occur at the expense of questioning or challenging clients to engage in occupa- tion when they are ready. Overreliance on empathy may encourage an inappropriate level of dependence in more vulnerable or isolated clients. In addition, there is a risk that some clients may become confused about the goals of therapy and about the role of the occupational thera- pist in his or her treatment. In the absence of appropriate boundaries (e.g., time limits, delineation of the limits of the professional relationship) some clients begin to per-
+hy0l | Taylor, Renee BivThe Intentional Relationship thecuptiotal Sharafpy end Und Set.doAn Davis Companyorazos Rb@wegtlghonk CetraTherapists functioning in the http://ebookcentral.proquest.com/lib/ubc/detail.action?docID=6915779. Created from ubc on 2023-09-07 04:49:15.
+4jmz | Chapter 4 Knowing Ourselves as Therapists 97
+b7cq | disappointed, rejected, or abandoned when the therapist does not behave accordingly in other domains. Other risks associated with overreliance on the empathizing mode include the possibility of overidentification with clients, emotional overinvolvement, guilt concerning the limitations of what a therapist can actually do for clients, and resulting feelings of burnout.
+0b39 | Encouraging Mode
+qecd | The encouraging mode is one in which a therapist works to instill clients with hope, courage, and the will to ex- plore or perform a given activity. Therapists who use the encouraging mode frequently use such strategies as compliments, applause, and cheering when a client has accomplished something or when otherwise appropriate. They may negotiate with a client or incentivize a behav- ior, particularly if it is developmentally or functionally appropriate and the client responds well to positive re- inforcement. They may rejoice and celebrate with clients when they are successful.
+1o7p | Some therapists use such strategies as entertaining gestures or antics, singing or dancing, and demonstrations of involvement to improve their clients' mood, distract them from anxiety or reluctance, and improve their desire to participate in occupations. When invited by a client, therapists may also engage in humor by making jokes or funny remarks. A client will invite a therapist to use humor by initiating it with a joke, humorous gesture, or funny remark. At that point, a therapist may feel comfort- able picking up on the client's lead. Generally, therapists who utilize the encouraging mode attempt any clever or creative twist on activity to generate or help sustain a client's interest in occupational engagement.
+cp13 | Strengths of the Encouraging Mode
+bgre | There are several strengths associated with functioning in the encouraging mode. Therapists who prefer this mode tend to be open and generous in their emotional expres- sion. They project a great deal of positive energy, and they are particularly skilled at conveying their optimism and hope to their clients. They are willing to celebrate and be joyful with their clients. Some therapists functioning in this mode are viewed as playful by their clients, and this playful attitude may be particularly effective with children and other kinds of clients who respond primarily to emo-
+57lp | Copyright @ 2020. F. A. Davis Company. All rights reserved.
+ukth | 98 Part 1 Theoretical Foundations and Guidelines for Practice
+kpvt | CASE EXAMPLE 4.5 The Encouraging Mode
+jie2 | Rachel was a 4-year-old girl who was referred for treatment of selective mutism. She would speak only at home with her mother and father. I decided that the framework of a playgroup of peers her own age would be the optimal medium to increase her desire to speak with others. During the months of treatment, I told her that she would only be accepted into the playgroup on the condition that she would not speak in the group. I told her she would be allowed to make animal noises and other sounds but that talking was prohibited. I saw by the stars in her eyes that she liked the idea.
+d0ik | Along with sensory integration techniques, I tied up a big sheet that divided the treatment room into two halves. Among other things, I produced dramatic plays that featured the children in the playgroup as actors. The stage became an enticing place for all the children in the playgroup to show their talents while acting out different scenarios. At first, Rachel would smile and draw during the plays. Slowly, she began to make animal sounds. I showed greater appreciation of her performances when they included characters that made sounds.
+0x0s | After a short time, Rachel decided that sounds did not adequately convey what she wanted to ex- press, and she began to say words. I would respond dramatically by making a fuss and contending that speaking words was not in keeping with the group's rules. Soon, her peers sensed her disappointment about not being permitted to say words. They began to support her by trying to convince me to change the rules so that Rachel could speak during the plays. As a group, we then decided that the new rule for the group would be that everyone, in-
+4exe | encouraging mode may be particularly capable of reach- ing clients with more severe developmental and cognitive impairments because they may use forms of communica- tion that convey emotional energy and have multisensory components. Some therapists functioning in the encour- aging mode are also skilled at using incentives to elicit participation. Because of their ability to convey their be-
+0myz | cluding Rachel, had to use words to communicate. Rachel agreed to this plan and through time, she began to speak more fluently in full sentences. She made significant progress at school, too.
+xh3i | I chose to be dramatic and demonstrative in the groups so that the playgroup was infused with high emotional valence and Rachel could easily read my feelings toward her. Through my affect I conveyed that I believed in her, was excited about her participa- tion in the group at any level, and was willing to vig- orously support her and meet her at the level at which she wanted to begin work (not speaking). At the same time, I made it clear to her (and to her peers) that I took the group, and its rules, very seriously. Through my emotional tone and enthusiasm, the playgroup became a big deal for Rachel and her peers.
+syiw | Initially, I deliberately ignored the importance of Rachel's speech to her participation in the play- group so that its emotional and social desirability would become self-apparent through time. Quickly it became clear to Rachel that, without speech, she was limited in the extent and level at which she could interact with her peers to create plays. In addition, speech became desirable to Rachel because its meaning was transformed from an anxiety-provoking activity that others demanded from her into an enticing and taboo behavior in which only she was forbidden to participate. In addition to this particular approach to use of self, the fact that she enjoyed creating plays was moti- vating for Rachel. Peer pressure from her new sim- ilar-aged friends also served as a powerful lever for her full participation in the group.
+kg3t | -Michele Shapiro
+lvae | be more likely than other therapists to elicit participation from clients who are otherwise anxious, demoralized, or reluctant to participate in therapy (Fig. 4.8).
+o9sc | Cautions of the Encouraging Mode
+121u | Although there are few cautions associated with provid- ing clients with encouragement, if the encouraging mode is overused, clients may become desensitized to its use
+zh03 | Copyright 2020. F. A. Davis Company. All rights reserved.
+1mvw | FIGURE 4.8 Encouraging mode. Belinda Anderson enjoys a song and a dance with a client.
+6d4s | through time. Some clients grow to expect the therapist to bolster them to such an extent that they have difficulty developing a sense of intrinsic motivation independently of the therapist.
+mqah | In some circumstances, use of the encouraging mode with the wrong type of client carries a risk of being mis- interpreted. Some clients are in an emotional state that does not allow them to hear or internalize compliments, a hopeful scenario, or comments about their strengths and capacities. Certain clients may undervalue or inter- pret a therapist's efforts to introduce hope, humor, play, or games into the relationship as being insulting, belit- tling, foolish, or manipulative. For example, a therapist once relayed a story in which she attempted to conduct a therapy group for adults with substance abuse problems that focused on ways to increase positive energy and hope. She began the session with an inspirational poem, and her ideas were quickly rejected by the group members.
+xxr8 | Instructing Mode
+rl4j | Therapists who utilize the instructing mode emphasize education of clients in therapy and assume a teaching style in their interactions with clients. Therapists who use the instructing mode are skilled at providing clients with (appropriately) detailed descriptions of the objectives and tasks of therapy, providing a clear rationale for the content
+vz32 | Chapter 4 Knowing Ourselves as Therapists 99
+ncb0 | occupational therapy activities, and providing feedback to clients about the therapy process. They can speak clearly and confidently about any aspect of the therapy process and excel at being structured, active, and directive.
+8mp0 | They provide their clients with information, direction, recommendations, and, in some circumstances, advice. When functioning in the instructing mode, therapists uti- lize instructional statements and mini-lectures, role-model- ing and demonstrations, statements that convey feedback to the client, and rhetorical questions as the primary form of therapy communication. Therapists functioning in the in- structing mode are unafraid to state their professional opin- ions, set limits, provide feedback, or disagree with clients. When certain clients or circumstances make it necessary, these therapists are skilled at gentle or finessed approaches to confrontation in order to introduce the need for change. Therapists functioning in this mode may approach dis- agreements with clients by reexplaining their own point of view, providing more of a rationale for their perspective, explaining consequences of a poor decision, or educating clients further about the value of their approach.
+xjyk | Strengths of the Instructing Mode
+mt0f | The instructing mode is one of the fundamental modes re- quired for the competent conduct of occupational therapy. Without some degree of structure, transfer of knowledge, provision of feedback, and overall leadership, occupational therapy would be something other than what it is.
+awab | Therapists who utilize this mode tend to be excellent teachers and clear communicators. They empower and in- spire their clients by sharing information, noting accom- plishments, providing constructive feedback, and training their clients to utilize the tools required for adaptation and participation. They convey caring and hope through their investment in a client's performance and in the pos- itive outcomes of therapy. Therapists who function in the instructing mode tend to be highly organized and sys- tematic in their approach to therapy. They inject a lot of intellectual energy and creativity into the therapy process.
+ixcc | Cautions of the Instructing Mode
+8p6h | As with any of the other modes, cautions emerge when therapists overutilize or inappropriately and indiscrimi- nately apply the instructing mode with clients. Because the instructing mode usually involves focusing on out- comes more than process, some therapists functioning in
+pmgl | Copyright 2020. F. A. Davis Company. All rights reserved.
+90no | 100 Part 1 Theoretical Foundations and Guidelines for Practice
+jt0y | CASE EXAMPLE 4.6 The Instructing Mode
+qb7o | Kay is a 26-year-old woman who was severely in- jured in a skiing accident. She is paralyzed because of a spinal cord injury. Because she also had a hip fracture caused by the accident, her hospital stay was prolonged. I saw her as an inpatient for a period of 4 months. She is a naturally positive, strong, moti- vated, internally driven person. She had a creative outlook on occupational therapy and approached her goals in a systematic and self-disciplined manner.
+oae5 | Because Kay was so self-motivated, most of the time I found myself functioning in the collaborating mode when we planned therapy goals and activi- ties. However, there were many times during Kay's therapy when I felt she was asking me to function in the instructing mode. These were times when Kay requested that I teach her specific skills related to ac- tivities of daily living. It was common that Kay would
+s0fl | this mode may overinvest and thus react more negatively when they cannot get clients to do what they want them to do. Alternatively, they may tend to overinstruct their clients to prevent them from experiencing failure in ther- apy. These behaviors can undermine clients' confidence, choice, and autonomy.
+43ia | Occasionally, clients who are sensitive to these issues may misunderstand or misinterpret therapists' behavior in the instructing mode as being parental, authoritarian, dom- inant, controlling, or demanding. Therapists who overuti- lize this mode may feel obligated to help all clients address their difficulties and may miss the point at which clients want them to simply listen and validate them. Therefore, they are occasionally at risk for getting locked into argu- ments and power struggles with sensitive or vulnerable clients or parents who require a more empathic approach.
+3g2y | Problem-Solving Mode
+gc7v | Individuals who favor the problem-solving mode rely heavily on using reason and logic in their relationships with clients. Therapists functioning in the problem- solving mode generally approach the interpersonal aspects
+wqfv | begin our sessions by anticipating that she would need to learn a certain skill, such as handling glasses in a restaurant or learning how to cut her own food.
+j30a | Another responsibility included in my role as instructor was to bear witness to Kay's self-monitoring of her own performance. To do this, we put a piece of paper on the wall that listed her functional accomplishments for each day of therapy. Our systematic daily monitoring of her progress made it feel as if she was in school. I believe this was developmentally familiar to her and it gave her a sense of consistency and control. At first, her accomplishments were small. We would write, "I moved my little finger today" or "I rolled to the side by myself." Soon her accomplishments progressed to: "I ate today without Kim dropping any food." By the time Kay left the hospital the wall was covered with documentation of her accomplishments.
+7bdk | -Kim Eberhardt
+fim0 | derived from the Socratic method of inquiry.1 The key to understanding the types of questions that are asked in this mode is that the questions are agenda-driven. Therapists functioning in the problem-solving mode focus on clarify- ing and probing the client's beliefs about an issue for three central purposes: (1) to guide the client to think about and approach a problem or challenge in a more adaptive way, (2) to free the client from thoughts and beliefs that inhibit his or her ability to engage in the other aspects of occupational therapy, or (3) simply to help a client clarify their own thinking about an issue. Specifically, these types of questions are aimed at enabling a client to see a wider range of options, consequences, or dimensions of an issue. Therapists often pose these kinds of questions so clients may refine or expand their thinking about an issue or con- sider alternative perspectives. Therapists in this mode may also lead clients to list pros and cons, or strengths and weaknesses of a given decision or approach. They may,
+ojro | 1 The Socratic method of questioning is a structured approach to asking a client questions. In the case of the IRM, the questions are designed to test or challenge a client's thinking about a situation to enable the client to think more clearly, rationally,
+l6t9 | Copyright @ 2020. F. A. Davis Company. All rights reserved.
+1ujy | CASE EXAMPLE 4.7 The Problem-Solving Mode
+qzor | Madam Bouchard is a 47-year-old woman with schizoaffective disorder. She was admitted to the inpatient unit after a police officer arrested her for driving on the wrong side of traffic on a highway at 5:00 in the morning. She was brought to the hospi- tal because she seemed lost and confused about the incident.
+```
+
+OUTPUT:
+```

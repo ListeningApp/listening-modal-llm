@@ -1,0 +1,128 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+wtow | (13)
+o22k | = htext . Wtext + S . Wstyle
+nwfz | = htext . Wtext + Concat (htext, s)
+nvfy | where Wtext and Wstyle are block matrix notation of the corresponding weights for hstyle and s and Concat (htext, S) = s . Wstyle denotes the concatenation operation as a function of input htext and style vector s. This Concat (x, s) function is almost like AdaIN in equation 1 where Lu(s) = Wstyle except we do not have the temporal modulation term La(s). The modulation term is very important in style transfer, and some works argue that modulation alone is enough for diverse style representations [24], [67]. In contrast, concatenation only provides the addition term (Lu) but no modulation term (La). Intuitively, the modulation term can determine the variance of the pitch and energy, for example, and therefore without such a term, correlations for pitch and energy standard deviation are much lower than AdaIN and AdaLN as shown in Table VIII.
+mror | AdaLN vs. AdaIN. Generative models for speech synthesis learn to generate mel-spectrograms, which is essentially a 1- D feature map with 80 channels. Each channel in the mel- spectrogram represents a single frequency range. When we apply AdaIN, we learn a distribution with a style-specific mean and variance for each channel, compared to AdaLN, where a single mean and variance are learned for the entire feature map. This inherent difference between feature distributions makes AdaIN more expressive in terms of style reflection than AdaLN.
+zlxc | C. Pitch Extractor
+k0bw | Acoustic methods for pitch estimation sometimes fail because of the presence of non-stationary speech intervals and sensitivity of hyper-parameters as discussed in the original papers that propose these methods [39], [41]. A neural network trained with ground truth from these methods, however, can leverage the problems of failed pitch estimation because the failed pitch estimation can be regarded as noises in the training set, so it does not affect the generalization of the pitch extractor network. Moreover, since the pitch extractor is fine-tuned along with the decoder, there is no ground truth for the pitch beside the sole objective that the decoder needs to use extracted pitch information to reconstruct the speech. This fine-tuning allows better pitch representations beyond the original F0 in Hertz, but it also allows flexible pitch control as we can still recognize the pitch curves and edit them later when needed during inference.
+aq5a | Fig. 5. An example showing text alignments under different conditions. Left: No TMA fine-tuning (100% hard alignment such as FastSpeech). This is an example of a failed alignment. Middle: No pre-trained text aligner (such as VITS). Note the gaps between alignments and clean attention (with no background noise), indicating some degrees of overfitting to the TTS speech dataset. Right: Full TMA fine-tuning. Note that TMA learns an alignment that is both continuous and monotonic compared to without fine-tuning and pre-training.
+sc5y | APPENDIX B SUBJECTIVE EVALUATION DETAILS
+0yab | We used the publicly available pre-trained models as base- lines for comparison. For the single-speaker experiment on the LJSpeech dataset, we used pre-trained Tacotron24, Fastspeech2 5, HiFiGAN 6 from ESPnet. We used VITS 7 and YourTTS 8 from the official implementation. We randomly selected 100 text samples from the test set to synthesize the speech. Since audios from our model were synthesized using Hifi-GAN trained with audios sampled at 24 kHz, for a fair comparison, we resampled all the audios into 22 kHz and then normalized their amplitude. We used the pre-trained model for StyleSpeech [32] 9 from a public repository in GitHub for comparison of zero- shot speaker adaptation in Appendix C. We did not use the official implementation because the vocoder used was MelGAN sampled at 16 kHz while the implementation we employed uses Hifi-GAN sampled at 22 kHz, which is comparable to other models.
+w95z | To reduce the listening fatigue, we randomly divided these 100 sets of audios into 5 batches 10 with each batch containing 20 sets of audios for comparison. We launched the 5 batches sequentially on Amazon Mechanical Turk (AMT) 11. We required participating subjects to be native English speakers located in the United States. For each batch, we made sure that we had collected completed responses from at least 10 self-reported native speakers whose IP addresses were within the United States and residential (i.e., not VPN or proxies). We used the average score that a subject rated on ground truth audios to check whether this subject carefully finished the survey as the subjects did not know which audio was the ground truth. We then disqualified and dropped all ratings from the subjects whose average ground truth score was not ranked top two among all the models. Finally, 46 out of 50 subjects were qualified for this experiment.
+0i1k | In the multi-speaker experiments, we used pre-trained Fast- speech212 , VITS 13 , and HiFiGAN 14 from ESPnet. We used pre-trained VITS from ESPnet instead of the official repository because we need the model to be trained on the LibriTTS dataset; however, the official models were trained on the LJSpeech or VCTK dataset.
+dqlg | Similar to the single-talker experiment, we launched 5 batches 15 on AMT when we tested the multi-talker models on the LibriTTS dataset. 48 out of 58 subjects were qualified. We launched 3 batches 16 with batch sizes 33, 33, 34, respectively, when we tested the multi-talker models on the VCTK dataset. 28 out of 30 subjects were qualified.
+p6pq | APPENDIX C ZERO-SHOT VOICE CONVERSION
+zse6 | Since our text encoder, text aligner, pitch extractor, and de- coder are trained in a speaker-agnostic manner, our decoder can reconstruct speech from any aligned phonemes, pitch, energy, and reference speakers. Therefore, our model can perform any- to-any voice conversion by extracting the alignment, pitch, and energy from an input mel-spectrogram and generating speech using a style vector of reference audio from an arbitrary target speaker. Our voice conversion scheme is transcription-guided, similar to Mellotron [10] and Cotatron [66]. We provide one example in Figure 6 with both source and target speaker unseen from the LJSpeech and VCTK datasets. We refer our readers to our demo page for more examples.
+p2n3 | APPENDIX D DETAILED MODEL ARCHITECTURES
+ohh7 | In this section, we provide detailed model architectures of StyleTTS, which consists of eight modules. Since we use the same text encoder as in Tacorton 2 [51], very similar architecture to the decoder of Tacotron 2 for text aligner and the
+vbni | Fig. 6. An example of any-to-any voice conversion. The source audio is from the LJSpeech dataset and the reference audio is from the VCTK dataset, both unseen during training.
+dgcw | same architecture as the JDC network [40] for pitch extractor, we leave the readers to the above references for detailed descriptions of these modules. Here, we only provide detailed architectures for the other five modules. All activation functions used are leaky ReLU (LReLU) with a negative slope of 0.2. We apply spectral normalization [68] to all trainable parameters in style encoder and discriminator and weight normalization [69] to those in decoder because they are shown to be beneficial for adversarial training.
+gvwz | Decoder (Table IX). Our decoder takes four inputs: the aligned phoneme representation, the pitch F0, the energy, and the style code. It consists of seven 1-D residual blocks (ResBlk) along with three sub-modules for processing the input F0, energy, and residual of the phoneme representation. The normalization consists of both instance normalization (IN) and adaptive instance normalization (AdaIN). We concatenate (Concat) the processed F0, energy, and residual of phonemes with the output from each residual block as the input to the next block for the first three blocks.
+sk5m | Style Encoder and Discriminator (Table <LATEX>\left. X \right) .</LATEX> Our style encoder and discriminator share the same architecture, which consists of four 2-D residual blocks (ResBlk). The dimension of the style vector is set to 128. We use learned weights for pooling through a dilated convolution (Dilated Conv) layer with a kernel size of <LATEX>3 \times 3 .</LATEX> We apply an adaptive average pooling (AdaAvg) along the time axis of the feature map to make the output independent of the size of the input mel-spectrogram.
+qws8 | Duration and Prosody Predictors (Table XI). The duration predictor and prosody predictors are trained together in the second stage of training. There is a shared 3-layer bidirectional LSTM (bi-LSTM) <LATEX>s</LATEX> between the duration predictor and prosody predictor named text feature encoder, each followed by an adaptive layer normalization (AdaLN). AdaLN is similar to AdaIN where the gain and bias are predicted from the style vector s. However, unlike AdaIN which normalizes each channel independently, AdaLN normalizes the entire feature map. The style vector <LATEX>s</LATEX> is also concatenated (Concat) with the output to every token from each LSTM layer as the input
+877u | TABLE X. STYLE ENCODER AND DISCRIMINATOR ARCHITECTURES. T REPRESENTS THE INPUT LENGTH OF THE MEL-SPECTROGRAM, AND D IS THE OUTPUT DIMENSION. FOR STYLE ENCODER, D = 128. FOR DISCRIMINATOR, D = 1.
+rzhj | TABLE XI. DURATION AND PROSODY PREDICTOR ARCHITECTURES. N REPRESENTS THE NUMBER OF INPUT PHONEMES AND T REPRESENTS THE LENGTH OF THE ALIGNMENT. hTEXT IS THE HIDDEN PHONEME REPRESENTATION FROM THE TEXT ENCODER, dALIGN IS THE MONOTONIC ALIGNMENT WITH SHAPE N X T, s IS THE STYLE CODE, aPRED IS THE PREDICTED DURATION, PPRED IS THE PREDICTED PITCH AND & PRED IS THE PREDICTED ENERGY. hPROSODY AND hAPROSODY ARE INTERMEDIATE OUTPUTS FROM SUBMODULES.
+bfax | to the next LSTM layer. Lastly, we have a final bidirectional LSTM and a linear projection L that maps hprosody into the predicted duration.
+f2y8 | The hidden representation hprosody is dotted with the alignment dalign and sent to the prosody decoder. The prosody encoder consists of one bidirectional LSTM and two sets of three residual blocks (ResBlk) with AdaIN followed by a linear projection, one for predicting the F0 and another for predicting the energy, respectively.
+```
+
+OUTPUT:
+```

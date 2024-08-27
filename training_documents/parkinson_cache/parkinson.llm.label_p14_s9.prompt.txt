@@ -1,0 +1,142 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+uodj | ATPase cation transporting 13A2 (ATP13A2), another lysosomal protein which localises on its membrane (Figure 1A) with unknown function, has been implicated in PD (PARK9, Table 1). Autosomal recessive, early-onset parkinsonism due to ATP13A2 mutations were first noted in Kufor-Rakeb Syndrome, followed by recent studies in other forms of parkinsonism (Di Fonzo et al. 2007; Eiberg et al. 2012; Park et al. 2011; Ramirez et al. 2006). Fibroblasts from these patients showed impaired lysosomal acidification and proteostasis, leading to inefficiency in substrate degradation and autophagosome clearance. These observations were replicated in ATP13A2 knockdown dopaminergic cell lines, where its restoration re-established lysosomal homeostasis and ameliorated cell death (Dehay et al. 2012). Downregulation of ATP13A2 was also seen in nigral neurons of sporadic PD patients, along with traces in Lewy bodies (Dehay et al. 2012). A loss-of-function ATP13A2 mutant mouse model revealed age related lysosomal dysfunction, protein aggregation, and gliosis leading to motor abnormalities. Interestingly, the levels of total and oligomeric a-synuclein was normal, despite ubiquitinated protein aggregation, cathepsin-D dysfunction, and autophagy defects (Kett et al. 2015). These observations suggest that ATP13A2 mutations may lead to PD through an a-synuclein independent mechanism.
+k16v | J Neurochem. Author manuscript; available in PMC 2020 September 01.
+b2lm | Author Manuscript
+ti7f | Author Manuscript
+oksu | Author Manuscript
+wtow | Author Manuscript
+o22k | Vidyadhara et al.
+nwfz | 7. E-L system; a key target of key PD-associated proteins?
+nvfy | 7.1. a-synuclein:
+mror | Misfolded a-synuclein can trigger PD pathogenesis in the presynaptic terminals of nigrostriatal neurons (Imbriani et al. 2018; Kramer & Schulz-Schaeffer 2007; Spinelli et al. 2014). This may as well be one of the earliest pathogenic events in PD, where a-synuclein aggregates target SV endocytosis, SV trafficking, and autophagy components of E-L system to initiate or exacerbate dopaminergic neuronal dysfunction.
+zlxc | a-Synuclein and other family members function in presynaptic terminals, where they modulate SV distribution and neurotransmission (Burre 2015; Greten-Harrison et al. 2010; Vargas et al. 2017) (Figure 1C). The biophysical properties of synucleins reveal their ability to sense and modify membrane curvature (Shen et al. 2012; Westphal & Chandra 2013; Middleton & Rhoades 2010). These functions suggest that synucleins regulate SV exocytosis and endocytosis (Vargas et al. 2014; Greten-Harrison et al. 2010). Studies in KO mice in fact show that synucleins normally function post SV exocytosis, in fusion pore expansion and/or control the kinetics of SV endocytosis by facilitating membrane curvature (Lautenschlager et al. 2017; Logan et al. 2017; Vargas et al. 2014). a-Synuclein also appears to control SV availability for release by regulating SV clustering (Diao et al. 2013; Vargas et al. 2017).
+k0bw | On a pathological level, several studies show that overexpression of a-synuclein inhibits neurotransmission. The locus of this consistent effect is not clear. Studies have shown that elevated a-synuclein levels and oligomeric a-synuclein inhibit SV exocytosis in a SNARE- dependent manner or affecting SV clustering (Huang et al. 2019; Nemani et al. 2010). On the other hand, considerable evidence suggests that aggregated a-synuclein primarily impacts SV endocytosis, which is of relevance to E-L system genes linked to PD. In lamprey giant synapses, injection of aggregated a-synuclein is identified to inhibit clathrin un- coating as evidenced by the accumulation of CCVs when SV recycling was evoked by high- frequency stimulation (Busch et al. 2014). A recent study also suggests that extra synuclein might sequester Hsc70 thus effect clathrin uncoating, subsequently causing SV recycling defects (Banks et al. 2019). Similar observation was made in mammalian Calyx of Held synapse, where acute elevation of monomeric and mutant a-synuclein levels decreased SV endocytosis with frequency dependent effect on SV exocytosis. This was also seen upon transgenic expression of a-synuclein (Eguchi et al. 2017; Xu et al. 2016). . Overexpression of mutant a-synuclein also affects dopamine transporter trafficking on the presynaptic membrane, leading to dopamine dyshomeostasis (Kisos et al. 2014). The observations that overexpression and deletion of synucleins have similar effects on SV exo- and endocytosis (Lautenschlager et al. 2017) suggest that SV cycling is exquisitely sensitive to a-synuclein levels. Further understanding of the precise mechanisms for interactions of a-synuclein and synaptic E-L system proteins involved in PD will provide crucial insights on early causal pathogenic events in PD.
+aq5a | At the soma, aggregated a-synuclein mainly targets E-L system trafficking, especially the retromer pathway. Recent studies propose that aggregated a-synuclein disrupts the retromer complex by interacting through VPS26 or VPS29, and thus preventing the recruitment of
+sc5y | J Neurochem. Author manuscript; available in PMC 2020 September 01.
+0yab | Author Manuscript
+w95z | Author Manuscript
+0i1k | Author Manuscript
+dqlg | Author Manuscript
+p6pq | Vidyadhara et al.
+zse6 | 7.2. LRRK2:
+p2n3 | Page 16
+ohh7 | adaptors like Snx3 and SNX-BAR dimers (Chung et al. 2017; Patel & Witt 2018) .. Deficiency of VPS35 in dopaminergic neurons impairs endosome-to-Golgi retrieval of receptors like Lamp2a, accelerating its lysosomal degradation. Lamp2a is a critical receptor for chaperone-mediated autophagy of misfolded a-synuclein, so its deficiency leads to a vicious cycle of a-synuclein accumulation (Tang et al. 2015a), which might be the case in patients with VPS35 mutations. Overexpression of a-synuclein also directly compromises macroautophagy through inhibition of Rab1a (Winslow et al. 2010). It is also pertinent to note that aggregated a-synuclein in the soma is a key target of treatment strategies in development through induction of macroautophagy (Suresh et al. 2017; Suresh et al. 2018a).
+vbni | Recent developments suggest that a-synuclein pathology spreads in a prion-like manner through synaptically connected regions in a manner consistent with Braak staging (Braak et al. 2003; Luk et al. 2012). The E-L system plays a prominent role in cell-to-cell transmission of preformed a-synuclein filaments, leading to the spread of phospho-a-synuclein pathology. Internalization of fibrillar a-synuclein occurs via endocytosis (as well as tunnelling nanotubules) and follows the neuronal endosomal pathway to lysosomal degradation (Rodriguez et al. 2018). Heparan sulfate proteoglycans, lymophocyte-activation gene 3, a3 isoform of Na+/K+ ATPase, and a few endocytic vesicle receptors are predicted to act as receptors for a-synuclein preformed fibrils (Holmes et al. 2013; Ihse et al. 2017; Mao et al. 2016; Shrivastava et al. 2015). In vitro studies suggest that internalized a- synuclein fibrils are localized in both early endosomes and late endolysosomes (Karpowicz et al. 2017; Lee et al. 2008b). The lipid bilayer of endosomes restricts cytoplasmic spillage, so most endocytosed a-synuclein is degraded by lysosomes. How a fraction of a-synuclein preformed fibrils escapes this barrier and goes on to initiate seeding is still unclear (Bieri et al. 2018). Studies of a-synuclein axonal transport predict that retrograde transport of a- synuclein preformed fibrils is mediated by endocytic vesicles and is twice as fast and more efficient than anterograde transport (Brahic et al. 2016). This strengthens the notion that PD pathology spreads retrogradely from the synaptic terminal to soma. The E-L system is also involved in exocytosis of fibrilized a-synuclein, facilitating its prion-like spread. An ER- bound enzyme with chaperone activity USP19 (Ubiquitin carboxyl-terminal hydrolase 19) has been shown to deliver misfolded a-synuclein to late endosomes, which then fuses with the plasma membrane through a unique process called misfolding-associated protein secretion (Lee et al. 2016). Another recent study suggests that the DNAJ/Hsc70 complex could facilitate a-synuclein exocytosis (Fontaine et al. 2016). Overexpression of ATP13A2 and GBA is also noted to increase exocytosis of a-synuclein (Fernandes et al. 2016; Tsunemi et al. 2014). Together, these observations identify the E-L system as the primary conduit for the spread of a-synuclein-mediated pathology in PD.
+dgcw | Leucine-Rich Repeat Kinase 2 (LRRK2) is a multidomain large protein with both GTPase and kinase activity along with other domains for protein-protein interaction (Kett & Dauer 2012). Epidemiological, histopathological, and clinical investigations have all established LRRK2 gene mutations as the most common genetic cause of PD (PARK8, Table 1) (Paisan- Ruiz et al. 2004; Zimprich et al. 2004), with a considerable contribution to sporadic cases (Kett & Dauer 2012). Over 8identified LRRK2 mutations cause PD. The mutation at
+gvwz | J Neurochem. Author manuscript; available in PMC 2020 September 01.
+sk5m | Author Manuscript
+qws8 | Author Manuscript
+877u | Author Manuscript
+rzhj | Author Manuscript
+bfax | Vidyadhara et al.
+f2y8 | Page 17
+o7qm | G2019S is the most common and is known to increase LRRK2's activity (Kett & Dauer 2012; Smith et al. 2006; West et al. 2005). LRRK2 functions have been explored through PD-related studies, in which increased G2019S kinase activity reveals its close association with the E-L system. LRRK2's role in vesicular trafficking, lysosomal homeostasis, and autophagy are well accepted. Phosphorylation by LRRK2 is essential for a subset of RAB GTPases' function of endolysosomal vesicular sorting and trafficking (Steger et al. 2017; Steger et al. 2016). In an overexpression system, RAB7L1 was noted to interact strongly with LRRK2 at the switch-II site (Steger et al. 2017), unlike as seen in in vitro kinase assays (Steger et al. 2016). Several LRRK2 mutations significantly affect RAB pathways, where variations in Rab7L1's interactions with LRRK2 have been identified to increase the risk of sporadic PD. In fact, recent GWAS identify RAB29 encoding RAB7L1 (PARK16, Table 1) as an independent risk gene for PD (Satake et al. 2009). Rab7L1 upregulation could attenuate LRRK2-induced toxicity in dopaminergic neurons (MacLeod et al. 2013). This is predicted to be functioning through VPS35 and VPS26 (Linhart et al. 2014). VPS35 also cooperates with LRRK2 to regulate SV recycling and dopaminergic synaptic release (Inoshita et al. 2017), thus suggesting a prominent role for the retromer complex in LRRK2- mediated PD pathogenesis.
+d52l | LRRK2 regulates lysosomal protein trafficking and morphology (Eguchi et al. 2018; Kuwahara et al. 2016). In LRRK2 mutants, perinuclear lysosomal clustering was noted, mediated by increased phosphorylation of RAB7 (Hockey et al. 2015). Two-pore channels are the calcium channels present on acidic vesicles of the E-L system and help in regulating their trafficking and fusion of lysosomes with autophagosomes/endosomes (Calcraft et al. 2009). Abnormal lysosomal morphology and density seen in fibroblasts from patients with LRRK2 mutations could be reversed by inhibiting these two-pore channels (Hockey et al. 2015). Thus, these channels might be one potential mediator of E-L system dysfunction in LRRK2-associated PD. Lysosome-related proteins involved in PD such as Gcase1, Lamp2A and ATP13A2 are also downregulated in PD patients with LRRK2 mutations (Zhao et al. 2018), suggesting lysosomes are one of LRRK2's prime targets.
+qlbb | Mechanisms for LRRK2-mediated autophagy defects are still elusive. The ability of LRRK2 kinase inhibitors to reverse autophagy dysfunction suggest that kinase activity may be significant (Manzoni et al. 2013; Saez-Atienzar et al. 2014). Mutant LRRK2 is also a substrate for chaperone-mediated autophagy, impairment of which could exacerbate pathological implications (Orenstein et al. 2013). Accumulation of MVBs and malformed autophagosomes were noted in LRRK2 R1441C mutations (Alegre-Abarrategui et al. 2009). Intra-axonal autophagic vacuole defects in nigral dopaminergic projections were seen in mice expressing human LRRK2 (Li et al. 2009; Tagliaferro et al. 2015). It also regulates synaptic autophagy through phosphorylation of endophilin A (Soukup et al. 2016). G2019S mutations are known to induce autophagy through MAPK/ERK kinases (Bravo-San Pedro et al. 2012; Bravo-San Pedro et al. 2013), and some studies suggest LRRK2-mediated autophagy regulation is largely independent of mTOR (Manzoni et al. 2013). Since RAB- mediated trafficking is crucial for autophagy, which is also affected in LRRK2 mutations, it is important to evaluate if autophagy defects are the consequences of RAB dysregulation or a direct effect of LRRK2 mutations.
+nhsg | J Neurochem. Author manuscript; available in PMC 2020 September 01.
+hy0l | Author Manuscript
+4jmz | Author Manuscript
+b7cq | Author Manuscript
+0b39 | Author Manuscript
+qecd | Vidyadhara et al.
+```
+
+OUTPUT:
+```

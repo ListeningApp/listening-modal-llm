@@ -1,0 +1,154 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+y7ea | 131
+nav4 | Open Access Rheumatology: Research and Reviews 2023:15
+gem8 | Dovepress
+e8nr | Table 2 Proposed Strategies to Manage an Infectious Challenge in Systemic Lupus (SLE)
+k78w | microbiological control of infections.80 It is imperative to determine disease activity in febrile illnesses in SLE and avoid possible overdiagnosis of lupus disease flare.
+g9du | There are few examples of overdiagnosis of SLE and lupus flares, but it is important to approach those patients with the understanding of the risk of treatment with immune suppressive therapy and the risk of undertreatment.81
+f682 | The diagnosis of SLE and lupus flare should be based on diagnostic criteria that include patients with mild disease activity. SLE disease activity must be determined clinically employing clinical questionnaires including SLE disease activity index (SLEDAI), British Isles Lupus Assessment Group disease activity index (BILAG-2004), Systemic Lupus Activity Measure (SLAM), the Systemic Lupus Activity Index (SLAI), European Consensus Lupus Activity Measurements index (ECLAM) and the Systemic Lupus Activity Questionnaire (SLAQ) for Population Studies.82
+li1k | Clinical features like the presence of scleritis, cytoid bodies on eye examination, lupus dermatitis, splinter hemor- rhages, cutaneous vasculitis or livedo pattern, friction rub of pericarditis and leg edema suggesting myocarditis, and pulmonary hypertension or renal disease of glomerulonephritis are clues to advocate for lupus disease activity.
+pbea | Biomarkers like anti-dsDNA antibodies, complement C3 and complement C4, cardiolipin antibodies, ESR, CRP, anti- C1q antibodies, and activity on urinary sediment, added to clinical disease activity scales will help in favor of increased immune therapy treatment. However, these biomarkers are often nonspecific and lack the precision to differentiate disease activity from infection. At times serological activity may persist and not reflect adequate treatment response, though biomarker levels may decrease with immune suppression. Nonetheless, the quest for new and reliable biomarkers of lupus disease activity remains a challenge.
+ccpt | Determining lupus disease activity remains complicated as certain organs may respond to treatment while others get worse within the same patient. Serum cytokines, soluble cytokine receptors, markers of endothelial activation, cell markers in plasma cells, among others are informative, yet the interpretation of these markers may require long-term data at a larger scale. To be safe, caution is encouraged with careful use of immune therapy and a balanced approach to control lupus disease activity during infection events.
+0fpw | 132
+dqn8 | Open Access Rheumatology: Research and Reviews 2023:15
+cop0 | Dovepress
+lhkq | Reducing immune therapy during antibiotics use, in conjunction with glucocorticoid reduction plans are the primary goal for SLE treatment during an infectious event. Indeed, novel therapeutic trials have examined serious infection and hospitalization related to infection and death. In the systematic review of clinical trials in the treatment of lupus nephritis, high dose of glucocorticoids therapy was associated with increased rate of infections compared to cytotoxic and immune modulatory therapy 6,83
+82ju | The use of safer immune therapy with lower infectious adverse events such as intravenous immunoglobulin must be prudent given the importance of controlling disease activity. The use of hydroxychloroquine (HCQ) must be universal in lupus patients without compelling contraindications given its association with a decrease in the incidence of infections.
+y2qo | Infection control strategies and prevention of infection guidelines are crucial in SLE patients receiving prednisone higher than 20 mg daily. The rheumatology and infectious disease societys' clinical practice guideline recommendations emphasize the administration of preventive vaccines during low disease activity state and prior to the initiation of cytotoxic immunosuppressive and immune modulatory therapy. Yet, preventive vaccinations are under-utilized in SLE, and improved coverage is crucial. While the importance of preventive vaccinations must be a priority, clear commu- nication, and education of SLE patients about hygiene, substantial risk exposure to infection and awareness of febrile illness characteristics and signs and symptoms of infection are nonetheless critical for preventive approaches.
+1piq | Despite the safety and efficacy of immunization against common pathogens, controversies remain regarding concerns of inadequate immune response to vaccination in SLE patients. The fear of immunization lingers with matters of de novo development of autoimmune disorder, perceived risk of autoimmune reactions and adjuvant related autoimmune syndrome, exacerbation of lupus flare triggered by the administration of vaccines.84 Educating physicians and skilled counseling of patients about the importance of immunization against pathogens in SLE will improve attitudes towards combating vaccines hesitancy.
+7fqw | While mortality-related infection is a major concern, most SLE patients survive their infections thanks to infection control policies and successful control strategies. Nonetheless, the spread of infectious diseases remains unpredictable, and the emergence of antibiotic-resistance and troubling new viruses are on the rise. Anticipation and measurements of risk factors involved in infectious diseases can be useful to control the exposure of infections in SLE.
+rhaz | The frontier infectious control measures observed during the COVID-19 pandemic have promoted high quality infectious control measures across autoimmune disorders.29,85 The timing of elective procedures vital to patient's health must be during inactive lupus disease phases and while using low doses of glucocorticoids. To achieve high quality results, multi-disciplinary approaches among rheumatologists and infectious disease teams must optimize screening (hepatitis, tuberculosis, etc), diagnostic practices, and management of infections in lupus. Discussions with patients, caregivers, and care partners about treatment goals are fundamental.
+wak1 | Discussion and Conclusion
+wtfz | Over the last few years, substantial progress has been made with the understanding of lupus pathogenic mechanisms and novel treatment strategies in terms of control of disease activity, and prevention of damage. Yet, infection in SLE is still a major burden globally and in the United States.
+qy1i | Clearly SLE patients are at a substantial risk for infections given the nature of the disease and its related immune dysregulation, but most importantly the use of glucocorticoids, cytotoxic immunosuppressive and immune modulatory therapy. Providers caring for lupus patients must address the challenging task of differentiating infections from lupus flares. Fever in SLE is infectious in origin until proven otherwise, even though fever is an element in the classification criteria for SLE diagnosis.
+1k9e | We propose a framework to overcome challenges in the management of concurrent infections in SLE. Certain biomarkers are recognized to help distinguish infections from flares, including CRP and procalcitonin, but remain insufficient to confirm the diagnosis of infections. Clinical judgement with the use of simple scoring systems that predict infections or lupus disease activity remain useful in the decision-making of clinical care. Avoiding overdiagnosis of lupus flare and lowering the glucocorticoids dose might represent a better approach for dealing with fever in SLE. Nonetheless, research gaps remain.
+5bjs | 133
+uodj | Open Access Rheumatology: Research and Reviews 2023:15
+k16v | Dovepress
+b2lm | Robust efforts must identify causal risk factors for infection among SLE patients including patients with low disease activity as well as high disease activity and identify effective screening programs for infections in SLE. Data from novel immune therapies in SLE about risk of infections during clinical trials remain scanty as interruption of biological therapy could be related to toxicity and not to infections. Tight control of disease activity and reduction of glucocorticoid doses must be target goals of low disease activity and clinical remission and aim at tapering or discontinuation of high-risk medications. Prophylactic therapy and screening for salient infections in SLE is a priority prior to the use of biological and immunosuppressive therapy.
+ti7f | From a prevention standpoint, additional research to identify potential agents can reduce infectious risk especially among non-steroid using patients. Precision-based risk and drug screening platforms for lupus patients should classify individuals who would benefit most from entering an infection screening and vaccination program. Further research on the feasibility and efficacy of providing vaccination programs in SLE is valuable.
+oksu | Advancements in discovery of biomarkers of lupus flares could reduce false positives and overdiagnosis and improve differentiation of infections from lupus flares. Biomarkers that are highly predictive of negative responses to targeted immune therapies are a significant unmet clinical need. This is particularly relevant in the subsets of patients that may experience treatment resistance requiring aggressive and multiple immune suppressive therapies which can encourage exposure to infections and associated infection-related complications. Personalized treatment plans which minimize the risk of infections and ensure the safety of SLE patients must address survival rates, prevention of hospitalization, economic benefits, and enhancement of quality of life.
+wtow | Disclosure
+o22k | The authors report no conflicts of interest in this work.
+nwfz | References
+nvfy | 134
+mror | Open Access Rheumatology: Research and Reviews 2023:15
+zlxc | Dovepress
+k0bw | 18. Goldblatt F, Yuste J, Isenberg DA, Rahman A, Brown J. Impaired C3b/iC3b deposition on Streptococcus pneumoniae in serum from patients with systemic lupus erythematosus. Rheumatology. 2009;48(12):1498-1501. PMID: 19797312. doi:10.1093/rheumatology/kep289
+aq5a | 44. Singh BK, Singh S. Systemic lupus erythematosus and infections. Reumatismo. 2020;72(3):154-169. PMID: 33213128. doi:10.4081/reumatismo.2020.1303
+sc5y | 135
+0yab | Open Access Rheumatology: Research and Reviews 2023:15
+w95z | 47. Pimentel-Quiroz VR, Ugarte-Gil MF, Harvey GB, et al. Factors predictive of serious infections over time in systemic lupus erythematosus patients: data from a multi-ethnic, multi-national, Latin American lupus cohort. Lupus. 2019;28(9):1101-1110. PMID: 31291843. doi: 10.1177/ 0961203319860579
+0i1k | 75. Hirohata S, Kikuchi H. Role of serum IL-6 in neuropsychiatric systemic lupus erythematosus. ACR Open Rheumatol. 2021;3(1):42-49. PMID: 33393227; PMCID: PMC7811696. doi:10.1002/acr2.11217
+dqlg | 76. Greenan-Barrett J, Doolan G, Shah D, et al. Biomarkers associated with organ-specific involvement in juvenile systemic lupus erythematosus. Int J Mol Sci. 2021;22(14):7619. PMID: 34299237; PMCID: PMC8306911. doi:10.3390/ijms22147619
+p6pq | 77. Aragón CC, Ruiz-Ordoñez I, Quintana JH, et al. Clinical characterization, outcomes, and prognosis in patients with systemic lupus erythematosus admitted to the intensive care unit. Lupus. 2020;29(9):1133-1139. PMID: 32605526. doi: 10.1177/0961203320935176
+zse6 | 136
+p2n3 | Open Access Rheumatology: Research and Reviews 2023:15
+ohh7 | Dovepress
+vbni | Dovepress
+dgcw | Open Access Rheumatology: Research and Reviews
+gvwz | Publish your work in this journal
+sk5m | 137
+qws8 | Open Access Rheumatology: Research and Reviews 2023:15
+877u | f y in
+```
+
+OUTPUT:
+```

@@ -1,0 +1,147 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+1pjs | 26
+o2kr | The New york Times
+v6sk | Why Nippon Steel's $15 Billion Takeover of U.S. Steel Is in Peril
+1wj6 | The proposed merger of Japanese and American industrial giants, which proponents say would benefit both countries, is ensnared by political and labor opposition.
+936l | When U.S. Steel put itself up for sale in 2023, executives at Nippon Steel in Tokyo saw an opportunity: Buying the American steel maker could help it offset anemic demand in its home country and strengthen its hand in a global business dominated by China.
+06yq | On Dec. 18, the companies announced that Nippon Steel had agreed to acquire U.S. Steel for $14.9 billion, a 40 percent premium to U.S. Steel's share price at the time. Analysts praised Nippon Steel as a potential savior of U.S. Steel, a onetime backbone of the American economy that had fallen behind rivals.
+dpv6 | But almost immediately, the merger incited a backlayh
+8r5j | 26
+2taz | United States that has prevented it from being comple
+o3ya | U.S. politicians from both parties have condemned the prospect that a storied 123-year-old American industrial company would be acquired by a foreign corporation. The timing was also particularly bad for Nippon Steel: The United Steelworkers union, the group that most forcefully opposed the deal, is based in Pennsylvania, a state that could determine the winner of the presidential election in November.
+r5il | Much of the furor surrounding the deal can be traced back to Nippon Steel's decision not to consult union leaders while it negotiated with U.S. Steel, according to interviews with some of the key players, including two U.S. and Japanese officials who informally advised Nippon Steel. Both spoke on the condition of anonymity because they were not authorized to speak publicly.
+5gui | Nippon Steel also initially underestimated the challenges that United Steelworkers opposition would pose to closing the deal, especially in an election year, the two officials said.
+82qc | Now, eight months later, Nippon Steel is locked in a standoff with a union that represents some of the most politically powerful voters in the United States. The deal's fate will most likely fall to the next president, and could have implications for not only the structure of the global steel industry but also U.S .- Japanese economic relations.
+ls7d | Nippon Steel has hired lobbyists to amplify its arguments that the merger would be good for both companies and their employees, as well as for the United States and Japan. The United Steelworkers has taken action under its labor contract to contest the acquisition in what experts say is an effort to win concessions for workers.
+tzt3 | and acquisitions at the law firm A&O Shearman, which is not involved in the negotiations. The presidential election, he said, "is going to be won or lost in several key states that just so happen to be at the very center of this deal."
+t8vv | An Awkward Phone Call
+qvnu | The day the merger was announced, said David McCall, the international president of the United Steelworkers, he received a phone call at 6 a.m. from the chief executive of U.S. Steel, David Burritt, who enthusiastically talked him through the details of the deal.
+kggw | Mr. McCall was taken aback. Months earlier, another company that had bid for U.S. Steel, the American steel producer Cleveland-Cliffs, had talked through its plans with union leaders and asked for their
+xrd1 | support. Now, Mr. McCall said, he was hearing of theUL of a Japanese buyer for the first time.
+5746 | "I didn't know anything about Nippon or its plans," Mr. McCall said. "I'm not going to say that it has never happened that I wasn't told in advance about a deal, but not in this manner, not in this completely dismissive kind of way."
+7toz | The union immediately came out against the acquisition, which, it said, violated an agreement it had with U.S. Steel that promised to inform the union in advance of any change in control of the company.
+j346 | The union also said that a foreign corporation's purchase of an American steel company would pose threats to national security and that it had identified holes in commitments that Nippon Steel had offered it.
+v8uq | The production line at Nippon Steel's Kimitsu Works steel mill in Kimitsu, Japan. Soichiro Koriyama/Bloomberg
+x972 | From there, as described by one of the government officials advising on the deal, politicians in the United States began to voice concerns. In January, the month after the merger was announced, former President Donald J. Trump, then already a leading
+cwrw | Republican candidate for president, said he would buyb
+4i0e | President Biden, who had portrayed himself as the "most pro-union president in history," signaled his opposition to foreign ownership of U.S. Steel in mid-March. About a week later, the United Steelworkers endorsed Mr. Biden's bid for re-election.
+h2l3 | A powerful interagency panel, the Committee on Foreign Investment in the United States, began reviewing the national security implications of Nippon Steel's plans. From the start, one complication to the deal was the earlier buyout offer by Cleveland- Cliffs, which had been backed by the union but rejected by U.S. Steel.
+dfzb | Two people familiar with Nippon Steel management's thinking, who were not authorized to speak publicly, said Nippon Steel had been told that, given the United Steelworkers' close relationship with Cleveland-Cliffs, information about its bid could leak if the union had advance knowledge of Nippon Steel's offer.
+u6ty | A leak could have jeopardized the deal, said Mr. Wall, from A&O Shearman. "That is an enormously difficult decision to make," he added.
+awvu | In a statement, a spokeswoman for Nippon Steel said the company had been unable to meet with the union before the deal was announced because of "constraints" related to the auction process, without elaborating further.
+on9b | A $15 Billion Game of Chicken
+a8ge | The intense and swift opposition that the deal engendered has left Nippon Steel on the back foot.
+h27a | In March, the company said it would invest an additional $1.4 billion in U.S. Steel's facilities. It has sent Takahiro Mori, its executive in charge of the deal, on several trips to the United States to build grass-roots support, and it has withdrawn from a longstanding joint venture in China that might have elicited suspicion from U.S. regulators.
+pdjh | Nippon Steel has ramped up public relations efforts and hired Mike Pompeo, a secretary of state under Mr. Trump, as an adviser.
+xmgs | Part of Nippon Steel's message is that its alliance with U.S. Steel would create one of the industry's largest producers - a force capable of taking on China, which makes more than half the world's steel.
+bd9h | If the United States wants to build a global economic model that outperforms China's, "we must embrace foreign direct investment from our partners and allies," Mr. Pompeo wrote this month in an opinion essay for The Wall Street Journal.
+m047 | Nippon Steel executives and advisers on the deal are betting that discussions will progress after the presidential election.
+gy8c | Last week, Mr. Trump reiterated that he would block Nippon Steel's acquisition if he became president. Vice President Kamala
+y4mj | Harris, now the Democratic presidential nominee, haul
+vpgq | On Aug. 15, the grievances that the United Steelworkers lodged against the deal were heard by a panel of arbitrators in Philadelphia. The arbitration board will either say the deal can go through as it stands or recommend that U.S. Steel and Nippon Steel make certain adjustments. The decision is due by the end of September.
+ousl | The union has contested the commitments it was offered by Nippon Steel. It points to a vow by Nippon Steel not to lay off any employees or close any plants. But the union said the pledge would remain valid only through the end of the current labor contract and would be subject to exceptions for "extraordinary circumstances."
+m4ju | The union has an interest in pushing hard for concessions at a place of maximum strength before the election, said Jonathan Grady, the founding principal of the consultancy firm Canary Group, who has analyzed the deal for investors.
+a0mb | On the other side, it is advantageous for Nippon Steel to try to play out the clock and gain the upper hand, he added.
+ki8m | "It's a complicated game being played between Nippon Steel and the local steel union," Mr. Grady said. "Almost a year in, the Nippon Steel merger deal has turned into something like a high-stakes, $15 billion game of chicken."
+km8w | The New york Times
+```
+
+OUTPUT:
+```

@@ -1,0 +1,129 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+wwdt | Figure 2. [Ru(5-FU)(PPh3)2(bipy)]PF6 (RU/5-FU) effect on HCT116 spheroids. (A) Spheroids ob- served using light microscopy after incubation with the compounds. (B) IC50 values in uM and their respective 95% confidence intervals from three separate experiments completed in duplicate, evaluated using the alamar blue test 72 h after incubation with the compounds. The negative control (CTL) was incubated with DMSO. The positive controls comprised doxorubicin (DOX), oxaliplatin (OXA), and 5-fluorouracil (5-FU) [71].
+mn1r | 5.2.2. Boron Clusters as a Novel Therapy against Glioblastoma
+5vqw | Metallacarboranes ([M(C2B9H11)2] ) are 3D aromatic complexes composed of a cen- tral metal ion, usually Co or Fe, that is the common vertex of two joined icosahedrons, with interesting advantages in terms of their high stability, water solubility, and redox potential [176-178]. Similar to carboranes, these compounds are tunable, but the metal core adds additional features regarding the redox potential and the charge of the molecule [70].
+meyw | In a glioblastoma cell model, studies have been performed using metallacarboranes with both Fe and Co as a central core, to assess their therapeutic potential [70,73,179]. The cytotoxicity of cobaltabis(dicarbollides) ([o-COSAN]- and [8,8'-I2-0-COSAN]-) and ferrabis(dicarbollides) ([0-FESAN]- and [8,8'-I2-0-FESAN] ) was first assessed in mono- layer cultures of glioblastoma cell lines, and then in spheroids derived from the same cell lines using the APH assay (Figure 3A, and Figure 3C, respectively). The cytotoxicity of another ferrabis(dicarbollide), [0-57FESAN]-, with the potential to treat glioblastoma using the Mössbauer effect, was also evaluated in U87 spheroids (prepared in Nunclon™M Sphera™M ultra-low-attachment 96U-well plates at a density of 1250 cells per well) using the CellTiter-Glo® 3D Viability Assay (Figure 3E) [73]. In general, the results revealed that
+2e62 | Int. J. Mol. Sci. 2023, 24, 11915
+75y3 | glioblastoma cells were more sensitive when cultured as a 2D model than when cultured as spheroids, reiterating the relevance of 3D models in cancer research [180]. A physical assessment (area and circularity) of the spheroids was also performed after incubation with the metallacarboranes. The results obtained revealed that all the metallacarboranes tested significantly affected the spheroid growth, resulting in a considerable decrease in the spheroid area, with the exception of Na [8,8'-I2-0-FESAN] (Figure 3B,D,F). On the other hand, neither compound significantly affected the spheroid circularity.
+s2g2 | Figure 3. Effects of metallacarboranes in glioblastoma spheroids. (A) Viability of spheroids and monolayer-grown cells 72 h after incubation with [o-COSAN]- and [8,8'-I2-0-COSAN]-, determined by the APH test. (B) Spheroid growth, given by the mean spheroid area as a function of culture time, after incubation with [o-COSAN]- and [8,8'-I2-0-COSAN] -. (C) Viability of spheroids and monolayer-grown cells 72 h after incubation with [o-FESAN]- and [8,8'-I2-0-FESAN]-, determined by the APH test. (D) Spheroid growth, given by the mean spheroid area as the function of culture time, after incubation with [o-FESAN]- and [8,8'-I2-0-FESAN] -. (E) Viability of spheroids 24 h after incubation with Na[o-57FESAN]-, determined by the CellTiter-Glo® 3D Cell Viability Assay. (F) Spheroid growth, given by the mean spheroid area in function of culture time, after incubation with Na[o-57 FESAN]. Spheroids or monolayer cultures treated only with the medium were used as the controls. Statistical significance was calculated using one-way ANOVA, followed by Dunnett's test comparing treated spheroids/cells with control spheroids/cells (*p ≤0.05, ** p ≤ 0.01, *** p ≤ 0.001, and **** p ≤ 0.0001). Adapted from [70,73,179].
+q1q2 | Int. J. Mol. Sci. 2023, 24, 11915
+cb7r | Interestingly, the potential radiosensitizing effects of the metallacarboranes mentioned above were also explored, although most of these studies were performed in monolayer cultures. The cobaltabis (dicarbollides) compounds were studied as potential radiosen- sitizers for boron neutron capture therapy (BNCT), due to their high boron (B) content and high tumor uptake. The concept of BNCT is based on the deposition of high doses of radiation in tumor cells containing 10B-based compounds through a thermal neutron capture reaction that yields high linear energy transfer of « particles able to induce damage in the tumor [179].
+68xu | The radiosensitizing effects of the ferrabis(dicarbollides), [o-FESAN]-, and [8,8'-I2-0- FESAN]-, were further assessed using low dose y-rays and X-rays, considering that the interaction of Fe with low radiation doses could lead to the emission of photoelectrons, Auger electrons and other secondary electrons, and Compton scattering, increasing the total radiation dose to the tumor cells, consequently causing deleterious effects. Furthermore, the radiosensitizing effect of these compounds was also assessed with proton irradiation considering that the interaction of B with protons in the cells would, theoretically, increase the number of « particles emitted due to a nuclear fusion reaction (proton boron fusion reac- tion (PBFR)) [70]. Finally, as referred, [0-57 FESAN]- was used to study the radiosensitizing effects of Mössbauer absorption in glioblastoma monolayer cultured cells and spheroids, bearing in mind that the secondary radiation that accompanies the resonance absorption of the Mössbauer radiation, in the 57Fe nuclei, is able to produce a powerful local effect on the tumor cells [73].
+hd35 | 5.2.3. A New Generation of Anticancer Palladium Agents That Restrain the Growth of Ovarian Cancer Tumoroids
+2zpk | N-heterocyclic carbenes are found in some of the most active palladium compounds, stabilizing the complex and avoiding its rapid degradation in a biological environment [181,182]. The anticancer activity and cytotoxicity of Pd(II)-n3-allyl organometallic complex have been evaluated in two ovarian cancer cell lines, A2780 and SKOV-3, and both the antiproliferative and pro-apoptotic activity appeared to be very promising [183]. Scattolin et al. then studied the effects of these Pd compounds on liver organoids, to evaluate the hepatotoxicity, and ovarian cancer tumoroids, to assess their anticancer activity on more complex models [77]. Regarding the hepatoxicity, the organoids were first characterized by immunohistochem- istry using premature and mature hepatocyte markers. Then, it was possible to determine the IC50 of 0.03 ± 0.01 µM for cisplatin and 3 ± 2 uM for the selected Pd compound. This shows that this Pd complex is 100 times less toxic than cisplatin, corroborating with the data from assays on 2D models and supporting the use of the compound in future clinical applications [77].
+epu7 | To evaluate the anticancer activity of the selected Pd complex, tumoroids of three patients with high-grade serous ovarian cancer subtypes were developed. Tumor samples of both primary and metastatic sites were used. The morphologic and cytologic similarities between tumoroids and parental tumors were assessed and confirmed using hematoxylin and eosin (H&E) staining. On all of the tumoroids, the Pd compound was active at low concentrations, contrary to what was observed with carboplatin, as shown in Table 2 [77]. The results of these hepatoxicity and anticancer activity assays suggest that this new Pd complex could be interesting for therapeutic applications [77].
+7od1 | Table 2. IC50 values for the Pd complex and carboplatin on ovarian cancer tumoroids after 96 h of incubation. Reprinted/adapted with permission from Ref. 5562411110217. 2023, Antonio Togni, Flavio Rizzolio, Nicola Demitri et al. [77].
+0bqy | Int. J. Mol. Sci. 2023, 24, 11915
+b780 | 5.2.4. Oral Mucosal Organoids as a Potential Platform for Personalized Cancer Therapy
+ccmb | Head and neck squamous cell carcinoma (HNSCC) lines have been cultured in 3D models to overcome the limitations of their 2D counterparts. In this study, Driehuis et al. aimed to study the potential of tumoroids, derived from HNSCC patients, for personalized therapy [78].
+ma93 | Tumoroids were grown from patient-derived HNSCC samples obtained through surgical resections or biopsies and cultured in an appropriate organoid culture medium, and their morphology and histopathology were confirmed using brightfield microscopy, H&E, and immunohistochemistry staining. Following that, 13 tumoroid lines were exposed to cisplatin and carboplatin, two drugs used in the treatment of HNSCC patients. As depicted in Table 3, tumoroids of different origins presented different levels of sensitivity to the compounds [78]. In all of the samples, cisplatin was shown to be more effective at lower doses than carboplatin [78,184]. Moreover, differential gene expression analysis of RNA-seq data was performed to verify if expression profiles could predict how these therapies would work. However, gene enrichment analysis on these gene sets yielded no clear indications of resistance mechanisms.
+c6hh | Table 3. IC50 values cisplatin and carboplatin in different tumoroid lines, expressed in umol/L.
+y7ea | In clinical trials, the combination of cisplatin with radiotherapy improved relapse-free survival when compared with radiotherapy alone [185]. So here, 10 tumoroid lines were subjected to a variety of radiotherapy treatments in the presence or absence of a toxic dose of cisplatin to determine whether the effects of these treatments were additive or synergis- tic. When compared with single-agent treatment, the combination of chemotherapy and radiotherapy resulted in increased cell death, with six lines showing increased sensitivity to radiotherapy in the presence of cisplatin. Overall, the radiotherapy response improved in the presence of cisplatin, indicating a synergistic effect [78]. All in all, Driehuis et al. were able to demonstrate that, in vitro, a variable response to cisplatin, carboplatin, and radiotherapy was present, suggesting that these tumoroids have the potential to be used in personalized therapy [78].
+nav4 | 5.2.5. Microfocus X-ray Fluorescence Mapping of the Penetration of an Osmium Complex in Ovarian Spheroids
+gem8 | The organo-osmium complex [(n6-p-cym)Os(Azpy-NMe2)I]+ has shown an anti-tumoral activity both in vitro and in vivo [186,187]. This complex is an inert prodrug that, under intracellular reductive conditions, can be activated by hydrolysis, producing a reactive compound responsible for oxidative stress and apoptosis [188,189]. Sanchez-Cano et al. studied the tumoral cell growth inhibition and drug penetration of the compound on A2780 ovarian carcinoma spheroids. Spheroids were grown in U-bottom cell-repellent 96-well plates at cell densities of 1000-5000 cells/well [75].
+e8nr | Regarding the growth inhibition, it was shown that [(n6-p-cym)Os(Azpy-NMe2)I]+ is more effective than cisplatin, in both 2D and 3D models. Moreover, when the time of exposure increased from 16h to 48h, the differences between the antiproliferative activity of the compound on the 2D and 3D models were minimal, contrary to what happened with cisplatin, in which the biological activity was higher in the monolayer cultures. Such results suggest that the complex was able to penetrate the spheroids in a time-dependent man- ner [75]. To confirm this hypothesis, a microfocus X-ray fluorescence imaging technique, SXRF, was used to map the distribution of osmium in the spheroids, which is depicted in Figure 4.
+k78w | Int. J. Mol. Sci. 2023, 24, 11915
+g9du | Figure 4. Bright-field images and SXRF elemental maps in A2780 spheroid sections (500 nm) treated for 0, 16, 24, or 48 h with 1/2 IC50 of [(6-p-cym)Os(Azpy-NMe2)I]+. The yellow squares in the bright field images show the spheroid regions analyzed with SXRF. The boundaries of the spheroids are indicated in red in the SXRF elemental maps [75].
+f682 | It was possible to observe that <LATEX>\left[ \left( n ^ { 6 } - p - c y m \right) O s \left( A z p y - N M e _ { 2 } \right) I \right] ^ { + }</LATEX> reached the tumor core, remaining there for a longer period of up to 48h. The authors suggested a correlation between treatment time and the number of Os atoms at the spheroid cores, possibly due to transport mechanisms [75]. Overall, Sanchez-Cano et al. were able to demonstrate the anti-tumoral potential of <LATEX>\left. \left[ \left( \mathrm { r } \right) ^ { 6 } - \mathrm { p } - \mathrm { c y m } \right) \mathrm { O s } \left( \mathrm { A z p y - N M e } _ { 2 } \right) \mathrm { I } \right] ^ { + }</LATEX> against platinum-resistant tumors [75].
+li1k | 5.2.6. Spatially-Resolved Imaging of Platinum Metallodrugs in 3D Spheroids
+```
+
+OUTPUT:
+```

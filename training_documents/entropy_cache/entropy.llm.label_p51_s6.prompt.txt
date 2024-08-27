@@ -1,0 +1,205 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+108o | Let's show that for a system with finitely many states i = 1, ... , n with energies Ei, as the temperature T approaches zero from above, the entropy of the system in thermal equilibrium approaches k ln N where N is the number of lowest-energy states. In thermal equilibrium
+d2za | Pi xe -Ei/kT.
+r38m | Thus, all states with the lowest energy have the same probability, while as the temper- ature approaches zero from above, any higher-energy states have pi -> 0. So, as the temperature approaches zero from above, the probability of the system being in any one of its N lowest-energy states approaches 1/N, and we get
+qq0z | 1 T->0+ lim S(T) = lim -kp; Inpi = - k T->0+ i=1 n i=1 N N 1
+rgva | ln N = kln N.
+mlcd | In particular, if the system has just one lowest-energy state, we get the Third Law of Thermodynamics:
+2qe7 | lim S(T) = 0.
+lpzf | Here T -> 0+ means that T is approaching zero from above.
+24rz | But beware: for systems with lots of lowest-energy states, their entropy in thermal equilibrium can be large even near absolute zero! Also, a related problem: systems may take a ridiculously long time to reach equilibrium! This is especially true for systems that have many states whose energies are very near the lowest energy, like a piece of glass. You can put a piece of glass in a fancy refrigerator and try to cool it
+091m | 44
+sot6 | to near absolute zero. If it has one lowest-energy state, its entropy should approach zero. If this happened, the glass would change from glass to a crystal, which has less entropy. But nobody has seen glass turn into a crystal when they cool it down. If this happens, it probably does so only after an absurdly long time, much longer than the age of the Universe. This phenomenon is called 'frustration'. People like to argue about frustration and the Third Law, so I am not trying to give you the final word here, just alert you to the issue. You can learn a bit more here:
+d6sf | · Wikipedia, Third law of thermodynamics.
+7haq | By the way: for systems with finitely many states, it's possible to have negative temperatures, and the Third Law has a counterpart saying what happens when the temperature approaches zero from below:
+ubwu | Puzzle 34. Show that for a system with finitely many states,
+ucme | lim S(T) = k ln M
+qnl5 | where M is the number of states of highest energy.
+wdx9 | However, most systems we'll be studying won't have a state of highest energy.
+n1xr | 45
+ohpj | MEASURING ENTROPY
+ry5f | If we assume the entropy of a system approaches zero as <LATEX>T</LATEX> approaches zero from above, we have
+31wg | <LATEX>\int _ { 0 } ^ { T _ { 1 } } \frac { d \langle E \rangle } { T } = S \left( T _ { 1 } \right)</LATEX> Using this assumption, we can do experiments to measure the entropy of different substances at standard temperature and pressure:
+celk | · iron: <LATEX>\sim 5</LATEX> bits per atom
+3mf9 | · water: <LATEX>\sim 1 2</LATEX> bits per molecule
+z2rd | · hydrogen: <LATEX>\sim 2 3</LATEX> bits per molecule
+vqld | People actually do experiments and use the above formula to figure out the entropy of many substances in thermal equilibrium assuming their entropy vanishes as the tem- perature approaches absolute zero. They slowly heat up a substance and keep track of how much energy is needed to raise its temperature as they go, so they can approxi- mately calculate the integral shown. They usually report the answers in joules/kelvin per mole, but I enjoy 'bits per molecule'.
+ljmz | As you can see, liquids tend to have more entropy than solids, and gases tend to have even more. My goal in this course is to teach you how to approximately compute some of these entropies from first principles. Unfortunately the only substances that are simple enough for us to handle are gases.
+en1l | This is a good opportunity to explain some conventions. A mole is defined to be exactly 6.02214076 . 1023 this is called Avogadro's number, and it's close to the number of hydrogen atoms in a gram. A joule/kelvin of Gibbs entropy corresponds to about 7.242297 . 1022 nats of Shannon entropy: the number here is the reciprocal of Boltzmann's constant, which is defined to be exactly 1.380649 · <LATEX>1 0 ^ { - 2 3 }</LATEX> joules per kelvin. A bit is ln 2 nats. From these three facts, we see 1 joule/kelvin of Gibbs entropy per mole corresponds to about 0.173516 bits/molecule of Shannon entropy.
+45gx | By the way, what is 'standard temperature and pressure'? Annoyingly, this phrase means different things to different organizations. I will try to always use it to mean a temperature of 298.15 K and a pressure of 1 bar. The temperature here equals 25 ℃, which seems a bit random compared to 0 ℃-but convenient, because it's close to room temperature. A pressure of 1 bar, or more officially 100 kilopascals, is slightly less than a 'standard atmosphere', which is a unit of pressure intended to equal the average air pressure at sea level. A pascal is an official SI unit: it's a pressure of one newton per square meter.
+xgur | 46
+iz66 | THE EQUIPARTITION THEOREM
+dndq | Suppose the energy of a system with n degrees of freedom is a positive definite quadratic form E : R" -> R, for example
+xzce | E(x) => i=1 n Ciac? 2
+w4vd | Ci > 0
+cuh0 | Then in thermal equilibrium at temperature T, the expected value of the energy is
+k36t | (E) = = nkT 1
+z1wx | where k is Boltzmann's constant.
+o6gf | Temperature is very different from energy. But sometimes not very often, but sometimes the expected energy of a system in thermal equilibrium is proportional to its temperature. The equipartition theorem says this happens when the energy depends quadratically on several real variables, defining a positive definite quadratic form on R". For example, it happens for a classical harmonic oscillator.
+0hs6 | Some people get confused and try to apply the equipartition theorem where it doesn't apply. They foolishly conclude that temperature is always proportional to energy.
+m05x | This theorem does not apply to quantum systems. Indeed, when people tried to apply the equipartition theorem to a mirrored box of light they ran into a problem called the ultraviolet catastrophe. Classically the box of light is a system where the energy is a positive definite quadratic form, but n = 0, so they got an infinite expected value of the energy! Quantum mechanics saves the day and makes the answer finite.
+ds29 | Radiation
+qcmr | Visible
+7c6p | The equipartition theorem also doesn't apply to classical systems unless the energy is quadratic. So it's very limited in its applicability, but still useful.
+d1ee | Let's prove this result! To prove a theorem, you have to understand the definitions. We'll start with some background.
+itx4 | 47
+vwrs | THE EQUIPARTITION THEOREM-BACKGROUND
+xjkw | Suppose the energy of a system with n degrees of freedom is some function E : R" > R
+wght | Let k be Boltzmann's constant. Suppose p: R^ -> R is a probability distribution maximizing the entropy
+3lgb | S = - k | Rn p(x) In p(x) d"x subject to a constraint on the expected energy
+ttwt | (E) = /Rn E(x)p(x) d"x
+x5l2 | Then p must be a Boltzmann distribution:
+ilrs | JRn e-BE(x) d"x e-BE(x)
+0a03 | p(x) =
+auae | for some number 3 > 0.
+5b6y | The temperature T is defined so that $ = 1/kT.
+1y10 | We're defining entropy with an integral now, unlike a sum as before, and sticking Boltzmann's constant into the definition of entropy, as physicists do, so that entropy has units of energy over temperature.
+6mnx | Given the formula for the energy E as a function on R", we'll have to find the Boltzmann distribution and then compute (E) as a function of T.
+tynp | 48
+ob0u | PROOF OF THE EQUIPARTITION THEOREM: 1
+50o1 | Special case: a system with 1 degree of freedom where the energy E : R -> R is E(x) = x2/2.
+cw76 | The Boltzmann distribution is
+lkk5 | e-Bx2/2 e - Bx2 /2 doc
+molj | p(x) =
+5pto | so the expected energy is
+mo6k | ∞ r2 e-Bx2/2 dxc
+zh6q | 1 00 Bx2e-Bæ2/2 dx .00
+kp04 | 23 1-00 00 e-Bx2/2 dx
+3e8r | (E) = -00 .00 E(x)p(x) dx =
+8g7g | ∞ e-Bx2/2 dx 2
+5j4f | so doing a substitution with u2 = Bx2:
+4xe7 | (E) = 1 00
+pg4b | 00 e-u2 /2 du u2e-u2/2 du
+b0d0 | 23 1
+d7eu | 23
+xndr | 2
+m6hi | since
+vpkf | [° e-u2 /2 du = -00 u2e-u2/2du = V2T
+4d67 | We'll do two special cases before proving the general result. First let's do a system with 1 degree of freedom where the energy is E(x) = x2/2. In this case, after a change of variables, the Gibbs distribution becomes a Gaussian with mean 0 and variance 1, and that gives the desired result. Or just do the integrals and see what you get! The expected energy (E) is }kT.
+e7j2 | 49
+lqzt | PROOF OF THE EQUIPARTITION THEOREM: 2
+1ocm | More general case: a system with n degrees of freedom where the energy E: Rn > R is F(x) = Ml |2= 2
+527v | We can reduce this to the case with 1 degree of freedom:
+lrri | (E) = Rn
+5cl9 | 2 T
+u7a3 | - e-Bl|2|12/2 dn x
+w409 | e- Blæ|12/2 dn x
+m04y | JIRn
+23jk | Next we do a system with n degrees of freedom where the energy is a sum of n terms of the form x2/2. It's no surprise that each degree of freedom contributes AkT to the expected energy, giving
+oa63 | 〈 E>= 5nkT
+e3lv | But make sure you follow my calculation above. I skipped a couple of steps!
+rqv6 | 50
+oa48 | PROOF OF THE EQUIPARTITION THEOREM: 3
+3fp1 | General case: a system with <LATEX>n</LATEX> degrees of freedom where the energy <LATEX>E : \mathbb{R} ^ { n } \rightarrow \mathbb{R}</LATEX> is any positive definite quadratic form. Then
+557x | <LATEX>E \left( x \right) = \frac { 1 } { 2 } \| A x \| ^ { 2 }</LATEX> for some invertible <LATEX>n \times n</LATEX> matrix <LATEX>A .</LATEX> When <LATEX>A</LATEX> is a diagonal matrix this gives
+ep8e | <LATEX>E \left( x \right) = \sum _ { i = 1 } ^ { n } \frac { c _ { i } x _ { i } ^ { 2 } } { 2 } \quad c _ { i } > 0</LATEX> We can reduce the general case to the previous case by a change of variables
+7mv3 | <LATEX>y = A x :</LATEX> <LATEX>\langle E \rangle = \frac { \int _ { \mathbb{R} ^ { n } } \frac { 1 } { 2 } \| A x \| ^ { 2 } e ^ { - \beta \| A x \| ^ { 2 } / 2 } d ^ { n } x } { \int _ { \mathbb{R} ^ { n } } e ^ { - \beta \| A x \| ^ { 2 } / 2 } d ^ { n } x } = \frac { \int _ { \mathbb{R} ^ { n } } \frac { 1 } { 2 } \| y \| ^ { 2 } e ^ { - \beta \| y \| ^ { 2 } / 2 } d ^ { n } y } { \int _ { \mathbb{R} ^ { n } } e ^ { - \beta \| y \| ^ { 2 } / 2 } d ^ { n } y } = \frac { n } { 2 } k T</LATEX> Finally let's do the general case. A quadratic form on <LATEX>\mathbb{R} ^ { n }</LATEX> is a map <LATEX>Q : \mathbb{R} ^ { n } \rightarrow \mathbb{R}</LATEX> such that
+der6 | <LATEX>Q \left( x \right) = \sum _ { i , j = 1 } ^ { n } q _ { i j } x _ { i } x _ { j }</LATEX> for some numbers <LATEX>q _ { i j } \in \mathbb{R} .</LATEX> We say it's positive definite if
+8xg2 | <LATEX>x \neq 0 \Longrightarrow Q \left( x \right) > 0 .</LATEX> One can prove that a quadratic form <LATEX>Q : \mathbb{R} ^ { n } \rightarrow \mathbb{R}</LATEX> is positive definite if and only if
+njvp | <LATEX>Q \left( x \right) = \frac { 1 } { 2 } \| A x \| ^ { 2 }</LATEX> for some invertible <LATEX>n \times n</LATEX> matrix <LATEX>A .</LATEX> The factor of <LATEX>1 / 2</LATEX> here is just to make our calculations easier.
+s8b5 | Thanks to this, if we have a system whose space of states is <LATEX>\mathbb{R} ^ { n }</LATEX> and its energy function <LATEX>E : \mathbb{R} ^ { n } \rightarrow \mathbb{R}</LATEX> is a positive definite quadratic form, we can compute
+p450 | <LATEX>\langle E \rangle = \frac { \int _ { \mathbb{R} ^ { n } } E \left( x \right) \exp \left( - \beta E \left( x \right) \right) d x } { \int _ { \mathbb{R} ^ { n } } \exp \left( - \beta E \left( x \right) \right) d x }</LATEX> by reducing it to the previous case using a change of variables. We get
+rsvo | <LATEX>\langle E \rangle = \frac { 1 } { 2 } n k T</LATEX> 51
+z4m8 | So, each degree of freedom still contributes akT to the expected energy. That's the equipartition theorem!
+ukf0 | But be careful. The equipartition theorem doesn't apply when the energy is an arbitrary function of n variables. It also fails when we switch from classical to quantum statistical mechanics.
+```
+
+OUTPUT:
+```

@@ -1,0 +1,131 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+otkr | Habitus can be seen as the theoretical bridge between capital and field because it explains why within a particular field social agents' actions or decisions are based on the types and quantity of capital they possess (Bourdieu and Wacquant 1992). Therefore, as we work with Bourdieu to understand educational leadership, we must examine the relationships that exist between the thinking tools in the context of schooling.
+ibgs | 8 Extant Scholarship on Bourdieu and Leadership
+colo | In an introductory essay for a special issue on Bourdieu in the International Journal of Leadership in Education, Lingard and Christie (2003) present the case for using Bourdieu's theoretical framework to examine the work of school principals. The special issue sought to explore how Bourdieu's conceptual frameworks and method- ological approaches might be applied in educational leadership research. Lingard and Christie (2003) articulate substantively how Bourdieu enhances the educational lead- ership field with attention to relationships between individuals and social structures within the context of schooling. They argue that Bourdieu's theoretical approach will "enable us to move beyond trait, situational and transformational leadership theories, emphasizing instead the recursive relationship between agency (individual leader habitus) and structure (field) in the broader social context" (p. 319).
+d6r4 | Lingard and Christie (2003) develop a 'productive leadership habitus' as a way in which school leadership ought to be practiced. This principal leadership habitus has three main elements. The first, reflexivity, is derived from the work of Bourdieu and Wacquant (1992) and Brubaker (1993). According to Lingard and Christie (2003), reflexivity allows productive leaders to acknowledge the logics of practice, "chal- lenging them, utilizing them, mediating them, rejecting them, selectively working with them, reflecting on them, segueing between them, in terms of keeping their eye on the central purposes of schooling" (p. 328).
+9mrz | Secondly, leaders need to be prepared to "do the most good and cause the right change" (p. 329). Lingard and Christie (2003) argue that as school leaders develop and improve school practices, they must not lose sight of the capacity of schools to reproduce social and economic inequalities. Principals need to be cognizant of the central role that schools have in changing and reproducing social and economic inequalities.
+pk06 | Thirdly, schools are complex and operate within different fields. The school prin- cipal must be aware of the different fields, their logics of practice, and, in many cases, their competing demands.
+7wn9 | 9 Extending the Bourdieusian Approach to Leadership Agency in Diverse, Democratic Schools
+wcd0 | While Lingard and Christie (2003) provide critically important insights from Bour- dieu for educational leadership, we extend their productive leadership habitus and give explicit consideration to engaging with the cultural capital from increasingly diverse students. Specifically, we focus on the relationship between the school and the community in terms of how leaders mediate between diverse students' cultural capital and habitus and the common culture of schools in democratic societies. Bourdieu's (2008) theoretical work explains how schools produce and reproduce social and cultural inequalities from generation to generation. According to Bourdieu schools are structured to favor those with the cultural capital of the dominant classes (Bour- dieu, 1974, 1977a, 2008). In other words, schools convert social hierarchies into academic hierarchies, and in so doing, legitimate the social inequalities of society.
+caos | Specifically, Bourdieu suggests that there are two main ways in which schools reproduce existing social inequalities. First, by ignoring the differences in children's backgrounds. Bourdieu (1974) posits, "by treating all pupils, however unequal they may be in reality, as equal in rights and duties the educational system is led to give its de facto sanction to initial cultural inequalities" (p. 38). Secondly, teachers (and by extension school principals) are the products of the education system hence they are likely to unconsciously transmit the culture of the dominant class. Bourdieu (2008) argues,
+qrvy | It would no doubt be abusive in summary to describe relations between the upper classes and teachers as some kind of conspiracy. What is rather involved, though, is something most serious, complicity that is unconscious, and often hidden beneath generous professions of faith, the complicity based on an affinity of lifestyle and values. (p. 38).
+pn9j | The culture of the dominant class may come naturally to teachers and principals meaning they do not see the fundamental inequality in the system. Ease with the culture of the dominant class occurs because the habitus of most teachers and prin- cipals are in part the result of success in schools; they are products of the system. Therefore, according to Bourdieu, social reproduction is inherently embedded in the structure and functioning of schools, and as such social reproduction occurs largely in spite of the good intentions of teachers and school administrators.
+1pmc | A closer examination of Bourdieu's work suggests that for students to be successful in school they must adopt the cultural capital and habitus of the dominant classes, typically at the expense of their own culture. This may explain the "acting white" phenomenon; a reference to situations where some minority students ridiculed their minority peers for engaging in behavior that was perceived to be characteristic
+5z6q | A Bourdieusian Approach to Educational Leadership ...
+yeoh | of whites (Fordham and Ogbu 1986). In part, Bourdieu's assumption was that the cultural values promoted at school were different from those of the minority and/or low-income communities. Schools tend to embody the cultural capital of the domi- nant class. Schools may ignore the cultural resources of children for minority and/or low-income households because they are structured to reproduce the cultural capital of the dominant class. Thus, Lingard and Christie's (2003) approach is important as it illuminates the importance of the individual leader's consciousness about the community they serve.
+b8hf | Next, we take Lingard and Christie's (2003) argument a step beyond leader consciousness to leader agency and mediation, by changing the logic of practice or the rules of the game (Bourdieu 1977b). As noted earlier, Bourdieu viewed society as a system of fields; each field with its own logic of practice. Bourdieu and Wacquant (1992) argue that a field "follows rules or better, regularities, that are not explicit or codified" (p. 98). The school leader must understand these rules or regularities both in the school and the community. According to Bourdieu, fields are contested social spaces where those with the capital (economic, social and cultural) have the ability to influence the rules of the game within the fields. People and institutions individually or collectively implement strategies in order to improve their positions in relation to others within the field (Bourdieu 1993b). Therefore, to a certain degree, school leaders have the capital within the school and the community to influence and change the logic of practice. Bourdieu and Wacquant (1992) note that there are social agents that can,
+hntf | Transform, partially or completely, the immanent rules of the game. They can, for instance, work to change the relative value of tokens of different colors, the exchange rate between the various species of capital, through strategies aimed at discrediting the form of capital upon which the force of the opponents rests and to valorize the species of capital they preferentially possess. (p. 99).
+99fo | School principals can change the relative value of tokens; in this case, increase the value of the cultural capital of students. Given this influence, school leaders can ensure the cultural capital of all students is embodied in schools. Since schools mainly embody the cultural capital of the dominant group, school leaders need to engage with the school community so that local funds of knowledge become part of the school.
+y5r7 | Each member of the school community brings a habitus formed under specific economic and social conditions and within diverse fields. Some will be shared with other members and some will differ from them significantly. Bourdieu and Wacquant (1992) posit, "Human action is not an instantaneous reaction to immediate stimuli, and the slightest 'reaction' of an individual to another is pregnant with the whole history of these persons and of the relationship" (p. 124). School practice cannot be fully understood without including the habitus of the members.
+lrry | In our view, a leader's mediation between the school and the community must focus on pedagogical practices. We are not the first to argue for bridging marginalized students' cultural capital or funds of knowledge with the academic knowledge reflec- tive of the common state and national culture. Referring to teachers, Moll et al. (1992)
+hvhm | 46
+863b | P. Moyi et al.
+fj24 | highlighted how collaborations between the schools and the community can promote learning for students from minority communities. Similarly, Ladson-Billings (1995), also in reference to teachers, argues that teachers need to think about the teacher- student relationship in terms of culture, curriculum, and teaching. Here teachers need to have consciousness of their own culture in relation to students' cultures and bring that consciousness into their pedagogical practices.
+uz3c | In our Bourdieusian approach to leadership, we argue that school leaders also have the responsibility to recognize, understand and integrate the cultural funds of knowledge of the community they serve into their school practices. Such recognition begins with consciousness and reflexivity as well as an awareness of the inequali- ties and differing logics of practice in schools. For Bourdieu it is the interaction of the thinking tools, habitus, capital and field, that enables us understand the logic of practice. Bourdieu (2008) argued "it is by knowing the laws of reproduction that we can have a chance, however small, of minimizing the reproductive effect all of the educational institution" (p. 53). Specifically, we see the role of today's school leader as a mediator between the fields of school and community, using Bourdieu- sian thinking tools to influence change in schools and communities. Drawing on Bourdieu (1977b), leaders engage diverse cultures in ways that connect schools and communities, supporting students toward autonomy, freedom and equality toward the democratic prospect (Dewey 1916). We are currently working as a research team to apply the Bourdieusian theories and thinking tools to empirical case studies in ISLDN.
+d5bi | References
+ba4l | A Bourdieusian Approach to Educational Leadership ...
+ffx8 | Bourdieu, P. (1990b). In other words: Essays towards a reflexive sociology. Stanford, CA: Stanford University Press.
+s6su | Grenfell, M. (Ed.). (2010). Pierre Bourdieu: Key concepts. Durham, UK: Acumen.
+y219 | Gurr, D., & Drysdale, L. (2018). Leading high needs schools: Findings from the international school development network. International Studies in Educational Administration, 46(1), 147-156. Hallinger, P. (2018). Bringing context out of the shadow. Educational Management Administration & Leadership, 46(1), 5-24. Retrieved from https://doi.org/10.1177/1741143216670652.
+06ht | A Bourdieusian Approach to Educational Leadership ...
+```
+
+OUTPUT:
+```

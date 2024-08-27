@@ -1,0 +1,118 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document. Your task is to faithfully reproduce the text for our text-to-speech engine so that it is easily read aloud.
+
+Note that the text might not start at the beginning and paragraphs may be split acrosss multiple textboxes. Textboxes may start or end in the middle of a word which is acceptable: do not combine text between textboxes and leave broken words at the start and end of a textbox unchanged.
+
+You will receive one textbox per-line in the format `id | Textbox content`. The output must be in the format `id | Clean content`.
+
+RULES:
+ • Remove inline citations and references e.g. "(Author, 2021)" or "(https://wikipedia.org/article.html)" or "[ECMOS 35b, 47, 49]".
+ • Spell out numbers, dates, and chemical formulas for the TTS engine e.g. "-2.5" -> "negative two point five" or "Jan. 2020" -> "January twenty twenty".
+ • Spell out LaTeX formulas for the TTS engine e.g. "<LATEX>p = 1</LATEX>" -> "P equals one".
+ • Rejoin hyphenated word fragments within the same textbox e.g. "synth -esize" -> "synthesize".
+ • Fix simple typos and OCR errors e.g. "O nce upon a 1ime." -> "Once upon a time.".
+ • Delete nonsequiter textboxes that interrupt the middle of a sentence if they obviously do not belong.
+
+Otherwise, the output should exactly match the input text:
+ • Do not combine text across lines or attempt to fix words broken across lines.
+ • Ensure each ID from the input is included in the output.
+ • Make as few changes as possible while respecting the above rules.
+
+EXAMPLE INPUT:
+```
+ccpt | stigate the effectiveness of psychedelics for ADHD symp- toms in adults.
+0fpw | 2. Materia1 and methods
+dqn8 | 2.1. Study design and participants
+cop0 | The study employed a naturalistic design, assessing the experiences of participants at bas-,
+lhkq | eline before they start, and at 2 and 4 weeks after initiation. The target population included adults with ADHD symptoms who had not been diag- nosed with ADHD before. To be included, participants needed to score on Conner's Adult ADHD Rating Scale (CAARS-S:SV). This cut-off was indicative of clinically elevated symptoms (Conners et al., 1999) (see section 2.3).
+82ju | 2.2. Study procedure
+y2qo | The online advertisement was placed on a website providing information about psychedelics (www.microdo sing.nl). Interested participants were redirected to information explaining the study rationale and procedure. The baseline survey took 20 min to complete. If the survey had not been completed after 24 h, a reminder was sent. Each of the surveys at the 2- and 4-week time points took about 15 min to complete. Par- ticipants were able to pause the surveys. Data collection occurred between Nov. 2020 and Jul. 2021. The study was approved by the Ethics Review Committee of Psy- chology and Neuroscience at Maastricht University (ERCPN- 215_05_11_2019_A1).
+1piq | 2.3. Measures
+7fqw | 2.3.1. Demographic information and history of substance use
+rhaz | At baseline, demographic information was collected. History of substance use assessed experience with psyche- delics (i.e., ayahuasca, DMT, 5-MeO-DMT, LSD, novel lysergamides (e.g., 1P-LSD, ALD-52), psilocybin, salvia divinorum, ibogaine, and mescaline) in both full (psychedelic) doses and microdoses.
+wak1 | 2.3.2. Psychiatric and physiological diagnoses
+wtfz | Participants were asked whether they had a current diagnosis of a disorder. These answer options were chosen because most of the listed diagnoses are often reported to co-occur with ADHD (Kooij et al., 2019), or because these diagnoses were reported to be common in people who microdose (Fadiman and Korb, 2019). We 
+3j2l | REVIEW ARTICLE Frontiers in Psychiatry | www.frontiersin.org
+03k3 | 2
+1k9e | constructed a variable Comorbidity alongside ADHD, differenti- ating respondents with and without a comorbid diagnosis alongside ADHD (<LATEX>p < . 0 0 1 =</LATEX> only ADHD or no ADHD diagnosis; <LATEX>p > . 0 1 =</LATEX> ADHD and at least one other diagnosis). We constructed a variable Medication use alongside microdosing, differentiating respondents who were and were not using conven- tiona1 ADHD medication alongside microdosing (<LATEX>0 =</LATEX> only microdosing; <LATEX>1 =</LATEX> conven-
+```
+
+EXAMPLE OUTPUT:
+```
+ccpt | stigate the effectiveness of psychedelics for ADHD symptoms in adults.
+0fpw | Two. Material and methods
+dqn8 | Two point one. Study design and participants
+cop0 | The study employed a naturalistic design, assessing the experiences of participants at bas-,
+lhkq | eline before they start, and at two and four weeks after initiation. The target population included adults with ADHD symptoms who had not been diagnosed with ADHD before. To be included, participants needed to score on Conner's Adult ADHD Rating Scale. This cut-off was indicative of clinically elevated symptoms (see section two point three).
+82ju | Two point two. Study procedure
+y2qo | The online advertisement was placed on a website providing information about psychedelics. Interested participants were redirected to information explaining the study rationale and procedure. The baseline survey took twenty minutes to complete. If the survey had not been completed after twenty-four hours, a reminder was sent. Each of the surveys at the two and four-week time points took about fifteen minutes to complete. Participants were able to pause the surveys. Data collection occurred between November twenty twenty and July twenty twenty-one. The study was approved by the Ethics Review Committee of Psychology and Neuroscience at Maastricht University.
+1piq | Two point three. Measures
+7fqw | Two point three point one. Demographic information and history of substance use
+rhaz | At baseline, demographic information was collected. History of substance use assessed experience with psychedelics (i.e., ayahuasca, DMT, five-MeO-DMT, LSD, novel lysergamides (e.g., one-P-LSD, ALD-fifty-two), psilocybin, salvia divinorum, ibogaine, and mescaline) in both full (psychedelic) doses and microdoses.
+wak1 | Two point three point two. Psychiatric and physiological diagnoses
+wtfz | Participants were asked whether they had a current diagnosis of a disorder. These answer options were chosen because most of the listed diagnoses are often reported to co-occur with ADHD, or because these diagnoses were reported to be common in people who microdose. We
+3j2l |
+03k3 |
+1k9e | constructed a variable Comorbidity alongside ADHD, differentiating respondents with and without a comorbid diagnosis alongside ADHD (P is less than point zero zero one equals only ADHD or no ADHD diagnosis; P is greater than point zero one equals ADHD and at least one other diagnosis). We constructed a variable Medication use alongside microdosing, differentiating respondents who were and were not using conventional ADHD medication alongside microdosing (zero equals only microdosing; one equals conven-
+```
+
+INPUT:
+```
+q1lo | Or at least that's the old definition. Now many people define a kilobyte to be 1000 bytes rather than 1024 bytes, in keeping with the usual meaning of the prefix. If you want 1024 bytes you're supposed to ask for a 'kibibyte'. When we get to a terabyte, the new definition based on powers of 10 is about 10% less than the old one based on powers of 2: <LATEX>1 0 ^ { 1 2 }</LATEX> bytes rather than <LATEX>2 ^ { 4 0 } \approx 1 . 0 9 9 5 \times 1 0 ^ { 1 2 } .</LATEX> If you want the old larger amount of information you should ask for a 'tebibyte'.
+biqi | Wikipedia has an article that lists many strange units of information. Did you know that 2 bits is a 'crumb'? Did you even need to know? No, but now you do.
+xl19 | Feel free to dispose of this unnecessary information! All this is just for fun-but I want you to get used to the formula
+j83k | <LATEX>\mathrm { i n f o r m a t i o n } = - \log p</LATEX> 7
+nle2 | THE INFORMATION IN A LICENSE PLATE NUMBER
+19po | If there are N different possible license plate numbers, all equally likely, how many bits of information do you learn when you see one?
+sx65 | If you think N alternatives are equally likely, when you see which one actually occurs, you gain an amount of information equal to log N. Here the choice of base b is up to you: it's a choice of units. But what is this in bits? No matter what base you use,
+ilzn | log N = log2 N x log6 2.
+uzp0 | Since we call log, 2 a 'bit', this means you've learned log2 N bits of information. Let's try it out!
+yq4x | Puzzle 8. Suppose a license plate has 7 numbers and/or letters on it. If there are 10+26 choices of number and/or letter, there are 367 possible license plate numbers. If all license plates are equally likely, what's the information in a license plate number in bits-approximately?
+i901 | But wait! Suppose I tell you that all license plate numbers have a number, then 3 letters, then 3 numbers! You have just learned a lot of information. So the remaining information content of each license plate is presumably less. Let's work it out.
+n98j | Puzzle 9. How much information is there in a license plate number if they all have a number, then 3 letters, then 3 numbers? (Assume they're all equally probable and there are 10 choices of each number and 26 choices of each letter.)
+xgyu | The moral: when you learn more about the possible choices, the information it takes to describe a choice drops.
+ue40 | THE INFORMATION IN A LICENSE PLATE
+tq0f | How much unknown information do the atoms in a license plate contain?
+3z1s | Aluminum has an entropy of about 28 joules/kelvin per mole at standard temperature and pressure. A mole of aluminum weighs about 27 grams. A typical license plate might weigh 150 grams, and thus have
+une6 | 150 g × 27 g/mole 28 J/K · mole ~ 160 J/K
+eroy | of entropy. But a joule/kelvin of entropy is about 1023 bits of un- known information. Thus, the atoms in such a license plate contain about
+b09g | 160 x 1023 bits ~ 1.6 . 1025 bits of unknown information.
+psuf | Last time we talked about the information in a license plate number. A license plate number made of 7 numbers and/or letters contains
+ojfh | log2(367) ~ 36.189
+qri0 | bits of information if all combinations are equally likely. How does this compare to the information in the actual metal of the license plate?
+hbbb | These days most license plates are made of aluminum, and they weigh roughly between 100 and 200 grams. Let's say 150 grams. If we work out the entropy of this much aluminum, and express it in bits of unknown information, we get an enormous number: roughly
+uy56 | 16, 000, 000, 000, 000, 000, 000, 000, 000 bits!
+sy3k | Here is the point. While the information on the license plate and the information in the license plate can be studied using similar mathematics, the latter dwarfs the former. Thus, when we are doing chemistry and want to know, for example, how much the entropy of the license plate increases when we dissolve it in hydrochloric acid, the information in the writing on the license plate is irrelevant for all practical purposes.
+ido2 | Some people get fooled by this, in my opinion, and claim that "information" and "entropy" are fundamentally unrelated. I disagree.
+uq3f | JUSTIFYING THE FORMULA FOR INFORMATION
+c006 | Why do we say the information of an event of probability p is
+yatc | I(p) =- logo P
+ny4k | for some base b > 1? Here's why:
+gqd8 | Theorem. Suppose I : (0, 1] -> R is a function that is:
+etr7 | 1. Decreasing: p < q implies I (p) > I(q). This says less probable events have more information.
+3m6c | 2. Additive: I(pq) = I(p) +I(q). This says the information of the combination of two independent events is the sum of their separate informations.
+h1un | Then for some b > 1 we have I (p) = - logo P.
+nljo | The information of an event of probability p is - log p, where you get to choose the base of the logarithm. But why? This is the only option if we want less probable events to have more information, and information to add for independent events.
+ookx | Proving this will take some math-but don't worry, you won't need to know this stuff for the rest of this 'course'.
+0h9f | Since we're trying to prove I (p) is a logarithm function, let's write
+a5nf | and prove f has to be linear:
+htog | f(x) = cx.
+d9zz | As we'll see, this gets the job done.
+eovv | x < y implies f(x) > f(y) for all x, y ≤ 0.
+f6vi | Similarly, we can check that Condition 2 is equivalent to
+qt9q | f(x+y) = f(x) + f(y) for all x, y ≤ 0.
+fkn1 | Now what functions f have
+xqgo | f(x+y) =f(x) +f(y)
+ztv3 | for all x, y ≤ 0?
+d6tt | If we define f(-x) = - f(x), f will become a function from the whole real line to the real numbers, and it will still obey f (x+y) = f(x) +f(y). So what functions obey this equation? The obvious solutions are
+ow58 | f(x) =cx
+rhnw | for any real constant c. But are there any other solutions?
+78ub | Yes, if you use the axiom of choice! Treat the reals as a vector space over the rationals. Using the axiom of choice, pick a basis. To get f : R -> R that's linear over the rational numbers, just let f send each basis element to whatever real number you want and extend it to a linear function defined on all of R. This gives a function f that obeys f(x+y) =f(x)+f(y).
+49qz | However, no solutions of f (x +y) = f(x) + f(y) meet our other condition
+vw2p | x < y implies f (x) > f(y) for all x, y ≤ 0
+jkfz | except for the familiar ones f(x) = cx. For a proof see Wikipedia: they show all solutions except the familiar ones are so discontinuous their graphs are dense in the plane!
+1jrv | I(p)=clnp
+urci | but this equals - log, p if we take b = exp(-1/c). And this number b can be any number > 1. QED.
+```
+
+OUTPUT:
+```

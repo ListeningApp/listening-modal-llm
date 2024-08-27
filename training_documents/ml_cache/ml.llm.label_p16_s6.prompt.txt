@@ -1,0 +1,150 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+u1ky | Metabolomics and proteomics have been integrated using RF for analysis of prostate cancer (Fan et al., 2011) and thyroid functioning (Pietzner et al., 2017). Similarly, metabolomics is integrated with mRNA for studying ulcerative colitis (Bjerrum et al., 2014) and cancer survival (Kim et al., 2014). On the other hand, glycomics and epigenomics have only appeared once in the multi-omics context (along with mRNA and metabolomics) and used by Zierer (Zierer et al., 2016) for the study of age-related comorbidities using a graphical variant of RF.
+htm9 | Recently, metabolomics and proteomics have also been integrated with lipidomics to evaluate COVID-19 patients using PLS-DA (Partial Least Squares Discriminant Analysis) and Extra Trees (Overmyer et al., 2020; Thomas et al., 2020).
+8hul | Multi-omics studies have also been successfully conducted in plants (potato (Acharjee et al., 2016, Acharjee et al., 2011)) and animals (such as canine heart disease (Li et al., 2015)).
+87vz | Overall, the different recent multi-omics studies highlight the supe- riority of integration methods in understanding the complexity of different diseases and uncovering the underlying abnormalities from the vastly generated multi-omics data, which is not always possible with individual omics analysis.
+ym66 | 6. Recommendations
+l0a3 | Today a plethora of multi-omic integration methods are available for both supervised and unsupervised learning as evident in the current review. This information can overwhelm interdisciplinary scientists and would require a time-consuming effort to understand the challenging mathematical and computational concepts behind them. Hence, we suggest that interdisciplinary teams working on multi-omics always include ML practitioners to assist with the choice of methods, the development of solutions, the interpretation of results and their signif- icance and limits. Such truly interdisciplinary teams offer real oppor- tunities for better mutual understanding of the different fields, practice and expertise necessary, leading ultimately to more robust conclusions. Also, to facilitate the method selection process, a recommendation flowchart is proposed in Fig. 3. It shows the various decision steps required for choosing an appropriate method (or family of methods) for a given scenario. For example, to choose a method for integrating two omics for unsupervised learning one can choose a model-based method such as 'PSDF or Lemon-Tree' if the two omics are gene expression and CNV, otherwise 'MDI or SNF' can be used. Similarly, 'NEMO' can be used in scenarios where the datasets are partially overlapping, and a trans- formation approach is required. Hence, it can be used for biomedical analysis, including diagnosis, prognosis and biomarker identification, by posing them as supervised or unsupervised learning problems.
+u8nw | Clearly, a 'one-size-fits-all' approach is not feasible. Also,
+l2v9 | Biotechnology Advances 49 (2021) 107739
+afbe | unfortunately, the existing literature does not provide many direct comparisons between methods using the same publicly available data- sets. Hence, to choose the best method which suits a given dataset and question, an empirical approach that investigates the use of different methods, guided by ML practitioners is recommended.
+78r8 | 7. Conclusions
+320g | This paper reviewed various ML approaches used for the integration of multi-omics data for analysis. A concise background of multi-omics and ML was presented. It examined the concatenation-, model- and transformation-based integration methods, employed for multi-omics data along with their advantages and disadvantages. Also, various existing multi-omics studies have been summarised. Finally, a recom- mendation flowchart is presented for interdisciplinary professionals to choose an appropriate method for a multi-omics dataset. Overall, this work showcases the recent findings in the multi-omics domain and signifies the key role of ML in the future of personalised healthcare.
+tp8g | Disclosure
+gxfd | The authors have nothing to disclose.
+s2v1 | Declaration of Competing Interest
+jkp9 | The authors declare that they have no known competing financial interests or personal relationships that could have appeared to influence the work reported in this paper.
+z8tt | Acknowledgement
+9g22 | This project has received funding from the European Union's Hori- zon 2020 research and innovation programme under grant agreement No 633983. Ewan Pearson and Emanuele Trucco would like to acknowledge the National Institute for Health Research (NIHR) global health research unit on global diabetes outcomes research at the Uni- versity of Dundee (INSPIRED project, Award number 16/136/102) for useful discussions.
+41fx | References
+7um8 | Antonelli, J., Claggett, B.L., Henglin, M., Kim, A., Ovsak, G., Kim, N., Deng, K., Rao, K., Tyagi, O., Watrous, J.D., Lagerborg, K.A., Hushcha, P.V., Demler, O.V., Mora, S., Niiranen, T.J., Pereira, A.C., Jain, M., Cheng, S., 2019. Statistical workflow for feature selection in human metabolomics data. Metabolites 9. https://doi.org/ 10.3390/metabo9070143.
+uow2 | Archer, D.B., Bricker, J.T., Chu, W.T., Burciu, R.G., McCracken, J.L., Lai, S., Coombes, S. A., Fang, R., Barmpoutis, A., Corcos, D.M., Kurani, A.S., Mitchell, T., Black, M.L., Herschel, E., Simuni, T., Parrish, T.B., Comella, C., Xie, T., Seppi, K., Bohnen, N.I., Müller, M.L., Albin, R.L., Krismer, F., Du, G., Lewis, M.M., Huang, X., Li, H., Pasternak, O., McFarland, N.R., Okun, M.S., Vaillancourt, D.E., 2019. Development and validation of the automated imaging differentiation in parkinsonism (AID-P): a multicentre machine learning study. Lancet Digit. Health 1, e222-e231. https://doi. org/10.1016/S2589-7500(19)30105-0.
+iat7 | Biotechnology Advances 49 (2021) 107739
+ywwr | Bishop, C.M., 1995. Neural Networks for Pattern Recognition. Oxford University Press, Inc., New York, NY, USA.
+0i6j | Bishop, C.M., 2006. Pattern recognition and machine learning, Information science and statistics. Springer, New York.
+87cq | Bjerrum, J.T., Rantalainen, M., Wang, Y., Olsen, J., Nielsen, O.H., 2014. Integration of transcriptomics and metabonomics: improving diagnostics, biomarker identification and phenotyping in ulcerative colitis. Metabolomics Off. J. Metabolomic Soc. 10, 280-290. https://doi.org/10.1007/s11306-013-0580-3.
+0qs3 | Chawla, N.V., Davis, D.A., 2013. Bringing big data to personalized healthcare: a patient- centered framework. J. Gen. Intern. Med. 28 (Suppl. 3), S660-S665. https://doi.org/ 10.1007/s11606-013-2455-8.
+z8f7 | Chawla, N.V., Bowyer, K.W., Hall, L.O., Kegelmeyer, W.P., 2002. SMOTE: synthetic minority over-sampling technique. J. Artif. Intell. Res. 16, 321-357. https://doi.org/ 10.1613/jair.953.
+7w7j | Chen, Y., Wang, X., Wang, G., Li, Z., Wang, J., Huang, L., Qin, Z., Yuan, X., Cheng, Z., Zhang, S., Yin, Y., He, J., 2017. Integrating multiple omics data for the discovery of potential Beclin-1 interactions in breast cancer. Mol. BioSyst. 13, 991-999. https:// doi.org/10.1039/c6mb00653a.
+51vd | Chen, L., Bentley, P., Mori, K., Misawa, K., Fujiwara, M., Rueckert, D., 2019. Self- supervised learning for medical image analysis using image context restoration. Med. Image Anal. 58, 101539. https://doi.org/10.1016/j.media.2019.101539.
+baj1 | Dimitrakopoulos, G.N., Dimitrakopoulou, K., Maraziotis, I.A., Sgarbas, K., Bezerianos, A., 2014. Supervised method for construction of microRNA-mRNA networks:
+n1wo | Biotechnology Advances 49 (2021) 107739
+5bq3 | application in cardiac tissue aging dataset. Conf. Proc. Annu. Int. Conf. IEEE Eng. Med. Biol. Soc. IEEE Eng. Med. Biol. Soc. Annu. Conf. 2014, 318-321. https://doi. org/10.1109/EMBC.2014.6943593.
+ezla | Ding, M.Q., Chen, L., Cooper, G.F., Young, J.D., Lu, X., 2018. Precision oncology beyond targeted therapy: combining omics data with machine learning matches the majority of cancer cells to effective therapeutics. Mol. Cancer Res. 16, 269-278. https://doi. org/10.1158/1541-7786.MCR-17-0378.
+rsbu | Domingos, P., Pazzani, M., 1997. On the optimality of the simple bayesian classifier under zero-one loss. Mach. Learn. 29, 103-130. https://doi.org/10.1023/A: 1007413511361.
+magd | Gligorijević, V., Malod-Dognin, N., Pržulj, N., 2016. Integrative methods for analyzing big data in precision medicine. PROTEOMICS 16, 741-758. https://doi.org/ 10.1002/pmic.201500396.
+tb74 | Gunning, D., Stefik, M., Choi, J., Miller, T., Stumpf, S., Yang, G .- Z., 2019. XAI-Explainable artificial intelligence. Sci. Robot. 4 https://doi.org/10.1126/ scirobotics.aay7120.
+8l69 | Guo, L .- Y., Wu, A .- H., Wang, Y., Zhang, L., Chai, H., Liang, X .- F., 2020. Deep learning- based ovarian cancer subtypes identification using multi-omics data. BioData Min. 13, 10. https://doi.org/10.1186/s13040-020-00222-x.
+1jyv | Biotechnology Advances 49 (2021) 107739
+olce | Hergesheimer, L., Shaffer, E., Mackin, S., Nelson, C., Bickford, D., Butters, M., Zmuda, M., Jack, C.R.J., Bernstein, M., Borowski, B., Gunter, J., Senjem, M., Kantarci, K., Ward, C., Reyes, D., Koeppe, R.A., Landau, S., Toga, A.W., Crawford, K., Neu, S., Saykin, A.J., Foroud, T.M., Faber, K.M., Nho, K., Nudelman, K.N., Mackin, S., Rosen, H., Nelson, C., Bickford, D., Au, Y.H., Scherer, K., Catalinotto, D., Stark, S., Ong, E., Fernandez, D., Butters, M., Zmuda, M., Lopez, O.L., Oakley, M., Simpson, D.M., 2019. Prediction and classification of alzheimer's disease based on combined features from apolipoprotein-e genotype, cerebrospinal fluid, MR, and FDG-PET imaging biomarkers. Front. Comput. Neurosci. 13 https://doi.org/ 10.3389/fncom.2019.00072.
+erx1 | James, G., Witten, D., Hastie, T., Tibshirani, R. (Eds.), 2017. An Introduction to Statistical Learning: with Applications in R, 1st ed. 2013, Corr. 7th printing 2017 edition. Springer, New York.
+b3bt | Jamil, I.N., Remali, J., Azizan, K.A., Nor Muhammad, N.A., Arita, M., Goh, H .- H., Aizat, W.M., 2020. Systematic Multi-Omics Integration (MOI) approach in plant systems biology. Front. Plant Sci. 11 https://doi.org/10.3389/fpls.2020.00944.
+0w8m | Jeni, L.A., Cohn, J.F., De La Torre, F., 2013. Facing imbalanced data-recommendations for the use of performance metrics. In: 2013 Humaine Association Conference on Affective Computing and Intelligent Interaction. Presented at the 2013 Humaine Association Conference on Affective Computing and Intelligent Interaction, pp. 245-251. https://doi.org/10.1109/ACII.2013.47.
+vcu3 | Lambin, P., Leijenaar, R.T.H., Deist, T.M., Peerlings, J., de Jong, E.E.C., van Timmeren, J., Sanduleanu, S., Larue, R.T.H.M., Even, A.J.G., Jochems, A., van Wijk, Y., Woodruff, H., van Soest, J., Lustberg, T., Roelofs, E., van Elmpt, W., Dekker, A., Mottaghy, F.M., Wildberger, J.E., Walsh, S., 2017. Radiomics: the bridge between medical imaging and personalized medicine. Nat. Rev. Clin. Oncol. https:// doi.org/10.1038/nrclinonc.2017.141.
+hjzj | Biotechnology Advances 49 (2021) 107739
+j79f | Lanckriet, G.R.G., De Bie, T., Cristianini, N., Jordan, M.I., Noble, W.S., 2004. A statistical framework for genomic data fusion. Bioinforma. Oxf. Engl. 20, 2626-2635. https:// doi.org/10.1093/bioinformatics/bth294.
+6tbv | Le, N., Sund, M., Vinci, A., 2016. Prognostic and predictive markers in pancreatic adenocarcinoma. Dig. Liver Dis. 48, 223-230. https://doi.org/10.1016/j. dld.2015.11.001.
+xb13 | LeCun, Y., Bengio, Y., Hinton, G., 2015. Deep learning. Nature 521, 436-444. https:// doi.org/10.1038/nature14539.
+cxqi | Lee, J.K. (Ed.), 2010. Statistical bioinformatics: a guide for life and biomedical science researchers. Wiley-Blackwell, Hoboken, N.J.
+qfmx | Lorena, A.C., Jacintho, L.F.O., Siqueira, M.F., Giovanni, R.D., Lohmann, L.G., de Carvalho, A.C.P.L.F., Yamamoto, M., 2011. Comparing machine learning classifiers
+```
+
+OUTPUT:
+```

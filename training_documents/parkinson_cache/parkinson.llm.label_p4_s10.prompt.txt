@@ -1,0 +1,138 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+uooz | J Neurochem. Author manuscript; available in PMC 2020 September 01.
+pxbq | Author Manuscript
+jfsr | Author Manuscript
+u15r | Author Manuscript
+lq35 | Author Manuscript
+3g9w | Vidyadhara et al.
+d09o | 2. E-L system dysfunction: the holy grail of PD pathophysiology?
+ylhz | soma for lysosomal degradation (Figure 1B) (Yang et al. 2013). Here, long-distance axonal microtubule networks provide significant support to the neuronal E-L system (Yang et al. 2013). These spatial challenges to address a unique structural geometry, high metabolic demand, enhanced responsiveness to chemical/electrical stimulation, and the requirement for longevity due to their postmitotic nature, place a tremendous burden on the E-L system. Nigrostriatal dopaminergic neurons have an additional burden in terms of long and highly branched axons, larger surface area, selective transporters for external toxins, large fluctuations in free Ca2+, less buffering capacity, and higher oxidative stress, reducing their threshold for degeneration (Surmeier et al. 2017; Vidyadhara et al. 2019; Vidyadhara et al. 2016; Vidyadhara et al. 2017). These vulnerabilities are further exacerbated with aging. Faced with environmental and genetic risk factors, disease pathogenesis abounds.
+a3td | In 1997, identification of dominant mutations in the a-synuclein (SNCA) gene (PARK1) which encodes a-synuclein as a cause of familial PD (Polymeropoulos et al. 1997), brought a conceptual shift toward the importance of genetics in disease pathogenesis. Subsequent findings revealed various other genetic mutations, with at least 10-15% of PD patients having familial PD of an absolute genetic origin. Leucine-rich repeat kinase 2 (LRRK2, PARK8) and Parkin (PRKN, PARK2) mutations are the most common genetic variants of dominant and recessively inherited PD, respectively (Deng et al. 2018). Mutations and gene multiplications of SNCA (PARK1 and PARK4) (Chartier-Harlin et al. 2004; Singleton et al. 2003) and Glucosidase Beta Acid (GBA) are also highly prevalent, whereas PD pathology was also noted with abnormal forms of Parkinsonism associated with deglycase or DJ1 (PARK7), and PTEN induced putative kinase 1 (PINK1, PARK6) (Deng et al. 2018). There is also compelling evidence for a genetic component to sporadic PD. In fact, a rigid distinction between the genetic and environmental basis of PD pathogenesis may not exist considering that cases are phenotypically indistinguishable (except for the onset) (Baba et al. 2006), implying genetic and sporadic cases share common underlying mechanisms. Even after considerable studies on these familial mutations and their interaction with environment, the core pathomechanisms of PD are still unclear, limiting treatment strategies. Over the past ten years, advancements in high-throughput sequencing, the application of genome wide association studies (GWAS), and meta-analysis, have identified new genetic mutations (refer to Deng et al. 2018 for a list of all PARK genes and risk alleles). Intriguingly, most of these identified genes have links to the E-L system (refer Table 1). Mechanistic studies also suggest that these proteins are the downstream targets of previously identified broad spectrum dysfunction in a-synuclein and LRRK2 mutations. It is now becoming clear that most PD-linked genes (Table 1) and known pathomechanisms are, in one way or another, associated with the E-L system, strongly suggesting this pathway as the key master regulator of PD pathogenesis. Recent studies suggest that neurodegeneration is initiated at the dopaminergic presynaptic terminals of striatum, years before the clinical diagnosis (Imbriani et al. 2018). Evidence that most of the E-L system genes associated with PD function at this terminal further establishes their fundamental role in PD pathogenesis. Below, we discuss our understanding of the known functions of these E-L system genes and their dysfunction in PD. We also discuss how other key PD-associated proteins target E-L pathways.
+ex5k | J Neurochem. Author manuscript; available in PMC 2020 September 01.
+9d4o | Author Manuscript
+cjq2 | Author Manuscript
+5esx | Author Manuscript
+m5ka | Author Manuscript
+byu8 | Vidyadhara et al.
+76b0 | 3. Clathrin-mediated synaptic vesicle endocytosis: A prime target?
+zxz6 | 3.1 The DNAJ family of heat shock proteins in the presynaptic terminal and beyond:
+xnth | SV endocytosis is predominantly mediated through CME (Figure 1C). Following exocytosis, the SV membrane is endocytosed primarily through CME, which involves formation of a clathrin coat, composed of an outer clathrin layer and an inner layer of adaptors (Saheki & De Camilli 2012). The most common adaptors such as AP-2 and AP180 binds to endocytic motifs on the SV membrane, as well as phosphatidylinositol 4,5-bisphosphate [PI(4,5)P2] present in the plasma membrane. Endophilin A1 and a-synuclein drive membrane bending and curvature formation of the developing clathrin coated pit (Westphal & Chandra 2013; Bai et al. 2010). Following this, the clathrin coated pit in conjunction with dynamin and other accessory proteins undergoes membrane fission to form a CCV (Saheki & De Camilli 2012). Regeneration of SVs from CCVs and recycling of clathrin and related coat components for further endocytosis requires un-coating of clathrin from CCVs (Figure 1C). The clathrin uncoating step is carried out by the coordinated action of the PI phosphatase synaptojanin-1 and the co-chaperone auxilin with Hsc70. Endophilin A1 and cyclin G Associated Kinase (GAK) also regulate clathrin uncoating to facilitate CME at the presynaptic terminal (Figure 1C) (Saheki & De Camilli 2012). Mutations of these E-L system genes in familial PD envisage synaptic endocytosis dysfunction as a prime trigger for PD pathogenesis.
+vafm | Auxilin: DNAJC6 gene encodes auxilin, the major presynaptic endocytic protein linked to PD. Auxilin is a brain specific co-chaperone belonging to the DNAJC family (Table 1), a subclass of heat shock proteins (HSP40). Auxilin plays an important role in clathrin un- coating, recruiting ATP-activated Hsc70 to CCVs, which in turn, disassembles clathrin from vesicles facilitating their recycling (Gorenberg & Chandra 2017; Lemmon 2001) (Figure 1C). Loss-of-function autosomal recessive mutations of auxilin (PARK19) have been shown to cause juvenile/early onset PD, first observed in two teenage brothers of a Palestinian family (Edvardson et al. 2012). The study noted abnormal mRNA splicing and a decrease in auxilin mRNA levels. Other variants of auxilin mutations were later noted in a Brazilian family with similar mis-splicing of mRNA, whereas mutations affecting the J-domain (p.Q791*, p.Q846* and p.R927G) were observed in a few other consanguineous families (Koroglu et al. 2013; Olgiati et al. 2016). Along with typical PD symptoms, patients with nonsense mutations have cognitive impairment, one of the cardinal non-motor symptoms of PD. Epilepsy and mental retardation have also been noted for some PD patients with auxilin mutations (Koroglu et al. 2013). These human genetic studies suggest widespread neuronal dysfunction besides nigrostriatal dopaminergic neurodegeneration. Hence, future studies on post-mortem brains documenting PD-typical Lewy body pathology and dopaminergic neuronal loss are necessary to concretely categorize the pathology as PD or parkinsonism.
+2zmw | One of the few preclinical studies characterizing DNAJC6 reveals that auxilin down- regulation leads to progressive dopaminergic neuronal loss and motor disabilities in Drosophila. Furthermore, loss of auxilin exacerbates a-synuclein overexpression and paraquat (an environmental toxin)-mediated dopaminergic loss, thus aggravating previously established phenotypes in fly models of PD (Song et al. 2017). Interestingly, the brains (deep
+bf9k | J Neurochem. Author manuscript; available in PMC 2020 September 01.
+otkr | Author Manuscript
+ibgs | Author Manuscript
+colo | Author Manuscript
+d6r4 | Author Manuscript
+9mrz | cerebellar nuclei) of adult homozygous auxilin knockout (KO) mice revealed an increased number of CCVs and empty cages at the synapse. Similar defects were noted in primary cortical and hippocampal neurons accompanied by defective SV endocytosis (Yim et al. 2010). Also, impairment was not immediately detrimental to the neurons, which may explain the post-developmental onset of PD symptoms and slow disease progression. Evaluating whether similar disruptions occur in nigrostriatal dopaminergic neurons and how it mediates pathogenesis will prove crucial in understanding the role of auxilin and the E-L system in PD. An initial step towards this suggest that LRRK2 phosphorylates auxilin, attenuating auxilin'ss normal function in human iPSC derived dopaminergic neurons. The study further revealed that phosphorylation of auxilin by overexpressing LRRK2 leads to accumulation of oxidized dopamine and a-synuclein overexpression, pathological hallmarks of PD (Nguyen & Krainc 2018). Whether loss-of-function mutations in auxilin independently exert pathology through the same mechanisms is unknown. However, this newfound link between LRRK2 and auxilin points to the crucial and widespread involvement of E-L system in PD pathogenesis.
+pk06 | GAK: GAK is another DNAJC family protein (DNAJC26/Auxilin 2), homologous (~50%) to auxilin but expressed throughout the body (Lemmon 2001). In a meta-analysis of PD GWAS across 13, 708 patients and 95, 282 controls (Nalls et al. 2014), GAK was identified as a risk gene for PD which was confirmed in another recent largescale study (Chang et al. 2017) (Table 1). However, GAK's role in PD is still contentious due to presence of mutations in TMEM175 in a nearby independent locus, which shares the same promoter as that of GAK. What adds credence is that, like auxilin, GAK functions in clathrin un-coating by recruiting Hsc70 to CCVs (Lemmon 2001) (Figure 1C). Results show that GAK overexpression can partially compensate for loss of auxilin, which is also noted to upregulate naturally in auxilin-KO mice (Yim et al. 2010). Another similarity between auxilin and GAK has been noted in their interaction with LRRK2 (Jinn et al. 2017; Nguyen & Krainc 2018). Brain-specific loss of GAK and ubiquitous KO of GAK are both lethal (postnatal and embryonic, respectively) (Lee et al. 2008a). The inability of auxilin to compensate for GAK in these mice suggests another unique role for GAK in neurons, perhaps a significant one in dopaminergic neurons. Further TMEM175 deficiency is noted to cause PD-like a-synuclein aggregation, along with impairment of lysosomal and mitochondrial function (Jinn et al. 2017). Clarity on the role of GAK will prove to be crucial not only in establishing its involvement in PD but also in consolidating CME as the prime target in PD pathogenesis.
+7wn9 | RME-8: Receptor mediated endocytosis 8 (RME-8) or DNAJC13 is another DNAJC family co-chaperone and principally functions in regulating retromer and clathrin un-coating dynamics on endosomes (Gorenberg & Chandra 2017) (Figure 1C). RME-8 mutations (p.N855S) in autosomal-dominant PD (PARK21) was noted first in a Dutch-German- Russian family of Mennonite origin, with multiple incidences (Table 1) (Vilarino-Guell et al. 2014; Gustavsson et al. 2015). Post-mortem brains of PD patients with RME-8 mutations revealed strong immunoreactivity for Lewy bodies in the substantia nigra, along with brain areas implicated in non-motor symptoms of PD. Nigral Lewy bodies were also found to be co-localized with RME-8 (Vilarino-Guell et al. 2014). Unlike other DNAJC proteins
+wcd0 | J Neurochem. Author manuscript; available in PMC 2020 September 01.
+caos | Author Manuscript
+qrvy | Author Manuscript
+pn9j | Author Manuscript
+1pmc | Author Manuscript
+5z6q | Vidyadhara et al.
+yeoh | 3.2: Synaptojanin-1 and endophilin A: Partners in crime?
+b8hf | implicated in PD, in vitro studies have revealed that, the RME-8 mutation confers toxic gain- of-function, leading to endolysosomal cargo trafficking deficits (Norris et al. 2017). The RME-8 mutation is also predicted to affect overall endosomal trafficking, even in the soma and postsynaptic compartment (Vilarino-Guell et al. 2014), unlike the synapse-specific dysfunction predicted for auxilin. Recently, the link between RME-8 and PD has been muddied by an independent analysis of the same Mennonite family which did not find RME-8 mutations. Instead, all the affected individuals were identified to carry mutations in TMEM230 (Deng et al. 2016), which also functions in E-L system, perhaps at synapses. Hence, further studies are warranted to confirm the genetic link between RME-8 and PD. Still, evaluating the RME-8 mediated E-L system dysfunction might provide valuable insights in understanding PD.
+```
+
+OUTPUT:
+```

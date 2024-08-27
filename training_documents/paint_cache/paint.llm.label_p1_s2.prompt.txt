@@ -1,0 +1,124 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+1pjs | Paul Delaroche's Early Work in the Context of English History Painting Author(s): Stephen Bann Source: Oxford Art Journal, Vol. 29, No. 3 (2006), pp. 341-369 Published by: Oxford University Press Stable URL: https://www.jstor.org/stable/3841026 Accessed: 25-07-2023 14:17 +00:00
+o2kr | REFERENCES
+v6sk | Oxford University Press is collaborating with JSTOR to digitize, preserve and extend access to Oxford Art Journal
+1wj6 | JSTOR
+936l | This content downloaded from 46.15.71.82 on Tue, 25 Jul 2023 14:17:58 +00:00 All use subject to https://about.jstor.org/terms
+06yq | step
+dpv6 | Paul Delaroche's Early Work in the Context of English History Painting
+8r5j | The Author 2006. Published by Oxford University Press; all rights reserved.
+2taz | Paul Delaroche's Early Work in the Context of English History Painting
+o3ya | This essay presents an argument that cuts across the generally accepted view of Anglo-French artistic exchanges during the first half of the nineteenth century." It directs attention to the career of a French painter whose death in 1856 anticipated a drastic decline in a previously formidable reputation. A century and a half later, it is time to revisit the sources of Paul Delaroche's international celebrity, and in particular to review his strong connections with England, which have barely been explored up to now.2 Delaroche's Jane Grey was first shown at the Paris Salon of 1834, this being the fourth occasion since 1824 at which he had exhibited major works that featured subjects from English history. This showing also offered the occasion for a forthright article by the prominent critic, Gustave Planche, who claimed to detect a similarity - highly suspicious in his view - between Delaroche's composition in Jane Grey and a print on a similar theme from the illustrated edition of David Hume's History of England, published by Robert Bowyer in the 1790s. Planche compounded his accusation of plagiarism by pointing out that an earlier work by Delaroche, his Death of Elizabeth shown at the 1827-8 Salon, had also used a visual source from Bowyer's edition of Hume (and in this connection he might have acknowledged that Delaroche's entry for the salon catalogue actually referred the salon visitor to the particular section in Hume's history). Planche terminated his attack by issuing a challenge to future scholars to track down the genealogy of other paintings by Delaroche in comparable print sources: 'so I leave to the erudite the task of discovering the origins in engraving of the master's other compositions'.3
+r5il | The erudite have hardly been eager to take up Planche's challenge, probably because of more pressing priorities." If I begin by rehearsing Planche's remarks, this is not with the purpose of denying that Delaroche's reliance on recent English prints was indeed very considerable, but to make the claim that his very reliance betokens a more profound affiliation on his part. Born in 1797, Delaroche was the son of a noted picture dealer and expert. He was also related through his mother to the Joly family who, father and son, were in charge of the national print collection of France throughout the entire period of the Empire and Restoration.' There is no difficulty in supposing that he would have had access to the prints in the Bowyer edition of Hume, or to the numerous prints from the Boydell Shakespeare Gallery that had preceded them in stimulating English artists to produce ambitious historical paintings, but the argument needs to be pressed to a further stage. The more substantial issue is how far Delaroche might have been guided in his development by this radically new mode of history painting that the print editions of both Bowyer and Boydell had summoned into existence.
+5gui | It will be suggested here that Delaroche's role as 'choir-leader' of the new French historical school (as Heine would term him in 18316) was largely the
+82qc | OXFORD ART JOURNAL 29.3 2006 341-369
+ls7d | result of his early immersion in this new manifestation of the genre, which set out a direction very different in spirit from the traditional approach of the French Académie des Beaux-Arts, to which he was elected in 1832. In brief, the issue to be explored is not whether Delaroche consulted English print sources, overtly or sotto voce, but how far his highly influential reorientation of 'genre historique' was attuned to his awareness of the ethos and practice of the upstart Academy on the other side of the channel.
+tzt3 | This is not a possibility that has been investigated so far in any serious way, in spite of recent scholarly exploration of Anglo-French artistic exchanges over the Romantic period. Exhibitions in France and in the English-speaking world have retained their focus on those aspects of English influence that were already well acknowledged in the nineteenth century - and justifiably so. The landscapes of John Constable and the portraits of Sir Thomas Lawrence (to name only the most prominent English exponents of these two less prestigious genres) fuelled the debates of French critics from the 1820s onwards, and influenced the practice of many French painters in ways that need no underlining here. Yet what of the English historical subjects that found their way, to a great extent through Delaroche's work, into the superior genre of history painting? The recent rediscovery of a small oil sketch for the Death of Elizabeth, which will be considered later, leaves us in no doubt that, in this particular case, Delaroche's starting point was an oil sketch that juggled with the composition of Robert Smirke's Queen Elizabeth Appointing her Successor (as engraved by James Neagle in 1796 for the Hume edition). As has already been suggested, the connection with Hume was hardly disavowed by Delaroche, since he credited the historian's text in the salon livret. Yet such unequivocal evidence might seem to provide conclusive support for Planche's indictment of plagiarism, if it were not glossed by a more global interpretation of Delaroche's early development as an artist in the 1820s.
+t8vv | Yet there is little prospect of reaching such an understanding from the study of contemporary sources, whether through combing the French criticism of the period, or through focusing on the authoritative accounts of Delaroche's career that would appear after his death in 1856. Planche's accusations of plagiarism were advanced in the 1830s, and they may have played some role in influencing Delaroche's decision to withdraw from exhibiting in the Salon after 1837. They had been completely forgotten by the 1850s, but the more challenging proposition that Delaroche had immersed himself in English historical genre - that he had promoted his own career not just by copying English print sources, but by familiarising himself at first-hand with the cultural milieu in which they were produced - was not advanced at the time, and has not been investigated subsequently."
+qvnu | However, this view is far from implausible. To take one example that eluded Planche's critique, it is instructive to look at Delaroche's first major state commission, a prestigious assignment initially granted to his studio master, Baron Gros, but then diverted towards Delaroche by an official decision of February 1827 (Fig. 1). The Taking of the Trocadéro (Salon of 1827-8: Musée de Versailles) was intended to commemorate what was being acclaimed as France's successful military intervention in Spain in 1823, under the leadership of the Duc d'Angoulême, nephew of the Bourbon King, Louis XVIII, and elder son of Charles X, who was to succeed to the throne shortly afterwards. This campaign was highly important for the self-esteem of the French Government since it was
+kggw | 344 OXFORD ART JOURNAL 29.3 2006
+xrd1 | Delaroche's Early Work and English History Painting
+5746 | regarded as having reaffirmed their right to bear arms in Europe after the humiliating occupation by foreign troops that followed France's defeat at Waterloo in 1815.
+7toz | Contemporary French critics of Delaroche's painting inevitably compared this product of a young artist trained in Gros's studio with the magnificent pictorial record of warfare during the Revolution and Empire to which Gros and his fellow pupils from David's studio had valiantly contributed. Étienne Delécluze, himself a former pupil of David, commented on the nature of modern heroism as portrayed by Delaroche, which in his opinion struck a new note of 'resignation to danger'. He suggested that David himself had already begun to tread the same path in response to 'public events and the defection of taste' over the final years of the Empire. 10 Yet to assimilate Delaroche to this final phase of David's imperial patronage is perhaps to miss the wider aspect of the conjuncture that had formed connections between English history painting and the French neoclassical
+j346 | OXFORD ART JOURNAL 29.3 2006 345
+```
+
+OUTPUT:
+```

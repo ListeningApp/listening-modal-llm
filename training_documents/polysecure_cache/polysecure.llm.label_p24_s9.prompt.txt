@@ -1,0 +1,155 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+oae5 | Some of the different factors that can contribute to a child adopting an avoidant attachment style are:18
+s0fl | . Isolation through too much time alone or not enough face-to-face time with parents.
+43ia | . The absence of physical or emotional presence from caretakers.
+3g2y | . Too much emphasis on task-based presence. That is, where caregivers are only present when they are trying to educate or teach something to their child that is practical, academic or skills-based.
+gc7v | . Too little touch and affection, or what Diane Poole Heller calls "skin hunger."
+wqfv | . Emotional neglect where emotional nourishment is low or absent and par- ents are unable to effectively read the child's signals. Such parents might re- spond in insensitive ways or be completely unresponsive to the child's emo- tional states and needs.
+j30a | . Expressive dissonance, which is when someone's facial or verbal expressions
+7bdk | are mismatched with their emotional states. Someone might be laughing when they are angry or smiling when they are actually upset, which can be confusing to children (or anyone for that matter). Since children are learning how to identify and express their own emotional states through the modeling of the adults around them, a parent with expressive dissonance can create challenges in their child's ability to understand others' feelings and to express themselves in ways that are socially appropriate and authentic.
+fim0 | . Disrupted engagement with caretakers due to illnesses or other factors that interfere with either the child or the parent participating in bonding attach- ment behaviors (see the nested attachment model in Chapter Three).
+ojro | . Rejection from parents that might be ongoing, subtle or even outright aban- donment of the child and parental responsibilities.
+l6t9 | . Parents who are overly strict and controlling.
+1ujy | · Parents who might have the best intentions, but have a child who is so dif- ferent from them that they are unable to understand or connect with that child in attuned ways.
+qzor | Dismissive Attachment as an Adult
+a0by | In adulthood, the childhood avoidant style is referred to as dismissive. A person who is functioning from a dismissive style will tend to keep people at arm's length. Usually priding themselves on not needing anyone, people with this style will tend to take on an overly self-reliant outlook, valuing their hyper-independence and often seeing others as weak, needy or too dependent. Although they may present as having high self-esteem, people functioning from a dismissive attachment style often project unwanted traits onto others and inflate their sense of self to cover a relatively negative self-image. People with this attachment style have reported lower levels of relationship satisfaction, trust and commitment, 19 as well as having more negative views about sex and lower levels of sexual satisfaction when married.20
+u1ky | A person with a dismissive attachment style likely didn't get what they needed early in life from their primary caregivers, so they learned to get by and survive by
+htm9 | needing little to nothing from others. When someone grows up in a home with minimal or no emotional nourishment, it makes sense that they would deem- phasize the value and importance of relationships, and that they find it extremely difficult to be vulnerable and open with others. Oftentimes, their own painful emo- tions or experiences are placed below the radar of their emotional awareness in order to avoid the discomfort of feeling pain. This in turn creates a disconnection from their own feelings and needs. Living with a sense of chronic disconnection from themselves, others and the world, they might at times experience the longing to be close, but then feel at a total loss as to how the bridge the gap between their isolation and others, missing opportunities to receive support from their partners or to provide care to their loved ones.
+8hul | People in this attachment style do want relationships. They will enter into rela- tionships, even long-term relationships, but may struggle with their ability to reflect on their own internal experience as well as sensitively respond to the signals of their partners. They usually find it difficult to tolerate emotions related to intimacy, conflict and different forms of emotional intensity. When someone who is func- tioning in this style either feels vulnerable or perceives vulnerability in their partner, they will distance themselves to avoid discomfort. Signs of potential rejection or criticism from others will also create a quick withdrawal.
+87vz | People with the dismissive attachment style will also tend to be highly linear and logical, showing many forms of competence and ability in the practical or pro- fessional realms of life. This overdevelopment of the logical brain can also create challenges with certain aspects of autobiographical memory-people with a dis- missive attachment style might have little memory for childhood experiences, as well as simplistic narratives about their parents and childhood being "just fine."21
+ym66 | In my therapy practice, I often notice that people who are relating from the dis- missive style initially describe their parents or current romantic relationships as being great, even ideal, but just a few minutes of deeper questioning into their ac- tual childhood experiences or current relational patterns reveals that things aren't actually so perfect. This occurs because the deactivation of their attachment
+l0a3 | system has made it difficult for them to access and consistently stay in touch with their true feelings. For many, contacting and admitting one's actual feelings might be perceived as a threat to their current relationship or to the status quo of their family of origin.
+u8nw | Part of this deactivating and distancing adaptation is the dissociation from lived experience. When someone with a dismissive style starts to work on healing their insecure attachment, they must begin by no longer dismissing and distancing from themselves. This requires that they no longer deny their desires and needs, allowing the longings and wants for connection that have for so long been for- bidden. When someone functioning from a dismissive style starts to allow their at- tachment system to come back online, it can initially be a very tender, raw and even overwhelming process. The skills that come with being able to identify your own feelings are part of a developmental process that takes time. The process of allow- ing feelings as they arise, learning how to self-soothe and establishing an inner trust that experiencing feelings is safe, cannot be rushed.
+l2v9 | For the dismissive style, the journey from insecure to secure attachment is one of returning to the body through bringing feelings and sensations back to life and learning how to be with oneself in this process. Once this is established, the risk of then leaning into others, revealing one's internal world, and dismantling the self- reliant exoskeleton through asking for help and care from others can begin.
+afbe | Statements that someone with a dismissive attachment style might make:
+78r8 | . My autonomy, independence and self-sufficiency are very important to me.
+320g | . I am generally comfortable without close relationships and do well on my own.
+tp8g | . I want to be in relationships and have some closeness with people, but I can only tolerate closeness to a limit and then I need space.
+gxfd | . I prefer not to share my feelings or show a partner how I feel deep down.
+s2v1 | . I frequently don't know what I'm feeling or needing and/or I can miss cues from others about what they are feeling or needing.
+jkp9 | . I feel uncomfortable relying on partners and having partners depend or rely
+z8tt | on me.
+9g22 | · I either struggle with making relationship commitments or if I do commit, I may secretly have one foot out the door (or at least have the back door un- locked).
+41fx | . I am very sensitive to any signs that my partner is trying to control me or interfere with my freedom in any way (and I don't like the word "sensitive").
+7um8 | . I see myself or others as weak for having needs or wanting comfort, help or reassurance.
+uow2 | . During disagreements or in conflict I tend to withdraw, shut down, shut out or stonewall.
+iat7 | . I do well with the transition from being together with people to then being alone again, but once I've been alone for a while I can be slow to warm up to others or struggle with the transition from being alone to entering back into connection with someone.
+ywwr | The Anxious/Preoccupied Attachment Style
+0i6j | Anxious Attachment in Childhood
+87cq | In Ainsworth's Strange Situation Procedure, children who were classified as being anxiously attached were reluctant to play with the toys in the room even when their parent was present. They showed signs of distress and clinginess even before their parent left the room and struggled to settle down upon reunion with their care- giver. For these children, the attachment system was hyperactivated, in comparison to the deactivating of the attachment system that the avoidant style employs. Hy- peractivating the attachment system ramps up the desire for a caretaker, amplifying the child's attachment bids as a way to capture a parent's attention.
+0qs3 | Parents who are loving but inconsistent can encourage the adaptation of the anxious style. Sometimes the parent is here and available, attuned and responsive, but then other times they are emotionally unavailable, mis-attuned or even intru- sive, leaving the child confused and uncertain as to whether their parent is going to comfort them, ignore them, reward them or punish them for the very same
+z8f7 | behavior. This unpredictability can be very dys-regulating for a child who is trying to stabilize a bond with their caregiver so, in an attempt to cope, they then learn that hyperactivating their attachment system through getting louder or needier achieves the attention they need. In this scenario, the child can become dependent on their hyperactivating strategy in order to survive, fearing that if they let their at- tachment system settle and rest then their needs will never be met. This in turn can lead to a chronically activated attachment system that exaggerates threats of poten- tial abandonment, which may or may not actually be there.22
+7w7j | Some factors that can contribute to a child adopting an anxious insecure at- tachment style are:23
+51vd | . Parents who are unable to consistently co-regulate with their child, which leaves the child dependent on others to regulate their emotions, again and again turning outward to make sense of their inner feelings and unable to emotionally regulate on their own.
+baj1 | . Over-involving the child in the parent's state of mind, where the parent's emotions or state of mind is more central to the parent-child interaction than the child's. In this case, the child might be asked (whether explicitly or im- plicitly) to be responsible for meeting the parent's needs, making the parent feel better or supplying the parent with meaning and purpose. This is often due to a parent's own level of anxiety, stress or unresolved trauma, or their own anxious attachment history. When the state of mind of the parent is the centerpiece of interactions, the child is left to constantly monitor and be con- cerned about their parent's state of well-being, which can encourage a role reversal in which the child is acting more like the parent in the relationship. As a child, being responsible for a parent's well-being is a misplaced, con- fusing and overwhelming responsibility.
+n1wo | · Overstimulation. We live in an increasingly stimulating world, with fewer spa- ces to rest physically and mentally between interactions with people, tech- nology, billboards, ads and the like. Our nervous systems need breaks from such stimulation in order to develop properly, and parents can impede this
+5bq3 | process when they force constant contact, require attention or presence from a child that might be beyond their developmental capacity, hover over the child, interject themselves when the child is calmly playing independently or enjoying time with others, or even push physical boundaries through tickling or affection that is unwanted by the child in that particular moment.
+ezla | . Parents who discourage autonomy. Some parents discourage their child's agency and autonomy through comments or suggestions that insinuate, whether subtly or overtly, that the child is incapable, less than or not enough in some way. Even well-intentioned parents can question their children's ac- tions and decisions in ways that are shaming instead of encouraging. Some parents who are struggling with their own anxiety can easily get overwhelmed by children who want to explore and discourage or overprotect the child in ways that undermine their interests or abilities.
+rsbu | Preoccupied Attachment as an Adult
+magd | When used to characterize an adult, anxious attachment is called preoccupied. People with this attachment style demonstrate an intense focus and heightened concern about the level of closeness in their relationships. A defining factor of the preoccupied style is how the person's hyperactivated attachment strategy not only amplifies their attachment bids, but also intensifies their focus on their partners. Because of this, they may end up constantly monitoring their partners' level of availability, interest and responsiveness. The partner of someone with a preoc- cupied attachment style may then feel like this constant tracking of relational misat- tunements and mistakes is controlling of them. But for the person with a preoc- cupied attachment style, this behavior is less an attempt to overtly control their partner than it is a symptom of their attachment system being overly sensitive to even the slightest sign they might be left. From their perspective, they're not trying to control their partner; they're just grasping for a relationship they're afraid is slip- ping out of their hands.
+tb74 | Hyperfocus on the other can lead to a disconnection or loss of self through
+8l69 | over-functioning and over-adapting in the relationship in an attempt to maintain and preserve the connection. Frequently consumed by fears of abandonment, peo- ple functioning out of a preoccupied style will easily give up their own needs or sense of self, yielding to the needs or identity of their partner in order to ensure proximity and relationship security. Due to their history of unpredictable and inconsistent love, they can have considerable challenges with trusting that their partners truly love them. They may frequently fall into self-critical and self-doubting loops, questioning if they are truly worthy enough to receive their partner's love. They often have a hard time fully taking in the love they so desperately want, even when it is given. People functioning from this style tend to jump into relationships or bond very quickly with people. Often idealizing their partners, they may confuse anxiety and intensity for being in love, hearing and seeing only what they want to see and missing potential red flags. They may not allow enough time to get to know someone beyond the honeymoon phase in order to assess if this person, and the relationship, are truly a good fit.
+1jyv | A person with a preoccupied style can be uncomfortable, even terrified, of being alone. They often promote their own dependency on their partners (or they might promote their partners' dependency on them) in a way that discourages doing things separately from each other. Engaging in compulsive caretaking can also become a way to prevent the discomfort of feeling lonely and enhance the per- ceived security of not being abandoned. Even though people with this style tend to sacrifice themselves for the relationship, the ways in which they are preoccupied and compulsively give care are not necessarily attuned. In such cases, the care- giving is more of a strategy to keep a person close than an actual response to what their partner genuinely needs. If someone with this attachment style perceives even the slightest possibility that their partner is disconnected or disinterested, they can become demanding, possessive or needy for approval, reassurance, connection, contact, and greater emotional or sexual intensity.
+olce | From their partner's perspective, the needs of the person with the preoccupied attachment style may seem insatiable. The partner may feel they can never do
+erx1 | enough, which can in turn create the very pulling away or even breaking up that the person with the preoccupied style is so desperate to avoid. Compared to people with a more secure attachment style, people with the preoccupied style report in- creased jealousy and relationship conflict,24 as well as feelings of ambivalence about their sex life, since they are less likely to use consistent contraception and more likely to engage in sex they don't fully want. 25
+```
+
+OUTPUT:
+```

@@ -1,0 +1,170 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+f682 | We propose three predictive approaches towards optimally setting model size and training dura- tion, based on the outcome of over 400 training runs. All three approaches predict that Gopher is substantially over-sized and estimate that for the same compute budget a smaller model trained on more data will perform better. We directly test this hypothesis by training Chinchilla, a 70B parameter model, and show that it outperforms Gopher and even larger models on nearly every measured evaluation task.
+li1k | Whilst our method allows us to make predictions on how to scale large models when given additional compute, there are several limitations. Due to the cost of training large models, we only have two comparable training runs at large scale (Chinchilla and Gopher), and we do not have additional tests at intermediate scales. Furthermore, we assume that the efficient computational frontier can be described by a power-law relationship between the compute budget, model size, and number of training tokens. However, we observe some concavity in log (Nopt) at high compute budgets (see Appendix E). This suggests that we may still be overestimating the optimal size of large models. Finally, the training runs for our analysis have all been trained on less than an epoch of data; future work may consider the multiple epoch regime. Despite these limitations, the comparison of Chinchilla to Gopher validates our performance predictions, that have thus enabled training a better (and more
+pbea | 15
+ccpt | lightweight) model at the same compute budget.
+0fpw | Though there has been significant recent work allowing larger and larger models to be trained, our analysis suggests an increased focus on dataset scaling is needed. Speculatively, we expect that scaling to larger and larger datasets is only beneficial when the data is high-quality. This calls for responsibly collecting larger datasets with a high focus on dataset quality. Larger datasets will require extra care to ensure train-test set overlap is properly accounted for, both in the language modelling loss but also with downstream tasks. Finally, training for trillions of tokens introduces many ethical and privacy concerns. Large datasets scraped from the web will contain toxic language, biases, and private information. With even larger datasets being used, the quantity (if not the frequency) of such information increases, which makes dataset introspection all the more important. Chinchilla does suffer from bias and toxicity but interestingly it seems less affected than Gopher. Better understanding how performance of large language models and toxicity interact is an important future research question.
+dqn8 | While we have applied our methodology towards the training of auto-regressive language models, we expect that there is a similar trade-off between model size and the amount of data in other modalities. As training large models is very expensive, choosing the optimal model size and training steps beforehand is essential. The methods we propose are easy to reproduce in new settings.
+cop0 | 6. Acknowledgements
+lhkq | References
+82ju | 16
+y2qo | T. Hennigan, T. Cai, T. Norman, and I. Babuschkin. Haiku: Sonnet for JAX. 2020. URL http: //github.com/deepmind/dm-haiku.
+1piq | 17
+7fqw | D. Hernandez, J. Kaplan, T. Henighan, and S. McCandlish. Scaling laws for transfer, 2021.
+rhaz | P. Lewis, E. Perez, A. Piktus, F. Petroni, V. Karpukhin, N. Goyal, H. Küttler, M. Lewis, W .- t. Yih, T. Rocktäschel, S. Riedel, and D. Kiela. Retrieval-augmented generation for knowledge-intensive nlp tasks. In Advances in Neural Information Processing Systems, volume 33, pages 9459-9474, 2020.
+wak1 | 18
+wtfz | O. Lieber, O. Sharir, B. Lenz, and Y. Shoham. Jurassic-1: Technical details and evaluation. White Paper. AI21 Labs, 2021.
+qy1i | S. Rajbhandari, J. Rasley, O. Ruwase, and Y. He. Zero: Memory optimizations toward training trillion parameter models. In SC20: International Conference for High Performance Computing, Networking, Storage and Analysis, pages 1-16. IEEE, 2020.
+1k9e | 19
+5bjs | H. Robbins and S. Monro. A Stochastic Approximation Method. The Annals of Mathematical Statistics, 22(3):400-407, Sept. 1951.
+uodj | L. Weidinger, J. Mellor, M. Rauh, C. Griffin, J. Uesato, P .- S. Huang, M. Cheng, M. Glaese, B. Balle, A. Kasirzadeh, Z. Kenton, S. Brown, W. Hawkins, T. Stepleton, C. Biles, A. Birhane, J. Haas, L. Rimell, L. A. Hendricks, W. Isaac, S. Legassick, G. Irving, and I. Gabriel. Ethical and social risks of harm from language models. arXiv submission, 2021.
+k16v | 20
+b2lm | 21
+ti7f | Appendix
+oksu | A. Training dataset
+wtow | In Table A1 we show the training dataset makeup used for Chinchilla and all scaling runs. Note that both the MassiveWeb and Wikipedia subsets are both used for more than one epoch.
+o22k | Table A1 | MassiveText data makeup. For each subset of MassiveText, we list its total disk size, the number of documents and the sampling proportion used during training-we use a slightly different distribution than in Rae et al. (2021) (shown in parenthesis). In the rightmost column show the number of epochs that are used in 1.4 trillion tokens.
+nwfz | B. Optimal cosine cycle length
+nvfy | One key assumption is made on the cosine cycle length and the corresponding learning rate drop (we use a 10x learning rate decay in line with Rae et al. (2021)).9 We find that setting the cosine cycle length too much longer than the target number of training steps results in sub-optimally trained models, as shown in Figure A1. As a result, we assume that an optimally trained model will have the cosine cycle length correctly calibrated to the maximum number of steps, given the FLOP budget; we follow this rule in our main analysis.
+mror | C. Consistency of scaling results across datasets
+zlxc | We show scaling results from an IsoFLOP (Approach 2) analysis after training on two different datasets: C4 (Raffel et al., 2020b) and GitHub code (we show results with data from Rae et al. (2021)), results are shown in Table A2. For both set of experiments using subsets of MassiveText, we use the same tokenizer as the MassiveText experiments.
+k0bw | We find that the scaling behaviour on these datasets is very similar to what we found on MassiveText, as shown in Figure A2 and Table A2. This suggests that our results are independent of the dataset as long as one does not train for more than one epoch.
+aq5a | 22
+sc5y | Figure A1 | Grid over cosine cycle length. We show 6 curves with the cosine cycle length set to 1, 1.1, 1.25, 1.5, 2, and 5x longer than the target number of training steps. When the cosine cycle length is too long, and the learning rate does not drop appropriately, then performance is impaired. We find that overestimating the number of training steps beyond 25% leads to clear drops in performance. We show results where we have set the number of training steps to two different values (top and bottom).
+0yab | Figure A2 | C4 and GitHub IsoFLOP curves. Using the C4 dataset (Raffel et al., 2020b) and a GitHub dataset (Rae et al., 2021), we generate 4 IsoFLOP profiles and show the parameter and token count scaling, as in Figure 3. Scaling coefficients are shown in Table A2.
+w95z | 23
+0i1k | Table A2 | Estimated parameter and data scaling with increased training compute on two al- ternate datasets. The listed values are the exponents, a and b, on the relationship Nopt & Cª and Dopt & Cb. Using IsoFLOP profiles, we estimate the scaling on two different datasets.
+dqlg | D. Details on the scaling analyses
+p6pq | D.1. Approach 1: Fixing model sizes and varying training sequences
+zse6 | We use a maximum learning rate of 2 x 10-4 for the smallest models and 1.25 x 10-4 for the largest models. In all cases, the learning rate drops by a factor of 10x during training, using a cosine schedule. We make the assumption that the cosine cycle length should be approximately matched to the number of training steps. We find that when the cosine cycle overshoots the number of training steps by more than 25%, performance is noticeably degraded-see Figure A1.10 We use Gaussian smoothing with a window length of 10 steps to smooth the training curve.
+p2n3 | D.2. Approach 3: Parametric fitting of the loss
+ohh7 | In this section, we first show how Equation (2) can be derived. We repeat the equation below for clarity,
+vbni | Î(N,D) ^ E + E+ M + B (5)
+dgcw | based on a decomposition of the expected risk between a function approximation term and an optimisation suboptimality term. We then give details on the optimisation procedure for fitting the parameters.
+gvwz | Loss decomposition. Formally, we consider the task of predicting the next token y E y based on the previous tokens in a sequence x e ys, with s varying from 0 to Smax-the maximum sequence length. We consider a distribution P & D(X x y) of tokens in y and their past in X. A predictor f : X -> D(y) computes the probability of each token given the past sequence. The Bayes classifier, f*, minimizes the cross-entropy of f(x) with the observed tokens y, with expectation taken on the whole data distribution. We let L be the expected risk
+sk5m | L(f) E[log f(x)y], and set f* ^ argmin L(f). feF(X,D(y)) (6)
+qws8 | The set of all transformers of size N, that we denote HN, forms a subset of all functions that map sequences to distributions of tokens X -> D(y). Fitting a transformer of size N on the expected risk L(f) amounts to minimizing such risk on a restricted functional space
+877u | fn + argmin L(f). feHN (7)
+rzhj | When we observe a dataset (Xi, Yi)iie[1,p] of size D, we do not have access to Ep, but instead to the empirical expectation Êp over the empirical distribution Pp. What happens when we are given D
+bfax | 24
+f2y8 | datapoints that we can only see once, and when we constrain the size of the hypothesis space to be N-dimensional ? We are making steps toward minimizing the empirical risk within a finite-dimensional functional space HN:
+o7qm | ÎD(f)ªÊp[logf(x)y], setting ÎN,D + argmin LD(f). fEHN
+d52l | (8)
+qlbb | We are never able to obtain fw,D as we typically perform a single epoch over the dataset of size D. Instead, be obtain fw,D, which is the result of applying a certain number of gradient steps based on the D datapoints-the number of steps to perform depends on the gradient batch size, for which we use well-tested heuristics.
+nhsg | Using the Bayes-classifier f*, the expected-risk minimizer fw and the "single-epoch empirical-risk minimizer" fN,D, we can finally decompose the loss L(N, D) into
+hy0l | L(N,D)AL(JN,D) =L(f*)+(L(fN) -L(f*)) + (L(FN,D) -L(fN)) . (9)
+4jmz | The loss comprises three terms: the Bayes risk, i.e. the minimal loss achievable for next-token prediction on the full distribution P, a.k.a the "entropy of natural text."; a functional approximation term that depends on the size of the hypothesis space; finally, a stochastic approximation term that captures the suboptimality of minimizing LD instead of L, and of making a single epoch on the provided dataset.
+b7cq | Expected forms of the loss terms. In the decomposition (9), the second term depends entirely on the number of parameters N that defines the size of the functional approximation space. On the set of two-layer neural networks, it is expected to be proportional to -1 (Siegel and Xu, 2020). Finally, given that it corresponds to early stopping in stochastic first order methods, the third term should scale as the convergence rate of these methods, which is lower-bounded by i (Robbins and Monro, 1951) (and may attain the bound). This convergence rate is expected to be dimension free (see e.g. Bubeck, 2015, for a review) and depends only on the loss smoothness; hence we assume that the second term only depends on D in (2). Empirically, we find after fitting (2) that
+0b39 | L(N,D) = E+ NO.34 + B D0.28' (10)
+qecd | with E = 1.69, A = 406.4, B = 410.7. We note that the parameter/data coefficients are both lower than 2; this is expected for the data-efficiency coefficient (but far from the known lower-bound). Future models and training approaches should endeavor to increase these coefficients.
+1o7p | Fitting the decomposition to data. We effectively minimize the following problem
+cp13 | a,b,e,«,ß min Run i Hubers LSE(a - a log Ni, b - ß log Di, e) - log Li), (11) where LSE is the log-sum-exp operator. We then set A, B, E = exp(a), exp(b), exp(e).
+bgre | We use the LBFGS algorithm to find local minima of the objective above, started on a grid of initialisation given by: a € {0., 0.5, . . . , 2.}, { € {0., 0.5, . . . , 2.}, e € {-1., -. 5, . . . , 1.}, a € {0, 5, . . . , 25}, and b € {0, 5, . .. , 25}. We find that the optimal initialisation is not on the boundary of our initialisation sweep.
+57lp | We use 8 = 10-3 for the Huber loss. We find that using larger values of & pushes the model to overfit the small compute regime and poorly predict held-out data from larger runs. We find that using a & smaller than 10-3 does not impact the resulting predictions.
+ukth | 25
+kpvt | D.3. Predicted compute optimal frontier for all three methods
+jie2 | For Approaches 2 and 3, we show the estimated model size and number of training tokens for a variety of compute budgets in Table A3. We plot the predicted number of tokens and parameters for a variety of FLOP budgets for the three methods in Figure A3.
+d0ik | Table A3 | Estimated optimal training FLOPs and training tokens for various model sizes. Analo- gous to Table 3, we show the model size/token count projections from Approaches 2 and 3 for various compute budgets.
+0x0s | Figure A3 | Optimal number of tokens and parameters for a training FLOP budget. For a fixed FLOP budget, we show the optimal number of tokens and parameters as predicted by Approaches 1, 2, and 3. For an alternate representation, see Figure 1.
+4exe | D.4. Small-scale comparison to Kaplan et al. (2020)
+```
+
+OUTPUT:
+```

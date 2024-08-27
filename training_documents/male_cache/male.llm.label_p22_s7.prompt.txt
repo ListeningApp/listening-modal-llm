@@ -1,0 +1,145 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+ukth | i) Spermatogonia proliferate to give rise to spermatocytes and simultaneously maintain their number by renewal.
+kpvt | ii) Spermatocytes prepare for and undergo the complex maturation divisions of meiosis that reduce the chromosome number of the germ cells by half.
+jie2 | iii) Spermatids, the product of the maturation divisions, undergo a remarkable metamorphosis, called spermiogenesis, which leads to the production of spermatozoa.
+d0ik | 4.22
+0x0s | boo
+4exe | a) Proliferative Phase: Unlike the situation in the female, in which a full complement of oocytes is present in the ovary at birth, the production of generation after generation of meiotic spermatocytes in the male requires a means to replace the spermatogonia or stem cells.
+0myz | i) Several spermatogonial types have been described in man: Spermatogonial stem cells type Ad (dark) and type Ap (pale), and Type B spermatogonia. According to Clermont (1966), one member of a pair of type Ad spermatogonia divides to give rise to a pair of new type Ad cells, while the other member of the original pair of Ad divides to yield a pair of more differentiated type Ap spermatogonia. Thus, it is thought that the type Ad spermatogonia not only serve as a precursor for type Ap, but also eventually serve as the ancestor (i.e., stem cell) of a later generation of sperm.
+xh3i | ii) The type Ap spermatogonia divides by mitosis to give rise to two type B spermatogonia, a subset of which further divide to produce the preleptotene spermatocytes that enter meiosis.
+syiw | b) Meiotic Phase (Summarized here)
+kg3t | i) The diploid type B spermatogonia, which are also diploid (i.e., 2N) in terms of DNA content and chromosome number, divide by mitosis to give rise to a new generation of cells: the primary spermatocytes.
+lvae | 4.23
+o9sc | WE
+121u | appoin
+zh03 | ii) The primary spermatocytes initially have double the amount of DNA (i.e., tetraploid or 4N) but remain diploid in terms of chromosome number (see Figure 11).
+1mvw | iii) The primary spermatocytes then go through the preleptotene, leptotene, zygotene, and pachytene steps of the long prophase of the first maturation division of meiosis.
+6d4s | iv) Following a short diplotene phase, the primary spermatocytes complete the first maturation division through metaphase, anaphase, and telophase to give rise to secondary spermatocytes (which are haploid, but contain 2N amount of DNA since they are double-stranded chromosomes).
+mqah | v) The secondary spermatocytes then quickly proceed through the second maturation division of meiosis to yield haploid spermatids containing 1N amount of DNA.
+xxr8 | 4.24
+rl4j | 7) Spermiogenesis is the process of differentiation of the round spermatid to undergo morphological changes to develop an acrosome and flagella and to undergo nuclear condensation and extrusion of the cytoplasm.
+vz32 | a) Round Spermatids: As the spermatid matures it elongates, develops a tail or flagellum, and assumes a configuration similar to that of the mature spermatozoon. Very few spermatozoa are present in histological sections of the testis because as soon as they mature, the sperm are released into the seminiferous tubular lumen and rapidly flow out to the rete testis. The spermatid contains a prominent round nucleus, a Golgi apparatus, a set of centrioles, and numerous mitochondria (Figure 12). These organelles, with the aid of the Sertoli cell, will undergo architectural changes that will transform the spermatid into the mature spermatozoon
+ncb0 | Figure 13. A Review of Acrosome Biogenesis and the Proteins That Play Key Roles in This Process. During the biogenesis of the acrosome, the endoplasmic reticulum processes some of the proteins needed, and there is vesicle trafficking from the Golgi apparatus. These vesicles fuse to form the precursor of the acrosome. The inner acrosomal membrane interacts with the acroplaxome. The acroplaxome interacts with the outer and inner nuclear membranes. Proteins required for these steps are shown above, and when absent or non-functional lead to globozoospermia. The absence of SPACA1, which interacts with the acroplaxome, and DYP19L2, which interacts with the nuclear membrane, result in the absence of the nuclear dense lamina. The genes involved and their abbreviations are: protein interacting with PRKCA 1 (PICK1); golgi-associated PDZ and coiled-coil motif containing (GOPC); casein kinase 2, alpha prime polypeptide (CSNK2a2); autophagy related 7 (ATG7); small AGAP 2 (SMAP2); TATA element modulatory factor 1 (TMF1 or ARA160); zona pellucida binding protein (ZPBP or ZPBP1); vacuolar protein sorting 54 (VSP54); ArfGAP with FG repeats 1 (HRB), sperm acrosome associated 1 (SPACA1); heat shock protein 90 kDa beta 1 (HSP90b1); glucosidase, beta (bile acid) 2 (GBA2).
+8mp0 | i) During the first stage of spermiogenesis, large acrosomal vesicles are elaborated by the Golgi apparatus (Figure 12A). Other than the nucleus, the acrosomal vesicle soon becomes the most prominent cytoplasmic inclusion within the spermatid. The acrosomal vesicle migrates to one pole of the nucleus, and the centrioles move to the opposite end of the nucleus (Figure 12C). The acrosomal vesicle will eventually become the acrosomal cap of the sperm. The molecular controls of this process involve the proper functioning of a large number of different proteins at every stage of acrosome biosynthesis (Figure 13). When one of these proteins described
+xjyk | 4.25
+mt0f | in Figure 13 are dysfunctional, teratozoospermia occurs, specifically round-headed sperm/ globozoospermia due to the absence of the acrosome or acrosome atrophy or displacement.
+awab | ii). Nuclear condensation: Surprisingly little research has been performed to fully understand the events required for the elongation and condensation of the spermatid nucleus. The acroplaxome, which consists of a bent plate and marginal ring encircling the spermatid nucleus, is key in this process. It serves to anchor the developing acrosome to the spermatid nucleus. The manchette also plays an important role in this process. The manchette surrounds the elongating spermatid head and is only present at the time of spermatid head shaping and tail formation. It is composed of a perinuclear ring and an attached fringe of microtubules. In humans it is proposed that the apical portion of the sperm head is driven by the actions of the acroplaxome and F-actin hoops located within the Sertoli cell, together with the transient manchette. The microtubules of the manchette are nucleated from the centrioles (located more caudally) and attached to the perinuclear ring to form a grass-like structure required for nuclear shaping. Proper sperm chromatin remodeling during spermiogenesis is of key importance. Herein the chromatin remodeling involves the replacement of histones by histone variants, hyperacetylation, by transient DNA strand breaks with associated DNA repair and replacement of the histones by the transition proteins, and finally by the highly basic protamines. The condensed chromatin of the elongating spermatid are transcriptionally inactive, as is the chromatin in the mature sperm (See Hao, Ni, & Yang, 2019, for a review of this process).
+ixcc | iii). Flagellar Formation: One of the centrioles begins to elongate to form the core of the flagellum (Figure 12A). As the centriole elongates, it begins to push the cytoplasm away from the nucleus. The centriole continues to extend out away from the nucleus to form the flagellum, and in the process, it constantly pulls most of the cytoplasmic inclusions away from the nucleus (Figure 12E). The inactive centriole (proximal centriole) remains intact and will be present in the neckpiece of the mature sperm. As the cytoplasm spreads away from the nucleus and acrosomal cap, the mitochondria are sequestered at the base of the flagellum (Figure 12F). The acrosomal region of the head will soon be devoid of any cytoplasmic inclusions. Excess cytoplasm, which now resides primarily in the area of the neckpiece, is cast off and phagocytized by the Sertoli cell. A remnant of the cytoplasm, the cytoplasmic droplet (Figure 12G), is sometimes seen on sperm during the semen analysis, and an excess of these droplets may indicate immature sperm in the ejaculate.
+8p6h | b) Spermiation: The last stage of sperm maturation and release is called spermiation (Figure 14) and is the process of non-motile spermatozoa leaving the Sertoli cell and being deposited into the lumen of the seminiferous tubules. It has been suggested that phagocytosis of residual bodies, representing the remnants of spermatid cytoplasm, by Sertoli cells may trigger the spermatogonia to initiate a new cycle of spermatogenesis.
+pmgl | c) The Cycle of Spermatogenesis: In man, the entire sequence of spermatogenesis from spermatogonia to spermatozoa takes about 64 days (Heller, 1963). The individual resting spermatogonia do not wait until one wave of spermatogenesis is complete before initiating a new sequence, nor do they initiate the process of spermatogenesis at random. The starting of a new generation of germ cells is connected in a definite manner with the development of the preceding generation.
+90no | 4.26
+jt0y | Figure 15. Diagram illustrating the Cycle of the Seminiferous Epithelium in humans. Keel 2006 after Huckins, 1983.
+qb7o | These groupings of cells are known as stages in the cycle of the seminiferous epithelium (Clermont, 1963). There are six stages in humans-stages I through VI constitute one cycle. Groups of adjacent resting spermatogonia initiate a new cycle about every <LATEX>1 6 + 1</LATEX> days (Figure 15). When the primary spermatocytes of one cycle enter prophase, a second cycle is activated. A third cycle begins at about the time the spermatids from the first cycle appear. By the time these spermatids mature into spermatozoa, a fourth cycle begins. Around the circumference of any single seminiferous tubule, and throughout the testis, several of these cycles may be in the process simultaneously.
+oae5 | Approximately four cycles of the epithelium are required for a type Ap spermatogonia to mature to the spermatozoon. Thus, one cycle of seminiferous epithelium lasts 16 days, and the entire process of spermatogenesis is estimated at 64 days (4 cycles times 16 days each; Heller & Clermont, 1963).
+s0fl | 4.27
+43ia | 9) MATURE SPERM ANATOMY AND MOTILITY
+3g2y | Spermatozoa have a very precise and limited function-to carry genetic material from the male to the oocyte. In order to do this, sperm must pass through the vagina, cervix, uterus, and oviduct, and then penetrate the oocyte and its surrounding vestments. Mammalian sperm are therefore highly specialized cells lacking ribosomes, nucleoli, rough endoplasmic reticulum, and Golgi apparatus; they do not synthesize RNA (not transcriptionally active) or protein, and do not secrete. The cellular organelles that are retained in spermatozoa are modified and arranged to allow for its primary function-forward progression (motility) to bring the packet of DNA to the oocyte.
+gc7v | Figure 16. Illustration of the Structure of the Mature Spermatozoa. Sperm flagellum is divided into a mid-piece, a principal piece, and an end-piece; the figure depicts the cross-section of each structure of the flagella. The annulus is a ring structure demarcating the mid-piece and the principal piece of the sperm tail. The axoneme is a highly evolutionarily conserved structure present in the whole flagellum. The view of the axoneme from a transverse view shows the general location of each component. The mid-piece features a helical mitochondrial sheath surrounding the axoneme. The midpiece is replaced by the fibrous sheath in the principal piece. The terminal piece of the flagella (end- piece) lacks any peri-axonemal structures. The approximate location of the key proteins known to be defective in some cases of sperm function deficiencies (See Chapter 15 on Reproductive Genetics) include the following proteins DNAH1, CFAP43, CFAP44, AK7, AKAP3, AKAP4, CEP135. Abbreviations: RSs: radial spokes; CPMA: central pair microtubule apparatus; IC/LC: intermediate chain/light chain; N-DRC: nexin-dynein regulatory complex; MIA: modifier of inner arms complex; CSC: calmodulin- and spoke associated complex; DP: distal protrusion; MS: mitochondrial sheath; FS: fibrous sheath; IADs: inner arm dyneins; OADs: outer arm dyneins (Adapted from Coutton, Escoffier, Martinez, Arnoult, & Ray, 2015; Wang et al., 2019).
+wqfv | 4.28
+j30a | 10) Sperm Anatomy and Motility (see Figures 16, 17)
+7bdk | a) Head - The genetic material transported by the spermatozoa is located in the nucleus of the head region. The nuclear chromatin is densely packed and homogeneous. Sperm nuclei contain either the X or Y chromosome. It is therefore the male gamete that determines the sex of the offspring. The head region also contains the acrosome, which covers a large portion of the nucleus like a cap. The acrosome contains hydrolytic enzymes that, upon release (the acrosome reaction), function in the penetration of the cumulus and zona pellucida surrounding the egg and facilitate fertilization. The absence of the acrosome (a genetic defect) is termed "round-headed sperm" or globozoospermia (See Chapter 14 for details).
+fim0 | b) Neck - also called the connecting piece. At the base of the nucleus is the proximal centriole (CEP135 is a gene encoding a key protein in this structure), followed by an atypical distal centriole and the axoneme, which are all located in the connecting piece.
+ojro | c) Midpiece - contains the mitochondria (mitochondrial sheath), which is the main machinery for trapping, conserving, and supplying the energy needed for motility. Also, the beginning of the axoneme, which makes up the flagellum.
+l6t9 | d) Principal Piece and End Piece - The flagellum of the tail of the spermatozoon. It is surrounded by a dense fibrous sheath.
+1ujy | 11) Sperm Motility Characteristics
+```
+
+OUTPUT:
+```

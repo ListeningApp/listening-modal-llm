@@ -1,0 +1,176 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+1pjs | ELSEVIER
+o2kr | Research review paper
+v6sk | Using machine learning approaches for multi-omics data analysis: A review Parminder S. Reel ª,1, Smarti Reel ª,1, Ewan Pearsona, Emanuele Trucco b, Emily Jefferson a,*
+1wj6 | ARTICLE INFO
+936l | Keywords: Multi-omics Machine Learning Predictive Modelling Supervised Learning Unsupervised Learning Systems Biology
+06yq | 1. Introduction
+dpv6 | Digital information is growing rapidly, in terms of five V's (volume, velocity, veracity, variety and value), and hence this is hailed as the big data era (BCS, 2014; Bellazzi, 2014; Lee and Yoon, 2017). Health-based big data including linked information for patients, such as their clinical data (for example gender, age, pathological and physiological history) and omics data (such as genetics, proteomics and metabolomics) has now become more widely available (Canuel et al., 2015; Singhal et al., 2016). Recently, such data has been used for precision (also called personalised or stratified) medicine to provide customised healthcare, i.
+8r5j | journal homepage: www.elsevier.com/locate/biotechadv
+2taz | Biotechnology Advances 49 (2021) 107739
+o3ya | Contents lists available at ScienceDirect Biotechnology Advances
+r5il | ABSTRACT
+5gui | With the development of modern high-throughput omic measurement platforms, it has become essential for biomedical studies to undertake an integrative (combined) approach to fully utilise these data to gain insights into biological systems. Data from various omics sources such as genetics, proteomics, and metabolomics can be integrated to unravel the intricate working of systems biology using machine learning-based predictive algo- rithms. Machine learning methods offer novel techniques to integrate and analyse the various omics data enabling the discovery of new biomarkers. These biomarkers have the potential to help in accurate disease prediction, patient stratification and delivery of precision medicine. This review paper explores different inte- grative machine learning methods which have been used to provide an in-depth understanding of biological systems during normal physiological functioning and in the presence of a disease. It provides insight and rec- ommendations for interdisciplinary professionals who envisage employing machine learning skills in multi-omics studies.
+82qc | e. providing a bespoke treatment for individuals (Gibson et al., 2015; Kalaitzopoulos, 2016; Malod-Dognin et al., 2017). There has been un- precedented growth in the development of precision medicine sup- ported by ML (machine learning) approaches (Delavan et al., 2017; Peterson et al., 2013; Zou et al., 2017) and data mining tools (Chawla and Davis, 2013; Cheng et al., 2015; Margolies et al., 2016). These techniques have also helped to discover novel omics biological markers which can identify the molecular cause of a disease.
+ls7d | A biomarker is a substance, structure, or process that can be measured in the human body or its products and can provide surrogate information about the presence of a disease/condition (Strimbu and
+tzt3 | Table 1 The omics technologies which help us draw a complete picture of cell biology and related function.
+t8vv | Omic name Term coined in
+qvnu | Data extracted
+kggw | Commonly used High-throughput technologies
+xrd1 | Genomics 1986 (Kuska, 1998)
+5746 | Single nucleotide polymorphisms, Rare variants and Copy number variations.
+7toz | DNA-Sequencing (Sanger (Sanger et al., 1977), Whole-genome (Huang et al., 2017a), Whole- exome (Weisz Hubshman et al., 2018), Single- Cell DNA (Zhang et al., 2019a) and targeted sequencing (Bewicke-Copley et al., 2019)), Microarray (Bumgarner, 2013).
+j346 | Transcriptomics
+v8uq | 1999 ("Proteomics,
+x972 | Messenger, Micro and Long non-coding RNA expression.
+cwrw | RNA-Sequencing (Sanger (Alidjinou et al., 2017), Single-Cell RNA (Hwang et al., 2018) and targeted sequencing (Mercer et al., 2012)), Microarray (Zhao et al., 2014). Reverse Phase Protein Array (Boellner and Becker, 2015), Liquid Chromatography - Mass Spectrometry (Karpievitch et al., 2010) and Mass Spectrometry (Timp and Timp, 2020)
+4i0e | transcriptomics,",
+h2l3 | 1999)
+dfzb | Metabolite expression Mass Spectrometry (Glaves et al., 2014), Liquid Chromatography - Mass Spectrometry (Zhou et al., 2012), Gas Chromatography - Mass Spectrometry (Fiehn, 2016). Liquid Chromatography - Mass Spectrometry (Li et al., 2020), High-performance Liquid Chromatography - Mass Spectrometry ( Knittelfelder et al., 2014) and Direct-Infusion/ Shotgun - Mass Spectrometry (Köfeler et al., 2012).
+u6ty | 2011)
+awvu | 5 Lipidomics 2003 (Wang et al., 2016)
+on9b | Lipids
+a8ge | Glycomics 1990 (Vasta and Ahmed, 2008)
+h27a | Glycomes
+pdjh | Matrix-Assisted Laser Desorption/Ionization Time-of-Flight - Mass Spectrometry (Zhang et al., 2019b). Target Gene Sequencing, Shotgun Metagenome Sequencing, Metatranscriptome Sequencing ( Zhou et al., 2015)
+xmgs | Metagenomics
+bd9h | 1998 (Handelsman
+m047 | Genetic data from environmental (soil, water) samples.
+gy8c | et al., 1998)
+y4mj | Tavel, 2010). Molecular biomarkers are discovered by analysing the cascade of information provided by different omics (Debnath et al., 2010). For example, the high-sensitivity C-Reactive protein test provides an accurate and quantitative risk assessment for cardiovascular disease (Pfützner and Forst, 2006; Shrivastava et al., 2015). Biomarkers play a significant role in planning preventive measures and decisions for pa- tients (Nielsen, 2017) and can be classified as either diagnostic, prognostic or predictive (Le et al., 2016; Shaw et al., 2015). Diagnostic biomarkers are used for determining the presence of disease in a patient, while prog- nostic biomarkers provide information on the overall outcome with or without the standard treatment (Carlomagno et al., 2017). Predictive biomarkers are used to identify who is at risk of an outcome (Nalejska et al., 2014). All of these biomarkers can also be used to identify which treatment will be most suitable for a given patient. For example, the ADNI (Alzheimer's Disease Neuroimaging Initiative) study used a combination of neuroimaging, biochemical and genetic biomarkers to discriminate early Alzheimer's patients from healthy volunteers with an accuracy of 98% (Gupta et al., 2019). Similarly, different forms of Par- kinson's syndromes have been investigated by developing an automated tool that fuses multi-site diffusion-weighted MRI imaging biomarkers and disease rating score (MDS-UPDRS III) (Archer et al., 2019). Bio- markers can help identify high-risk individuals before their physiolog- ical symptoms are evident. Moreover, they also help in measuring disease progression (Mandel et al., 2010).
+vpgq | In the context of precision medicine, ML has been used to develop diagnostic, prognostic and predictive tools from single omics data (Dias- Audibert et al., 2020; Mamoshina et al., 2018; Sonsare and Gunavathi, 2019). However, ML may have deteriorated performance for certain single omics such as gene data due to inherent characteristics (Kim et al., 2020). ML methods are now also being applied to multi-omics data (Bersanelli et al., 2016), to investigate and interpret the relationships
+ousl | between data and phenotypes (Kim and Tagkopoulos, 2018). Although ML analysis of multi-omics is still in its embryonic stage, it has already been explored for a wide range of applications, as reported in recent reviews on brain diseases (Garali et al., 2018; Young et al., 2013), dia- betes (Kavakiotis et al., 2017), cancers (Borad and LoRusso, 2017; Chaudhary et al., 2017; Wong et al., 2016) cardiovascular disease (Weng et al., 2017), medical imaging (Erickson et al., 2017), single-cell analysis in humans (Cao et al., 2020; Ma et al., 2020a) and plant science studies (Acharjee et al., 2011). Currently, many of the multi-omic reviews are focused on individual sub-topics. For example, designing studies (Haas et al., 2017; Hasin et al., 2017), setting up workflows (Kohl et al., 2014), choosing software tools (Misra et al., 2019) and evaluating overfitted performance (McCabe et al., 2020).
+m4ju | In contrast, this review aims at a broader focus, presenting an interdisciplinary perspective to new readers in this domain by providing a background on multi-omics and ML. It takes forward the integration terminologies introduced by Ritchie (Ritchie et al., 2015) and summa- rises the recent integrative state-of-the-art approaches. We aim to cover various integration methods concisely and include a recommendation flowchart enabling interdisciplinary scientists to have a quick head start in this domain (Bersanelli et al., 2016; Nguyen and Wang, 2020).
+a0mb | Scope of this review: This review investigates the two primary learning strategies in ML, i.e. supervised and unsupervised, which are commonly used within the context of multi-omics integration. This re- view considers multi-omics integration as a process of combining different single omics. Although various ML specialisations such as reinforcement (Coronato et al., 2020), hybrid (Zhou et al., 2019), multi-view (Zhao et al., 2017) and self-supervised learning (Chen et al., 2019) are now emerging in generic healthcare applications, they have not yet gained enough momentum in multi-omics analysis, hence they remain beyond the scope of this review.
+ki8m | Biotechnology Advances 49 (2021) 107739
+km8w | Common Reference Recent databases reviews
+wzno | DDBJ (Tateno et al., 2002), GenBank (Benson et al., 2011), ENA ( Leinonen et al., 2011)
+xagm | (Reuter et al., 2015)
+iwn5 | (Lowe et al., 2017)
+uooz | Rfam (Kalvari et al., 2018) HPA (Uhlen et al., 2010), PDB (Burley et al., 2019), Pfam (Finn et al., 2010), UniProt (The UniProt Consortium, 2019) HMDB (Wishart et al., 2018), KEGG (Kanehisa and Goto, 2000)
+pxbq | et al., 2017)
+jfsr | (Zampieri et al., 2017)
+u15r | LMSD (Sud et al., 2007), LipiDAT (Caffrey and Hogan, 1992), LipidBank (Watanabe et al., 2000), LipidHome ( Foster et al., 2013), LipidPedia (Kuo and Tseng, 2018), GlyTouCan (Tiemeyer (Rojas-
+lq35 | (Yang and Han, 2016)
+3g9w | et al., 2017), UniCarb-DB Macias
+d09o | (Campbell et al., 2014) et al., 2019)
+ylhz | MG-RAST (Meyer et al., (Pérez-
+a3td | 2008), Cobas et al., 2020)
+ex5k | SRA (Kodama et al., 2012), MGnify (Mitchell et al., 2020)
+9d4o | Table 2 The different ML learning approaches reviewed for multi-omics integration.
+cjq2 | Learning Goal Description
+5esx | approach
+m5ka | Supervised learning involves fitting a model with labelled training data and then use it for prediction. It can be classed either as a regression (predicted variable is numeric) or classification (predicted variable is categorical) problems (Jiang et al., 2020). The three steps in supervised learning are: (1) fitting a model from the sample input observations (2) evaluating the model and then extensively tuning the hyper-parameters of the model (3) setting up the model for the production stage and using it for prediction (Foster et al., 2014).
+byu8 | Supervised
+76b0 | Unsupervised
+zxz6 | Identify Unsupervised learning is used to find the underlying patterns in unlabelled data using input feature variables without the target/output clusters variable (Badillo et al., 2020). It can be used for clustering (Xu and Tian, 2015), anomaly detection (Thudumu et al., 2020) and dimensionality reduction (Xu et al., 2019a).
+xnth | This paper is organised as follows. Section 2 provides a short back- ground related to multi-omics and ML. Section 3 describes how ML is employed for multi-omics analysis and what are the various real-world challenges of it. In Section 4, details of different multi-omics integration approaches are presented. Section 5, published multi-omics studies using ML methods are discussed. Section 6 describes a recommendation flowchart for choosing an appropriate method for multi-omics integra- tion. Conclusions are provided in Section 7.
+vafm | 2. Background
+2zmw | 2.1. Multi-omics
+bf9k | In living beings, genetic information in the cells flows from DNA (deoxyribo-nucleic acid) to the mRNA (messenger ribo-nucleic acid) to protein and is dictated by the central dogma of molecular biology (Lodish et al., 2000). This flow of information is often considered analogous to a computer system which has facilitated the understanding of biological information processing (Wang and Gribskov, 2005; D'Onofrio and An, 2010).
+otkr | The study of DNA, mRNA and proteins is broadly denoted as geno- mics, transcriptomics, and proteomics respectively. The genetic blue- print of a cell is explored using genomics, which looks at the DNA of individuals and helps us to investigate the presence or absence of certain genes (Gibson, 2015; Vogel and Motulsky, 1997). Transcriptomics studies the transcribed genetic material and examines the genes which
+ibgs | Table 3 The standard ML terminology and related terms.
+colo | Biotechnology Advances 49 (2021) 107739
+d6r4 | are actively expressed and provides information about what is happening at the cellular level (Milward et al., 2016). Proteomics helps in characterising the information flow happening within the cell and the organism in the form of protein pathways and their networks (Wu et al., 2014).
+9mrz | Although metabolomics, lipidomics, and glycomics do not form part of the central dogma analysis (Cobb, 2017), they still provide an invaluable amount of information regarding the metabolites, lipids and glycans (synthesised by the proteome via biosynthetic pathways) (Barh et al., 2011). These substances are the intermediate products of a cell's information flow and therefore are considered to be excellent indicators of the cell's activity. Similar to single-genome studies, metagenomics is used to sequence genetic information from environmental samples without the requirement of isolating individual species (Hugenholtz and Tyson, 2008).
+```
+
+OUTPUT:
+```

@@ -1,0 +1,171 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+p2n3 | Model-based integration approaches facilitate the understanding of interactions amongst different omics for a certain phenotype (for example, survival in pancreatic cancer). The final multi-dimensional joint model in Stage 4 can be built using an ML algorithm (such as neural networks) which uses the most relevant variables from each omics models (from Stage 3). This approach allows the analysis of the improvement in the predictive power for individual models and also finds the best discriminating features.
+ohh7 | The different model-based integration methods can be further classed as follows.
+vbni | 4.2.1. Supervised learning model-based methods
+dgcw | Model-based supervised learning methods include a variety of frame- works for developing a model, such as majority-based voting (Draghici and Potter, 2003), hierarchical classifiers (Bavafaye Haghighi et al., 2019) and ensemble-based approaches (such as XGBoost (Ma et al., 2020b) and KNN (Shen and Chou, 2006)).
+gvwz | Deep learning methods have also been adopted for model-based su- pervised learning (Poirion et al., 2020). MOLI (multi-omics late inte- gration) (Sharifi-Noghabi et al., 2019) method used type-specific encoding sub-networks to learn features from somatic mutation, CNA and gene expression data independently and then later concatenated them for predicting the response to a given drug. Lee (Lee et al., 2020) has proposed a deep learning-based auto-encoding approach for inte- grating four omics to create a survival prediction model. Also, HI- DFNForest (hierarchical integration deep flexible neural forest) frame- work (Xu et al., 2019a) was developed which uses a stacked auto- encoder (Vincent et al., 2010) to learn high-level representations from three omic datasets. Later, these representations are integrated to pre- dict cancer subtype classification. Similarly, Chaudhary (Chaudhary et al., 2017) has used autoencoders along with SVM for survival pre- diction in subgroups of hepatocellular carcinoma.
+sk5m | In the past years, ATHENA (Analysis Tool for Heritable and Envi- ronmental Network Associations) was developed for analysing multi- omics data (Chung and Kang, 2019; Holzinger et al., 2014). It uses grammatical evolution neural networks along with Biofilter (Bush et al., 2009) and Random Jungle (Schwarz et al., 2010) to investigate different categorical and quantitative variables and develop prediction models.
+qws8 | Recently, MOSAE (Multi-omics Supervised Autoencoder) (Tan et al., 2020a) was developed for pan-cancer analysis and compared with conventional ML methods such as SVM, DT, naïve Bayes, KNN, RF and AdaBoost. Similarly, Denoising autoencoder has been incorporated along with L1-penalized logistic regression for identifying ovarian can- cer subtypes (Guo et al., 2020).
+877u | 4.2.2. Unsupervised learning model-based methods
+rzhj | Various model-based unsupervised learning methods have been implemented in the past. PSDF (Patient-Specific Data Fusion) (Yuan et al., 2011) is a non-parametric Bayesian model for clustering prog- nostic cancer subtypes by combining gene expression and copy number variation data. It uses a two-step process and limits the integration to only two datatypes. Similarly, CONEXIC (Akavia et al., 2010) also uses a BN to integrate gene expression and copy number variation from tumour
+bfax | Biotechnology Advances 49 (2021) 107739
+f2y8 | samples to identify driver mutations. On the other hand, clustering methods such as FCA (Formal Concept Analysis) consensus clustering (Hristoskova et al., 2014), MDI (Multiple Dataset Integration) (Kirk et al., 2012), PINS (Perturbation clustering for data integration and disease subtyping) (Nguyen et al., 2017), PINS+ (Nguyen et al., 2019) and BCC (Bayesian consensus clustering) (Lock and Dunson, 2013) are more flexible and allow late-stage integration of clusters.
+o7qm | Different network-based methods are also available for association analysis. Lemon-Tree (Bonnet et al., 2015) implemented ensemble methods for reconstructing module networks which used somatic copy number alterations and gene expression in brain tumour samples. Furthermore, SNF (Similarity Network Fusion) (Wang et al., 2014) constructs networks of samples for respective data type and then effec- tively fuse them into a joint network which denotes the complete range of original data. It combines mRNA expression, DNA methylation and microRNA (miRNA) expression data from cancer datasets.
+d52l | 4.3. Transformation-based integration methods
+qlbb | Transformation-based integration methods transform each of the omics datasets firstly into graphs or kernel matrices and then combines all of them into one before constructing a model.
+nhsg | Fig. 2 shows the various stages of transformation-based integration. Stage 1 sets up the raw data from the three individual omics along with the corresponding phenotypic information. In Stage 2, the individual transformations (in the form of graph or kernel relationship) are developed for each of the omics which are later integrated into a joint transformation in Stage 3. Finally, in Stage 4 it is analysed. The primary advantage of the transformation-based integration methods is that they can be used to combine a wide range of omics if unique information (such as patient ID) is available.
+hy0l | Graphs provide a formal means to transform and portray relation- ships between different omics samples where the nodes and edges of a graph represent the subjects and their relationships, respectively. Similarly, Kernel methods enable the transformation of data from its original space into a higher dimensional feature space. These methods then explore linear decision functions in the feature space which were non-linear in the original space.
+4jmz | The transformation-based integrative methods can be classed as follows.
+b7cq | 4.3.1. Supervised learning transformation-based methods
+0b39 | In the past, various transformation-based supervised learning methods have been presented. Most of them are kernel and graph-based algo- rithms (Yan et al., 2017). The kernel-based integration approaches include SDP-SVM (Semi-Definite Programming SVM) (Lanckriet et al., 2004), FSMKL (Multiple Kernel Learning with Feature Selection) (Seoane et al., 2014), RVM (Relevance Vector Machine) (Bowd et al., 2005; Tipping, 2001) and Ada-boost RVM (Wu et al., 2010). Moreover, fMKL-DR (fast multiple kernel learning for dimensionality reduction) (Giang et al., 2020) has been used along with SVM for combining gene expression, miRNA expression, and DNA methylation data. Similarly, the graph-based integration approaches consist of graph-based SSL (semi-supervised learning") (Tsuda et al., 2005; Culp and Michailidis, 2008; Kim et al., 2015; Yue et al., 2017; Bhardwaj and Van Steen, 2020), graph sharpening (Shin et al., 2010; Shin et al., 2007), composite network (Mostafavi and Morris, 2010) and BN (Rhodes et al., 2005).
+qecd | Overall, it is evident from the literature that kernel-based algorithms have superior performance to graph-based approaches, but they usually need more time for the training phase. In contrast, graph-based ap- proaches can disclose the relations between samples while taking less computation time. Yan (Yan et al., 2017) provide an extensive
+1o7p | 10
+cp13 | Table 6 The advantages and disadvantages of using different integrative methods.
+bgre | comparison between different graph- and kernel-based integration ap- proaches in a supervised learning context using various standardised test datasets. It highlights the better classification performance of RVM, Ada- boost RVM and SDP-SVM in comparison to SSL, graph sharpening, composite network and BN.
+57lp | Recently, MORONET (Multi-Omics gRaph cOnvolutional NETworks) (Wang et al., 2020) is introduced, which use graph convolutional net- works taking benefit of the omics features and the associations among patients (as defined by the patient similarity networks) for better clas- sification results.
+ukth | 4.3.2. Unsupervised learning transformation-based methods
+kpvt | Different transformation-based unsupervised methods have been introduced. Some of them are kernel- and graph-based methods. Lately, rMKL-LPP (regularised multiple kernel learning for Locality Preserving Projections) (Speicher and Pfeifer, 2015) was implemented for clus- tering analysis. It used an individual kernel for each omics along with a graph embedding framework to identify biologically meaningful sub- groups for five different cancer types. Similarly, PAMOGK (Tepeli et al., 2019) is developed for integrating multi-omics data with pathways using graph kernel, SmSPK (smoothed shortest path graph kernel). It used somatic mutations, transcriptomics and proteomics data to find subgroups of kidney cancer.
+jie2 | Meta-SVM (Meta-analytic SVM) is proposed by Kim (Kim et al., 2017), which integrates multiple omics data and able to detect consensus genes associated with diseases across studies such as breast
+d0ik | Table 7 The summary of multi-omics integration methods based on learning type. For abbreviations please refer to List of Abbreviations.
+0x0s | Biotechnology Advances 49 (2021) 107739
+4exe | cancer and idiopathic pulmonary fibrosis. Recently, NEMO (NEighbor- hood based Multi-Omics clustering) (Rappoport and Shamir, 2019) is introduced which uses an inter-patient similarity matrix-based distance metric for evaluating the input omic datasets individually. These omics matrices are then combined into one matrix and then analysed using spectral-based clustering. It can work on partial data sets (no imputation needed), where measurements are only available for a subset of omics data.
+0myz | Table 6 highlights the advantages and disadvantages of various integration methods. Table 7 summarises various multi-omics integra- tion methods based on learning type.
+xh3i | 5. Application of integrative methods in multi-omics studies
+syiw | The availability of high-throughput omics provides a unique op- portunity to explore the complex relationships between different omics and phenotypic targets instead of mono-omics evaluation. This section describes various multi-omics studies which deployed methods investi- gated in the previous section. Table 8 summarises different phenotypic target-based, multi-omics studies published and tabulates them across the span of 7 main omics namely, genomics, transcriptomics, metab- olomics, proteomics, glycomics, lipidomics and epigenomics. Genomics is further divided into gene expression, DNA methylation, somatic point mutation and copy number alteration. Similarly, transcriptomics is further classed into lncRNAs (long non-coding RNAs) and microRNAs (mRNA and miRNA). The various multi-omics studies are broadly
+kg3t | Table 8 Multi-omics studies using different ML methods. For abbreviations please refer to List of Abbreviations.
+lvae | P.S. Reel et al.
+o9sc | (Zierer et al., 2016)
+121u | CS (Taskesen et al., 2015)
+zh03 | 2014) (Wang et al., 2020)
+1mvw | LASSO CS (Lu et al., 2016) JIVE CU (Lock et al., 2013) iClusterBayes CU (Mo et al., 2018) Lemon-Tree MU (Bonnet et al., 2015) SNF MU (Wang et al.,
+6d4s | 2014)
+mqah | CS (List et al., 2014)
+xxr8 | (Chen et al.,
+rl4j | 2009) (Ma et al., 2016)
+vz32 | (Curtis et al., 2012)
+ncb0 | (Lock and Dunson, 2013)
+8mp0 | Biotechnology Advances 49 (2021) 107739
+xjyk | 2011) (Akavia et al., 2010)
+mt0f | MOLI (DL) MS (Sharifi-Noghabi et al., 2019)
+awab | (continued on next page)
+ixcc | 13
+8p6h | Table 8 (continued)
+pmgl | P.S. Reel et al.
+90no | Table 8 (continued)
+jt0y | 14
+qb7o | P.S. Reel et al.
+oae5 | (Giang et al., 2020)
+s0fl | rMKL-LPP TU (Speicher and Pfeifer, 2015) NEMO TU (Rappoport and Shamir, 2019) SVM MS (Kwon et al., 2015) RF CS (Fan et al., 2011) CS & (Ding et al., MU 2018)
+43ia | (Pietzner et al., 2017) (Bjerrum et al., 2014)
+3g2y | CS (Acharjee et al., 2016) MS (Acharjee et al., 2011) (Li et al., 2015)
+gc7v | CS CU (Zhu et al., 2012)
+wqfv | Biotechnology Advances 49 (2021) 107739
+j30a | 15
+7bdk | Fig. 3. Recommendation flowchart for choosing a method for multi-omics integration. For abbreviations please refer to List of Abbreviations.
+fim0 | P.S. Reel et al.
+ojro | Biotechnology Advances 49 (2021) 107739
+l6t9 | grouped based on the target and the corresponding ML method used.
+1ujy | It is evident from Table 8 that most of the multi-omics studies focus on different forms of cancer. In particular, the presence of many multi- omics studies related to the breast (Chen et al., 2017; Lee et al., 2017; List et al., 2014; Ma et al., 2016; Nam et al., 2009) and ovarian (Anděl et al., 2015; Mankoo et al., 2011; Paik et al., 2017; Zhang et al., 2014) cancer highlights the research thrust by the scientific community in these domains.
+qzor | Many intra-omics studies have successfully explored the integration of gene expression and DNA methylation. LASSO methods have been used for this particular integration by Taskesen (Taskesen et al., 2015) and Lee (Lee et al., 2017) for acute myeloid leukaemia and breast cancer respectively. LASSO has also been employed for cancer prognosis (Zhao et al., 2015). Similarly, mRNA - miRNA integration was investigated using Neural Fuzzy Network for colorectal cancer (Vineetha et al., 2013), SVM for pancreatic cancer (Kwon et al., 2015), and RF for cardiac tissue ageing (Dimitrakopoulos et al., 2014) and ovarian cancer (Anděl et al., 2015) respectively. SVM has also been used for oral squamous cell carcinoma study by integrating different transcriptomics namely mRNA, miRNA and IncRNA (Li et al., 2017).
+a0by | Metabolomics and proteomics have been integrated using RF for analysis of prostate cancer (Fan et al., 2011) and thyroid functioning (Pietzner et al., 2017). Similarly, metabolomics is integrated with mRNA for studying ulcerative colitis (Bjerrum et al., 2014) and cancer survival (Kim et al., 2014). On the other hand, glycomics and epigenomics have only appeared once in the multi-omics context (along with mRNA and metabolomics) and used by Zierer (Zierer et al., 2016) for the study of age-related comorbidities using a graphical variant of RF.
+```
+
+OUTPUT:
+```

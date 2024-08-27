@@ -1,0 +1,134 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+1pjs | WILEY
+o2kr | A global assessment of the social and conservation outcomes of protected areas Author(s): J. A. Oldekop, G. Holmes, W. E. Harris and K. L. Evans Source: Conservation Biology, Vol. 30, No. 1 (February 2016), pp. 133-141 Published by: Wiley for Society for Conservation Biology Stable URL: https://www.jstor.org/stable/24761105 Accessed: 20-07-2023 21:10 +00:00
+v6sk | Wiley, Society for Conservation Biology are collaborating with JSTOR to digitize, preserve and extend access to Conservation Biology
+1wj6 | JSTOR
+936l | This content downloaded from 202.36.179.73 on Thu, 20 Jul 2023 21:10:34 +00:00 All use subject to https://about.jstor.org/terms
+06yq | Contributed Paper
+dpv6 | A global assessment of the social and conservation outcomes of protected areas
+8r5j | Abstract: Protected areas (PAs) are a key strategy for protecting biological resources, but they vary con- siderably in their effectiveness and are frequently reported as having negative impacts on local people. This has contributed to a divisive and unresolved debate concerning the compatibility of environmental and socioeconomic development goals. Elucidating the relationship between positive and negative social impacts and conservation outcomes of PAs is key for the development of more effective and socially just conservation. We conducted a global meta-analysis on 165 PAs using data from 171 published studies. We assessed how PAs affect the well-being of local people, the factors associated with these impacts, and crucially the relationship between PAs' conservation and socioeconomic outcomes. Protected areas associated with posi- tive socioeconomic outcomes were more likely to report positive conservation outcomes. Positive conservation and socioeconomic outcomes were more likely to occur when PAs adopted comanagement regimes, empowered local people, reduced economic inequalities, and maintained cultural and livelihood benefits. Whereas the strictest regimes of PA management attempted to exclude anthropogenic influences to achieve biological conservation objectives, PAs that explicitly integrated local people as stakeholders tended to be more effective at achieving joint biological conservation and socioeconomic development outcomes. Strict protection may be needed in some circumstances, yet our results demonstrate that conservation and development objectives can be synergistic and highlight management strategies that increase the probability of maximizing both conservation performance and development outcomes of PAs.
+2taz | Keywords: biodiversity, management, new conservation, socioeconomic development, trade-offs
+o3ya | Una Evaluación Global de los Resultados Sociales y de Conservación de las Áreas Protegidas
+r5il | Resumen: Las áreas protegidas (APs) son una estrategia clave para la protección de los recursos biológicos, pero estas varían considerablemente en su efectividad y son reportadas frecuentemente por tener impactos negativos sobre los habitantes locales. Esto ha contribuido a un debate divisivo y sin resolución con respecto a la compatibilidad de los objetivos de desarrollo socioeconómico y ecológico. Esclarecer la relación entre los impactos sociales positivos y negativos y los resultados de conservación de las APs es esencial para el desarrollo de una conservación más efectiva y más justa socialmente. Realizamos un meta-análisis de 165 APs usando datos de 171 estudios publicados. Evaluamos cómo las APs afectan al bienestar de los habitantes locales, los factores asociados con estos impactos y significativamente, la relación entre los resultados socioeconómicos y de conservación de las APs. Las APs asociadas con resultados socioeconómicos positivos tuvieron una mayor probabilidad de reportar resultados positivos de conservación. Los resultados positivos, tanto socioeconómicos como de conservación, tuvieron una mayor probabilidad de ocurrir cuando las APs adoptaron regímenes de co-manejo, les otorgaron poder a los habitantes locales, redujeron la inequidad económica y mantuvieron los
+5gui | 133
+82qc | This content downloaded from 202.36.179.73 on Thu, 20 Jul 2023 21:10:34 +00:00 All use subject to https://about.jstor.org/terms
+ls7d | beneficios culturales y de sustento. Mientras los regímenes más estrictos de manejo de APs intentaron excluir las influencias antropogénicas para alcanzar los objetivos de conservación biológica, las APs que integraron explícitamente a los habitantes locales como actores tuvieron la tendencia de ser más efectivos en la obtención de resultados conjuntos de desarrollo socioeconómico y de conservación. La protección estricta puede ser necesaria en algunas circunstancias, pero nuestros resultados demuestran que los objetivos de desarrollo y de conservación pueden ser sinérgicos. También resaltan las estrategias de manejo que incrementan la probabilidad de maximizar tanto al desempeño de la conservación como a los resultados de desarrollo de las APs.
+tzt3 | Palabras Clave: biodiversidad, compensaciones, desarrollo, manejo, nueva conservación
+t8vv | Introduction
+qvnu | An alarming erosion of taxonomic and functional bio- diversity is occurring in half of tropical protected ar- eas (PAs) (Laurance et al. 2012). The magnitude of this decline is directly linked to human mediated habi- tat disruption, including land-use change, hunting, and exploitation of other forest-related resources. These human-induced pressures on PAs and conflict between biodiversity conservation and the needs of local people are predicted to increase due to numerous factors, in- cluding market forces and a reduction in distance be- tween PAs and human population centers (Joppa et al. 2008; McDonald et al. 2008). Conflicts between local people and conservation initiatives have generated one of the greatest and longest running debates in conserva- tion science (Roe 2008). At one end of the spectrum is the fences-and-fines approach, which contends that to deliver successful conservation outcomes people must be excluded, even forcibly, from PAs (Brockington & Igoe 2006). Opponents of this approach consider such exclusionist protection arrangements ethically troubling because they frequently result in PAs having disadvanta- geous social outcomes for local people that ultimately result in ineffective long-term conservation outcomes (Adams et al. 2004). An increasingly advocated strategy is that to deliver effective and long-term environmental pro- tection PAs must accommodate the needs of local people so as to secure sustainable livelihoods and enhance their well-being (Roe 2008). The debate between adherents to these two approaches and the importance of considering human well-being in conservation remains lively, intense, and unresolved (Soulé 2013; Marvier 2014).
+kggw | A key factor limiting the resolution of this debate is the insufficient evidence base, which is currently lim- ited to individual case studies, with few studies specifi- cally testing causal pathways (e.g., Andam et al. 2010) and lack of a global analysis (Geldmann et al. 2013). Available case studies do, however, usefully highlight several key issues (Table 1). First, social impacts of PAs take different forms, including economic, livelihood, and cultural impacts, and can result directly from PA poli- cies, such as hunting regulations, or indirectly through
+xrd1 | This content downloaded from 202.36.179.73 on Thu, 20 Jul 2023 21:10:34 +00:00 All use subject to https://about.jstor.org/terms
+5746 | wider social and economic changes, for example the ef- fects of increased tourism (Holmes & Brockington 2012). Second, how local people experience and respond to the social impacts of PAs is influenced by socio-political contexts at both local and regional scales (Brockington & Igoe 2006; Nelson & Agrawal 2008). Third, impacts of PAs are unevenly distributed. They are felt most in- tensely at local rather than national scales and within communities along lines of class, gender, ethnicity, and caste; benefits tend to accrue to the wealthiest and most powerful and costs fall on the weakest and poorest (Holmes 2007).
+7toz | The lack of a global study on the impact of key recur- ring factors affecting PA socioeconomic and conservation outcomes has resulted in three specific knowledge gaps (Adams & Hutton 2007; Mascia & Claus 2009): how the socioeconomic and biodiversity conservation outcomes of PAs are linked to specific social impacts; how social impacts are influenced by the management and other characteristics of PAs; and how social impacts relate to socioeconomic and biodiversity conservation outcomes, given the insufficient performance of many PAs. Address- ing these questions is critical for the design of efficient and effective conservation and development interven- tions that meet both biodiversity conservation targets and socioeconomic needs.
+j346 | We conducted a global review and analysis of the sci- entific literature that addresses these knowledge gaps re- garding the principal drivers of the social impacts of PAs and their consequences for biodiversity conservation. We used data from 160 terrestrial and marine PAs distributed across six continents and that were representative of all International Union for Conservation of Nature (IUCN) PA management and governance categories (Supporting Information). We quantified and determined how PAs' geographical, physical, and management characteristics were associated with their social impacts (Table 1). We then evaluated how these geographical, physical, and management characteristics were associated with over- all PA socioeconomic and biodiversity conservation out- comes and assessed whether these two contrasting types of outcomes trade off against each other or are positively associated.
+v8uq | Oldekop et al.
+x972 | Table 1. Protected area (PA) properties and impacts .*
+cwrw | Abbreviations: PA, protected area; WDPA, World Database on Protected Areas; IUCN, International Union for Conservation of Nature.
+4i0e | Methods
+h2l3 | Case Study Selection
+dfzb | We created a database of peer-reviewed articles on the social impacts of PAs by conducting systematic searches in ISI Web of Knowledge using the following Boolean search terms: topic = ("protected area" OR "reserve" OR "national park") AND topic = ("social impact" OR "cost" OR "benefit" "eviction" OR "displacement" OR "liveli- hood" OR "compensation" OR "culture" OR "gender" OR "class" OR "caste" OR "indigenous" OR "income" OR "community") AND topic = ("Conservation") NOT topic = ("Species"). To minimize bias in our searches, we chose keywords that were either neutral (14 of 19 keywords) or identified general or specific known negative impacts (3 keywords, i.e., displacement, eviction, and cost) and keywords related to measures of restitution or general positive impacts (2 keywords, i.e., compensation and benefit). We refined our search further by focusing on
+u6ty | This content downloaded from 202.36.179.73 on Thu, 20 Jul 2023 21:10:34 +00:00 All use subject to https://about.jstor.org/terms
+awvu | 135
+on9b | the following research areas: environmental sciences and ecology, biodiversity conservation, forestry, sociology, anthropology, government law, ethnic studies, and social issues. Following Waylen et al. (2010), we also entered the search terms in Google Scholar and reviewed the first 500 results. We purposefully excluded the substan- tial body of non-peer-reviewed studies on social impacts of PAs because of potential biases and lack of detailed statistical analysis within much of this material (Holmes & Brockington 2012). Peer-reviewed studies were only selected if we could clearly identify impacts on local communities resulting from a protected area.
+a8ge | Our initial search yielded 1635 studies. Inclusion in our final selection required studies to meet precise criteria (Supporting Information). To be included, studies had to have assessed the impacts of a specific, named PA. The impacts could have resulted directly from PA policies, such as hunting regulations, or indirectly, such as through increased tourism to the PA. Impacts also had to be di- rectly linked by the authors to the presence of a PA and its
+```
+
+OUTPUT:
+```

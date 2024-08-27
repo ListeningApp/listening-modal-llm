@@ -1,0 +1,162 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+zhvt | . In your relationships, discuss how available you want to be to each other (i.e., to what extent or at what frequency), be clear about what you can gener- ally offer and follow through regarding time, attention and forms of com- munication.
+yv1q | As best as you can, clearly communicate when you will be unavailable, whether that is times during the day, specific days of the week, standing dates with certain partners, trips, holidays, etc. When we can't be available to our partners, the next best thing for both of our attachment systems is to tell them when we will be out of reach and when we will be back. If you can't be immediately available to one of your partners, the next best thing you can do is let them know when you can, so that they know what to expect.
+u7jx | E: EXPRESSED DELIGHT
+03u9 | The next thing that you can do to nurture more polysecurity with your partners is offer expressed delight. Brown and Elliot describe expressed delight as one of the
+8sqd | foundational elements of secure attachment.70 When a parent shows pleasure not just in the things that their child does, but in who their child is, a positive sense of self and healthy self-esteem are fostered in the child. As adults, expressed delight is also needed to promote secure attachment and a healthy sense of self within the relationship. When our partners are able to articulate the ways that we are special and valuable to them, our interpersonal self-worth is supported. When we express the ways that we appreciate and are grateful for our partners, we create a culture of positivity in our relationships that allows mutual vulnerability, authenticity and joy to flourish. We can express the delight we have for our partners through our words, our actions, our touch, as well as just the look in our eyes. Diane Poole Heller and her colleagues use the term beam gleam (also known as the attachment gaze) to refer to the nonverbal expression of warmth, kindness and love that radiates from our eyes, letting our partners know that they are special to us.
+vlyz | In nonmonogamy, expressed delight is imperative. The paradigm shift from the monogamous mindset of I am with you because you are the only one for me to the nonmonogamous view that / am with you because you are special and unique, but not the only one, can be difficult to grasp. Even when people don't want to be, the hang- over of monogamous thinking often leaves people feeling competitive with their metamours and/or doubtful as to why their partners would want to be with them if they don't have the specific qualities, circumstances, sexual interests or physical at- tributes that other partners have. Even when people have a healthy sense of self and esteem, they still need positive feedback as to why their partners cherish them and choose to be with them, especially when, theoretically, they can choose to be with many others. There is nothing wrong with needing to hear why you are wanted and valued by your partners and it is important for you to be able to communicate to your partners why they specifically matter to you. Experiencing expressed delight and knowing the ways you are precious in your partners' lives can be an important resource to lean on when feeling jealous or threatened by a metamour or potential new partners. Instead of spinning out into doubt and fear, being able to recall the ways your partners experience you as special, even irreplaceable, can soothe the
+5034 | anxious mind and allow for more compersion to arise.
+9lvu | Questions to Consider
+uy7a | . How do you already show expressed delight for your partners?
+lqs6 | . Would your partners like more or different expressed delight from you? How can you provide this?
+ri4s | . How do your partners let you know that you are unique, special and precious to them?
+2j8o | . Are there additional or different ways that you would like to experience ex- pressed delight from your partners?
+qrl1 | . Are there certain situations (e.g., before or after your partner is out on a date with someone else) that expressed delight is more or less supportive to you and/or your partners?
+uvvk | Things to Try and to Experiment With
+mdnj | . Let your partner know in spoken and/or written word how they enrich your life.
+mwy0 | · Let your partner know in spoken and/or written word how unique and special they are to you.
+hg8q | . Let your partner know in spoken and/or written word the specific things that you love and appreciate about them. These should be based on who they are versus the things that they do for you.
+rcyg | . If you are less of a verbal type, make a meal, do a dance, create a piece of art or do something fitting to your style that is effective at intentionally repre- senting and expressing to your partners how unique and precious they are to you.
+bj8l | . After spending time with a partner, let them know the things you enjoyed about your time together and what specific things they did that were mean- ingful to you. You can do this either right when you are saying goodbye, as you are going to bed together or within a few hours or days after you were to- gether.
+cygk | . With your partners, take on a gratitude practice where you set aside a regular time to each appreciate the ways in which they've been supportive or shown up that have been meaningful to each of you. You can share something your partner did that you are grateful for at the end of each day, or you can set aside a few minutes once a week to share your gratitude from the week.
+rtk7 | . Flash your partner the eyesl You'd be surprised what just three seconds of the attachment gaze/beam gleam can do to fortify your attachment bond. When in a new relationship with someone, we rarely have to remind our- selves of this because everything in our body is easily oozing that this person is the eighth wonder of the world to us, but bringing this back in our longer- term relationships can support feeling that spark again. Seeing our partners giving the attachment gaze to other people might be painful when we are no longer in new relationship energy with that partner. Try intentionally sending the beam gleam to your partners and you will be pleasantly surprised at what it can do to feed each other's attachment systems and strengthen your con- nection.
+1wc3 | A: ATTUNEMENT
+333g | Our attachment bonds are emotional bonds, and being able to emotionally tune into and connect with our partners is at the core of feeling safe and secure to- gether. Attunement is a state of resonance with our partners and the act of turning towards them in an attempt to understand the fullness of their perspective and experience. Attuning to a partner does not mean that you have to agree with them and take on their experience as your own, but it does mean that you are willing to join them in their internal emotional world and their inner state of mind in order to empathize with what they are going through. Attunement is meeting your partner with curiosity, wanting to understand their feelings and needs. It is the feeling of being seen, understood and "gotten" by the other. As children, it is through being attuned to by our attachment figures, by having them mirror and match our experi- ences and help us make sense of our inner experiences, that we are able to then
+6kja | develop the ability to identify our own thoughts and emotions and subsequently self-regulate these emotional and mental states. As adults we still need to be met and understood in order to best regulate ourselves. It is through being connected with others, and through feeling held, understood and supported by others that we are able to tolerate and regulate our own emotional responses.
+fmi5 | There are certain challenges with attunement that can surface in attachment- based relationships. They include how to stay attuned to your partner when they are upset with you and how to stay attuned if you get triggered by them. In non- monogamous relationships it can be additionally challenging to stay attuned to your partner when they are talking about one of their other partners, when jealousy arises or when the things they are sharing about others have implications for your relationship with them. When you are with multiple partners at the same time, you might also feel confusion around how to stay attuned to each of your partners. Just as the wants and needs of each relationship are different, the ways that we attune to each of our partners can also be different.
+bqn5 | Questions to Consider
+4lyq | . How do you experience your partners as attuning to you?
+jzqz | . How do you know that your partners "get" you and care about your expe- rience?
+0uje | . In what ways do you already attune to your partners?
+apx3 | . How could you better or differently attune to your partners to support them in feeling even more seen and understood?
+kcrm | . Are there ways that you would like your partners to better or differently attune to you that would support you in feeling even more seen and understood?
+mbsp | Things to Try and to Experiment With
+zynb | . Listen with your heart. When listening to your partner, put your solution- orientated brain aside for a few minutes. Soften your eyes, bring warmth to your face, open up your heart and listen.
+8h0u | . Ask questions from genuine curiosity and the desire to truly understand,
+b09f | rather than from preconceived notions about what your partner has already done or what you think they should do. Be careful about asking questions that are really just searching for evidence to either make yourself feel better, to prove them wrong or to expose them as lying in some way. Also, be careful not to interrogate or manipulate through your questions.
+zutp | . Make an effort to track something that your partner is going through. For example, if you know they went to an event or have an aunt in the hospital, follow up by asking them how the event was or how their aunt is doing.
+qgmy | . Genuinely ask your partner about how they are doing, whether in general or about something specific. Use open-ended questions that encourage them to share any feelings or needs they have surrounding the situation, what their experience has been, what it means to them and how they have been im- pacted by it.
+40wi | . Bring your bodies into attunement. Sex can be a great way to do this, espe- cially if you take turns just focusing on what one partner likes and wants. You can also explore techniques and exercises such as sitting or spooning and breathing together, bringing your bodies and breath into harmony in non- sexual ways.
+a418 | . Take a pause in your day, think about something that you know one of your partners is grappling with and put yourself in their shoes for a few minutes.
+e9lu | . When listening to your partner talk about another partner (or something else that has the potential to trigger you) put your friend hat on instead of your partner hat. Any concerns or questions that you may have can still be brought up eventually, but do your best to initially separate what they are sharing and what it means to them from how it impacts you.
+a278 | . Slow down your conversation by taking turns paraphrasing what you just heard the other partner say before you respond to what they said.
+ffto | . Learn non-violent communication or other empathy-based techniques that encourage you to empathically reflect back to your partner what they are feel- ing and needing.
+ak21 | . Check out John Gottman's book The Science of Trust: Emotional Attunement for Couples.
+i7n1 | R: RITUALS AND ROUTINES
+m9yn | Our attachment system is comforted by routine and regularity. In our relationships with our attachment figures, we tend to prefer partners who are more reliable and situations where we can experience the ease of generally knowing what to expect and not be surprised to the point of disruption. The mundane rituals of everyday life can put many of our worries to rest and remind us that we are an integral part of our partners' lives, and the profound rituals of commitment ceremonies and rites of passage can significantly deepen and strengthen our bonds. The outer commitment we make to a relationship through ceremonies or officially asking someone to be our partner can offer structure and definition, and the day-to-day ways that we engage with one another-the micro routines and rituals of rela- tionship that we create-can be seen as the inner commitment we make to show up for the relationship wholeheartedly and not just because there might be an outer, more explicit commitment to rely on.
+cg8u | In monogamy, the daily routines of a relationship can be easier to fall into. There are only two people to consider, and the larger rituals and relationship rites of passage such as marriage, having children or moving in together are more obvi- ous, culturally expected and supported. In nonmonogamy, socially recognized ways of honoring the relationship can be less clear, and it can be more difficult to find our rhythm with a partner, especially when we don't live with our partner and/ or when one of you already lives with other partners. Nonmonogamous relation- ships do have their own relationship rites of passage, like first sleepovers, trips away together or having sex without a barrier for the first time, but the significance of these events can be easily missed by normative standards. However, it is just as important in our nonmonogamous relationships to find the special things, big and small, that we do with our partners. The routines that we can rely on and look for- ward to are an important part of secure functioning in our CNM attachment-based
+2hsv | relationships.
+7s7l | It is also important to create rituals and routines that honor the transitional mo- ments when you and your partners are parting or reuniting. Our attachment sys- tems are very sensitive to comings and goings. Abrupt departures and sudden ar- rivals can all be jarring to the nervous system, and hellos or goodbyes left unac- knowledged can be disconnective. Understanding what we need to reconnect after being apart from our partner and what we might need to feel secure when saying goodbye might seem like subtle things to focus on, but they should not be un- derestimated in their impact. One polyamorous colleague of mine intentionally knows the love languages+ of each of his different partners, and when they reunite after being apart he does his best to immediately give them their primary love lan- guage as a way to reinforce their connection and set the stage for the rest of their time together.
+uwdf | Additionally, how partners say goodbye before one of them goes on a date with someone else or how they reunite after having been with other partners can make a big difference in feeling safe and sound with each other. Some people don't want much pomp and circumstance when saying goodbye, while others need moments of connection with each other before their partner goes off on a date with someone else. If partners live together, they may request that the partner who has been with someone else shower before coming to bed, they may desire emotional or physical contact after being apart or they may prefer to sleep in separate rooms on date nights with others.
+jjgp | While having routines is definitely important in our attachment-based relation- ships, having times where we also break out of our routines can be just as signif- icant. We can easily fall into default patterns and ruts in our relationships. Remem- bering the importance of stepping out of our day-to-day cycles, focusing on some novelty, play and adventure can revivify and strengthen our connections with part- ners.
+df4g | Questions to Consider
+qc2j | . What are the routines my partners and I already have that are meaningful to
+x3oh | me and support me in feeling safe and secure together?
+fqvx | · What rituals have we participated in or what relationship rites of passage have we gone through that have brought us closer?
+viae | . How do I like to be celebrated or to celebrate others?
+p8u9 | . Are there any daily or regular routines that would support me in feeling more secure with my partners?
+49ky | . Are there any relationship rites of passage or rituals that could further deepen our bond?
+p5wo | . What do you and your partners each need to reconnect with each other after being apart?
+74rp | . Are there ways of checking in or saying goodbye before going on a date with another person that would create more safety and security? How do you want to connect or be approached afterwards?
+oolg | Things to Try and to Experiment With
+```
+
+OUTPUT:
+```

@@ -1,0 +1,124 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+m5ka | Numerous studies have evaluated the prognostic value of cardiac magnetic resonance in patients with hypertensive heart disease (as presented in Table 3). Hypertensive heart disease is primarily characterized by left ventricular hypertrophy, left atrial dilatation, myocardial fibrosis, diastolic before systolic dysfunction, and increased incidence of coro- nary artery disease, both epicardial and microvascular. A comprehensive evaluation of myocardial hypertrophy also allows a proper follow-up of patients on antihypertensive therapy, as the regression of LVH with antihypertensive treatment reduces the risk of stroke, myocardial infarction, and all-cause mortality [27,30]. Morphological and functional changes of the myocardium can be followed through every stage of hypertensive heart disease, even in the subclinical phase, which is important to prevent further complications and development of heart failure with both preserved and reduced ejection fraction. My- ocardial strain abnormalities, important in the early detection of myocardial damage, were observed in the majority of the patients. This is significant as it was shown that global longitudinal strain and its deterioration are associated with major adverse cardiovascular events even in patients with asymptomatic hypertensive heart disease [64]. Left atrial enlargement is a common finding in patients with HHD and is an independent factor
+byu8 | Diagnostics 2023, 13, 137
+76b0 | associated with cardiovascular morbidity and mortality and also the possibility of atrial fibrillation, as presented by Treibel et al. [49]. The signs of incipient interstitial fibrosis are accessible to cardiac magnetic resonance through sophisticated tissue characterization techniques, mainly T1 mapping and ECV, and are also a common finding even in patients with the recent onset of hypertension [65-67]. This is important as in the subclinical phase of the disease this type of fibrosis is still reversible with proper and forehand treatment. In the advanced stage with both focal and diffuse fibrosis, myocardial scar quantification can differentiate those patients at high risk for sudden cardiac death, as myocardial scar burden is significantly associated with adverse cardiovascular events, even in patients with preserved ejection fraction [68].
+zxz6 | Table 3. The most significant findings on cardiac magnetic resonance in patients with hypertensive heart disease validated across various studies in recent years.
+xnth | Diagnostics 2023, 13, 137
+vafm | References
+2zmw | rate (less than 30 mL/min/1.73 m2), which makes this examination limitative in patients with chronic kidney disease. Claustrophobia is also an important patient-related limitation that should be taken into consideration.
+bf9k | 10. Conclusions
+otkr | A wide range of clinical and especially subclinical presentations of hypertensive heart disease is often hard to discover, challenging to evaluate properly and incorporate into a proper real-life clinical scenario. The majority of these changes are accessible to the frequently performed diagnostic modalities in an advanced stage of the disease, with an already established high risk of adverse cardiovascular events. Cardiac magnetic resonance is a non-invasive, sophisticated diagnostic tool that can provide more detailed information on left ventricle volumes, tissue characterization, and scar quantification with excellent reproducibility and less inter-observer variability in patients with hypertensive heart disease. It can detect subtle changes in ventricular mass and volume parameters, access overall and regional LV function, and estimate the presence of focal or diffuse myocardial fibrosis. Although it is not recommended as a golden standard in hypertensive heart disease due to its poor availability and relatively low cost-benefit ratio, cardiac magnetic resonance is indicated if there is a severe, progressive left ventricular hypertrophy, an inconclusive echocardiogram or poor acoustic window, and a mismatch between clinical evaluation, ECG, and echocardiography. Additionally, it is of great importance in estimating the positive effects of treatment, as well as an optimal tool in clinical trials. Further studies will bring more information about the benefits of cardiac magnetic resonance in patients with hypertensive heart disease, leading to the more pronounced implementation of this important imaging modality into everyday practice.
+ibgs | Author Contributions: Conceptualization, M.Z. and M.P .; investigation, P.D. and A.M .; writing- original draft preparation, V.P. and T.I .; writing-review and editing, D.M. and S.K .; supervision, G.K. and D.L. All authors have read and agreed to the published version of the manuscript.
+colo | Funding: This research received no external funding.
+d6r4 | Institutional Review Board Statement: Not applicable.
+9mrz | Informed Consent Statement: Not applicable, the paper does not have information or images that can identify any patient.
+pk06 | Data Availability Statement: Not applicable. Conflicts of Interest: The authors declare no conflict of interest.
+7wn9 | Diagnostics 2023, 13, 137
+wcd0 | 9. Mavrogeni, S .; Katsi, V .; Vartela, V .; Noutsias, M .; Markousis-Mavrogenis, G .; Kolovou, G .; Manolis, A. The emerging role of Cardiovascular Magnetic Resonance in the evaluation of hypertensive heart disease. BMC Cardiovasc. Disord. 2017, 17, 132. [CrossRef]
+caos | 33. Flachskampf, F.A .; Biering-Sørensen, T .; Solomon, S.D .; Duvernoy, O .; Bjerner, T .; Smiseth, O.A. Cardiac Imaging to Evaluate Left Ventricular Diastolic Function. JACC Cardiovasc. Imaging 2015, 8, 1071-1093. [CrossRef]
+qrvy | 34. Messerli, F.H .; Rimoldi, S.F .; Bangalore, S. The Transition from Hypertension to Heart Failure: Contemporary Update. JACC Heart Fail. 2017, 5, 543-551. [CrossRef] [PubMed]
+pn9j | Diagnostics 2023, 13, 137
+1pmc | 35. Paulus, W.J .; Tschope, C. A novel paradigm for heart failure with preserved ejection fraction: Comorbidities drive myocardial dysfunction and remodeling through coronary microvascular endothelial inflammation. J. Am. Coll. Cardiol. 2013, 62, 263-271. [CrossRef] [PubMed]
+5z6q | 56. Rocco, E .; Grimaldi, M.C .; Maino, A .; Cappannoli, L .; Pedicino, D .; Liuzzo, G .; Biasucci, L.M. Advances and Challenges in Biomarkers Use for Coronary Microvascular Dysfunction: From Bench to Clinical Practice. J. Clin. Med. 2022, 11, 2055. [CrossRef]
+yeoh | Diagnostics 2023, 13, 137
+```
+
+OUTPUT:
+```

@@ -1,0 +1,208 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+srly | The principle of maximum entropy is widely used outside physics, though still con- troversial. But I think we should use it to figure out some basic properties of a gas-like its energy or entropy per molecule, as a function of pressure and temperature.
+dl6i | To do this, we should generalize Shannon entropy to 'Gibbs entropy', replacing the sum by an integral. Or else we should 'discretize' the gas, assuming each molecule has a finite set of states. It sort of depends on whether you prefer calculus or programming. Either approach is okay if we study our gas using classical statistical mechanics.
+89ub | Quantum statistical mechanics gives a more accurate answer. It uses a more general
+dhle | 20
+2nib | definition of entropy-but the principle of maximum entropy still applies!
+naev | I won't dive into any calculations just yet. Before doing a gas, we should do some simpler examples-like the die whose average roll is 5. But I can't resisting mentioning one philosophical point. In the box above I was hinting that maximum entropy works when your 'prior' is uniform:
+7h0h | Suppose there are n possible outcomes. At first you have no reason to think any is more probable than any other.
+a64c | This is an important assumption: when it's not true, the principle of maximum entropy as we've stated it does not apply. But what if our set of events is something like a line? There's no obvious best probability measure on the line! And even good old Lebesgue measure dx depends on our choice of coordinates. To handle this, we need a generalization of the principle of maximum entropy, called the principle of maximum relative entropy.
+gi7n | In short, a deeper treatment of the principle of maximum entropy pays more atten- tion to our choice of 'prior': what we believe before we learn new facts. And it brings in the concept of 'relative entropy': entropy relative to that prior. But we won't get into this here, because we will always be using a very bland prior, like assuming that each of finitely many outcomes is equally likely.
+3pn1 | 21
+wjuz | ADMITTING YOUR IGNORANCE
+3yxv | Suppose you describe your knowledge of a system with n states using a probability distribution p1, . . . , Pn. Then the Shannon information
+d8zj | H = - pi log pi i=1 measures your ignorance of the system's state.
+ywxn | So, choosing the maximum-entropy probability distribution consistent with the facts you know amounts to not pretending to know more than you do.
+uxhs | Remember: if we describe our knowledge using a probability distribution, its Shan- non entropy says how much we expect to learn when we find out what's really going on. We can roughly say it measures our 'ignorance'-though ordinary language can be misleading here.
+ed6e | At first you think this ordinary 6-sided die is fair. But then you learn that no, the average of the numbers that come up is 5. What are the probabilities p1, ... , Pn for the different faces to come up?
+6qqm | This is tricky: you can imagine different answers!
+onum | You could guess the die lands with 5 up every time. In other words, p5 = 1. This indeed gives the correct average. But the entropy of this probability distribution is 0. So you're claiming to have no ignorance at all of what happens when you roll the die!
+3iir | Next you might guess that it lands with 4 up half the time and 6 up half the time. In other words, p4 = P6 = 2. This probability distribution has 1 bit of entropy. Now you are admitting more ignorance. But how can you be so sure that 5 never comes up?
+7a0a | Next you might guess that p4 = P6 = 4 and p5 = 2. We can compute the entropy of this probability distribution. It's higher: 1.5 bits. Good, you're being more honest now! But how can you be sure that 1, 2, or 3 never come up? You are still pretending to know stuff!
+o1qp | Keep improving your guess, finding probability distributions with mean 5 with big- ger and bigger entropy. The bigger the entropy gets, the more you're admitting your ignorance! If you do it right, your guess will converge to the unique maximum-entropy solution.
+jrik | But there's a more systematic way to solve this problem.
+xv78 | 22
+sdks | THE BOLTZMANN DISTRIBUTION
+y8fb | Suppose you want to maximize the Shannon entropy
+521q | - pi log pi i=1
+yogo | of a probability distribution p1, ... , Pn, subject to the constraint that the expected value of some quantity A¿ is some number c:
+2285 | piAi = C (*) i=1 n
+ys0g | Then try the Boltzmann distribution:
+7zvp | n exp(-₿Ai) Pi
+ww6u | Lexp(-BAi)
+hpi6 | If you can find ß that makes (*) hold, this is the answer you seek!
+4uhb | How do you actually use the principle of maximum entropy?
+epyi | If you know the expected value of some quantity and want to maximize entropy given this, there's a great formula for the probability distribution that usually does the job! It's called the 'Boltzmann distribution'. In physics it also goes by the names 'Gibbs distribution' or 'canonical ensemble', and in statistics it's called an 'exponential family'.
+y51p | In the Boltzmann distribution, the probability pi is proportional to exp(-BA;) where A is the quantity whose expected value you know. Since probabilities must sum to one, we must have
+x95m | n exp(-ßAi) i=1 Lexp(-BAi)
+yfum | Pi =
+ppx4 | It is then easy to find the expected value of A as a function of the number ß: just plug these probabilities into the formula
+qf11 | (A) = AiPi i=1 n
+8oqt | The hard part is inverting this process and finding { if you know what you want (A) to be.
+6zah | When and why does the Boltzmann distribution actually work? That's a bit of a long story, so I'll explain it later. First, let's use the Boltzmann distribution to solve the puzzle I mentioned last time:
+4v5o | At first you think this ordinary 6-sided die is fair. But then you learn that no, the average of the numbers that come up is 5. What are the probabilities P1, ... , Pn for the different faces to come up? You can use the Boltzmann distribution to solve this puzzle!
+ha9e | 23
+xrnt | To do it, take 1 ≤ i ≤ 6 and Ai = i. Stick the Boltzmann distribution pi into the formula Ci Aipi = 5 and get a polynomial equation for exp(-3). You can solve this with a computer and get exp(-) ~ 1.877.
+c8ra | So, the probability of rolling the die and getting the number 1 ~ ~ ~ 6 is pro- portional to exp(-Bi) ~ 1.877'. You can figure out the constant of proportionality by demanding that the probabilities sum to 1-or just look at the formula for the Boltzmann distribution. You should get these probabilities:
+p1l0 | P1~0.02053, p2 ~ 0.03854, p3 ~ 0.07232, p4 ~ 0.1357, p5 ~ 0.2548, p6 ~ 0.4781.
+1i8b | You can compute the entropy of this probability distribution, and you get roughly 1.97 bits. You'll remember that last time we got entropies up to 1.5 bits just by making some rather silly guesses.
+5sfj | So, using the Boltzmann distribution, you can find the maximum-entropy die that rolls 5 on average. Later, we'll see how the same math lets us find the maximum-entropy state of a box of gas that has some expected value of energy!
+vk4h | 24
+nsm3 | MAXIMIZATION SUBJECT TO A CONSTRAINT
+jdfw | To maximize a smooth function f of several variables subject to a constraint on some smooth function g, look for a point where
+uc9r | for some number X.
+l0ap | When we're trying to maximize entropy subject to a constraint, we're doing a prob- lem of the above sort. If you don't know how to do problems like this, it's time to learn about Lagrange multipliers. You can find this in any book on calculus of several variables. But the idea is in the picture above. Say we've got two smooth functions f, g: Rn -> R and we have a point on the surface g = constant where f is as big as it gets on this surface. The gradient of f must be perpendicular to the surface at this point. Otherwise we could move along the surface in a way that made f bigger! For the same reason, the gradient of g is always perpendicular to the surface g = constant. So Vf and Vg must point in the same or opposite directions at this point. Thus, as long as the gradient of g is nonzero, we must have
+x815 | Vf =>Vg
+epbj | for some number ), called a Lagrange multiplier. So, solving this equation along with
+nmn2 | g = constant
+g3tm | is a way to find the point we're looking for-though we still need to check we've found a maximum, not a minimum or something else.
+tfra | We can write a formula that means the exact same thing as Vf = \Vg using differentials:
+5lm9 | df = \dg
+wp2c | This is what we'll do from now on. Gradients are vector fields while differentials are 1-forms. If you don't know what this means, you can probably ignore this for now: the difference, while ultimately quite important, will not be significant for anything we're doing.
+us5v | 25
+rs2m | MAXIMIZING ENTROPY SUBJECT TO A CONSTRAINT
+uz9y | To maximize the entropy
+8ov0 | H = - i=1
+mj9m | Pi In pi
+94h3 | subject to a constraint on the expected value
+9jx1 | (A) = p;Ai, i=1 n
+c3lz | it's good to look for a probability distribution such that dH = \ d(A)
+8bwk | for some number X. This will then be a Boltzmann distribution:
+ez9s | exp(-)Ai)
+mqot | Pi =
+oc99 | n exp(-Ai)
+gipz | We've seen how to maximize a function subject to a constraint. Now let's do the case we're interested in: maximizing entropy subject to a constraint on the expected value of some quantity.
+b4wj | Suppose we have a finite set of outcomes, say 1, ... , n. Our 'quantity' A is just a number A1, ... , An depending on the outcome. For any probability distribution p on the set of outcomes, we can define its Shannon entropy and the expected value of A:
+5xlt | H = - pi In pi, i=1 n (A) = piAi. i=1 n
+9bz4 | Here we are using base e for the Shannon entropy, to simplify the calculations. Let's try to find the probability distribution that maximizes H on the surface (A) = c. We'll show that if such a probability distribution p exists, and none of the pi are zero, then p must be a Boltzmann distribution
+yfv2 | n exp(-Ai)
+pujl | Pi
+3rqe | Lexp(-)Ai) i=1
+nsi3 | for some \ E R. If you're willing to trust me on this, you can skip this calculation.
+nil3 | 26
+68a1 | To use the method from last time the Lagrange multiplier method-we'd like to use the probabilities pi as coordinates on the space of probability distributions. But they aren't independent, since
+seik | pi = 1. i=1 n To get around this, let's use all but one of the pi as coordinates, and remember that the remaining one is a function of those. Let's use p2, P3, ... , Pn as coordinates, so that P1=1-(p2+ ... +Pn). Furthermore, the space of all probability distributions on our finite set is
+oq7c | PERT| O < P; < 1, [P = 1 }. i=1 n It looks like a closed interval when n = 2, or a triangle when n = 3, or a tetrahedron when n = 4, or some higher-dimensional version of a tetahedron when n is larger. In its interior this space looks locally like Rn-1, so we can use the Lagrange multiplier method, but it also has a boundary where one or more of the pi vanish, and then this method no longer applies. (We'll see an example of that later.)
+z4mi | So, let's assume p is a probability distribution maximizing the Shannon entropy H on the surface (A) = c, and also suppose p has p1, ... , Pn > 0. Suppose that not all the values Ai are equal, since that makes the problem too easy-see why? Then d(A) is never zero, so from what I said last time, we must have
+hkft | dH =\ d(A)
+jai3 | at the point p. So let's see what this equation actually says.
+p57i | Since
+u5ug | H = - pi In pi i=1 n
+i9k5 | we have
+20z2 | dH =- >d(p; Inpi) = - >(1 + In pi)dpi. i=1 n i=1 n
+4cgs | Similarly, since
+htre | (A) = piAi i=1 n we have
+da3c | d(A) = > Aidpi. i=1 n
+890q | So, our equation dH = \ d(A) says
+jomo | -(1 + In pi) dp; = > > Adpi. i=1 n i=1 n
+06fi | For these to be equal, the coefficients of dp; must agree for each of our coordinates P2, ... ,Pn. But we have to remember that p1 = 1 - (p2 + . . . +Pn) and thus dp1 = -(dp2 + ··· + dpn). Thus, for each i = 2, ... n we have
+hb4s | (1+In p1) - (1 + In pi) = X(-A1 + Ai)
+cqq2 | and fiddling around we get
+1ews | exp(-XA1) exp(-Ai) P1 Pi =
+afyn | 27
+8sye | This says something cool: the probabilities <LATEX>p _ { i }</LATEX> are proportional to the exponentials <LATEX>\exp \left( - \lambda A _ { i } \right) .</LATEX> And since the probabilities must sum to 1, it's obvious what the constant of proportionality must be:
+r04h | <LATEX>p _ { i } = \frac { \exp \left( - \lambda A _ { i } \right) } { \sum _ { i = 1 } ^ { n } \exp \left( - \lambda A _ { i } \right) } .</LATEX> So yes: <LATEX>p _ { i }</LATEX> must be given by the Boltzmann distribution!
+orpr | In summary, we've seen that if there exists a probability distribution <LATEX>p</LATEX> that max- imizes the Shannon entropy among probability distributions with <LATEX>\langle A \rangle = c ,</LATEX> and <LATEX>i f</LATEX> all the <LATEX>p _ { i }</LATEX> are positive, then <LATEX>p</LATEX> must be a Boltzmann distribution. But this raises other questions. When does such a probability distribution exist? If it exists, is it unique? And what if not all the <LATEX>p _ { i }</LATEX> are positive?
+k36m | In what follows we'll dive down this rabbit hole and get to the bottom of it. I'll just state some facts-you may enjoy trying to see if you can prove them. First, there exists a probability distribution <LATEX>p _ { 1 } , \ldots , p _ { n }</LATEX> with <LATEX>\langle A \rangle = c</LATEX> if and only if
+wnuz | <LATEX>A _ { \min } \leq c \leq A _ { \max }</LATEX> where <LATEX>A _ { \min }</LATEX> is the minimum value and <LATEX>A _ { \max }</LATEX> is the maximum value of the numbers <LATEX>A _ { 1 } , \ldots , A _ { n } .</LATEX> Second, whenever
+```
+
+OUTPUT:
+```

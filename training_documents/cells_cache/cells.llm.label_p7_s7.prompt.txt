@@ -1,0 +1,133 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+colo | Integrins
+d6r4 | Integrin activation in response to stable flow inactivates RHO GTPases through RHO-like GTPase signalling99. RHOA inactivation promotes YAP phosphorylation (at Ser127 and Ser381) in the cytoplasm to maintain an atheroprotective endothelial cell phenotype100. These interactions between integrins and RHO GTPases further activate RAC, leading to the assembly of the junctional mechanosensory complexes101. Addition- ally, the RHO GTPase CDC42 is polarized and activated in an integrin- dependent manner and subsequently regulates the polarity of the microtubule-organizing centre102,103. Under disturbed flow conditions, the cooperation between RGD-binding integrins (including &5ß1andavß3 integrins) and fibronectin has been shown to drive pro-inflammatory signal transduction involving the nuclear translocation of NF-KB, YAP and serine/threonine-protein kinase PAK 104-107.
+9mrz | Flow-sensitive transcription factors
+pk06 | Thus far, we have discussed mechanosignal transduction pathways occurring in an early-to-intermediate timescale, mediated by spe- cific mechanosensors in response to flow in endothelial cells. These relatively acute responses lead to the regulation of downstream, long-term responses, including activation of transcription factors and
+7wn9 | Nature Reviews Cardiology
+wcd0 | transcriptional co-activators, such as KLF2 and KLF4, NF-KB, hypoxia- inducible factor 1x (HIF1x), YAP, TAZ and SOX13, which regulate gene expression profiles and cell function73. KLF2 and KLF4 are two of the most flow-sensitive master transcription factors regulating the expression of genes that control anti-atherogenic pathways induced by stable flow, including vasodilatation and antithrombotic and anti-inflammatory pathways108-112. KLF2 reduces the expression of pro-atherogenic genes by competing with NF-KB for transcriptional cofactor CBP-p300 and by promoting the translocation of nuclear factor erythroid 2-related factor 2 (refs. 113-115). Stable flow increases KLF2 transcription by sequentially activating the members of the MAP kinase family MEKK3, MEK5 and ERK5, which in turn activates the transcription factors MEF2A and MEF2C116. By contrast, disturbed flow inactivates the ERK5 path- way, leading to the inhibition of KLF2 expression116. In addition, KLF2 expression is suppressed by the flow-regulated microRNA (miRNA), miR-92a
+caos | NF-KB is a well-recognized transcription factor that is activated by flow. Nuclear translocation and activation of NF-KB in endothelial cells is increased transiently by stable flow and persistently by disturbed flow94,124. NF-KB target genes include those encoding VCAM1, ICAM1, E-selectin, HIF1x and numerous cytokines, all of which have a crucial role in atherosclerosis94,125,126. HIF1x is a pro-atherogenic transcription factor that is activated by disturbed flow127-129. HIF1x induces the expres- sion of glycolytic enzymes such as HK2, PFKFB3 and PDK1 (ref. 130). YAP and TAZ - which are transcriptional co-activators induced by the Hippo signalling pathway and are involved in organ growth and development as well as various diseases such as cancer and atherosclerosis - are also regulated by both stable and disturbed flow131-133. Disturbed flow induces YAP and TAZ nuclear translocation and activation, leading to endothelial cell inflammation and cytoskeletal remodelling and atherosclerosis131. A study published in 2022 identified SOX13 as a novel flow-sensitive transcription factor. Disturbed flow represses the expression of SOX13, which in turn leads to a strong induction of pro- inflammatory cytokine and chemokine production, including CCL5 and CXCL10, resulting in endothelial inflammation134.
+qrvy | Omics approaches to study endothelial cells
+pn9j | Omics-based analyses have become standard approaches to determine changes in endothelial cells in response to various flow and disease conditions. Unlike traditional reductionist approaches studying one or a few candidate genes or proteins at a time, the astonishing advances in omics technologies and computational bioinformatics have made it possible to determine changes in genes, proteins and metabolites at a genome-wide, epigenome-wide, proteome-wide and metabolome-wide scale, often at a single-cell resolution, and using a small amount of sample. The application of these approaches using in vitro and in vivo models has generated a plethora of datasets of flow- dependent transcriptomic, epigenomic, proteomic and metabolomic profiles in endothelial cells and blood vessels under healthy and disease conditions15,135-140
+1pmc | Early transcriptomic studies used bulk RNA and miRNA samples from pooled cultured endothelial cells and animal tissues to conduct microarray and RNA sequencing analyses. These studies identified numerous unexpected flow-sensitive genes, miRNAs and long non- coding RNAs (lncRNAs), generating wide-ranging novel hypotheses regarding their various roles in endothelial cell function and athero- sclerosis14,17,73. Numerous flow-sensitive genes (including BMP4, DNMT1, KDM4B, KLF2, KLK10, PLPP3, SEMA7A, THBS1, TMX1 and ZBTB46), miRNAs (including miR-95a and miR-712) and lncRNAs (including
+5z6q | Review article
+yeoh | MALAT1 and MANTIS) were identified from these bulk-RNA studies and subsequently validated, as reviewed elsewhere14,17,73,141,142. The roles of flow-sensitive miRNAs and IncRNAs in endothelial function have been reviewed previously143,144. KLK10 (which encodes kallikrein-related peptidase 10) has been identified as one of the most flow-sensitive genes from a gene-array study using the mouse PCL model135. KLK10 expression is increased by stable flow, but nearly lost in response to disturbed flow in endothelial cells in vitro, mouse arteries in vivo and human coronary arteries with advanced atherosclerotic plaques143. After the KLK10 protein is produced, it is secreted into the circulat- ing blood (or the conditioned medium in in vitro assays) and func- tions as an anti-inflammatory and permeability-barrier-protective protein143. Interestingly, KLK10, which is a member of the KLK serine/ threonine protein kinase family, lacks inherent protease activity, and its anti-inflammatory and permeability-barrier-protective functions are mediated by protease-activated receptor 1 (PAR1)-dependent and PAR2-dependent pathways143. Administration of recombinant KLK10 via tail vein injection or ultrasound-guided delivery of a KLK10 expression vector to the carotid endothelium prevented endothelial inflammation and atherosclerosis development in mice143,144, demonstrating the proof of principle that flow-sensitive proteins such as KLK10 could be used as novel anti-atherogenic therapeutics.
+b8hf | Flow induces epigenome-wide changes in endothelial cells, as revealed by a DNA methylome study that used reduced representation bisulfite sequencing of mouse genomic bulk DNA samples combined with microarray analysis of bulk RNA samples of mouse carotid arteries after PCL surgery136. This DNA methylome study, together with other studies, showed that disturbed flow regulates DNA methylation pat- terns in endothelial cells via the DNA methyltransferases DNMT1 and DNMT3 (refs. 136,145,146). Further studies showed that genetic dele- tion or pharmacological inhibition of DNMT1 prevented endothelial inflammation and atherosclerosis development in Apoe /- mice145, demonstrating that flow-sensitive epigenomic modifications could be anti-atherogenic therapeutic targets.
+hntf | Proteomics studies using advanced mass spectrometry have iden- tified numerous flow-sensitive proteins that are differentially expressed or post-translationally modified in endothelial cells in response to flow142,147,148. Analyses of secreted media (secretome) of endothelial cells show that disturbed flow alters the levels of hundreds of pro- teins, including ANGPT2 and endothelin 1 (ref. 148). A study to deter- mine proteome-wide S-sulfhydration changes of reactive cysteines (S-sulfhydrome) in endothelial cells in response to pro-atherogenic conditions in vitro and in vivo identified hundreds of flow-sensitive S-sulfhydrated proteins149, including integrins, which have an important role in the flow-dependent vascular relaxation response. A metabo- lomics study using plasma samples from Apoe /- mice subjected to PCL surgery showed that disturbed flow induces significant changes in the levels of hundreds of metabolites, including sphingomyelin and the amino acids methionine and phenylalanine46. However, the causal effects of flow-dependent changes in metabolites have not been clearly defined in vivo and further investigation is warranted. The tar- gets identified by omics approaches and their roles in endothelial cell dysfunction and in atherosclerosis are summarized in Table 1.
+99fo | Disturbed-flow-induced reprogramming of endothelial cells
+y5r7 | Early transcriptomic and epigenomic studies used mouse bulk RNA and DNA samples obtained from pooled endothelial cells collected by carotid flushing after PCL surgery135,136,150. The findings from these
+lrry | Nature Reviews Cardiology
+hvhm | studies helped to establish flow-dependent changes in transcriptomic and DNA methylation patterns in endothelial cells in a genome-wide and epigenome-wide manner. However, although these results revealed a definitive list of genes with reduced expression in endothelial cells in response to disturbed flow, identifying genes that are increased under disturbed flow conditions in the PCL model has been difficult. The reason for this dilemma is that disturbed flow induces endothelial cell inflammation and accumulation of other cell types, especially immune cells, in the subendothelial layer, thereby causing substantial contamination of the endothelium-enriched luminal-flushing samples. Therefore, it was difficult to discern whether the increased expression of any gene of interest originated from the endothelial cells or from the contaminating immune cells and VSMCs. To address the difficulty in identifying flow-sensitive genes in endothelial cells, our group car- ried out scRNA-seq and single-cell assay for transposase-accessible chromatin sequencing (scATAC-seq)15.
+863b | scRNA-seq enables the study of transcriptional changes at a genome-wide scale at single-cell resolution. scRNA-seq quantifies each gene transcript, both unspliced precursor mRNA (pre-mRNA) and mature, spliced mRNA (mRNA), in each cell, providing insights into gene transcript expression profiles and dynamic cellular status. The results show each gene transcript quantity in every cell, while the pre-mRNA and mRNA levels can be used for trajectory inference analysis, such as pseudotime analysis or RNA velocity analysis151. scATAC-seq assays reveal genome-wide epigenomic changes in chromatin accessibility at single-cell resolution, providing data on gene cis-regulatory elements including enhancers, nucleosome positions and transcription factor binding sites. Integration of scRNA-seq and scATAC-seq analyses pro- vides additional independent validation and comparison of gene tran- script levels and epigenomic regulatory profiles for each gene, adding another layer of confidence to the data analysis152.
+fj24 | Our study of single cells obtained from LCAs (exposed to dis- turbed flow for 2 days or 2 weeks) and RCAs (exposed to stable flow for 2 days or 2 weeks) in the same mice after PCL surgery enabled the identification of differential transcriptomic and epigenomic changes in endothelial cells and other cell types, in a flow-dependent and time-dependent manner15. The scRNA-seq and scATAC-seq results independently showed that disturbed flow induced dynamic changes in cell composition in the mouse carotid arteries in a time-dependent manner. The comparison and integration of scRNA-seq and scATAC- seq data showed remarkable concordance, demonstrating the repro- ducibility and validity of each dataset15. Each individual cell in these datasets was assigned a specific cell type based on the expression of cell type-specific canonical marker genes. The carotid arteries con- tained eight endothelial cell clusters, four monocyte-macrophage clusters, one cluster of VSMCs, one of fibroblasts, one of dendritic cells and one of T cells, all varying in terms of cell identity and number in a flow-dependent and time-dependent manner15. Most interest- ingly, carotid artery endothelial cells are heterogeneous and dynamic in response to flow. In the RCA exposed to the healthy stable flow condition, four endothelial cell subclusters (E1-E4) were identified and remained unchanged over time. However, in the LCA exposed to the pro-atherogenic disturbed flow condition, most of the healthy endothelial cell subclusters (E2-E4) were nearly lost, whereas new endothelial cell subclusters (E6 and E8) emerged15. In addition, few VSMCs were found in the RCA intima, but disturbed flow increased the VSMC numbers in the LCA15, as expected. Fibroblasts were found in both the LCA and RCA, with the highest number found in the LCA in the 2-day disturbed flow condition. Although monocyte and macrophage
+uz3c | Review article
+d5bi | Table 1 | Flow-sensitive genes in endothelial cells
+ba4l | Nature Reviews Cardiology
+ffx8 | matrix degradation
+s6su | Review article
+y219 | Table 1 (continued) | Flow-sensitive genes in endothelial cells
+06ht | clusters were rare in the RCA, the LCA had dramatically increased numbers of monocytes and macrophages, reflecting substantial pro- inflammatory and pro-atherogenic vascular changes in response to disturbed flow. Like macrophages, few dendritic cells and T cells were present in the RCA but their numbers were increased by disturbed flow in the LCA15.
+v3r2 | Differential gene expression and gene ontology analyses showed that disturbed flow induces numerous changes that favour pro- atherogenic responses in endothelial cells15. To understand the potential underlying mechanisms by which disturbed flow induces endothelial cell phenotype changes, eight different endothelial cell clusters were analysed for their differential gene expression and gene ontology15. As expected, the prototypical healthy endothelial cell clusters (E2) expressed the highest levels of the two best known mechanosensitive genes, Klf2 and Klf4, and the expression of these genes was significantly lower in endothelial cell clusters exposed to disturbed flow, such as the
+nv42 | Nature Reviews Cardiology
+xags | prototypical E8 in the LCA. Disturbed flow induced the expression of genes in the E8 cluster of endothelial cells that were also found to be highly expressed in VSMCs (Acta2 and Tagln), fibroblasts (Dcn1) and immune cells (Cd74, H2-Eb1, H2-Aa and H2-Ab1), indicating potential EndMT and acquisition of immune cell-like features by endothelial cells under the disturbed flow condition. Comparison of the differentially expressed genes between the stable flow-exposed E2 and disturbed flow-exposed E8 clusters by Panther gene ontology analysis showed that disturbed flow induces many well-known biological processes associated with pro-atherogenic pathways, including inflammation, EndMT, apoptosis, angiogenesis and endothelial permeability15. A pseu- dotime trajectory analysis and additional differential gene expression and chromatin accessibility analyses confirmed that E8 cells express higher levels of marker genes for EndMT (Acta2, Cnn1, Snail and Tagln) and EndIT (C1qa, C1qb, C5ar1 and Tnf) than E2 cells. The evidence for EndMT and EndIT was further validated by immunofluorescence
+jc47 | Review article
+```
+
+OUTPUT:
+```

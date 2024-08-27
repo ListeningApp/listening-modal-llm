@@ -1,0 +1,131 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+ousl | https://academic.oup.com/bioscience
+m4ju | (by creating dispersal corridors) may be crucial for ensuring species survival under rapid environmental change.
+a0mb | Characteristic features of range-expanding taxa responding to human-induced environmental change
+ki8m | For a taxon to qualify as range expanding due to human- induced environmental change, we suggest that it has to fulfill the following criteria: Its range has expanded beyond the historic native range, the range expansion has been facil- itated by human-induced environmental change, the range expansion is not due to direct human agency (e.g., introduc- tion of propagules), the population status of recent occur- rences (i.e., being permanent or ephemeral) outside the historic native reference range, and-optionally-the range expansion has occurred within a timeframe that points to anthropogenic environmental change. We will discuss each of these features in detail and we propose a term for such species (neonative) below.
+km8w | Applying the above-mentioned criteria in practice will often be difficult because of a lack of data (e.g., when did a species expand its range; what are the causal factors under- lying the expansion?). Therefore, using expert knowledge and developing practical guidelines and thresholds will be essential for ensuring the usefulness and robustness of assessments of range-expanding taxa. We provide some recommendations on thresholds as a basis for future discus- sions to reach a widely accepted consensus.
+wzno | We propose that the historic native reference range of a taxon should be the documented or likely historic range that the taxon has occupied or colonized by natural means before humans began playing a dominant role in landscape or climate modifications. This may include parts of the species' range that have been lost historically (e.g., because of overhunting, or historic anthropogenic habitat destruc- tion), which implies that recolonization into historically lost regions after the causes of decline have been eliminated (e.g., hunting regulations, species management) disqualifies a species from being classified as range-expanding taxon responding to human-induced environmental change (e.g., wolves in Central Europe).
+xagm | There are arguments both in support of using a temporal threshold to delineate range-expanding species responding to human-induced environmental change or against doing so (i.e., all species fulfilling the other criteria do qualify). We believe that the definition of temporal thresholds warrants further discussion before a consensus on its usefulness can be reached. If a temporal threshold needs to be identified, then restricting the concept of range-expanding species respond- ing to human-induced environmental change to those that expanded their range since the onset of the Anthropocene, which was recently suggested to be the year 1950 CE (Zalasiewicz et al. 2015, Waters et al. 2016), might be a prag- matic temporal reference point. The advantages of using the Anthropocene as a temporal reference are that, in earlier history, the role of human agency on range changes was considerably smaller in most cases (but see Crees and Turvey
+iwn5 | https://academic.oup.com/bioscience
+uooz | Forum
+pxbq | 2015 for exceptions), whereas the role of naturally occurring changes in the environment were most dominant, and data on range changes are scarce for many regions and taxonomic groups, which makes the reconstruction of historic range changes difficult or impossible in most cases. For those species and regions for which human-induced range expan- sion that occurred before 1950 CE are well documented, we propose that this reference date may be relaxed, but this should be made explicit. Nevertheless, there are also impor- tant arguments for not introducing a temporal threshold; these include that range expansion tracking human-induced environmental change already occurred millennia ago. For example, deforestation in the medieval period in Europe was a strong driver of transformation of the landscapes with vast implications for dispersal opportunities for many heliophi- lous species, and it is difficult to justify why some events with extreme impacts like this should be included within the concept, whereas others should not. Moreover, identifying the onset of range expansion is often difficult. From this per- spective, the most objective approach would be to consider the beginning of Neolithic as a threshold, in the same way as it is applied to the definition of the beginning of biological invasions (Webb 1985, Pyšek et al. 2004). We highlight these different perspectives as a topic that will require further dis- cussion within the conservation community but note that in practice most land or marine managers and conservationists will be concerned with addressing contemporary rather than historical range expansion.
+jfsr | Downloaded from https://academic.oup.com/bioscience/article/69/11/908/5569676 by Alfred-Wegener-Institut fuer Polar- und Meeresforschung - Bibliothek user on 10 September 2023
+u15r | Natural range expansion may occur over vastly different distances and may be driven by different processes, rang- ing from small-scale fluctuations of metapopulations at range margins to natural long-distance dispersal events. In practice, to qualify a taxon as range expanding, we propose that range expansion should have happened over substantial distances beyond the historic native reference range. What constitutes a substantial distance in this context is difficult to define in absolute terms for a range of taxa and for differ- ent regional contexts (e.g., when considering the steepness of environmental gradients), and the mobility of the focal species will play a significant role as well. We believe that agreeing on thresholds of the minimum distances a species has to cross to qualify as range expanding warrants further discussion. However, to initiate discussion, we propose that such minimum distances should exclude marginal range expansion, because, for short distances, it is often difficult to disentangle population fluctuations at the range limits from range expansion. For instance, we propose that for latitudi- nal range expansion (within the same elevational belt) mini- mum distances should typically be of the order of at least 100 kilometers (Essl et al. 2018), so way beyond landscape-scale migrations and minor range adjustments. For altitudinal range expansion in mountainous regions, shorter distances of the order of a few hundred meters in elevation will be more appropriate.
+lq35 | To assess the population status of occurrences outside the historic native range requires the assessment of whether
+3g9w | November 2019 / Vol. 69 No. 11 . BioScience 911
+d09o | Forum
+ylhz | populations are permanent or ephemeral. We propose that the same criteria as for successful naturalizations of alien species should be considered for identifying permanent populations outside the historic reference range-that is, they have to be self-sustaining, persistent, and able to reproduce (Richardson et al. 2000, Blackburn et al. 2011). Temporary occurrences and casual observations beyond the historic reference range should only qualify as neonative when there is evidence that they lead to the establishment of founding populations at the range front of range-expanding species tracking anthropogenic environmental change. Consequently, in the absence of such evidence, short-lived (fluctuating or ephemeral) populations at the limit of the suitable environmental space, isolated long-distance dispers- ing individuals (e.g., vagrants) and species that expand their range naturally do not qualify as fulfilling this criterion. We believe this is useful, because such ephemeral occurrences of individuals or small short-lived populations do not nec- essarily indicate range expansion. For example, there are frequent records of individuals of many mobile species such as birds and moths found as vagrants far away from their native range (but see Davis and Watson 2018 for a discussion on the changing role of vagrants for range expansion due to climate change).
+a3td | Species ranges are inherently dynamic and can fluctuate tremendously over time in response to climatic, tectonic, or oceanographic events. Species ranges are naturally modified through migration and propagule dispersal or often through long-distance dispersal events assisted by wind or water cur- rents (Gillespie et al. 2012), or other organisms, without nec- essarily involving environmental changes. Human-induced environmental changes may increase the accessibility or suitability of a region for a given species (Chen et al. 2011, Fraser et al. 2018), which may allow for new geographi- cal areas to be colonized. Assessing the contribution of human-induced environmental change to range expansion will mostly be based on circumstantial evidence such as a close match between the ecological requirements of a species and the recent change in the recipient environment brought about by environmental change and attributes of the range expansion process. It is often difficult to ascertain the degree of indirect influence of human agency on species range expansion. However, it is likely that only few species that are currently expanding do so without responding to human- induced environmental change. For practical purposes, we therefore propose that evidence that the spread of a species is due to human-induced environmental change is sufficient to qualify a species to fulfill this criterion (see supplement S1 for examples), whereas evidence that range expansion is not due to human-induced environmental change should be used for identifying species that expand their ranges naturally. However, an estimate of uncertainty of the assessment should be provided. The near ubiquity of anthropogenic impacts in the Anthropocene means that under these circumstances, it may be much harder to distinguish species that are expand- ing their ranges independently of environmental change.
+ex5k | 912 BioScience · November 2019 / Vol. 69 No. 11
+9d4o | Finally, the absence of direct human-mediated disper- sal for range expansion or the creation of human-made dispersal corridors (e.g., canals) is a prerequisite for a taxon to qualify as range-expanding species responding to human-induced environmental change. Such human agency includes the intentional or unintentional anthro- pogenic transport of propagules or individuals from the native range (or from a previously colonized alien range) or increasing region accessibility via the construction of corridors (e.g., canals, tunnels, roads, bridges) that connect previously separated regions (e.g., river catchments, seas, islands; Essl et al. 2018). These processes may aid or allow the colonization of regions that have become newly suitable for a species. In many situations, human agency and indirect human-induced environmental change may synergistically enable species-range expansion and attributing their relative importance may be difficult. If human agency (other than human-induced environmental change) is involved, the respective taxon should be considered alien (Richardson et al. 2000, Pyšek et al. 2004, Essl et al. 2018). In addition to these defining characteristics, a range of other features is associated with the phenomenon of range-expanding native species (e.g., ecological novelty).
+cjq2 | Downloaded from https://academic.oup.com/bioscience/article/69/11/908/5569676 by Alfred-Wegener-Institut fuer Polar- und Meeresforschung - Bibliothek user on 10 September 2023
+5esx | Range-expanding species responding to human- induced environmental change compared with alien species
+m5ka | Range expansion of species responding to human-mediated environmental change and biological invasions have com- mon features, but they differ qualitatively and quantitatively in key processes. For the former, individuals colonizing new geographic space are usually drawn from the leading edge of the historic native range, with concomitant conse- quences (e.g., these populations are often genetically less diverse than those in the central part of the range, or they may differ from populations in the central range; Excoffier et al. 2009, Wilson et al. 2009). The individuals driving long- distance dispersal may differ in dispersal-relevant traits from the average values of the population they are drawn from (Darling et al. 2008, Phillips et al. 2010, Hill et al. 2011). Therefore, populations in newly colonized regions may also differ in these traits from the source populations. Range expansion may be driven by widely different numbers of individuals, and if numbers are low (which is often the case), bottleneck and founder effects are frequent and may result in reduced genetic diversity (Excoffier et al. 2009).
+byu8 | In contrast, alien species may be drawn from a wide range of source populations, which are often located in the central parts of their range, and repeated introductions from differ- ent source populations are a widespread phenomenon (Shirk et al. 2014). Furthermore, postintroduction evolution in the new range because of different selection pressure and limited gene exchange with native populations has repeatedly been documented (Excoffier et al. 2009, Zhang et al. 2018). This is probably more relevant for alien species, because they typi- cally encounter substantially different selection pressures in
+76b0 | https://academic.oup.com/bioscience
+zxz6 | the new region, whereas range-expanding species respond- ing to human-induced environmental change colonize regions adjacent to their historic range with smaller differ- ences in selection pressures. However, it has been shown that native species expanding their ranges in response to climate warming experience less control by natural enemies than long-term resident natives (Engelkes et al. 2008). Therefore, populations of alien species in their new range may be more (e.g., as a consequence of repeated introductions and admix- ture) or less genetically diverse and substantially different from those in their native range, depending on the direction and strength of the relevant selection processes. However, there are many cases in which alien populations have reduced genetic diversity (Hagenblad et al. 2015). Although range-expanding species responding to human-induced environmental change and aliens are likely to differ in many aspects, comparative studies are needed to determine the character and magnitude of differences between these two species categories.
+xnth | Typically, range-expanding species responding to human- induced environmental change first colonize regions directly adjacent to the historic native range and may usually only colonize regions further away from the historic range as the expansion progresses. This progression is highly contingent on the maximum spread distance of individuals and the availability of suitable habitats. Range-expanding species responding to human-induced environmental change show denser, more aggregated distributions, reflecting coloniza- tion and this link between current distribution patterns and processes of distribution change can be used as indication for identifying range-expanding species (Wilson et al. 2004). In contrast, if alien species are introduced to areas outside their native range but within the same continent, the foci of primary introductions are often not adjacent to the native range, because introductions depend on human agency that helps to overcome dispersal barriers. Subsequent spread across the suitable range is also contingent on the spread potential of the species, but secondary introductions may substantially increase spread (Kowarik 2003).
+vafm | Ecological novelty is a characteristic feature of species redistribution in the Anthropocene (Saul and Jeschke 2015). Different facets of ecological novelty can be conceptual- ized, and we argue that these are associated in different ways with range-expanding and alien species (table 1). Specifically, ecological novelty can be inversely measured as ecoevolutionary experience of interacting resident and non- resident species (sensu Saul and Jeschke 2015): Organisms with novel weapons (sensu Callaway and Ridenour 2004) or other novel traits the resident species are not familiar with (i.e., they have a low ecoevolutionary experience) are expected to have stronger impacts than organisms that are similar to resident species (i.e., high ecoevolutionary experi- ence). We would expect that resident species typically have a higher ecoevolutionary experience when interacting with range-expanding species responding to human-induced environmental change than with alien species coming from
+2zmw | https://academic.oup.com/bioscience
+bf9k | Forum
+```
+
+OUTPUT:
+```

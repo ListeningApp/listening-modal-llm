@@ -1,0 +1,199 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+1b4f | Its position q is trapped in the interval [0, L].
+fh0y | Its partition function is therefore
+4g6f | Z(B) = 11º e-BE(P,q) -00 dp dq h
+fpm1 | h 1-00 L 100 6 1° e-Bp2/2m dp =
+ycds | 2Trm
+duzw | β
+a7jq | Now let's turn to our ultimate goal: computing the entropy of a box of gas. As a warmup, let's figure out the entropy of a single particle in a box. In fact, let's start with a a free classical particle in a one-dimensional box: that is, in some interval [0, L].
+s9lx | The first step is to compute its partition function. As you can see, this is easy enough. But the whole idea raises some questions. Some people get freaked out by the concept of entropy for a single particle I guess because it involves probability theory for a single particle, and they think probability only applies to large numbers of things.
+4uik | I sometimes ask these people "how large counts as large?" In fact the foundations of probability theory are just as mysterious for large numbers of things as for just one thing. What do probabilities really mean? We could argue about this all day: Bayesian versus. frequentist interpretations of probability, etc. I said a tiny bit about this before, and I won't say more now.
+e0rl | Large numbers of things tend to make large deviations less likely. For example the chance of having all the gas atoms in a box all on the left side is less if you have 1000 atoms than if you have just 2. This makes us worry less about using averages and probability.
+7hew | But the math of probability works the same for small numbers of particles-even one particle! Even better, knowing the entropy of one particle in a box will help us understand the entropy of a million particles in a box-at least if they don't interact, as we assume for an 'ideal gas'.
+onvv | But why just a one-dimensional box? The answer is that particle in a 3-dimensional box is mathematically the same as 3 noninteracting distinguishable particles in a one- dimensional box! The x, y, and z coordinates of the 3d particle act like positions of three 1d particles.
+adbb | 79
+h6cg | PARTICLE IN A BOX: EXPECTED ENERGY
+unxh | A classical free particle of mass <LATEX>m</LATEX> in a 1d box of length <LATEX>L</LATEX> has partition function
+ycmp | <LATEX>Z = \frac { L } { h } \sqrt { \frac { 2 \pi m } { \beta } }</LATEX> The expected energy of any system in thermal equilibrium is
+wabe | <LATEX>\langle E \rangle = - \frac { d } { d \beta } \ln Z</LATEX> So, by the miracle of basic calculus, we get
+vpyq | <LATEX>\langle E \rangle = \frac { 1 } { 2 \beta } = \frac { 1 } { 2 } k T</LATEX> as we'd expect from the equipartition theorem!
+ai73 | We worked out the partition function of a classical free particle in a 1-dimensional box. From this we can work out its expected energy. Look how simple it is! It's just <LATEX>\frac { 1 } { 2 } k T ,</LATEX> where <LATEX>k</LATEX> is Boltzmann's constant and <LATEX>T</LATEX> is the temperature!
+1lzj | Why is the final answer so simple? We can use the chain rule
+boyi | <LATEX>\frac { d } { d \beta } \ln Z = \frac { 1 } { Z } \frac { d Z } { d \beta }</LATEX> to see that only the power of <LATEX>\beta</LATEX> in
+9lwd | <LATEX>Z = \frac { L } { h } \sqrt { \frac { 2 \pi m } { \beta } }</LATEX> matters, not all the constants: these constants show up in <LATEX>d Z / d \beta ,</LATEX> but also in <LATEX>1 / Z ,</LATEX> and they cancel. The length <LATEX>L ,</LATEX> the mass <LATEX>m ,</LATEX> Planck's constant <LATEX>h ,</LATEX> the factor of <LATEX>2 \pi \ldots .</LATEX> none of this junk matters! Not for the expected energy, anyway. Because <LATEX>Z</LATEX> is proportional to <LATEX>\beta ^ { - 1 / 2 } ,</LATEX> we simply get
+d2vd | <LATEX>\langle E \rangle = \frac { 1 } { 2 } k T .</LATEX> More generally, if the partition function of a system is proportional to <LATEX>\beta ^ { - c } ,</LATEX> its expected energy will be
+ow2p | <LATEX>c k T :</LATEX> <LATEX>Z \propto \beta ^ { - c } \Longrightarrow \langle E \rangle = c k T .</LATEX> But when is the partition function of a system proportional to <LATEX>\beta ^ { - c }</LATEX> It's enough for the system's energy to be a positive definite quadratic form in <LATEX>n</LATEX> real variables-which physicists call 'degrees of freedom'. Then <LATEX>c = n / 2 .</LATEX> We've already seen an example with 2 degrees of freedom: the classical harmonic oscillator. We saw that in this example <LATEX>Z \propto 1 / \beta .</LATEX> This gives <LATEX>\langle E \rangle = k T .</LATEX> But the result is quite general:
+q5v1 | 80
+ty34 | Puzzle 45. Suppose we have a system with state space <LATEX>\mathbb{R} ^ { n }</LATEX> and energy function <LATEX>E : \mathbb{R} ^ { n } \rightarrow</LATEX> <LATEX>\mathbb{R}</LATEX> that is a positive definite quadratic form, so that
+gzzp | <LATEX>E \left( x \right) = \frac { 1 } { 2 } \| A x \| ^ { 2 }</LATEX> for some invertible <LATEX>n \times n</LATEX> matrix <LATEX>A .</LATEX> Show that its partition function is proportional to <LATEX>\beta ^ { - c }</LATEX> where
+kh7y | <LATEX>c = n / 2 .</LATEX> In fact, this is just a new outlook on our friend the equipartition theorem.
+7xl2 | Here's another thing to consider. While our particle in a <LATEX>1 \mathrm { d }</LATEX> box has 2 degrees of freedom-position and momentum-its energy depends on just one of these, and quadratically on that one. So its expected energy is <LATEX>\frac { 1 } { 2 } n k T</LATEX> where <LATEX>n = 1 ,</LATEX> not
+53tr | <LATEX>n = 2 .</LATEX> So here's another puzzle for you:
+3zd1 | Puzzle 46. Say we have a harmonic oscillator with spring constant K. As long as <LATEX>\kappa > 0 ,</LATEX> the energy depends quadratically on 2 degrees of freedom so <LATEX>\langle E \rangle = k T .</LATEX> But when <LATEX>\kappa = 0</LATEX> it depends on just one, and suddenly <LATEX>\langle E \rangle = \frac { 1 } { 2 } k T .</LATEX> How is such a discontinuity possible? In other words: how can a particle care so much about the difference between an arbitrarily small positive spring constant and a spring constant that's exactly zero, making its expected energy twice as much in the first case?
+3shq | I'll warn you: this puzzle is deliberately devilish. In a way it's a trick question!
+r3r5 | 81
+pgo2 | PARTICLE IN A BOX: FREE ENERGY
+v6zz | A classical free particle of mass m in a 1d box of length L has partition function
+7zt5 | Z = 1 2Tm h\ L h - β
+77ir | The free energy of any system is given by F = -- In Z, so B 1
+wbov | F = - In
+4bll | Using $ = 1/kT and fiddling around a bit, we can rewrite this as
+fl9r | F= - kT (In L + -InkT + - In - 1 2 n KET + 1 2 2mm h2
+c297 | From the partition function of a classical free particle in a one-dimensional box we can also compute its free energy!
+vo3u | 82
+gxrz | PARTICLE IN A BOX: ENTROPY
+hkkk | We've shown that in thermal equilibrium, a classical particle of mass m in a 1-dimensional box of length L has expected energy (E) = kT 1
+zmxa | and free energy
+aq7b | F = - kT (In L + - In kT + - In 1 2 1 2Tm h2
+d9lc | But entropy S is always ((E) - F)/T, so
+cciv | S = k ln L + 1 2 InkT + In 1 +1) 2 1
+b47m | Having worked out the expected energy (E) and free energy F for a single classical particle in thermal equilibrium in a 1-dimensional box, it is easy to work out its entropy. We just subtract the free energy from the expected energy and divide by temperature:
+3va3 | S : (E) - F T .
+900o | The formula we get is not very snappy:
+4am3 | S = k (In L +5 InkT +;In 1 2Tm h2 + 2) .
+ggbb | We will get a better formula later, and ponder its meaning. For now, let's just make these observations:
+51t4 | . When we make the length L of the box larger, the entropy becomes larger.
+f9z3 | · When we increase the temperature T, the entropy becomes larger.
+jaw0 | · When we increase the mass m of the particle, the entropy becomes larger.
+7fiw | The first two facts should feel intuitively obvious. When we increase the box's length, there is more unknown information about the position of the particle in thermal equilibrium. When we increase the particle's temperature, there is more unknown information about its momentum. The third fact is less obvious. When we introduce the concept of 'thermal wavelength', we will see that increasing the particle's mass decreases its thermal wavelength, which in turn increases its entropy in thermal equilibrium.
+3koz | 83
+crjb | WHERE ARE WE NOW?
+nk6u | The mystery: why does each molecule of hydrogen have ~ 23 bits of entropy at standard temperature and pressure?
+ils9 | The goal: derive and understand the formula for the entropy of a classical ideal monatomic gas:
+jnec | N (In ) V 3 N + - InkT + Y 2
+hxy3 | including the mysterious constant y.
+3jn8 | The subgoal: compute the entropy of a single classical particle in a 1-dimensional box:
+sxz7 | S = k In L + - InkT + In T +2) 1
+o1qm | ✓
+0wlv | The sub-subgoal: explain entropy from the ground up, and compute the entropy of a classical harmonic oscillator:
+d6bc | how kT 1 ✓
+z27p | Let's pause to remember where we are in our game plan. First we computed the entropy of a classical harmonic oscillator. Now we've computed the entropy of a single classical particle in a 1-dimensional box. The answer looks a bit like the entropy of an ideal gas! That's no coincidence we're almost there now.
+7sdk | In case you wanted to know the entropy of a particle in a 3-dimensional box, don't worry. It's the same as the entropy of three particles of the same mass in three 1- dimensional boxes of appropriate lengths: the length L, width W and height H of our 3d box. So we can just sum those 3 entropies and get our answer. Since ln L+ln W +ln H = ln V where V is the volume of our 3d box, we get
+r5ct | S = k InV + InkT + 2In 3 h2 2+ 3).
+t5nr | Later we'll do this calculation more rigorously and more generally for a box of any shape.
+xiwq | But you may have another question: what's the meaning of our formula for the entropy of a classical particle in a 1-dimensional box? It's pretty complicated, after all, and we'll need to understand it to have any chance of understanding the mysterious constant y in the formula for a classical ideal monatomic gas.
+iivy | We can understand our formula better if we delve into a tiny bit of quantum me- chanics, and the concept of 'thermal wavelength'. So let's do that.
+kn8m | 84
+vqoi | THE WAVELENGTH OF A PARTICLE
+n3q9 | In quantum mechanics particles are waves! A particle with momentum p has wavelength
+8jez | h
+bhki | 1= p where h is the unreduced Planck's constant, exactly
+q8rl | 6.62607015 . 10-34 joule-seconds
+gsah | For example, the wavelength of an electron moving at 1 meter/second is about 0.7 millimeters.
+t5nl | One of the most amazing discoveries of 20th-century physics: particles are waves. The wavelength of a particle is Planck's constant divided by its momentum! This was first realized by Louis de Broglie in his 1924 Ph.D. thesis, so it's called the 'de Broglie wavelength'.
+l5s6 | Why am I telling you this? Because I want to explain and simplify the formula for the entropy of a particle in a box. Even though I derived it classically, it contains Planck's constant! So, it will become more intuitive if we think a tiny bit about quantum mechanics.
+yjnd | A good explanation of quantum mechanics would require a whole other course. But it's good to know that in quantum mechanics, a particle with a given momentum has a wavelength associated to it: we shouldn't imagine it as having a definite location; it's a bit 'blurry'.
+c7v3 | This will give a more intuitive explanation for our complicated formula of the entropy of a particle in a 1d box. We'll use this intuition to simplify our formula. That will make it easier to generalize to N particles in a 3d box that is, a classical monatomic ideal gas!
+iute | 85
+377g | THE WAVELENGTH OF A WARM PARTICLE
+v79r | In thermal equilibrium, the average energy of a classical free particle in 3d space is
+555y | (E) = CkT 3
+7yeh | where T is the temperature and k is Boltzmann's constant.
+hfsl | If the particle has mass m,
+kmer | E= mv2, p=mv = p= V2mE = V3mkT
+5s1o | In quantum mechanics, a particle of momentum p has wavelength X = h/p where h is the unreduced Planck's constant. So, at temperature T, the typical wavelength of a free particle of mass m is roughly
+9mly | V3mkT
+znoh | Particles are waves! Their wavelength is shorter when their momentum is bigger. And the warmer they are, the bigger their momentum tends to be. So there should be a formula for the typical wavelength of a warm particle. And here it is! It helps us visualize the world: particles are a bit blurry, with a characteristic wavelength that depends on temperature.
+wjsb | We get this formula from a blend of ideas. Classical mechanics says kinetic energy is E = p2/2m. Classical statistical mechanics says (E) = 2kT. Quantum mechanics says X = h/p. It's pretty optimistic to put these formulas together and see what we get. But the result is approximately correct, though subject to limitations.
+r5ov | We derived (E) = kT using classical statistical mechanics. But it's close to cor- rect for a single quantum particle in a big enough box at high enough temperatures. Otherwise quantum effects kick in.
+```
+
+OUTPUT:
+```

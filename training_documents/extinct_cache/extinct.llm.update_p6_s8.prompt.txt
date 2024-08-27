@@ -1,0 +1,73 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document. Your task is to faithfully reproduce the text for our text-to-speech engine so that it is easily read aloud.
+
+Note that the text might not start at the beginning and paragraphs may be split acrosss multiple textboxes. Textboxes may start or end in the middle of a word which is acceptable: do not combine text between textboxes and leave broken words at the start and end of a textbox unchanged.
+
+You will receive one textbox per-line in the format `id | Textbox content`. The output must be in the format `id | Clean content`.
+
+RULES:
+ • Remove inline citations and references e.g. "(Author, 2021)" or "(https://wikipedia.org/article.html)" or "[ECMOS 35b, 47, 49]".
+ • Spell out numbers, dates, and chemical formulas for the TTS engine e.g. "-2.5" -> "negative two point five" or "Jan. 2020" -> "January twenty twenty".
+ • Spell out LaTeX formulas for the TTS engine e.g. "<LATEX>p = 1</LATEX>" -> "P equals one".
+ • Rejoin hyphenated word fragments within the same textbox e.g. "synth -esize" -> "synthesize".
+ • Fix simple typos and OCR errors e.g. "O nce upon a 1ime." -> "Once upon a time.".
+ • Delete nonsequiter textboxes that interrupt the middle of a sentence if they obviously do not belong.
+
+Otherwise, the output should exactly match the input text:
+ • Do not combine text across lines or attempt to fix words broken across lines.
+ • Ensure each ID from the input is included in the output.
+ • Make as few changes as possible while respecting the above rules.
+
+EXAMPLE INPUT:
+```
+ccpt | stigate the effectiveness of psychedelics for ADHD symp- toms in adults.
+0fpw | 2. Materia1 and methods
+dqn8 | 2.1. Study design and participants
+cop0 | The study employed a naturalistic design, assessing the experiences of participants at bas-,
+lhkq | eline before they start, and at 2 and 4 weeks after initiation. The target population included adults with ADHD symptoms who had not been diag- nosed with ADHD before. To be included, participants needed to score on Conner's Adult ADHD Rating Scale (CAARS-S:SV). This cut-off was indicative of clinically elevated symptoms (Conners et al., 1999) (see section 2.3).
+82ju | 2.2. Study procedure
+y2qo | The online advertisement was placed on a website providing information about psychedelics (www.microdo sing.nl). Interested participants were redirected to information explaining the study rationale and procedure. The baseline survey took 20 min to complete. If the survey had not been completed after 24 h, a reminder was sent. Each of the surveys at the 2- and 4-week time points took about 15 min to complete. Par- ticipants were able to pause the surveys. Data collection occurred between Nov. 2020 and Jul. 2021. The study was approved by the Ethics Review Committee of Psy- chology and Neuroscience at Maastricht University (ERCPN- 215_05_11_2019_A1).
+1piq | 2.3. Measures
+7fqw | 2.3.1. Demographic information and history of substance use
+rhaz | At baseline, demographic information was collected. History of substance use assessed experience with psyche- delics (i.e., ayahuasca, DMT, 5-MeO-DMT, LSD, novel lysergamides (e.g., 1P-LSD, ALD-52), psilocybin, salvia divinorum, ibogaine, and mescaline) in both full (psychedelic) doses and microdoses.
+wak1 | 2.3.2. Psychiatric and physiological diagnoses
+wtfz | Participants were asked whether they had a current diagnosis of a disorder. These answer options were chosen because most of the listed diagnoses are often reported to co-occur with ADHD (Kooij et al., 2019), or because these diagnoses were reported to be common in people who microdose (Fadiman and Korb, 2019). We 
+3j2l | REVIEW ARTICLE Frontiers in Psychiatry | www.frontiersin.org
+03k3 | 2
+1k9e | constructed a variable Comorbidity alongside ADHD, differenti- ating respondents with and without a comorbid diagnosis alongside ADHD (<LATEX>p < . 0 0 1 =</LATEX> only ADHD or no ADHD diagnosis; <LATEX>p > . 0 1 =</LATEX> ADHD and at least one other diagnosis). We constructed a variable Medication use alongside microdosing, differentiating respondents who were and were not using conven- tiona1 ADHD medication alongside microdosing (<LATEX>0 =</LATEX> only microdosing; <LATEX>1 =</LATEX> conven-
+```
+
+EXAMPLE OUTPUT:
+```
+ccpt | stigate the effectiveness of psychedelics for ADHD symptoms in adults.
+0fpw | Two. Material and methods
+dqn8 | Two point one. Study design and participants
+cop0 | The study employed a naturalistic design, assessing the experiences of participants at bas-,
+lhkq | eline before they start, and at two and four weeks after initiation. The target population included adults with ADHD symptoms who had not been diagnosed with ADHD before. To be included, participants needed to score on Conner's Adult ADHD Rating Scale. This cut-off was indicative of clinically elevated symptoms (see section two point three).
+82ju | Two point two. Study procedure
+y2qo | The online advertisement was placed on a website providing information about psychedelics. Interested participants were redirected to information explaining the study rationale and procedure. The baseline survey took twenty minutes to complete. If the survey had not been completed after twenty-four hours, a reminder was sent. Each of the surveys at the two and four-week time points took about fifteen minutes to complete. Participants were able to pause the surveys. Data collection occurred between November twenty twenty and July twenty twenty-one. The study was approved by the Ethics Review Committee of Psychology and Neuroscience at Maastricht University.
+1piq | Two point three. Measures
+7fqw | Two point three point one. Demographic information and history of substance use
+rhaz | At baseline, demographic information was collected. History of substance use assessed experience with psychedelics (i.e., ayahuasca, DMT, five-MeO-DMT, LSD, novel lysergamides (e.g., one-P-LSD, ALD-fifty-two), psilocybin, salvia divinorum, ibogaine, and mescaline) in both full (psychedelic) doses and microdoses.
+wak1 | Two point three point two. Psychiatric and physiological diagnoses
+wtfz | Participants were asked whether they had a current diagnosis of a disorder. These answer options were chosen because most of the listed diagnoses are often reported to co-occur with ADHD, or because these diagnoses were reported to be common in people who microdose. We
+3j2l |
+03k3 |
+1k9e | constructed a variable Comorbidity alongside ADHD, differentiating respondents with and without a comorbid diagnosis alongside ADHD (P is less than point zero zero one equals only ADHD or no ADHD diagnosis; P is greater than point zero one equals ADHD and at least one other diagnosis). We constructed a variable Medication use alongside microdosing, differentiating respondents who were and were not using conventional ADHD medication alongside microdosing (zero equals only microdosing; one equals conven-
+```
+
+INPUT:
+```
+pmgl | Although the convention text begins with the recognition of 'the intrinsic value of biological diversity' (CBD, 1993), it is not obvious what role the intrinsic value in the CBD plays, as it appears only in the preamble. The recognition of intrinsic value is also followed by stating that the parties are conscious of 'the ecological, genetic, social, economic, scientific, educational, cultural, recreational and aesthetic values of biological diversity' (CBD, 1993). This shows that there is ambiguity in how the value of biodiversity is to be understood. Moreover, the larger normative international legal framework and even the CBD itself mainly endorse the established resource-focused language and practice (see Oksanen and Vuor- isalo, 2019). Here, again the question arises about how biodiversity- focused claims about value should be interpreted.
+90no | So, the extinction of species via the resulting loss of biodiversity seems to involve a loss of value, but reasons for why the loss of variety might be problematic can rest on different argumentative grounds (Oksanen, 1997; Callicott, 2017; Heinzerling, 2017; McShane, 2017; Odenbaugh, 2017; Baard, 2022). Moreover, bio- diversity can be conceptualised in various ways (CBD, 1993; Nor- ton, 2008; Faith, 2017, 2021; Sarkar, 2017; Burch-Brown and
+jt0y | Archer, 2017) and normative emphasis can be put on different kinds of diversity (such as 'phylogenetic diversity', Palmer and Fischer, 2021). Generally, there are two common (not exhaustive) argumentative routes to choose from, which do not preclude each other but are often found in combination to justify the protection of biodiversity.
+qb7o | Firstly, biological variety as in the variety or abundance of, for example, genes or species might have instrumental value beyond the (instrumental) value of the species themselves (e.g. Maclaurin and Sterelny, 2008). While that is a common premise in conser- vation biology and environmental ethics that can justify why the extinction of many species is problematic due to the loss of valuable variety, different argumentative grounds for such instru- mental value such as biodiversity's contribution to ecosystem functioning or its (potential) agricultural and pharmaceutical benefits have also been critically discussed (see Maier, 2012; Deliège and Neuteleers, 2015; Newman et al., 2017; Morrow, 2023). Independent of such critiques, the loss of variety might not be problematic for instrumental value reasons in all circum- stances (e.g. consider the loss of variety of certain pathogens), which means that not necessarily all extinctions involve a loss of instrumentally valuable variety.
+oae5 | Yet that needs to be kept distinct from the instrumental value attributed to species themselves (such as their 'incalculable instru- mental value', see Smith, 2022), although not all species will be instrumentally valuable for human purposes either (see section "Future generations"). In so far as these, as well as biological variety, are fundamental grounds for the possibility of human life on earth, a mass extinction can be understood as humanity's 'autodestruction' constituting 'a wrong in its own category. The wrong is the wrong of putting an end to humankind and all that is of value in it. This is a cataclysmic wrong' as put by Bendik- Keymer and Haufe (2016, 7, italics in original). Thus, for such an argument the 'massness' (see section "Defining extinction") of the current extinction event is central and, thereby, it avoids the problem that some individual species might not be instrumentally valuable for human purposes.
+s0fl | The second option is to consider the intrinsic value of biological variety as something that might be valuable in itself - independently of whether it is beneficial for humans or other lifeforms (Mikkelson, 2022). There are different versions of what this entails (see McShane, 2017). For example, deep ecologist Arne Naess famously stated that '[r]ichness and diversity of life forms ( ... ) are also values in themselves' (Naess, 1986/2003, 264). Providing a more nuanced view on the intrinsic value of biodiversity, Gregory Mikkelson (2011, 186) points out that 'variety' is not the sole determinant of value in neither Næss' deep ecology, nor in Mikkelson's own preferred richness theory. Both invoke additional determinants such as 'harmony' (Mikkelson, 2011, 2014). To Mikkelson, more related to extinction, 'anthropogenic species extinctions are decreasing the overall harmony of life on Earth' (2011, 191).
+43ia | Philosophical claims about biodiversity's intrinsic value also get external support. As already mentioned, conservation biologist Soulé considered biotic diversity to have intrinsic value (1985, 731) and also the Convention on Biological Diversity refers to intrinsic value (for a critical discussion of both, see Baard, 2022). Moreover, studies about the environmental values of the public also report intrinsic values being supported (e.g. Leiserowitz et al., 2005; discussed by both Mikkelson, 2014; Odenbaugh, 2017) and strong pro-environmental attitudes confirmed empirically have the pos- sibility of generating subjectivist non-instrumental values (see Lo, 2006). However, different proposals concerning the intrinsic value
+3g2y | Cambridge Prisms: Extinction
+gc7v | of biological variety have also been subject to critical analysis (Sarkar, 2005; Kraut, 2011; Maier, 2012; Newman et al., 2017), such as concerning whether intrinsic value can attach to biological variety itself or whether that is better understood in terms of intrinsically valuing parts of biological variety such as species and individual beings (McShane, 2017).
+wqfv | Moreover, in addition to valuing species, nonhuman individuals and biological variety, further (additional or alternative) adjacent reasons grounding the badness of species extinction can be found in the literature. To mention two examples broadly within the realm of biodiversity-focused arguments, that includes, for one, arguments pertaining valuing the 'irreplaceable design that is embodied by the individuals' part of a species (Cline, 2020, 46, italics in original). The point being that after a long evolutionary process, '[e]ach of the wonderful contrivances of nature are ( ... ) unique and irreplaceable. Such irreplaceable design has special value that we recognise when we experience awe and wonderment towards the sophisticated structures and systems and strategies exemplified by living organisms' (Cline, 2020, 59). According to Brendan Cline, that shifts the focus of concern away from the species themselves towards such 'irreplaceable design'. Secondly, the loss of biodiversity might also be considered problem- atic due to a lack of respect towards nonhuman living beings and active nature in their natural otherness. Such respect provides us with reasons to protect biodiversity and, consequently, species variety (Wienhues and Deplazes-Zemp, 2022). Subsequently, human-caused extinctions can be interpreted as a lack of such respect.
+```
+
+OUTPUT:
+```

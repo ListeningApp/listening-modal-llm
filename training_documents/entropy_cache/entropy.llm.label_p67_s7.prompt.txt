@@ -1,0 +1,271 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+0uje | so its entropy is S = - | | e- (p2 +2)/2 In (e- (p2+2) /2) dpdq -001-00
+apx3 | Let's do this integral!
+kcrm | Let's compute the Boltzmann distribution p(p, q) and the entropy S. To keep the formulas clean, we'll work in units where m = K = k = h =1, and compute everything at one special temperature: T = 1.
+mbsp | In this setup h = 27, and
+zynb | e-BE(p,q) =e-(p2+q2)/2
+8h0u | is a beautiful Gaussian with integral
+b09f | 00 e-(p2+q2)/2 = 27T.
+zutp | These two factors of 27 cancel when we compute the denominator of the probability distribution p(p, q):
+qgmy | dpdq 2TT 2TT .= 1. =
+40wi | Thus, we get simply
+a418 | p(p,q) =e-(p2+q2)/2
+e9lu | The entropy of the harmonic oscillator is thus
+a278 | dpdq when K = k = h =T =1. Next let's do this integral.
+ffto | S = - e-(p2+ 2)/2 In (e-(p2+2)/2) −∞ -00
+ak21 | 60
+i7n1 | ENTROPY OF THE HARMONIC OSCILLATOR: 6
+m9yn | When m =k=k=h=T=1 the entropy of a classical harmonic oscillator is
+cg8u | 00 00 00 e-(p2+q2)/2 In (e-(p2+q2)/2) dp dq
+2hsv | S =
+7s7l | 1 100 m2 = 0 0 -e-r2/2 rdrde 2 (switching to polar) = 10 52 + 12 rc
+uwdf | (doing the 0 integral)
+jjgp | = ( ue "du
+df4g | (substituting u = r2 /2)
+qc2j | = 1
+x3oh | Now let's do the integral to compute the entropy of the harmonic oscillator. We copy a famous trick for computing the integral of a Gaussian. First we switch to polar coordinates in the pq plane, where
+fqvx | r2 = p2 + q2 and dpdq = rdrd0.
+viae | Then we integrate with respect to 0, which cancels out the factor of 1/2T. Then we do a substitution u = r2/2. But for us r2/2 is minus the logarithm of the Gaussian:
+p8u9 | − (p+02 /2)=1]
+49ky | so we're left with
+p5wo | S = | ue -" du
+74rp | which we can do with integration by parts.
+oolg | After all this work, we get an incredibly simple answer:
+3ewf | S = 1.
+5iea | So in the special case where m = K = k = h =T = 1, the entropy of a classical harmonic oscillator in thermal equilibrium is 1.
+62l5 | Now let's return to the general case, and finish the job.
+shub | 61
+zjn5 | ENTROPY OF THE HARMONIC OSCILLATOR: 7
+w8ia | A classical harmonic oscillator with frequency w has entropy
+4vej | S = kln(akT/hw)
+8ut1 | for some dimensionless constant Q.
+6o35 | But when m = K= k =h=T=1 we have w = 1 and S = 1, so we must have
+8r63 | and thus finally
+qze0 | kT hw +1
+o3m2 | S = k ln
+kro9 | Knowing the entropy in one special case, we can figure out the constant a in our general formula for the entropy. Our general formula says
+i438 | S = kln(akT /hw).
+yr7b | But when m = k=T = h=1 we get w=k/m =1, and we saw last time that in this special case we get
+60hk | S = 1.
+5djf | So a must equal e.
+hem5 | Thus, the entropy of an oscillator with frequency w at temperature T is
+vfd9 | S= kln(ekT/hw) =k k (In ( AT) +1).
+jkgk | The extra 1 here is fascinating to me. If we had slacked off, ignored the possibility of a dimensionless constant o, and crudely used dimensional analysis to guess S approxi- mately the way people often do, we might have gotten
+8nom | S=kln(kT/hw)
+vsjd | This would be off by 1 nat.
+tucm | What does the 1 extra nat mean? It seems pretty mysterious now. But later we'll understand it! I already mentioned that often entropy is roughly k times the logarithm of something called the 'number of accessible states'. But that formula is not exactly right: there's also an extra term related to energy, and that accounts for the 1 extra nat here. Be patient, and you'll see what I mean.
+prly | 62
+2epy | WHERE ARE WE NOW?
+v55t | The mystery: why does each molecule of hydrogen have ~ 23 bits of entropy at standard temperature and pressure?
+53fa | The goal: derive and understand the formula for the entropy of a classical ideal monatomic gas:
+nnb3 | = AN V N + 3 In KI + 7)
+s943 | including the mysterious constant y.
+o7zd | The subgoal: compute the entropy of a single classical particle in a 1-dimensional box.
+thxo | The sub-subgoal: explain entropy from the ground up, and compute the entropy of a classical harmonic oscillator:
+b67w | S = k ln - kT +1) how ✓
+hoze | Okay, so we've gotten somewhere! By doing the right integral, we've figured out that the entropy S of a classical harmonic oscillator of frequency w in thermal equilibrium at temperature T is
+hd71 | S = k ( KI +1). kT
+eix9 | where k is Boltzmann's constant and h is Planck's constant.
+h4p4 | We could compute the entropy of a single particle in a box the same way, and also the entropy of a classical ideal diatomic gas. But the integrals get a bit hairy, so people prefer to use a clever trick called the 'partition function'. It's definitely worth learning. It's not merely a clever trick, it gives new insights on the relation between entropy, energy and temperature. So let's talk about it.
+asp2 | 63
+8d1n | THE PARTITION FUNCTION
+559s | If a system has a set of states X with measure dx and its energy is a function E : X -> R, its partition function is
+rhb6 | Z(B) = ye-BE(x) dx
+dpdb | where ß is the coolness.
+lek9 | I want to compute the entropy of a particle in a box, and ultimately the entropy of a box of hydrogen. We could do it directly, but that's a bit ugly. It's better to use the 'partition function'. This amazing function knows everything about statistical mechanics. From it you can get the entropy-and much more!
+i22c | 64
+ofle | THE PARTITION FUNCTION AND THE BOLTZMANN DISTRIBUTION
+ezbr | If a system has a set of states X with measure dx and its energy is E : X -> R, in thermal equilibrium at coolness ß its probability distribution of states is the Boltzmann distribution:
+tpiw | p(x) = Sx e-BE(x) dx e-BE(x) = e-BE(x) Z(3)
+dgkq | where Z(B) = ze-8F(x) dx
+hxjr | is its partition function.
+2yv3 | In fact we've already seen the partition function: it's the thing you have to divide e-BE(x) by to get a function whose integral is 1. And that function whose integral is 1 is the Boltzmann distribution: the probability distribution of states in thermal equilibrium at coolness . So the partition function is a humble normalizing factor! And yet we'll see that it's incredibly powerful. It's kind of surprising.
+opoe | Like Lagrangians in classical mechanics, it's fairly easy to use partition functions, but it's harder to understand what they 'really mean'. We will try. But first let's see how to use them.
+vr2v | 65
+m4jl | THE PARTITION FUNCTION KNOWS ALL!
+59hi | If a system has partition function
+ua3p | Z(B) = /e-BE(x) dx
+0a2t | then in thermal equilibrium at coolness ß its expected energy is
+abow | (E) = - 1 In Z and its entropy is
+qx6n | k (Inz - Bd In z)
+p2bm | Here's how you can compute the expected energy (E) and the entropy S of any system starting from its partition function Z(B) as a function of the coolness ß. I'll show you why these formulas are true, and then we'll test them out on the harmonic oscillator, where we have already computed the expected energy and entropy by other methods.
+cxyx | 66
+w0aw | THE PARTITION FUNCTION KNOWS THE EXPECTED ENERGY
+w41b | If a system has partition function Z (6) = . e-BE(x) dx then
+vokd | do Inz = - 72 Z dß Z d6 Jx = − 1 d - e-BE(x) dx = = E(x) e BE(x) dx Z Jx
+efir | Jy E(x) e-BE(x) dx X
+vjhs | X e-BE(x) dx
+rcio | = (E)
+7qi5 | In short, the expected energy is (E) = - dß d ln Z
+9f5r | The partition function is all-powerful! For starters, if you know the partition func- tion of a physical system, you can figure out its expected energy. The expected energy (E) is minus the derivative of In Z with respect to the coolness ß = 1/kT.
+j3tt | How do we show this? Easy: just look at the calculation above! We get a fraction, which is the expected value of E with respect to the Gibbs distribution.
+zoz0 | By the way, this trick of taking the derivative of the logarithm of a function is famous: it's called a 'logarithmic derivative'. Notice that
+3blu | f'(x)
+xv2l | f(x)
+xt4k | Thus the logarithmic derivative says how fast a function is growing compared to the value of the function itself-like the interest rate in compound interest.
+ti78 | 67
+k5pk | THE PARTITION FUNCTION KNOWS THE ENTROPY
+n093 | If a system has Boltzmann distribution
+4khi | p(x) = e-BE(x) Z where Z = ye-BE(x) dx
+7fh2 | then its entropy in thermal equilibrium is
+5isn | S = - k |p(x) Inp(x) dx = -k |_p(x) In e-BE(x) Z dx
+5vry | = k |p(x) (In Z + BE(x) dx
+9w33 | = k ln Z + B(E)
+johv | But since (E) = - In Z, this gives
+2olp | S = k In Z-6InZ dß
+zb7x | The entropy is a bit more complicated. But don't be scared! The Boltzmann distribution p(x) is a fraction, so the log of this fraction breaks into two parts:
+uadf | ln p(x) = ln - e-BE(x) ln Z = - (In Z + BE(x)).
+wuf4 | Thus our integral for entropy breaks into two parts:
+lfk1 | S = - k | p(x) In p(x) dx = k | p(x) In Z dx + k3 | p(x)E(x) dx.
+rwjw | The first part is just k ln Z since the integral of p(x) is 1. The second part is k3(E). If we use what we just learned about (E):
+iazp | (E) = - 18 In Z
+ksn3 | we get this formula for entropy in terms of the partition function:
+8xbx | This formula seems hard to understand at first. To extract its inner meaning, we need a new concept: 'free energy'.
+aod5 | 68
+ayqs | THE PARTITION FUNCTION KNOWS THE FREE ENERGY
+jnpq | To maximize entropy while holding expected energy constant, you can just minimize the free energy
+r4w4 | F = (E) - TS We've seen
+sswz | (E) = - dß d ln Z and S=k |In Z - 3-In Z dß d
+0uoj | so with ß = 1/kT a little algebra shows
+0c89 | F = - In Z
+658v | 3
+4gqa | We can understand the relation between entropy, energy and the partition function if we bring in a concept I haven't mentioned yet: the free energy
+mpgz | F =(E) -TS.
+gf06 | Since we know formulas for (E) and S in terms of the partition function, we can work out a formula for F. And it's really simple! Much simpler than S, for example. It's just
+75hv | F =- In Z.
+tbiu | But what's the meaning of free energy? Remember: to maximize the Shannon entropy H subject to a constraint on expected energy, we introduced the Lagrange multiplier $ = 1/kT and maximized the quantity H - B(E). But if you multiply this quantity by -kT, you get free energy:
+413q | -kT(H-B(E))=(E)-TS =F.
+8wkl | So, as long as T > 0, maximizing entropy subject to a constraint on expected energy is equivalent to minimizing free energy!
+next | Thus, free energy turns a problem of maximizing entropy subject to a constraint into a minimization problem without a constraint. The point is not that we've turned maximization into minimization: that's just an arbitrary business with signs. The point is that free energy lets us stop thinking about the constraint.
+3dfm | There's a huge amount to say about the free energy, which is also called the 'Helmholtz free energy', since there are other kinds. You can think of TS as the amount of energy in useless random form, since it comes from entropy. Since (E) is the total expected energy, F = (E) - TS is the amount of 'useful' energy. More precisely, the free energy is the maximum amount of work obtainable from a system at a constant temperature. But showing this would take us out of our way.
+hjmm | 69
+s0s6 | THE PARTITION FUNCTION KNOWS ALL: REVISITED
+cxx7 | If Z (3) is the partition function of a system, in thermal equilibrium at coolness ß its expected energy is (E) = - 1 In z
+uzqc | and its free energy is
+dqwn | F = - In Z
+g58m | We can compute its entropy from these using
+kf9u | F = (E) - TS and we get
+tl2g | S = k InZ-InZ dß
+xy74 | Now we can tell a simpler story, which is easier to remember. Free energy, being the energy in useful form, is the expected energy minus the useless energy, which is temperature times entropy. Thus
+q0se | F=(E)-TS
+tz7u | so
+jszk | S = (E) - F T
+egkh | = kß(-F + (E))
+kbpy | and using our formulas for F and (E) in terms of the partition function Z, we get
+afdp | S = k In Z - B- InZ).
+5jom | The story here is more of a mnemonic than a true explanation, because I'm not saying much what it means for energy to be 'useful' or 'useless'. I've only given this hint: when a system is in thermal equilibrium, its free energy is minimized. For more on the meaning of free energy, try a good book on thermodynamics, like this:
+fdhb | · Frederick Reif, Fundamentals of Statistical and Thermal Physics, Waveland Press, Long Grove, Illinois, 2009.
+o1k9 | Right now I'd rather say a bit about the meaning of the partition function.
+s1uu | 70
+22hf | THE MEANING OF THE PARTITION FUNCTION
+gici | Say X is a set where each point i has an 'energy' E; E R. Its partition function is
+owaw | Z = De-BEi iEX
+z6xu | where B E R is the coolness.
+knw2 | The partition function counts the points of X-but it counts points with large energy less, since they're less likely to be 'occupied'.
+mxnw | If ( = 1/kT, points with energy E; >> kT count for very little.
+bdx4 | But as T -> +oo, all points get fully counted and Z -> | X|. In physics we call Z the number of accessible states.
+l01c | Say we have a system with some countable set of states X. In thermal equilibrium at temperature T, the probability that the system is in its ith state is proportional to exp(-BE;), where E; is the energy of that state and ß is the coolness. Thus, physicists say the partition function
+yphh | Z = Le-BEi iEX
+3yor | is the number of accessible states: roughly, the number of states the system can easily be in at temperature T, where ß = 1/kT.
+f9sc | This is a funny thing to say, because being 'accessible' is not a yes-or-no matter. A more precise statement is that the partition function counts states weighted by their accessibility exp(-ßE;). States whose energy is low compared to kT are highly acces- sible, or probable, because exp(-BE;) is close to 1 if E; < kT. States of high energy are more inaccessible, or improbable, since exp(-BE;) is close to 0 if E; >> kT.
+```
+
+OUTPUT:
+```

@@ -1,0 +1,140 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+1pjs | WARS SOCIETY
+o2kr | 'Brothers at Peace': People-to-People Reconciliation in the Ethiopian-Eritrean Borderlands
+v6sk | ROUTLEDGE
+1wj6 | War & Society
+936l | ISSN: 0729-2473 (Print) 2042-4345 (Online) Journal homepage: https://www.tandfonline.com/loi/ywar20
+06yq | WAR & SOCIETY, Vol. 39 No. 1, February 2020, 58-76
+dpv6 | 'Brothers at Peace': People-to-People Reconciliation in the Ethiopian-Eritrean Borderlands
+8r5j | KJETIL TRONVOLL Department of International Studies, Bjørknes University College, Oslo, Norway
+2taz | The coming to power of Prime Minister Abiy Ahmed in Ethiopia in 2018 opened up a renewed peace engagement with Eritrea and diplomatic rela- tions were restored. Before the political rapprochement, grassroots proc- esses of people-to-people reconciliation in the borderlands between the two countries had been underway for years, gradually eroding officially- produced enemy stereotypes. This article explores how physical borders and boundaries of identity at a local level may be conceived differently from that at state borders or expressions of formal nationalism at an inter-state level. The local level border between the northern regional state of Tigray in Ethiopia and Eritrea has become increasingly porous over the last years, whilst the inter-state border was rigidly defended. The political rapprochement is however disconnected from the people-to-people recon- ciliation, as the local government in Tigray is at odds with both Ethiopia's federal government in Addis Ababa and the Eritrean government. The formalised peace processes are elite driven, leaving no voice for the peo- ple affected in the borderlands.
+o3ya | KEYWORDS war; peace agreement; post-conflict reconciliation; Ethiopia; Eritrea; Africa
+r5il | Introduction1
+5gui | 'Finally, we are once again united, as brothers should be', declared an elderly per- son on the streets of Mekelle, the capital of the northern region of Tigray in Ethiopia.2 The 1998-2000 Eritrean-Ethiopian war had pitted brothers against
+82qc | 59
+ls7d | brothers, in a social, cultural, and political sense, and dismembered families and kin- folk.3 After the peace rapprochement and the opening of the Eritrean-Ethiopian bor- der in mid-September 2018, Mekelle was flooded with Eritreans who for the first time in twenty years were free to cross the heavily militarised border to Ethiopia. Tales of reunions of long lost family members and relatives spread like wildfire, and cross-border trade and business were booming. Peace rapprochement and the border opening seemed too good to be true, however, so people from both sides of the bor- der hastily visited each other to reconnect, in case the tides of peace turned.
+tzt3 | Since the 1998-2000 war, Eritrea and Ethiopia had been locked in a 'no war, no peace' impasse. This ceased in June 2018, when Eritrea's President Isaias Afwerki agreed to enter into dialogue after a peace offer by Ethiopia's new Prime Minister, Abiy Ahmed. 'Our desire is to love rather than hate', stated Prime Minister Abiy Ahmed. 'What we miss is to hug our brothers in Asmara. If we are in love then the other things are minor. And if we do that, we might not need a border'.4 Prime Minister Abiy Ahmed's emphasis on 'peace and love' in his new international rela- tions policies led to the coining of the term 'hug-and-love' diplomacy. For his 'decisive initiative to resolve the border conflict with neighbouring Eritrea' he was awarded the 2019 Nobel Peace Prize.5
+t8vv | In July 2018, Prime Minister Abiy Ahmed visited the Eritrean capital of Asmara. He was the first Ethiopian Prime Minister to do so in over twenty years. He was received by an ecstatic Eritrean crowd waving Ethiopian flags. On the occasion, Yemane Gebremeskel, Eritrea's Minister of Information and a key advisor to President Isaias Afwerki, tweeted: 'A truly historic moment with memorable water- shed events: brotherly embrace of the leaders'.6 The visit was soon reciprocated by President Isaias Afwerki who travelled to Addis Ababa to sign a five-point declar- ation of peace and friendship between the two countries. The agreement led to res- toration of diplomatic relations and opened up communications between the two states and peoples.7 During the visit, President Isaias Afwerki declared: 'Words can- not express the joy we are feeling now. We are one people. Whoever forgets that does not understand our situation'.8
+qvnu | Although the two leaders declared that the border between their two countries was redundant and that they were actually 'one people', those straddling the con- tested border were not immediately reassured about their leaders' genuine intentions and interests for peace. Wars and conflicts have ravaged the Eritrean-Ethiopian highlands throughout centuries, infusing ethnic boundaries and territorial borders with various sentiments of identity and expressions of power.9
+kggw | Territorial boundaries and manifestations of economic, cultural, and political realms are perceived differently according to context. For instance, the Eritrean-Ethiopian highlands with its ancient indigenous plough-based agricultural system has throughout history placed great emphasis on the control of land and hence on the demarcation of land between that which is controlled by one person, kin group, or village, and that controlled by another.1º Frequent border disputes over agricultural land between neighbours, kinsmen, lineages, and villages have been common for centuries, and these have infused the twin concepts of physical border and identity boundary with concrete and metaphorical significance. The lowland pastoralist communities of the Horn of Africa, on the other hand, tend to approach the concepts of border/boundaries in a different manner. Although territorial units are broadly defined, there are no clear-cut borders demarcating one person's or group's land from that of a neighbouring person or group. There are overlapping zones of interest, with porous borders.11
+xrd1 | The highlanders' rigid understanding of borders is also connected to layers - or scales - of identity (family - kin - neighbouring community - ethnic group - nation), successively embracing larger units of territory.12 Territorial identity formations were ascribed a socio-political hierarchy, where 'orders from above' were to be executed without question.13 This was of particular importance in feuds and conflicts over ter- ritorial domains, where latent identity categories have been exploited by elites to rally the masses behind their political project, be that for domination at local level or hege- monic control at the centre. Which layer of identity or identity alliance that was made relevant, depended upon the territorial unit, or border, that was contested. When I was doing research in Tigray after the outbreak of the 1998-2000 war, an elderly Tigrayan farmer eloquently explained this context to me:
+5746 | When the Eritreans attacked us, we did not know what to believe. We used to think of them as our brothers - we have bonds of marriage, trade, and friendship that
+7toz | link us together. We were also fighting together as one against the military junta. Now, suddenly they have become our mortal enemies; and our old foes, the Amhara, are coming to our rescue! But, although we are fighting the Eritreans today with the help of the Amhara, this may change again tomorrow; as different kings [governments] come and go, so also will our enemies and friends change.14
+j346 | Similar sentiments were also heard among the Eritrean border population and frontline soldiers during the war. As expressed by an Eritrean soldier witnessing the carnage of Ethiopian brethren at the Tsorona frontline in 1999: 'This is so sad. These are our brothers and now we fight them here. We are really one people'.15
+v8uq | The mass killings and destructions carried out during the 1998-2000 war created deep-rooted animosity between the two peoples, which also affected and reconfig- ured borderland identities, at least temporarily. Moreover, the political impasse and twenty year 'no war, no peace' situation has furthered an identity schism between the borderland peoples. Are the wounds created by the 1998-2000 war still affect- ing relations in the borderlands? Or has time, cultural, and religious commonality and joint socio-economic grievances healed the wounds of war among the border- lands populations?
+x972 | Due to the particular social organisation and hierarchical political structures of the highland cultures of Eritrea and Ethiopia,16 and the region's deep warring his- tory,17 the highland population of the two countries apparently has a remarkable capacity to reconcile after conflict, as their common destiny as pawns and victims of war also brings them together. Although people participate in the wars as sol- diers and supporters, they are also quick to blame it on political leaders who have fanned the animosity. In this manner, physical borders and boundaries of identity at a local level may be conceived differently from state borders and expressions of for- mal nationalism at inter-state level.18 As this article demonstrates, the local level border between Eritrea and Ethiopia has become increasingly more porous, while the inter-state border was rigidly defended. Likewise, shared experiences and com- mon interests among the borderland populations on both sides, started grassroots processes of reconnecting social and identity formations across the inflexible inter-state border. The focus of this article will thus be on observations of shared sentiments of people-to-people reconciliation and commonalities between the Tigrinya-speaking border populations of Eritrean and Ethiopia, contextualised by the nascent bilateral rapprochement. Before that however, a brief overview of the 'active' and 'cold' war will be presented, as well as the political peace
+cwrw | rapprochement taken by Prime Minister Abiy Ahmed after he came to power in April 2018. First, however, some comments on the methodological limitations to the study.
+4i0e | 'Balancing the border': methodological limitations
+h2l3 | This article is based on almost thirty years of research on Eritrean-Ethiopian rela- tions, starting with long-term anthropological fieldwork in a small village of high- land Eritrea at the tail-end of the liberation war (1991-3), field visits to Eritrea and Tigray in the interim-period of peace (1993-7), and long-term fieldwork in Tigray during the 1998-2000 war. Since then, I have conducted field visits and research work in Ethiopia several times a year, leading up to a 2017 research project with colleagues from Mekelle University on people-to-people reconciliation in the bor- derlands. I also carried out field work in the Ethiopian borderlands in Tigray between 2017 and 2019.
+dfzb | Independent critical research is not permitted in Eritrea. Regrettably, I, as well as many other scholars on Eritrea, have been denied entry to the country since the 1998-2000 war. To address this imbalance in empirical data gathering, I have made field visits to Eritrean refugee camps in east Sudan and Tigray. I have also, over two decades, maintained close communication with Eritrean academics, polit- ical and human rights representatives, and other refugees in the diaspora. In add- ition, to canvas the greatest range of personal observations from those affected by the war, I made several field visits to the Ethiopian border town of Zalambessa and its environs. I also crossed the border to visit an Eritrean village caught between the Eritrean trenches and the Ethiopian border, but under military control by Ethiopian defence forces. Eritrean and Tigrayan respondents were generally selected ran- domly during these field visits. Some, however, were recommended by other Eritreans or Tigrayans.
+u6ty | Fieldwork in border zones may prove challenging as one traverses different polit- ical realms. When borderlands are militarised, political and security concerns potentially limit the researcher's operational capability. They may also restrict informants' willingness and ability to talk and comment on sensitive issues. My lon- gitudinal studies of Eritrean-Ethiopian relations, as well as my frequent field visits during almost three decades, however, mitigate these methodological limitations.
+awvu | The 1998-2000 war
+on9b | The 1998-2000 Eritrean-Ethiopian war was ostensibly fought over a sliver of land, but its root causes were anchored in disputes over history, ideology, economy, and identity.19 Two sister movements - Eritrean People's Liberation Front (EPLF) and Tigrayan People's Liberation Front (TPLF) - toppled the Derg military junta in
+a8ge | 63
+h27a | Ethiopia in May 1991. Whilst EPLF formed an independent government in liber- ated Eritrea, TPLF, through its coalition party, Ethiopian Peoples' Revolutionary Democratic Front (EPRDF), assumed power in Addis Ababa. The close relationship demonstrated on the battlefields in northern Ethiopia during the 1970s and 198os soon soured, however, as economic and political competition turned into a hege- monic struggle for dominance in the Horn of Africa.2º Small-scale border disputes erupted in the mid-199os, as the trust between the two leaderships began to wane. The introduction of the new Eritrean currency in October 1997 and subsequent for- malisation of trade between the two countries, put focus for the first time on where the actual border should be demarcated on the ground, as customs and immigra- tion facilities needed to be established.
+pdjh | In early May 1998, a small border skirmish in Badme, a Western plains village in Ethiopian-administered territory close to the Sudanese border, rapidly escalated into a full-scale bilateral war, as Eritrean forces penetrated deep into areas previously con- trolled by Ethiopia. The Eritrean surprise attack led to the remobilisation of the TPLF's guerrilla army by the regional government to defend Tigrayan inhabitants and territory, as well as the federal army to defend the motherland and its sovereignty.21
+xmgs | As the conflict escalated the international community scrambled to negotiate the conflict. It soon became clear, however, that both Ethiopia and Eritrea knew this con- flict would be settled on the battlefield, and not around the negotiation table. Ethiopian counter-offensives, first to retake Badme in March 1999, and later in May 2000 on the Tsorona, Zalambessa and Assab fronts, led to devastating losses. The entrenched Eritrean positions were attacked head on by waves of Ethiopian foot sol- diers. Tens of thousands of young men perished on the plains of Badme and hillsides of Tsorona. When the Ethiopian military command leadership later assessed the ter- rible details and losses on the Tsorona front, they reportedly all broke down crying.22
+bd9h | During the spring offensive of 2000, Ethiopia managed finally to break through the Eritrean defence lines on the Western and Central front lines. The Eritrean gov- ernment ordered a strategic retreat. At the same time they communicated accept- ance of a negotiated settlement and cease fire agreement.23 Although parts of the Ethiopian military and political leadership wanted to continue the offensive towards Asmara, Prime Minister Meles Zenawi ordered a halt in military opera- tions and indicated a willingness to negotiate. Total Ethiopian losses amounted to close to 100,000 killed and 200,000 wounded, while Eritrea officially lost 19,000. My personal communications with former high ranking members of the Eritrean armed forces indicates that the number might be twice as high.24
+m047 | 64
+gy8c | The Algiers peace agreement
+```
+
+OUTPUT:
+```

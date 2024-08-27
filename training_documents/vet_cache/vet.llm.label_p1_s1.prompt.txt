@@ -1,0 +1,171 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+1pjs | SECTION I The Real Basics of Veterinary Medicine
+o2kr | CHAPTER 1
+v6sk | The Medical History
+1wj6 | OVERVIEW
+936l | The art of practicing medicine will always begin with two essential components: the history and physical examination. The history is certainly the most important diagnostic aid in medicine and the physical examination is easily second. The history is frequently key in determining cause of an illness, its significance, treatment options and even prognosis. Any clini- cian who fails to appreciate the value of a thorough history, who does not develop expertise in being able to obtain an owners' complete account of their concerns, or who takes "short cuts," will create an environment for misdiagnosis or errors in therapy. As is true for any individual with expertise, practice is critically important. Repetition can improve history-taking skills if coupled with frequent self-assessments. This is an excellent method to avoid repeating errors. One can ask after any difficult diagnosis is confirmed, what questions should have been asked that were not? What did the owner know but was never asked? Could I have changed the formu- lation of a question to gain better insight? The excellent clini- cian is an excellent historian and excellent listener. The excellent clinician continuously works to improve his or her skill set.
+06yq | Obtaining a history is a "process" which should be approached in a methodical manner. This "process" should ensure that no valuable question is forgotten. Thus, the suc- cessful clinician has a group of questions consistently asked of every owner. Each question can be expanded or altered as dictated by answers given about the patient by the historian (usually the owner). In some cases, the order of questions may be changed. In other cases, answers provided may stimulate a subsequent set of questions. The clinician should always strive to be an approachable and compassionate listener. One will be well served by having the pet owner calm in order for her or him to provide clear and thoughtful responses. The medical history is a "story" about the patient. The following guidelines should assist with successful procurement of the patient's medical history.
+dpv6 | THE APPROACH TO THE PET OWNER
+8r5j | 1. Meeting a client for the first time forms the foundation for any relationship. The adage is true: "You only have one
+2taz | chance to create a first impression." In this scenario, the "you" includes the primary clinician plus all hospital employees, because "the relationship" often begins before the veterinarian ever meets a client. As a client enters your facility and meets the receptionist or any other employee, opinions are formed and trust may or may not begin to be established. Successfully placing a client at ease is much easier when all hospital employees are respected members of the veterinary team with the same goal of providing the best care for a pet and the owner.1 Owner and pet "needs" must be perceived as having highest priority.
+o3ya | 2. Having every client completely comfortable in your pres- ence is desirable but not easily achieved. Remember that with you being a complete stranger, a client may be inse- cure regarding your trustworthiness in caring for their pet. Many but not all owners prefer a warm, friendly, under- standing, patient, and compassionate veterinarian. If an animal arrives in a life-threatening situation, the clinician may speak quickly and even go so far as to remove the pet from the owner in order to provide treatment. Once the patient is stable, the clinician should return to an examina- tion room to obtain the detailed history and begin to build a client-doctor relationship.
+r5il | 3. Your greeting should inform the client who you are and in what capacity you function at the veterinary facility. Every clinician should be well groomed, speak clearly and use an understandable vocabulary.
+5gui | 4. Verify that the owner can understand what is being said or asked. Clearing any form of obstruction between you and the pet owner's ability to understand your questions is extremely important.
+82qc | 5. Verify the patient's age, gender, neuter status, and breed (signalment), even if this information has previously been entered into the medical record. Incorrect data can be misleading and could cause disastrous outcomes in case management. Also, verify vaccination history, routine use of anti-parasite products, as well as all previously and cur- rently used medications.
+ls7d | 6. The clinician should determine the relationship between the person to whom one is speaking and the pet. The more familiar an individual is with an animal, the more valuable their information. Next, one can inquire how long the person has "known" this pet. Have they lived in the same home for 12 years or have they been together for 12 days?
+tzt3 | VetBoo
+t8vv | 2
+qvnu | SECTION I . The Real Basics of Veterinary Medicine
+kggw | 7. When seeing an ill pet, the clinician will benefit from knowing when the animal was last "normal." It also may be quite important to understand the owner's definition of "normal."
+xrd1 | 8. Owners of ill pets may be fearful and anxious. Stress can impair an ability to recall essential historical information. Remember that your patience should be a virtue. It might require you to repeat questions several times. Alternatively, one may inquire about a subject using more than one perspective or more than one question.
+5746 | REQUIREMENTS FOR A THOROUGH HISTORY
+7toz | Box 1-1 lists the criteria necessary for obtaining a complete history. This box has been modified from a document created for physicians by the American Board of Internal Medicine.2 It seems obvious for the clinician to always try to ask the key questions pertinent to a specific primary concern or "owner chief concern." However, typical issues caused by one disease will almost always overlap with observations associated with another. Although initial differential diagnoses based on sig- nalment or another factor might steer the examining clinician to a correct diagnosis, it behooves the clinician to avoid "tunnel vision" in situations where another disease process might actu- ally be responsible for the illness (Box 1-2). Owner concerns or initial clinician suspicions are, therefore, always subject to misinterpretation. One objective of the medical history is to obtain an actual "feel" for what is clinically wrong with the animal based on owner-perceived issues. Some clinical signs are difficult to fully understand until either the owner or clini- cian actually imitates what is being seen or heard. One example is trying to determine if an owner is observing cough- ing, retching, reversed sneezing, regurgitation, or vomiting. It may be quite valuable to have an owner make a video record of an actual worrisome "event."
+j346 | In addition to questions integral to every history, specific clinical abnormalities may have a set of questions designed to help clarify the nature of a medical disorder. The reader is
+v8uq | BOX 1-1
+x972 | Competence in History-Taking2
+cwrw | 1. Develop the habit of recording a complete history.
+4i0e | 2. Pursue with appropriate thoroughness all historical clues.
+h2l3 | 3. Establish rapport with the historian in order to obtain accurate information.
+dfzb | 4. Adapt language appropriately to ensure communication with the person available.
+u6ty | 5. Patiently adapt to clients who provide a disorganized history.
+awvu | 6. Develop a depth of knowledge that permits a thorough explo- ration of signs related to the patient's problems.
+on9b | 7. Have a depth of knowledge that permits consideration of the various causes that might explain the patient's signs.
+a8ge | 8. Understand signs in terms of altered structure and function of the body systems.
+h27a | 9. Approach the history in a logical, directed way to ensure completeness.
+pdjh | 10. Follow up medical clues in a directed logical pattern.
+xmgs | 11. Organize and record the history completely in a fashion that will be understandable.
+bd9h | 12. Be able to integrate signs into a diagnostic hypothesis while obtaining the history.
+m047 | 13. Assess the reliability of the history obtained.
+gy8c | 14. Separate irrelevant from relevant information appropriately.
+y4mj | ExpertConsult.com
+vpgq | referred to each appropriate section in this text for a more detailed description of the diagnostic approach recommended for various "owner chief concerns" (Section II), "physical examination abnormalities" (Section III), and various "clinico- pathologic abnormalities" (Section IV). The focus of this chapter is not to develop a "history" for each condition or concern, but to review the art of asking the right questions.
+ousl | THE ELEMENTS OF THE HISTORY
+m4ju | 1. Obtaining the facts. You will likely obtain the most infor- mation by reviewing the history with the person who spends the most time with the patient. Their familiarity with the animal may provide valuable insights. It is the care-giver who has had the best opportunity to have made key observations regarding a concern or illness, i.e., the "chief concern." Sometimes the individual who has brought the pet to the facility is not able to convey the necessary information because of language, handicap, or another issue. This will direct you to attempt identifica- tion of the next most knowledgeable source of informa- tion. Always verify the patient's signalment as an easy means of beginning a conversation while avoiding mis- placed diagnostic and therapeutic pursuits. There are many examples of diagnoses being made after a mistake in the record is identified. It is "best not to assume anything."
+a0mb | 2. Diet and appetite. Animals with normal appetites are rarely critically ill. Changes in appetite, up or down, are easily and often observed. This reality is the reason that appetite is frequently a cause for concern and may be one of the first observed signs of illness. It may be important to know how much of an increase or decrease in appetite has taken place and over what period of time. Has the change progressively worsened or has it reached some plateau? Changes in appetite often parallel duration of illness. Dietary information is especially important in patients who are cachectic, obese, or who have chronic digestive system complaints. When possible, determine
+ki8m | BOX 1-2
+km8w | Essentials for the Complete History
+wzno | Signalment (age, breed, sex)
+xagm | Geographic origin and places visited
+iwn5 | Prior ownership and location (adopted from pound, found as stray, quality of previous care)
+uooz | Current environment (indoor or outdoor pet; rural or urban envi- ronment; exposure to other animals and potential sources of intoxication)
+pxbq | Diet (raw meat, milk products, fish, commercially prepared, disease-specific or organ-specific diet, ingestion of wild animals) Prior medical problems (describe illness, medications used, and outcome)
+jfsr | Vaccination and parasite prevention status (history of prior worm infections; prior worming treatments)
+u15r | Current or "chief" concern or "complaint"
+lq35 | Last known period of normalcy Disease onset-acute or gradual Progression and duration Intervening signs
+3g9w | Previous treatments for the current illness and the animal's response
+d09o | Present status (weight loss or weight gain, attitude, activity level, appetite status, urination and defecation characteris- tics, amounts of water intake)
+ylhz | VetBoo
+a3td | ExpertConsult.com
+ex5k | the current diet, duration of providing that food, and all other sources of oral intake. It may be critically important to know if a diet is homemade or a commercially available food. Supplements and "chew toys" may be important.
+9d4o | 3. Drinking, urination, and defecation patterns. These are 3 daily activities typically observed by owners. As such, they are common areas of concern and frequently represent an "owner chief complaint." Even if an owner's chief concern appears unrelated to water intake, urine output, stool quality, or defecation frequency, having an understanding of the current status of these physical traits will be of general value and may help explain a primary concern. Answers to questions about these matters may provide the clinician with insight regarding the care-giver's obser- vational skills.
+cjq2 | As examples, polydipsia can be associated with numer- ous syndromes while adipsia will sometimes be a reason for an animal becoming severely hypernatremic. Polyuria can accompany the same syndromes associated with poly- dipsia while stranguria and dysuria will usually be associ- ated with lower urinary outflow concerns. Stool quality and frequency of production could provide important information about the pancreas and intestines. High volume, greasy stools in a polyphagic pet who has expe- rienced weight loss or difficulty gaining weight are typical of exocrine pancreatic insufficiency. Frequent watery stools are associated with small bowel dysfunction. Colonic disease is often characterized by a pet with stable body weight but who has straining (tenesmus), frequency, and the stool may be small in volume while containing blood and/or mucus.
+5esx | 4. Geographic history. Knowing the geographic background can provide important information because certain dis- eases are endemic to specific geographic areas. Clinical diagnosis can escape the clinician who fails to understand the importance of where the pet has traveled or lived.
+m5ka | 5. Describe home environment. Knowing the conditions of the animal's home is essential. A dog or cat that is allowed to be unattended outdoors might be subjected to various forms of trauma or be exposed to one of several of nature's maladies such as venomous snake encounters, toxic plant ingestion, etc. Behavioral problems can sometimes be traced to changes in the home environment. The addition or loss of a person or another animal from the home may be significant. Remember that pets may be exposed to or consume medications prescribed for people in the home.
+byu8 | 6. The chronology of the sequence of events. Knowing when the animal was last normal and then being able to trace sub- sequent events in chronological order may help in under- standing a concern. In some cases, this may help categorize the disorder as being either acute (occurring over the past hours or days) or chronic (occurring over a period of two weeks or more). The duration of subacute illnesses lies somewhere in-between.
+76b0 | 7. The initial abnormal signs and their progression. This infor- mation provides the opportunity for the clinician to per- ceive not only how the illness began, but it furthers the understanding of the disorder by providing important information for how the illness progressed and its effects on the animal. As mentioned, it may allow the clinician to actually get a "feel" for the disease. This can be illus- trated in a dog that is examined for initially vomiting a clear watery fluid. If the vomitus then progressed to being bile-colored and if the patient then begins to produce profuse watery brown diarrhea with or without hemato- chezia, it may be interpreted as gastritis that has pro- gressed to involve the proximal and distal small intestine. The presence of bile provides evidence that the pylorus is probably patent.
+zxz6 | CHAPTER 1 . The Medical History
+xnth | 3
+vafm | 8. Changes in body weight. Acute disease rarely causes signifi- cant weight loss. When weight loss is present in the acute setting, it is usually reflected in dehydration caused by water loss through vomiting and/or diarrhea. Polyuria, if present, will cause dehydration to develop quickly if the animal is not drinking. It is possible for an animal to lose as much as 12 percent of its body weight via water lost through vomiting and diarrhea while retaining muscle mass.
+2zmw | The chronically ill pet may be brought to the veteri- nary facility with a "chief concern" of weight gain or weight loss. The hydrated pet with weight loss will have often lost both fat and muscle mass. These more chronic concerns have usually developed over a period of at least 1-2 weeks. Changes in body weight should trigger a number of questions directed at determining duration, changes in environment, diet, appetite, presence of intesti- nal signs, travel history, water intake and urine output, etc.
+bf9k | 9. Vaccinations and medications. The owner of every pet should be asked about current, recent and previous medi- cations given. Knowing what vaccinations have been given, when, and where may become valuable. Responses by the pet, positive or negative, to any medications should be noted. This information is not only important to help diagnose the disease, but might also help with its subse- quent treatment management. A young dog may have been successfully treated at another hospital with gluco- corticoids and parenteral fluids. Later, the dog relapses with the same symptoms after the effects of the treatment dissipated. This treatment history would be classic for adrenocortical insufficiency.
+```
+
+OUTPUT:
+```

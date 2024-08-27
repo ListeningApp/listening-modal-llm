@@ -1,0 +1,134 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+ko3c | Nature Reviews Cardiology
+xek3 | prototypical E8 in the LCA. Disturbed flow induced the expression of genes in the E8 cluster of endothelial cells that were also found to be highly expressed in VSMCs (Acta2 and Tagln), fibroblasts (Dcn1) and immune cells (Cd74, H2-Eb1, H2-Aa and H2-Ab1), indicating potential EndMT and acquisition of immune cell-like features by endothelial cells under the disturbed flow condition. Comparison of the differentially expressed genes between the stable flow-exposed E2 and disturbed flow-exposed E8 clusters by Panther gene ontology analysis showed that disturbed flow induces many well-known biological processes associated with pro-atherogenic pathways, including inflammation, EndMT, apoptosis, angiogenesis and endothelial permeability15. A pseu- dotime trajectory analysis and additional differential gene expression and chromatin accessibility analyses confirmed that E8 cells express higher levels of marker genes for EndMT (Acta2, Cnn1, Snail and Tagln) and EndIT (C1qa, C1qb, C5ar1 and Tnf) than E2 cells. The evidence for EndMT and EndIT was further validated by immunofluorescence
+bbpr | Review article
+5zyf | staining of the key immune cell marker proteins C1QA and LYZ in CDH5+ endothelial cells in mice15. In addition, chronic exposure of human aor- tic endothelial cells to disturbed flow in vitro induced the expression of EndMT markers (SNAl1 and TAGLN) and EndIT markers (C1QC and C5AR1)15, demonstrating that disturbed flow can induce endothelial cell reprogramming in cultured aortic endothelial cells in the absence of any other cell type, such as immune cells. These results demonstrate that disturbed flow induces the transition of endothelial cells to pro- atherogenic phenotypes, characterized by inflammation, EndMT and EndIT (that is, FIRE)15 (Fig. 4).
+9own | EndMT has a crucial role in endothelial cell dysfunction and atherosclerosis, whereas the role of EndIT has not been defined. Endothelial cells undergoing EndMT exhibit traits of mesenchymal cells, such as fibroblasts and VSMCs, while losing typical endothe- lial cell characteristics, including the elongated cell morphology and cell-cell junctional integrity60,153,154. Mechanistically, the flow- sensitive transforming growth factor-ß1 (TGFß1) is a well-known regu- lator of the expression of EndMT-related genes155,156. Furthermore, endothelial cells without primary cilia have been shown to prime flow-induced EndMT via the TGFB-ALK5-SMAD2/SMAD3 axis157. By contrast, AMP-activated protein kinase is activated by stable flow and suppresses inflammation via nitric oxide-mediated inhibition of NF-KB signalling158-160. Cells undergoing EndMT have an impor- tant role in atherogenesis by contributing to neointimal thickening, vascular remodelling, and plaque progression and stability153,161 A meta-analysis using 28 microarray datasets obtained from endothe- lial cells exposed to various stimuli (including shear stress, different coronaviruses, hyperlipidaemia and lipopolysaccharide) supports the EndIT concept162. Nevertheless, the EndIT concept requires further validation by endothelial cell lineage-tracing studies163. Although the pathophysiological importance of EndIT in atherogenesis remains to be tested, the role of disturbed flow-induced endothelial inflammation in atherogenesis is clearly defined.
+bqfb | Fig. 4 | Single-cell RNA sequencing reveals disturbed-flow-induced reprogramming of endothelial cells. a, Disturbed flow stimulates the transition of healthy endothelial cells (ECs) to mesenchymal cells (EndMT; E8) and to an immune cell-like state (EndIT; E8), as determined by a pseudotime trajectory analysis of single-cell RNA sequencing datasets obtained from a mouse model of partial carotid artery ligation. The dots along the trajectory lines represent the status of the cells transitioning towards differentiated
+wwdt | Nature Reviews Cardiology
+mn1r | Therapeutic implications in atherosclerosis
+5vqw | As discussed in the Introduction, the CANTOS trial12 demonstrated that targeting a non-lipid pathway, such as an inflammatory pathway, could be an effective anti-atherogenic therapy. We propose that flow- sensitive genes, proteins and pathways in endothelial cells that regulate FIRE, such as endothelial inflammation, EndMT and EndIT, could be promising novel anti-atherogenic targets. In support of this notion, our transcriptomics study conducted in the mouse PCL model of atherosclerosis showed that both statins and blood flow regulate the expression of hundreds of genes, and the transcriptional profile changes are remarkably distinct from each other164. This result suggests that flow-dependent and cholesterol pathways have different roles in atherosclerosis, highlighting the rationale for targeting flow-sensitive molecules (genes, proteins and signalling molecules) as a complemen- tary therapeutic approach. Two therapeutic strategies are conceivable: stimulating or increasing stable-flow-induced atheroprotective mol- ecules, or inhibiting disturbed flow-induced pro-atherogenic molecules with the use of small molecules, recombinant proteins or gene therapies delivered in a systemic or targeted manner.
+meyw | Several stable-flow-induced molecules are promising anti- atherosclerotic targets. KLF2 and KLF4 account for >50% of all stable- flow-induced gene transcription and the encoded proteins affect nearly all facets of atheroprotective responses in endothelial cells165. Given their dominant importance, numerous strategies to stimulate KLF2 and KLF4 expression have been proposed. Statins are a well-known inducer of KLF2 expression in cultured endothelial cells123. However, whether statins also induce KLF2 and KLF4 expression in vivo under flow-conditions has been disputed given the potent effect of flow on the expression of these genes110,164. Betulinic acid has also been shown to induce KLF2 expression, as well as expression of its target gene NOS3 (which encodes eNOS), via the upstream ERK5-MEF2C pathway166. PIEZO1 agonists (Yoda1, Jedi1 or Jedi2) or antagonists (salvianolic acid B) have been shown to modify KLF2 and KLF4 expression167-169. However,
+2e62 | cell types. b, Disturbed flow induces epigenomic changes, such as chromatin remodelling, and transcriptomic changes that lead to pro-atherogenic gene expression patterns, which in turn induce flow-induced reprogramming of ECs (which we term as FIRE, an emerging concept that collectively refers to EndMT, EndIT and EC inflammation) and, eventually, atherosclerosis development. VSMC, vascular smooth muscle cell. Panel a adapted with permission from ref. 15, Elsevier.
+75y3 | Review article
+s2g2 | given the dual atheroprotective and pro-atherogenic roles of PIEZO1, drugs targeting this receptor would require safety and specificity stud- ies in order to be used as atherosclerosis therapies. The use of recombi- nant KLK10 or targeted overexpression of KLK10 as an anti-atherogenic therapy is discussed above.
+q1q2 | Inhibition of disturbed-flow-induced molecules is a promising anti- atherosclerosis strategy. Pharmacological inhibition of disturbed-flow- induced HIF1x using the small-molecule inhibitor PX-478 was shown to reduce atherosclerosis in mice129. Inhibition of disturbed-flow-induced miRNAs, including the antagomiRs of miR-92a, miR-205 or miR-712, effectively reduced atherosclerosis development in mice 150,170-172. The agent 5-aza-2'-deoxycytidine inhibits the disturbed-flow-induced DNMT activity and prevented atherosclerosis in a mouse model136. Numerous flow-sensitive genes, proteins and pathways, including NF-KB, YAP, TAZ and BMP4, as well as specific inhibitors, drugs and RNA therapeutics, are suitable for further investigation, but research on therapeutic strategies targeting disturbed-flow-induced atherogenesis is scarce. Developing approaches to overcome this limitation is a major research area to be developed.
+cb7r | Conclusions
+68xu | In conclusion, shear stress from blood flow potently regulates pheno- typic and functional changes in endothelial cells that either prevent or promote atherogenesis. Endothelial cells transduce these biomechani- cal cues through mechanosensors that mediate various mechanosignal transduction pathways, which in turn regulate transcriptomic and epig- enomic changes and cellular functions. The advent of high-throughput omics combined with in vivo and in vitro experimental models have revealed numerous flow-sensitive genes, proteins and pathways that regulate endothelial cell dysfunction and atherosclerosis develop- ment. Whereas stable flow induces an atheroprotective endothelial cell phenotype, disturbed flow induces an atherogenic phenotype characterized by alteration of endothelial morphology and barrier function, impairment of endothelial metabolism, redox regulation, proliferation and apoptosis, induction of inflammatory pathways, and transdifferentiation to other cell types, such as EndMT. Addition- ally, scRNA-seq and scATAC-seq studies in vivo have revealed that dis- turbed flow not only induces endothelial inflammation and EndMT, but also EndIT, which we define as FIRE (flow-induced reprogramming of endothelial cells). The mechanisms and roles of FIRE in endothelial dysfunction and atherosclerosis are major unanswered questions that could reveal important novel mechanisms underlying atherosclerosis. Moreover, the flow-sensitive molecules regulating FIRE could be novel therapeutic targets.
+hd35 | Published online: 24 May 2023
+2zpk | References
+epu7 | Nature Reviews Cardiology
+7od1 | Review article
+0bqy | Nature Reviews Cardiology
+b780 | 109. Lin, Z. et al. Kruppel-like factor 2 (KLF2) regulates endothelial thrombotic function. Circ. Res. 96, e48-e57 (2005).
+ccmb | Review article
+ma93 | Nature Reviews Cardiology
+c6hh | Review article
+y7ea | Nature Reviews Cardiology
+nav4 | Review article
+gem8 | Nature Reviews Cardiology
+e8nr | Acknowledgements
+k78w | Author contributions
+g9du | Competing interests
+f682 | Additional information
+```
+
+OUTPUT:
+```

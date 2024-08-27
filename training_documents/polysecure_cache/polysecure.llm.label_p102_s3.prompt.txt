@@ -1,0 +1,152 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+txkp | Questions to Consider
+mxqe | . How do you treat yourself when you make a mistake or fall short of your own standards and expectations?
+y9ob | . How do you respond to yourself when you have an inner conflict?
+twm6 | . How would you like to treat yourself differently?
+8qsp | · What would become possible for you if you did this?
+yck2 | . How frequently are you getting triggered and how does this impact you?
+hthe | · What could you do to better manage your triggers, both preventively and dur- ing an actual trigger?
+otjm | Things to Try and to Experiment With
+q0fv | . When your inner critic arises, try engaging in dialogue with it instead of just
+v9vo | believing it. Ask what it wants for you and if it is trying to protect you in any way. You can do this verbally, internally or in writing. Keep engaging with it until you get to a positive intention that it is holding for you. Once you have this positive intention, you can then experiment with translating the inner crit- ic any time it arises again.
+rwty | . Seek support through books, programs, training or with a professional to work with your inner critic and to manage your triggers.
+ki97 | No matter how triggered, anxious or out of control you feel, it's important to know that you can change your arousal system and calm yourself. Mindful deep belly breathing (even for just 60 seconds) is an effective way to de- crease heightened arousal and return your body to a state of homeostasis.
+099j | . Experiment with cognitive reappraisal or cognitive reframing techniques to reinterpret a situation and change your emotional response to it. For exam- ple, if you haven't heard from a partner for an unusual amount of time, in- stead of thinking that they are uninterested in you or pulling away, you might instead wonder if they are busy doing something important or whether their phone battery died. Or if you are struggling with a partner or metamour, you can try to see the situation from their point of view and consider how they may also be struggling in this situation.
+m7zf | . Check out Deirdre Fay's workbook Becoming Safely Embodied: A Skills-Based Approach to Working with Trauma and Dissociation.
+2ghw | . Check out Bonnie Weiss and Jay Earley's book, Freedom from Your Inner Critic: A Self-Therapy Approach.
+hnfy | In this chapter we have covered how to create earned secure attachment and how to apply the HEART of being polysecure to yourself. Changing deeply ingrained habits and beliefs is not easy or instantaneous, but it is possible. Doing this kind of work can be life-changing and well worth the effort. However, there is a paradox in this process of working with our attachment. Some people might advise you to first create a secure attachment with yourself before you can have secure relation- ships with others, or they might say that you need to experience secure attachment
+w6d9 | with others before you can have it with yourself. When we are talking about adults | believe that both can be true. What you've gone through both as a child and as an adult, how pain-free or painful your nonmonogamy journey has been and where you are in your personal growth process will dictate what's best for you. Some of us need to take a pause on dating and turn inward to heal, deconstruct and rebuild ourselves. This can allow us to bring forward a more fortified and healthy self that is able to relate in secure ways with others. Others may need to first have enough positive experiences where we feel seen, loved and met before embarking on inner work. These experiences can build a certain outer relational security that then can enable us to have enough self-worth, courage and capacity to look inward. These processes can alternate back and forth or can also occur simultaneously, where we are both in relationships that are healing and supportive to us and at the same time doing inner attachment work as well. Whichever of the polysecure HEARTS paths is for you, please allow it to unfold in the ways that work best and make the most sense for you and your relationships, knowing that it will probably be more cir- cuitous than linear.
+lbm8 | O
+krjy | CHAPTER TEN COMMON QUESTIONS AND FINAL THOUGHTS
+n7dw | BEFORE WE END THIS BOOK, I want to cover a few questions that I am asked fre- quently enough to make them worth addressing. Then I will offer my final words to you.
+9nt1 | How many nonmonogamous attachment-based relationships can I have?
+fr45 | I get this question a lot, and, probably to your disappointment, I don't have a single quantifiable number to give you. Maybe in the future, there will be research that indicates the ideal number of attachment figures you can have while nonmonog- amous, but I'd still be cautious of this because what I've seen is that it really de- pends on circumstances. There are many factors that will impact how many part- ners you can fully enter into a secure attachment- based relationship with. How demanding of your time and attention is your work? Do you have kids? If so, how many and how old are they? Do you care for elderly parents or other adults? Are you in school? How stable is your living situation? How's your health? Do you or your partners have any special needs? Where are you in your healing process re- garding trauma and attachment insecurity? Are there certain hobbies or passions that are very important for you to pursue or make time for? Are you in a major life transition (e.g., divorce, moving house, a career change, gender transition or leav- ing an organized religion)? Are you in a certain phase of life that makes it easier or harder to have partners? These are just some of the factors that can impact how much emotional bandwidth a person has for secure relationships. It's not just about how polysaturated you are, but how life-saturated you are.
+s2ty | In the nonmonogamous world there is a popular saying that love is infinite, but time and resources are not. This saying highlights the paradox of ultimate versus relative reality-love is not a finite resource, so it is possible for us to love more than one person at a time, but we are all in bodies that are limited to the relative realities of space and time, so having infinite partners is not actually possible. When thinking about attachment-based relationships, this phrase is extremely
+3cdb | relevant and can be adapted to say that love is infinite, but secure attachment is not. Since not all of your relationships have to be attachment-based, you may have sev- eral, even many, romantic or sexual partners. But it is important to be honest and realistic about how many people you have the time and resources to invest in the HEART of being polysecure with before you begin to compromise or dilute your other attachment-based relationships. Additionally, if you prioritize secure attach- ment with yourself, does this change, whether through enhancing or reducing, what you can offer others?
+6hsm | Should we close our relationship when there are attachment problems?
+om5d | Again, it depends. I've seen both ends of the spectrum-closing an open rela- tionship can cause damage both inside and outside of the relationship, but staying open when there are clear attachment problems can also cause irreparable damage to the people or relationships struggling with attachment insecurity. Some people are quick to advise a struggling couple to close up, to just focus on each other and to take the time to heal their attachment issues. If that feels like the right decision for you and your partner, then great! There are times when I have seen this as the best option for an individual or couple, but be cautious of applying monogamous advice to a polyamorous context. Attachment issues do not just show up in the early stages of a monogamous couple opening up, but also with people who are solo poly and with people who have been practicing forms of nonmonogamy for years, so please beware of jumping to closing a relationship as the attachment cure-all.
+0svq | Through working with individuals, couples and polycules, I have seen people try many different courses of action when there is attachment insecurity in a polyamorous context. These options range from completely closing up a rela- tionship, to taking a temporary dating pause or having certain relationship limits, to staying completely open. Each of these has its pros and cons, with certain re- strictions and certain freedoms. While it is extremely difficult to experience polyin- security, is also difficult to be asked to change your behavior to support your
+1too | insecure partner. When deciding which of these potential options would be best for you and your relationships, it is good to remember that attachment work is more about the marathon than the sprint. Two important factors to consider are:
+pti9 | 1. How severe is the attachment insecurity? Is it mild, moderate or severe to the point of interfering with functionality, well-being or mental health?
+4mtx | 2. How much damage could be caused for the partners who are not experi- encing attachment insecurity, based on how open or closed an individual or pairing of partners decides they are going to be? There is an important dis- tinction here between damage and discomfort. Some of the below options might not be comfortable for everyone involved, but they should not be damaging. Even if some of these options are uncomfortable and not what you would necessarily choose in your ideal situation, they should still be considered as temporary choices or compromises that you are willing to make because they feel worth it for the health of your relationship or poly- cule, versus options that are damaging to you, your partners or your meta- mours.
+rgxy | Closing Up:
+vsq9 | When attachment insecurity is at play, one option is to temporarily close up. Clos- ing up typically looks like both you and your partner getting off the dating apps and taking a complete break from seeing any people you have been talking to or even dating. Basically, you're going back to monogamy for a moment. Temporarily clos- ing up to focus on healing your attachment can be helpful, especially when there is more severe attachment insecurity. The caveats here are that attachment healing does not happen overnight and there will probably never be a point where you are 100 percent healed and feel absolutely ready to open up again, so at some point you will have to face the discomfort of moving forward into nonmonogamy. Ideally you will only do this when you and/or your partner have enough inner foundation and interpersonal strength to weather the storm. I've seen closing up work best in the following situations:
+d5a1 | . You are currently single and you decide to refrain from dating or entering into a relationship until you feel more capable and ready to relate from a secure place.
+qtb8 | . You are in a relationship that is new to opening up where one or both part- ners are experiencing attachment insecurity and neither of you has any other relationships that you would be deserting or harming by closing up.
+g395 | . You are not new to nonmonogamy and you and your one partner are in a phase where you don't have other relationships.
+wfvy | . You are not new to nonmonogamy and you have multiple partners and meta- mours, but they are genuinely alright with taking a break while you do the at- tachment work needed in your primary relationship. Typically, these other relationships are not as attachment-based.
+7yfb | Taking a Pause:
+3mmm | A few steps further along from completely closing up is taking a pause. Unlike when an individual or a couple completely closes up and stops pursuing any other relationships, a person or a couple taking a pause may maintain some of their cur- rent connections, but press the pause button on progressing in those relationships for a certain amount of time. In this scenario, a person might still talk and message with partners as friends or spend time together in person, but they are temporarily stepping back from the more romantic or sexual dimensions of those relation- ships. For some people this can be a very supportive option since you don't have to completely let go of certain connections that may be of importance to you, but you can also temporarily have a rest from the added attachment stress of multiple partners. One person I worked with called her version of a pause her attachment sabbatical. She informed all of her partners that she had no intention of ending or changing their relationships, but she was choosing to be out of contact for six weeks to do her own inner attachment work. After six weeks, she planned to return to the relationships as if she had just been away on a retreat during that time. In her case, all of her partners were able to accommodate her sabbatical and they
+742r | agreed to only make contact in case of an emergency. I've seen a pause work when:
+9u58 | · The person initiating the pause is doing so with partners who they are less entwined with or committed to.
+vv8b | . The person initiating the pause does have partners who they are more en- twined with or committed to, but these partners are able to fully consent to the pause, usually because they have other partners to turn to for romance or sex, they are in a very secure place themselves and/or the pause is temporary enough that they are willing to wait.
+te37 | . People are more oriented to relationship anarchy or relationship fluidity and everyone involved is able to smoothly shift back and forth from being more or less romantically/sexually involved.
+uk6d | Creating a Vessel:
+2b11 | When there is attachment insecurity within a polycule, I've seen people adopt a form of temporary polyfidelity where all current relationships stay as they are, but no new partners are added to the mix. This may mean either that all partners are polyfidelitous for a certain amount of time or that just some are. A married polyamorous couple that I work with coined their version of this "the vessel." In their case, the husband was experiencing a more severe form of attachment inse- curity that was rooted in his childhood, but was getting repeatedly triggered by his wife having two other partners and several potential suitors in the wings. When he and I first started our sessions together he wasn't sure if he could do any version of polyamory, but as we identified the root of his struggles, the idea of a temporary vessel became a more preferable option than scrapping polyamory all together. In their own words:
+2xg3 | The husband:
+i3w4 | Coming to polyamory from swinging, I was accustomed to the safety of sharing ex- periences with my wife. The first year of polyamory left me floundering. Instead of bonding with my wife, I felt abandoned by the ease with which she could navigate polyamory and the difficulty I had in finding the sensual and sexual experiences that
+ta7u | I also craved.
+qqu2 | My anxious attachment style was fostered during my traumatic childhood, but definitely tickled by the multi-weekly dates that my wife was going on, as I stayed home with the children and tried to put a good and supportive face on. One image that kept occurring to me was two birds in flight, with the difference in their altitude representing the difference in their polyamorous experiences. My wife constantly soared higher than me, and at times I felt as though she'd lose sight of me, aban- doning me for others and other experiences.
+lpgr | The concept of a vessel came about during one of my therapy sessions with Jess. I realized that it was the expansion of the number of partners that my wife had that was more anxiety-producing than the depth and closeness that she had with her cur- rent partners, which for me was beautiful and non-threatening. It was the antici- pation of the breadth of partners that was triggering me, not depth.
+1b4f | The vessel that my wife and I negotiated was four months long, where she con- tinued to be with her two other partners in addition to me, but she would not add any new partners to our polycule. The idea was she could experience as much depth in those months with the two partners as she wanted, but she wouldn't look to ex- pand her breadth with new partners during this time.
+```
+
+OUTPUT:
+```

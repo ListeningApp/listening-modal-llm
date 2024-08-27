@@ -1,0 +1,73 @@
+## 1pjs-2024-08-26_18_50_03-pulmonary.pdf
+
+Experiences of Pulmonary Rehabilitation in People Living with Chronic Obstructive Pulmonary Disease and Frailty A Qualitative Interview Study
+
+
+## Abstract
+
+Rationale: People living with both chronic obstructive pulmonary disease and frailty have high potential to benefit from pulmonary rehabilitation but face challenges completing programs. However, research to understand ways to optimize participation in this group is lacking.
+
+Objectives: To explore the experiences, needs, and preferences of people with chronic obstructive pulmonary disease and frailty referred for outpatient pulmonary rehabilitation.
+
+Methods: Semistructured interviews with people with chronic obstructive pulmonary disease and physical frailty, purposively sampled by age, living status, level of frailty, and completion of pulmonary rehabilitation. Thematic analysis with a critical realist perspective was used, involving relevant stakeholders with clinical, academic, and lived experience for interpretive rigor.
+
+Results: Nineteen people with chronic obstructive pulmonary disease and frailty were interviewed, with a median age of seventy-eight years (range, fifty-eight to eighty-eight). Nine did not complete their pulmonary rehabilitation program. Four themes were identified: striving to adapt to multidimensional loss, tensions of balancing support with independence, pulmonary rehabilitation as a challenge worth facing, and overcoming unpredictable disruptions to participation. Participants described constantly adapting to their changing health and resulting multidimensional losses
+
+(e.g., functional abilities, relationships, confidence). This involved traversing between independence and seeking support, set against a mismatch between their needs and what support is available. People with chronic obstructive pulmonary disease and frailty can be highly motivated to participate in pulmonary rehabilitation, despite the physical and mental demands it entails, and report a range of benefits. Yet in the context of changeable health, they must often overcome multiple unpredictable disruptions to completing rehabilitation programs. Participant determination and flexibility of services can facilitate ongoing attendance, but for some, these unpredictable disruptions erode their motivation to attend.
+
+Conclusions: People with chronic obstructive pulmonary disease and frailty experience accumulating, multidimensional loss. This group are motivated to complete pulmonary rehabilitation but often require additional support and flexibility owing to fluctuating and unpredictable health. Person-centered approaches should be considered to minimize disruptive health events and support pulmonary rehabilitation participation and completion. Service adaptations could allow more flexibility to meet the changing needs of this group and enable communication around how pulmonary rehabilitation might align with their priorities.
+
+Chronic obstructive pulmonary disease affects multiple body systems and has been described as reflecting an "accelerated aging." Chronic obstructive pulmonary disease frequently occurs in the context of multimorbidity: more than sixty percent of people with chronic obstructive pulmonary disease live with two or more additional health conditions. Related to this, people with chronic obstructive pulmonary disease have twice the odds of living with frailty than people of a similar age without chronic obstructive pulmonary disease.
+
+Frailty is a multidimensional syndrome characterized by decreased reserve and diminished resistance to stressors. Physical dimensions of frailty are characterized by diminished strength and endurance and reduced physiological function. Recognition of frailty offers advantages over measures of disease severity, particularly in the context of multimorbidity, in that it incorporates a more holistic understanding of a person's health and limitations. Pooled prevalence estimates suggest that nineteen percent of people with chronic obstructive pulmonary disease are living with frailty, whereas a further fifty-six percent are prefrail. People with chronic obstructive pulmonary disease and frailty are at increased risk of mortality and readmission after hospitalization for an exacerbation of their disease. In comparison with their nonfrail counterparts, people with chronic obstructive pulmonary disease and frailty experience poorer physical function and health status as well as increased anxiety and depression symptoms and are less likely to receive disease-modifying interventions.
+
+Participating in exercise improves outcomes for people with chronic obstructive pulmonary disease or frailty and is recommended by clinical guidelines for each condition. For people with both chronic obstructive pulmonary disease and frailty, pulmonary rehabilitation is associated with improvements in frailty status, breathlessness, exercise performance, physical activity levels, and health status. However, people with chronic obstructive pulmonary disease and frailty are less likely to start, and complete, pulmonary rehabilitation.
+
+People with chronic obstructive pulmonary disease report multiple challenges to participation in exercise-based interventions, including lack of perceived benefit, concurrent burden of comorbid conditions, conflicts with other priorities,
+
+difficulties with mobility and travel, fear of worsening symptoms, low energy and motivation, and exacerbations of their chronic obstructive pulmonary disease. Similar barriers are noted by people living with frailty, including conflicting commitments (e.g., hobbies, caring responsibilities), physical limitations (e.g., pain, fatigue), and challenges around access and travel. Although some view exercise positively, others report disengaging owing to perceiving frailty as inevitable in older age, and feeling disempowered or depersonalized in their interactions with services.
+
+Understanding (non-)participation and identifying optimal ways of supporting people with chronic obstructive pulmonary disease and frailty is a priority for improving outcomes for this population. People with both chronic obstructive pulmonary disease and frailty have high potential to gain from, but also a high likelihood of facing challenges to completing, pulmonary rehabilitation. Yet, research with people with chronic obstructive pulmonary disease and frailty to understand their specific needs and challenges is lacking, and optimal models of exercise for this group are not well understood. We aimed to explore the experiences, needs and preferences of people living with both chronic obstructive pulmonary disease and frailty referred for pulmonary rehabilitation, to optimize service delivery for this group. Our objectives were to: one, understand the experiences and preferences of people living with chronic obstructive pulmonary disease and frailty; two, identify current support and areas of unmet need; and three, explore motivation for, and barriers to, continued participation in pulmonary rehabilitation.
+
+
+## Methods
+
+Design
+
+We conducted a qualitative interview study within a critical realist paradigm. This means participants' responses were deemed to reflect a reality that can be understood through empirical means. Yet, we also acknowledge the influence of social and cultural structures in understanding this reality. We drew on theories around successful aging, self-regulation, and stress and coping to develop a comprehensive topic guide and inform data interpretation. For example, successful aging theory aided exploration of how people adapt, reprioritize, and compensate in response to losses in function in older age; the common-sense model of self-regulation provided a framework for understanding interactions with services and broader health behaviors, and the transactional model of emotions and coping supported our understanding of how coping arises from perceptions of stressors and available resources. Although we drew on specific theories with the intention of developing a richer explanation of reality, we were cognizant that they could be challenged by new data.
+
+
+## Setting and Recruitment
+
+We recruited participants from two London hospitals providing outpatient pulmonary rehabilitation. Clinical staff identified potential participants during their initial assessments for pulmonary rehabilitation. A researcher then periodically followed up with those interested in participating, so that they could be potentially sampled when they stopped or completed their pulmonary rehabilitation.
+
+
+## Participants and Sampling People referred for pulmonary
+
+rehabilitation with a physician diagnosis of chronic obstructive pulmonary disease, who at initial assessment were identified as physically frail using the Short Physical Performance Battery (SPPB; score of less than or equal to nine), were invited to participate. The SPPB scores performance across three tests: standing balance, habitual gait speed, and ability to stand. Total scores range from zero low function to twelve high function. Thresholds of less than or equal to nine and less than or equal to seven have been suggested to indicate prefrailty and frailty, respectively. Patients' informal caregivers also participated if patients preferred. People under the age of eighteen years, unable to speak English, or without capacity to provide informed consent were excluded.
+
+We purposively sampled participants by age (greater than or less than or equal to eighty years), living status (alone or with others), level of physical frailty (SPPB scores of greater than or less than or equal to seven), and completion of pulmonary rehabilitation (did or did not complete). Within the group who did not complete pulmonary rehabilitation, we attempted to sample those who were and were not admitted to hospital.
+
+
+## Data Collection
+
+A female researcher with a background in psychology and palliative care research conducted the interviews in participants' preferred locations, between October twenty eighteen and April twenty nineteen. She had previous training in qualitative research and experience in conducting interviews with people with serious illness and their families. She was not known to participants before the interviews.
+
+The interviews followed a semistructured interview topic guide developed with input from people with lived experience relevant to both COPD and frailty, and their informal carers. The topic guide explored participants' current health and priorities, support and unmet needs, and expectations and experiences of pulmonary rehabilitation. On the advice of the service user representatives, the researcher identified and used participants' own language in relation to frailty, for example, slowing down, difficulties walking, lack of strength or energy. Service user representatives also prompted the researcher to consider the participant's assets and resilience in addition to limitations. Interviews were audio-recorded and transcribed verbatim. The researcher completed detailed field notes to describe interview flow, contextual factors, participant responses, and initial reflections immediately after each interview.
+
+Data collection continued until the data set was deemed to be approaching thematic saturation, i.e., rich data with breadth and depth in relation to the study objectives, with evidence of replication across several participants. To determine potential thematic saturation, we conducted a preliminary analysis of the detailed reflective field notes, considering the above definition while also reflecting on Malterud and colleagues' dimensions of information power. These dimensions consider the data in relation to the breadth of the study aim, sample specificity, level of existing contributing theory, dialogue quality, and the need for cross-case analysis.
+
+
+## Analysis
+
+We conducted a reflexive thematic analysis to identify patterns of meaning within the data. First, one researcher familiarized themselves with the data through revisiting the audio recordings, transcripts, and field notes. They generated initial codes to capture meaningful basic elements of the data in relation to the study objectives. A service user representative with qualitative analysis training also familiarized themselves with, and generated initial codes for, a sample of the data. Meanings were primarily considered at a semantic level, but with consideration of latent interpretations. The researcher inductively generated themes by reviewing and refining codes, and writing definitions accompanied by illustrative quotes. The themes and related codes were refined using three processes: revisiting the original interview data to ensure fair interpretation, comparing our findings with existing theory to assess if this may deepen our understanding, and review by stakeholders with differing backgrounds to work toward a richer and more nuanced understanding of the data. The latter included review by coauthors from different disciplines and representing relevant academic, clinical, and service user experiences. Finally, we constructed a narrative of the findings, with reference to illustrative quotes. Although described as a linear process, we moved forward and backward between the stages as thinking changed and progressed.
+
+
+## Ethical Approval
+
+The London Camberwell St Giles Research Ethics Committee approved this study. We obtained written informed consent prior to interviews.
+
+
+## Results
+
+Of forty-nine eligible people introduced to the study, nineteen were interviewed. Sixteen people who were eligible and went on to

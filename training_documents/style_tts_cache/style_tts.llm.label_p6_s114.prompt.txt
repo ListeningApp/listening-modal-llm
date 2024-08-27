@@ -1,0 +1,150 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+wwdt | B. Visualization of Style Vectors
+mn1r | To verify that our model can learn meaningful style represen- tations, we projected the style vectors extracted from reference audios into a 2-D plane for visualization using t-SNE [62]. We selected 50 samples of each emotion from a single speaker in ESD and projected the style vectors of each audio into the 2-D space. It can be seen in Fig. 2(a) that our style vector distinctively encodes the emotional tones of reference sentences even though the training does not use emotion labels. We also computed the style vectors using speech samples from the same speaker with our single-speaker model. This model is only
+5vqw | TABLE IV. ROBUSTNESS EVALUATION ON THE LJSPEECH AND LIBRITTS DATASET. WORD ERROR RATES (%) ARE REPORTED FOR DIFFERENT LENGTHS OF TEXT (L).
+meyw | TABLE V. COMPARISON OF PEARSON CORRELATION COEFFICIENTS OF ACOUSTIC FEATURES ASSOCIATED WITH EMOTIONS BETWEEN REFERENCE AND SYNTHESIZED SPEECH IN MULTI-SPEAKER EXPERIMENTS. FASTSPEECH 2 AND VITS EMPLOY THE X-VECTOR AS THE REFERENCE.
+2e62 | TABLE VI. REAL TIME FACTOR (RTF) IN SECOND.
+75y3 | trained on the LJSpeech dataset and therefore has never seen the selected speaker from ESD during training. Nevertheless, in Fig. 2(b), we see that our model can still clearly capture the emotional tones of the sentences, indicating that even when the reference audio is from a speaker different from the single speaker seen during training, it still can synthesize speech with the correct emotional tones. This shows that our model can implicitly extract emotions from an unlabeled dataset in a self- supervised manner. Lastly, we show projected style vectors from 10 unseen VCTK speakers each with 50 samples in Fig 2(c). Different speakers are perfectly separated from each other in the 2-D projection. This indicates that our model can learn speaker identities without explicit speaker labels and hence perform zero-shot speaker adaptation.
+s2g2 | C. Style-Enabled Diverse Speech Synthesis
+q1q2 | To show that the learned style vectors indeed enable diverse speech synthesis, we provide an example of synthesized speech with two different reference audios using our single-speaker model trained on the LJSpeech dataset in Figure 3. It can be seen clearly that the synthesized speech captures various aspects of the reference speech, including the pitch, prosody, pauses, and formant transitions. To systematically quantify this effect, we drew six scatter plots showing the correlations
+cb7r | between synthesized and reference speech in acoustic features traditionally used for speech emotion recognition (Figure 4). The six features are pitch mean, pitch standard deviation, energy mean, energy standard deviation, harmonics-to-noise ratio, and speaking rate [63]. All six features demonstrate a significant correlation between the synthesized and reference speech (p < 0.001) with the correlation coefficients all above 0.6. Our model also outperforms other models on multi-speaker datasets in acoustic feature correlations (Table V). The results indicate that multiple aspects of the synthesized speech are matched to the reference, allowing flexible control over synthesized speech simply by selecting appropriate reference audios. Since our models also allow fully controllable pitch, energy, and duration, our approach is among the most flexible models in terms of controllability for speech synthesis.
+68xu | D. Ablation Study
+hd35 | We further conduct an ablation study to verify the effec- tiveness of each component in our model with experiments of subjective human evaluation. We instructed the subjects to compare our single-speaker model to those with one component ablated. We converted the ratings into comparative mean opinion scores (CMOS) by taking the difference between the MOS of the baseline and ablated models. The results are shown in table VII, and more details are in Appendix A.
+2zpk | The leftmost table shows the results related to the proposed Transferable Monotonic Aligner (TMA) training. When training consists of 100% hard alignments so that no gradient is back- propagated to the parameters of the text aligner (equivalent to using an external aligner such as in FastSpeech 2), the rated MOS is decreased by -0.26. This is due to the covariate shift between the pre-training data (LibriSpeech) and TTS
+epu7 | TABLE VII. ABLATION STUDY FOR VERIFYING THE EFFECTIVENESS OF EACH PROPOSED COMPONENT.
+7od1 | TABLE VIII. COMPARISON OF PEARSON CORRELATION COEFFICIENTS OF ACOUSTIC FEATURES ASSOCIATED WITH EMOTIONS BETWEEN REFERENCE AND SYNTHESIZED SPEECH IN ABLATION STUDY.
+0bqy | data (LJ Speech). An example of bad alignment of the pre- trained external aligner is shown in Figure 5. This shows that fine-tuning the aligner is effective in improving the quality of synthesized speech. However, when using 0% hard alignment (100% soft attention alignment), the model gets overfitted to reconstruct speech with soft alignment and is unable to produce audible speech using hard alignment during inference (-2.98 CMOS). We also see that both TMA objectives (equations 3 and 4) are important for high-quality speech synthesis.
+b780 | The table in the middle shows the effects of removing various training techniques and components. Using an external pitch extractor (such as acoustic-based methods) decreases MOS by -0.11. This is likely caused by the acoustic-based pitch extraction method sometimes failing to extract the correct F0 curve, and fine-tuning the pitch extractor along with the decoder makes the model learn better pitch representation (see Appendix A-C). Without a pre-trained text aligner (such as VITS), the rated MOS is decreased by -0.39. This indicates that our transfer learning is helpful for mitigating overfitting problems when training internal aligners with a relatively small dataset. Removing our novel duration-invariant data augmentation also lowers the performance. Lastly, training without discriminators significantly affects the perceived sound quality.
+ccmb | The rightmost table shows architecture changes by removing the residual features and replacing the AdaIN components in the decoder and predictor with instance normalization (IN), AdaLN, and simple feature concatenation (Concat). Their effects on style reflection are also shown in Table VIII. Removing the residual features in the decoder decreases both naturalness and correlations between synthesized and reference speech. Layer normalization is also worse than IN for both metrics. Concatenating styles in place of AdaIN dramatically decreases the correlations and lowers rated naturalness, confirming our observation that all previous methods that use concatenation to incorporate style information ([1], [9], [64], [12], [13], [15], [16]) are not as effective as AdaIN due to the lack of temporal modulations (see Appendix A-B). Lastly, we see that replacing AdaIN with IN does not significantly affect the rated naturalness,
+ma93 | suggesting that the improved naturalness is not due to the introduction of styles but our novel technical improvements including TMA, data augmentation, use of IN, pitch extractor, and residual features. Nevertheless, styles enable diverse speech synthesis which models without styles cannot do.
+c6hh | V. CONCLUSIONS
+y7ea | We introduced StyleTTS, a novel natural and diverse text- to-speech (TTS) synthesis approach. Our research takes a distinctive step forward in leveraging the strengths of parallel TTS systems with several novel constitutions that include a unique transferable monotonic aligner (TMA) training while integrating style information via AdaIN. We demonstrated that this method can effectively reflect stylistic features from reference audio. Moreover, the style vectors from our model encode a rich set of information present in the reference audio, including pitch, energy, speaking rates, formant transitions, and speaker identities. This allows easy control of the synthesized speech's prosodic patterns and emotional tones by choosing an appropriate reference style while benefiting from robust and fast speech synthesis of parallel TTS systems. Collectively, they enable natural speech synthesis with diverse speech styles that go beyond what was achieved in previous TTS systems.
+nav4 | Our contribution lies not only in the theoretical underpinnings but also in its practical applicability. Our approach empowers various new applications, including movie dubbing, book narration, unsupervised speech emotion recognition, personal- ized speech generation, and any-to-any voice conversion (see Appendix C and our follow-up work [65] for more details). Our source code and pre-trained models are publicly available 3 to assist research in this area further.
+gem8 | VI. ACKNOWLEDGMENTS
+e8nr | We thank Gavin Mischler and Vinay Raghavan for their feedback. Funding was from the national institute of health (NIHNIDCD) and Marie-Josee and Henry R. Kravis.
+k78w | REFERENCES
+g9du | [1] J. Kim, J. Kong, and J. Son, "Conditional variational autoencoder with adversarial learning for end-to-end text-to-speech," in Proceedings of the 38th International Conference on Machine Learning, ser. Proceedings of Machine Learning Research, M. Meila and T. Zhang, Eds., vol. 139, 18-24 Jul 2021, pp. 5530-5540.
+f682 | [17] Y. Ren, Y. Ruan, X. Tan, T. Qin, S. Zhao, Z. Zhao, and T .- Y. Liu, "Fastspeech: fast, robust and controllable text to speech," in Proceedings of the 33rd International Conference on Neural Information Processing Systems, 2019, pp. 3171-3180.
+li1k | [18] A. Łańcucki, "Fastpitch: Parallel text-to-speech with pitch prediction," in ICASSP 2021-2021 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP). IEEE, 2021, pp. 6588-6592.
+pbea | [35] I. Elias, H. Zen, J. Shen, Y. Zhang, Y. Jia, R. Skerry-Ryan, and Y. Wu, "Parallel tacotron 2: A non-autoregressive neural tts model with differentiable duration modeling," arXiv preprint arXiv:2103.14574, 2021.
+ccpt | [36] M. Schuster and K. K. Paliwal, "Bidirectional recurrent neural networks,"
+0fpw | IEEE transactions on Signal Processing, vol. 45, no. 11, pp. 2673-2681, 1997.
+dqn8 | [55] D. Snyder, D. Garcia-Romero, G. Sell, D. Povey, and S. Khudanpur, "X- vectors: Robust dnn embeddings for speaker recognition," in 2018 IEEE
+cop0 | APPENDIX A ABLATION STUDY DETAILS
+lhkq | In this section, we describe the detailed settings of each condition in Table VII and provide more discussions of the results in Table VII and Table VIII.
+82ju | A. TMA-related
+y2qo | There are three Transferable Monotonic Aligner (TMA) related innovations in this work: the decoder is trained with hard monotonic alignment and soft attention in a 50%-50% manner and two TMA objectives functions. The 50%-50% training is motivated by the fact that the monotonic alignment search proposed in [9] is not differentiable, and the soft attention alignment does not necessarily provide correct alignments for duration prediction in the second stage of training. This 50%-50% split is arbitrary and can be changed to anything from 10%-90% to 90%-10%, depending on the dataset and the application. When the ratio is 100%-0%, it becomes the case where the external aligners are not fine-tuned like in most parallel TTS systems such as FastSpeech [17], while when the ratio is 0%-100%, it becomes the case we fine-tune the aligner with only soft attention such as in Cotatron [66] for voice conversion applications. We find that training with external aligners (100% hard, no fine-tuning) decreases the naturalness of the synthesized speech because bad alignments can happen due to covariate shifts between the training dataset (LibriSpeech) and testing dataset (LJSpeech) as in the case of Montreal Forced Aligner [33]. One example is given in the leftmost figure in Figure 5. On the other hand, if we only fine- tune the decoder with soft alignment, the decoder will overfit on the soft alignment and be unable to synthesize audible speech from hard alignment because the soft alignments are not either 0 or 1 and the precise numerical values of alignments are used by the decoder to generate speech.
+1piq | Another notable case is when we do not use a pre-trained text aligner such as in the case of VITS. This case makes MOS even lower than the case of no fine-tuning, suggesting that overfitting on a smaller dataset can be more detrimental than failure in generalization on the TTS dataset for some samples. The figure in the middle in Fig. 5 shows an alignment with gaps and no background noises. This indicates overfitting of the text aligner to the smaller dataset for the mel-spectrogram reconstruction objective. However, since our goal is to synthesize the speech from predicted alignment, overfitting to speech reconstruction can be harmful to natural speech synthesis during inference.
+7fqw | In addition to the 50%-50% training, we also introduced two TMA objectives Ls2s and Lmono. This is motivated by the fact that Ls2s learns correct alignments for S2S-ASR but not necessarily monotonic while non-differentiable monotonic alignments obtained through dynamic programming algorithms proposed in [9] do not necessarily produce correct alignments. By combining Ls2s and Lmono, we can learn an aligner that produces both correct and monotonic alignments.
+rhaz | B. AdaIN, AdaLN, and Concatenation
+wak1 | As shown in Table VII and Table VIII, AdaIN outperforms AdaLN and simple concatenation for both naturalness and style
+wtfz | reflection. Here we describe our intuitions behind these results.
+qy1i | Concatenation vs. AdaIN. When we concatenate the style vector to each frame of the encoded phonetic representations, we create a representation hstyle = Thtext s . When the hstyle is passed to the next convolution layer whose parameter is W, we get —
+1k9e | hstyle . W =
+5bjs | — . [Wtext |Wstyle]
+uodj | (13)
+k16v | = htext . Wtext + S . Wstyle
+b2lm | = htext . Wtext + Concat (htext, s)
+ti7f | where Wtext and Wstyle are block matrix notation of the corresponding weights for hstyle and s and Concat (htext, S) = s . Wstyle denotes the concatenation operation as a function of input htext and style vector s. This Concat (x, s) function is almost like AdaIN in equation 1 where Lu(s) = Wstyle except we do not have the temporal modulation term La(s). The modulation term is very important in style transfer, and some works argue that modulation alone is enough for diverse style representations [24], [67]. In contrast, concatenation only provides the addition term (Lu) but no modulation term (La). Intuitively, the modulation term can determine the variance of the pitch and energy, for example, and therefore without such a term, correlations for pitch and energy standard deviation are much lower than AdaIN and AdaLN as shown in Table VIII.
+oksu | AdaLN vs. AdaIN. Generative models for speech synthesis learn to generate mel-spectrograms, which is essentially a 1- D feature map with 80 channels. Each channel in the mel- spectrogram represents a single frequency range. When we apply AdaIN, we learn a distribution with a style-specific mean and variance for each channel, compared to AdaLN, where a single mean and variance are learned for the entire feature map. This inherent difference between feature distributions makes AdaIN more expressive in terms of style reflection than AdaLN.
+```
+
+OUTPUT:
+```

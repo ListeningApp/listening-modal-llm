@@ -1,0 +1,127 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+05y4 | Part Two
+2fb0 | Now that we have become more familiar with attachment theory and trauma, we will use Part Two to become better acquainted with consensual nonmonogamy. This section will address what consensual nonmongamy is, what attachment re- search has to say about nonmonogamy, why understanding attachment is partic- ularly important for people practicing nonmonogamy, and how attachment rup- tures and traumas can occur at multiple levels of the nested model of attachment and trauma when a person is nonmonogamous.
+s9fn | O
+k5r6 | CHAPTER FOUR CONSENSUAL NONMONOGAMY
+z9v9 | WE ARE LIVING IN A TIME OF NOTABLE CHANGE. Since change is the only constant, we could probably say that about any time in history, but over the last several decades, multiple established beliefs and deeply rooted cultural and societal prac- tices have shifted. This includes attitudes towards race, class, gender and sexuality. While these societal revisions are far from complete and there is still much room for improvement, over the past 50 years or so marginalized groups have received more access, acknowledgment, justice and rights than previously granted in West- ern history. These necessary changes have come from the courageous and sus- tained efforts of the oppressed. Many people, known and unknown, have sacrificed their personal safety, their own freedoms and even their lives for the collective.
+gpu9 | As lifestyles and biases previously invisible to the privileged have been exposed and deconstructed, choice has emerged. We have increased choice to pick what path in life we want to take, choice in how we identify ourselves and the choice of who and how we love. While transformations in constructs of race, class, gender and sexual orientation have thus far been in the vanguard of this societal change, monogamy has mostly stayed unchallenged as a social construct, with those who do not fit within its constraints finding themselves alienated from a profound so- cial revolution. As Esther Perel points out, 40 even the monolith of the family has evolved with the proliferation of alternatives to the nuclear family. The emergence of stepfamilies, blended families, sperm and egg donor families, single-parent families and surrogate families have expanded our acceptance of what a family can look like.
+u5ws | However, the romantic ideal of the monogamous couple has mostly stayed in- tact as the dominant model for love and relationships. Well, at least on the surface. The divorce rate in the US is at 40 to 50 percent, and an estimated 30 to 60 percent of married men and 20 to 50 percent of married women in the United States admit to cheating on their partners. 41 Perel reminds us that there is plenty of evidence
+onkh | that the monogamous model doesn't necessarily work, with many people endors- ing a proclaimed monogamy, while actually performing clandestine nonmonogamy. And yet, despite this substantial discrepancy between people espousing monogamy and actually practicing it, its stronghold on the romantic status quo is undeniable. Couple privilege and the bias of monogamy are still omnipresent in both contemporary American culture and at the global level. It is still predom- inantly believed that monogamy is not only the morally superior way to practice partnership, but also the one and only way to do so. This paradigm is so well- established that straying from it often entails the risk of familial and social es- trangement, as well as an assortment of legal repercussions, imprisonment or even death.
+8t55 | However, consensual nonmonogamy (CNM) is on the rise. Books like Sex at Dawn and The Ethical Slut remind us that even though monogamy is a relatively new concept in human history, CNM as a legitimate relationship option and an unconcealed lifestyle choice is still fairly new to our modern times. For decades, even centuries, partaking in relationships with multiple partners was relegated to underground events and communities. The sexual revolution of the 196os brought CNM out of hiding, but awareness and acceptance of people practicing CNM was not instantaneous. Only in the last decade or two have we seen a substantial in- crease in the number of books published, academic research funded and media such as podcasts emerge with CNM as their focus. Today, we see CNM pop up in our newsfeeds, discussed in the media, portrayed on mainstream TV shows and offered as one of many relationship status options to choose from on dating apps and social media sites. Researcher Amy Moors found that there was a steady in- crease in the number of Google searches for terms related to polyamory and open relationships between 2006 and 2015.42 Additionally, and tellingly, the American Psychological Association has created the Task Force on Consensual Non- Monogamy to promote awareness and inclusivity around CNM and non-traditional relationships.
+7imw | CNM is unquestionably having its cultural moment, and it's not just a passing
+lf1t | trend. Distinct from cheating, where sexual or romantic relations with more than one person are deceitful, consensual nonmonogamy is an umbrella term for the practice of simultaneously having multiple sexual or romantic partners where everyone involved is aware of and consents to the relationship structure. People practicing CNM value transparency, consent, open and honest communication, per- sonal responsibility, autonomy, compassion, sex positivity and freedom for them- selves and others. Moreover, people practicing CNM typically embrace the fol- lowing ideas and principles: love is not possessive or a finite resource; it is normal to be attracted to more than one person at the same time; there are multiple ways to practice love, sexual and intimate relationships; and jealousy is not something to be avoided or feared, but something that can be informative and worked through. Mystic Life, author of Spiritual Polyamory, states, "This path requires owning jeal- ousy as it arises, accepting others as they are, developing [one's] own sense of per- sonal wholeness, and letting go of the belief that loving someone more means lov- ing someone else less."43
+tze7 | Using two separate US Census samples, Haupert et al. found that over 20 per- cent of people in the United States admit to having participated in CNM at some point in their life, regardless of race, age, religion, class, political affiliation or level of education.44 Other researchers estimate that 4 to 5 percent of people in the US are currently engaged in a CNM relationship.45 That's over 16 million people. When comparing people in monogamous relationships to people in consensually non- monogamous relationships, researchers have found that CNM relationships have similar levels of commitment, longevity, satisfaction, passion and love as monog- amous relationships do.46 Additionally, despite what people might presume, CNM relationships have also been found to have greater levels of trust and lower levels of jealousy than monogamous ones.47
+ryvv | WHY NONMONOGAMY?
+zdrh | Whenever I have an individual or a couple who are either already practicing CNM or about to begin their CNM journey in my office, one of my first questions is always
+osmo | "why?" I ask this to gain deeper understanding and in order to provide meaningful support, because as Simon Sinek advises, 48 it is through knowing our why for doing something-not just what we are doing and how we do it-that leads to suc- cess in our endeavors. My experience with nonmonogamous clients has shown me that the people who articulate their deeper purpose-that is, their why for being nonmonogamous-are then better able to navigate the ups and downs that lie ahead. When the waters of CNM begin to pick up and the emotional rapids of open- ing up your relationship begin, having your why to remember and return to can serve as the needed life jacket that keeps you and your relationship afloat. How- ever, although two or more people want to practice CNM together-even two peo- ple in the same marriage-they may not have the same reasons for being non- monogamous. Knowing why you want to practice nonmonogamy and how that might be similar to or different from your partners' reasons can better inform ex- actly what your version of nonmonogamy looks like together, including the agree- ments you make with different partners, and how you go about enacting CNM for yourself.
+0b8v | Moors, Matsick and Schechinger explored the different relationship motiva- tions and perceived benefits for people who engaged in CNM compared to people in monogamous relationships.49 Both groups had the relationship benefits of fam- ily, trust, love, sex, commitment and communication, regardless of whether they were in a monogamous or nonmonogamous relationship. However, people in CNM relationships additionally expressed having the distinct relationship benefits of in- creased need fulfillment, variety of nonsexual activities and personal growth. In- stead of expecting one partner to meet all of their needs, people engaged in CNM felt that a major advantage of being nonmonogamous was the ability to have their different needs met by more than one person, as well as being able to experience a variety of nonsexual activities that one relationship may not fulfill. The other no- table relationship benefit unique to people in CNM relationships was personal growth-people reported feeling that being nonmonogamous afforded them in- creased freedom from restriction, self and sexual expression and the ability to grow
+fucs | and develop. The authors of this research state that people in monogamous rela- tionships may also experience such benefits, but these three benefits were mostly highlighted by people in CNM relationships, offering some potentially interesting insight into their motivations for participating in CNM.
+yply | When I ask my own clients why they are either considering CNM or already prac- ticing nonmonogamy, most, if not all of them, respond in a way that agrees with these findings. They declare that they seek to have greater need fulfillment, want greater expression of themselves through the experiences and activities that will come from having multiple partners and say that they are interested in the personal growth and development that nonmonogamy inevitably catalyzes. Many people want to give and receive the additional love and support that come with having multiple partners. In addition to these reasons, I also see people consistently offer three other reasons for being nonmonogamous: sexual diversity, philosophical views and because CNM is a more authentic expression of who they are.
+75n5 | Let's explore these three reasons, starting with the sexual. It's not uncommon to hear someone who is trying to describe nonmonogamy to their family or friends, or speak about it in a professional or public setting, emphasize that CNM not just about the sex, but rather about the increased love, support and connection that come from having multiple partners. While this may very well be true, for many people, nonmonogamy is at least partly about the sex. And there's nothing wrong with thatl I think that it's both well-intended and understandable that people say it isn't about sex, since research has shown that people tend to be significantly more uncomfortable with the idea of CNM relationships that emphasize sex over love than they are with CNM relationships that are based more on romantic and emo- tional connections.50 We also intuitively know that telling our friends, parents or colleagues that we are in it for the love will probably fare better than telling them that we are in it for the sex. To me, this is an unfortunate symptomatic expression of our sex-negative culture that shames us for our basic human needs, desires and sexuality. There are people who genuinely need and want sexual diversity and it is not because they are sexually deviant, avoidantly attached, addicted to sex or
+ec91 | noncommittal. Instead, they are people who embrace their sexuality and the diverse desires and expressions that it may encompass and require. There are also many couples who love each other deeply and have a wonderful partnership, but may have very different sexual needs. Perhaps they have different sexual styles, one part- ner being kinkier or more into BDSM than the other, or divergent sex drives or anatomical incompatibility. Some people find themselves in one of these situations and conclude that there is no reason to dismantle their entire life and give up their meaningful relationship because they want or need different things than their part- ner in the bedroom.
+wul6 | For people whose reason for engaging in nonmonogamy is philosophical, often this outlook arises from their readings or inquiries into the history of monogamy and its connection with patriarchal control over women's sexuality. These people feel that participating in such a relationship structure would be out of integrity with their values. Similarly, there are people who critically question traditional marriage and the imbalanced societal and cultural privileges it provides. They also report disliking the ever-increasing and impossible expectations that are placed on a life partner and that set many couples up for failure. Like the group of CNM people in the Moors et al. study who questioned if it is possible for one person to meet all of their needs, people are also questioning whether the institution of marriage is real- istic and sustainable for them, with nonmonogamy stepping in as a preferable alternative.
+4rhy | The final motivation I see in my nonmonogamous clients is that people prac- tice CNM because it just feels like this is who they are. For these people, non- monogamy is not so much a lifestyle choice, as it is for some people, but rather an expression of their fundamental self. This group is more nonmonogamous as orien- tation than nonmonogamous as lifestyle. People who identify as nonmonogamous by lifestyle step into nonmonogamy as an intentional choice. They are often proud of and committed to this choice, but nonmonogamy in their case might be something that comes and goes depending on the partner or partners they are with, the phase of life they are in or their overall life circumstances. People who identify as
+092d | nonmonogamous as orientation describe their nonmonogamy not as a choice, but as who they essentially are and how they are fundamentally wired. I often hear these people say that they feel most themselves when they are with multiple peo- ple, be it sexually or romantically. Some people who identify as nonmonogamous by orientation are fortunate enough to have been nonmonogamous from the time they started dating or being sexual. But many people come into their non- monogamy orientation a bit later, often after having suffered from the belief that they are broken or defective in some way after struggling to be faithful to their part- ners or feeling that monogamy was never fully right for them.
+94ul | THE DIFFERENT TYPES OF CONSENSUAL NONMONOGAMY
+0vdu | There are numerous ways that people practice non-monogamy and for every per- son, couple, triad, quad or polycule that says they are practicing a certain type of CNM, there are manifold ways that their version might be enacted. Even when peo- ple tell me the specific style of nonmonogamy they practice, I still ask, "what ex- actly does that look like for you?" There is no one right way to practice CNM and it is more of a "create your own relationship" than a one-size-fits-all approach, but there are still certain distinctions in the ways that people practice CNM that are important to name.
+```
+
+OUTPUT:
+```

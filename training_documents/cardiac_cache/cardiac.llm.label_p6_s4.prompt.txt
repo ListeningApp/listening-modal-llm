@@ -1,0 +1,128 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+bd9h | Diastolic dysfunction often develops as a consequence of long-standing hypertension, while atrial dilatation correlates with the severity of hypertension and is associated with increased morbidity and mortality [32]. Quantification of ventricular volume change over time using retrospective gating is an important modality that can estimate atrial filling ratios, peak diastolic filling rate, and time to peak filling [33]. Although it is not used routinely in estimating diastolic dysfunction in patients with hypertensive heart disease, cardiac magnetic resonance could be an important part of stratifying patients with an increased risk to develop a more severe form of the disease.
+m047 | Overall, having in mind previously mentioned morphological and functional changes of the myocardium, and based on the clinical impact of hypertension on the heart, hyper- tensive heart disease can be divided into four categories. The first one consists of isolated left ventricular diastolic dysfunction but without LV hypertrophy. These patients should be closely monitored, and their hypertension controlled as well as possible to prevent further complications. The second one consists of diastolic dysfunction but with concentric LV hypertrophy. This category is usually still a subclinical stage of the disease but with an increased risk of cardiovascular complications, predominantly heart failure. The third stage is a clinical heart failure presentation with preserved ejection fraction (HFpEF). The fourth one implies a dilated cardiomyopathy with reduced ejection fraction [34]. These clinical stages impose a conclusion that diastolic dysfunction in patients with hypertensive heart disease is a more common complication than systolic dysfunction. These patients also have more left ventricular hypertrophy, epicardial coronary artery disease, coronary microvascular dysfunction, and myocardial fibrosis compared to healthy individuals [35]. Cardiac magnetic resonance is more than useful in all these stages, especially in the subclin- ical phase, which is important in the risk stratification and detection of other underlying pathophysiological mechanisms (Figure 3).
+gy8c | Diagnostics 2023, 13, 137
+y4mj | Figure 3. The utility of cardiac magnetic resonance in different stages of hypertensive hearts disease.
+vpgq | 7. Tissue Characterization in Hypertensive Heart Disease-Clinical Aspects and Evaluation of Myocardial Fibrosis Using LGE, Myocardial Tissue Mapping and Extracellular Volume Fraction (ECV) Measurement
+ousl | Expansion of extracellular space in myocardial fibrosis is leading to the accumulation of gadolinium with hyperenhancement on LGE imaging. The presence and degree of focal myocardial fibrosis detected by LGE is an independent and powerful predictor of adverse cardiovascular events in many cardiac conditions [36-38]. The presence of late gadolinium enhancement in patients with hypertension, especially those with advanced hypertophy, is usually in a form of patchy non-coronary mid-wall patterns, while patients with co-existant coronary artery disease may have a subendocardial LGE changes. LGE effect in hyperten- sive heart disease has been detected in up to 50% of symptomatic patients [8]. Even in the group of asymptomatic patients, nonischemic LGE was independently associated with adverse cardiovascular events and was present in up to 18% of the asymptomatic patients. Patients with hypertension and nonischemic LGE were more likely to be men, have diabetes, be current smokers, and have a worse renal function, with higher blood pressure values and taking several antihypertensive medications. These conditions predispose patients to a higher risk of myocardial fibrosis due to the activation of the renin-angiotensin-aldosterone system, ß-adrenergic system, and inflammatory and immune pathways. Nonischemic LGE was present more often in patients with greater left ventricular mass, worse multidirec- tional strain, and elevated circulating markers of myocardial wall stress and myocardial injury, even after the adjustment for the potential confounders [39]. The presence of LGE phenomenon and its association with cardiac remodeling was also observed in patients with nocturnal hypertension, a blood pressure pattern most strongly associated with car-
+m4ju | Diagnostics 2023, 13, 137
+a0mb | diovascular morbidity and mortality [40]. Considering the fact that myocardial fibrosis is diffuse and interstitial, a proper evaluation through LGE imaging could be a challenging task sometimes. This is the reason why different cardiac magnetic resonance techniques were developed to properly evaluate the extension of myocardial fibrosis, including T1 mapping and extracellular volume fraction.
+ki8m | Diffuse myocardial fibrosis is present in nearly all chronic cardiac conditions. It impairs cardiac function and therefore has a crucial role in the development of heart failure and its outcomes. Estimating the degree of myocardial fibrosis in hypertensive heart disease could be a difficult task having in mind the characteristics of fibrotic changes and the possibilities of different imaging modalities to identify it. Cardiac magnetic resonance, with its superior possibilities in terms of tissue characterization, is a useful tool capable to estimate, not only the presence, but also the extension and severity of fibrosis. A limitation of LGE imaging solely is that it is a qualitative technique, dependent on the difference in signal intensity between normal and fibrotic myocardium. This is why the estimation of diffuse myocardial fibrosis by LGE imaging is inexpedient. The main novel diagnostic modalities used for the evaluation of diffuse myocardial fibrosis are native T1 and post-contrast T1 mapping, and the evaluation of extracellular volume fraction.
+km8w | The native T1 time can be prolonged due to the expansion of extracellular space caused by myocardial infarction, edema, fibrosis or infiltration, while it can be shortened with the accumulation of fat or iron in the myocardium. One of the main advantages of native T1 time is that it can be measured without the administration of a gadolinium- based contrast agent. Detecting both focal and diffuse myocardial fibrosis is important in predicting chronic heart failure, arrhythmias, and sudden cardiac death. Native T1 time can be prolonged even in the absence of visible LGE phenomenon, pointing out the subclinical phase of diffuse myocardial fibrosis and the potential advantages of novel therapeutic modalities that can prevent the chronic, irreversible stage [41].
+wzno | Extracellular volume fraction (ECV) is one of the most important tools in estimating myocardial fibrosis. Extracellular volume correlates better than T1 mapping or LGE with histologically determined diffuse myocardial fibrosis. The increased value of ECV is a product of different factors including inflammation, tissue remodeling, atherogenesis, and metabolic disorders. It is shown that ECV has a good correlation with the amount of collagen deposition on myocardial biopsy in various cardiological conditions. The mea- surement of ECV relies on the values of native T1 and post-contrast T1 time adjusted for blood hematocrit. The pre-contrast T1 value reflects both the intracellular and extracel- lular compartment, while the post-contrast T1 value primarily reflects the extracellular compartment [42]. The extracellular volume fraction is increased in hypertensive heart disease as hypertension leads to diffuse myocardial fibrosis with the deposition of collagen fibers into the extracellular matrix [43]. It is shown that the presence of both nonischemic LGE and increased extracellular volume is consistently associated with the worst cardiac remodeling pattern, the highest concentration of circulating markers of wall stress and my- ocardial injury, largest LV mass, increased left atrial volume, and the worst multidirectional strain [44]. ECV can also be important in the differential diagnosis of infiltrative cardiac diseases, hypertrophic cardiomyopathy (HCM), and hypertensive heart disease (HHD) [45] (Table 2).
+xagm | Hypertrophic cardiomyopathy can be distinguished from hypertensive heart disease by using ECV and native T1, mostly septal native T1 as the most significant discriminator in these cases [46]. Hinojar et al. found significantly elevated values of ECV in patients with hypertrophic cardiomyopathy than in patients with hypertension [47]. Additionally, patients with amyloidosis have drastically higher levels of ECV than patients with HCM and HHD (Figure 4) [48]. The degree of ECV values and subsequently the extent of fibrosis varies in different hypertensive heart disease phenotypes, being more expressed in patients with pronounced left ventricular hypertrophy. Higher ECV value, increased native T1, and associated reduction in peak systolic circumferential strain, and early diastolic strain rate, are the most significant findings, as presented by Kuruvilla et al. [49]. These patients have
+iwn5 | Diagnostics 2023, 13, 137
+uooz | an increased risk of coronary artery disease and are more susceptible to developing heart failure, as well as conduction arrhythmias, especially atrial fibrillation [50]. In certain rare clinical scenarios, two different conditions can exist. In these circumstances, it is important to properly estimate the underlying pathophysiological mechanism that dominates the patient's current clinical condition to enable proper follow-up and forehand therapy.
+pxbq | Figure 4. Cine sequences, LGE patterns, and native T1 mapping in patients with hypertensive heart disease, hypertrophic cardiomyopathy, and amyloidosis (A1): short-axis cine sequences with hypertrophic septum in a patient with hypertensive heart disease (HHD); (A2): subtle focal LGE phenomenon in a patient with HHD (marked by red arrow); (A3): T1 mapping showing diffuse borderline values of native T1 time in a patient with HHD; (B1): Hypertrophic cardiomyopathy with predominant septal hypertrophy (marked by red arrow); (B2): Septal LGE phenomenon in a patient with hypertrophic cardiomyopathy (marked by red arrow); (B3): T1 mapping in a patient with HCM revealing prolonged native T1 time (especially in the septum, which is important discriminator between HHD and HCM); (C1): cine sequences in short-axis revealing left ventricular hypertrophy in a patient with amyloidosis; (C2): diffuse subendocardial LGE phenomenon in a patient with amyloidosis (marked by red arrow); (C3): T1 mapping showing prolonged native T1 time in the subendocardium.
+jfsr | Diagnostics 2023, 13, 137
+u15r | Table 2. CMR characteristics of various left ventricular hypertrophy patterns.
+lq35 | The most important limitations in measuring ECV by cardiac magnetic resonance are subtle differences between normal patients and patients with hypertensive heart disease. This may limit the clinical usage of T1 mapping and ECV in discovering diffuse myocar- dial fibrosis, but it is undoubtedly an important imaging modality if applied technically correctly.
+3g9w | 8. The Role of Cardiac Magnetic Resonance in the Estimation of Coronary Microvascular Dysfunction
+d09o | In patients with hypertensive heart disease, several structural alterations develop in the coronary microvasculature. Increased medial thickness, reduced maximal cross- sectional area of pre-arterioles and arterioles, and decreased vascular density are the key pathophysiological mechanisms of impaired microcirculatory function [51]. These changes, together with endothelial dysfunction, are the main contributors to the decreased coronary flow reserve in patients with hypertensive heart disease, even in the absence of significant epicardial vessel changes. The combination of microvascular ischemia and myocardial fibrosis is involved in the development of ventricular arrhythmias and increased risk of sudden cardiac death [52]. It has been recently reported that the proportion of sudden cardiac deaths attributable to hypertensive heart disease in the absence of epicardial coronary artery disease has increased [53]. Cardiac magnetic resonance can provide a comprehensive assessment of both epicardial and microvascular coronary circulation through stress perfusion test. Among non-invasive diagnostic modalities, cardiac magnetic resonance has the highest sensitivity and specificity in detecting coronary microvascular dysfunction. Although the qualitative assessment has low sensitivity and specificity, novel quantitative modalities can estimate coronary microvascular dysfunction with much higher accuracy [54]. Perfusion mapping relies on artificial intelligence to obtain perfusion maps, generating conventional images to each image pixel encoding myocardial blood flow, both segmentally and globally. Global myocardial blood flow (MBF) is calculated automatically
+ylhz | Diagnostics 2023, 13, 137
+a3td | as an average of all pixels, while myocardial perfusion reserve (MPR) presents the ratio of stress to rest myocardial blood flow. Subendocardial myocardial perfusion reserve has the highest specificity and sensitivity in detecting coronary microvascular dysfunction [55]. It is already shown that patients with impaired coronary microcirculation have a higher incidence of major adverse cardiovascular events [56]. Microvascular dysfunction can be a distinctive subclinical marker of end-organ damage and heart failure in patients with hypertension. In patients with impaired coronary microcirculation in the setting of hypertension, diastolic parameters, global longitudinal strain, and N-terminal pro- B-type natriuretic peptide were independently associated with the degree of impaired myocardial perfusion reserve [57]. It is important to note that these results were obtained in patients without reduced left ventricular ejection fraction or flow-limiting epicardial coronary stenoses. This is why coronary microvascular dysfunction must be investigated in every patient with hypertension and chest pain not associated with obstructive coronary artery disease.
+ex5k | 9. Advantages of Cardiac Magnetic Resonance in Following the Effects of Anti-Hypertensive Treatment
+9d4o | The possibilities of cardiac magnetic resonance to provide anatomical, physiological, and functional data are of great importance in following the effects of treatment in patients with hypertension. Certain CMR studies have provided enough evidence of the positive role of anti-hypertensive drugs, mainly in terms of left ventricle hypertrophy reduction and changes in cardiac functional parameters [58,59]. Recent technical and software im- provements in myocardial tissue characterization enabled a more prevalent use of cardiac magnetic resonance in the studies following the effects of both pharmacological and in- terventional treatment modalities. Regarding interventional techniques, the advantages of sympathetic renal denervation in the treatment of resistant hypertension have been reported in several cardiac magnetic resonance follow-up studies. Schmidt et al. reported a significant reduction in left ventricular mass and septal wall thickness, while Tahir et al. observed improvements in left ventricular global strain and diastolic function after the renal denervation procedure [60,61]. Mahfoud et al. registered a reduction in the left ventricular mass index, improvement in LV ejection fraction, and circumferential strain [62]. Aside from observing the positive effects of renal denervation on LV mass reduction, diastolic, and systolic function improvement, the impact of this procedure on myocardial fibrosis is still under investigation. However, a study by Doltra et al. demonstrated a significant decrease in ECV value six months after the procedure, independently of blood pressure reduction [63]. This result is not predominantly due to the reversion of myocyte hypertro- phy, but also as a result of a reduction in collagen content. The positive effects in terms of a long-standing clinical benefit are yet to be determined.
+cjq2 | Numerous studies have evaluated the prognostic value of cardiac magnetic resonance in patients with hypertensive heart disease (as presented in Table 3). Hypertensive heart disease is primarily characterized by left ventricular hypertrophy, left atrial dilatation, myocardial fibrosis, diastolic before systolic dysfunction, and increased incidence of coro- nary artery disease, both epicardial and microvascular. A comprehensive evaluation of myocardial hypertrophy also allows a proper follow-up of patients on antihypertensive therapy, as the regression of LVH with antihypertensive treatment reduces the risk of stroke, myocardial infarction, and all-cause mortality [27,30]. Morphological and functional changes of the myocardium can be followed through every stage of hypertensive heart disease, even in the subclinical phase, which is important to prevent further complications and development of heart failure with both preserved and reduced ejection fraction. My- ocardial strain abnormalities, important in the early detection of myocardial damage, were observed in the majority of the patients. This is significant as it was shown that global longitudinal strain and its deterioration are associated with major adverse cardiovascular events even in patients with asymptomatic hypertensive heart disease [64]. Left atrial enlargement is a common finding in patients with HHD and is an independent factor
+5esx | Diagnostics 2023, 13, 137
+```
+
+OUTPUT:
+```

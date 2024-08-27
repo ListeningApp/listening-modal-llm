@@ -1,0 +1,130 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+9d4o | Donna Haraway
+cjq2 | tunately possible for the subjugated to lust for and even scramble into that subject position-and then disappear from view. Knowledge from the point of view of the unmarked is truly fan- tastic, distorted, and irrational. The only position from which ob- jectivity could not possibly be practiced and honored is the stand- point of the master, the Man, the One God, whose Eye produces, appropriates, and orders all difference. No one ever accused the God of monotheism of objectivity, only of indifference. The god trick is self-identical, and we have mistaken that for creativity and knowledge, omniscience even.
+5esx | Positioning is, therefore, the key practice in grounding knowl- edge organized around the imagery of vision, and much Western scientific and philosophic discourse is organized in this way. Posi- tioning implies responsibility for our enabling practices. It follows that politics and ethics ground struggles for and contests over what may count as rational knowledge. That is, admitted or not, politics and ethics ground struggles over knowledge projects in the exact, natural, social, and human sciences. Otherwise, rationality is simply impossible, an optical illusion projected from nowhere comprehensively. Histories of science may be powerfully told as histories of the technologies. These technologies are ways of life, social orders, practices of visualization. Technologies are skilled practices. How to see? Where to see from? What limits to vision? What to see for? Whom to see with? Who gets to have more than one point of view? Who gets blinded? Who wears blinders? Who interprets the visual field? What other sensory powers do we wish to cultivate besides vision? Moral and political discourse should be the paradigm for rational discourse about the imagery and technol- ogies of vision. Sandra Harding's claim, or observation, that move- ments of social revolution have most contributed to improvements in science might be read as a claim about the knowledge conse- quences of new technologies of positioning. But I wish Harding had spent more time remembering that social and scientific revolutions have not always been liberatory, even if they have always been visionary. Perhaps this point could be captured in another phrase: the science question in the military. Struggles over what will count as rational accounts of the world are struggles over how to see. The terms of vision: the science question in colonialism, the science question in exterminism,15 the science question in feminism.
+m5ka | Donna Haraway
+byu8 | The issue in politically engaged attacks on various empiricisms, reductionisms, or other versions of scientific authority should not be relativism-but location. A dichotomous chart expressing this point might look like this:
+76b0 | ethnophilosophies heteroglossia deconstruction oppositional positioning local knowledges webbed accounts
+zxz6 | universal rationality common language new organon unified field theory world system master theory
+xnth | But a dichotomous chart misrepresents in a critical way the posi- tions of embodied objectivity that I am trying to sketch. The pri- mary distortion is the illusion of symmetry in the chart's di- chotomy, making any position appear, first, simply alternative and, second, mutually exclusive. A map of tensions and reason- ances between the fixed ends of a charged dichotomy better repre- sents the potent politics and epistemologies of embodied, there- fore accountable, objectivity. For example, local knowledges have also to be in tension with the productive structurings that force unequal translations and exchanges- material and semiotic - with- in the webs of knowledge and power. Webs can have the property of being systematic, even of being centrally structured global systems with deep filaments and tenacious tendrils into time, space, and consciousness, which are the dimensions of world history. Feminist accountability requires a knowledge tuned to reasonance, not to dichotomy. Gender is a field of structured and structuring difference, in which the tones of extreme localization, of the intimately personal and individualized body, vibrate in the same field with global high-tension emissions. Feminist embodi- ment, then, is not about fixed location in a reified body, female or otherwise, but about nodes in fields, inflections in orientations, and responsibility for difference in material-semiotic fields of meaning. Embodiment is significant prosthesis; objectivity cannot be about fixed vision when what counts as an object is precisely what world history turns out to be about.
+vafm | How should one be positioned in order to see, in this situation of tensions, reasonances, transformations, resistances, and com- plicities? Here, primate vision is not immediately a very powerful metaphor or technology for feminist political-epistemological clari-
+2zmw | Donna Haraway
+bf9k | fication, because it seems to present to consciousness already pro- cessed and objectified fields; things seem already fixed and dis- tanced. But the visual metaphor allows one to go beyond fixed ap- pearances, which are only the end products. The metaphor invites us to investigate the varied apparatuses of visual production, in- cluding the prosthetic technologies interfaced with our biological eyes and brains. And here we find highly particular machineries for processing regions of the electromagnetic spectrum into our pictures of the world. It is in the intricacies of these visualization technologies in which we are embedded that we will find meta- phors and means for understanding and intervening in the pat- terns of objectification in the world -that is, the patterns of reality for which we must be accountable. In these metaphors, we find means for appreciating simultaneously both the concrete, "real" aspect and the aspect of semiosis and production in what we call scientific knowledge.
+otkr | I am arguing for politics and epistemologies of location, position- ing, and situating, where partiality and not universality is the con- dition of being heard to make rational knowledge claims. These are claims on people's lives. I am arguing for the view from a body, always a complex, contradictory, structuring, and structured body, versus the view from above, from nowhere, from simpli- city. Only the god trick is forbidden. Here is a criterion for deciding the science question in militarism, that dream science/ technology of perfect language, perfect communication, final order.
+ibgs | Feminism loves another science: the sciences and politics of in- terpretation, translation, stuttering, and the partly understood. Feminism is about the sciences of the multiple subject with (at least) double vision. Feminism is about a critical vision consequent upon a critical positioning in unhomogeneous gendered social space.16 Translation is always interpretive, critical, and partial. Here is a ground for conversation, rationality, and objec- tivity- which is power-sensitive, not pluralist, "conversation." It is not even the mythic cartoons of physics and mathematics-incor- rectly caricatured in antiscience ideology as exact, hypersimple knowledges-that have come to represent the hostile other to fem- inist paradigmatic models of scientific knowledge, but the dreams of the perfectly known in high-technology, permanently militar- ized scientific productions and positionings, the god trick of a Star
+colo | Donna Haraway
+d6r4 | Wars paradigm of rational knowledge. So location is about vul- nerability; location resists the politics of closure, finality, or to bor- row from Althusser, feminist objectivity resists "simplification in the last instance." That is because feminist embodiment resists fix- ation and is insatiably curious about the webs of differential posi- tioning. There is no single feminist standpoint because our maps require too many dimensions for that metaphor to ground our vi- sions. But the feminist standpoint theorists' goal of an epistemology and politics of engaged, accountable positioning re- mains eminently potent. The goal is better accounts of the world, that is, "science."
+9mrz | Above all, rational knowledge does not pretend to disengage- ment: to be from everywhere and so nowhere, to be free from in- terpretation, from being represented, to by fully self-contained or fully formalizable. Rational knowledge is a process of ongoing cri- tical interpretation among "fields" of interpreters and decoders. Ra- tional knowledge is power-sensitive conversation.17 Decoding and transcoding plus translation and criticism; all are necessary. So science becomes the paradigmatic model, not of closure, but of that which is contestable and contested. Science becomes the myth, not of what escapes human agency and responsibility in a realm above the fray, but, rather, of accountability and respon- sibility for translations and solidarities linking the cacophonous vi- sions and visionary voices that characterize the knowledges of the subjugated. A splitting of senses, a confusion of voice and sight, rather than clear and distinct ideas, becomes the metaphor for the ground of the rational. We seek not the knowledges ruled by phallogocentrism (nostalgia for the presence of the one true Word) and disembodied vision. We seek those ruled by partial sight and limited voice-not partiality for its own sake but, rather, for the sake of the connections and unexpected openings situated knowl- edges make possible. Situated knowledges are about communities, not about isolated individuals. The only way to find a larger vision is to be somewhere in particular. The science question in femi- nism is about objectivity as positioned rationality. Its images are not the products of escape and transcendence of limits (the view from above) but the joining of partial views and halting voices into a collective subject position that promises a vision of the means of ongoing finite embodiment, of living within limits and contradic- tions- of views from somewhere.
+pk06 | Donna Haraway
+7wn9 | 591
+wcd0 | OBJECTS AS ACTORS: THE APPARATUS OF BODILY PRODUCTION
+caos | Throughout this reflection on "objectivity," I have refused to resolve the ambiguities built into referring to science without dif- ferentiating its extraordinary range of contexts. Through the insis- tent ambiguity, I have foregrounded a field of commonalities bind- ing exact, physical, natural, social, political, biological, and human sciences; and I have tied this whole heterogeneous field of academically (and industrially, e.g., in publishing, the weapons trade, and pharmaceuticals) institutionalized knowledge produc- tion to a meaning of science that insists on its potency in ideological struggles. But, partly in order to give play to both the specificities and the highly permeable boundaries of meanings in discourse on science, I would like to suggest a resolution to one ambiguity. Throughout the field of meanings constituting science, one of the commonalities concerns the status of any object of knowledge and of related claims about the faithfulness of our ac- counts to a "real world," no matter how mediated for us and no matter how complex and contradictory these worlds may be. Fem- inists, and others who have been most active as critics of the sciences and their claims or associated ideologies, have shied away from doctrines of scientific objectivity in part because of the suspi- cion that an "object" of knowledge is a passive and inert thing. Ac- counts of such objects can seem to be either appropriations of a fixed and determined world reduced to resource for instrumen- talist projects of destructive Western societies, or they can be seen as masks for interests, usually dominating interests.
+qrvy | For example, "sex" as an object of biological knowledge appears regularly in the guise of biological determinism, threatening the fragile space for social constructionism and critical theory, with their attendant possibilities for active and transformative interven- tion, which were called into being by feminist concepts of gender as socially, historically, and semiotically positioned difference. And yet, to lose authoritative biological accounts of sex, which set up productive tensions with gender, seems to be to lose too much; it seems to be to lose not just analytic power within a particular Western tradition but also the body itself as anything but a blank page for social inscriptions, including those of biological discourse. The same problem of loss attends the radical "reduction" of the ob- jects of physics or of any other science to the ephemera of dis-
+pn9j | 592
+1pmc | Donna Haraway
+5z6q | cursive production and social construction.18
+yeoh | But the difficulty and loss are not necessary. They derive partly from the analytic tradition, deeply indebted to Aristotle and to the transformative history of "White Capitalist Patriarchy" (how may we name this scandalous Thing?) that turns everything into a re- source for appropriation, in which an object of knowledge is final- ly itself only matter for the seminal power, the act, of the knower. Here, the object both guarantees and refreshes the power of the knower, but any status as agent in the productions of knowledge must be denied the object. It- the world - must, in short, be objec- tified as a thing, not as an agent; it must be matter for the self- formation of the only social being in the productions of knowl- edge, the human knower. Zoe Sofoulis19 identified the structure of this mode of knowing in technoscience as "resourcing" - as the sec- ond birthing of Man through the homogenizing of all the world's body into resource for his perverse projects. Nature is only the raw material of culture, appropriated, preserved, enslaved, ex- alted, or otherwise made flexible for disposal by culture in the logic of capitalist colonialism. Similarly, sex is only matter to the act of gender; the productionist logic seems inescapable in tradi- tions of Western binary oppositions. This analytical and historical narrative logic accounts for my nervousness about the sex/gender distinction in the recent history of feminist theory. Sex is "re- sourced" for its representation as gender, which "we" can control. It has seemed all but impossible to avoid the trap of an appropria- tionist logic of domination built into the nature/culture opposition and its generative lineage, including the sex/gender distinction.
+b8hf | It seems clear that feminist accounts of objectivity and embodi- ment-that is, of a world-of the kind sketched in this essay re- quire a deceptively simple maneuver within inherited Western analytical traditions, a maneuver begun in dialectics but stopping short of the needed revisions. Situated knowledges require that the object of knowledge be pictured as an actor and agent, not as a screen or a ground or a resource, never finally as slave to the master that closes off the dialectic in his unique agency and his authorship of "objective" knowledge. The point is paradigmatically clear in critical approaches to the social and human sciences, where the agency of people studied itself transforms the entire project of producing social theory. Indeed, coming to terms with the agency of the "objects" studied is the only way to avoid gross
+hntf | Donna Haraway
+99fo | 593
+```
+
+OUTPUT:
+```

@@ -1,0 +1,140 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+1pjs | Role of winds and tides in timing of beach strandings, occurrence, and significance of swarms of the jellyfish Crambione mastigophora Mass 1903 (Scyphozoa: Rhizostomeae: Catostylid ...
+o2kr | ResearchGate
+v6sk | Hydrobiologia DOI 10.1007/s10750-015-2525-5
+1wj6 | PRIMARY RESEARCH PAPER
+936l | Role of winds and tides in timing of beach strandings, occurrence, and significance of swarms of the jellyfish Crambione mastigophora Mass 1903 (Scyphozoa: Rhizostomeae: Catostylidae) in north-western Australia
+06yq | Abstract Very large swarms of the red jellyfish Crambione mastigophora in north-western Australia disrupt swimming on tourist beaches causing eco- nomic impacts. In October 2012, jellyfish stranding on Cable Beach (density 2.20 ±0.43 ind. m 2) was estimated at 52.8 million individuals or 14,172 t wet weight along 15 km of beach. Reports of strandings after this period and up to 250 km south of this location indicate even larger swarm biomass. Strandings of jellyfish were significantly associated with a 2-day lag in conditions of small tidal ranges (<5 m). More than 90% of strandings occurred 2 days after winds were blowing onshore, but with the small number of days when satellite wind data were available during the
+dpv6 | Handling editor: Sigrun Huld Jónasdóttir
+8r5j | Published online: 08 October 2015
+2taz | CrossMark
+o3ya | study period, this result was not statistically significant. Dedicated instrument measurements of meteorological parameters, rather than the indirect measures used in this study (satellite winds and modelled currents) may improve the predictability of such events and help authorities to plan for and manage swimming activity on beaches. We also show a high incidence of predation by C. mastigophora on bivalve larvae which may have a significant impact on the reproductive output of pearl oyster broodstock in the region.
+r5il | Keywords Jellyfish . Bloom . Wind . Tide . Diet . Bivalve larvae
+5gui | Introduction
+82qc | Jellyfish are a ubiquitous and readily observed com- ponent of marine plankton. They may exist in high
+ls7d | Springer
+tzt3 | densities as swarms (aggregations from local or distant sources usually brought together by oceanographic or behavioural processes) or blooms (high density, locally derived population). The different manifesta- tions of high densities of jellyfish and how they are formed have been reviewed previously (Graham et al., 2001; Hamner & Dawson, 2009). However, there has been recent interest in using and understanding oceanographic processes to develop predictive capac- ity to forecast when jellyfish might swarm near the shore bring them into contact with swimmers (Pontin et al., 2009; Gershwin et al., 2014). The extent to which jellyfish biology and behaviour can affect swarming and beach stranding (Fossette et al., 2015) has also gained recent attention. Jellyfish swarms at the coast cause other problems such as clogging power and desalination plant seawater intakes (Daryanabard & Dawson, 2008; Dong et al., 2010) and fish mortality in aquaculture farms (Doyle et al., 2008), and predic- tive capacity would assist in preparing for or prevent- ing harmful and damaging effects of jellyfish swarms.
+t8vv | Jellyfish swarms and blooms are natural phenom- ena, but their occurrence is increasingly being asso- ciated with anthropogenic disturbance and modification of the world's oceans and coastal seas. Climate change, overfishing and coastal development have all been suggested as contributing to jellyfish swarms and blooms, although the evidence is often equivocal (Mills, 2001; Purcell et al., 2007; Richard- son et al., 2009; Dong et al., 2010; Lilley et al., 2011; Duarte et al., 2012; Purcell, 2012; Gibbons & Richardson, 2013), and the evidence of a world-wide trend in jellyfish swarms and blooms is debated (Condon et al., 2012, 2013). The jellyfish swarms described in this study occurred in the remote north- western Australia, where anthropogenic impacts are regarded as being very low on a global scale (Halpern et al., 2008) offering an opportunity to examine the drivers of swarms as well as their ecological, social and economic significance.
+qvnu | The jellyfish Crambione mastigophora Maas 1903 is recorded from the eastern Indian Ocean and western Pacific (Kramp, 1961; Omori & Nakano, 2001; Kitamura & Omori, 2010). Despite its apparently common and sometimes abundant occurrence in north-western Australia (this study), Indonesia (Omori & Nakano, 2001), the "Malayan Archipelago", Sri Lanka and the "Truk Islands" (Micronesia) (Kramp,
+kggw | Springer
+xrd1 | Hydrobiologia
+5746 | 1961), there is little published information on C. mastigophora beyond the taxonomic texts of Kramp (1961) and Stiansy (1929). C. mastigophora is capable of forming large swarms in north-western Australia where they are a nuisance due to stinging swimmers (Marsh & Slack-Smith, 2010). Hamner & Dawson (2009) categorised it as a putative bloomer on the basis that if they are fished commercially (Omori & Nakano, 2001), they must be very abundant, at least seasonally. However, there have been no previous studies any- where describing the nature, extent, and time course of C. mastigophora swarms. Similarly, there are no published studies on any aspect of the biology of C. mastigophora.
+7toz | This study resulted from an unplanned opportunity which arose when very large swarms of C. mastigo- phora washed ashore in a small population centre on the only regularly lifeguard patrolled beach in what is a very remote part of Australia in 2012. The purpose of the paper is to record the incidence and scale of these, and earlier C. mastigophora swarms off the western coast of Australia, determine whether wind, currents and tides play an influential and predictable role in beach stranding events of these jellyfish and outline the likely socioeconomic and ecological implications of swarms of this species.
+j346 | Materials and methods
+v8uq | Occurrence of swarms
+x972 | Details on the occurrence of C. mastigophora swarms in 1976, 2000, 2006, 2007, 2010, 2011, 2012, and 2013 were collated from a series of eye witness accounts by the authors and their associates: JK, TT, DB, JS, LG in 2010, 2012 and 2013, TT, KO in 2011 and TT in 2006 and others as well as reports to the Western Australian Museum (Marsh & Slack-Smith, 2010), the Western Australian Department of the Environment, the Broome Shire Council (Cable Beach life guard logbooks), the Eighty Mile Beach Caravan Park and from news reports. For the period of detailed investigation on Cable Beach (Fig. 1iii) in 2012, daily records of jellyfish strandings were made by TT and other Cable Beach life guards, for the period from 12 August to 31 October.
+cwrw | Hydrobiologia
+4i0e | Biomass of stranded jellyfish
+h2l3 | To determine the biomass of jellyfish washed up on Cable Beach, we first sampled jellyfish offshore to determine the size and weight distribution of the jellyfish population. We then compared the size distribution of jellyfish on the beach with those offshore using a Mann-Whitney U test (see Results section), and finding no difference, we applied the average weight of the jellyfish sampled offshore to counts of jellyfish washed ashore. A total of 159 individuals of C. mastigophora were collected with a dip net offshore of Gantheaume Point on 19 Septem- ber 2012 at 17.977614°S, 122.173300°E from a 6-m boat taking care to collect all individuals that could be reached from the boat in the top 500 cm of water to ensure no bias in size selection. These were collected into buckets and then measured on shore for maximum
+dfzb | Fig. 1 i Map showing Kimberley region in northern Australia and location of study area; ii Study area showing locations of observed Crambione mastigophora swarms and strandings (top right, lower left positions of panel ii are 13.67ºS, 127.00°E and 24.30°S and 113.25°E respectively) and; iii sites sampled on 19
+u6ty | bell width (diameter) and weighed (whole wet weight) to the nearest 1 gramme on an Accura ACC2070RD electronic scale. A further 186 individuals washed up on Cable Beach were measured for maximum bell width on 5 October 2012 by collecting all jellyfish from an area 4 by 8 m quadrat at 17.933556°S, 122.208500°E. Biomass in terms of wet weight to size was determined as above, and dry weight and ash-free dry weight (AFDW) were determined by drying samples of jellyfish tissue (principally from the bell) of known wet weight in a Labconco Freezone 2.5 freeze dryer at -40℃ until constant weight was achieved and then reweighing before ashing at 450℃ for 4.5 h and reweighing (Larson, 1986). Jellyfish tissue was not rinsed in freshwater before drying, so some residual salt may have remained when dried. The mean ratios of wet to dry and wet to AFDW were then used to calculate biomass for the full-size range of
+awvu | September 2012. Sites A and B were sampled for prey species, Site C was sampled for medusa size frequency (top right and lower left positions of panel iii are 17.79°S, 122.30°E and 18.03°S and 122.12°E, respectively)
+on9b | Springer
+a8ge | jellyfish sampled. Total organic carbon, total nitrogen content and stable isotopes (13C and 15N) were assessed using freeze-dried tissue. Samples were analysed for 815N and 813C, using a continuous flow system consisting of a Delta V Plus mass spectrometer connected with a Thermo Flush 1112 via Conflo IV (Thermo-Finnigan/Germany) following the methods of Paul et al. (2007) and Skrzypek et al. (2010).
+h27a | To determine the biomass of jellyfish washed up on the Cable Beach (Fig. 1iii), we counted all jellyfish in twelve 20-by-1 m transects at six sites on 8 October 2012. The transects were set out in pairs along 2.5 km of beach heading south from a site seaward of the Broome Surf Life Saving Club (BSLSC). The location of the first transect was at 17.932639°S, 122.208833°E. The sites were 500 m apart along the beach, and at each site, two transects were conducted parallel to the shoreline. One transect was near the water's edge, and one transect was near the high-water mark so as to capture the range of densities at each site across the width of the beach. Figure 2iii shows the apparently even distribution of jellyfish across the beach on the day of sampling. The density of jellyfish from both high and low transects was calculated. To calculate total average biomass on the beach, the mean density was calculated from all 12 transects, and this density was converted to wet weight based on the size distribution measured on the same beach 3 days earlier and the relationship between size and wet weight. To enable the density of jellyfish on the full width of beach to be estimated, we used a conservative estimate of 100-m width based in two measurements made from aerial photographs (averaging 115.5 m) of the width of the beach adjacent to the BSLSC (127.5 m) and 3 km to the south (103.5 m). These measurements were made between the high (6.85 m) and low (3.32 m) tide points for 8 October 2012. A more extensive visual survey of jellyfish on the beach was made by driving a 4WD vehicle south from the BSLSC for 5 km to Gantheaume Point (17.970083°S, 122.191000°E) and north for 10 km to Coconut Wells (17.838611ºS, 122.209028°E) (Fig. 1ii). This 15 km survey recorded the southern extent of the strandings, but they may have extended further north as the beach extends a further 7 km to a creek and then a further 13 km north after that. At one-km intervals along with this 15 km section of beach, a visual assessment and photograph along with the GPS position were recorded. This survey confirmed that densities measured over the 2.5 km
+pdjh | Springer
+xmgs | Hydrobiologia
+bd9h | stretch south of the BSLSC were representative of the entire beach.
+m047 | To examine for diet, samples of live C. mastigophora were collected (as per the description above) from two locations on 19 September 2012: Offshore of Gantheaume Point at 17.966944°S, 122.178989°E and near Dampier Creek in Roebuck Bay at 17.967536°S, 122.243281°E. The jellyfish were mea- sured (as per above) and placed in plastic bags and then on ice. The method of determining prey items followed that of Browne & Kingsford (2005) except it was necessary to freeze the samples in order to transport them to the laboratory where 14 individuals were thawed over 1-2 h in seawater filtered through What- man® glass microfiber filters (0.6-0.8 um) and then washed in the container to dislodge any prey items adhering to oral arms. Much of the jellyfish disinte- grated during this process but otherwise large pieces of intact jellyfish were removed and washed with a wash bottle containing filtered seawater before all the remaining liquid was filtered through 1 mm and 63 um sieves. The filtrate was fixed in 5% formalin before later being searched under a dissection micro- scope Leica M 205 C, magnification 6.3, objective 10x. Prey items were identified to the lowest taxonomic unit possible by an experienced zooplankton biologist (JS). The method used does not permit gelatinous prey items to be identified.
+gy8c | Wind, tide, sea-surface temperature, chlorophyll-a, and modelled surface currents
+```
+
+OUTPUT:
+```

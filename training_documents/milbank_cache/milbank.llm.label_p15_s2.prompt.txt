@@ -1,0 +1,141 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+ffx8 | Making the Case for Laws That Improve Health
+s6su | 183
+y219 | regulating sales of sugar-sweetened beverages in schools coded laws ac- cording to seven substantive features and eight process features and then grouped the laws into "strong," "moderate," and "weak" categories (Mello, Pomeranz, and Moran 2008). We stress that analysis of this kind, though essential to empirical legal research, does not exhaust legal scholarship on laws, eliminate the serious challenges often entailed in interpreting what the law "is," or replace serious discussion of what the law ought to be.
+06ht | Implementation Studies
+v3r2 | For a law to be effective, its implementation must be such that it will actually influence the behavior of its targets. The process of putting a law into practice can be understood in terms of a series of mediating factors, including the attitudes, management methods, capacities, and resources of implementing agencies and their agents; the methods and extent of enforcement; the relationship between the legal rules and broader community norms; and the attitudes and other relevant characteristics of the population whose behavior is targeted for influence. The text of the law and the resources appropriated for its enforcement constrain, but do not eliminate, the discretion of bureaucratic entities to reshape the rules to fit their existing culture and mission (Deflem 2004).
+nv42 | Implementation research classically starts with investigating the "transformation process" that occurs along path B in figure 1, the differ- ences between the goals and methods of the law as explicitly or implicitly contemplated in the "law on the books," and the "law on the streets" actually put into practice by legal agents charged with enforcing the law (Percy 1989). Case studies or other analyses of how health agencies have organized their mission or performed in a given mission are a common form of implementation research (Buehler, Whitney, and Berkelman 2006) and often investigate what legal powers an agency had or how it used them (Lawson and Xu 2007). Creative compliance and outright resistance by the targets of regulation also may be studied (Nakkash and Lee 2009). Implementation research in PHLR includes studies of the relationship among "legal infrastructure," legal or other competencies, and agency function (Kimball et al. 2008). Such studies may explore the effects of law on private agencies operating under a legal authorization, such as the effect of legal authorization on syringe-exchange programs (Bluthenthal et al. 2007). Implementation researchers also measure
+xags | 184
+jc47 | S. Burris et al.
+ko3c | proximate outcomes of new rules that may provide an early indication of their true behavioral effects, like the actual speeds observed on highways after a change in the nominal speed limit (Retting and Cheung 2008).
+xek3 | Research on legal practices in PHLR may investigate the means through which systems may be better governed or regulation better designed in order to achieve their goals. Although it has as yet had little impact on PHLR, the study of techniques of regulation and governance has become an important part of empirical legal research and scholar- ship (Ayres and Braithwaite 1992; Croley 2008; Moran 2002; Rhodes 1997). For nearly three decades, regulation in the United States and many other developed countries has exhibited an increasing pluralism, not just in spreading regulatory functions beyond government to private parties and public-private hybrids (Burris, Kempa, and Shearing 2008; Lobel 2004; Osborne and Gaebler 1993), but also in using a wide range of strategies beyond detailed rules backed by carrots and sticks (Parker and Braithwaite 2003). Contemporary regulators use cooperation, de- liberation, education, competition, and other "soft" strategies that can be more effective than traditional command-and-control bureaucracy (Lobel 2004). Theory and research in governance have highlighted the importance of actors outside government-such as advocacy groups, corporations, and gangs-in managing the course of events in social systems and have investigated how these actors regulate governments and one another (Buse and Lee 2005; Scott 2002).
+bbpr | New regulatory and governance approaches have raised a fascinating range of empirical questions, from the use of the audit as a compli- ance tool (Power 1997) to the design and effectiveness of public/private and self-governing regulatory structures (Gunningham 2009; Ostrom 2005). This work resonates with research in behavioral law and eco- nomics, captured in Sunstein and Thaler's Nudge, which describes how regulators can creatively structure options to systematically influence behavior by means other than simple legal rules (Sunstein and Thaler 2008).
+5zyf | Because so much regulation is now conducted outside traditional bu- reaucratic frameworks (and indeed outside government), scholars work- ing in this area begin with a generic definition of regulation and its con- stituent elements. "Regulation" is the "sustained and focused attempt to alter the behaviour of others according to defined standards or purposes in order to address a collective issue or resolve a collective problem" (Black 2008, 139). It uses a combination of basic strategies of control,
+9own | Making the Case for Laws That Improve Health
+bqfb | 185
+wwdt | including standard setting, monitoring, and enforcement (Scott 2001). The use of these strategies can be studied without regard to the particu- lar mode through which the regulatory task is accomplished or what sort of entity is performing it (Braithwaite and Drahos 2000). This analytic approach allows researchers both to better capture the regulatory role of actors outside traditional regulatory agencies-for example, the role of Mothers Against Driving Drunk in fostering stronger social norms condemning drunk driving-and to offer more creative approaches to regulation, as exemplified by Nudge and other works of behavioral law and economics (Lobel and Amir 2009).
+mn1r | Although research in regulation and governance has been limited in public health law (Biradavolu et al. 2009; Burris 2008; Trubek 2006), its applicability is clear (Magnusson 2009). Public health services are pro- vided by a diversity of public and private actors, and private entities play an important role in practicing and promoting standards of healthy be- havior and health-promoting practices (IOM 2003). We recognize that complex systems like health care cannot simply be managed by top- down rules but require the use of many flexible tools, like professional self-regulation, ethics, accreditation, collaborative and deliberative de- cision making, continuous quality improvement, and market incentives (Braithwaite, Healy, and Dwan 2005; Berwick and Brennan 1995; Lobel 2004; Trubek 2006). Health governance around the world has been dra- matically altered by the rise of new public/private hybrid institutions like the Global Fund to Fight AIDS, Tuberculosis and Malaria; the enormous wealth of the Gates Foundation; and the consolidation of au- thority over national health, safety, and intellectual property law in the World Trade Organization (Hein, Burris, and Shearing 2009; McCoy and Hilson 2009). The Framework Convention on Tobacco Control is a typical instance of the "soft law" approach, setting broad goals for na- tional action but minimizing binding rules in favor of deliberation and flexibility. Legal scholarship has begun to explore the "constitutional" implications of these structural changes (Fidler 2004), but they have not been extensively investigated in PHLR.
+5vqw | Intervention Studies
+meyw | Intervention studies evaluate the intended and incidental effects of le- gal interventions on health outcomes or key mediating factors that
+2e62 | 186
+75y3 | S. Burris et al.
+s2g2 | drive health outcomes. They may focus on "law on the books"-for example, examining the effect of states' passage of graduated drivers license statutes on rates of injury-causing crashes (Foss, Feaganes, and Rodgman 2001)-or on legal practices, such as the effect of issuing re- straining orders against perpetrators of domestic violence on future vic- timization (Harrell and Smith 1996). Intervention studies can be used to evaluate interventional health law but also to investigate the health effects of public health's legal infrastructure and the unplanned impact of what we have called incidental public health law. Intervention studies lie at the heart of PHLR, as they most directly address the core question of the field: What are the best legal tools to use to promote health?
+q1q2 | Intervention studies can draw from an extensive methodological tool kit (table 1). The strongest designs are experimental or quasi- experimental designs with careful controls. Differences in how and when laws are implemented from jurisdiction to jurisdiction provide oppor- tunities for quasi-experimental studies, although sophisticated methods may be required to account for other ways in which jurisdictions may dif- fer from one another. Useful study designs and analytical methods for this purpose can be borrowed from the fields of econometrics and epidemiol- ogy (Ludwig and Cook 2000). Real-world, randomized experiments are extremely rare but have been employed to study judicial-branch reforms such as specialized courts (Gottfredson, Najaka, and Kearley 2003). Ex- perimental studies can also be carried out using simulations, such as tabletop exercises (Dausey, Buehler, and Lurie 2007; Hupert, Mushlin, and Callahan 2002; Lurie et al. 2004).
+cb7r | We already have a substantial evidence base investigating the ef- fectiveness of interventional public health law, ranging from single studies through literature reviews to meta-analyses and systematic re- views conducted by entities like the Campbell Collaboration (Campbell Collaboration 2009) and the U.S. Task Force on Community Preventive Services (Community Guide 2009). We also have a rich, if less well orga- nized, research literature on incidental public health law. For example, researchers have studied the unintended consequences of HIV reporting laws on attitudes toward testing, time of testing, and willingness to be tested (Hecht et al. 2000; Tesoriero et al. 2008). Research on the health effects of infrastructural health law has been more limited.
+68xu | Consistent with ecological models in public health, intervention stud- ies may investigate how laws influence health by changing environments. For example, zoning rules, clean indoor air laws, and laws regulating the
+hd35 | Making the Case for Laws That Improve Health
+2zpk | 187
+epu7 | condition of rental properties can directly shape residents' exposures to noise, environmental toxins, and stress, as well as their activity patterns, social connections, collective efficacy, and many other factors that appear to influence population health outcomes (Browning and Cagney 2002; Maantay 2002; Schilling and Linton 2005). Occupational health and safety laws affect workers' exposure to hazardous conditions on the job. Product regulations protect consumers from a range of hazards arising from the use of products, from herbal supplements to firearms (Larsen and Berry 2003; Robson 2007; Vernick and Teret 2000).
+7od1 | Interventional research focuses not only on how the law changes phys- ical environments, but also on how it may change the social environment in ways that affect health or health behaviors. Law may shape people's health knowledge and attitudes, the way they perceive the risks and ben- efits of different choices, the frames through which they view particular choices, and the social norms against which their health decisions are set. PHLR can measure any or all of these dependent variables, as well as changes in health behaviors. There are many examples: research on the effects of indoor smoking prohibitions on social expectations about exposure to secondhand smoke in public (Kagan and Skolnick 1993); the effect of laws requiring disclosure of calorie information on restaurant menus on consumers' awareness of calorie content and attitudes toward the role of calorie information in food purchasing decisions (Bassett et al. 2008); and the effect of punitive laws concerning substance abuse dur- ing pregnancy on the prenatal care-seeking behavior of pregnant women (Poland et al. 1993), to name a few.
+0bqy | Finally, intervention research can illuminate policy choices under con- ditions of uncertainty. When problems or policy responses are new, there will naturally be little or no intervention research directly on point. Pol- icymaking can still be informed by evidence about analogous policies or by an understanding of how law typically works to influence envi- ronments and behaviors, although all analogies are, of course, imperfect proxies for the situation at hand. An example is the area of legal re- strictions on cell phone use by drivers. Although public health research recently has provided good evidence of the injury risk associated with this behavior, evidence of the effectiveness of different legal and policy approaches to the problem is not yet available. Until it is, lawmakers seeking to respond to what is clearly a significant health risk might be guided by the lessons learned about the design and enforcement of laws requiring seatbelt and helmet use and prohibiting driving under the
+b780 | 188
+ccmb | S. Burris et al.
+ma93 | influence of alcohol. Health impact assessment has also emerged as a useful way to use mixed methods to inform policy decisions with re- liable data on possible effects, intended and unintended (Collins and Koplan 2009; Lee et al. 2007; Mindell et al. 2004). Finally, Monte Carlo simulations, widely used in the field of decision science but rarely used in PHLR (Studdert et al. 2007), offer an intriguing method for accounting for uncertainty about multiple parameters of importance to evaluating the likely effect of law.
+c6hh | Mechanism Studies
+y7ea | To advance the field, we need not only more evidence of law's health effects but also a greater understanding of how law has the effects it has. This is important for many reasons. Evidence of mechanisms strength- ens specific causal claims. Understanding how a particular intervention influences environments and behavior facilitates the identification of further interventions, or of alternatives to eliminate superfluous require- ments or unintended side effects and strengthen the mechanisms that are working. The better we understand how law works, the better we can use it, replicate its successes across jurisdictions, and extend its approach to other kinds of health risks. Informed by theories of health behavior, PHLR can develop and test models to explain how public health law effectuates change in health behaviors and ultimately health outcomes.
+nav4 | At the most basic level, laws encourage healthy, safe, and socially beneficial behaviors and discourage unhealthy, dangerous, and socially deleterious ones by shaping incentives (rewards) and deterrents (punish- ments). Though the theory may be simple, the process is not. Regulators have myriad levers and tactics that they can use to influence behavior directly or by manipulating the environment, and each choice in a reg- ulatory system can and should be studied for its effectiveness, in both absolute terms and relative to less burdensome alternatives. Among the mechanisms are taxation and subsidies, changes in the information en- vironment, changes in the built environment, and signals sent by tort litigation (Gostin, Thompson, and Grad 2007).
+gem8 | With respect to laws imposing outright prohibitions on particular behaviors, many of the key research questions relate to mechanisms of implementation and enforcement: What penalties are applied to viola- tors of legal rules? What processes are used to detect violators? With what
+e8nr | Making the Case for Laws That Improve Health
+k78w | 189
+g9du | degree of certainty and swiftness will sanctions ensue from a violation? Sociolegal research drawing on disciplines such as psychology, criminol- ogy, and sociology has a great deal to contribute to mechanism studies in PHLR. The psychological literature has explored contingencies of reinforcement; criminologists have fleshed out the factors influencing deterrence; and sociology research has plumbed the normative effects of standard setting. Tom Tyler's influential work, for example, has shown the importance of experiences of procedural fairness to compliance with the law (Tyler 1990).
+```
+
+OUTPUT:
+```

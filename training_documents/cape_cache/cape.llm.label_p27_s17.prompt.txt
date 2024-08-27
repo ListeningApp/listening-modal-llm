@@ -1,0 +1,153 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+9m8s | 0 Mr Isaac Eliot Nyieku - Member
+893y | 0 Dr Irene Kafui Vorsah Amponsah - Member/Secretary
+favz | Consultation
+7szx | The Committeeaside the intercepted documents that was brought to their attention,they also interacted with some convocation members and Management as listed below:
+hx9e | Staff
+ywn2 | E Registrar, University of Cape Coast
+a63r | Provost, College of Health and Allied Sciences
+dqvj | Dean, Vice Dean and Faculty Officer - Medical School#
+r17u | 1
+3c47 | Convocation Members
+g345 | Documents
+svhz | UCC statues - 2012 and vol 59, No.3
+oaen | Prof Yankson's special committee report
+5u67 | 2 Documents chanced on see attachment . ...
+dvms | Findings
+qrd3 | The Committee after its interactions with Convocation Members and Management of Schools, . Colleges and the University, a common trend runs through their narratives. Though not exhaustive, below are the issue found out by the Committee:
+rxrg | " Delays in the processing of promotional documents at both the College and the Department, thereby affecting their arrears and pentions or superannuation.
+tf43 | " There are challenges relating to external assessment of their promotional documents:
+fcco | · The time it takes to receive an update on assessment outcome is too long (some colleagues have outstanding issues over 3-5 years)
+8uji | · Clarity of assessment results of assessment communicated; an example is "Two reports received to submit two new assessors" even though they have re-submitted the names of assessors countless times
+df3e | · Delay and clarity on some decisions taken on the promotion of some colleagues at A&P
+53eu | " That issues revolving around fellowship and the acquisition of terminal degrees before colleagues are considered for promotion to a higher rank pose a demotivation to colleagues who have contributed immensely to the University's achievements
+a5u1 | Management is not clear or at variance between being appointed to a rank as being satisfying the first stage of meeting the criteria for the subsequent promotion. Communication regarding promotion outcomes delay unnecessarily. For instance, meeting of council to interpret issues several month ago 10/2/22 but the communication was receahed the colleges the 14/4/22. More also a letter written on the 21/3/22 researched the College on the 14/4/22.
+ry7u | = Promotions been withheld base on the base on the interpretation of Yankson's Committee Report by a Council subcommittee.
+5mda | " Some colleagues do not cooperate when asked to effect changes on their documents as suggested by either the Departmental, faculty of College Appointments and promotion Committee.
+i4li | The Committee noted that there are some difficulties in getting a response from possible assessors (abroad) especially those related to the professorial rank.
+r8sm | " Management and Board Members have some level of difficulties in understanding the report due their scantiniess, but one may ask what instruction did the Human Resources give to the assessors, hence the applicant should not be punished unduely. .
+cuin | 2
+n1i7 | -
+0r5m | " Issues of wrong appointments to positions while experienced senior members in the field are not considered. For instance the appointment of Prof Abu to replace Dr. Paul Nyagome as the Science coordinator in CODE whiles his time was not up.
+ne2o | Statues or Appointment and Promotion documents are not clear on revised/new editions of books.
+sqxn | " Selective application of promotion criteria, whiles others are given an undue advantage over others.
+6pmo | " The policy on of the use of the same data to publish different papers is vague and at the discretion of the Head, hence other promotions have been delayed unduely.
+195r | " Interpretation of the statute, Appointment and Promotional rules has been a bone of contention. with management and council having different interpretations.
+kqmi | Conclusions
+g8rd | The Committee in their interaction, have found out that most staff feel aggrieved because of delays in processing their promotion applications and it appears it is likely to degenerate. More also, it appears, management has not factored in the welfare of convocation members in their delibrations. Management should realized that it is very important to create an enabling environment for convocation members to work in peace and tranquility that will, in the long run have apositive impact on the vision of the University ..
+nns9 | The treatment of the medical school in relation to promotion is contributing to the decline in its performance contrary to being the best some five years ago and likely to see the exodus of lecturers to other sister universities. Also, convocation members who have immensely contributed to the University being ranked as the best in Ghana and West Africa are likely to be demoralised, hence the next ranking is likely to suffer.
+9uwy | Recommendations
+srly | The Committee requests that the VC and management address the above issues at Convocation from the findings.
+dl6i | " The University Statues and policies should not be selectively applied. As it seems to be, adhered to in principle regarding its terms and reference of promoting staff within each college/school/unit.
+89ub | Convocation members that are highly cited and with special grants should not be punished with occurrences from the past but their progression should be clearly and properly communicated to them for future reference.
+dhle | " An assessment template should be designed and made available to external examiners to guide them in providing an in-depth assessment report.
+2nib | " HR/Colleges should exhaust the list of 5 examiners provided before asking Heads of Department to provide fresh examiners.
+naev | The Examiners reports should be made available to unsuccessful applicants always. This will foster transparency and accountability and also give the applicant a sense of trust.
+7h0h | 3
+a64c | ---
+gi7n | 4
+3pn1 | " Officers (Head/Deans/Provost/management) must eliminate favoratism or bias (personal/ethical/political/etc.) in processing of application of convocation members. biases.
+wjuz | " The A & P Board/management must do their best to communicate their decisions to applicants within a maximum of 2 weeks
+3yxv | " Management should put in place better measures to avoid delays in processing promotion documents as much as possible
+d8zj | " Rivised/new edition of books and/or papers must be reexamined carefully to ascertain that the contents are entirely different before accept to be part of the promotion package.
+```
+
+OUTPUT:
+```

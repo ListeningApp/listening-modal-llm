@@ -1,0 +1,171 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+0myz | We use 8 = 10-3 for the Huber loss. We find that using larger values of & pushes the model to overfit the small compute regime and poorly predict held-out data from larger runs. We find that using a & smaller than 10-3 does not impact the resulting predictions.
+xh3i | 25
+syiw | D.3. Predicted compute optimal frontier for all three methods
+kg3t | For Approaches 2 and 3, we show the estimated model size and number of training tokens for a variety of compute budgets in Table A3. We plot the predicted number of tokens and parameters for a variety of FLOP budgets for the three methods in Figure A3.
+lvae | Table A3 | Estimated optimal training FLOPs and training tokens for various model sizes. Analo- gous to Table 3, we show the model size/token count projections from Approaches 2 and 3 for various compute budgets.
+o9sc | Figure A3 | Optimal number of tokens and parameters for a training FLOP budget. For a fixed FLOP budget, we show the optimal number of tokens and parameters as predicted by Approaches 1, 2, and 3. For an alternate representation, see Figure 1.
+121u | D.4. Small-scale comparison to Kaplan et al. (2020)
+zh03 | For 1021 FLOPs, we perform a head-to-head comparison of a model predicted by Approach 1 and that predicted by Kaplan et al. (2020). For both models, we use a batch size of 0.5M tokens and a
+1mvw | 26
+6d4s | maximum learning rate of <LATEX>1 . 5 \times 1 0 ^ { - 4 }</LATEX> that decays by 10x. From Kaplan et al. (2020), we find that the optimal model size should be 4.68 billion parameters. From our approach 1, we estimate a 2.86 billion parameter model should be optimal. We train a 4.74 billion parameter and a 2.80 billion parameter transformer to test this hypothesis, using the same depth-to-width ratio to avoid as many confounding factors as possible. We find that our predicted model outperforms the model predicted by Kaplan et al. (2020) as shown in Figure A4.
+mqah | <LATEX>\times 1 0 ^ { 2 1 }</LATEX> Figure A4 | Comparison to Kaplan et al. (2020) at <LATEX>1 0 ^ { 2 1 }</LATEX> FLOPs. We train 2.80 and 4.74 billion parameter transformers predicted as optimal for <LATEX>1 0 ^ { 2 1 }</LATEX> FLOPs by Approach 1 and by Kaplan et al. (2020). We find that our prediction results in a more performant model at the end of training.
+xxr8 | E. Curvature of the FLOP-loss frontier
+rl4j | We observe that as models increase there is a curvature in the FLOP-minimal loss frontier. This means that projections from very small models lead to different predictions than those from larger models. In Figure A5 we show linear fits using the first, middle, and final third of frontier-points. In this work, we do not take this in to account and we leave this as interesting future work as it suggests that even smaller models may be optimal for large FLOP budgets.
+vz32 | F. FLOPs computation
+ncb0 | We include all training FLOPs, including those contributed to by the embedding matrices, in our analysis. Note that we also count embeddings matrices in the total parameter count. For large models the FLOP and parameter contribution of embedding matrices is small. We use a factor of 2 to describe the multiply accumulate cost. For the forward pass, we consider contributions from:
+8mp0 | · Embeddings
+xjyk | · Attention (Single Layer)
+mt0f | - Key, query and value projections: <LATEX>\left. 2 \times 3 \times \sec \right] \text { len } \times d</LATEX> d_model x (key_size × num_heads)
+awab | 27
+ixcc | Figure A5 | Training curve envelopes. We fit to the first third (orange), the middle third (green), and the last third (blue) of all points along the loss frontier. We plot only a subset of the points.
+8p6h | - Key @ Query logits: 2 x seq_len x seq_len x (key_size x num_heads)
+pmgl | - Softmax: 3 x num_heads x seq_len x seq len
+90no | - Softmax @ query reductions: 2 x seq_len x seq_len x (key_size x num_heads)
+jt0y | - Final Linear: 2 x seq_len x (key_size x num_heads) x d_model
+qb7o | · Dense Block (Single Layer)
+oae5 | - 2 x seq_len x (d_model x ffw_size + d_model x ffw_size)
+s0fl | · Final Logits
+43ia | - 2 x seq_len x d_model x vocab_size
+3g2y | . Total forward pass FLOPs: embeddings+num_layersx(total_attention+dense_block) + logits
+gc7v | As in Kaplan et al. (2020) we assume that the backward pass has twice the FLOPs of the forward pass. We show a comparison between our calculation and that using the common approximation C = 6DN (Kaplan et al., 2020) where C is FLOPs, D is the number of training tokens, and N is the number of parameters in Table A4. We find the differences in FLOP calculation to be very small and they do not impact our analysis. Compared to the results presented in Rae et al. (2021), we use a slightly more
+wqfv | Table A4 | FLOP comparison. For a variety of different model sizes, we show the ratio of the FLOPs that we compute per sequence to that using the 6ND approximation.
+j30a | accurate calculation giving a slightly different value (6.3 x 1023 compared to 5.76 x 1023).
+7bdk | 28
+fim0 | G. Other differences between Chinchilla and Gopher
+ojro | Beyond differences in model size and number of training tokens, there are some additional minor differences between Chinchilla and Gopher. Specifically, Gopher was trained with Adam (Kingma and Ba, 2014) whereas Chinchilla was trained with AdamW (Loshchilov and Hutter, 2019). Furthermore, as discussed in Lessons Learned in Rae et al. (2021), Chinchilla stored a higher-precision copy of the weights in the sharded optimiser state.
+l6t9 | We show comparisons of models trained with Adam and AdamW in Figure A6 and Figure A7. We find that, independent of the learning rate schedule, AdamW trained models outperform models trained with Adam. In Figure A6 we show a comparison of an 680 million parameter model trained
+1ujy | Figure A6 | Comparison of other differences. Using an 680 million parameter model, we show a comparison between the setup used to train Gopher and Chinchilla- the change in optimiser and using a higher precision copy of the weights in the optimiser state. The setup used for Chinchilla (orange) clearly outperforms the setup used to train Gopher (green).
+qzor | Figure A7 | Adam vs AdamW. For a 417M (blue) and 1.4B model (green), we find that training with AdamW improves performance over training with Adam.
+a0by | with and without the higher precision copy of the weights and with Adam/AdamW for comparison.
+u1ky | H. Results
+htm9 | H.1. The Pile
+8hul | In Table A5 we show the bits-per-byte (bpb) on The Pile (Gao et al., 2020) of Chinchilla, Gopher, and Jurassic-1. Chinchilla outperforms Gopher on all subsets. Jurassic-1 outperforms Chinchilla on 2 subsets- dm_mathematics and ubuntu_irc.
+87vz | 29
+ym66 | Table A5 | Bits-per-Byte on The Pile. We show the bpb on The Pile for Chinchilla compared to Gopher and Jurassic-1.
+l0a3 | H.2. MMLU
+u8nw | In Table A6 we show the performance of Chinchilla and Gopher on each subset of MMLU.
+l2v9 | H.3. Winogender Setup
+afbe | We follow the same setup as in Rae et al. (2021). To test coreference resolution in Chinchilla, we input a sentence which includes a pronoun reference (e.g., "The librarian helped the child pick out a book because {pronoun} liked to encourage reading."), then measure the probability of the model completing the sentence "{Pronoun}' refers to the" with different sentence roles ("librarian" and "child" in this example). Each example is annotated with the correct pronoun resolution (the pronoun corresponds to the librarian in this example). Each sentence is tested with a female, male, and gender-neutral pronoun. An unbiased model would correctly predict which word the pronoun refers to regardless of pronoun gender.
+78r8 | H.4. BIG-bench
+320g | In Table A7 we show Chinchilla and Gopher performance on each subset of BIG-bench that we consider.
+tp8g | I. Model Card
+gxfd | We present the Chinchilla model card in Table A8, following the framework presented by Mitchell et al. (2019).
+s2v1 | 30
+jkp9 | Table A6 | Chinchilla MMLU results. For each subset of MMLU (Hendrycks et al., 2020), we show Chinchilla's accuracy compared to Gopher.
+z8tt | 31
+9g22 | Primary Intended Users DeepMind researchers. We will not make this model available publicly.
+41fx | 32
+7um8 | Datasets
+uow2 | 33
+iat7 | We did not investigate intersectional biases.
+ywwr | Intersectional Results
+0i6j | Table A8 | Chinchilla model card. We follow the framework presented in Mitchell et al. (2019).
+87cq | J. List of trained models
+0qs3 | In Table A9 we list the model size and configuration of all models used in this study. Many models have been trained multiple times, for a different number of training steps.
+z8f7 | 34
+7w7j | Table A7 | Chinchilla BIG-bench results. For each subset of BIG-bench (BIG-bench collaboration, 2021), we show Chinchilla and Gopher's accuracy.
+51vd | 35
+baj1 | Table A9 | All models. We list the hyperparameters and size of all models trained as part of this work. Many shown models have been trained with multiple learning rate schedules/number of training tokens.
+n1wo | 36
+```
+
+OUTPUT:
+```

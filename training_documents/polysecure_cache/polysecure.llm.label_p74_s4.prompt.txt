@@ -1,0 +1,188 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+ob0u | Nonmonogamy can be a pressure cooker for growth. It is commonly and play- fully known in the nonmonogamous world that you shouldn't enter CNM unless you are ready to process, communicate, grow and then process, communicate and grow some more. This is because having multiple partners will expose all of your relationship baggage, your blind spots, shadows and shortcomings, and all the potential ways you've been asleep to social issues. Because of this, I've seen how nonmonogamy can actually become an accelerated path to growth, specifically when it comes to attachment, where it offers a path to healing that many people would not experience otherwise. When people are able to heal their previous at- tachment wounds, address any attachment changes that have occurred since open- ing up and create relationships that are founded on relational security instead of structural security, what previously felt impossible about CNM becomes possible, even celebratory.
+50o1 | Part Three
+cw76 | In this next section we switch to a "how-to" approach to becoming more poly- secure. My hope is that almost anyone reading this, monogamous or nonmonog- amous, can walk away with concrete ways to further cultivate secure functioning in their relationships. I do the pre-filtering and translating for you so that you don't have to sift, sort through or try to tease apart the monogamous filter that is often applied to attachment literature. Even though attachment exists over the multiple levels of the human experience, this next section focuses on the levels of self and relationship. This is meant to offer you guidance and suggestions, but it is not a substitute for professional support that may be needed for yourself or with your partners.
+lkk5 | O
+molj | CHAPTER SEVEN THE FOUNDATIONS OF BEING POLYSECURE IN YOUR RELATIONSHIPS
+5pto | UP UNTIL THIS POINT I have predominantly used the umbrella term nonmonogamy when talking about people with multiple partners, but as we saw in Chapter Four, people who are nonmonogamous can be quite varied in the ways they practice hav- ing multiple partners. As we move further in the discussion of how to be poly- secure, I talk specifically about people who are practicing polyamory. Polyamory is commonly defined as being the practice of having romantic love-based relation- ships with more than one person, and we can add that it is also the form of non- monogamy where people have multiple romantic attachment figures. As previously mentioned, not all CNM relationships need to be attachment-based. We can have very fulfilling, meaningful, loving and significant relationships with people who we are either less entwined with, don't want to label or define or who we are not look- ing to actively build an attachment-based relationship with. Ideally, any type of rela- tionship, regardless of how involved or not, is ethical, respectful, has open com- munication and is considerate of everyone involved. But when we are in attach- ment-based relationships more is required, so the rest of this book will center on people who are (or want to be) in polyamorous attachment-based partnerships.
+mo6k | DO WE WANT TO BE ATTACHMENT-BASED PARTNERS?
+zh6q | The antecedent to being polysecure with your partners is first getting clear about whether you want to be attachment figures for each other. Our attachment-based relationships take time and investment, and so when referring to attachment-based partners I am referring to a choice that we are making to intentionally cultivate and tend to the attachment-based needs within a particular relationship. Often, falling in love with someone or feeling attached to them does not feel like a choice we make, hence why we call it falling in love instead of stepping into love. Our attach- ment figures might be the people we feel levels of connection, compatibility or intensity with right from the start for reasons that we just can't explain, or they may
+kp04 | be the people with whom our romantic attachments have organically grown in po- tency and depth over time. However you come to be with the partners that you al- ready feel attached to or want to cultivate being more polysecure with, what is important is that at some point you are all clear that being attachment-based part- ners is what you want for the relationship.
+3e8r | In monogamy, usually at some point people have the commitment conver- sation in hopes of better defining their relationship, but exactly what that means to each person and all of the assumptions and expectations that each person is car- rying are often left minimally discussed, if they are articulated at all. In non- monogamy, unspoken expectations and assumptions typically don't bode very well, and intentional discussions about exactly what we're doing and why we are to- gether are important for everyone involved to feel safe and secure. Since we are talking about attachment-based polyamorous relationships, we are talking about relationships in which you are committed to showing up for each other regularly, prioritizing each other (from choice, not obligation), actively cherishing each other, doing the work required to build a relationship and possibly even building a life to- gether (though having a life commitment is not a prerequisite for secure attach- ment). Your attachment-based relationships might be with the partners that you refer to as your primary partners, inner circle partners, nesting partners or anchor partners. You may or may not live with them or have children with them, and you definitely do not need to do either of those things to be polysecure. People who are solo poly and relationship anarchists can be in securely attached relationships. People who are married and live with their spouse can also have secure attach- ment- based relationships with their non-nesting partners when vetoes and pre- scriptive hierarchy are not at play. What matters here is that you have a shared vi- sion about the depth, breadth and level of involvement that you all want together, and that everyone is able to follow through with what you've agreed to.
+8g7g | For us to feel safe and secure in our relationships, we need to know that our partners want to be there for us and will be to the best of their ability, and so some level of commitment to being in a relationship together is important. Depending
+5j4f | on what stage of relationship you are in, this might look like:
+4xe7 | . A commitment to staying in exploration of the relationship together, without specifically defining the future or integrating your lives.
+pg4b | . A commitment to building an official relationship that you want to have longevity and/or be more interwoven in.
+b0d0 | . Commitment to building a life together where you are in it for the long haul.
+d7eu | Commitment can be expressed in many ways. Traditionally it is solidified through marriage, owning property, having kids or wearing certain types of jewelry, but legal, domestic or ornamental undertakings are not the only ways to show dedi- cation. In a 2018 talk on solo polyamory at the Boulder Non-Monogamy Talk Se- ries, Kim Keane offered the following ways that people practicing nonmonogamy can demonstrate commitment to their partners:
+xndr | . Sharing intimate details (hopes, dreams, fears) and being vulnerable with each other.
+m6hi | . Introducing partners to people who are important to you.
+vpkf | · Helping your partners with moving, packing, homework, job hunting, shop- ping, etc.
+4d67 | . Having regular time together, both mundane and novel.
+e7j2 | . Making the person a priority. (I suggest defining what "being a priority" means to each of you.)
+lqzt | · Planning trips together.
+1ocm | . Being available to partners when they are sick or in need.
+527v | · Collaborating on projects together.
+lrri | · Having frequent communication.
+5cl9 | · Offering physical, logistical or emotional support (e.g. at doctor's appoint- ments or hospital visits or by helping with your partners' family, pets, car, children, taxes, etc.).
+u7a3 | Commitment Reflection Questions
+w409 | In each of your relationships that are already attachment-based, or for the
+m04y | relationships that you would like to become more attachment-based, discuss the following questions with your partners:
+23jk | . What does commitment mean to you?
+oa63 | . What aspects of commitment are most important to you (e.g., structural, emotional or public)?
+e3lv | . Why do we want to be attachment figures for each other?
+rqv6 | . What does being an attachment figure look like to you?
+oa48 | . Do we each have the time and availability to offer this level of involvement?
+3fp1 | THE BROAD STROKES OF BEING POLYSECURE
+557x | Once you are clear that being an attachment figure is what each of you wants, whether in a two-person or multiperson relationship, figuring out how to do this securely is the next step. Partners being a safe haven and a secure base for each other is key for being polysecure.
+ep8e | Being a Safe Haven For Each Other
+7mv3 | John Bowlby and his contemporaries believed that for a partner to become an at- tachment figure, the relationship would serve as both a safe haven and a secure base.68 The bedrock of being polysecure in our relationships is feeling that we have a safe haven to turn to. This happens when our partners care about our safety, seek to respond to our distress, help us to co-regulate and soothe and are a source of emotional and physical support and comfort. Similarly, when our partners are struggling or in need, we can be a safe haven by being there for them in warm, car- ing and receptive ways. When we can't physically be there for our partners, we do as best we can to support them from a distance until we can be in physical prox- imity.
+der6 | In search of relationship safety, our attachment system is primed to seek the answers to certain questions regarding our partners. Both consciously and uncon- sciously we are looking to know:
+8xg2 | . If I turn towards you, will you be there for me?
+njvp | . Will you receive and accept me instead of attack, criticize, dismiss or judge
+s8b5 | me?
+p450 | . Will you comfort me?
+rsvo | . Will you respond in a way that calms my nervous system?
+z4m8 | . Do I matter to you?
+ukf0 | . Do I make a difference in your life?
+k38m | Can we lean into and rely on each other?
+nkj9 | Interestingly, research consistently shows that people who have safe haven rela- tionships in their life, whether through romantic partnership or through their fam- ily, are more resilient in the face of life stressors and trauma. Attachment research has looked at many different populations including orphans, people who have ex- perienced natural disasters, assault victims, veterans who were in combat, refugees, people who were in New York City during 9/11, people in concentration camps in World War II, as well as people who have had heart attacks or are recov- ering from surgery in the hospital. The research has found that when people in all of these difficult situations have their safe haven attachment figures around them, either during or quickly after the event, they recover faster, experience less physical and emotional pain, and are less likely to have escalating symptoms of PTSD.69
+35a8 | Examples of things that you and your partners can do to be safe havens for each other are:
+337o | Give emotional support and comfort.
+cuth | . Listen to each other with full attention.
+09z2 | . Inquire and share about feelings and needs.
+13fv | . Track what is going on in each other's lives and make sure to follow up and inquire about those things.
+v5pj | . Help in practical ways when a partner is tired or sick.
+trab | . Discuss or debrief events of the day or things that are important to each of you.
+grxs | . Let your partners know how and why they matter to you.
+u9dn | Safe Haven Reflection Questions
+t25w | In each of your relationships that are attachment-based or for the relationships that you would like to become more attachment-based, ask yourself:
+x62u | . How does this partner already act as a safe haven for me?
+aoc8 | . In what ways do they show up for me that feel supportive and comforting?
+3mdu | . How can this partner help me feel even more safe with them?
+m04v | . How can this partner help me feel even more supported or comforted by them, in general or in specific situations?
+3aip | . In what ways can I show up more as a safe haven for this partner?
+q3gu | Being a Secure Base for Each Other
+txab | When safety is established with our attachment figures and we have an internalized felt sense that we can turn towards them and lean on them when needed, we are freed up to securely turn away from them and engage in the world, whether with them by our side or on our own. A secure base provides the platform from which we can move out in the larger world, explore and take risks. This exploration facil- itates our sense of personal competence and healthy autonomy. Similar to how children want to show their parents their latest drawings, tricks, accomplishments or discoveries, as adults we need to share the new things we've learned, the things we've achieved and the things we're excited about. Being and having a secure base in our partnerships means supporting each other's personal growth and explo- ration, independent activities and other relationships, even when these actions re- quire time apart from each other. Secure base partners will not only support our explorations, but will also offer guidance when solicited and lovingly call us on our shit. They function as a compassionate mirror for our blind spots and all the ways we may be fooling ourselves, whether through self-aggrandizement or self- limitation.
+dov0 | While being a secure base may appear to be easier or more fun than being a safe haven, do not underestimate how intimately personal and deeply vulnerable it can be for a person to share their visions, hopes, curiosities and dreams. It also re- quires faith to be able to turn away from a partner and then trust that you can safely
+xd5o | turn back. In simple terms, I see being a safe haven as serving the role of accepting and being with me as I am, and a secure base as supporting me to grow beyond who I am.
+3gny | Examples of things that you and your partners can do to be secure bases for each other:
+ws73 | . Encourage each other's personal growth and development.
+vyos | . Support each other's work and/or interests.
+w4hq | . Listen to each other's hopes, dreams and visions.
+ghbe | . Listen when your partners share about their experiences in other relation- ships (assuming that the information shared is appropriate and consensual).
+1lkf | . Have conversations about things that are intellectually or emotionally stimu- lating to each other.
+uobn | · Acknowledge each other's capabilities and possibilities for growth.
+3194 | . Compassionately bring light to your partner's limitations and blind spots.
+r22o | . Offer words of encouragement when your partners take on new responsi- bilities, go on dates with others, take a risk or learn something new.
+nupw | Secure Base Reflection Questions
+37xs | In each of your relationships that are attachment-based, or for the relationships that you would like to become more attachment-based, ask yourself:
+hoi0 | . How is this partner already acting as a secure base for me?
+tffb | . What does growth look like for me? Is it usually a shared or a personal expe- rience, or both?
+ewwt | . Are there other ways that I want encouragement or support in my individual growth or with my visions and dreams?
+2tj1 | . How could my partners support me in regard to my other relationships?
+nbhq | . How could | better support or encourage my partners' dreams or aspirations to grow and develop?
+w251 | . How could | better show genuine interest or curiosity in things that are important to my partners?
+1vgx | . How could I better support my partners in their other relationships?
+yjnk | A benefit of nonmonogamy is that you don't have to provide or expect to receive all of this from one partner. Different partners can be more of a safe haven, a secure base or both, offering different facets of each. We all have different strengths and it can be wonderfully satisfying to have some partners that support you in safe haven ways, while others offer more of a secure base.
+```
+
+OUTPUT:
+```

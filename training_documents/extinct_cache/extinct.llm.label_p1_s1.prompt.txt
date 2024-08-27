@@ -1,0 +1,140 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+1pjs | Cambridge Prisms: Extinction
+o2kr | www.cambridge.org/ext
+v6sk | Overview Review
+1wj6 | Cambridge Prisms
+936l | CAMBRIDGE UNIVERSITY PRESS
+06yq | The ethics of species extinctions
+dpv6 | Abstract
+8r5j | This review provides an overview of the ethics of extinctions with a focus on the Western analytical environmental ethics literature. It thereby gives special attention to the possible philosophical grounds for Michael Soulé's assertion that the untimely 'extinction of populations and species is bad'. Illustrating such debates in environmental ethics, the guiding question for this review concerns why - or when - anthropogenic extinctions are bad or wrong, which also includes the question of when that might not be the case (i.e. which extinctions are even desirable). After providing an explanation of the disciplinary perspective taken (section "Introduction"), the concept of extinction and its history within that literature are introduced (section "Understanding extinction"). Then, in section "Why (or when) might anthropogenic extinctions be morally problematic?", different reasons for why anthropogenic extinctions might be morally problematic are presented based on the loss of species' value, harm to nonhuman individuals, the loss of valuable biological variety and duties to future generations. This section concludes by also considering cases where anthropogenic extinctions might be justified. Section "How to respond to extinctions?" then addresses a selection of topics concern- ing risks and de-extinction technologies. Finally, the section on "Extinction studies" introduces other viewpoints on the ethics of extinction from the extinction studies literature, followed by the "Conclusion".
+2taz | Impact statement
+o3ya | This is an overview review article of the ethics of species extinctions drawing on the environ- mental ethics literature. While most people seem to believe that extinctions are morally bad or wrong, no systematic review of the moral philosophical literature that can support or question such intuitions on this subject matter has been provided to date, which is the gap that this review article aims to fill.
+r5il | Introduction
+5gui | In an influential essay, conservation biologist Michael Soulé offered a list of what he termed 'postulates of conservation biology'. Amongst these were also 'normative postulates' (i.e. value statements) such as that '[d]iversity of organisms is good' and, relatedly, that 'the untimely extinction of populations and species is bad' (1985, 730, italics in original removed). Soulé did not present any detailed argumentative justification for these normative postulates (see Baard, 2022, 20ff), yet much could and must be said about their moral grounds, which provides an invitation to further discuss the ethical basis of species extinctions. So, why exactly are extinctions bad or wrong?
+82qc | Extinctions - either as the extinction of single species or as mass extinction events on earth - are not only a matter of scientific inquiry and of policy relevance, but also a subject addressed by moral philosophy through questions concerning, amongst other things, the moral relevance and ontological status of species, moral responsibilities for human-caused extinctions, any moral obligations to avoid the loss of species and so on. Thus, this body of literature will aid us to explore the question of why extinctions might be bad or wrong, and for that purpose, we will provide a review of philosophical articles and books pertaining to the ethics of extinction (setting aside adjacent fields such as environmental law and history).
+ls7d | Moral philosophy, or ethics, is a normative discipline distinguished from empirical research on people's values, preferences and practices as done in sociology, economics and history. Moral philosophy aims to assess critically and systematically the normative reasons that are expressed through/in value judgements, decisions and actions. It ranges from interrelated investigations about normative and evaluative languages and the relationship between fact and value (often known as meta-ethics), to research about fundamental ethical principles and ethical theories such as utilitarianism, deontology and virtue ethics (normative ethics), to the moral scrutiny of real-
+tzt3 | 2
+t8vv | world cases and problems (practical/application-oriented/area- specific ethics). These three areas are often intertwined, and what is often called 'applied ethics' is not about merely applying more general or fundamental ethical theories. Rather, application- oriented practical reasoning gives rise to novel challenges and insights, which in turn also influence more general and fundamen- tal discussions in ethics.
+qvnu | Environmental ethics spans across all these three areas of moral philosophy with a particular focus on concepts and arguments relating to the environment and nature, including the ethics of extinction, which gives rise to discussions about values and duties but also about issues concerning concepts such as species, ecosys- tems or biodiversity. Due to problems of deriving an action-guiding fought' from a descriptive 'is',1 ethical discussions are pivotal to reasoning about and acting upon environmental issues.
+kggw | Based on this disciplinary perspective, different positions and arguments presented here are not necessarily compatible with each other, because there are disagreements on different argumentative premises, intuitions, sentiments and underlying ethical theories. Therefore, in the following we are presenting different argumenta- tive positions, but not a philosophical consensus on the ethical dimensions of species extinctions, such as in the form of a coherent theory that most authors would agree on, which is similar to how there are also disagreements in the natural and social sciences regarding which theory provides the best explanation of a natural or social phenomenon, which is not a weakness of this literature but an inherent feature of philosophical discussions that aim to critic- ally exchange and improve arguments and theories. Ultimately, the moral judgements one finds reasonable or justified regarding extinction will not only depend on one's empirical premises (and the quality thereof) but also on different metaphysical, ontological and normative premises and intuitions about how one sees the natural world and how one relates to it and lives within it.
+xrd1 | Illustrating such debates in environmental ethics, the guiding question for this review concerns why - or when - anthropogenic (i.e. human-caused) extinctions are bad or wrong, which also includes the question of when that might not be the case (i.e. which extinctions are even desirable). This overarching ques- tion guides this review in two ways. Firstly, it led our selection of relevant positions and areas of discussion to be included in the review. In that regard, we aimed for as much comprehensiveness as possible pertaining to the representation of the main categories of reasons that have been presented in the field that can argumenta- tively support (or question) Soulé's postulate. Secondly, this ques- tion narrows the scope of this review by including only arguments and positions that pertain to the ethics of extinction as opposed to providing a review of the much broader field of conservation ethics (about how to protect nonhuman individuals, species, ecosystems and landscapes). Consequently, we will cover, on the one hand, the major areas of discussion regarding the ethics of extinction (such as a growing body of literature on de-extinction technologies) and, on the other hand, we only include authors that provide substantive arguments on the topic of extinction (narrowly conceived).
+5746 | To illustrate the breadth of such considerations, we will provide an overview of different concerns and arguments that are being discussed in the Western anglophone environmental ethics litera- ture on species extinctions, broadly within the tradition of analyt- ical philosophy. So, two caveats ought to be mentioned with respect
+7toz | Anna Wienhues et al.
+j346 | to the chosen literature for this overview and the narrative pre- sented. Firstly, because this review is largely limited to the Western anglophone analytical literature (except for some of the authors mentioned in the last section on extinction studies, which is neces- sitated by the character of that area of research), it can neither represent the rich variety of arguments and positions found in other philosophical traditions such as so-called continental philosophy and non-Western philosophy (e.g. Asian or African environmental philosophical traditions and Indigenous philosophies), nor does it cover relevant philosophical literature published in other lan- guages. Secondly, by starting with Soulé's postulate this review paints a particular narrative of the relevant reasons speaking in its favour or against it. We thereby particularly emphasise matters of moral value (i.e. different intrinsic and instrumental values) for providing reasons against or in favour of species extinctions due to their centrality in the environmental ethics literature, as well as in interdisciplinary conservation debates more broadly. Yet, certainly other somewhat different narratives that, for example, highlight more the differences between different ethical theories (e.g. rights- based versus virtue-focused perspectives) would be as plausible.
+v8uq | In the following, we start by presenting some noteworthy themes that have emerged from discussions within environmental ethics that address the concept of extinction and its history within that literature (section "Understanding extinction"). Then, we turn to different reasons for why anthropogenic extinctions might be morally problematic and cases where anthropogenic extinctions might be justified (section "Why (or when) might anthropogenic extinctions be morally problematic?") and how to respond to extinctions (section "How to respond to extinctions?"). Finally, we look beyond our own narrow disciplinary perspective and introduce other viewpoints on the ethics of extinction from a body of work called 'extinction studies' (section "Extinction studies") before concluding (section "Conclusion").
+x972 | Understanding extinction
+cwrw | The history of the concern about extinction in environmental ethics
+4i0e | A period from the late eighteenth century to the early twentieth century changed the way extinction was thought about in Europe and North America. During that time, three developments came together. Firstly, mostly thanks to Darwin, the idea of evolution and extinction as its key component replaced creationist ideas that distrusted the very possibility of extinction, if it was not outright denied. Reasons for this former denial are historical, as the influ- ential Greek philosophers Plato and Aristotle, unlike some popular writers of the time, paid no attention to fossil bones of no longer existing vertebrates (Mayor, 2011). For them, species could not disappear except locally - a belief in line with the principle of plenitude dating back to Plato (Lovejoy, 1936), which states that all possible lifeforms necessarily exist and cannot disappear. Fig- uratively, the extant kinds form a 'great chain of being' and each kind in this chain is there necessarily; thus, the chain is unbreakable, and nature is in balance. This idea prevailed in pre- and early modern Europe and was endorsed by, for instance, Linnaeus as late as the eighteenth century.
+h2l3 | Secondly, given the importance of the notion of extinction to evolutionary thinking, extinction was not seen as a matter of concern but rather the opposite: extinct species were too weak to survive, or an extinct species was replaced by another, thus main- taining the balance in nature. Both cases - through weeding out the
+dfzb | Cambridge Prisms: Extinction
+u6ty | weak and introducing novel species - were regarded as improve- ments in natural evolution (Barrow, 2009; Sepkoski, 2020).
+awvu | Thirdly, despite this, and most relevant for thinking about the ethics of extinction, a concern about extinctions as universal and irreversible events started taking shape (as early as Marsh, 1864/ 2003) and was broadly reflected in new legislation such as the Sea Birds Preservation Act of 1869 in the UK. This historical change is well conveyed by Aldo Leopold (1949/1989, 110), when he stated that '[t]he sailor who clubbed the last auk thought nothing at all. But we, who have lost our [passenger] pigeons, mourn the loss'. Leopold (1989, 210-211) also already noted that economic considerations fail to provide reasons for protecting those species that lack economic value. Instead of extending economic valu- ation, as has been proposed later by economists, Leopold saw conservation as action against extinction that also rests on non- anthropocentric ethical ideas. Nevertheless, a systematic philo- sophical discussion on the ethics of extinction evolved much later with the formation of the academic field of environmental ethics since the 1970s.
+on9b | Early books and articles on environmental ethics did not expli- citly discuss the ethics of extinction. The discussion focused on the flipside of the coin: Why protect endangered species (Elliot, 1980; Gunn, 1980; Rescher, 1980)? One could see here a connection with new legislation, such as the US Endangered Species Act (1973), but the discussion broadened to also include the significance of diver- sity in nature more broadly (Naess, 1973; Norton, 1987), to incorp- orate the possibility of multiple extinctions in a relatively short period of time (for mass extinction, see Sepkoski, 2020) and to introduce a new concept, biodiversity (Wilson, 1986). For example, some ethicists have tried to develop a naturalistic account of the human propensity to value species and their diversity (Callicott, 1984, 305, 1986; or, more recently, elaborated E.O. Wilson's bio- philia hypothesis, Baxter, 2007; cf. Takacs, 1996).
+a8ge | Arguably, one of the earliest contributions on the ethics of extinction is Richard Sylvan's (then still known as Routley) famous thought experiment of the last person on earth (originally the 'last man'), firstly formulated in 1973, which can be made relevant for thinking about extinction. Sylvan writes:
+h27a | The last man (or person) surviving the collapse of the world system lays about him, eliminating, as far as he can, every living thing, animal or plant (but painlessly if you like, as at the best abattoirs). What he does is quite permissible according to basic chauvinism, but on environmental grounds what he does is wrong (Sylvan, 1973/ 2003, 49).
+pdjh | Later in the same article, he also specifically considers 'vanishing species':
+xmgs | Consider the blue whale ( ... ). The blue whale is on the verge of extinction because of his qualities as a private good, as a source of valuable oil and meat. The catching and marketing of blue whales does not harm the whalers; it does not harm or physically interfere with others in any good sense, though it may upset them and they may be prepared to compensate the whalers if they desist; nor need whale hunting be willful destruction. ( ... ) The behavior of the whalers in eliminating this magnificent species of whale is accord- ingly quite permissible - at least according to basic chauvinism. But on an environmental ethic it is not (1973/2003, 50).
+bd9h | He asked whether species or nature more broadly are valuable beyond their potential usefulness for humans. What Sylvan's fam- ous case suggests is that the permissibility of extinguishing species - as he argued, allowed by traditional Western ethical systems that conceive of nature as something to be used by humans as they please - is an example of what he called 'human chauvinism', now
+m047 | https://doi.org/10.1017/ext.2023.21 Published online by Cambridge University Press
+gy8c | better known as 'anthropocentrism' (for a critical discussion of the 'last person' argument, see Peterson and Sandin, 2013). Sylvan's thought experiment has successively been modified and discussed by many other philosophers such as Mary Ann Warren (1983) and Robin Attfield (1981, 1983). The latter engaged in this type of argument to scrutinise the possibility of human extinction in the context of nuclear armament and 'ecocatastrophe'. He aimed to show that non-sentient living nature such as trees has morally relevant interests and that causing their extinction by the 'last man' would be morally wrong, even if it would not affect any other humans.
+```
+
+OUTPUT:
+```

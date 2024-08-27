@@ -1,0 +1,88 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document. Your task is to faithfully reproduce the text for our text-to-speech engine so that it is easily read aloud.
+
+Note that the text might not start at the beginning and paragraphs may be split acrosss multiple textboxes. Textboxes may start or end in the middle of a word which is acceptable: do not combine text between textboxes and leave broken words at the start and end of a textbox unchanged.
+
+You will receive one textbox per-line in the format `id | Textbox content`. The output must be in the format `id | Clean content`.
+
+RULES:
+ • Remove inline citations and references e.g. "(Author, 2021)" or "(https://wikipedia.org/article.html)" or "[ECMOS 35b, 47, 49]".
+ • Spell out numbers, dates, and chemical formulas for the TTS engine e.g. "-2.5" -> "negative two point five" or "Jan. 2020" -> "January twenty twenty".
+ • Spell out LaTeX formulas for the TTS engine e.g. "<LATEX>p = 1</LATEX>" -> "P equals one".
+ • Rejoin hyphenated word fragments within the same textbox e.g. "synth -esize" -> "synthesize".
+ • Fix simple typos and OCR errors e.g. "O nce upon a 1ime." -> "Once upon a time.".
+ • Delete nonsequiter textboxes that interrupt the middle of a sentence if they obviously do not belong.
+
+Otherwise, the output should exactly match the input text:
+ • Do not combine text across lines or attempt to fix words broken across lines.
+ • Ensure each ID from the input is included in the output.
+ • Make as few changes as possible while respecting the above rules.
+
+EXAMPLE INPUT:
+```
+ccpt | stigate the effectiveness of psychedelics for ADHD symp- toms in adults.
+0fpw | 2. Materia1 and methods
+dqn8 | 2.1. Study design and participants
+cop0 | The study employed a naturalistic design, assessing the experiences of participants at bas-,
+lhkq | eline before they start, and at 2 and 4 weeks after initiation. The target population included adults with ADHD symptoms who had not been diag- nosed with ADHD before. To be included, participants needed to score on Conner's Adult ADHD Rating Scale (CAARS-S:SV). This cut-off was indicative of clinically elevated symptoms (Conners et al., 1999) (see section 2.3).
+82ju | 2.2. Study procedure
+y2qo | The online advertisement was placed on a website providing information about psychedelics (www.microdo sing.nl). Interested participants were redirected to information explaining the study rationale and procedure. The baseline survey took 20 min to complete. If the survey had not been completed after 24 h, a reminder was sent. Each of the surveys at the 2- and 4-week time points took about 15 min to complete. Par- ticipants were able to pause the surveys. Data collection occurred between Nov. 2020 and Jul. 2021. The study was approved by the Ethics Review Committee of Psy- chology and Neuroscience at Maastricht University (ERCPN- 215_05_11_2019_A1).
+1piq | 2.3. Measures
+7fqw | 2.3.1. Demographic information and history of substance use
+rhaz | At baseline, demographic information was collected. History of substance use assessed experience with psyche- delics (i.e., ayahuasca, DMT, 5-MeO-DMT, LSD, novel lysergamides (e.g., 1P-LSD, ALD-52), psilocybin, salvia divinorum, ibogaine, and mescaline) in both full (psychedelic) doses and microdoses.
+wak1 | 2.3.2. Psychiatric and physiological diagnoses
+wtfz | Participants were asked whether they had a current diagnosis of a disorder. These answer options were chosen because most of the listed diagnoses are often reported to co-occur with ADHD (Kooij et al., 2019), or because these diagnoses were reported to be common in people who microdose (Fadiman and Korb, 2019). We 
+3j2l | REVIEW ARTICLE Frontiers in Psychiatry | www.frontiersin.org
+03k3 | 2
+1k9e | constructed a variable Comorbidity alongside ADHD, differenti- ating respondents with and without a comorbid diagnosis alongside ADHD (<LATEX>p < . 0 0 1 =</LATEX> only ADHD or no ADHD diagnosis; <LATEX>p > . 0 1 =</LATEX> ADHD and at least one other diagnosis). We constructed a variable Medication use alongside microdosing, differentiating respondents who were and were not using conven- tiona1 ADHD medication alongside microdosing (<LATEX>0 =</LATEX> only microdosing; <LATEX>1 =</LATEX> conven-
+```
+
+EXAMPLE OUTPUT:
+```
+ccpt | stigate the effectiveness of psychedelics for ADHD symptoms in adults.
+0fpw | Two. Material and methods
+dqn8 | Two point one. Study design and participants
+cop0 | The study employed a naturalistic design, assessing the experiences of participants at bas-,
+lhkq | eline before they start, and at two and four weeks after initiation. The target population included adults with ADHD symptoms who had not been diagnosed with ADHD before. To be included, participants needed to score on Conner's Adult ADHD Rating Scale. This cut-off was indicative of clinically elevated symptoms (see section two point three).
+82ju | Two point two. Study procedure
+y2qo | The online advertisement was placed on a website providing information about psychedelics. Interested participants were redirected to information explaining the study rationale and procedure. The baseline survey took twenty minutes to complete. If the survey had not been completed after twenty-four hours, a reminder was sent. Each of the surveys at the two and four-week time points took about fifteen minutes to complete. Participants were able to pause the surveys. Data collection occurred between November twenty twenty and July twenty twenty-one. The study was approved by the Ethics Review Committee of Psychology and Neuroscience at Maastricht University.
+1piq | Two point three. Measures
+7fqw | Two point three point one. Demographic information and history of substance use
+rhaz | At baseline, demographic information was collected. History of substance use assessed experience with psychedelics (i.e., ayahuasca, DMT, five-MeO-DMT, LSD, novel lysergamides (e.g., one-P-LSD, ALD-fifty-two), psilocybin, salvia divinorum, ibogaine, and mescaline) in both full (psychedelic) doses and microdoses.
+wak1 | Two point three point two. Psychiatric and physiological diagnoses
+wtfz | Participants were asked whether they had a current diagnosis of a disorder. These answer options were chosen because most of the listed diagnoses are often reported to co-occur with ADHD, or because these diagnoses were reported to be common in people who microdose. We
+3j2l |
+03k3 |
+1k9e | constructed a variable Comorbidity alongside ADHD, differentiating respondents with and without a comorbid diagnosis alongside ADHD (P is less than point zero zero one equals only ADHD or no ADHD diagnosis; P is greater than point zero one equals ADHD and at least one other diagnosis). We constructed a variable Medication use alongside microdosing, differentiating respondents who were and were not using conventional ADHD medication alongside microdosing (zero equals only microdosing; one equals conven-
+```
+
+INPUT:
+```
+l0a3 | Regarding information availability, the respondents strongly disagreed that it was easy to identify financially material sustainability issues in sustainability reports <LATEX>\left( M = 2 . 9 7 ; S D = \right.</LATEX> 1.30) and also disagreed that it was easy to distinguish sustainability issues that are financially material from those that are material in other ways, e.g. based on a GRI understanding <LATEX>\left( M = 2 . 9 3 ; \right.</LATEX> <LATEX>\mathrm { S D } = 1 . 3 6 .</LATEX> Overall, the respondents seem skeptical to the information availability in such reports and express a high appetite for reporting in accordance with recognized standards
+u8nw | <LATEX>\left( M = 4 . 7 7 ; S D = 1 . 5 5 \right) .</LATEX> Finally, with regard to information quality, the respondents gave a mixed assessment. When asked to consider different information quality characteristics of sustainability
+l2v9 | Sustainability reporting and materiality
+afbe | reports, they assessed them favorably with regard to the relevance of information <LATEX>\left( M = 4 . 8 0 ; \right.</LATEX> <LATEX>\mathrm { S D } = 1 . 3 5 ,</LATEX> moderately with regard to comparability of information <LATEX>\left( M = 3 . 7 7 ; S D = 1 . 3 6 \right)</LATEX> and poorly with regard to the timeliness <LATEX>\left( M = 3 . 2 0 ; \right.</LATEX> <LATEX>\left. \mathrm { S D } = 1 . 4 5 \right)</LATEX> and verifiability <LATEX>\left( M = 3 . 0 0 ; \right.</LATEX> <LATEX>\left. \mathrm { S D } = 1 . 0 8 \right)</LATEX> of information.
+78r8 | In the qualitative interviews, the respondents were given the opportunity to elaborate more in-depth on the same topics, based on the questions in the interview guide in Table 2. We treat the three topics information needs, information availability and information quality in three sub-sections, with respondents' views on materiality integrated therein.
+320g | Information needs
+tp8g | The respondents differed substantially in accordance with their roles and the purposes of reading sustainability reports in those contexts. The portfolio manager differed from most of the others by desiring information about how sustainability improvements could lead to new business opportunities: "We are as interested in information about such opportunities as we are about risks and damages," he pointed out. The compliance officer took an opposite stance, in stating that "I am not looking for profitability - I am looking for traces of real sustainability."
+gxfd | The financial analyst took a different view and stated: "Our perspective is somewhat more short-term - we are largely looking at the next quarter." Importantly, however, he also emphasized that this implied a stronger emphasis on dynamic materiality - information that was often not readily available in sustainability reports. Still, he pointed out that "[t]he reporting needs to be as consistent as possible over time in order to allow for comparison - even on issues that change in importance and materiality over time." The portfolio manager also pointed out the trade-off between the desire for as much relevant information as possible on the one hand and quantified and verifiable information on the other hand: "The reports should be based on good and preferably quantified, variables. But preferably less words and pictures and information that cannot be verified - that only drowns out the material information."
+s2v1 | The sustainability manager who worked for a large bank had the view that the information that was developed in a way that catered to investor needs was also the most interesting for other stakeholder groups. He said: "Sustainability reports should be tailored for investors - that will make them more useful for other stakeholders as well. The target audience for such reports is often unclear and developing them in a way that is more concentrated around pure facts and figures will most likely make them useful for the largest number of stakeholders." The public funding manager somewhat echoed this by stating that
+jkp9 | Sustainability reporting and materiality Mean (SD)
+z8tt | I believe that there is large overlap between sustainability issues that are financially
+9g22 | material and sustainability issues that are important for other stakeholders such as
+41fx | NGOs and society at large
+7um8 | I believe that there is considerable change over time in which sustainability issues
+uow2 | I believe that sustainability reporting should account only for sustainability issues
+iat7 | that are financially material
+ywwr | "[t]he information needs of users are converging - they are becoming more and more similar and that is a good thing. When the banks and the government agencies start adopting the same perspectives and the same language that helps in making better and more consistent decisions."
+0i6j | Information availability
+87cq | The respondents largely echoed the same viewpoints that were captured in the survey questions about information availability. In particular, they found it difficult to distinguish between sustainability performance information that was financially material and information that was more broadly important for other stakeholder groups or for making inferences about real sustainability impacts. The financial officer argued that "there seems to be good intentions in the reporting, but it is hard to discern information that can be verified and that allows for comparisons - over time and between companies." The portfolio manager emphasized how the reports alone were usually not sufficient to provide the full information required for his purposes: "Many of the things we are looking for do not necessarily appear in the reports - for instance information about emerging topics. If the information is contested or appears risky to disclose, we often need to be in dialogue with the companies to get hold of the information we need."
+0qs3 | The compliance officer emphasized that the information tended to "flow together and become muddled" and that information that should have been readily available was often presented "in unexpected form in unexpected places" in the reports. She also lamented that there seemed to be differences between companies' reporting that could be a consequence of differences in their information provision: "The companies are very different in what sustainability efforts they choose to carry out and they similarly seem to report differently in a manner that reflects those activities, their priorities and which issues they can provide information about."
+z8f7 | Finally, several of the respondents pointed out that they believed that sustainability reports were becoming increasingly overflowed with information. The sustainability manager argued that there was too much "prose" and "wordiness" on issues of varying materiality, while there was often lacking information about issues one would consider financially material. The financial analyst argued that there was a large variation in how available and clearly communicated the different information was. He believed that there was still a lack of high-quality quantitative information but pointed out that "financial analysts always want more numbers."
+7w7j | Information quality
+51vd | The financial officer pointed out that the narrative style dominated sustainability reports and made a distinction between goals, efforts and results: "Different users might differ in their interests of whether they want to know more about the efforts in themselves or simply about results. The information quality is often better and more concrete for the latter, but many users really want to know about what the company has actually done and how its efforts actually produced the results they report." The public funding manager argued that environmental performance information was generally of higher quality than social performance information. She moreover added: "There is concrete information - tons of CO2, OK. Percentage of women on the board, OK. But the overall picture, actually getting a grasp of the ESG characteristics of the company - then, the report itself comes short."
+baj1 | The financial analyst pointed at comparability as a key problem, which echoes the results from the survey. He added: "Take oil companies as an example: They seem to arbitrarily select years as point of comparison in order to make improvements appear larger.
+n1wo | Sustainability reporting and materiality
+```
+
+OUTPUT:
+```

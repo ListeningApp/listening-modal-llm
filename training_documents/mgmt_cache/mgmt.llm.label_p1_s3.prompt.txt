@@ -1,0 +1,148 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+1pjs | Management Innovation Made in China: Haier's Rendanheyi
+o2kr | ResearchGate
+v6sk | Special Section on VUCA
+1wj6 | Management Innovation Made in China: HAIER'S RENDANHEYI
+936l | SUMMARY
+06yq | Emerging market companies create new management practices for an environment characterized by increased volatility, uncertainty, complexity, and ambiguity (VUCA). This article shows how Haier developed a platform of management practices called Rendanheyi to transform itself from a conventional hierarchical manufacturing firm to a highly responsive online-based entrepreneurial company. It demonstrates how the organizational, competitive, institutional, and technological contexts mattered for the development of Rendanheyi, showing how context-dependent management innovations are created to allow emerging market firms such as Haier to deal with a high VUCA world and creating an extended process model of management innovation that managers can readily apply.
+dpv6 | KEYWORDS: business history, case study, China, corporate strategy, emerging markets, innovation, innovation management, manufacturing, organizational structure
+8r5j | E merging market companies face a challenging environment charac- terized by increased volatility, uncertainty, complexity, and ambiguity (VUCA).1 Volatility comes from, among other things, varying growth rates and currency fluctuations, making the business environment unstable and unpredictable. Fluid market conditions, the impact of new tech- nologies on organizational structures, and the unresolved future of international trade rules, create uncertainty. Foreign investments, including in developed countries, imply more complex environments. And there is significant ambiguity,
+2taz | 71
+o3ya | CALIFORNIA MANAGEMENT REVIEW 61(1)
+r5il | for instance, around the effects of maintaining existing homegrown management practices, such as relationship-based management in Asia, versus adopting west- ern theories and management practices.2 But some companies such as China's Haier Group, the world's largest white goods company, have taken on this chal- lenging environment by reinventing themselves and developing a management model that thrives in such a high-velocity environment.
+5gui | In this article, we show how companies such as Haier create management innovations in a high VUCA context. Management innovation involves the cre- ation of new management practices.3 Under the leadership of Zhang Ruimin, the Haier Group developed "Rendanheyi" (in Chinese: (A-), which can be loosely translated as "integration of people and goals" or "the win-win model of individual-goal combination." Rendanheyi is a platform made up of a bundle of management practices, rather than a single new practice. Other such platforms have, of course, evolved historically. For example, Toyota's lean manufacturing has an overall goal-to produce on a large scale with minimum effort and waste- and encompasses several specific practices including just-in-time, Kanban, and target costing.4 Similarly, Rendanheyi is intended to be an integrated and all- encompassing management model with the overall goal to create "zero distance to the user" and unleash entrepreneurial autonomy within the organization. Specific elements of the Rendanheyi platform include autonomous micro-enter- prises, performance-based compensation, and open online user platforms.
+82qc | From the introduction of Rendanheyi in 2005, Haier was transformed from a conventional hierarchical appliance manufacturer into a highly responsive, diversified online-based entrepreneurial conglomerate organized as entirely autonomous micro-enterprises. During 2005-2009, Haier operated newly estab- lished strategic business units and implemented new information technology (IT) solutions and performance-based measures to better connect the company to cus- tomers. In 2010, micro-divisions called ZZJYT (an abbreviation for "zi zhu jing ying ti," translated as "independent operating unit") were established. ZZJYTs operated like a virtual team, and each ZZJYT leader had considerable decision- making autonomy-and new performance-based measures were introduced.5 In 2014, Haier was eventually transformed into a conglomerate of independent micro-enterprises called "xiaowei qiye" (abbreviated as "xiaowei"), operating as independent companies with ownership stakes from outsiders and responsible for all contracting, budgeting, and recruitment decisions. This latest phase has been labelled "Rendanheyi 2.0."
+ls7d | The case of Rendanheyi is important for management innovators, as it demonstrates how a high VUCA context in an emerging market can shape novel management practices. In the literature, there has been renewed interest in man- agement innovations in recent years,6 but few studies have explored their initial creation process.7 In this article, we tackle a major shortcoming of the existing literature, which revolves around the Birkinshaw et al. model of "management innovating" that largely neglects the role of context.8 The organizational, com- petitive, institutional, and technological contexts mattered a lot in the Haier case.
+tzt3 | Management Innovation Made in China: Haier's Rendanheyi
+t8vv | The State of Knowledge on Management Innovation
+qvnu | Firms have long recognized the importance of technological innovations in products and processes, but increasingly they also value the competitive edge from innovation in how the firm is managed. Historical examples of such "man- agement innovations" include advances in structure such as the (divisional) M-form at GM, but also tools and techniques such as the balanced scorecard (Analog Devices) and scenario planning (Shell). Most academic writing is focused on the ways in which existing management practices spread across a population of organizations and from one industry or country to the next.9 While these are interesting questions, they do not help to understand the process of developing a novel management innovation such as Rendanheyi.
+kggw | Still, some work looks at what drives organizations first to invent and then to implement new management practices, that is, management innovating. A major advance in understanding management innovating came from the Birkinshaw et al. process model, which offers a template to understand how man- agement practices are created and implemented.10 This model focuses on under- standing the active role of individuals, who are called internal and external change agents, in different phases of management innovating.
+xrd1 | Internal change agents are, of course, crucial in understanding why and how a specific management innovation comes about. Indeed, all management innovations can be linked to a powerful protagonist. For example, the founder of Toyota Motor Corporation Kiichiro Toyoda and production engineer Taiichi Ohno played key roles in the development of lean manufacturing at Toyota.11 Much more recently, the chairman of the Samsung Group Kun-Hee Lee was crucially involved in developing the co-opetition model within Samsung.12 In addition, external change agents such as gurus and management consultants can be involved in management innovating.
+5746 | The Birkinshaw et al. process model proposes that there are four distinct phases in management innovating. The first of these comes about when change agents are motivated to consider creating a management innovation because of some dissatisfaction with the status quo. The second stage, invention, occurs when a thought or real experiment is started to create a new hypothetical management practice. In the third stage, implementation, this hypothetical practice is put into practice to establish its value. Finally, in the fourth stage, theorization and labeling, there is retrospective sensemaking whereby an innovation can receive legitimacy. Thus, we understand relatively well what actions agents undertake to create man- agement innovations.
+7toz | A shortcoming of this model and the bulk of management innovation litera- ture is that it mostly black boxes the role of context, even though context clearly matters for the development of management innovations. For example, the devel- opment of lean manufacturing at Toyota benefited from the context of Japan with its different cultural understanding of time as a simultaneous rather than sequen- tial process, as well as its traditionally close collaborative arrangements between
+j346 | CALIFORNIA MANAGEMENT REVIEW 61(1)
+v8uq | manufacturing firms and suppliers within zaibatsu/keiretsu, along with postwar material shortages.13 And the development of the co-opetition model was sup- ported by Samsung's common language, organizational culture, and management systems, which fostered close collaboration across the Samsung Group and, thus, helped toward seizing new business opportunities and reducing transaction costs. 14
+x972 | Context consists of the wider environmental context, "the broad set of stimuli-exogenous to the focal organization-that shape the management dis- course" (e.g., Toyota's Japanese context), and the organizational context, "the administrative and social mechanisms that management can manipulate to shape the behaviors of actors in the organization" (e.g., Samsung's organizational cul- ture and management systems). Birkinshaw et al. argue that "these two aspects of context potentially influence all activities associated with management innova- tion" but never provide further detail of what these contexts might actually consist of.15 In other words, how context influences management innovating largely remains a mystery in the management innovation literature.
+cwrw | Still, other work has provided insights into aspects of environmental and organizational context. In the environmental context, the nature of a country's institutions (such as its laws, corporate governance systems, and national culture) plays an important role in shaping what kinds of management innovations emerge and when.16 But technology is also known to be an important factor since it offers new opportunities,17 as does the presence of competitive pressure, which may force a firm to innovate.18 In terms of the organizational context, important fac- tors to consider for the successful implementation of management practices are a firm's leadership (especially from the top), fit with the existing structure, and resources (including the right kind of organizational culture).19
+4i0e | How does the environmental and organizational contexts affect management inno- vating in an emerging market multinational characterized by VUCA? An answer to this question raises the intriguing possibility that the sources of competitive advantage of Chinese and other emerging market multinationals may lie not just in cost advantages, or even the ability to come up with innovative products, but also in innovative management practices.
+h2l3 | Our research on Rendanheyi suggests that both the organizational context and the environmental context contributed greatly to management innovating at Haier. Three key factors emerge for each type. In the organizational context, we found that structure, leadership, and resources were all clearly connected to the management innovation process. In the environmental context, we observed the influences of competitive, technological, and institutional aspects of the environ- ment. Eventually, leadership turned out to be the most important of these factors. Figure 1 captures the overall model.
+dfzb | Our research on Haier is based on personal interviews with senior execu- tives (including the Haier Group chairman) and owner-CEOs of xiaowei (micro- enterprises) involved in the design and implementation of Rendanheyi, as well as external consultants and experts who advised senior executives on the company's
+u6ty | Management Innovation Made in China: Haier's Rendanheyi
+awvu | FIGURE I. Management innovating model with contextual factors.
+on9b | restructuring. We traveled to the Haier Group headquarters in Qingdao where we conducted most of the interviews. We also conducted a tour of the company's Qingdao site and attended a symposium dedicated to Rendanheyi in Beijing. Finally, we consulted internal and external documents to supplement these observations.
+a8ge | Rendanheyi: Creating Responsive Online-Based Entrepreneurial Units
+h27a | The Making of the Haier Group
+pdjh | Like other leading Chinese manufacturing firms, Haier has become an effective competitor of western firms over the last decade and a half. But Chinese firms are not known for inventing radical modern management practices. In par- ticular, Chinese management practices are said to maximize efficiency and fast commercialization, and innovative firms from China are said to "excel at cost reduction, accelerated product development and networked production."20 This suggests the Chinese management focus may well support product development and production activities but is unlikely to support creativity and management innovation. So how was Rendanheyi developed, and why did it make sense for Haier to invent it?
+xmgs | The Haier Group began as a nearly bankrupt refrigerator company called Qingdao General Refrigerator based in Qingdao, a city in China's coastal Shandong province. In 1984, a young municipal official Zhang Ruimin was appointed as plant director. He had a zeal for improvement from the start, and that same year, he introduced technology and equipment from the German company Liebherr to produce refrigerators. In 1990, the company started exports to Europe as a contract
+bd9h | CALIFORNIA MANAGEMENT REVIEW 61(!)
+m047 | manufacturer for multinational brands. Zhang said, "We started exporting to devel- oped markets first because if your products are good enough for consumers in Europe and in the United States, you will have better products in developing mar- kets." In 1992, the company was re-named the Haier Group, and, in 1993, Zhang was named CEO.
+gy8c | Zhang began to focus Haier's attention around key beliefs that have sus- tained its management innovating ever since: continuous external environmental change requires continuous internal change; customer service, not existing prod- ucts, is key to maintaining Haier's forward motion; price competition is ultimately destructive; Haier needs to offer more, not less, to China's increasingly sophisti- cated customers; the secret of what Haier can offer the customer lies in the knowl- edge of Haier' s employees; all too often, an existing organization structure constrains, rather than liberates, employee talent; and only by making the "employment agreement" equitable to all who are affected by it (customers, orga- nization, and employees) can a powerful incentive engine be constructed to drive continuous change. Haier's story is one of consistent change.
+y4mj | By the 1990s, Haier acquired many other Chinese companies. The product range expanded beyond refrigerators to include home appliances such as washing machines, televisions, air conditioners, and telecommunications equipment. The company improved its products by acquiring foreign technology through joint ventures and strategic alliances with companies such as Mitsubishi of Japan and Merloni of Italy. Zhang said, "First we observe and digest. Then we imitate. In the end, we understand it well enough to design it independently."21 By 1998, the Haier Group had a market share of more than 30% in refrigerators, washing machines, and air conditioners in the Chinese market.
+vpgq | However, the Chinese home appliances market was saturated, and the Chinese government encouraged Chinese enterprises to expand internationally. Furthermore, Haier faced greater domestic competition, as foreign companies began to expand aggressively in the Chinese market. Therefore, the Haier Group began setting up operations overseas, including in the United States (1999), Italy (2001), and Germany (2001). It emulated the strategies of successful Japanese and Korean firms such as Sony, Samsung, and LG in terms of taking its own brand to foreign markets and in terms of establishing production as well as R&D in west- ern countries. By the mid-2000s, Haier was an established, successful global brand.
+ousl | The Making of Rendanheyi
+m4ju | Not satisfied with past achievements, Haier's senior management had the ambition to become the global industry leader and to create a truly innovative global company that competes on the basis of new product innovations. In 2005, Yang Mianmian, group president at the time, said, "We are number three in the world for white goods, we want to be number one."22 Around that time, Zhang first used the word "Rendanheyi," which was aimed at achieving (in Zhang's words) "zero distance to the customer," whereby the entire corporate structure is
+a0mb | Management Innovation Made in China: Haier's Rendanheyi
+ki8m | TABLE I. Key Characteristics of Rendanheyi and Rendanheyi 2.0 Management Practices.
+km8w | Note: ZZJYT = zi zhu jing ying ti, translated as "independent operating unit; SBU = strategic business unit; KPI = key performance indicator.
+wzno | dedicated to serving customers, giving them personalized products and services, by creating independent entrepreneurial units that operate as small quasi-inde- pendent firms (within the boundaries of the company) and have market rela- tionships among themselves.
+```
+
+OUTPUT:
+```

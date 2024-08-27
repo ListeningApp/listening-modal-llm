@@ -1,0 +1,156 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+75y3 | 1 JCULR
+s2g2 | In Defence of Mabo
+q1q2 | The comments of Dawson J in his lonely dissent in Mabo also give some support to the claim that the High Court, in this case, intruded im- permissibly into the legislative province. After concluding that any tradi- tional land rights of the Australian indigenes had long since been extin- guished,82 Dawson J wrote:83
+cb7r | Accordingly, if traditional land rights (or at least rights akin to them) are to be afforded to the inhabitants of the Murray Islands, the responsibility, both le- gal and moral, lies with the legislature and not with the courts.
+68xu | Similarly, in the context of Australia's history of European settlement, Dawson J concluded:84
+hd35 | There may not be a great deal to be proud of in this history of events. But a dispassionate appraisal of what occurred is essential to the determination of the legal consequences, notwithstanding the degree of condemnation which is nowadays apt to accompany any account. The policy which lay behind the legal regime was determined politically and, however insensitive the politics may now seem to have been, a change in view does not of itself mean a change in the law. It requires the implementation of a new policy to do that and that is a matter for government rather than the courts. In the meantime it would be wrong to attempt to revise history or to fail to recognize its legal impact, how- ever unpalatable it may now seem. To do so would be to impugn the founda- tions of the very legal system under which this case must be decided.
+2zpk | WHAT IS THE SEPARATION OF POWERS DOCTRINE?
+epu7 | In its most basic formulation, the separation of powers doctrine prohibits one single branch of government (the parliament, executive and judici- ary) from exercising the powers of another branch of government. The three traditional branches of government are essentially regarded as sepa- rate in function. In this respect, the Australian Constitution is much in- fluenced by its American counterpart, in turn affected by the philosophi- cal teachings in vogue at the time when the United States Constitution was written.
+7od1 | In the context of the United States, James Madison wrote:85
+0bqy | The accumulation of all powers, legislative, executive and judiciary, in the same hands, whether of one, a few, or many, and whether hereditary, self- appointed, or elective, may justly be pronounced the very definition of tyr- anny.
+b780 | (1994)
+ccmb | MICHAEL KIRBY
+ma93 | Such a sentiment was stated in its purest form by the Supreme Court of the United States in Springer et al v Government of the Philippine Islands:86
+c6hh | ... unless otherwise expressly provided or incidental to the powers conferred, the legislature cannot exercise either executive or judicial power; the execu- tive cannot exercise either legislative or judicial power; the judiciary cannot exercise either executive or legislative power.
+y7ea | That the doctrine of separation of powers has relevance to the Aus- tralian Constitution cannot be denied. However, it is significant that in the Constitution, the executive powers (although nominally vested in the Queen and exercisable by the Governor General) were, from the start, to be administered by the Queen's Ministers of State. Those Ministers were required by the Constitution to secure a seat in Parliament no later than three months after their appointment as such.87 The significance of this requirement is that it is indicative of a rejection of a strict separation of powers doctrine in Australia.
+nav4 | The high watermark of the separation of powers doctrine in Australia was the Boilermakers' case.88 In that case, it was held that the Federal Par- liament could not, by legislation, confer upon a federal court both judi- cial and non-judicial functions. To purport to do so was inconsistent with the provisions of the Australian Constitution and also with the very struc- ture of the Constitution. Upon this basis, the Court of Conciliation and Arbitration could not validly exercise both judicial and non-judicial pow- ers. The outcome of the decision was the division of those functions re- spectively between the Industrial Court (from which has grown the Fed- eral Court of Australia) and the Conciliation and Arbitration Commis- sion (from which has grown the Industrial Relations Commission of Aus- tralia).
+gem8 | The decision of the High Court of Australia in Boilermakers' was af- firmed by the Privy Council. Their Lordships observed:89
+e8nr | ... in a federal system the absolute independence of the judiciary is the bul- wark of the constitution against encroachment whether by the legislature or by the executive. To vest in the same body executive and judicial power is to remove a vital constitutional safeguard.
+k78w | The context of the Boilermakers' decision is important. It was decided at a time when the declaratory theory of judicial function was almost universally accepted in Australia. Any notion that the judges invented the law was strongly rejected. Dixon CJ asserted that the law would have no meaning as a discipline if there were not pre-existing norms which the
+g9du | 1 JCULR
+f682 | In Defence of Mabo
+li1k | judge merely had to find and then to apply. Such a task might be difficult and, at times, taxing. But aided by 'strict and complete legalism', the ap- plication of logical rules and analogous reasoning, the relevant principles of law would always be found.90
+pbea | While this declaratory theory of strict and complete legalism is still probably accepted by many in the general community and by politicians in Australia, it is a view which is now held by very few Australian and English judges. Lord Reid, in 1972, denounced such a view as a 'fairy tale' in which we did not believe 'any more'.91
+ccpt | An assertion that a court has breached the separation of powers doc- trine by creating law which was more properly the domain of parliament is closely linked to the criticism of the judiciary for being too creative in the particular case. Such an assertion typically calls for a return to greater judicial restraint.
+0fpw | SEPARATION OF POWERS, JUDICIAL RESTRAINT AND THE HIGH COURT
+dqn8 | For the purist, the strict separation of powers doctrine requires absolute judicial restraint. The classical theory of judicial restraint dictates that the judges do not have regard to 'changing economic, social and political ideas' in the exercise of their judicial power,92 'unless [such considera- tions] are specifically commended to the court's attention by the legisla- ture'.93 Strict adherence to the notion of judicial restraint is given consid- erable weight by two undeniable factors: first, the judiciary's exercise of a power legislative in character is illegitimate as the judiciary lacks account- ability and therefore democratic authority to make radical new laws. Sec- ond, the judicial process is inapt to provide the appropriate consultative processes which significant reform or change in the domain of the legis- lature requires.94
+cop0 | In recent years there has been a slow, but steady, drift in Australia away from the strict theory of judicial restraint. The exact limits of judi- cial creativity are yet to be defined - assuming that the boundary could ever be defined with precision. In Caltex Oil (Aust.) Pty Ltd v The Dredge 'Willemstad',95 Stephen J in the High Court of Australia recognised that 'policy considerations must no doubt play a very significant part in any judicial definition of liability and entitlement in new areas of the law'.96
+lhkq | (1994)
+82ju | However, he warned that to 'apply generalized policy considerations di- rectly ... instead of formulating principles from policy and applying those principles ... is ... to invite uncertainty and judicial diversity.'97
+y2qo | Deane J in Oceanic Sun Line Special Shipping Co. Inc. v Fay98 expressed what he took to be the correct approach to be adopted when a judge is invited to change the existing common law and to adopt a new approach. He said:99
+1piq | There are three main reference points to which regard should be paid in de- ciding whether the United Kingdom doctrine should be accepted as the law of this country. They are legal principle, decided authority and policy.
+7fqw | In that particular case, Deane J went on to find that the arguments for change based upon suggested policy and principle were 'not sufficiently strong' to warrant the court's departing from the established law.100 He stated that, in such a situation, change was the proper domain of the leg- islation 'enacted after full inquiry and informed assessment of interna- tional as well as domestic considerations of a kind which the Court is not equipped to make of its own initiative.'101 Despite these cautious words, one is left with the impression that, if the policy considerations before Deane J had been considered more compelling, the judge would have had little hesitation in overruling the pre-existing authorities. As such, the comments of Deane J represent a clear recognition of the proper and legitimate creative role of the courts - especially of the nation's highest court.
+rhaz | THE HIGH COURT 'CREATES' LAW
+wak1 | That the High Court of Australia has substantially abandoned strict ad- herence to past authority and the notion of judicial restraint is evidenced not just in Mabo. It can be seen in a number of recent decisions which exemplify that court's new-found creativity.
+wtfz | In Trident General Insurance Co. Ltd v McNeice Bros Pty Ltd, 102 the High Court by majority103 held that a person, not a party to an insurance con- tract, was entitled to enforce the indemnity against the party's liability to pay damages as the result of a successful claim in negligence against the party. While the ramifications of the decision remain to be explored, the decision may have dispensed with the doctrine of privity of contract. It
+qy1i | 1 JCULR
+1k9e | In Defence of Mabo
+5bjs | may have done so by court decision and this despite many calls for legis- lative reform which earlier fell upon deaf ears in Parliament.
+uodj | Similarly, in Mckinney v The Queen, 104 the High Court, by majority,105 laid down a 'rule of practice for the future' to be applied in the context of confessions made by a person in police custody. The 'rule' was that, wher- ever police evidence of a confessional statement allegedly made by an accused while in police custody was disputed at trial, and its making was not reliably corroborated, the judge should warn the jury of the danger of convicting on the basis of that evidence alone.106 Law reform bodies had for years cried out for legislative reform in this area (as Brennan J noted in a powerful dissent107). The court-mandated requirement would have implications for police practice and resources. Yet the High Court would wait no longer for legislation based on law reform reports. It acted reso- lutely itself to defend the justice of proceedings in Australian courts.
+k16v | In R v L,108 the High Court unanimously109 rejected the notion that, by reason of marriage, there was an irrevocable consent to sexual intercourse on the part of a spouse. This legal fiction had survived for two centuries. It was peremptorily terminated.
+b2lm | In Australian Capital Television Pty Ltd v The Commonwealth (No. 2)110 the High Court, by majority,111 held invalid key provisions of the Political Broadcasts and Political Disclosures Act 1991 (Cth) upon the ground that they involved a severe impairment of freedoms previously enjoyed by Australian citizens to discuss public and political affairs and to criticise federal institutions. An implied guarantee of freedom of speech with re- spect to public and political discussion was found to be inherent to a con- stitutional democracy such as Australia.112 This was despite the fact that previous suggestions that the Australian Constitution required freedom of speech and other communication113 had been strongly rejected.114
+ti7f | In David Securities Pty Ltd & Ors v Commonwealth Bank of Australia, 115 the majority116 held that a rule, well settled for nearly 200 years, preclud-
+oksu | 116 Mason CJ, Deane, Toohey, Gaudron and McHugh JJ; Brennan and Dawson JJ dissenting.
+wtow | 68
+o22k | MICHAEL KIRBY
+nwfz | (1994)
+nvfy | ing the recovery of money paid under mistake of law should no longer be regarded as part of the law of Australia.
+mror | In Dietrich v The Queen,117 the majority118 held that, in the absence of exceptional circumstances, a judge should, on application, adjourn, post- pone or stay a criminal trial where an indigent accused person, charged with a serious offence is, through no fault of their own, unable to obtain legal representation. If such an application were refused and the result- ing trial were unfair, the conviction might be quashed upon the ground of miscarriage of justice. This decision was in marked contrast to the ear- lier decision of the High Court in McInnis v The Queen.119 The dissent of Murphy J in that case was approved, and followed, in the Dietrich case.
+zlxc | These examples clearly demonstrate the High Court's marked tendency towards judicial activism and creativity.120 Against such a pro-active and reformatory approach, it ought not have come as any real surprise to the astute observer of the judiciary in Australia that the High Court in Mabo would adopt the course which it did. No doubt the Mabo decision is crea- tive. No doubt it sits upon the fine line which separates a truly legislative act from the exercise of true judicial function. However, it is certainly consistent with the recent approach of the High Court to many difficult problems where injustices have long endured and been completely ig- nored by the legislature despite repeated calls for urgent reform.
+k0bw | A system based upon the common law, of its nature, requires a crea- tive judiciary. If the judges of the common law did not so act, the law would fail to adapt and change to modern society. In the past, strict legal- ism usually served society well. Nowadays, a mature common law sys- tem requires that strict legalism be tempered by judicial consideration of both principle and policy in stating what the law is. Strict and complete legalism, giving effect to simple views concerning the separation of pow- ers doctrine, has become entirely inappropriate to a modern common law system. This is especially the case where the system operates under a written constitution designed to endure indefinitely. The recent increase in apparent creativity on the part of the courts in Australia may be the more noticeable only because of their earlier abstinence long maintained. That abstinence may have created a log jam of injustice which only now the High Court and other Australian courts are striving to clear.
+aq5a | Where inquiry is focused upon the creative nature of the judiciary, except in very clear cases, the debate often turns to emotive, rather than substantive, questions. Mabo is a very clear example of this. The essential complaint is not about the legal veracity of the Mabo decision. Pace Mr Connolly, few would argue that six of the seven Justices of the High Court
+sc5y | In Defence of Mabo
+0yab | 1 JCULR
+w95z | simply got the law wrong. The essential complaint, as I understand it, is that the court ought not have done what it did in this case. Yet Mabo, reduced to fundamentals, says only that: (a) our system of real property law accommodates native title; (b) native title may be extinguished; (c) it may be extinguished in a number of ways by either the Crown or by the indigenous people themselves; and (d) where it has been extinguished there may (or may not) be a right to compensation.
+```
+
+OUTPUT:
+```

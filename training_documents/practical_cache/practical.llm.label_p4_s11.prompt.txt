@@ -1,0 +1,130 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+ousl | According to Siles et al. [18], non-enhanced MR cholecystopancreatography visualization of the entire extrahe- patic bile duct system, including confluence of intrahepatic bile ducts, is possible but was only observed in 62.5% of neonates and infants younger that 3 months in a normal phys- iological state. For infants younger than 30 days, this result dropped to 50%. This compromises the ability of MR cholecystopancreatography to exclude the diagnosis of biliary atresia at the optimal time for surgery.
+m4ju | Hepatobiliary scintigraphy
+a0mb | Hepatobiliary scintigraphy uses Tc-99 m-labelled iminodiacetic acid derivatives as a radiotracer. Patient preparation for imaging should include phenobarbital to activate liver excretory en- zymes and increase bile flow for a minimum of 3-5 days before the hepatobiliary imaging study. Scintigraphy can exclude bil- iary atresia by demonstrating transit of radiotracer into the bow- el (Fig. 4). Cholescintigraphic images should be acquired at multiple times up to 24 h.
+ki8m | A meta-analysis by Kianifar et al. [26] included 81 studies (age range: 4-180 days) reporting a sensitivity of 99.3% (range: 98.3-99.8%), a specificity of 75.1% (range: 72.2- 77.9%), a positive likelihood ratio of 3.19 (range: 2.47- 4.11), a negative likelihood ratio of 0.07 (range: 0.04-0.11) and a diagnostic odds ratio of 60.1 (range: <LATEX>\left. 3 1 . 6 - 1 1 4 . 3 \right) .</LATEX> The negative predictive value was high, about 100%, but the pos- itive predictive value was lower and false-positive results occured in some patients with severe medical cholestasis. In hepatobiliary scintigraphy studies, renal or urinary excretion of the tracer could be confused with transit of radiotracer into the bowel and lead to a false-negative result.
+km8w | Percutaneous cholecysto-cholangiography
+wzno | Seven percutaneous cholecysto-cholangiography studies were identified for initial review. Four [27-30] were identified as
+xagm | Pediatr Radiol (2021) 51:1545-1554
+iwn5 | Fig. 4 Hepatobiliary scintigraphy. a A 45-day-old girl with Down syndrome and a nonspecific liver disease. Hepatobiliary scintigraphy with an 8×5 matrix, 2 min per image with the first 80 min after injection of 99-Tc-mebrofenin, shows excretion of tracer into the intestine (clearly visible after 12-14 min). A normal gallbladder is filled with tracer (visible after 8-10 min). There is some retention and slightly delayed excretion of tracer in the liver parenchyma. However, excretion
+uooz | relevant. Percutaneous cholecysto-cholangiography is a US- guided technique performed under general anaesthesia or seda- tion with local anaesthesia. A 22- to 25-gauge needle is used to puncture the gallbladder through the liver parenchyma and in- ject a nonionic contrast medium to obtain a cholangiogram. Antibiotic prophylaxis is usually given. Bile aspiration, when the gallbladder is distended enough, allows for sampling of bile for biochemical studies in suspected genetic cholestasis. The decision to perform a percutaneous cholecysto- cholangiography is informed by case-by-case discussion. If the gallbladder is visible, one may try to puncture it, while acknowledging the risk involved. Lee et al. [28] reported no complications related to percutaneous cholecysto- cholangiography and obtained a technical success in 18 of 22 procedures (age range: 1-138 days, mean age: 49.7 days). Percutaneous cholecysto-cholangiography has a spatial resolu- tion higher than MR cholecystopancreatography and allows observation of the direct progression of the iodine in the biliary tract. It is useful to confirm or rule out biliary atresia in difficult cases. The absence of retrograde filling of contrast in the intrahepatic bile ducts is highly suggestive of biliary atresia. In some cases of biliary atresia, there is a very thin and irregular opacification of the intrahepatic bile ducts and no opacification of the duodenum. In non-biliary atresia cholestasis, opacification of intrahepatic and extrahepatic bile ducts and duodenum is always seen. Some typical patterns may allow differential diagnosis, such as in neonatal sclerosing cholangitis (Fig. 5). Percutaneous cholecysto-cholangiography can
+pxbq | of tracer to the intestine excludes biliary atresia. b A 77-day-old boy with biliary atresia. Hepatobiliary scintigraphy with an 8×5 matrix, 2 min per image with the first 80 min after injection of 99-Tc-mebrofenin, shows retention of tracer within the liver parenchyma and no visible gallbladder or excretion of tracer into the intestine. Image courtesy of Dr. Jan G. Fjeld, Oslo University Hospital
+jfsr | determine the type of biliary atresia and gallbladder patency. Zhou et al. [27] proposed percutaneous cholecysto- cholangiography by using contrast-enhanced US in infants suspected of having biliary atresia with equivocal US findings and a gallbladder longer than 1.5 cm. This is an interesting pilot study in which biliary atresia was diagnosed in four patients and excluded in five patients without procedural-related complica- tions. However, further studies are necessary to evaluate the diagnostic performance and limits of this technique. It is note- worthy that the technique can be performed only when a gall- bladder lumen is accessible.
+u15r | Endoscopic retrograde cholangiopancreatography
+lq35 | Endoscopic retrograde cholangiopancreatography was per- formed to evaluate the patency of the biliary tree in the diagnosis of biliary atresia in some tertiary referral centres. Full delineation of the biliary system excludes biliary atre- sia. Another sign includes the absence or presence of bile at the site of the papilla. Endoscopic retrograde cholangiopancreatography requires specific infant endos- copy equipment not available at many centres; it is usually performed under general anaesthesia. The endoscopic ret- rograde cholangiopancreatography sensitivity ranges be- tween 86% and 100%, with the specificity 79-94%, posi- tive predictive value 88-96% and negative predictive val- ue 100% (age range: 19-175 days) [31-34].
+3g9w | Springer
+d09o | Fig. 5 Percutaneous cholecysto-cholangiography. a A 2-month-old girl with normal biliary tree shown in percutaneous cholecysto- cholangiography in a posteroanterior (PA) projection. b A 5-week-old boy with biliary atresia type C (see Fig. 1). Percutaneous cholecysto- cholangiography in a PA projection shows opacification of the
+ylhz | Percutaneous liver biopsy
+a3td | Percutaneous liver biopsy is performed in most paediatric cen- tres during the diagnostic work-up of infants with cholestatic jaundice. The diagnosis is challenging because the histological features of many disorders causing infantile cholestasis overlap, evolve and vary with age. The diagnostic accuracy of liver biopsy for biliary atresia diagnosis is between 60% and 95% [10, 35-39]. We have analyzed studies with liver biopsy as the only method for diagnosis. The earliest histological changes of biliary atresia might be relatively nonspecific, and biopsies per- formed too early in the course of the disease might result in a false-negative result [8, 9]. In a meta-analysis performed by Wang et al. [40] including 38 papers, the sensitivities and spec- ificities of individual studies varied from 90% to 100% and from 84% to 100%, respectively (age range: 12-120 days). The percutaneous liver biopsy showed pooled sensitivity of 98% (95% confidence interval [CI] 96-99%), specificity of 93% (95% CI 89-95%), positive likelihood ratio of 12.09 (95% CI 8.28-17.63) and negative likelihood ratio of 0.03 (95% CI 0.02-0.06). The positive predictive value was 93.0% and the negative predictive value was 97.7%.
+ex5k | In a meta-analysis performed by Lee et al. [41], 22 articles were included (mean or median age at diagnosis or age at presentation range: 6.7-11.5 weeks); the pooled accuracy of preoperative liver biopsy was 91.7%, with a sensitivity of 91.2% (95% CI 75.0-100%), specificity of 93.0% (95% CI 66.7-100%), positive predictive value of 91.2% (95% CI 75.0-100%), negative predictive value of 92.5% (95% CI 47.6-100%) and accuracy of 91.6% (95% CI 65.6-100%).
+9d4o | A large multicentre study performed by Russo et al. [42] addressed histopathological features of liver biopsies that dis- tinguish biliary atresia from other causes of infantile cholestasis. They found a diagnostic accuracy of the needle biopsy of 90.1% (95% CI: 85.2-94.9%), whereas sensitivity and
+cjq2 | Springer
+5esx | gallbladder and cystic and common bile ducts with no reflux in intrahepatic bile ducts. c A 6-week-old girl with neonatal sclerosing cholangitis. Percutaneous cholecysto-cholangiography in a PA projection shows a normal gallbladder, and a cystic duct, choledochus and reflux in very irregular and thin intrahepatic bile ducts
+m5ka | specificity for biliary atresia were 88.4% (95% CI: 81.4- 93.5%) and 92.7% (95% CI: 84.8-97.3%), respectively (medi- an age at the time of the needle biopsy: 58 days). This study revealed large variability in the severity of histological changes in biliary atresia; for example, bile duct proliferation was absent in as many as 22.8% of biliary atresia cases and bile duct/ductular plugs were absent in 25% of biliary atresia cases. Histological features of biliary atresia also overlapped with non-biliary atresia cases; more than 40% of the latter had some degree of bile ductular reaction and bile plugs were present in 15%. According to these data, percutaneous liver biopsy cannot exclude biliary atresia. The general reported complication rate of US-guided percutaneous liver biopsy ranges from 1.7% [43] and 4.6% [44] but has not been reported in this specific population.
+byu8 | Risk scores
+76b0 | Differentiation of biliary atresia from other nonsurgical causes of neonatal cholestasis is challenging so a diagnostic risk score is desirable. We searched for biliary atresia risk score papers in the literature including all imaging techniques.
+zxz6 | Kim et al. [45] used both clinical (gestational age at birth) and imaging criteria (triangular cord thickness at US, gallblad- der structure at US, hepatobiliary scan findings) to develop a risk score for biliary atresia that stratifies patients in a low-risk group in which liver biopsy may be postponed, an intermediate-risk group in which liver biopsy can be consid- ered and a high-risk group in which prompt liver biopsy with or without intraoperative cholangiography should be consid- ered. There are concerns about Kim et al.'s [45] risk score. First, hepatobiliary scintigraphy causes a diagnostic delay of 1 week (5 days for preparation with phenobarbital and 2 days for the examination - we need 24-h delayed imaging) and it
+xnth | Pediatr Radiol (2021) 51:1545-1554
+vafm | is not recommended because of its limited specificity. According to Kim et al.'s [45] risk score, a full-term birth infant with triangular cord sign and gallbladder abnormalities has only a 15.88% probability of biliary atresia. This is not in agreement with the very high sensitivity and specificity of the combination of triangular cord sign and gallbladder abnormal- ities reported in the first part of our meta-analysis (87%, 90% and 99%, respectively) [13]. According to those results, this infant has a very high probability of having biliary atresia. Kim et al.'s [45] risk score underweights the role of an optimised US scan. In that paper, US was performed after a 2-h fast, which in our opinion is too short. The US criteria did not include signs such as micro- or macrocyst or syndromic presentation. In Kim et al.'s [45] strategy, biopsy is indicated in the high-risk group, but we consider it more important to do a cholangiography than a biopsy, according to the results of our review. We agree that the high-risk group should get a cholangiography and a biopsy and that the low-risk group can be monitored by close follow-up according to the age. However, our major concern with these results is that they give no answer to how to handle the patients with intermediate (15.88-59.99%) risk of biliary atresia.
+2zmw | El-Guindi et al. [46] used stool colour (clay), US signs (tri- angular cord sign, contractile gallbladder, gallbladder length ≥20.5 mm, hepatic artery diameter <LATEX>\geq 2 . 0 5 m m ,</LATEX> hepatic artery diameter/portal vein diameter ≥0.445 mm, hepatic subcapsular flow), laboratory tests and histopathology to develop a 12- parameter diagnostic score to discriminate biliary atresia from other causes of neonatal cholestasis, reporting a sensitivity and specificity of 100% each. The main concern is the reproducibil- ity of these measurements and of this diagnostic score; Macaluso et al. [47], applying the same diagnostic score to their population, obtained less encouraging results: global sensitivity was 31% (5/16) with a specificity of 90.9% (10/11).
+```
+
+OUTPUT:
+```

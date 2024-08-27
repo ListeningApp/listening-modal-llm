@@ -1,0 +1,140 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+75y3 | Following the clip, subjects were presented with several pairs of statements about what the experimenter had said during the in- structions. The final pair of statements was "The experimenter that (a) we believe that people cannot feel happy and <LATEX>\begin{array}{} { \text { ent sal } } \\ { \text { sad at the } } \end{array}</LATEX> same time, or (b) we believe that people can feel happy and sad at the same time." We discarded the data from the two subjects who answered incorrectly, leaving 19 subjects in the bipolarity hypothesis-bittersweet clip condition.
+s2g2 | To ensure that the question of mixed emotions would be com- parably salient for subjects in the no-hypothesis-control clip con- dition, the experimenter told these subjects that a peripheral aim of the study involved mixed emotions. The experimenter also indi- cated, however, that we were indifferent about the results:
+q1q2 | Some evidence indicates that emotions can also affect language com- prehension, so we also need to keep track of how you're feeling during the film. We've also realized that the current study allows us to settle a debate that other psychologists have been having. Some researchers think that people can feel happy and sad at the same time; others think people cannot feel happy and sad at the same time. We really don't care one way or the other, but this study will allow us to find out.
+cb7r | After the continuous ESG instructions, the experimenter said,
+68xu | As I mentioned a moment ago, some researchers think people can feel happy and sad at the same time, but others think that people cannot. We don't care either way, so we'll let the data decide. So if you ever feel both happy and sad at the same time during the movie, then move into the interior of the grid, the portion that indicates that you're feeling both happy and sad to some degree.
+hd35 | These subjects then watched the control clip.
+2zpk | Results and discussion. To assess whether the two groups reported different amounts of mixed emotions, we computed the minimum of each subject's happiness and sadness ratings during each moment of the clip. A Mann-Whitney test on the MIN data revealed that subjects in the bipolarity hypothesis-bittersweet clip condition reported more intense mixed emotions <LATEX>\left( M d n = 0 . 1 9 \right)</LATEX> than those in the no-hypothesis-control clip condition <LATEX>\left( M d n = \right.</LATEX> 0.06; <LATEX>U = 7 3 . 0 ,</LATEX> <LATEX>z = 2 . 6 4 ,</LATEX> <LATEX>P S _ { e s t } = . 2 0 ,</LATEX> <LATEX>\left. p = . 0 0 8 \right) .</LATEX> Thus, subjects who watched the bittersweet clip reported more intense mixed emotions even though we explicitly told them that we thought people could not feel happy and sad at the same time. In addition
+epu7 | 1103
+7od1 | to providing additional evidence against the vacillation hypothesis, these results provide evidence against the notion that subjects in earlier studies reported mixed emotions only because they thought the researchers expected them to (Schimmack, 2005).
+0bqy | Study 3: Lay Theories of Mixed Emotions
+b780 | Study 2 helped rule out the notion that prior evidence for mixed emotions is a result of subjects' beliefs about the experimenters' expectations, but no studies of mixed emotions have addressed the role of the expectations that subjects have before entering the laboratory. Most undergraduates think that people can feel happy and sad at the same time (J. T. Larsen & McGraw, 2000), but lay theories about emotion can be inaccurate (Robinson & Clore, 2002). For instance, most people think that women are more emotional than men, but experience sampling studies reveals little evidence for gender differences in emotional experience (Barrett, Robin, Pietromonaco, & Eyssell, 1998). In the case of mixed emotions, people's lay theories may lead them to think they are experiencing simultaneously mixed emotions even when they are not (E. Harmon-Jones, personal communication, April 2004). We investigated this possibility in Study 3 by conducting another test of the vacillation hypothesis and including a group of subjects who did not hold the lay theory that happiness and sadness can co- occur.
+ccmb | Method. Two weeks before data collection began, 631 intro- ductory psychology students at Texas Tech University completed a mass survey. One questionnaire contained the question "Do you think people can feel happy and sad at the same time?" embedded among five similar questions (e.g., "Do you think dreams can provide insight into your unconscious mind?"). Subjects responded to each question by selecting "yes," "no," or "I don't know." Subjects who thought people could experience mixed emotions were classified as endorsers <LATEX>\left( n = 5 4 0 ; 8 6 \right) .</LATEX> Those who did not know <LATEX>\left( n = 6 5 ; \right.</LATEX> 10%) and who did not think so <LATEX>\left( n = 2 6 ; 4 \right)</LATEX> were classified as nonendorsers.
+ma93 | A subset of endorsers and nonendorsers <LATEX>\left( n = 5 2 ; \right.</LATEX> 25 women; <LATEX>\left. 4 8 \right) w e r e</LATEX> invited to participate. Data from an additional endorser were removed because she did not know she could press both buttons.
+c6hh | The subject pool contained few nonendorsers, and we thought it unlikely that they would report mixed emotions after watching the control clip, so all nonendorsers <LATEX>\left( n = 2 8 \right)</LATEX> watched the bittersweet clip; all endorsers <LATEX>\left( n = 2 4 \right)</LATEX> watched the control clip. As in Study 2, this intentional confound provided a stronger test of mixed emotions. The procedure was otherwise identical to that of Study 1a, in which subjects completed the button press measures.
+y7ea | Results and discussion. As in Study 1a, we quantified mixed emotions by measuring the total amount of time that subjects pressed both buttons after excluding those episodes that lasted less than 1 s. Though the median subject in both groups reported no mixed emotions, a Mann-Whitney test revealed that nonendorsers, all of whom watched the bittersweet clip, reported more mixed emotions <LATEX>\left( M _ { \mathrm { R a n k } } = 3 0 . 0 \right)</LATEX> than endorsers, all of whom watched the control clip <LATEX>\left( M _ { R a n k } = 2 2 . 6 \right.</LATEX> <LATEX>U = 2 4 1 . 5 ,</LATEX> <LATEX>z = 1 . 9 8 ,</LATEX> <LATEX>P S _ { \text { est } } = . 3 6 ,</LATEX> <LATEX>p =</LATEX> .048).
+nav4 | These results indicate that even people who did not know whether (or did not think that) people can feel happy and sad at the same time reported more simultaneously mixed emotions while
+gem8 | This article is intended solely for the personal use of the individual user and is not to be disseminated broadly.
+e8nr | <LATEX>V = . 6 9 ,</LATEX> This document is copyrighted by the American Psychological Association or one of its allied publishers.
+k78w | 1104
+g9du | LARSEN AND McGRAW
+f682 | watching the bittersweet clip than people who watched the control clip. The results do not imply that lay theories have no effect on self-reported emotions, but they do make it difficult to attribute available evidence for mixed emotions to the belief that people can experience mixed emotions.
+li1k | Studies 1-3 provide evidence against the vacillation hypothesis, which holds that previous studies have yielded evidence for mixed emotions only because subjects vacillated between happiness and sadness more quickly than those studies' static measures could detect. They also provide evidence against the notion that people report mixed emotions only because they think the researchers want them to (Study 2) or because they hold the lay belief that people can experience mixed emotions (Study 3). Taken together, the results of Studies 1-3 provide evidence for the ESM's conten- tion that happiness and sadness can co-occur and against the valence-arousal model's contention that happiness and sadness are mutually exclusive. More broadly, in contrast to Bain's (1859) assertion that valence is irreducible to the experience of emotion and that pleasantness and unpleasantness "destroy" each other, our results indicate that positivity and negativity are separable in experience (Hume, 1739/2000; Ebbinghaus, 1902, cited in Wohlgemuth, 1919).
+pbea | Part 2: Reactive Measurement
+ccpt | In Studies 1-3, we explicitly asked people whether they felt happy and whether they felt sad. Such closed-ended questions are commonly used to measure emotions (R. J. Larsen & Fredrickson, 1999), but they may have unwelcome consequences. People gen- erally test hypotheses by seeking confirmatory evidence (e.g., Klayman & Ha, 1987), so asking people whether they are experi- encing a particular emotion may prompt them to seek evidence that they are feeling that emotion. Sandberg and Conner (2009) found that women asked to indicate how much they would regret not getting a cervical smear were more likely to get a cervical smear within 4 months than those in a control group. This finding suggests that simply asking about anticipatory regret can elicit anticipatory regret.
+0fpw | Sandberg and Conner's (2009) findings give rise to a potential alternative interpretation for prior evidence for mixed emotions. For example, by asking them whether they felt happy after Life Is Beautiful, J. T. Larsen et al. (2001) may have inadvertently elicited happiness by prompting subjects to think about the pleasant events that occurred near the end of the film (e.g., the boy's reunion with his mother). Similarly, by asking them whether they felt sad, J. T. Larsen et al. may have elicited sadness by prompting subjects to think about the unpleasant events that occurred near the end (e.g., the father's death). According to this reactive measurement hy- pothesis, J. T. Larsen et al.'s subjects experienced mixed emotions only because J. T. Larsen et al. asked them whether they felt happy and sad. We tested this alternative interpretation in Studies 4-6 by asking subjects open-ended questions about their emotions (e.g., "How do you feel?") rather than closed-ended questions (e.g., "Do you feel happy?").
+dqn8 | Study 4: Emotion Listings
+cop0 | In Study 4, we asked subjects to list the emotions they were experiencing immediately after watching one of the two clips from
+lhkq | Life Is Beautiful. We reasoned that if people can feel happy and sad at the same time, they would be more likely to spontaneously report experiencing mixed emotions after watching the bittersweet clip than after watching the control clip. The control clip ends on an especially sad note, so its ending might be especially unlikely to elicit mixed emotions. Thus, we included a group of subjects who watched no clip at all. Because the emotion listings were insensitive to the time course of emotions, we supplemented the emotion listings with a retrospective measure of the time course of subjects' positive and negative emotions.
+82ju | Method. Subjects were 116 University of Colorado, Boulder, undergraduates (54 women; 47%).
+y2qo | Subjects were seated in separate cubicles and randomly assigned to watch the bittersweet <LATEX>\mathrm { c l i p } \left( n = 3 3 \right) ,</LATEX> the control <LATEX>c l i p \left( n = 3 4 \right) ,</LATEX> or neither clip <LATEX>\left( n = 4 9 \right) .</LATEX> Computerized instructions provided the cover story but made no mention of emotions. For subjects who watched either the control or bittersweet clip, the computer pro- vided the following prompt immediately after the clip ended: "Emotions can affect language comprehension, so before we go on we need to know what-if any-emotions you are feeling right now, at this very moment. Are you feeling any emotions right now?" Those who selected "yes" were instructed to "list ONE emotion that you are feeling right now, then press 'Enter."" After entering an emotion, they were asked, "Are you feeling any other emotions right now?" Those who selected "yes" were instructed to list another emotion. These steps were repeated until subjects indicated that they did not feel any other emotions.
+1piq | To collect a retrospective measure of the time course of sub- jects' positive and negative emotions, the computer next told subjects that
+7fqw | Some people mention feeling both happy and sad after the movie. If you mentioned feeling both happy and sad (or some other pair of positive and negative emotions), we're interested in how your feelings played out over time during the last few moments of the movie and up until now if the movie is still affecting your emotions.
+rhaz | The computer then displayed a figure with four panels, each plotting different patterns of happiness and sadness across time (see Figure 6). Figures 6A, 6B, 6C, and 6D depicted happiness and sadness as nonadjacent, adjacent, partially overlapping, and completely overlapping, respectively. Subjects were then asked which figure best captured the time course of their emotions at the end of the clip. Subjects were also given the option to indicate that they had not "mention[ed] feeling positive and negative emotions."
+wak1 | Subjects who were assigned to watch neither of the clips re- ceived the cover story and completed the emotion listing task immediately thereafter. For these subjects, the instructions for the retrospective time course measure made no mention of the clip.
+wtfz | Results and discussion. Subjects generated a variety of words to describe their emotions. The percentage of subjects in each condition who reported happiness or its synonyms (i.e., glad, happy, joy, overjoyed, "feel rejoiced") and sadness or its syn- onyms (i.e., depressed, despair, sad, saddened, sadness, sorrow) is shown in Table 2. A chi-square test on the happiness data revealed an effect of condition, <LATEX>\chi ^ { 2 } \left( 2 , N = 1 1 6 \right) = 5 5 . 9 7 ,</LATEX> Cramér's
+qy1i | This article is intended solely for the personal use of the individual user and is not to be disseminated broadly. This document is copyrighted by the American Psychological Association or one of its allied publishers.
+1k9e | MIXED EMOTIONS
+5bjs | Figure 6. Hypothetical time courses of happiness and sadness. Subjects in Studies 4-6 were asked to indicate which one best represented the time course of their happiness and sadness. Figures 6A, 6B, 6C, and 6D represent nonadjacent, adjacent, partially overlapping, and completing overlapping episodes of happiness and sadness, respectively.
+```
+
+OUTPUT:
+```

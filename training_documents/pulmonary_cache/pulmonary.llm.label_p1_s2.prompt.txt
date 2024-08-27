@@ -1,0 +1,151 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+1pjs | ORIGINAL RESEARCH
+o2kr | Experiences of Pulmonary Rehabilitation in People Living with Chronic Obstructive Pulmonary Disease and Frailty A Qualitative Interview Study
+v6sk | Abstract
+1wj6 | Rationale: People living with both chronic obstructive pulmonary disease (COPD) and frailty have high potential to benefit from pulmonary rehabilitation but face challenges completing programs. However, research to understand ways to optimize participation in this group is lacking.
+936l | Objectives: To explore the experiences, needs, and preferences of people with COPD and frailty referred for outpatient pulmonary rehabilitation.
+06yq | Methods: Semistructured interviews with people with COPD and physical frailty, purposively sampled by age, living status, level of frailty, and completion of pulmonary rehabilitation. Thematic analysis with a critical realist perspective was used, involving relevant stakeholders with clinical, academic, and lived experience for interpretive rigor.
+dpv6 | Results: Nineteen people with COPD and frailty were interviewed, with a median age of 78 years (range, 58-88). Nine did not complete their pulmonary rehabilitation program. Four themes were identified: striving to adapt to multidimensional loss, tensions of balancing support with independence, pulmonary rehabilitation as a challenge worth facing, and overcoming unpredictable disruptions to participation. Participants described constantly adapting to their changing health and resulting multidimensional losses
+8r5j | Brighton, Bristowe, Bayly, et al .: Pulmonary Rehabilitation, COPD and Frailty
+2taz | (e.g., functional abilities, relationships, confidence). This involved traversing between independence and seeking support, set against a mismatch between their needs and what support is available. People with COPD and frailty can be highly motivated to participate in pulmonary rehabilitation, despite the physical and mental demands it entails, and report a range of benefits. Yet in the context of changeable health, they must often overcome multiple unpredictable disruptions to completing rehabilitation programs. Participant determination and flexibility of services can facilitate ongoing attendance, but for some, these unpredictable disruptions erode their motivation to attend.
+o3ya | Conclusions: People with COPD and frailty experience accumulating, multidimensional loss. This group are motivated to complete pulmonary rehabilitation but often require additional support and flexibility owing to fluctuating and unpredictable health. Person-centered approaches should be considered to minimize disruptive health events and support pulmonary rehabilitation participation and completion. Service adaptations could allow more flexibility to meet the changing needs of this group and enable communication around how pulmonary rehabilitation might align with their priorities.
+r5il | Keywords: chronic obstructive pulmonary disease; frailty; rehabilitation; exercise; qualitative research
+5gui | 1213
+82qc | Chronic obstructive pulmonary disease (COPD) affects multiple body systems and has been described as reflecting an "accelerated aging" (1). COPD frequently occurs in the context of multimorbidity: more than 60% of people with COPD live with two or more additional health conditions (2). Related to this, people with COPD have twice the odds of living with frailty than people of a similar age without COPD (3).
+ls7d | Frailty is a multidimensional syndrome characterized by decreased reserve and diminished resistance to stressors (4). Physical dimensions of frailty are characterized by diminished strength and endurance and reduced physiological function (5). Recognition of frailty offers advantages over measures of disease severity, particularly in the context of multimorbidity, in that it incorporates a more holistic understanding of a person's health and limitations (6). Pooled prevalence estimates suggest that 19% of people with COPD are living with frailty, whereas a further 56% are prefrail (3). People with COPD and frailty are at increased risk of mortality (7, 8) and readmission after hospitalization for an exacerbation of their disease (9). In comparison with their nonfrail counterparts, people with COPD and frailty experience poorer physical function and health status (10) as well as increased anxiety and depression symptoms (11) and are less likely to receive disease-modifying interventions (12).
+tzt3 | Participating in exercise improves outcomes for people with COPD (13, 14) or frailty (15, 16) and is recommended by clinical guidelines for each condition (17, 18). For people with both COPD and frailty, pulmonary rehabilitation is associated with improvements in frailty status (11, 19), breathlessness, exercise performance, physical activity levels, and health status (11, 20). However, people with COPD and frailty are less likely to start, and complete, pulmonary rehabilitation (11).
+t8vv | People with COPD report multiple challenges to participation in exercise-based interventions, including lack of perceived benefit, concurrent burden of comorbid conditions, conflicts with other priorities,
+qvnu | 1214
+kggw | difficulties with mobility and travel, fear of worsening symptoms, low energy and motivation, and exacerbations of their COPD (21-23). Similar barriers are noted by people living with frailty, including conflicting commitments (e.g., hobbies, caring responsibilities), physical limitations (e.g., pain, fatigue), and challenges around access and travel (24, 25). Although some view exercise positively (24), others report disengaging owing to perceiving frailty as inevitable in older age, and feeling disempowered or depersonalized in their interactions with services (26).
+xrd1 | Understanding (non-)participation and identifying optimal ways of supporting people with COPD and frailty is a priority for improving outcomes for this population (27). People with both COPD and frailty have high potential to gain from, but also a high likelihood of facing challenges to completing, pulmonary rehabilitation (11). Yet, research with people with COPD and frailty to understand their specific needs and challenges is lacking, and optimal models of exercise for this group are not well understood. We aimed to explore the experiences, needs and preferences of people living with both COPD and frailty referred for pulmonary rehabilitation, to optimize service delivery for this group. Our objectives were to: 1) understand the experiences and preferences of people living with COPD and frailty; 2) identify current support and areas of unmet need; and 3) explore motivation for, and barriers to, continued participation in pulmonary rehabilitation.
+5746 | Methods
+7toz | Design
+j346 | We conducted a qualitative interview study within a critical realist paradigm (28). This means participants' responses were deemed to reflect a reality that can be understood through empirical means. Yet, we also acknowledge the influence of social and cultural structures in understanding this reality. We drew on theories around successful aging (29), self-regulation (30), and stress and
+v8uq | AnnalsATS Volume 17 Number 10 | October 2020
+x972 | ORIGINAL RESEARCH
+cwrw | coping (31) to develop a comprehensive topic guide and inform data interpretation. For example, successful aging theory (29) aided exploration of how people adapt, reprioritize, and compensate in response to losses in function in older age; the common-sense model of self-regulation (30) provided a framework for understanding interactions with services and broader health behaviors, and the transactional model of emotions and coping (31) supported our understanding of how coping arises from perceptions of stressors and available resources. Although we drew on specific theories with the intention of developing a richer explanation of reality, we were cognizant that they could be challenged by new data (28).
+4i0e | Setting and Recruitment
+h2l3 | We recruited participants from two London hospitals providing outpatient pulmonary rehabilitation. Clinical staff identified potential participants during their initial assessments for pulmonary rehabilitation. A researcher then periodically followed up with those interested in participating, so that they could be potentially sampled when they stopped or completed their pulmonary rehabilitation.
+dfzb | Participants and Sampling People referred for pulmonary
+u6ty | rehabilitation with a physician diagnosis of COPD, who at initial assessment were identified as physically frail using the Short Physical Performance Battery (32) (SPPB; score of ≤9), were invited to participate. The SPPB scores performance across three tests: standing balance, habitual gait speed, and ability to stand. Total scores range from 0 (low function) to 12 (high function). Thresholds of ≤9 and ≤7 have been suggested to indicate prefrailty and frailty, respectively (33). Patients' informal caregivers also participated if patients preferred. People under the age of 18 years, unable to speak English, or without capacity to provide informed consent were excluded.
+awvu | We purposively sampled participants by age (> or ≤80 yr), living status (alone or with others), level of physical frailty (SPPB scores of > or ≤7), and completion of
+on9b | ORIGINAL RESEARCH
+a8ge | pulmonary rehabilitation (did or did not complete). Within the group who did not complete pulmonary rehabilitation, we attempted to sample those who were and were not admitted to hospital.
+h27a | Data Collection
+pdjh | A female researcher (L.B.) with a background in psychology and palliative care research (B.Sc., M.Sc.) conducted the interviews in participants' preferred locations, between October 2018 and April 2019. L.B. had previous training in qualitative research and experience in conducting interviews with people with serious illness and their families. L.B. was not known to participants before the interviews.
+xmgs | The interviews followed a
+bd9h | semistructured interview topic guide (online supplement E1) developed with input from people with lived experience relevant to both COPD and frailty, and their informal carers (service user representatives). The topic guide explored participants' current health and priorities, support and unmet needs, and expectations and experiences of pulmonary rehabilitation. On the advice of the service user representatives, the researcher identified and used participants' own language in relation to frailty, for example, slowing down, difficulties walking, lack of strength or energy. Service user representatives also prompted the researcher to consider the participant's assets and resilience in addition to limitations. Interviews were audio-recorded and transcribed verbatim. The researcher completed detailed field notes to describe interview flow, contextual factors, participant responses, and initial reflections immediately after each interview.
+m047 | Data collection continued until the data set was deemed to be approaching thematic saturation (34) (i.e., rich data with breadth and depth in relation to the study objectives, with evidence of replication across several participants [35]). To determine potential thematic saturation, we conducted a preliminary analysis of the detailed reflective field notes, considering the above definition while also reflecting on Malterud and colleagues' (36) dimensions of information power. These dimensions consider the data in relation to the breadth of the study aim, sample specificity, level of existing contributing theory, dialogue quality, and the need for cross-case analysis.
+gy8c | Brighton, Bristowe, Bayly, et al .: Pulmonary Rehabilitation, COPD and Frailty
+y4mj | Analysis
+vpgq | We conducted a reflexive thematic analysis to identify patterns of meaning within the data (37). First, one researcher (L.B.) familiarized themselves with the data through revisiting the audio recordings, transcripts, and field notes. They generated initial codes to capture meaningful basic elements of the data in relation to the study objectives. A service user representative with qualitative analysis training (M.O.) also familiarized themselves with, and generated initial codes for, a sample of the data. Meanings were primarily considered at a semantic (explicit) level, but with consideration of latent (implicit) interpretations. L.B. inductively generated themes by reviewing and refining codes, and writing definitions accompanied by illustrative quotes. The themes and related codes were refined using three processes: revisiting the original interview data to ensure fair interpretation, comparing our findings with existing theory to assess if this may deepen our understanding, and review
+ousl | Table 1. Qualitative interview participant characteristics (n =19)
+m4ju | Definition of abbreviations: GOLD = Global Initiative for Chronic Obstructive Lung Disease; PR = pulmonary rehabilitation; SPPB = short physical performance battery. *n = 1 missing from PR notes.
+a0mb | Most commonly reported comorbidities included arthritis, asthma, atrial fibrillation, and falls. +n =4 did not start, n =5 did not complete.
+ki8m | by stakeholders with differing backgrounds to work toward a richer and more nuanced understanding of the data (38). The latter included review by coauthors from different disciplines (e.g., nursing, physiotherapy) and representing relevant academic, clinical, and service user experiences. Finally, we constructed a narrative of the findings, with reference to illustrative quotes. Although described as a linear process, we moved forward and backward between the stages as thinking changed and progressed.
+km8w | Ethical Approval
+wzno | The London Camberwell St Giles Research Ethics Committee (ref. 18/LO/1197) approved this study. We obtained written informed consent prior to interviews.
+xagm | Results
+iwn5 | Of 49 eligible people introduced to the study, 19 were interviewed (Table 1). Sixteen people who were eligible and went on to
+uooz | 1215
+```
+
+OUTPUT:
+```

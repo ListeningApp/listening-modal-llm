@@ -1,0 +1,131 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+k78w | Neuroscience and Biobehavioral Reviews 149 (2023) 105179
+g9du | obesity and insulin resistance without being related explicitly to DA-signalling.
+f682 | 3.4.3. Insulin resistance has an impact on reward sensitivity
+li1k | The effect of insulin on motivation and reward sensitivity goes beyond food intake. Insulin deficiency due to fasting increased reward sensitivity in an intracranial self-stimulation task. This effect was reversed by insulin (Carr et al., 2000) and leptin administration (Fulton et al., 2000). Equally, insulin deficiency due to STZ-application increased reward sensitivity, but only in the first (three) weeks (Carr et al., 2000). Afterward, this effect was abolished (Carr et al., 2000) or even turned to the opposite showing reduced reward sensitivity (Ho et al., 2012b). In this case, insulin application improved reward sensi- tivity. Equally HFD for 15-17 weeks reduced the attraction of male ro- dents to female urine, that is normally perceived as rewarding (Dutheil et al., 2016a) indicating that insulin resistance over a longer period of time leads to anhedonia - the loss of experiencing pleasure from usually rewarding activities.
+pbea | 3.4.4. Insulin resistance leads to a depressive, anxious phenotype
+ccpt | Moreover, insulin resistance has been associated with behavioural despair (a core feature of depression) and anxious behaviour (Fig. 3). In life-threatening situations, insulin-resistant mice showed increased immobility in the tail-suspension test and the forced swim test and avoided exploratory behaviour in the open field task and during expo- sition to novel food stimuli indicating anxiety (Cai et al., 2018a; Gilak-Dalasm et al., 2021; Kleinridders et al., 2015).
+0fpw | 3.4.5. Insulin resistance impairs preference formation
+dqn8 | There is accumulating evidence that insulin plays an important role in learning and preference formation. During flavour-nutrient condi- tioning, a previously neutral flavour is associated with a positive post- ingestive consequence (e.g., intragastric glucose infusions) to form a preference for the flavour. While insulin-sensitive rodents fed ad libitum or after food restriction are able to establish flavour preferences, this effect is abolished in insulin resistance following HFD. Particularly, after HFD, there was less IR activation in the NAc after intragastric glucose infusion (Woods et al., 2016). Similarly, flavour-nutrient conditioning was inhibited after deactivating insulin bilaterally in the NAc via local administration of insulin antibodies (Stouffer et al., 2015). To differ- entiate whether this observation was driven by a change in motivation or indeed by a change in the learned reward value, Carr et al. (2022b) analysed the microstructure of licking for glucose: Insulin antibodies did not affect the number of lick bursts emitted (a measure of motivation and/or satiety), but decreased the size of lick bursts (a measure of reward magnitude). This effect was shown to depend on previous flav- oured glucose consumption under insulin antibody treatment rather than on insulin antibody treatment per se, indicating that impaired in- sulin signalling in the NAc (shell) impairs learning by diminishing the estimated reward value rather than motivation per se (Carr and Weiner, 2022b).
+cop0 | 3.4.6. The effect of insulin resistance on motor activity
+lhkq | Several models using insulin resistance after HFD or IR knockout in DA neurons or astrocytes (GIRKO) did not show any changes in volun- tary motor activity (Evans et al., 2018; McNeilly et al., 2016). In STZ-diabetic mice, however, the results are very inconsistent, providing evidence for reduced, increased, and unaffected spontaneous locomotor behaviour (Ho et al., 2012b; Miyata et al., 2003), which might be related to the large variability in STZ-protocols in terms of timing, dosage and strains. These findings suggest that the shortage of insulin availability and the resistance of insulin receptors have differential effects on motor activity.
+82ju | Collectively, impaired insulin signalling increases food approach, attenuates value formation and preference learning and promotes anhedonia and anxious behaviour. However, it is important to consider,
+y2qo | that many aspects of reward-seeking behaviour, that are distorted by impaired insulin signalling, cannot be solely attributed to DA signalling in the VTA or NAc but are also related to their interaction with further brain systems (Fordahl and Jones, 2017; Patel et al., 2019c; Stouffer et al., 2015).
+1piq | 3.5. Effect of insulin resistance on reward behaviour in humans
+7fqw | There is no direct measure of central insulin resistance in humans (see Appendix, Tables S8-S10). Using [(18)F] fluorodeoxyglucose positron emission tomography (FDG-PET), Antony et al. (Anthony et al., 2006) discovered that glucose metabolism in regions subserving appe- tite and reward, including the mesostriatal system, is impaired in response to peripheral insulin administration in diabetes patients compared to healthy controls. This indicates that peripherally measured insulin resistance can be used as a surrogate for central insulin resis- tance. Since PET using radioactive ligands is limited in its accessibility, fMRI has emerged as a valuable tool for studying changes in brain sig- nalling associated with insulin resistance. In fact, using resting state fMRI data, we demonstrated that the modulation of midbrain (SN/VTA) connectivity by intranasal insulin is compromised in participants with decreased peripheral insulin sensitivity (Edwin Thanarajah et al., 2019).
+rhaz | 3.5.1. Insulin resistance changes food preference
+wak1 | Tiedemann et al. (2017) showed that non-diabetic participants with incipient insulin resistance have a lower preference for food items than healthy controls along with diminished activation of the NAc. At the same time, others reported that food-specific responses within the basal ganglia including the NAc are significantly greater in participants with insulin resistance or type 2 diabetes than in healthy controls (Chechlacz et al., 2009; Van Vugt et al., 2013). Stronger activation in the NAc was related to higher appetite ratings (Chechlacz et al., 2009). Besides the immediate response to food cues, the anticipatory response has also been shown to increase proportionally with BMI and insulin resistance (Simon et al., 2014). However, these studies have to be interpreted with care, because they included small sample sizes and differ in the fasting conditions and study populations (Alsaadi and Van Vugt, 2015; Chech- lacz et al., 2009; Van Vugt et al., 2013). Studies assessing the modulation of the brain response to food pictures by insulin have been more consistent: both intranasal insulin, as well as a glucose challenge (which causes elevated insulin secretion), fail to decrease the brain signal to food pictures in insulin-resistant participants indicating that the ability of insulin to curb food intake by reducing the salience of (highly palatable) food cues may be impaired (Alsaadi and Van Vugt, 2015; Belfort-DeAguiar et al., 2016; Tiedemann et al., 2017). In line, during fasted conditions, intranasal insulin failed to decrease wanting for food in insulin-resistant participants (Kullmann et al., 2015; Tiedemann et al., 2017). However, a recent study demonstrated that in post-prandial conditions, a high dose of (160 IU) intranasal insulin reduced snacking in overweight women with insulin resistance (Hallschmid et al., 2012b; Schneider et al., 2022) suggesting that suffi- ciently high doses of intranasal insulin may enhance satiety signalling and compensate for reduced central insulin sensitivity.
+wtfz | 3.5.2. Impact of insulin resistance on learning and motivation
+qy1i | As observed in rodent studies, the effects of insulin resistance on brain DA signalling are not limited to food intake behaviour. Lower ß- cell function and lower insulin sensitivity were related to increased delayed reward discounting indicating more impulsive choices prefer- ring a small, immediate monetary reward, over a larger, delayed reward (Eisenstein et al., 2015). In line, more impulsive behaviour in the stop signal task of insulin-resistant subjects was mediated by striatal activa- tion (Eckstrand et al., 2017). Furthermore, overweight and obesity, which can be concomitant with insulin resistance, are associated with impaired learning from negative feedback (Coppin et al., 2014; Mathar et al., 2017). Human studies reveal that insulin resistance also affects
+1k9e | Neuroscience and Biobehavioral Reviews 149 (2023) 105179
+5bjs | motivation. The influence of insulin on motivation highly depends on a person's satiety/hunger state of the organism: while hunger is associ- ated with higher motivation for reward in insulin-sensitive humans, this effect gets lost in insulin-resistant humans (Hanssen et al., 2021). In- terventions improving insulin signalling (such as GLP-1 analogues) restore the effect of hunger on motivation in insulin-resistant humans. Importantly, this holds true for both food and monetary reward, indi- cating that insulin resistance not only impairs food related behaviour but is relevant for pathological states characterized by generally diminished motivational behaviour.
+uodj | Collectively, and aligned with the preclinical findings, impaired in- sulin signalling in humans impairs food cue reactivity, learning and nutritional state-dependent motivation for reward.
+k16v | 4. Clinical link to depression
+b2lm | Given the influence of insulin and insulin resistance on reward behaviour, it is unsurprising that epidemiological studies have estab- lished a clear link between diabetes and depression and in particular anhedonia (Khaledi et al., 2019). Multiple meta-analyses showed a strong relationship between depression/anhedonia and obesity (which is associated with insulin resistance) (Abou Abbas et al., 2014; de Wit et al., 2010; Pereira-Miranda et al., 2017; Xu et al., 2011). Indeed, longitudinal studies demonstrated, that obesity increased the risk of experiencing depressive symptoms 1-5 years later (Frank et al., 2022), indicating a causal role on an epidemiological level. Interestingly, this association was not explained by socio-demographic, lifestyle, or illness-related factors, including systemic inflammation suggesting that metabolic dysregulation (and potentially insulin resistance) may play a direct role in the pathophysiology of depressive symptoms. Indeed, recent meta-analyses bridge the link between obesity and depression showing that insulin resistance increases the risk for depression: The prevalence of depression is increased to 19.1 % (range 6.5-33 %) for people with type II diabetes compared to 10.7 % (range 3.8-19.4 %) in people without diabetes. This is further supported by genetic studies, that report a genetic overlap between obesity, type II diabetes, and depression (Fanelli et al., 2022).
+ti7f | The link between insulin resistance and depression is bidirectional. In depressed patients, both insulin levels and the Homeostatic Model Assessment for insulin resistance (HOMA-IR) - a proxy for peripheral insulin resistance - are elevated during the acute episode but not during remission (Fernandes et al., 2022). Insulin resistance is associated with increased disease severity (Watson et al., 2021) and compromised an- tidepressant' treatment efficacy (Jeremiah et al., 2020; Lin et al., 2015). In a sub-analysis, Fernandes et al. (2022) revealed that in particular "atypical depression" is linked to increased insulin resistance. Although the concept of "atypical depression" (mood reactivity, hyperphagia, hypersomnia, interpersonal difficulty) is still under debate, notably increased appetite and weight gain belong to the core features of this subtype. In fact, about 35 % of MDD patients report increased appetite during a depressive episode, and about 20 % of MDD patients gain weight (Maxwell and Cole, 2009). Moreover, weight gain across depressive episodes is highly correlated within patients, suggesting a trait-like character (Stunkard et al., 1990). Therefore, it is unclear whether increased food intake results in reduced peripheral insulin sensitivity, or rather insulin resistance leads to mesolimbic dysregula- tion that is known to drive food intake (see 3.3). Supporting the latter hypothesis, Simmons et al. (2020) discovered that increased appetite in MDD patients was related to insulin resistance and low-grade inflam- mation (IL-1RA and IL-6) although the BMI was not different from pa- tients with reduced appetite. In fact, the extent of insulin resistance correlated with the insular cortex response to food cues. In a large sample of 400 MDD patients, Kroemer et al. (2022) confirmed that the direction of appetite change is characterised by a specific neuronal signature. In resting state fMRI data, they found different NAc functional connectivity patterns between patients with increased and reduced
+oksu | appetite; this study however did not consider metabolic parameters. Beyond appetite changes, anhedonia was found to be strongly linked with poor glycaemic control (OR 1.29, 95 % CI 1.09-1.52) in 5772 MDD patients (Nefs et al., 2012), but in a smaller sample of 604 participants with type 1 and 382 participants with type 2 diabetes, Ehrmann et al. (2017) could not replicate this finding.
+wtow | 4.1. The molecular mechanisms linking diabetes and depression
+o22k | Despite the clear link between diabetes and depression on an epidemiological level, the molecular mechanisms remain unknown. Given the aforementioned evidence on DA-insulin interaction, impaired DA signalling in conditions of central insulin resistance has been pro- posed as a potential mechanism between depressive and anxious symptoms. In the last few years, a wave of fundamental rodent studies has provided evidence that insulin resistance in brain DA pathways can lead to depressive and anxious symptoms. This has been shown across different models of insulin resistance including HFD-induced insulin resistance (Dutheil et al., 2016b; Sharma and Fulton, 2013), STZ-induced diabetes (Ho et al., 2012b; Roostaei et al., 2018), and in- sulin receptor knockout in neurons (Kleinridders et al., 2015) or glial cells (Cai et al., 2018a).
+nwfz | Kleinridders et al. (2015) reported that brain/neuron IR knockout (NIRKO) mice, show age-dependent depressive and anxious behaviour due to impaired mitochondrial function and increased DA turnover by MAO, which is normally suppressed by insulin. Insulin receptor knock-out in glial cells, in turn, reduces ATP exocytosis, resulting in decreased purinergic signalling on DA neurons and subsequently anxi- ety- and depressive-like behaviour (Cai et al., 2018a). Mechanistically, a subsequent hyperdopaminergic state within the amygdala is probably responsible for the increase in anxiety observed in insulin-resistant and diabetic rats (Rebolledo-Solleiro et al., 2016). Interestingly, down- regulation of the IR in the hypothalamus can also induce depressive-like behaviour in rodents (Grillo et al., 2014) indicating that insulin signal- ling in the hypothalamus might also affect DA signalling in the midbrain.
+nvfy | 4.2. Therapeutic approaches targeting insulin pathways
+```
+
+OUTPUT:
+```

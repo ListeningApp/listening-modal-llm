@@ -1,0 +1,161 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+gvwz | The question of sustainability does arise, however. A longer-term and more broad-based commitment by research sponsors is needed to support the field's continued flourishing. This is most likely to occur if public health law researchers spend time educating sponsors and policymakers as to the significance of the problems that the field addresses as well as researchers' ability to provide useful, credible answers. Empirical research examining how research influences policy has emphasized the importance of the relationships between researchers and their audiences (Lavis, Moynihan, et al. 2008). We hope that over time, law and policy studies will become seen as a core component of all public health research solicitations, in the way that ethics is increasingly viewed in the context of genomic, cancer, and other population health research.
+sk5m | Identifying Data Sources
+qws8 | Although a wide array of data sets on health risk exposures, health behaviors, and health outcomes are available, data on health laws are much harder to find (Hadfield 2006; Heise 1999; Mello and Zeiler 2008). Unlike many other areas of public health research, research on public health law and policy has developed few surveillance systems (Brownson et al. 2006; McGowan et al. 2003). Gathering information
+877u | Making the Case for Laws That Improve Health
+rzhj | 195
+bfax | about the patterns of public health law adoption and implementation across states and local governments over time generally is done de novo in each research project.
+f2y8 | Maintaining and updating databases of laws would dramatically im- prove researchers' ability to conduct rigorous policymaking, mapping, intervention, implementation, and mechanism studies at low cost. High standards of transparency concerning the data-collection and coding pro- tocols for such databases would allow subsequent researchers to update publicly available data sets at reasonable marginal cost. In the few in- stances in which such databases have been made available-for example, Ronen Avraham's contribution of a database of state tort reforms, funded by the National Science Foundation (Avraham 2006)-researchers have quickly made them the gold standard source of data in that area of research.
+o7qm | Such examples point to three steps that would help bridge the data gap in PHLR. First, research sponsors need to provide funding to com- pile databases. Second, database architects need to develop and share systematic protocols for finding and classifying relevant laws and reg- ulations. These protocols are best developed in consultation with other researchers in the field so that definitions and typologies are widely recognized as appropriate and suitable for use in other studies. Third, databases need to be made publicly available and easy to locate online.
+d52l | A final step that would contribute to the available data resources for PHLR is better linkages between researchers and public and private holders of relevant data. Hospitals and clinics, public health agencies, insurance companies, and product manufacturers are just some of the en- tities that hold a treasure trove of data relevant to PHLR. Building trust with these data holders, so that they feel confident that the informa- tion they share will be appropriately safeguarded and research findings responsibly reported, takes time and care but is well worth the effort. The widespread adoption of standard protocols for using, protecting, and reporting proprietary data could help establish trust, but much will remain dependent on carefully cultivated personal relationships.
+qlbb | Promoting Policymakers' Use of PHLR Findings
+nhsg | The greatest challenge confronting PHLR is an all-too-common one in research: rigorous research may be relevant to policy in theory but
+hy0l | 196
+4jmz | S. Burris et al.
+b7cq | too often is neither salient nor useful to policymakers and advocates in practice. The elements of the problem are well documented. Researchers are often isolated from the policy process and disconnected from poli- cymakers and public health practitioners, making it difficult for them to identify salient topics for study and to produce knowledge that can both respond to policymakers' concerns and drive policy agendas to- ward evidence-based innovation (Brownson, Chriqui, and Stamatakis 2009). Academics tend to follow their own interests and, in policymak- ers' eyes, often do not successfully anticipate where policy agendas will be in the short and medium terms (Jewell and Bero 2008). Rigorous research-not to mention peer review and publication-takes time, but policy actors need information when they need it. Even when results are available, a lack of understanding of policymakers' perspectives, time constraints, and level of scientific literacy hampers researchers' ability to craft research reports that are likely to be read and understood by the policy and practice communities (Jewell and Bero 2008). For their part, policymakers report being overwhelmed by the volume of information presented to them, particularly the quantity of dense, detailed mate- rial (Sorian and Baugh 2002). State legislators face particular challenges owing to their lack of research training, the breadth of issues about which they must become knowledgeable, the short timelines involved, the high turnover of legislators and legislative staff, and the leanness of legislators' staff and resources (Jewell and Bero 2008).
+0b39 | Solutions, like the problems, are not unique to PHLR (Greenhalgh et al. 2004; Mitton et al. 2007). Transferring knowledge from research to policy generally requires careful attention to a set of key questions: What is the precise information to be transmitted? Who exactly are the targets? Who are the best messengers? What media can most effectively be used to transfer the knowledge? For what purposes, exactly, is the information likely to be used (Lavis et al. 2003)?
+qecd | Commentators emphasize the importance of ongoing contact between research producers and research consumers (Innvaer et al. 2002; Lavis, Moynihan, et al. 2008). Systematic reviews are repeatedly identified as an effective strategy for distilling a large amount of evidence into a us- able form (Community Guide 2009; Fielding and Briss 2006; Jewell and Bero 2008; Lavis et al. 2003; Moulton et al. 2009; RWJF 2009; Sweet and Moynihan 2007). Policy briefs and other translational materials should be geared to the recipient and should "concretize impact"-that is, delineate specific benefits, harms, and costs, including the specific
+1o7p | Making the Case for Laws That Improve Health
+cp13 | 197
+bgre | populations affected, and how particular policy strategies can alter them (Jewell and Bero 2008; Sorian and Baugh 2002). Nor does the entire responsibility lie with researchers. Effective practices have also been iden- tified for organizations engaged in knowledge transfer (Lavis, Oxman, et al. 2008).
+57lp | Training and mentorship within the field can move PHLR toward these practices, as can hands-on experience when researchers spend time working in policy settings. But there are no panaceas here. Even when research findings are effectively communicated to policymakers, a variety of forces can get in the way of policymakers' ability and willingness to translate evidence into policy proposals. Among these are the influence of interest groups, the power of anecdotes that contradict research findings, force of habit, cultural norms and values, and political compromises and expediency (Brownson, Chriqui, and Stamatakis 2009; Brownson et al. 2006; Jewell and Bero 2008).
+ukth | At some level, there is little that researchers can do to overcome these forces. Nonetheless, well-designed translational materials and strategies that reflect an understanding of the constraints that policymakers face certainly have a greater chance of carrying the day than do research reports that are physically and cognitively inaccessible to policymak- ers. In addition, building strong relationships with public health law practitioners can help ensure that researchers and their work are re- sponsive to practitioners' needs. When the streams of problem, policy, and politics merge, events often move quickly (Brownson, Chriqui, and Stamatakis 2009). Policy actors thus need answers to specific questions when the time is right for them, not when it serves the needs of funding, peer-reviewed publication, and promotion. As a field, PHLR must be dedicated to both the long-term work that builds a rigorous evidence base for policy and to a practice of "translational service." The lat- ter includes maintaining contact with policy actors, pursuing models of scholarship that can generate answers on a policy-relevant timeline (such as synthesizing existing evidence and applying it to current issues, or conducting simulation studies), and taking time from academic pursuits to serve as consultants (Fielding and Briss 2006; Jacobson, Butterill, and Goering 2005). In the long run, all participants in PHLR-researchers, funders, consumers-have to work to narrow the gap between research that is fundable and research that is needed, and to invest in knowl- edge translation for its own sake. None of this is peculiar to PHLR, but researchers in this emerging field can aspire to be exemplary in their
+kpvt | 198
+jie2 | S. Burris et al.
+d0ik | efforts, attending to and putting into practice the insights of research on translating evidence into policy.
+0x0s | Conclusions
+4exe | Lawyers have long proclaimed the maxim that "the health of the peo- ple is the supreme law," but in practice, making law work for public health is a constant challenge. PHLR's contribution is to provide the evidentiary foundation for these efforts. Through policymaking studies, PHLR can identify forces that shape public health policy and strategies for effecting policy change. Mapping studies can show what has been done and thus what kind of action various government units can take. Through implementation studies, PHLR can provide information about how best to ensure that "law on the books" becomes effective "law on the streets." Through intervention studies, it can determine which legal approaches are most efficacious in improving health environments, be- haviors, and outcomes and can identify harmful legal side effects. Finally, PHLR mechanism studies can tell us why laws have the effects they do, and what mechanisms we can use to improve the effectiveness of legal interventions.
+0myz | Although researchers carrying out this work and collectively advanc- ing this vision face significant challenges, a combination of forces has brought us closer to meeting these challenges than ever before. The interest of research sponsors, the broader trend toward interdisciplinary research, the increasing number of legal scholars trained in social science disciplines, and signals from Washington that policy will increasingly be driven by evidence and expertise are all cause for optimism (Obama 2009).
+xh3i | A recent posting on a law professor's blog raised the question of "whether empiricism is a methodology or a philosophy" (Lipshaw 2009). We argue it is both. We urge scholars of public health law to explore and recognize the value of empirical methods. We also hope that scholars and policymakers will adopt the philosophy that evidence derived from rigorous research ought to inform, if not drive, health policy decisions. Through the production of knowledge and conscientious efforts to trans- late research findings for decision makers, PHLR can make the case for laws that improve health.
+syiw | Making the Case for Laws That Improve Health
+kg3t | References
+lvae | 199
+o9sc | S. Burris et al.
+121u | Bluthenthal, R.N., K.G. Heinzerling, R. Anderson, N.M. Flynn, and A.H. Kral. 2007. Approval of Syringe Exchange Programs in California: Results from a Local Approach to HIV Prevention. Amer- ican Journal of Public Health: AJPH.2005.080770.
+zh03 | Making the Case for Laws That Improve Health
+1mvw | Dinh-Zarr, T.B., D.A. Sleet, R.A. Shults, S. Zaza, R. W. Elder, J.L. Nichols, R.S. Thompson, and D.M. Sosin. 2001. Reviews of
+6d4s | S. Burris et al.
+mqah | 202
+xxr8 | Gostin, L.O., Z. Lazzarini, V.S. Neslund, and M.T. Osterholm. 1996. The Public Health Information Infrastructure. A National Review of the Law on Health Information Privacy. Journal of the American Medical Association 275:1921-27.
+rl4j | Making the Case for Laws That Improve Health
+vz32 | 203
+ncb0 | Henry, B.L., F.D. Scutchfield, and D.J. Pérez. 2008. Tapping the Poten- tial: Tackling Health Disparities through Accreditation and Public Health Services and Systems Research. Journal of Public Health Man- agement and Practice 14(suppl.):S85-87.
+8mp0 | S. Burris et al.
+xjyk | 204
+mt0f | Kahnemann, D., P. Slovic, and A. Tversky. 1982. Judgment under Un- certainty: Heuristics and Biases. Cambridge: Cambridge University Press.
+awab | Making the Case for Laws That Improve Health
+ixcc | 205
+8p6h | Lobel, O. 2004. The Renew Deal: The Fall of Regulation and the Rise of Governance in Contemporary Legal Thought. Minnesota Law Review 89:342-471.
+pmgl | 206
+90no | S. Burris et al.
+jt0y | McGowan, A., M. Schooley, H. Narvasa, J. Rankin, and D.M. Sosin. 2003. Symposium on Public Health Law Surveillance: The Nexus of Information Technology and Public Health Law. Journal of Law Medicine & Ethics 31:41-42.
+qb7o | Making the Case for Laws That Improve Health
+oae5 | 207
+s0fl | Mello, M.M., and T. Brennan. 2002. Deterrence of Medical Errors: Theory and Evidence for Malpractice Reform. Texas Law Review 80: 1595-1638.
+43ia | 208
+3g2y | S. Burris et al.
+gc7v | Making the Case for Laws That Improve Health
+wqfv | 209
+j30a | S. Burris et al.
+7bdk | Acknowledgments: The authors thank Evan Anderson for his assistance in prepar- ing this article; and Angie McGowan, Prabhu Ponkshe, F. Douglas Scutchfield, and The Milbank Quarterly's reviewers for helpful comments on an earlier ver- sion of this manuscript. The authors' work was supported by a grant from the Robert Wood Johnson Foundation. The opinions expressed in this article are the responsibility of the authors and do not necessarily represent the view of the foundation.
+```
+
+OUTPUT:
+```

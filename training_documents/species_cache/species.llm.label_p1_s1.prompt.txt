@@ -1,0 +1,142 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+1pjs | Forum
+o2kr | A Conceptual Framework for Range-Expanding Species that Track Human-Induced Environmental Change
+v6sk | FRANZ ESSL, STEFAN DULLINGER, PIERO GENOVESI, PHILIP E. HULME, JONATHAN M. JESCHKE, STELIOS KATSANEVAKIS, INGOLF KÜHN, BERND LENZNER®, ANÍBAL PAUCHARD, PETR PYŠEK, WOLFGANG RABITSCH, DAVID M. RICHARDSON, HANNO SEEBENS, MARK VAN KLEUNEN, WIM H. VAN DER PUTTEN, MONTSERRAT VILA, AND SVEN BACHER
+1wj6 | For many species, human-induced environmental changes are important indirect drivers of range expansion into new regions. We argue that it is important to distinguish the range dynamics of such species from those that occur without, or with less clear, involvement of human-induced environmental changes. We elucidate the salient features of the rapid increase in the number of species whose range dynamics are human induced, and review the relationships and differences to both natural range expansion and biological invasions. We discuss the consequences for science, policy and management in an era of rapid global change and highlight four key challenges relating to basic gaps in knowledge, and the transfer of scientific understanding to biodiversity management and policy. We conclude that range-expanding species responding to human-induced environmental change will become an essential feature for biodiversity management and science in the Anthropocene. Finally, we propose the term neonative for these taxa.
+936l | Keywords: biogeography, biological invasions, climate change, framework, global environmental change, native, range expansion, spread, terminology
+06yq | W Videly accepted definitions of the nativeness of species-or, more generally, of taxa-are based on a dichotomous classification (i.e., native, meaning indigenous, and alien, meaning nonnative, exotic, nonindigenous; Webb 1985, Richardson et al. 2000, Pyšek et al. 2004, Blackburn et al. 2011, Crees and Turvey 2015, Wilson et al. 2016, Essl et al. 2018). Native taxa are those that have arisen through evolution in a region or have colonized a region by their own means of dispersal. Alien taxa are those that have been transported by specific human agency-that is, the anthro- pogenic movement of propagules or parent organisms, respectively, or the dispersal through human-constructed corridors, such as canals (Essl et al. 2018)-into regions that could not be reached (or could only be reached in very rare cases) by natural dispersal (Pyšek et al. 2004).
+dpv6 | Despite considerable debate (e.g., Warren 2007), the basic principles on how native and alien species should be classified have become widely accepted in science (e.g., Richardson et al. 2000, Blackburn et al. 2011, Essl et al. 2018) and environmental policy (e.g., CBD 2002). However, there is ongoing debate on how this dichotomy should be applied in practice, because of the multitude of situations in
+8r5j | BioScience 69: 908-919. @ The Author(s) 2019. Published by Oxford University Press on behalf of the American Institute of Biological Sciences. All rights reserved. For Permissions, please e-mail: journals.permissions@oup.com. doi:10.1093/biosci/biz101
+2taz | 908 BioScience . November 2019 / Vol. 69 No. 11
+o3ya | Downloaded from https://academic.oup.com/bioscience/article/69/11/908/5569676 by Alfred-Wegener-Institut fuer Polar- und Meeresforschung - Bibliothek user on 10 September 2023
+r5il | which human agency may be involved in range expansion and because of the paucity or uncertainties of available taxo- nomic and biogeographic data (Essl et al. 2018). Less atten- tion has been paid to situations in which range expansion is the result of human modifications of the environment that have led to changes in the distribution of suitable environ- mental space, allowing a species to disperse naturally to and establish in new areas previously not colonized. The only example we are aware of that systematically distinguished between natural and anthropogenic occurrences-in this case, of vascular plant species-is the New Atlas of British and Irish Flora (Preston et al. 2002).
+5gui | Human activities increasingly cause environmental per- turbations, such as climate change, land-use change, over- harvesting, eutrophication, and pollution. The resulting changes in biophysical attributes of the environment affect the distribution of species in different ways (e.g., Pereira et al. 2010, Waters et al. 2016, Pecl et al. 2017). Many spe- cies experience population declines or local extinction (e.g., Baker et al. 2018) that result in shrinking ranges or even global extinction (Wessely et al. 2017). Other species track the shifting environmental conditions by colonizing new
+82qc | Advance Access publication 25 September 2019
+ls7d | https://academic.oup.com/bioscience
+tzt3 | geographical space, at widely varying rates (Chen et al. 2011, Pinsky et al. 2013), and there are many species that react differently to human-induced environmental change in dif- ferent parts of their ranges (particularly at the northern and southern distribution limits or upper and lower elevational limits, respectively). The phenomenon of geographic range expansion is becoming increasingly frequent (e.g., Lenoir and Svenning 2015), the velocity of range expansion is often increasing (Devictor et al. 2012, Steinbauer et al. 2018), and ongoing rapid environmental change will doubtlessly amplify these processes in the future (e.g., Loarie et al. 2009, Pecl et al. 2017). For instance, recent range expansion into higher latitudes and altitudes have frequently been docu- mented as a consequence of anthropogenic climate change, in particular for mobile species (e.g., Chen et al. 2011, Devictor et al. 2012, Steinbauer et al. 2018).
+t8vv | This situation is blurring the distinction between native and alien species and has fuelled debate on how to clas- sify taxa that respond to human-induced environmental changes by expanding their ranges without any specific human assistance into new regions that are often adjacent to their native range. Some authors have suggested that such taxa should be considered as native (e.g., Webber and Scott 2012, Hoffmann and Courchamp 2016, Gilroy et al. 2017). Others, while agreeing partly with this view, have proposed that alien status may be applied if there is a strong indirect human contribution (e.g., the creation of novel ecosystems such as heated environments-e.g., greenhouses, power plant cooling ponds-in the newly colonized region) that is a prerequisite for such autonomous range expansion (e.g., Essl et al. 2018). Finally, some authors have suggested that all such species should be considered as aliens, because of the underlying indirect human agency and because their range expansion is clearly attributable to human-caused environ- mental changes (e.g., Ben Rais Lasram and Mouillot 2009) or, at least, cannot be considered native using the current definitions (Pyšková et al. 2016). The classification of such range-expanding species as native or alien has important ramifications for environmental legislation and biodiversity management. This is because, although both groups can cause major effects on communities and ecosystems, they often carry different obligations for responsible authorities.
+qvnu | We argue that there can be substantial differences regard- ing the spread dynamics and characteristics, as well as the impacts caused, between taxa that are naturally expanding their range solely because of anthropogenic environmental change, native species that have been present in a region since historic times, and alien species that have been directly introduced by humans from another region. The increasing frequency of naturally range-expanding taxa (e.g., Engelkes et al. 2008, Chen et al. 2011, Devictor et al. 2012), and the unclear situation in management and regulations warrants recognizing these species as a special category. In the present article, we elucidate the salient features of the rapid increase in the number of range-expanding species, review the rela- tionships and differences between resident native and alien
+kggw | https://academic.oup.com/bioscience
+xrd1 | Forum
+5746 | species, and discuss the consequences for science, policy, and management of expanding taxa in an era of rapid global change. Finally, we consider the pros and cons of introduc- ing a new term (neonative) for range-expanding species that track human-induced environmental change.
+7toz | Downloaded from https://academic.oup.com/bioscience/article/69/11/908/5569676 by Alfred-Wegener-Institut fuer Polar- und Meeresforschung - Bibliothek user on 10 September 2023
+j346 | The temporal dimension of human-induced environmental changes
+v8uq | Indirect human agency has been a driver of species range expansion since the Neolithic Age, in which substantial human modifications of natural environments, through deforestation, onset of agriculture, and anthropogenic changes of the fire cycle are first recorded. Indeed, humans already affected the environment earlier-that is, when hunter-gatherers through their use of fire for hunting stimulated the growth of certain fire-adapted plants that profoundly changed ecosystems or because of the extinction of the megafauna (Alroy 2001). With the onset of agricul- ture, anthropogenic landscape modifications became a more widespread phenomenon. Around 1500 CE, however, agri- culture was still largely confined to a few parts of the world (figure 1; Chini et al. 2014). From the late eighteenth century onward, the beginning of the industrial revolution led to an exponential increase of human population size, agricultural industrial activities and the release of pollutants and fertil- izers into the environment, a trend that became particularly pronounced after World War II-the Great Acceleration (Steffen et al. 2007).
+x972 | Together, the intensifying anthropogenic changes of the environment since the mid-twentieth century have resulted in the current human domination of most Earth's system processes and in widespread substantial modifications of ecosystem properties, such as nutrient and energy stocks and flows, habitat destruction, and in the accumulation of pol- lutants, man-made substances (e.g., plastic) and structures (e.g., buildings; Vitousek 1997). Concomitantly, humans have become the prime force for redistributing species across the globe, either by direct (transport of propagules) or strong indirect agency (human-made corridors connecting previously separated regions) that have resulted in biologi- cal invasions (Elton 1958, Richardson et al. 2000, Blackburn et al. 2011, Essl et al. 2018), or by causing environmental change that has resulted in species latitudinal and altitudinal range reductions as well as expansion.
+cwrw | Do we need a distinct classification for species expanding their ranges as a consequence of environmental change?
+4i0e | Range expansion in response to human-induced environ- mental changes have become a frequent phenomenon and are likely to continue becoming even more prominent in the future. Because of the profound implications this phenome- non has for biogeography, ecology, policy and management, range expansion involving species that track the changing environmental conditions according to their niche, without specific human assistance, require further elucidation.
+h2l3 | November 2019 / Vol. 69 No. 11 . BioScience 909
+dfzb | Forum
+u6ty | Regional species pools
+awvu | Figure 1. The temporal changes of the composition and size of regional species pools over time from early human history to the present, and with projections of likely future trends into the future (shown with broken lines). Shown are important reference dates or events, and the resulting changes in biogeographically defined regional species pools. The absolute size of regional species pools changes naturally over time because of local extinction, natural immigration and evolution (speciation; not shown in the present figure). The size of regional species pools also changes over time as a result of human activities-that is, because of the regional extinction of native species, and because of the introduction of alien species, and the spread of range-expanding species responding to human-induced environmental change (i.e., neonative species). Note that x- and y-axes are not to scale, nor are the relative sizes of different species groups. The timing of some important events (e.g., the regional appearance of humans, the Agricultural Revolution) differs between regions, and, therefore, no absolute dates are given for these events. Note that we show the approach that uses the onset of the Anthropocene as temporal threshold; if this is relaxed, range-expanding species from earlier times can also be neonative.
+on9b | First, the processes involved in the range expansion of such species differ considerably from those underlying bio- logical invasions because of the absence of human agency (other than human-induced environmental change), the lack of anthropogenic propagule pressure, and the typically intracontinental pattern of relatively short- to medium- distance spread adjacent to the historical native range (Caplat et al. 2013, but see, e.g., Viana et al. 2016 for inter- continental seed dispersal with migrating birds).
+a8ge | Second, range-expanding species responding to human-induced environmental changes are becoming an increasingly important challenge for conservation and
+h27a | 910 BioScience . November 2019 / Vol. 69 No. 11
+pdjh | Downloaded from https://academic.oup.com/bioscience/article/69/11/908/5569676 by Alfred-Wegener-Institut fuer Polar- und Meeresforschung - Bibliothek user on 10 September 2023
+xmgs | environmental management in many parts of the world. For instance, should such range expansion be facilitated by increasing permeability or connectivity of landscapes (e.g., green infrastructure; EEA 2011) to allow the spread of species to new regions that are presumed to have become climatically suitable? What are the likely impacts of range expansion on resident biota, how can these be anticipated, and do the range expanders need to be managed, and if so, how? Which properties of species and the environment, and which types of environmental change affect the likelihood that a particular species will track the changing environmen- tal conditions? In some cases, facilitating range expansion
+bd9h | https://academic.oup.com/bioscience
+m047 | (by creating dispersal corridors) may be crucial for ensuring species survival under rapid environmental change.
+gy8c | Characteristic features of range-expanding taxa responding to human-induced environmental change
+y4mj | For a taxon to qualify as range expanding due to human- induced environmental change, we suggest that it has to fulfill the following criteria: Its range has expanded beyond the historic native range, the range expansion has been facil- itated by human-induced environmental change, the range expansion is not due to direct human agency (e.g., introduc- tion of propagules), the population status of recent occur- rences (i.e., being permanent or ephemeral) outside the historic native reference range, and-optionally-the range expansion has occurred within a timeframe that points to anthropogenic environmental change. We will discuss each of these features in detail and we propose a term for such species (neonative) below.
+vpgq | Applying the above-mentioned criteria in practice will often be difficult because of a lack of data (e.g., when did a species expand its range; what are the causal factors under- lying the expansion?). Therefore, using expert knowledge and developing practical guidelines and thresholds will be essential for ensuring the usefulness and robustness of assessments of range-expanding taxa. We provide some recommendations on thresholds as a basis for future discus- sions to reach a widely accepted consensus.
+```
+
+OUTPUT:
+```

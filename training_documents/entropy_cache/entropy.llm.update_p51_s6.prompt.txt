@@ -1,0 +1,112 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document. Your task is to faithfully reproduce the text for our text-to-speech engine so that it is easily read aloud.
+
+Note that the text might not start at the beginning and paragraphs may be split acrosss multiple textboxes. Textboxes may start or end in the middle of a word which is acceptable: do not combine text between textboxes and leave broken words at the start and end of a textbox unchanged.
+
+You will receive one textbox per-line in the format `id | Textbox content`. The output must be in the format `id | Clean content`.
+
+RULES:
+ • Remove inline citations and references e.g. "(Author, 2021)" or "(https://wikipedia.org/article.html)" or "[ECMOS 35b, 47, 49]".
+ • Spell out numbers, dates, and chemical formulas for the TTS engine e.g. "-2.5" -> "negative two point five" or "Jan. 2020" -> "January twenty twenty".
+ • Spell out LaTeX formulas for the TTS engine e.g. "<LATEX>p = 1</LATEX>" -> "P equals one".
+ • Rejoin hyphenated word fragments within the same textbox e.g. "synth -esize" -> "synthesize".
+ • Fix simple typos and OCR errors e.g. "O nce upon a 1ime." -> "Once upon a time.".
+ • Delete nonsequiter textboxes that interrupt the middle of a sentence if they obviously do not belong.
+
+Otherwise, the output should exactly match the input text:
+ • Do not combine text across lines or attempt to fix words broken across lines.
+ • Ensure each ID from the input is included in the output.
+ • Make as few changes as possible while respecting the above rules.
+
+EXAMPLE INPUT:
+```
+ccpt | stigate the effectiveness of psychedelics for ADHD symp- toms in adults.
+0fpw | 2. Materia1 and methods
+dqn8 | 2.1. Study design and participants
+cop0 | The study employed a naturalistic design, assessing the experiences of participants at bas-,
+lhkq | eline before they start, and at 2 and 4 weeks after initiation. The target population included adults with ADHD symptoms who had not been diag- nosed with ADHD before. To be included, participants needed to score on Conner's Adult ADHD Rating Scale (CAARS-S:SV). This cut-off was indicative of clinically elevated symptoms (Conners et al., 1999) (see section 2.3).
+82ju | 2.2. Study procedure
+y2qo | The online advertisement was placed on a website providing information about psychedelics (www.microdo sing.nl). Interested participants were redirected to information explaining the study rationale and procedure. The baseline survey took 20 min to complete. If the survey had not been completed after 24 h, a reminder was sent. Each of the surveys at the 2- and 4-week time points took about 15 min to complete. Par- ticipants were able to pause the surveys. Data collection occurred between Nov. 2020 and Jul. 2021. The study was approved by the Ethics Review Committee of Psy- chology and Neuroscience at Maastricht University (ERCPN- 215_05_11_2019_A1).
+1piq | 2.3. Measures
+7fqw | 2.3.1. Demographic information and history of substance use
+rhaz | At baseline, demographic information was collected. History of substance use assessed experience with psyche- delics (i.e., ayahuasca, DMT, 5-MeO-DMT, LSD, novel lysergamides (e.g., 1P-LSD, ALD-52), psilocybin, salvia divinorum, ibogaine, and mescaline) in both full (psychedelic) doses and microdoses.
+wak1 | 2.3.2. Psychiatric and physiological diagnoses
+wtfz | Participants were asked whether they had a current diagnosis of a disorder. These answer options were chosen because most of the listed diagnoses are often reported to co-occur with ADHD (Kooij et al., 2019), or because these diagnoses were reported to be common in people who microdose (Fadiman and Korb, 2019). We 
+3j2l | REVIEW ARTICLE Frontiers in Psychiatry | www.frontiersin.org
+03k3 | 2
+1k9e | constructed a variable Comorbidity alongside ADHD, differenti- ating respondents with and without a comorbid diagnosis alongside ADHD (<LATEX>p < . 0 0 1 =</LATEX> only ADHD or no ADHD diagnosis; <LATEX>p > . 0 1 =</LATEX> ADHD and at least one other diagnosis). We constructed a variable Medication use alongside microdosing, differentiating respondents who were and were not using conven- tiona1 ADHD medication alongside microdosing (<LATEX>0 =</LATEX> only microdosing; <LATEX>1 =</LATEX> conven-
+```
+
+EXAMPLE OUTPUT:
+```
+ccpt | stigate the effectiveness of psychedelics for ADHD symptoms in adults.
+0fpw | Two. Material and methods
+dqn8 | Two point one. Study design and participants
+cop0 | The study employed a naturalistic design, assessing the experiences of participants at bas-,
+lhkq | eline before they start, and at two and four weeks after initiation. The target population included adults with ADHD symptoms who had not been diagnosed with ADHD before. To be included, participants needed to score on Conner's Adult ADHD Rating Scale. This cut-off was indicative of clinically elevated symptoms (see section two point three).
+82ju | Two point two. Study procedure
+y2qo | The online advertisement was placed on a website providing information about psychedelics. Interested participants were redirected to information explaining the study rationale and procedure. The baseline survey took twenty minutes to complete. If the survey had not been completed after twenty-four hours, a reminder was sent. Each of the surveys at the two and four-week time points took about fifteen minutes to complete. Participants were able to pause the surveys. Data collection occurred between November twenty twenty and July twenty twenty-one. The study was approved by the Ethics Review Committee of Psychology and Neuroscience at Maastricht University.
+1piq | Two point three. Measures
+7fqw | Two point three point one. Demographic information and history of substance use
+rhaz | At baseline, demographic information was collected. History of substance use assessed experience with psychedelics (i.e., ayahuasca, DMT, five-MeO-DMT, LSD, novel lysergamides (e.g., one-P-LSD, ALD-fifty-two), psilocybin, salvia divinorum, ibogaine, and mescaline) in both full (psychedelic) doses and microdoses.
+wak1 | Two point three point two. Psychiatric and physiological diagnoses
+wtfz | Participants were asked whether they had a current diagnosis of a disorder. These answer options were chosen because most of the listed diagnoses are often reported to co-occur with ADHD, or because these diagnoses were reported to be common in people who microdose. We
+3j2l |
+03k3 |
+1k9e | constructed a variable Comorbidity alongside ADHD, differentiating respondents with and without a comorbid diagnosis alongside ADHD (P is less than point zero zero one equals only ADHD or no ADHD diagnosis; P is greater than point zero one equals ADHD and at least one other diagnosis). We constructed a variable Medication use alongside microdosing, differentiating respondents who were and were not using conventional ADHD medication alongside microdosing (zero equals only microdosing; one equals conven-
+```
+
+INPUT:
+```
+zrmd | Let's show that for a system with finitely many states i = 1, ... , n with energies Ei, as the temperature T approaches zero from above, the entropy of the system in thermal equilibrium approaches k ln N where N is the number of lowest-energy states. In thermal equilibrium
+vret | Pi xe -Ei/kT.
+urmw | Thus, all states with the lowest energy have the same probability, while as the temper- ature approaches zero from above, any higher-energy states have pi -> 0. So, as the temperature approaches zero from above, the probability of the system being in any one of its N lowest-energy states approaches 1/N, and we get
+hqf9 | 1 T->0+ lim S(T) = lim -kp; Inpi = - k T->0+ i=1 n i=1 N N 1
+7ahf | ln N = kln N.
+1lig | In particular, if the system has just one lowest-energy state, we get the Third Law of Thermodynamics:
+pr1i | lim S(T) = 0.
+7k5c | Here T -> 0+ means that T is approaching zero from above.
+14m3 | But beware: for systems with lots of lowest-energy states, their entropy in thermal equilibrium can be large even near absolute zero! Also, a related problem: systems may take a ridiculously long time to reach equilibrium! This is especially true for systems that have many states whose energies are very near the lowest energy, like a piece of glass. You can put a piece of glass in a fancy refrigerator and try to cool it
+8bf1 | to near absolute zero. If it has one lowest-energy state, its entropy should approach zero. If this happened, the glass would change from glass to a crystal, which has less entropy. But nobody has seen glass turn into a crystal when they cool it down. If this happens, it probably does so only after an absurdly long time, much longer than the age of the Universe. This phenomenon is called 'frustration'. People like to argue about frustration and the Third Law, so I am not trying to give you the final word here, just alert you to the issue. You can learn a bit more here:
+np7s | By the way: for systems with finitely many states, it's possible to have negative temperatures, and the Third Law has a counterpart saying what happens when the temperature approaches zero from below:
+d4te | Puzzle 34. Show that for a system with finitely many states,
+iw5h | lim S(T) = k ln M
+9ogk | where M is the number of states of highest energy.
+ypjv | However, most systems we'll be studying won't have a state of highest energy.
+kegn | MEASURING ENTROPY
+pu1o | If we assume the entropy of a system approaches zero as <LATEX>T</LATEX> approaches zero from above, we have
+t2ag | <LATEX>\int _ { 0 } ^ { T _ { 1 } } \frac { d \langle E \rangle } { T } = S \left( T _ { 1 } \right)</LATEX> Using this assumption, we can do experiments to measure the entropy of different substances at standard temperature and pressure:
+1a77 | · iron: <LATEX>\sim 5</LATEX> bits per atom
+kras | · water: <LATEX>\sim 1 2</LATEX> bits per molecule
+ktuk | · hydrogen: <LATEX>\sim 2 3</LATEX> bits per molecule
+p4za | People actually do experiments and use the above formula to figure out the entropy of many substances in thermal equilibrium assuming their entropy vanishes as the tem- perature approaches absolute zero. They slowly heat up a substance and keep track of how much energy is needed to raise its temperature as they go, so they can approxi- mately calculate the integral shown. They usually report the answers in joules/kelvin per mole, but I enjoy 'bits per molecule'.
+r437 | As you can see, liquids tend to have more entropy than solids, and gases tend to have even more. My goal in this course is to teach you how to approximately compute some of these entropies from first principles. Unfortunately the only substances that are simple enough for us to handle are gases.
+mqfd | This is a good opportunity to explain some conventions. A mole is defined to be exactly 6.02214076 . 1023 this is called Avogadro's number, and it's close to the number of hydrogen atoms in a gram. A joule/kelvin of Gibbs entropy corresponds to about 7.242297 . 1022 nats of Shannon entropy: the number here is the reciprocal of Boltzmann's constant, which is defined to be exactly 1.380649 · <LATEX>1 0 ^ { - 2 3 }</LATEX> joules per kelvin. A bit is ln 2 nats. From these three facts, we see 1 joule/kelvin of Gibbs entropy per mole corresponds to about 0.173516 bits/molecule of Shannon entropy.
+g6we | By the way, what is 'standard temperature and pressure'? Annoyingly, this phrase means different things to different organizations. I will try to always use it to mean a temperature of 298.15 K and a pressure of 1 bar. The temperature here equals 25 ℃, which seems a bit random compared to 0 ℃-but convenient, because it's close to room temperature. A pressure of 1 bar, or more officially 100 kilopascals, is slightly less than a 'standard atmosphere', which is a unit of pressure intended to equal the average air pressure at sea level. A pascal is an official SI unit: it's a pressure of one newton per square meter.
+b6if | THE EQUIPARTITION THEOREM
+gccv | Suppose the energy of a system with n degrees of freedom is a positive definite quadratic form E : R" -> R, for example
+vi11 | E(x) => i=1 n Ciac? 2
+7apu | Ci > 0
+m9ca | Then in thermal equilibrium at temperature T, the expected value of the energy is
+weud | (E) = = nkT 1
+h3u6 | where k is Boltzmann's constant.
+ijlq | Temperature is very different from energy. But sometimes not very often, but sometimes the expected energy of a system in thermal equilibrium is proportional to its temperature. The equipartition theorem says this happens when the energy depends quadratically on several real variables, defining a positive definite quadratic form on R". For example, it happens for a classical harmonic oscillator.
+atn2 | Some people get confused and try to apply the equipartition theorem where it doesn't apply. They foolishly conclude that temperature is always proportional to energy.
+ubo6 | This theorem does not apply to quantum systems. Indeed, when people tried to apply the equipartition theorem to a mirrored box of light they ran into a problem called the ultraviolet catastrophe. Classically the box of light is a system where the energy is a positive definite quadratic form, but n = 0, so they got an infinite expected value of the energy! Quantum mechanics saves the day and makes the answer finite.
+zue6 | Radiation
+w027 | Visible
+cibw | The equipartition theorem also doesn't apply to classical systems unless the energy is quadratic. So it's very limited in its applicability, but still useful.
+8lrx | Let's prove this result! To prove a theorem, you have to understand the definitions. We'll start with some background.
+e9ut | THE EQUIPARTITION THEOREM-BACKGROUND
+tbja | Suppose the energy of a system with n degrees of freedom is some function E : R" > R
+0m6e | Let k be Boltzmann's constant. Suppose p: R^ -> R is a probability distribution maximizing the entropy
+cbgu | S = - k | Rn p(x) In p(x) d"x subject to a constraint on the expected energy
+uzqg | (E) = /Rn E(x)p(x) d"x
+shuh | Then p must be a Boltzmann distribution:
+5p1h | JRn e-BE(x) d"x e-BE(x)
+7ay7 | p(x) =
+2wa8 | for some number 3 > 0.
+azez | The temperature T is defined so that $ = 1/kT.
+```
+
+OUTPUT:
+```

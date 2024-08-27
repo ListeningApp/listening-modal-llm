@@ -1,0 +1,88 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document. Your task is to faithfully reproduce the text for our text-to-speech engine so that it is easily read aloud.
+
+Note that the text might not start at the beginning and paragraphs may be split acrosss multiple textboxes. Textboxes may start or end in the middle of a word which is acceptable: do not combine text between textboxes and leave broken words at the start and end of a textbox unchanged.
+
+You will receive one textbox per-line in the format `id | Textbox content`. The output must be in the format `id | Clean content`.
+
+RULES:
+ • Remove inline citations and references e.g. "(Author, 2021)" or "(https://wikipedia.org/article.html)" or "[ECMOS 35b, 47, 49]".
+ • Spell out numbers, dates, and chemical formulas for the TTS engine e.g. "-2.5" -> "negative two point five" or "Jan. 2020" -> "January twenty twenty".
+ • Spell out LaTeX formulas for the TTS engine e.g. "<LATEX>p = 1</LATEX>" -> "P equals one".
+ • Rejoin hyphenated word fragments within the same textbox e.g. "synth -esize" -> "synthesize".
+ • Fix simple typos and OCR errors e.g. "O nce upon a 1ime." -> "Once upon a time.".
+ • Delete nonsequiter textboxes that interrupt the middle of a sentence if they obviously do not belong.
+
+Otherwise, the output should exactly match the input text:
+ • Do not combine text across lines or attempt to fix words broken across lines.
+ • Ensure each ID from the input is included in the output.
+ • Make as few changes as possible while respecting the above rules.
+
+EXAMPLE INPUT:
+```
+ccpt | stigate the effectiveness of psychedelics for ADHD symp- toms in adults.
+0fpw | 2. Materia1 and methods
+dqn8 | 2.1. Study design and participants
+cop0 | The study employed a naturalistic design, assessing the experiences of participants at bas-,
+lhkq | eline before they start, and at 2 and 4 weeks after initiation. The target population included adults with ADHD symptoms who had not been diag- nosed with ADHD before. To be included, participants needed to score on Conner's Adult ADHD Rating Scale (CAARS-S:SV). This cut-off was indicative of clinically elevated symptoms (Conners et al., 1999) (see section 2.3).
+82ju | 2.2. Study procedure
+y2qo | The online advertisement was placed on a website providing information about psychedelics (www.microdo sing.nl). Interested participants were redirected to information explaining the study rationale and procedure. The baseline survey took 20 min to complete. If the survey had not been completed after 24 h, a reminder was sent. Each of the surveys at the 2- and 4-week time points took about 15 min to complete. Par- ticipants were able to pause the surveys. Data collection occurred between Nov. 2020 and Jul. 2021. The study was approved by the Ethics Review Committee of Psy- chology and Neuroscience at Maastricht University (ERCPN- 215_05_11_2019_A1).
+1piq | 2.3. Measures
+7fqw | 2.3.1. Demographic information and history of substance use
+rhaz | At baseline, demographic information was collected. History of substance use assessed experience with psyche- delics (i.e., ayahuasca, DMT, 5-MeO-DMT, LSD, novel lysergamides (e.g., 1P-LSD, ALD-52), psilocybin, salvia divinorum, ibogaine, and mescaline) in both full (psychedelic) doses and microdoses.
+wak1 | 2.3.2. Psychiatric and physiological diagnoses
+wtfz | Participants were asked whether they had a current diagnosis of a disorder. These answer options were chosen because most of the listed diagnoses are often reported to co-occur with ADHD (Kooij et al., 2019), or because these diagnoses were reported to be common in people who microdose (Fadiman and Korb, 2019). We 
+3j2l | REVIEW ARTICLE Frontiers in Psychiatry | www.frontiersin.org
+03k3 | 2
+1k9e | constructed a variable Comorbidity alongside ADHD, differenti- ating respondents with and without a comorbid diagnosis alongside ADHD (<LATEX>p < . 0 0 1 =</LATEX> only ADHD or no ADHD diagnosis; <LATEX>p > . 0 1 =</LATEX> ADHD and at least one other diagnosis). We constructed a variable Medication use alongside microdosing, differentiating respondents who were and were not using conven- tiona1 ADHD medication alongside microdosing (<LATEX>0 =</LATEX> only microdosing; <LATEX>1 =</LATEX> conven-
+```
+
+EXAMPLE OUTPUT:
+```
+ccpt | stigate the effectiveness of psychedelics for ADHD symptoms in adults.
+0fpw | Two. Material and methods
+dqn8 | Two point one. Study design and participants
+cop0 | The study employed a naturalistic design, assessing the experiences of participants at bas-,
+lhkq | eline before they start, and at two and four weeks after initiation. The target population included adults with ADHD symptoms who had not been diagnosed with ADHD before. To be included, participants needed to score on Conner's Adult ADHD Rating Scale. This cut-off was indicative of clinically elevated symptoms (see section two point three).
+82ju | Two point two. Study procedure
+y2qo | The online advertisement was placed on a website providing information about psychedelics. Interested participants were redirected to information explaining the study rationale and procedure. The baseline survey took twenty minutes to complete. If the survey had not been completed after twenty-four hours, a reminder was sent. Each of the surveys at the two and four-week time points took about fifteen minutes to complete. Participants were able to pause the surveys. Data collection occurred between November twenty twenty and July twenty twenty-one. The study was approved by the Ethics Review Committee of Psychology and Neuroscience at Maastricht University.
+1piq | Two point three. Measures
+7fqw | Two point three point one. Demographic information and history of substance use
+rhaz | At baseline, demographic information was collected. History of substance use assessed experience with psychedelics (i.e., ayahuasca, DMT, five-MeO-DMT, LSD, novel lysergamides (e.g., one-P-LSD, ALD-fifty-two), psilocybin, salvia divinorum, ibogaine, and mescaline) in both full (psychedelic) doses and microdoses.
+wak1 | Two point three point two. Psychiatric and physiological diagnoses
+wtfz | Participants were asked whether they had a current diagnosis of a disorder. These answer options were chosen because most of the listed diagnoses are often reported to co-occur with ADHD, or because these diagnoses were reported to be common in people who microdose. We
+3j2l |
+03k3 |
+1k9e | constructed a variable Comorbidity alongside ADHD, differentiating respondents with and without a comorbid diagnosis alongside ADHD (P is less than point zero zero one equals only ADHD or no ADHD diagnosis; P is greater than point zero one equals ADHD and at least one other diagnosis). We constructed a variable Medication use alongside microdosing, differentiating respondents who were and were not using conventional ADHD medication alongside microdosing (zero equals only microdosing; one equals conven-
+```
+
+INPUT:
+```
+qws8 | One prominent reason why field experiments fail is that they were ill-powered from the beginning. This stems from the fact that experimentalists do not pay enough attention to the power of the experimental design-whether it be that clustering was not accounted for or other potential nuances were ignored. Indeed, beyond that, one of the first questions I am always asked when I meet to obtain an initial agreement to run a field experiment is: "How many people do we need for the experiment?" To respond, "It depends on the variance of the sample," is inap- propriate. Rather, you should place sample sizes in the language of standardized effect sizes. For example, I tell the local school superintendant that if we want to detect a quarter of a standard deviation treatment effect, we need 256 observations in treatment and 256 in control. Of course, the superintendant does not typically understand what a quarter of a standard deviation is, so I complement that state- ment with something along the lines of "That is in the neighborhood of one-half of the black/white achievement gap."
+877u | 5. Have a champion within the organization-the higher up the better.
+rzhj | Making the experiment a "we" project instead of an "us versus them" pursuit as early as possible is critical. This may be the most important element to having a field experiment actually completed. Within firms, having the chief executive officer behind the research is optimal; if the chief executive officer is not your champion, then try to obtain the help of the chief information officer, chief strategy officer, or a comparable person. Within school districts, the superintendant or at least the school principal must be at your side. You may not get much in-person help from these champions; the point is, they have the wherewithal to make others in the organization more likely to help.
+bfax | 6. Understand organizational dynamics.
+f2y8 | In every venue that I have worked, someone seemingly was put there to halt my efforts. I call this the "Adam" effect because in two firms, my nemesis was actu- ally named Adam! This person, who is typically smart but insecure, will key in on potential vulnerabilities and will attempt to thwart your efforts at every turn. I have found that in just about every case, it is better to be collegial and seek to turn this person to your side rather than buck horns continuously. Insiders always have a way
+o7qm | to stop your field experiment or to make it so costly that you will want to halt the experiment yourself.
+d52l | 7. Organizations that have "skin in the game" are more likely to execute your design and use your results to further organizational objectives.
+qlbb | One interesting feature of field experiments is that when the organization has invested resources-even if they are sunk costs-the organization is more likely to complete the project. This spills over to how they use your results afterwards, too. I have found, across firms and agencies, that my results are more likely to be considered useful and implemented if the organization has invested resources to help execute the experiment. I suspect this result is not because the research is "better" in some way due to the resource investment of the organization. Perhaps the organization believes the results are more "trustworthy" or they must make use of them because they have paid to obtain the information.
+nhsg | 8. Run the field experiment yesterday rather than tomorrow.
+hy0l | My curriculum vitae would double in length if I could turn back the clock and execute all my planned field experiments two weeks before their planned execu- tion. Sometimes, there are the "cold feet" cancellations. In other cases, the field experiment is cancelled because the chief executive officer is fired, your project manager is shipped to the Venezuelan office, your insider goes on personal leave because his wife becomes ill, or a nemesis finally succeeds in sabotaging your efforts.
+4jmz | 9. Change the nature of the discussion of the cost of the experiment.
+b7cq | An aspect of potential field experiments salient to partners is the burden of their cost. After the query concerning sample sizes, the next question will concern cost-Adam will be sure to mention it. Your task is to enlighten such efforts with basic economic arguments. For instance, when a nemesis claims that this experiment will cost the firm too much money, I often respond that we are "costing" the firm too much money by not experimenting. Every minute that passes wherein the organization does not know the elasticity of demand, whether its ads are really working, or the effectiveness of dollars spent on teacher resources, is money lost. When an organization understands the opportunity cost of time-of not yet using field experiments to maximize feedback-you have effectively reversed the cost argument in your favor. Indeed, in many cases I have worked on, there was actually a prospect of making money during the experi- ment and so producing a double dividend.
+0b39 | 10. Make clear that you do not have all the answers.
+qecd | You typically gain entrance into an organization because it is having problems. People in organizations know that they are facing problems, and they may not welcome an outsider-especially one who claims to arrive with all of the answers. And of course, economists often do not have the correct answers to the organiza- tion's most pressing challenges. Admitting this up front, while adding that you have
+1o7p | the tools to learn about the answers in a partnership with them, goes a long way towards ensuring long-term success. For example, within education circles, I readily admit that I do not know the education production function; but I emphasize that I have tools that will help us discover aspects of it.
+cp13 | 11. Be open to running experiments that might not provide high-powered research findings in the short run.
+bgre | Organizations are often wary of giving an economist carte blanche to randomize some variable of interest-and justifiably so! Sometimes getting your foot in the door by conducting experiments that are not intellectually satisfying can lay the ground- work for much more intellectually interesting exogenous variation in the future. In this way, the original experiments represent a long-term investment in building the trust of the organization.
+57lp | 12. Don't be captured by the organization.
+ukth | Of course, tip no. 11 can be pushed too far. An organization may wish to focus on experiments that have a high private return to the organization, but a lower social return for the research community. To do so, it may seek to limit the number of interesting treatments that can be employed. In addition, it may wish to have the power to block publication of certain findings-especially findings that support a negative interpretation of some kind. These issues are rarely black-and-white, and there is often some room for compromise between the agendas of the researcher and the organization. But independent researchers will also have to define for themselves the lines that should not be crossed so their research goals are not overly limited by the organization.
+kpvt | 13. Understand fairness concerns.
+jie2 | As my field experimental work has taken me deeper into the public policy world, I am more often met with fairness concerns. The line of argument is that it is not fair to only give a fraction of the population a potentially beneficial treatment. While I am sympathetic to this line of reasoning, it is ultimately flawed. First of all, it only considers contemporaneous trade-offs. One could easily argue that it is not fair to future generations to bypass learning opportunities that could make them better off. I am personally glad that earlier generations executed experiments to determine the efficacy of promising drugs so that today my father's heart condi- tion can be treated appropriately. Second, even if one insists on everyone receiving treatment, it remains possible to execute an experiment whereby people receive treatment in waves over time.
+d0ik | 14. Always obtain IRB approval.
+0x0s | Local Research Ethics Committees and Institutional Review Boards (IRBs) in the United States serve an important role in monitoring experimental research. Before commencing a field experiment, you should be sure to receive IRB approval. Some researchers do not have Local Research Ethics Committees and
+4exe | Institutional Review Boards. Outside the United States, for example, researchers in the social sciences must rely largely on their own principles. In those cases, I urge the researcher to follow, as closely as possible, strict guidelines that protect the rights of experimental subjects.
+0myz | Conclusion
+```
+
+OUTPUT:
+```

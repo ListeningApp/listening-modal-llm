@@ -1,0 +1,143 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+o22k | Downloaded from https://www.cambridge.org/core. Seoul National University - Statistics Department, on 27 Nov 2019 at 01:38:53, subject to the Cambridge Core terms of use, available at https://www.cambridge.org/core/terms.
+nwfz | https://doi.org/10.1017/S0043887116000095
+nvfy | Sensitivity to the impact of business fragmentation has been in short supply. Nearly all multilateral agencies-the World Bank, Inter- American Development Bank (IDB), OECD, the UN Economic Com- mission for Latin America and the Caribbean, and others-have pub- lished reports on the centrality of business-government dialogue and collaboration in industrial policy, usually with reference to past suc- cesses in Ireland, Korea, Singapore, and Taiwan. Yet these studies say little or nothing about the types of structural cleavages within the busi- ness community that might impede such collaboration.75 They do not mention, for one, that foreign firms were not included in earlier busi- ness-government forums, except when pressured to join state-initiated coalitions, as in Ireland and Singapore.
+mror | IV. THE ABSENCE OF UPGRADING COALITIONS IN EDUCATION
+zlxc | Given the universal consensus on the need for more and better educa- tion, one might think that this would be the area where resistance to reform in MI politics would be easiest to overcome. And the historical precedents are clear: big push education politics were evident in coun- tries that escaped MI in the late twentieth century.76 Yet broad, effective education coalitions have not been forming in today's MI countries. In the case of education upgrading, most large firms and many workers share a lack of concern over public school performance, though the sources of their interests diverge.
+k0bw | To get at the institutional challenges to upgrading education, it is worth remembering that the politics of expanding low-quality primary education are relatively simple in the process of growing from LI to MI. The costs of building schools and hiring teachers (with minimal train- ing and salaries) are low, and the political benefits to local politicians are high. By contrast, rapidly improving quality of schools through twelve years of basic education requires costly upgrading of facilities, replacing ineffective teachers (often in opposition to powerful teachers unions), and training new teachers.77 Moreover, getting the right sorts of education, especially technical (often vocational) education, requires knowledge of the local economy, coordination with business, and on- going curricular revision. Politicians reap few visible benefits and must manage costly distributional conflicts, especially with teachers, over pay and performance. In sum, the task of achieving profound and lasting
+aq5a | Downloaded from https://www.cambridge.org/core. Seoul National University - Statistics Department, on 27 Nov 2019 at 01:38:53, subject to the Cambridge Core terms of use, available at https://www.cambridge.org/core/terms.
+sc5y | https://doi.org/10.1017/S0043887116000095
+0yab | 630
+w95z | educational reform takes decades, extending well beyond the terms of incumbent politicians.
+0i1k | These costs and challenges mean that a strong, broad-based, durable coalition is required to keep upgrading reforms going, but it comes at precisely the time when interests are quite divergent. Under high levels of inequality, the wealthy tend to favor public investment in tertiary, often nontechnical education, rather than in secondary and postsec- ondary technical training.78 Moreover, the wealthy and the professional middle class in most MI countries can send their children to private schools and have little interest in paying more in taxes for the education of poorer children.79
+dqlg | Inequality, along with informality, also discourages poorer workers from investing their own funds in education. The costs of education to them (relative to their minimal disposable income) are high, as are op- portunity costs (relative to employment options in the informal econ- omy). The returns on education for poor households are therefore often uncertain.80 Workers are also split over education between those in low- tech or informal jobs that require few skills and those in the labor elite in capital-intensive firms. And although those in the labor elite have more skills, many were acquired on the job81 and so these workers have little interest in pushing for higher taxes to provide more schooling for others. Some evidence for the lack of interest among workers and the poor in upgrading reforms in education comes from opinion surveys across Latin America. Summarizing the findings, the IDB study thought it "rather disturbing" that two-thirds of all respondents (72 percent of poorer respondents) were satisfied with their local schools, despite evi- dence of the shortcomings of their overall educational systems.82
+p6pq | Even without bottom-up pressure, unified business support for in- vestment in human capital might be sufficient to push for major up- grading in education.83 If a large proportion of big businesses agreed
+zse6 | Downloaded from https://www.cambridge.org/core. Seoul National University - Statistics Department, on 27 Nov 2019 at 01:38:53, subject to the Cambridge Core terms of use, available at https://www.cambridge.org/core/terms.
+p2n3 | https://doi.org/10.1017/S0043887116000095
+ohh7 | MIDDLE-INCOME TRAP
+vbni | that their long-term future depended on an increasingly more skilled workforce, that the cost of this education was too high for firms to bear (especially if they are in competitive international markets), and that therefore the cost had to be "socialized" and borne by the government, this coalition might be able to push state actors to provide the necessary upgrading policies and institutions. This is close to the story usually told about business support for education in Korea.84
+dgcw | The fissures within big business in MI countries make such a unified voice improbable, however. First, the interests and capacities of domes- tic firms and MNCs are different. Many MNCs can move their investments to other countries, those with more human capital, rather than invest in upgrading education. MNCs that are less mobile, either because they are investing in natural resources or are in countries with large domestic markets, usually have sufficient resources to pay internally for training their typically small workforces.85 In the rare cases of countries that made it into HI with significant FDI (Hong Kong, Ireland, Singapore, and Spain), earlier investments in education (often motivated by other political considerations, to be discussed below) preceded rapid growth in FDI. Many MNCs were in fact drawn to these countries precisely because of their high levels of education.86
+gvwz | Nor do most of the largest domestic firms have strong interests in educational upgrading. As noted earlier, most such firms are diversified business groups with large subsidiaries in commodities, natural resources, regulated utilities, and other services. In these sectors, firms need either small numbers of skilled workers in capital-intensive sectors that can be covered by in-house training, or large numbers of less-skilled workers. Service firms and others in nontradable sectors might have a generic interest in education, but they do not feel competitive pressures from international markets for more urgent action. In surveys of problems and needs, firms in Latin America usually do not list skills as a major concern.87 Across all upper MI countries, lack of skills was not among the three most severe problems facing firms.88 Although most business associations regularly list education as one of their policy priorities, their advocacy is in practice too feeble to support a business-led coalition that would impose the heavy costs required to upgrade education.89
+sk5m | Downloaded from https://www.cambridge.org/core. Seoul National University - Statistics Department, on 27 Nov 2019 at 01:38:53, subject to the Cambridge Core terms of use, available at https://www.cambridge.org/core/terms.
+qws8 | https://doi.org/10.1017/S0043887116000095
+877u | In sum, after getting most children into schools, the challenge for MI countries is to improve the quality of education and expand higher education and vocational training. The shift from quantity to quality takes time (beyond the horizons of most politicians), resources, and political resolve to confront entrenched interests in education bureau- cracies and teachers unions. For all these reasons, cohesive, enduring coalitions matter, but just at a time when workers and big business are seriously fragmented.
+rzhj | V. FURTHER COMPARISONS
+bfax | Comparative analysis across several dimensions provides further insight into institution building and coalitions in escaping the MI trap. This section briefly considers comparisons (1) within our nine large MI coun- tries, with a focus on exceptional instances of sectoral upgrading; (2) across our nine countries, highlighting differences between Malaysia and Thailand; and (3) with more recent graduates to HI in the twentieth century. The section closes with a brief consideration of some signifi- cant ways in which China differs from countries in the MI trap.
+f2y8 | Some MI countries have isolated cases of sectoral success where nar- rower business coalitions pushed the creation of complex, enduring upgrading institutions. Standout cases include wine and software in Argentina, ethanol and airplanes in Brazil, aquaculture in Chile, and rubber-based manufactured goods and electronics in Malaysia.90 Core factors contributing to the successes across these cases were brisk inter- national competition, perceptions of crisis, and effective state promo- tion (especially in Brazil and Malaysia), all of which fostered strong, concerted business engagement in upgrading sectoral institutions, es- pecially related to training and innovation. MNCs in these sectors were mostly conspicuous by their absence (other than Malaysian electron- ics and Argentine software). Overall, this rare combination of factors helps to explain why these are more the exceptional sectors that prove the general rule of social fragmentation and the absence of upgrading coalitions.
+o7qm | Turning to cross-national heterogeneity, comparisons between Ma- laysia and Thailand offer another window into the pivotal role of coali- tions. Among our nine large MI countries, Malaysia has the highest GDP per capita while Thailand's is below average for the group. In societal terms, Malaysian labor is less fragmented, with roughly 80 percent of
+d52l | Downloaded from https://www.cambridge.org/core. Seoul National University - Statistics Department, on 27 Nov 2019 at 01:38:53, subject to the Cambridge Core terms of use, available at https://www.cambridge.org/core/terms.
+qlbb | https://doi.org/10.1017/S0043887116000095
+nhsg | MIDDLE-INCOME TRAP
+hy0l | the labor force in formal occupations in contrast to only 42 percent in Thailand;91 inequality generally trends lower in Malaysia.92 These dif- ferences correspond to contrasting coalitions and associated institutions found in the two countries. Sustained growth in Malaysia occurred under a broad, elite-led coalition, known as the National Front (Barisan Nasi- onal, or BN), consisting of ethnic Malays (60 percent of the population), ethnic Chinese (30 percent), and ethnic Indians (roughly 10 percent). The BN's most powerful component is the cross-class, highly institu- tionalized United Malays National Organization (UMNO), though the BN also comprises key ethnic Chinese and Indian parties, each of which includes both business and labor.93
+4jmz | Although UMNO imposed some discriminatory policies against the economically powerful ethnic Chinese, it largely practiced a "hegemonic pragmatism."94 The focus was on reducing income differences across ethnic groups through a combination of gradual affirmative action and structural changes via agricultural reform and industrial promotion. After the turmoil of the late 1960s, fears of social unrest ("internal implosion") further promoted elite cohesion and more effective devel- opment policy.95 This led to a "dual bureaucratic structure" in which UMNO promoted and monitored institutions, especially rural develop- ment bureaucracies implementing long-term reforms at the local level, but also in key sectors such as rubber.96 By contrast, fragmented inter- est groups and poorly institutionalized parties in Thailand, in part the result of higher levels of inequality and informality, have contributed to "a policy environment where needed public goods, reforms and invest- ments were chronically undersupplied."97 In short, upgrading coalitions helped nudge Malaysia close to the HI threshold but were weaker in Thailand and other large MI countries.
+b7cq | Another potentially illuminating set of comparisons is between cur- rent large MI countries and countries that became HI in the late twenti- eth century. Most recent, second-wave graduates to HI status had special circumstances that helped them elude the MI trap by overcoming the
+0b39 | Downloaded from https://www.cambridge.org/core. Seoul National University - Statistics Department, on 27 Nov 2019 at 01:38:53, subject to the Cambridge Core terms of use, available at https://www.cambridge.org/core/terms.
+qecd | https://doi.org/10.1017/S0043887116000095
+1o7p | 634
+cp13 | political obstacles discussed in Section III and by facilitating collective action and coalition building. The thirteen countries that escaped MI in the 1980s and 1990s comprised three distinct groupings:98 East Asian countries with developmental states (Japan, Korea, Taiwan), late en- trants into the European Union (Greece, Ireland, Portugal, and Spain), and very small countries with populations under eight million (Equato- rial Guinea, Hong Kong, Israel, Mauritius, Puerto Rico, and Singapore). Security threats in the East Asia cases, as well as in Israel-combined with contentious politics from below and a dearth of exportable natural resources-greatly facilitated elite cohesion and coalition building.99 EU accession similarly helped forge consensus, especially among elites, and the economic benefits and direct transfers within the EU were also sub- stantial.100 For Southern European entrants, accession in the 1980s was associated with huge jumps in education spending.101
+bgre | In addition, small size can facilitate elite unity, though it does not guarantee it. Collective action is generally easier to achieve in countries with a few million inhabitants-with their correspondingly smaller and more geographically concentrated elites-than in countries with tens or hundreds of millions. For the small countries of Northern Europe, Peter Katzenstein emphasizes how smallness and a resulting sense of vulnerability fostered an ideology of social partnership, better organized social groups, and closer personal ties (as political and economic elites from different spheres all knew one another).102 In smaller countries, rifts within business are less common, either because foreign business is absent, as in Finland, or because MNCs are dominant and well incor- porated into a national coalition that promotes upgrading, as in Ireland and Singapore. 103
+57lp | Some of these special circumstances may also help to explain China's rapid growth into-and possible early shift out of-middle income. True, inequality increased dramatically (.47 Gini coefficient), raising debates about possible "Latin Americanization." Yet on other dimen- sions, China shows that it is already advancing out of MI status with lower informality (a shadow economy of 12 percent), extremely high investment (49 percent), low FDI (10 percent), high R and D spending
+ukth | Downloaded from https://www.cambridge.org/core. Seoul National University - Statistics Department, on 27 Nov 2019 at 01:38:53, subject to the Cambridge Core terms of use, available at https://www.cambridge.org/core/terms.
+kpvt | https://doi.org/10.1017/S0043887116000095
+jie2 | (2 percent, not far below the OECD average), and educational institu- tions producing large numbers of engineers and technicians, includ- ing 21 percent of secondary students enrolled in technical education.104 This potential for moving quickly through MI status reflects China's resemblance to earlier Asian developmental states by virtue of a clear connection for political elites between development and the capacity to address geopolitical challenges,105 a connection missing in other MI countries, and by virtue of the stability of its authoritarian regime.
+```
+
+OUTPUT:
+```

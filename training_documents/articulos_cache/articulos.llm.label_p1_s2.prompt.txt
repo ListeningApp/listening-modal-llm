@@ -1,0 +1,152 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+1pjs | ARTÍCULOS ORIGINALES
+o2kr | Producción científica en diabetes en Perú: Un estudio bibliométrico Scientific production in diabetes in Peru: <LATEX>\mathrm { A }</LATEX> bibliometric study
+v6sk | ABSTRACT
+1wj6 | Objective: to describe the scientific production related to diabetes in Peru between 1996 and 2015. Methods: Bibliometric study. Scientific papers on diabetes published between 1996 and 2015 were identified by authors with Peruvian affiliation in the Web of Science Core Collection (WoS) and Scopus databases. The variables of interest were extracted manually. We present descriptive results and co- llaborative networks. Results: We found 81 publications, 75.3% were original articles, of which none evaluated public health interventions and 60.7% received foreign funding; 55.6% had an author affiliated with the Univer- sidad Peruana Cayetano Heredia (UPCH), and 65.4% had a foreign author. Five clusters of international collaboration networks could be distinguished, all with the participation of the UPCH. Conclusion: Peruvian scientific production related to diabetes is low, with an absence of studies eva- luating public health interventions, and with collaboration networks focused on UPCH.
+936l | Keywords: Diabetes; bibliometry; collaboration networks; international collaboration; research funding.
+06yq | INTRODUCCIÓN
+dpv6 | La diabetes mellitus es un problema de salud pública creciente, de manera que el número estimado de adultos viviendo con diabetes alrededor del mundo ha aumentado de 108 millones en 1980 a 422 millones en el 2014, representando un incremento del 4,7% al 8,5% de prevalencia de diabetes en la población adulta. Este aumento es mayor en países de ingresos bajos <LATEX>y</LATEX> medios (PIBM)1, en los cuales además existen sendas dificultades para el diagnóstico <LATEX>y</LATEX> manejo de esta condición, resultando en mayor discapacidad <LATEX>y</LATEX> muerte2,3.
+8r5j | Por ello, los PIBM requieren con urgencia generar información local que permita implementar intervenciones orientadas a disminuir el impacto de la diabetes en términos de morbilidad <LATEX>y</LATEX> mortalidad. Sin embargo, es sabido que la producción científica biomédica en los PIBM es baja, sus instituciones investigadores son pocas, su presupuesto para investigación es escaso, <LATEX>y</LATEX> la investigación realizada en
+2taz | Rev Chil Nutr Vol. 44, Nº 2, 2017
+o3ya | http://dx.doi.org/10.4067/S0717-75182017000200006
+r5il | Alvaro Taype-Rondan1, Oscar Huapaya-Huertas2, Guido Bendezu-Quispe2, Josmel Pacheco-Mendoza3, Mayte Bryce-Alberti1.
+5gui | Este trabajo fue recibido el 28 de noviembre de 2016. Aceptado con modificaciones el 24 de marzo de 2017 y aceptado para su publicación el 5 de mayo de 2017.
+82qc | muchas ocasiones no obedece a las necesidades locales4.
+ls7d | En este contexto, resulta importante caracterizar la producción científica local sobre diabetes e identificar su problemática, lo cual permitirá a las entidades gubernamentales, académicas <LATEX>y</LATEX> científicas orientar sus políticas de investigación. De esta manera, estudios bibliométricos anteriores han evaluado la producción científica en diabetes en India5, Nigeria6, Irán7, Tailandia, Argentina8, Brasil9, <LATEX>y</LATEX> en países del Medio Oriente10,11.
+tzt3 | En Perú, para el 2015, se estimó que la prevalencia de diabetes entre adultos de 25 años o más fue del 7,0%; y que de estas personas el 40% no había sido diagnosticado, lo cual refleja un importante problema de sub-diagnóstico12. Además, un estudio realizado en hospitales del sistema de vigilancia de diabetes del Perú encontró que, entre los pacientes que tuvieron alguna consulta de control, el 73,4% tuvo un valor de hemoglobina glicosilada mayor o igual que
+t8vv | 7,0%13, indicativo de un control inadecuado de la diabetes, posiblemente relacionado con problemas en el acceso y uso adecuado de los servicios de salud14.
+qvnu | Esta compleja problemática de la diabetes en Perú requiere políticas que favorezcan la investigación en diabetes. Sin embargo, a la fecha no se han publicado estudios bibliométricos en este tema, por lo cual el presente estudio tiene como objetivo describir la producción científica en diabetes en Perú entre 1996 y 2015.
+kggw | MATERIALES Y MÉTODOS DISEÑO Y BASES DE DATOS USADAS
+xrd1 | Estudio observacional bibliométrico, realizado en los artículos científicos publicados en las bases de datos electrónicas Web of Science Core Collection (WoS) y Scopus, entre 1996 y 2015.
+5746 | Scopus incluye más de 21.500 revistas de ciencia, tecnología, ciencias sociales, artes, humanidades y medicina15. En tanto que WoS incluye 12.700 revistas científicas de diversos temas. Los estudios bibliométricos suelen usar la principal colección de revistas (core collection)16,17. Se decidió emplear estas dos bases de datos debido a la gran cantidad de revistas biomédicas que incluyen, y a su riguroso proceso de selección de revistas, lo cual permite colectar los estudios más relevantes sobre el tema.
+7toz | Estrategia de búsqueda
+j346 | Durante julio del 2016 se realizaron búsquedas de manera sistemática en las bases de datos mencionadas. El término clave usado para las búsquedas fue "diabetes", con el cual se conoce a esta enfermedad en español, inglés y otros idiomas. Además, se buscaron solamente artículos que tengan algún autor con filiación peruana. De esta manera, la estrategia de búsqueda para Scopus fue: [AFFILCOUNTRY (peru) AND TITLE-ABS-KEY (diabetes)] y para WoS: [CU=PERU AND TS=DIABETES].
+v8uq | Se obtuvieron 198 resultados en Scopus y 134 resultados en WoS. Posteriormente, tres autores seleccionaron independientemente los artículos científicos que contaran por lo menos con un autor con filiación peruana y que tuvieran entre sus temas principales la diabetes (ya sea como población de estudio, como variable, o como población beneficiada). Las selecciones fueron comparadas por un cuarto autor. En caso de observarse diferencias en la selección de estudios, estas se resolvieron por consenso entre los autores. Finalmente, se obtuvieron 81 artículos que cumplieron con dichos criterios.
+x972 | Extracción de variables
+cwrw | Tres autores leyeron independientemente los títulos, los resúmenes, y de ser necesario los manuscritos in-extenso de los artículos incluidos, y recolectaron independientemente las variables de interés en una ficha de recolección de datos, usando el software Microsoft Excel 2013. Las bases de datos fueron comparadas por un cuarto autor, y las diferencias fueron resueltas en consenso.
+4i0e | Taype-Rondan A., et al.
+h2l3 | Se recolectaron las siguientes variables para cada artículo científico: base de datos en el que está indizada la revista (Scopus, WoS, o ambos), nombre de la revista, si la revista se encontró en el primer cuartil según su impacto en SCImago (sí o no), año de publicación, Idioma del in-extenso, colaboración extranjera (tener algún autor con filiación extranjera), filiación de los autores, filiación del autor corresponsal, número de instituciones peruanas participantes según la filiación de los autores, ubicación de las instituciones peruanas participantes (todas son de Lima, todas son de fuera de Lima, o tanto de Lima como de fuera de Lima), y tipo de artículo (original, de revisión, u otros).
+dfzb | Para los artículos originales (definido por tener la estructura: introducción, métodos, resultados y discusión; o una estructura similar) se determinó el diseño del estudio: transversal, longitudinal, revisión sistemática, preclínicos, (con animales o en laboratorio), o de intervención. Entre los estudios de intervención, se diferenció aquellos de intervenciones en salud pública. Además, en este grupo se evaluó el financiamiento del estudio, consignando cinco categorías: no declarar tener o no tener financiamiento, declarar haber sido autofinanciados por los autores, declarar haber sido financiados solo por fondos extranjeros, declarar haber sido financiados solo por fondos peruanos, y declarar haber sido financiados tanto por fondos peruanos como por fondos extranjeros.
+u6ty | Análisis estadístico
+awvu | Para el análisis de colaboración, se creó una base de datos con todos los registros en el paquete de gestión de referencias Endnote v7.7, se exportó el conteo de artículos a Microsoft Excel, a partir del cual se creó una matriz de coocurrencia con la macro Toolinf, que se importó a UCINET v6.624 y se guardó como un archivo ".net", para usarlo en el graficador de redes Netdraw en el cual se realizaron los análisis de grado de centralidad y grado de intermediación para una mejor distribución de los nodos18. Los resultados fueron presentados descriptivamente mediante frecuencias absolutas y relativas, usando el programa estadístico STATA v13.0.
+on9b | El resultado fue exportado al software de visualización VosViewer v1.6.519, en el cual se obtuvo en el gráfico con los conglomerados de colaboración, donde el tamaño de los círculos representa la cantidad de artículos y el grosor de las líneas indica el número de artículos en colaboración.
+a8ge | RESULTADOS
+h27a | Se encontraron 81 publicaciones en revistas científicas indizadas a WoS o Scopus entre 1996 y 2015 que tuvieron entre sus temas principales a la diabetes. De estos, 76 (93,8%) artículos estuvieron indizados a Scopus, 24 (29,6%) artículos estuvieron indizados a WoS, y 19 (23,5%) artículos estuvieron indizados en ambas bases de datos. De ellos, 61 trabajos (75,3%) fueron originales, de los cuales 33 fueron transversales, 12 fueron longitudinales, 7 fueron revisiones sistemáticas, 7 fueron preclínicos y 2 fueron estudios de
+pdjh | Producción científica en diabetes en Perú: Un estudio bibliométrico.
+xmgs | intervención, es decir, ensayos clínicos realizados con fármacos hipoglicemiantes.
+bd9h | Entre los 61 trabajos originales, 12 (19,7%) no declaran tener o no financiamiento, 5 (8,2%) declaran haber sido autofinanciados por los autores, 30 (49,2%) declaran haber sido financiados solo por fondos extranjeros, 7 (11,5%) declaran haber sido financiados solo por fondos peruanos y 7 (11,5%) declaran haber sido financiados tanto poro fondos peruanos como por fondos extranjeros.
+m047 | Se observa un incremento irregular en el número de publicaciones sobre diabetes, de manera que el 2015 se llegaron a publicar 18 artículos (Figura 1). De los 81 artículos evaluados, 39 (48,1%) fueron publicados en una revista del primer cuartil (Q1) según SCImago, proporción que no pareció variar en los últimos años (Figura 2). Los artículos se publicaron en 57 revistas diferentes. La revista con más artículos publicados fue la "Revista Peruana de Medicina Experimental y Salud Pública" con quince artículos (18,5%), seguida de "Plos One" y "Diabetes Research and Clinical Practice" con cuatro artículos (4,9%) cada una.
+gy8c | Se contabilizaron 42 instituciones peruanas: 23 públicas y 19 privadas. Las instituciones que participaron con mayor número de artículos fueron la UPCH (45 artículos; 55,6%), el Hospital Nacional Cayetano Heredia (12 artículos; 14,8%), el Ministerio de Salud (7 artículos; 8,6%), el Instituto Nacional de Salud (6 artículos; 7,4%), y la Universidad Nacional Mayor de San Marcos (5 artículos; 6,2%). Del total de trabajos, 44 (54,3%) fueron realizados por una sola institución peruana
+y4mj | Figura 1. Artículos sobre diabetes publicados con filiación peruana en revistas científicas indizadas en WoS o Scopus, 1996-2015.
+vpgq | Con respecto a los autores, 15 (18,5%) artículos tuvieron algún autor peruano con filiación fuera de la ciudad de Lima, 41 (50,6%) tuvieron como autor corresponsal a un investigador filiación peruana, siendo la Universidad Peruana Cayetano Heredia (UPCH) la institución más común en autores corresponsales (Tabla 1). Existió participación de por lo menos un autor con filiación extranjera en 53 (65,4%) artículos, siendo los países con más artículos en colaboración: Estados Unidos (35 artículos, 43,2%), Brasil, Chile, Colombia, Argentina, México (12 artículos cada uno, 14,8%), Reino Unido (11 artículos, 13,6%) y España (10 artículos, 12,3%).
+ousl | En cuanto a las redes de colaboración, las colaboraciones con mayor número de artículos entre instituciones peruanas se dan entre la UPCH y el Hospital Nacional Cayetano Heredia, y entre la UPCH y la organización no gubernamental de desarrollo Prisma. Otras redes de colaboración nacionales tienen como centros al Instituto Nacional de Salud y al Ministerio de Salud (Figura 3a).
+m4ju | Al analizar todas las colaboraciones, se pueden definir cinco conglomerados: 1) UPCH, Prisma, Johns Hopkins University, y University of London; 2) UPCH con hospitales de España; 3) UPCH con universidades y hospitales europeos; 4) Ministerio de Salud del Perú y otras entidades Latinoamericanas; 5) Clínica el Golf, Universidad de Sao Paulo y otras instituciones latinoamericanas y europeas (Figura 3b).
+a0mb | 155
+ki8m | Figura 2. Artículos sobre diabetes publicados con filiación peruana en revistas científicas indizadas en WoS o Scopus, que estén y no estén en el primer cuartil de impacto según SCImago.
+km8w | DISCUSIÓN
+wzno | El presente estudio describe la producción científica peruana en diabetes en el periodo 1996-2005. Se encontró un número bajo pero creciente de publicaciones sobre el tema. Aproximadamente tres cuartos de los artículos fueron originales, entre los cuales el financiamiento fue predominantemente extranjero. La UPCH participó en más de la mitad de los artículos, mientras que la participación de instituciones peruanas ubicadas fuera de la ciudad de Lima es escasa. Aproximadamente la mitad de los artículos tuvieron como autor corresponsal a un autor extranjero. En cuanto a las redes de colaboración, se pueden distinguir cinco conglomerados. La UPCH se sitúa como centro para la colaboración nacional e internacional.
+xagm | Producción científica
+iwn5 | La diabetes es un problema de salud en Perú, con serias deficiencias en cuanto a su prevención, diagnóstico y manejo. Sin embargo, este impacto a la salud pública no se refleja en el número de artículos publicados. De manera que apenas encontramos 27 artículos publicados durante el periodo 2000-2010, en tanto que un estudio previo realizado en las mismas bases de datos encontró 358 artículos publicados sobre cáncer por autores peruanos en dicho periodo20. Asimismo, número de artículos publicados en el país es muy inferior al reportado en periodos de estudio similares
+uooz | 156
+pxbq | Taype-Rondan A., et al.
+```
+
+OUTPUT:
+```

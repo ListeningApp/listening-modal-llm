@@ -1,0 +1,152 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+km8w | Finally, PHLR is distinguishable from other kinds of public health research in that it evaluates not merely the effectiveness of a public health intervention but also the effectiveness of law as the tool used to implement or facilitate the intervention. For example, research on whether abstinence-only education reduces teenage pregnancy is not PHLR merely because abstinence-only education happens to be required by law. PHLR does, however, encompass research on how abstinence- only education rules are implemented (Sonfield and Gold 2001) and whether the existence of state-level, abstinence-only legal mandates is associated with differences in states' reproductive health outcomes.
+wzno | Health Services Research and Public Health Systems and Services Research
+xagm | Relationships between PHLR and several contiguous domains of empir- ical research are useful to delineate. Access to health care is an important determinant of population health, and health care is widely acknowl- edged to be a key component of the public health system (IOM 2003).
+iwn5 | 176
+uooz | S. Burris et al.
+pxbq | The study of how law affects population health through the mediating structure of the health care system falls squarely within the definition of PHLR. PHLR therefore overlaps with the field of health services re- search (HSR), "the multidisciplinary field of scientific investigation that studies how social factors, financing systems, organizational structures and processes, health technologies, and personal behaviors affect access to health care, the quality and cost of health care, and ultimately our health and well-being" (Academy Health 2009). The impact of law on racial disparities in cardiac care outcomes, for example, is an important question for both HSR and PHLR.
+jfsr | The area of overlap, however, is limited to research that focuses on law as an independent variable and on population health (or an intermediate outcome with a well-demonstrated relationship to population health) as the outcome of interest. Research is not PHLR if it examines only the impact of some element of health care organization, financing, or delivery on health, without an important connection to law-for example, a study of the effect of capitated reimbursement in private managed care plans on the use of branded drugs.
+u15r | Public health systems and services research (PHSSR) is an emerging field of study that "examines the organization, financing, and delivery of public health services within communities and the impact of those services on public health" (Scutchfield 2009, 169). PHLR overlaps with PHSSR to the extent that law is an important factor in the organization of public health systems and agencies and the delivery of public health services (Henry, Scutchfield, and Pérez 2008; Pérez and Larkin 2009). A study of racial disparities in the use of involuntary civil commitment, an important legal tool for public health, could be considered both PHSSR and PHLR to the extent it focuses on how the organization or operation of civil commitment influences the outcomes the system produces (Swanson et al. 2009). Conversely, PHSSR that examines the flow of resources to and within the public health system (Mays and Smith 2009), although it might well inform PHLR on the implementation of a legal intervention, would not itself be PHLR.
+lq35 | One feature of PHLR not shared by PHSSR or HSR is its consideration of incidental public health law, that is, the effects on population health of law, agencies, and private actors not commonly understood to be pursuing a public health mission. For instance, a growing body of cross- disciplinary research centers on the effects of criminal laws and the practices of criminal justice agencies, such as the police, on the spread of
+3g9w | Making the Case for Laws That Improve Health
+d09o | 177
+ylhz | FIGURE 1. Logic Model of Public Health Law Research.
+a3td | communicable disease (Burris et al. 2004). Research on this topic would fall under PHLR but not HSR or PHSSR.
+ex5k | A Logic Model of PHLR
+9d4o | A wide range of laws and legal practices affects the health of the popula- tion in cities, counties, states, and nations. Cataloging all such possible effects of law is impossible, and any schema for organizing such effects is characterized by trade-offs and simplifications. Nevertheless, the field of PHLR is advanced by a shared understanding of the range of possible effects of laws, and potential mechanisms for such effects, encompassed within the field.
+cjq2 | The range of studies that empirically evaluate the effects of law on population health is depicted in figure 1. Generally, the independent variable in PHLR is some aspect of lawmaking, laws, or the activities of legal agents. These will be studied in relation to dependent variables that can be arrayed along the presumed causal chain that includes key medi- ators as well as the distal or ultimate outcomes of interest: population morbidity and mortality.
+5esx | First are studies of policymaking, the factors that influence which laws are enacted and that shape the specific characteristics of the statutes and regulations adopted (path A in figure 1). In these studies, public health laws (or judicial decisions) themselves are the outcome variables, and political and other jurisdictional characteristics are often the main explanatory variables tested.
+m5ka | Paths B and C examine the principal mediators in the causal chain linking laws and health outcomes. Studies of legal practices (path B)
+byu8 | 178
+76b0 | S. Burris et al.
+zxz6 | focus on the implementation or enforcement of the law on the books, including how the law affects the structure or operation of various regulatory systems. Laws may vary considerably in how well they are implemented; for example, whether a legal mandate for health education in schools translates into all pupils receiving the education that legisla- tors envisioned may depend critically on the appropriation attached to the bill. There are opportunities and resources for litigation in some mat- ters and not others. Unfunded mandates, unclear statutory provisions, the failure to identify an administrative agency responsible for issuing implementing guidelines and overseeing the rollout of the new legal provisions, lack of political commitment, and many other factors may undermine implementation. Similarly, laws may induce varying levels of compliance by the regulated entities or population, depending on the degree of political resistance, the extent to which the administering agency is armed with effective enforcement mechanisms, the litigation environment, and many other factors. The completeness of implementa- tion and the effectiveness of mechanisms for ensuring compliance with the law are critical elements influencing the law's effect on health out- comes. Legal practices studies explore these influences as mediators of the statute or regulation's impact on health.
+xnth | Path C involves the study of the law's effects (as implemented through legal practices) on environments and health behaviors. We use the term environment broadly to refer to both the physical environment and social structures and institutions. Laws and their implementation affect social institutions and environments by creating or reducing opportunities, in- creasing or decreasing available resources, expanding or reducing rights and obligations, and creating incentives and penalties. Even private in- stitutions, such as corporations or the family, are deeply influenced by law. Research in this area examines these mechanisms of influence and how they shape the conditions for people to be healthy.
+vafm | Law may affect health behaviors both directly and by shifting the environmental conditions that make particular behavioral choices more or less attractive (path D). For example, land-use laws may determine where supermarkets and restaurants are located, affecting the availability of healthy food options and the healthfulness of the local residents' diet. Ultimately, changes in environments and behaviors lead to changes in population-level morbidity and mortality (path E).
+2zmw | PHLR may examine health outcomes directly, or it may use mediat- ing environmental and behavioral changes as proxy outcome variables.
+bf9k | Making the Case for Laws That Improve Health
+otkr | 179
+ibgs | While directly measuring health effects is generally desirable because it provides more information to policymakers about the public health returns to lawmaking, a focus on mediating factors is often appropriate. For example, laws designed to improve rates of immunization with the human papillomavirus (HPV) vaccine might best be evaluated for their effects on the prevalence and burden of cervical cancer, but the time hori- zon for observing such effects is around forty years. Consequently, mea- suring rates of HPV vaccinations is a reasonable intermediate measure.
+colo | PHLR in Practice
+d6r4 | The contours of PHLR as a distinct field are only beginning to emerge. Based on the existing scholarship in the field and the conceptual model we have described, table 1 shows a typology of the principal forms of PHLR studies. In this section, we describe the major methodological approaches relevant to studying each of the paths described.
+9mrz | Policymaking Studies
+pk06 | Studies of policymaking processes are a mainstay of political science and sociology. They explore issues such as the determinants of legislative, administrative, and judicial lawmaking (Law 2005; McDougall 1997; Waters and Moore 1990); lawmaking processes (Rosenberg 1991); and stakeholders' use of law to achieve their goals (McCann 1994). Although in broad terms, the policy process does not vary by topic area, health policymaking has generated a substantial research literature focusing on how generic policymaking processes unfold in a health context. This literature treats policymaking processes as among the legal practices affecting the potential for law to promote health.
+7wn9 | Advocacy groups have traditionally been crucial instigators of health law, and researchers of "legal mobilization" have studied how advocates have integrated legislation and litigation into their strategies (Ashe et al. 2003; Mamudu and Glantz 2009). The relative advantages of litigation versus legislative approaches have been investigated empiri- cally and debated in public health law (PHL) scholarship ( Jacobson and Soliman 2002; Jacobson and Warner 1999; Parmet and Daynard 2000; Wagenaar 2007), as have the factors influencing legislative outcomes
+wcd0 | 180
+caos | TABLE 1 Typology of Public Health Law Studies
+qrvy | S. Burris et al.
+pn9j | 181
+1pmc | Making the Case for Laws That Improve Health
+5z6q | and the legislative process (Backstrom and Robins 1995; Corrigan et al. 2005). Of particular interest to PHLR are studies examining how re- search evidence influences policymakers (Cochrane Collaboration 2009; Innvaer et al. 2002; Jewell and Bero 2008; Lavis, Oxman, et al. 2008). Other work has looked at the behavior and strategies of policy actors, for example, how they use devices such as preemption and litigation to shift policy battles into forums where they have a greater chance of suc- cess (Jacobson and Wasserman 1999), how community organizations may be brought more effectively into the lawmaking or law enforce- ment process (Markell and Tyler 2008), and how consulting can be used to more effectively translate research knowledge for policymakers (Jacobson, Butterill, and Goering 2005). There has been growing inter- est in the question of how model laws are developed for public health purposes, and whether and under what circumstances model legislation is more likely than other proposals to be enacted (Hartsfield, Moulton, and McKie 2007).
+yeoh | Both quantitative and qualitative methods may be appropriate for policymaking studies. Econometric analysis is useful for examining the extent to which various observable characteristics of a state or local government-such as the political party in control of the legislature and the health status of the population-predict the likelihood that a partic- ular kind of law will pass. For example, researchers have used multivariate regression to examine predictors of state legislative action on childhood obesity (Boehmer et al. 2008; Cawley and Liu 2008). Such research may make important contributions by identifying "friendly" venues for ex- perimentation with new public health law approaches and suggesting strategies for spreading successful policies to other jurisdictions.
+b8hf | For obtaining a rich understanding of the policymaking process, qual- itative methods are unmatched. Interview methods are commonly and effectively used to understand the factors that lead policymakers to take or fail to take particular actions. Researchers have, for instance, con- ducted interviews with state legislators and their staff to study those factors enabling and inhibiting the passage of obesity prevention laws (Dodson et al. 2009). Content analysis is another useful method of exploring political deliberations that occur "on the record," for exam- ple, legislative hearings and debate concerning particular public health issues or legislation, and the notice-and-comment process of adminis- trative agency rule making. Researchers have used content analysis to explore, for example, the use of evidence and argumentation in debates
+hntf | 182
+99fo | S. Burris et al.
+y5r7 | over workplace smoking legislation (Apollonio and Bero 2009; Bero et al. 2001). Although it may be difficult to generalize the results of qualitative studies across jurisdictions, the high-resolution picture of the policymaking environment that they provide can have great value in formulating strategies for advancing evidence-based public health law.
+lrry | Mapping Studies
+hvhm | PHLR includes studies that gather purely legal data for empirical pur- poses: information about the prevalence and distribution of specific laws (Gostin et al. 1996; Hodge et al. 2008), what levels of government have relevant authority (Horlick, Beeler, and Linkins 2001), and variations in the characteristics of the law across jurisdictions and over time (CDC 1999; Chriqui et al. 2008; Shaw et al. 2007; Wells, Williams, and Fields 1989). Methods may include content analysis of legal texts (laws, regulations, court decisions, etc.), qualitative research designed to elicit information from officials and others who are knowledgeable about the state of the law, or a combination of the two approaches (Horlick, Beeler, and Linkins 2001). Although no independent/dependent variable rela- tionship is studied, these studies can be scientific-and therefore fall within the field of PHLR-if they involve the systematic collection and analysis of data using replicable methods.
+863b | Mapping studies often contribute information that is useful in its own right-state and local policymakers are keen to know what other jurisdictions are doing and what they might consider borrowing or learning from policy experiments in other jurisdictions. Mapping stud- ies, however, are typically an early phase of larger projects designed to evaluate the magnitude and nature of the effects of laws on health. Prop- erly conducted, they provide for the reliable and valid measurement of the key explanatory variable(s) in such studies. Thus, a rigorously con- ducted mapping study follows a systematic review protocol. It specifies a definition of the type of law being investigated, perhaps with explicit inclusion and exclusion criteria; a search methodology that acknowl- edges the strengths and weaknesses of extant databases; and a coding scheme identifying the main features of the laws, such as the population covered and enforcement mechanisms specified (Tremper, Thomas, and Wagenaar 2010). They may also characterize laws according to some overall scale of stringency, scope, or strength through transparent and reproducible means. For example, a recent mapping study of state laws
+fj24 | Making the Case for Laws That Improve Health
+uz3c | 183
+d5bi | regulating sales of sugar-sweetened beverages in schools coded laws ac- cording to seven substantive features and eight process features and then grouped the laws into "strong," "moderate," and "weak" categories (Mello, Pomeranz, and Moran 2008). We stress that analysis of this kind, though essential to empirical legal research, does not exhaust legal scholarship on laws, eliminate the serious challenges often entailed in interpreting what the law "is," or replace serious discussion of what the law ought to be.
+ba4l | Implementation Studies
+```
+
+OUTPUT:
+```

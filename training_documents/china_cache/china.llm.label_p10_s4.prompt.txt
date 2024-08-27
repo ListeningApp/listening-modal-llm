@@ -1,0 +1,131 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+pk06 | Nonetheless, there were increased tensions between Hong Kong and Britain. The devaluation of the pound in 1967 had drastically affected public confidence in the British government. To add fuel to the fire, Britain's entry into the European Economic Community curtailed Hong Kong's textile exports to the British Isles under more restric- tive quotas. London also increased Hong Kong's contribution to the maintenance of the British garrison from 29 per cent in 1970 to 75 per cent in 1978.83 On the other hand, the 1967 riots had already demonstrated the significance of the 'China factor': a surge in Chinese nationalism could lead to violence and chaos, shattering political stability. Nationalism did not diminish but flourished in the early 1970s, which could be observed from the emergence of patriotic social movements, such as the Chinese Language Campaign and the Senkaku Islands Movement. Given the uncertainty imposed by the end of the Cultural Revolution, the death of Mao and the fall of the Gang of Four after 1976, the state had to observe changing perceptions towards China. In this context, it was vital for the state to be fully informed of changing political attitudes and identities so that it could measure the success of its community-building project, continue fostering a sense of belonging among the community, and avoid any anti-colonial or British senti- ments being exploited and turned into disturbances.
+7wn9 | Attitudes towards colonial rule
+wcd0 | The political culture in Hong Kong experienced changes in the 1970s. Hong Kong Chinese used to be 'very cautious about saying anything adverse about the government in public'. Most complaints in newspapers tended to be anonymous.84 According to MOOD, such political inactivity could be explained by 'the persisting fatalism inherited from traditional attitudes formed by experience under successive Chinese governments', which discouraged people from contesting colonial policies and questioning misdeeds of the state.85 The perception that politics was dangerous and that ordinary people lacked capabilities to comprehend it could be found in a number of Cantonese proverbs, such as 'officials have two mouths' (a traditional saying which means that authorities could always find an excuse to justify their decisions), 'the poor should never attempt to fight the wealthy, or the wealthy to fight officialdom', and 'the governor of a prefecture can commit arson with impurity, but the people are not even allowed to light their lamps'.86 This attunes to the claims of scholars such as Lau Siu-kai, Kuan Hsin-chi, J. Stephen Hoadley, and Norman Miners, who asserted that administrative power was the preroga- tive of rulers in the history of China.87 However, when compared to the 1950s, the public in the mid-1970s was 'much more prone to take issue with the government over what they consider[ed] to be unjust official action, believing that the incompetent, corrupt, or unfair officer should not, and will not, get away with his wrongdoings, in the face of
+caos | 76
+qrvy | China Information 33(1)
+pn9j | public exposure'.88 Knowing that the state was unlikely to suppress and arrest them, the grass-roots members of society started to 'speak up or stage protest action(s)'.89
+1pmc | According to MOOD, popular political participation was the outcome of social devel- opment, emerging problems and challenges, and new policy responses to them.90 After the 1967 riots, the City District Officer Scheme was introduced to close the communica- tion gap between the people and the government. Policies were publicized and explained to the public. Campaigns, such as 'Clean Hong Kong' and 'Fight Violent Crime', were launched to build up a positive image of the state. The Governor and high-ranked civil servants appeared in public more frequently to discuss policies and problems. People's confidence towards the government grew due to its responsiveness to public opinion in the Chinese Language Movement, the Godber affair, and the setting up of the Independent Commission Against Corruption in the first half of the 1970s: 'many more people feel that the government is prepared to take a fair and honest attitude about its own failings and shortcomings'.91 As a result, not only was there an increase in public engagement in current affairs 'at all levels of society', but 'the traditional fear of authority or official- dom' had been 'greatly reduced'.92
+5z6q | Nonetheless, respondents still found the state's services and documents 'slow, time- consuming and complicated, difficult to understand', especially the colonial laws. While finding the staff in the City District Council 'largely unhelpful', they also believed that the high-ranked civil servants were 'adopting a rigid and unimaginative approach' in solving problems.93 The shift in political culture was not profound. Uneducated low- income earners were 'less aware of the essence of implications of the new style of open government'. Many still believed that the state was 'almighty' and only governed accord- ing to its interests. They remained 'largely indifferent to how Hong Kong [was] gov- erned' as long as their lives were not affected.94 The working class paid little attention to issues outside their daily livelihood: 'subjects like the future of Hong Kong [were] too remote, and too much above them, to be of much interest'.95 It was also observed that there was 'no general public aspiration or pressure for constitutional reform' and ordi- nary people 'at large, [were] not interested in the mechanism or constitutional set-up of government'. According to MOOD, 'majority attitudes indicate a lack of enthusiasm about elections'.96
+yeoh | Shift of political culture led to tensions between the generations. Among the middle- aged and elderly, the period did not witness 'the creation of a new political and social climate'.97 Political conservatism persisted. To avoid 'rocking the boat', many of them advocated 'a style of "strong government" which should refrain from 'becoming too accommodating towards rabble-rousers'.98 The upper and middle classes were also 'staunch supporters of the status quo'.99 Many of them viewed political activism 'with dislike and concern' as they were worried that 'social order and discipline will inevitably be undermined' and perceived these informal means of political engagement as 'undigni- fied and unbecoming of their status'.100 Although they often supported the state's policies publicly, in private, many expressed concerns over the increasingly 'liberal or accom- modating' governing style, which they thought would 'give rise to escalating public aspi- rations' that were impossible to meet.101 The wealthy strata within the middle-aged and elderly groups conformed closest to Lau's description of 'utilitarianistic familism'.102 Rather than having strong emotional attachment to the colony, they stayed only because
+b8hf | Mok
+hntf | 77
+99fo | 'living in Hong Kong offers many attractions'. The 'outward-looking' economy and its rising international status provided these people who possessed 'capital and entrepreneur qualities' with 'first class opportunities'. They could 'enjoy their wealth more cheaply, safely and freely' in the colony because of the low tax rate and social stability. Being in an 'overwhelming Chinese society', they had a higher social status through business and adopted the Chinese way of life while enjoying 'the full benefits of living in a cosmo- politan city'.103 Most of the professionals and middle-scale proprietors supported the existing social order because of instrumental concerns: 'they have by large succeeded in going some way up the social ladder, often through hard work and preserving effort, and do not wish to lose that position'.104
+y5r7 | The young generation held 'significantly different, and largely less favourable, views of the government than their elders'.105 Many of them found the paternalistic type of government intolerable. MOOD predicted that some of them were going to demand more political participation and increased consultation, and become 'even more aggressive and presumptuous' towards the colonial government.106 Radicals among students argued that 'the government has become more enlightened and accommodating because it can see very well that there is no alternative'.107
+lrry | Attitudes towards the British government
+hvhm | MOOD also shows that the public had limited knowledge about the 'Empire' and impe- rial relations. Many had little interest in British politics, which could be observed when British members of parliament visited Hong Kong in 1976. Apart from knowing that MPs were elected, the Hong Kong public had virtually no idea about what members of parliament did. The report pointed out that 'some respondents believed that the visits were for the purpose of "checking up" on the Hong Kong government'.108 Despite the degree of autonomy enjoyed by Hong Kong, the public still held the impression that the colonial state was 'to a large extent, "controlled" by the United Kingdom government'. The UK parliamentary members were viewed as 'inspectors'.109 The same report also reflected the absence of confidence and scepticism towards both the colonial state and the British government. Many contacts argued that local officials would not present the parliamentary members with an accurate picture of the situation in Hong Kong:
+863b | They assumed quite intuitively that government officers would try to show the visitors only the better side of things. It simply did not occur to them that Hong Kong government very often tried to make visitors see Hong Kong's difficult and intractable problems in the hope that they could be better understood.110
+fj24 | The only information respondents of all classes and educational backgrounds had about the British government was its 'deteriorating economy', notably the 'shrinking pound'.111
+uz3c | The royal visit by the Queen in 1975 enabled MOOD to evaluate attitudes towards the head of state and answer students' radicalism. The announcement of the trip 'did not arouse much enthusiasm, particularly from the grass-roots level'. Many even denounced the trip as 'untimely' under the 'gloomy economic situation' as they misbelieved that a substantial amount of public expenditure would be spent.112 Despite the warm welcome
+d5bi | 78
+ba4l | China Information 33(1)
+ffx8 | upon the Queen's arrival, most families certainly were not 'well-wishers'.113 They only considered the royal visit 'no more than items of entertainment'. People 'do not regard themselves as subjects of the Queen of Great Britain, but rather as Chinese people com- ing by choice and force of circumstance to live under an alien government'. Most respondents called Queen Elizabeth II either neoi wong (+ E, the Queen) or jing neoi wong ( E, the Queen of England). MOOD interpreted this as an absence of political allegiance to both the United Kingdom and the British Crown. Hong Kong's grass roots and junior civil servants were apathetic. Some identified the Queen as either si tau po ( 事 頭 婆 ,the female boss) or baau zou po ( 包 租 婆 ,the landlady), demonstrating that their relations with the Crown were practical and instrumental.114 Similar reactions were detected in the celebration of the Silver Jubilee in 1977 and the visit of Prince Charles in 1979. The 1977 MOOD again suggested that most Hong Kong people did not 'con- sciously think of themselves as British subjects', 'except when they actually seek to travel on a British passport'.115 The visit of Charles was 'very well received' in 1979 only because Charles was often described by the mass media as 'charming, friendly and approachable', and that 'no lavish decorations or public funds had been wasted'.116 The visit did not instil 'public confidence and trust in the British government'.117
+s6su | Although some students started a campaign to boycott the royal visit in 1975, Hong Kong society in general was 'on the whole unsympathetic towards the boycott'. The majority believed that the boycott was 'meaningless and of no avail' since it certainly would have zero impact on the colony's constitutional position.118 The lower income groups, in particular, paid no attention to it. A 'non-conformist and aggressive attitude' was spreading from university to senior secondary students. Nonetheless, the post- secondary students were 'on the whole divided'. Graduates, in particular, were more pro- establishment. While some undergraduates believed that they could use the campaign as a channel to express their discontent, most were 'indifferent' and showed 'reluctance to get personally involved over the issue, either as a supporter or critic of the boycott'. In private conservations, many even 'expressed disapproval'.119 The growing student move- ment in the 1970s did not only divide the student community, but also the general public. Some viewed rising student political engagement as 'a healthy and beneficial trend for the community'. However, more believed that young students were 'impulsive and immature'.120
+y219 | Attitudes towards China
+06ht | According to MOOD, before 1967, most Chinese migrated to Hong Kong as they 'dis- liked communist ideology' and 'hated and feared the Central People's Government'. Most immigrants looked at communism 'with suspicion and hostility'.121 Some even worried that any link with the communists would 'get them into black books of the Hong Kong government'.122 In terms of political allegiance, some were loyal to the Kuomintang and viewed Taiwan as the legitimate government of China. They hoped that Taiwan would eventually take over China.123 MOOD reveals that despite the unpopularity of the leftist-inspired 1967 riots, the public was less hostile to China in the mid-1970s because it was clear that the central Chinese government had no intention of taking back Hong Kong early. By avoiding direct confrontation with the colonial government, communist
+v3r2 | Mok
+nv42 | 79
+xags | China seemed content to maintain the status quo in Hong Kong for 'cogent and important reasons'.124 China's willingness to supply Hong Kong with scarce resources, such as water during droughts in the 1960s and oil during the oil crisis in 1974, also gave the general public an impression that China was 'quite ready to help Hong Kong'.125 According to the observation of the Home Affairs Department staff, it became more prevalent to 'celebrate' the National Day of the PRC in the colony:
+jc47 | The number of 'celebration dinner parties' has increased significantly. It appears that invitations have been very widely distributed to non-communist groups, including associations known to have right-wing connections or sympathies. Many more 'neutral' people have accepted the invitations. They feel much less inhibited about attending such parties. Some of them even regard it as an honour to have been invited.126
+ko3c | Different views were shared by former migrants from China and the locally born young generation. A large proportion of middle-aged and elderly groups still viewed commu- nism with scepticism. The young generation took a relatively 'relaxed attitude' about 'the likelihood of Hong Kong returning to China'. Most post-war baby boomers however 'still preferred the status quo' and did not 'cherish returning to live in China under a com- munist regime'.127 The general optimism towards China stretched into the late 1970s: 'a general feeling of relief and confidence currently prevails'.128 While it was convention- ally believed that 'older Chinese had often kept their negative views of the PRC', MOOD shows that attitudes of the middle-aged and elderly towards China had improved signifi- cantly in 1978.129 Many were 'now more relaxed about China and welcome the improve- ment of Hong Kong and Beijing relations'.130 For the young generation, the Return Home Movement lost momentum and MOOD detected 'no significant trend' of students wanting to return to China.131
+```
+
+OUTPUT:
+```

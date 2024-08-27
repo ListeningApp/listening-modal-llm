@@ -1,0 +1,140 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+hntf | J Neurochem. Author manuscript; available in PMC 2020 September 01.
+99fo | Author Manuscript
+y5r7 | Author Manuscript
+lrry | Author Manuscript
+hvhm | Author Manuscript
+863b | Vidyadhara et al.
+fj24 | 3.2: Synaptojanin-1 and endophilin A: Partners in crime?
+uz3c | implicated in PD, in vitro studies have revealed that, the RME-8 mutation confers toxic gain- of-function, leading to endolysosomal cargo trafficking deficits (Norris et al. 2017). The RME-8 mutation is also predicted to affect overall endosomal trafficking, even in the soma and postsynaptic compartment (Vilarino-Guell et al. 2014), unlike the synapse-specific dysfunction predicted for auxilin. Recently, the link between RME-8 and PD has been muddied by an independent analysis of the same Mennonite family which did not find RME-8 mutations. Instead, all the affected individuals were identified to carry mutations in TMEM230 (Deng et al. 2016), which also functions in E-L system, perhaps at synapses. Hence, further studies are warranted to confirm the genetic link between RME-8 and PD. Still, evaluating the RME-8 mediated E-L system dysfunction might provide valuable insights in understanding PD.
+d5bi | Two other major synaptic endocytic proteins besides the DNAJ family that are implicated in PD are synaptojanin-1 (SYNJ1) and endophilin A family. SYNJ1 is a Sac domain- containing protein with two different phosphatase domains; 5-phosphatase and Sac1 which target different phosphoinositide phosphates (PIPs) (McPherson et al. 1996). 5-phosphatase regulates SV endocytosis by dephosphorylating PI(4,5)P2 to facilitate uncoating of CCVs in co-operation with Hsc70 and auxilin (Figure 1C), whereas Sac1 domain has gained importance due to its link to PD (PARK20, Table 1) (Mani et al. 2007; Cremona et al. 1999; Saheki & De Camilli 2012). The p.R258Q missense mutations in the Sac domain were identified independently in two consanguineous families of Italian and Iranian origin. Homozygous missense mutations of SYNJ/ Sac domain are noted to cause autosomal recessive PD with extrapyramidal features identical to patients with auxilin mutations (Krebs et al. 2013; Quadri et al. 2013; Olgiati et al. 2014). Interestingly, they responded poorly to L- dopa treatment, indicating the need for preclinical studies to understand the exact pathomechanisms. Recent observations by Cao et al., suggest that the Sac domain plays a previously unappreciated role in clathrin uncoating. Mice with SynJ1 Sac mutations (knock- in) developed PD-like characteristics and featured synaptic endocytosis defects, including accumulating of CCVs. Furthermore, elevated auxilin and parkin levels were noted in these mice, suggesting the profound effect of Sac mutations on other proteins linked to PD (Cao et al. 2017). Studies on fibroblasts from patients with SYNJ1 mutations suggested defective endocytic trafficking (Quadri et al. 2013). Other studies have shed light on the involvement of SynJ1 in regulating synaptic autophagy. Mutations in the Sac1 domain of SynJ1 in both Drosophila neurons and PARK20 patient-derived iPSCs severely affected synaptic autophagosome formation but not endocytosis (Vanhauwaert et al. 2017). This discrepancy and the precise relationship between SV endocytosis and synaptic autophagy remains to be clarified. However, the Drosophila model revealed loss of dopaminergic neurons, providing evidence for the contribution of synaptic autophagy defects in pathogenesis of PD (Vanhauwaert et al. 2017). Considering its dual enzymatic activity, SynJ1 is also believed to play a role in fast endophilin-mediated, clathrin-independent endocytosis which is an alternative to CME (Watanabe et al. 2018) and several other processes. Further studies are warranted to understand if SYNJ1 exert its effects on PD pathogenesis through any of the alternative endocytic pathways.
+ba4l | J Neurochem. Author manuscript; available in PMC 2020 September 01.
+ffx8 | Author Manuscript
+s6su | Author Manuscript
+y219 | Author Manuscript
+06ht | Author Manuscript
+v3r2 | Vidyadhara et al.
+nv42 | 4. Autophagy in PD; cause and effect, hand in hand:
+xags | 4.1 PINK1 and Parkin:
+jc47 | SYNJ1 recruitment to endocytic membrane is facilitated by endophilin A (Figure 1C), a protein drawing attention in PD pathogenesis for a while, despite its locus variation being just identified as a risk factor (Table 1) (Chang et al. 2017). This is because of endophilin A's close association with SYNJ1 (Song & Zinsmaier 2003; Cao et al. 2017) and its link to most important proteins involved in PD. One of our earlier studies indicated that overexpression of a-synuclein decreases endophilin A levels, while deletion of synucleins had the opposite effect (Westphal & Chandra 2013). As noted in SynJ/knock-ins, endophilin KO also leads to synaptic vesicle endocytosis defects, accumulation of CCVs, elevation of parkin levels, and other parkinsonian features (Cao et al. 2014; Milosevic et al. 2011). Gain- of-function mutations in LRRK2 hyper-phosphorylate endophilin A, the fly homolog, leading to synaptic endocytosis dysfunction (Matta et al. 2012). LRRK2-mediated phosphorylation of endophilin A is also noted to regulate synaptic autophagy (Soukup et al. 2016). Owing to the relatively higher frequency of LRRK2 mutations and its involvement in sporadic PD, endophilin A may prove to be another crucial protein involved in PD.
+ko3c | Neurons need to constantly maintain homeostasis by preserving healthy organelles and functional proteins, while selectively capturing and eliminating damaged organelles and misfolded proteins. Autophagy, an integral component of the E-L system, is an intracellular proteostasis pathway that performs this house cleaning function (Nixon 2013; Suresh et al. 2018b; Mizushima et al. 1998) (Figure 1A, C). It was initially identified in cell lines to function in maintaining energy homeostasis during critical periods of development and in response to nutrient depletion (Mizushima 2007). Intriguingly, nutrient depletion does not induce autophagy in neurons, but a complete lack of autophagy can cause lethal neurodegeneration, emphasizing its important role in survival (Hara et al. 2006; Komatsu et al. 2006). Since neurons are postmitotic and long-lived, they are particularly vulnerable to accumulation of toxic proteins (Nixon 2013). In addition, greater dependency of neurons on mitochondria for energy instead of glycolytic pathways demands constant mitochondrial turnover (Kann & Kovacs 2007), leading to many malfunctioning mitochondria. Both these factors play major roles in the pathogenesis of PD.
+xek3 | Role in Mitophagy and Beyond. Under physiological conditions, autophagy plays a crucial role in clearing unwanted proteins, as well as damaged mitochondria through a targeted mechanism called mitophagy (Nguyen et al. 2016). Loss-of-function mutations in PINK1 and Parkin (PARK2 and PARK6), result in recessively-inherited early-onset PD and significantly, both genes were discovered to be essential for mitophagy (Kitada et al. 1998; Valente et al. 2004; Mori et al. 1998). PINK1 is a serine/threonine protein kinase that acts as a surveillance molecule for mitochondrial health and accumulates on the outer membrane of abnormal mitochondria (Nguyen et al. 2016). PINK1 attracts recruitment of Parkin to damaged mitochondria, which through its E3 ubiquitin ligase activity (Kane et al. 2014; Narendra et al. 2010), coats the mitochondria with ubiquitin triggering autophagosomes to engulf the mitochondria (Narendra et al. 2008), culminating in lysosomal degradation (Figure 1A, C). Discoveries of PINK1 and Parkin mutations were the first genes to shed
+bbpr | J Neurochem. Author manuscript; available in PMC 2020 September 01.
+5zyf | Author Manuscript
+9own | Author Manuscript
+bqfb | Author Manuscript
+wwdt | Author Manuscript
+mn1r | 4.2. Synaptic autophagy and axonal transport: a road less travelled in PD research
+5vqw | Page 10
+meyw | light on the direct involvement of autophagy and E-L system in PD pathogenesis (Pickrell & Youle 2015). These observations also helped in validating previous neurotoxic studies (Przedborski et al. 2004) which identified mitochondrial dysfunction as one of the primary causes of neurodegeneration. Though the symptoms are indistinguishable from sporadic cases, several studies on brains of PD patients with Parkin mutations do not show a- synuclein aggregation and Lewy body pathology (Doherty & Hardy 2013). Only one report suggests PINK1-linked parkinsonism to be associated with Lewy pathology (Samaranch et al. 2010). This prompts us to speculate if there are alternative neuropathological cascades in PD that are a-synuclein independent but centered around the E-L system. In addition to their well-defined roles in mitophagy, Parkin was identified to modulate E-L system through Rab7 ubiquitination (Song et al. 2016), whereas PINK1 phosphorylates some Rab proteins (Lai et al. 2015). It is also worth noting that several of these rab proteins (for example Rab7) regulate mitochondrial dynamics and quality control independent of Parkin/PINK1 (Wang et al., 2018). Parkin mutations are also known to directly affect retromer recruitment (Williams et al. 2018) and interact strongly with VPS35 by ubiquinating it (Martinez et al. 2017; Malik et al. 2015). Parkin binds to endophilin A and functions in its ubiquitination (Cao et al. 2014). Parkin also ubiquitinates EPS15 to regulate epidermal growth factor receptors and phosphoinositide 3-kinase (PI(3)K)-Akt signalling that plays a role in neuronal survival (Fallon et al. 2006). These developments suggest mitophagy-independent routes these proteins may take towards PD. Further investigations of Parkin and PINK1 in this direction might provide crucial insights in understanding neurodegenerative mechanisms that are Lewy-body independent.
+2e62 | a-Synuclein aggregates initially in presynaptic termini, where the protein is enriched (Kramer & Schulz-Schaeffer 2007). a-Synuclein aggregates are a major target for autophagy-mediated degradation (Xilouri et al. 2008). In both genetic and sporadic PD, aggregated a-synuclein is likely to enhance autophagosome formation to meet the higher demand for its degradation (Wong & Holzbaur 2015). Once threshold reaches beyond compensatory limits, mutant/overexpressed a-synuclein starts to accumulate, turning detrimental to cellular homeostasis. In fact, A53T and A30P a-synuclein mutants blocked their own uptake and other substrates by lysosomes for degradation through the chaperone- mediated autophagy pathway in vitro (Cuervo et al. 2004). Dopamine-modified a-synuclein is identified to further exacerbate this process, which may explain the selective vulnerability of dopaminergic neurons in PD (Martinez-Vicente et al. 2008). A recent study on mammalian cells and transgenic mice shows that a-synuclein overexpression mediated autophagy defects are exerted through Rab1a inhibition (Winslow et al. 2010). Further understanding of the mechanisms for a-synuclein-autophagy crosstalk in PD might have crucial therapeutic applications. Backing this notion, both in vitro and in vivo studies show that enhancing autophagy and autophagosome-lysosome fusion could ameliorate PD-like features by clearing aggregated a-synuclein (Suresh et al. 2017; Suresh et al. 2018a).
+75y3 | Several other PD causing genes associated with the E-L system exert their pathological effects through impairing synaptic autophagy. The R258Q SynJ1 mutation directly affects autophagosome biogenesis and maturation at synaptic terminals of flies and neurites of
+s2g2 | J Neurochem. Author manuscript; available in PMC 2020 September 01.
+q1q2 | Author Manuscript
+cb7r | Author Manuscript
+68xu | Author Manuscript
+hd35 | Author Manuscript
+2zpk | Page 11
+epu7 | human iPSC derived neurons. The observation of dopaminergic neuronal loss in these flies suggests autophagosome generation defects as one of the possible mechanisms through which SynJ1 mutations lead to dopaminergic neurodegeneration and PD (Vanhauwaert et al. 2017). Presynaptic endocytic membrane bending protein endophilin A also has functions in providing docking sites for autophagy proteins and facilitating autophagosome expansion. This is achieved by phosphorylation of endophilin A-BAR domain by LRRK2, as noted in a fly model (Soukup & Verstreken 2017). Congruent to these observations, mice lacking endophilin A revealed deficiency in autophagosome formation and developed a Parkinsonian phenotype (Murdoch et al. 2016). These studies, along with recent finding of clathrin involvement in autophagy regulation (Rong et al. 2012), suggest a cooperative crosstalk between SV endocytosis and autophagy.
+7od1 | Macromolecules and organelles in the presynaptic terminal travel a long distance from the soma, making them old and vulnerable. Rapid turnover of proteins, membranes, receptors, and vesicles in the pre-synapse assigns autophagy a major role in maintaining synaptic homeostasis. This tasks synaptic autophagy with quality control responsibilities. Though there is compelling evidence that compromised autophagy contributes to PD, these studies primarily looked at the soma from a proteinopathy or mitophagy perspective (Lynch-Day et al. 2012). Selective inactivation of autophagy by conditional knockout of autophagy protein atg7 in dopaminergic neurons leads to enhanced dopamine release and rapid presynaptic recovery with abnormal axonal profiles (Hernandez et al. 2012). Conversely, autophagy enhancement through mTOR inhibition slows dopamine release, reduces the number of synaptic vesicles, and increases autophagosome density in the axons (Hernandez et al. 2012). These results emphasize the importance of synaptic autophagy in normal dopamine transmission and further evaluation is warranted to understand if additional synaptic autophagy defects exist, which may lead to PD pathogenesis.
+```
+
+OUTPUT:
+```

@@ -1,0 +1,122 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+h2l3 | 11 Dans le réalisme moral de Taylor, la clé pour conduire la subjectivité moderne vers les idéaux objectifs et établir une éthique du bien est l'articulation de ces idéaux de manière que les aspirations individuelles puissent trouver un écho dans des biens publics, extérieurs. Cette voie débouche sur une pluralité de langages d'articulation grâce auxquels le sujet peut développer ses rapports avec les biens publics. Plusieurs types d'articulation peuvent servir à établir cette communication. Taylor cite la philosophie, l'art et la poésie en raison de leur aptitude à exprimer des idéaux et donc à stimuler l'intuition morale permettant à la subjectivité individuelle de se lier au bien
+dfzb | objectif. Sa référence à la notion d'« épiphanie » est motivée par sa conviction qu'à travers elle l'individualité du moment subjectif est engagée dans l'articulation du bien. Dans la conception romantique de Taylor, l'épiphanie est la révélation de ce qui autrement demeurerait obscur. Mais, dans sa pensée, cette révélation est une activité de création et non simplement l'expression d'une vérité extérieure. L'articulation qui se qualifierait d'épiphanique est non pas une « définition conceptuelle », mais un « dévoilement » du bien auquel le sujet se rapporte. Taylor conçoit ce contact avec le bien émanant de cette articulation epiphanique comme une communication intersubjective. La sensibilité esthétique est ce qui médiatise cette communication. Ainsi, dans l'intersubjectivité esthétique, l'être humain éprouve un sentiment d'enchantement, d'émerveillement [awe] en face du bien.
+u6ty | 12 Le bien a une réalité supérieure. Il est porteur d'un sens plus élevé, et le sentiment de la finalité du monde est plus intense que celui que la subjectivité réduite à elle-même peut procurer. Le sentiment d'émerveillement, distinct de celui provenant d'une compréhension rationnelle, s'explique par l'amour du bien. Taylor espère justement que cet amour du bien sera éveillé grâce à l'articulation effective des idéaux modernes dans un langage qui prend en compte les aspirations du sujet moderne.
+awvu | Moralité rationnelle : identité du bien et du juste
+on9b | 13 L'action morale, dans la philosophie de Taylor, est une union esthétique de l'inclinaison et du bien. Le sujet moderne a une relation interne à un bien extérieur, objectif, sous la forme d'une conscience, d'une communion esthétique avec le bien qui suscite le désir de participer. Le volontarisme moral procède ici d'un sentiment qui inspire et anime. Le sentiment d'être en contact avec le bien forge la volonté de s'engager en faveur du bien. La liberté propre à ce volontarisme moral contraste avec le rigorisme de la relation kantienne autocompulsive si l'inclinaison doit être liée au devoir dérivé rationnellement. Mais si le volontarisme moral esthétique affranchit le sujet de la compulsion intérieure, permet-il pour autant la liberté propre à l'autodétermination collective ? En d'autres termes, le sujet est-il pour autant engagé en faveur du bien public extérieur, au sens d'une activité créatrice définissant les idéaux communs dans des pratiques culturelles ? Ou n'est-il présent que de manière passive, réceptif à un sens ou à une direction dictés par le bien public extérieur ? L'intersubjectivité esthétique entre le sujet et le bien public semble admettre essentiellement une relation passive. Le sujet est ouvert et réceptif au savoir et au sens dérivant du bien objectif. L'identification avec ce bien objectif découle de l'amour du bien par lequel on aspire à vivre selon le bien. Cet amour, toutefois, est motivé par le fait que le sujet entre en contact avec quelque chose qui lui est supérieur et pour lequel il éprouve admiration et enchantement. Le rapport d'amour implique une réceptivité face à l'orientation imposée par le bien. La liberté du sujet semble consister et se limiter à découvrir en soi- même les raisons de reconnaître la valeur supérieure du bien.
+a8ge | 14 Si l'on accepte l'idée que c'est l'amour du bien qui suscite l'inclination au bien, on peut se demander si un tel amour ne pourrait pas trouver un fondement plus solide dans un rapport d'identité où le sujet adopte une attitude active face au bien. Un tel rapport ferait intervenir la relation qui permet la reconnaissance de l'identité avec les pratiques culturelles qui incarnent les idéaux universels. Si le sujet en venait à s'identifier au bien en ce sens qu'il s'y reconnaîtrait du fait qu'il travaille en vue de
+h27a | celui-ci, ne serait-il pas davantage porté par là à vouloir s'engager davantage dans la voie du bien ? Le sentiment de la reconnaissance du sujet dans le bien objectif ne serait- il pas une expérience plus motivante que le sentiment d'admiration éprouvé dans l'expérience du bien comme présence et pourvoyeuse de sens ?
+pdjh | 15 Poser cette question de la solidité relative du fondement revient à soulever un doute quant à la relation d'enchantement comme base moderne de l'inclination. Un rapport esthétique avec le bien, produisant un sentiment d'émerveillement, peut être une base insuffisante pour susciter l'amour du bien chez un sujet moderne désenchanté. Un bien extérieur dont la source serait un Dieu transcendant ou qui émanerait de la nature n'est pas assez attirant pour pouvoir unir l'inclination et le bien. Pour le sujet moderne, une telle relation peut être regardée comme une compulsion plutôt que comme une inclination, car elle consiste essentiellement à admettre le bien tel qu'il se présente, à la différence d'une relation de participation à son accomplissement. Toujours pour le sujet moderne, l'identification au bien exige que l'individu se reconnaisse dans le bien sous la forme d'une participation à l'accomplissement du bien, c'est-à-dire en réalisant les idéaux dans des pratiques sociales concrètes. Autrement dit, c'est en se reconnaissant comme sujet historique du bien objectif plutôt qu'en étant simplement appelé à régler sa vie en fonction de ses exigences, que le sujet peut être conduit à mener une bonne vie, en communauté.
+xmgs | 16 Le romantisme expressif de Taylor ne connaît pas cette dialectique historique de l'identité du sujet et du bien. Mais si on laisse de côté les éléments théistes de sa vision, l'ontologie historique de la culture moderne amènerait l'émergence d'une relation au bien fondée sur la raison15. Elle révélerait une éthique du bien - en termes wébériens, une éthique de la conviction - comme éthique du droit ou, autrement dit, une unité du bien et du juste. Une telle éthique du droit qui intègre le bien peut se passer de Tautocompulsion kantienne, représentative de la rationalité morale formelle. En effet, il n'est pas nécessaire qu'une éthique de la responsabilité fondée sur une morale rationnelle soit séparée de l'éthique du bien. L'identification à un bien universel, historiquement constitué, non exclusif, amène l'inclination à faire le bien.
+bd9h | 17 Une moralité rationnelle, historiquement constituée, peut répondre aux exigences de l'autonomie morale de façon plus satisfaisante que ne pourrait le faire une morale intuitionniste. La reconnaissance de l'identité du sujet avec le bien extérieur a un effet plus important que celui suscité par la présence immédiate d'un bien extérieur. Elle amène le sujet à comprendre la plénitude de sa relation au bien historiquement constitué. Le sujet qui croit être totalement en union avec le bien éprouve envers ce dernier une attirance. Un tel sujet moderne, dans une communauté rationnelle, bénéficie d'un fondement plus solide que le sujet intuitif du romantisme.
+m047 | 18 Dans l'éthique du droit comme union de l'éthique de la responsabilité et de l'éthique de la conviction se trouvent les éléments essentiels de la citoyenneté. À l'opposé de l'éthique libérale du droit qui désapprouve l'immixtion dans les affaires d'autrui, on est en présence ici d'une solidarité avec les autres dans un monde où la justice est le bien constitutif. Avec l'éthique du bien comme éthique du droit, la justice n'est plus simplement considérée comme une procédure distributive équitable, mais comme un bien substantif. Cette éthique pose la question du sens et des buts de la vie dans un langage compris par tous et selon les termes de l'autoréalisation dans la communication avec autrui. L'éthique de la citoyenneté fonde la communauté rationnelle non seulement comme communauté politique, mais comme communauté
+gy8c | de producteurs au sein de laquelle les conditions de la réalisation de soi sont également des conditions de réalisation du potentiel créateur de tous16. L'éthique de la citoyenneté efface les frontières libérales entre l'économie et les institutions juridico-politiques de l'État. Il en est ainsi parce que la relation à autrui n'est plus uniquement conçue sur le mode du refus de l'ingérence dans les affaires d'autrui, mais plutôt comme engagement réciproque à l'égard de la réalisation de soi.
+y4mj | 19 Le fait qu'une telle éthique n'ait pas (encore) été réalisée dans la culture moderne ne signifie pas qu'elle n'a pas en elle les moyens de se développer à tout moment. En ce sens, la modernité est un projet inachevé17.
+vpgq | L'éthique discursive et ses limites
+ousl | 20 Cette projection historico-ontologique de l'éthique du droit diffère de plusieurs façons de la conception néokantienne de cette même éthique. La perspective néo-kantienne, adoptée entre autres par Habermas, évite d'envisager l'activité d'articulation du bien et, à vrai dire, doute même de la possibilité (et du caractère désirable) pour le monde moderne d'élaborer une conception ontologique du bien. S'appuyant sur le pluralisme wébérien, elle fait appel à une éthique du discours et de l'argumentation pour rendre compte de l'action éthique et morale dans les sphères non économiques de la vie sociale. Même dans ces sphères, l'éthique du discours fonde ses espoirs pour une compréhension des engagements moraux et des évaluations sur une démarche discursive qui traite les sujets éthiques en général et non pas séparément, dans leurs contextes particuliers.
+m4ju | 21 La caractéristique essentielle de cette démarche est son impartialité. Les raisons sous- tendant une norme sociale donnée sont soumises à l'examen public lorsqu'une telle norme a perdu sa signification commune. Nous sommes enjoints d'expliquer pourquoi nous estimons que notre jugement moral (sur une telle norme) est bon, ainsi que l'exige le principe de la meilleure explication de Taylor. Mais les raisons présentées doivent être examinées de façon impartiale.
+a0mb | 22 Ces raisons ne peuvent être significatives que pour un juge qui voit le monde dans une perspective particulariste. Elles ne peuvent, en d'autres termes, être relatives et préjudicielles en réclamant une validité pour des intérêts particuliers ou en tenant un intérêt particulier pour supérieur à d'autres ou plus digne de reconnaissance que d'autres. La raison communicationnelle du discours pratique est, dans cette perspective, le lieu de cet arbitrage impartial, car elle met en œuvre une raison publique où les acteurs sont engagés dans l'effort de compréhension d'une norme sociale donnée sur une base mutuellement acceptable, c'est-à-dire sur la base d'une démonstration publique de sa justesse normative.
+ki8m | 23 La préoccupation kantienne relative à l'intrusion possible d'intérêts égoïstes ou d'autres facteurs extérieurs dans la détermination de la volonté morale est également présente dans l'éthique du discours. Dans celle-ci toutefois, la solution est à trouver non pas dans l'autonomie de la délibération purement morale de l'acteur moral isolé, mais dans l'intersubjectivité de la raison communicative. Il s'agit là d'une raison publique qui présuppose uniquement l'autorité morale de la volonté d'acteurs rationnels en interaction. La raison communicative suppose la normativité dans la mesure où son exercice, qui consiste à démontrer ou à nier la validité d'une norme donnée, est en même temps un engagement en faveur de la justesse normative, laquelle
+km8w | consiste à démontrer ou à nier la validité d'une norme universalisable, non relative et non partiale18. La notion de « contradiction performative » dégagée par Karl-Otto Apel découle de cette normativité présupposée de la raison communicative. Défendre la normativité des normes, tout en se livrant à un raisonnement discursif, est contradictoire puisqu'on utilise une logique universaliste pour soutenir un point de vue relativiste19. La raison communicative suppose également un raisonnement formulé en toute liberté où le meilleur argument - ayant une validité universelle - l'emporte. Une telle présupposition, ne peut être, selon l'éthique du discours, qu'un idéal abstrait, c'est-à-dire une « situation idéale de discours », et elle doit être de portée pratique lorsque des participants recherchent effectivement la justesse normative. Ces derniers ne peuvent accepter la « meilleure raison » sans se contredire, étant donné l'activité de communication qui est la leur.
+wzno | 24 L'éthique du discours fonde le principe de base moral ou principe procedural d'universalisation « U » sur cette conception de l'activité de communication. En vertu de ce principe, les normes morales doivent satisfaire à l'exigence suivante : « les conséquences et les effets secondaires qui (de manière prévisible) proviennent du fait que la norme a été universellement observée dans l'intention de satisfaire les intérêts de tout un chacun peuvent être acceptés par toutes les personnes concernées et préférés aux répercussions des autres possibilités connues de règlement20. » La seconde maxime kantienne du sens commun, à savoir, se mettre en pensée à la place de tous les autres21, réapparaît dans cette structure discursive alors que les participants sont tenus moralement - en examinant la validité d'une norme proposée - de se mettre au point de vue de tous les autres. Ce sont les conséquences de cette identification à l'autre sur les besoins et les intérêts de ceux qui sont concernés par la norme qui constituent les raisons démontrant la validité de la norme examinée.
+```
+
+OUTPUT:
+```

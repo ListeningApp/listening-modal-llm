@@ -1,0 +1,131 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+0bqy | Macromolecules and organelles in the presynaptic terminal travel a long distance from the soma, making them old and vulnerable. Rapid turnover of proteins, membranes, receptors, and vesicles in the pre-synapse assigns autophagy a major role in maintaining synaptic homeostasis. This tasks synaptic autophagy with quality control responsibilities. Though there is compelling evidence that compromised autophagy contributes to PD, these studies primarily looked at the soma from a proteinopathy or mitophagy perspective (Lynch-Day et al. 2012). Selective inactivation of autophagy by conditional knockout of autophagy protein atg7 in dopaminergic neurons leads to enhanced dopamine release and rapid presynaptic recovery with abnormal axonal profiles (Hernandez et al. 2012). Conversely, autophagy enhancement through mTOR inhibition slows dopamine release, reduces the number of synaptic vesicles, and increases autophagosome density in the axons (Hernandez et al. 2012). These results emphasize the importance of synaptic autophagy in normal dopamine transmission and further evaluation is warranted to understand if additional synaptic autophagy defects exist, which may lead to PD pathogenesis.
+b780 | Another unique and stressful situation for neurons is that autophagosomes loaded with unwanted materials from an active presynaptic terminal, need to be transported a long distance to the soma for lysosomal degradation (Figure 1B). Microtubule and scaffolding proteins aid in this retrograde axonal transport of autophagosomes and are crucial for the normal functioning of E-L system (Birdsall & Waites 2019). During their transport, autophagosomes mature into autolysosomes by fusing with late-endosomes/lysosomes towards the proximal end of axon (Nikoletopoulou & Tavernarakis 2018). There are recent studies suggesting lysosomal degradation at the distal end, especially of mitophagosome mediated by Parkin-PINK1. This is predicted to provide rapid neuroprotection against oxidative stress by damaged mitochondria, without requirement for retrograde transport (Ashrafi et al. 2014; Ashrafi & Schwarz 2015). Axonal transport aids this function through anterograde transport of E-L system components required for degradation from soma towards distal end. Any defect in this to-and-fro transport machinery can completely clog the E-L system and other processes. Considering its functional significance in neuronal survival, axonal transport might hold clues for understanding pathological mechanisms. Abnormal axonal swelling with lysosomal accumulation has been noted in Alzheimer's disease, blocking the retrograde transport of autophagosomes (Gowrishankar et al. 2015; Nixon et al. 2005). Similar understanding on the health of axonal transport machinery and
+ccmb | J Neurochem. Author manuscript; available in PMC 2020 September 01.
+ma93 | Author Manuscript
+c6hh | Author Manuscript
+y7ea | Author Manuscript
+nav4 | Author Manuscript
+gem8 | Vidyadhara et al.
+e8nr | 5. Sometimes, there are traffic issues: E-L system trafficking in PD
+k78w | Page 12
+g9du | its dynamics in PD is crucial towards finding commonalities amongst neurodegenerative diseases.
+f682 | The multi-compartmentalised nature of neurons puts tremendous pressure on the endosomal sorting and trafficking machinery, which is also true in case of nigrostriatal neurons. The vacuolar protein sorting (VPS) group of proteins that form retromer complex comprising of VPS35, VPS26, and VPS29 are crucial in retrograde trafficking and sorting of protein cargos from endosomes to the TGN, facilitating their recycle and reuse (Figure 1A) (Haft et al. 2000; Seaman et al. 1998). The retromer complex also functions in sorting proteins/cargo to regulate endosomal and lysosomal maturation (Vagnozzi & Pratico 2018). Pedigrees with single allelic mutation in VPS35 revealed autosomal dominant, late-onset, L-dopa- responsive PD, with striking similarities to idiopathic PD (Vilarino-Guell et al. 2011; Wider et al. 2008). Broadly, it is proposed that the mutant VPS35 fails to associate with other components of the retromer complex, resulting in impaired retrograde trafficking (Williams et al. 2017). Induced loss-of-function mutations of VPS35 in vitro resulted in enlargement of late-endosomes and aggregation of a-synuclein oligomers (Follett et al. 2016). Another study on flies revealed ceramide accumulation due to VPS35 deficiency, suggesting lysosomal dysfunction (Lin et al. 2018). a-synuclein accumulation in nigral dopaminergic neurons, loss of dopaminergic neurons, reduced dopamine transporter levels in the striatum, and locomotory deficits were noted in VPS35-deficient mice (Ishizu et al. 2016; Tang et al. 2015a). Further in vitro studies of VPS35 (D620N) mutant cells revealed dysfunction in endosome-to-Golgi retrieval of lysosomal membrane proteins (LAMP2a) and accelerated lysosomal degradation of LAMP2a (Tang et al. 2015a). LAMP2a is considered important in directing misfolded a-synuclein to lysosomes, suggesting a mechanism for a-synuclein accumulation in VPS35 deficiency (Tang et al. 2015a). VPS35 mutations also affect autophagy and dendritic AMPA (a-Amino-3-hydroxy-5-methyl-4-isoxazolepropionic acid) receptor trafficking (Munsie et al. 2015; Zavodszky et al. 2014). VPS35 mutations bring severe abnormality in mitochondrial dynamics, as noted in cultured dopaminergic neurons, mice SNpc neurons, and in PD patient derived fibroblasts. (Tang et al. 2015b). Oxidative stress implicated in sporadic PD might mediate pathogenesis through VPS35-driven mitochondrial defects (Wang et al. 2016). VPS35 also has a role in biogenesis of mitochondria-derived vesicles, further suggesting that its dysfunction causees mitochondrial pathology and neurodegeneration (Sugiura et al. 2014). VPS35 is functionally linked to LRRK2, boosting its kinase activity (Mir et al. 2018). In fact, decreased VPS35 levels were noted in the SNpc of PD patients with LRRK2 mutations (Zhao et al. 2018). Interestingly, overexpression of VPS35 ameliorated locomotor deficits and enhanced lifespan in LRRK2 mutant models (Linhart et al. 2014; MacLeod et al. 2013), which was also seen in Parkin mutant models (Malik et al. 2015). Neuroprotection was also noted against MPP+ induced toxicity in dopaminergic neurons (Bi et al. 2013). Along with its E-L sorting functions, these links between VPS35 and a-synuclein, LRRK2, Parkin, lysosomal dysfunction, autophagy, mitochondrial perturbations, and oxidative stress strongly suggest VPS35 as a good therapeutic target.
+li1k | J Neurochem. Author manuscript; available in PMC 2020 September 01.
+pbea | Author Manuscript
+ccpt | Author Manuscript
+0fpw | Author Manuscript
+dqn8 | Author Manuscript
+cop0 | 6. Lysosomes: PD may also begin at the end of the tunnel
+lhkq | Page 13
+82ju | Another VPS family member associated with PD is VPS13C. Five allelic variations in VPS13C gene can lead to autosomal recessive, early-onset PD, primarily due to premature termination of VPS13C (Lesage et al. 2016; Schormair et al. 2018). Patients were noted with cardinal PD symptoms and extrapyramidal signs. Post-mortem studies revealed a-synuclein/ ubiquitin positive-Lewy bodies in the brain stem, limbic system, hippocampus, and cortical associative areas (Lesage et al. 2016). A few studies reveal that VPS13 functions in the TGN-endosomal cycle (De et al. 2017), whereas recent discoveries have also located it on the outer mitochondrial membrane (Lesage et al. 2016). In fact, siRNA-mediated silencing of VPS13C resulted in lower mitochondrial membrane potential, mitochondrial fragmentation, increased respiratory rates, exacerbated Parkin-dependent mitophagy, and upregulation of Parkin in response to mitochondrial damage (Lesage et al. 2016). A new study also revealed VPS13C's role in forming membrane contact sites and facilitating lipid transfer between the ER and mitochondria (Kumar et al. 2018). This is noteworthy, considering lipid transfer's increasing recognition in disease pathogenesis.
+y2qo | Since lysosomes are the destination for most E-L system vesicles carrying a variety of cargos for degradation and recycling (Figure 1A), dysfunction in any of its components results in lysosomal storage disorders, severely perturbing cellular homeostasis. A growing body of evidence suggests Lysosomal Storage Disorders increase risk for PD pathogenesis (Robak et al. 2017). Among them, Gaucher disease (GD) confers the greatest risk, where 5- 15% of GD patients or carriers develop PD later in life, to an extent where causal GBA mutations are the most common genetic risk factor for PD (Table 1) (Aharon-Peretz et al. 2004; Bultron et al. 2010; Simon-Sanchez et al. 2009). GBA encodes glucocerebrosidase 1 (Gcase1), which facilitates breakdown of glucosylceramide (GlcCer) into glucose and ceramide. In its absence, GlcCer accumulates and undergoes partial enzymatic deacylation to glucosylsphingosine and other more complex glycosphingolipids, which mediate disease pathogenesis. GBA is a relatively well studied E-L system gene with regards to PD, both in terms of post-mortem brains, clinical investigations, and basic research. Reduced Gcase1 activity in substantia nigra, putamen, and other brain areas of PD patients with GBA mutations have been noted along with GlcCer and glycosphingolipids accumulation (Alcalay et al. 2015; Gegg et al. 2012). Interestingly, similar observations were made even in sporadic PD patients (Alcalay et al. 2015; Rocha et al. 2015), suggesting an even broader role for GBA than just mutations and potentially involve epigenetic and environmental modifiers of GBA. Gcase1 levels decrease with aging, the major risk factor for PD (Hallett et al. 2018; Rocha et al. 2015), indicating GBA's possible role in lowering the nigral neurons' threshold to develop PD. Cognitive areas such as hippocampus, frontal cortex, and amygdala also showed relative decrease in GCase1 activity, along with a significant elevation of hippocampal glucosylsphingosine in sporadic cases (Gegg et al. 2012). This correlates with a higher Lewy body burden identified in the hippocampus and medial temporal regions, as well as a diffused cortical Lewy body pathology in GBA-linked PD (Hallett et al. 2018; Watson & Leverenz 2010). These pathological observations strengthen clinical findings that cognitive deterioration is severe in PD patients with GBA mutations compared to that of sporadic cases (Liu et al. 2016; Mata et al. 2016). These features indicate mouse models of
+1piq | J Neurochem. Author manuscript; available in PMC 2020 September 01.
+7fqw | Author Manuscript
+rhaz | Author Manuscript
+wak1 | Author Manuscript
+wtfz | Author Manuscript
+qy1i | Vidyadhara et al.
+1k9e | PD with GBA mutations are important in studying lipid dyshomeostasis and understand mechanisms of cognitive dysfunction in PD.
+5bjs | A recent study by Taguchi et al., provides evidence for an association between loss of Gcase1 activity, glycosphingolipids accumulation, and a-synuclein aggregation, both in vitro and in vivo models of Gba mutation (Taguchi et al. 2017). Glucosylsphingosine was shown to promote pathological a-synuclein aggregates, capable for further self-templating, was shown to accumulate in the brains of young homozygous Gba mutant and KO mice, implicating this glycosphingolipid in PD pathogenesis. Even in heterozygous Gba mutations, the Gcase1 activity decreased with age to an extent where mice reached threshold for haploinsufficiency, mimicking the human condition. Furthermore, the Gba mutant mice, when crossed with well characterised a-synuclein transgenic PD mice, revealed accelerated PD progression including a-synuclein aggregation and motor deficits (Taguchi et al. 2017). a-Synuclein aggregation has also been seenin human iPSCs derived neurons from GD and PD patients that are exposed to Gcase1 inhibitors, and in those carrying GBA mutations (Zunke et al. 2018). Mutations in GBA also cause misprocessing of Gcase1 in the ER, leading to ER retention of Gcase1. This produces ER stress and auto-lysosomal perturbations causing an abnormal lipid profile and increased a-synuclein accumulation and secretion (Fernandes et al. 2016; Ron & Horowitz 2005). This study along with a few other observations suggest dopaminergic dysfunction due to gain-of-function mutations in Gba (Cullen et al. 2011; Fernandes et al. 2016; Sidransky & Lopez 2012). However, therapeutic strategies based on loss-of-function observations have been successful, arguing against a gain of function model. Activation of residual Gcase1 by small molecules and chaperones and ameliorating glycosphingolipid accumulation by inhibiting GlcCer synthase lowered a- synuclein pathology and reinstated lysosomal health (Richter et al. 2014; Charvin et al. 2018; Sardi et al. 2017). These strategies are already being tested in clinics (Richter et al. 2014).
+```
+
+OUTPUT:
+```

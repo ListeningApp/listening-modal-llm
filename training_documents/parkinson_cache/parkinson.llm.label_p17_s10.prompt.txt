@@ -1,0 +1,256 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+1o7p | J Neurochem. Author manuscript; available in PMC 2020 September 01.
+cp13 | Author Manuscript
+bgre | Author Manuscript
+57lp | Author Manuscript
+ukth | Author Manuscript
+kpvt | Vidyadhara et al.
+jie2 | 8. Future Directions:
+d0ik | LRRK2 regulates the SV cycle by interacting with E-L system proteins that are also implicated in PD: auxilin, SYNJ1, and endophilin A. LRRK2 overactivity phosphorylates auxilin in its clathrin binding domain, making their interaction weaker. This leads to disruption of SV endocytosis (Nguyen & Krainc 2018). This was noted in patient iPSC- derived dopaminergic neurons, along with accumulation of oxidized dopamine, increased a- synuclein levels, and decreased Gcase1 activity (Nguyen & Krainc 2018).
+0x0s | Hyperphosphorylation of endophilin A and synJ1 by LRRK2 significantly altered synaptic endocytosis (Islam et al. 2016; Matta et al. 2012; Pan et al. 2017). A recent study showed that LRRK2 can directly bind to clathrin-light chains through its GTPase domain, affecting Rac1-mediated endosomal dynamics (Schreij et al. 2015). LRRK2 also perturbs synaptic exocytosis through phosphorylation of N-ethylmaleimide-Sensitive Factor which upregulates SNARE disassembly (Belluzzi et al. 2016). Furthermore, LRRK2 is highly expressed in dorsal striatal medium spiny neurons (MSNs), the postsynaptic compartment of nigrostriatal pathway. G2019S mutation of LRRK2 lead to abnormally high activity of MSNs and morphological perturbations during development (Matikainen-Ankney et al. 2016). Abnormal synaptogenesis and dopamine receptor activation in the developing MSNs mediated by dysfunctional protein kinase A was seen in LRRK2 R1441C mutation (Parisiadou et al. 2014). These defects can permanently modify the circuit structure and function, predisposing the individuals to both motor and non-motor dysfunctions of PD. LRRK2 mutation-mediated endocytosis defects were noted predominantly in these MSNs, along with nigral dopaminergic neurons and not in cortical or hippocampal neurons (Pan et al. 2017; Maas et al. 2017). This suggests a heightened vulnerability in the E-L system of nigrostriatal circuit for LRRK2 mutations.
+4exe | Increased LRRK2 kinase activity mediated elevation of exocytosis may also be relevant for cell-to-cell transfer of misfolded a-synuclein (Bae et al. 2018; Schapansky et al. 2018; Lin et al. 2009). LRRK2 can selectively recruit to overloaded lysosomes and divert undegraded materials out of the kidney cells, along with secretion of a-synuclein from endosomes (Eguchi et al. 2018). Studies also demonstrate heightened uptake of a-synuclein fibrils through endocytosis in the presence of pathogenic LRRK2 (Bae et al. 2018). However, LRRK2's role in prion-like spreading of a-synuclein remains speculative, until confirmation that similar mechanisms exist in neurons.
+0myz | Clinical description and diagnosis of PD has changed little since James Parkinson's characterization of the disease 200 years ago (Parkinson 2002). In the 1960s, identification of dopamine deficiency as the cause of motor abnormalities led to symptomatic relief for patients (Carlsson et al. 1957). Though some success has been noted with deep brain stimulation (Limousin et al. 1998), we are still relying on symptomatic relief. The last three decades of basic research have enriched our understanding of PD's cellular and molecular mechanisms, bringing tangible hope for disease modifying treatment strategies. Identification of risk genes and conceptual shifts in our understanding through genetic models point to the E-L system dysfunction as the key mediator of PD pathogenesis. Further strengthening this concept, PD pathogenesis appears to begin at synaptic terminals where endo and exocytotic machinery is most active and where a-synuclein and LRRK2 exert their
+xh3i | J Neurochem. Author manuscript; available in PMC 2020 September 01.
+syiw | Author Manuscript
+kg3t | Author Manuscript
+lvae | Author Manuscript
+o9sc | Author Manuscript
+121u | Acknowledgments:
+zh03 | Abbreviations:
+1mvw | Page 19
+6d4s | effects through the E-L system and vice-versa. Studies so far suggest that altered flux through the E-L system in nigral dopaminergic neurons that have lesser threshold for degeneration is the key trigger for neurodegeneration. Moving forward, critical elucidation of the mechanisms behind sorting, trafficking, and recycling defects demands detailed studies of auxilin and other DNAJ family proteins, along with SYNJ1, endophilin A, and the retromer complex. Studying these genes will also provide crucial insights into less explored roles of synaptic autophagy, axonal transport, and clathrin-independent endocytosis in PD. Recent surveys of PD patients note preservation of cognitive functioning as a major unmet need. Further investigation of GBA mutations implicated in PD is a promising avenue considering GBA's known involvement in cognitive disorders like Dementia with Lewy Bodies. Along with GBA, studying ATP13A2 and other lysosomal genes will enrich our understanding of lysosomal dysfunction, potentially bringing us closer to repurposing drugs used in Lysosomal Storage Disorders for PD. Affirming ongoing clinical trials targeting autophagy, a-synuclein, and LRRK2, an enhanced understanding of E-L system-mediated pathogenesis will prove crucial in developing novel treatment strategies and diagnostic tools for PD.
+mqah | Funding: This work was supported by NIH (R01NS110354, R01NS083846), Nina Compagnon Hirshfield Parkinson's Disease Research Fund and DOD (W81XWH-17-1-0564). VDJ is supported by DOD CDMRP Early Investigator Research Award (W81XWH-19-1-0264).
+xxr8 | PD Parkinson's disease
+rl4j | SNpc Substantia Nigra pars compacta
+vz32 | E-L
+ncb0 | Endolysosomal
+8mp0 | M6P
+xjyk | Mannose-6-phosphate
+mt0f | TGN
+awab | Trans-Golgi Network
+ixcc | CME
+8p6h | Clathrin-Mediated Endocytosis
+pmgl | ESCRT
+90no | Endosomal Sorting Complex Required for Transport
+jt0y | ILVs Interluminal Vesicles
+qb7o | MVBs Multivesicular Bodies
+oae5 | CCVs Clathrin Coated Vesicles
+s0fl | GAK
+43ia | Cyclin G Associated Kinase
+3g2y | GBA
+gc7v | Glucosidase Beta Acid
+wqfv | DCVs
+j30a | Dense Core Vesicles
+7bdk | J Neurochem. Author manuscript; available in PMC 2020 September 01.
+fim0 | Author Manuscript
+ojro | Author Manuscript
+l6t9 | Author Manuscript
+1ujy | Author Manuscript
+qzor | Vidyadhara et al.
+a0by | LRRK2
+u1ky | Leucine-rich repeat kinase 2 Parkinson's disease gene
+htm9 | PARK PRKN Parkin
+8hul | SNCA Alpha-synuclein gene
+87vz | GWAS Genome Wide Association Study
+ym66 | SVs Synaptic Vesicles
+l0a3 | PI(4,5)P2 Phosphatidylinositol 4,5-bisphosphate
+u8nw | L-dopa Levodopa
+l2v9 | KO Knockout
+afbe | RME-8 Receptor Mediated Endocytosis 8
+78r8 | SYNJ1/SynJ1 Synaptojanin-1
+320g | PIPs Phosphoinositide Phosphates
+tp8g | ATP13A2 ATPase cation transporting 13A2
+gxfd | PINK1 PTEN Induced Putative Kinase 1
+s2v1 | VPS Vacuolar Protein Sorting
+jkp9 | LAMP2a Lysosome-Associated Membrane Glycoprotein 2
+z8tt | AMPA a-Amino-3-hydroxy-5-methyl-4-isoxazolepropionic acid
+9g22 | GD Gaucher Disease
+41fx | Gcase1 Glucocerebrosidase 1
+7um8 | GlcCer Glucosylceramide
+uow2 | SNARE Soluble N-ethylmaleimide-sensitive factor Attachment protein Receptors
+iat7 | HSPGs Heparan Sulfate Proteoglycans
+ywwr | USP19 Ubiquitin Carboxyl-Terminal Hydrolase 19
+0i6j | MAPK/ERK Mitogen-Activated Protein Kinase/ Extracellular Signal- Regulated Kinase
+87cq | GTPase Guanosine Triphosphatase
+0qs3 | PI(4,5)P2 Phosphatidylinositol 4,5-bisphosphate
+z8f7 | Hsc70 Heat Shock Cognate 70
+7w7j | SİRNA small interfering Ribonucleic acid
+51vd | J Neurochem. Author manuscript; available in PMC 2020 September 01.
+baj1 | Author Manuscript
+n1wo | Author Manuscript
+5bq3 | Author Manuscript
+ezla | Author Manuscript
+rsbu | Vidyadhara et al.
+magd | References:
+tb74 | iPSCs induced Pluripotent Stem Cells
+8l69 | HSP40 Heat Shock Protein 40
+1jyv | MSNs Medium Spiny Neurons
+olce | J Neurochem. Author manuscript; available in PMC 2020 September 01.
+erx1 | Author Manuscript
+b3bt | Author Manuscript
+0w8m | Author Manuscript
+vcu3 | Author Manuscript
+hjzj | Page 22
+j79f | Bultron G, Kacena K, Pearson D, Boxer M, Yang R, Sathe S, Pastores G and Mistry PK (2010) The risk of Parkinson's disease in type 1 Gaucher disease. J Inherit Metab Dis 33, 167-173. [PubMed: 20177787]
+6tbv | Diao J, Burre J, Vivona S, Cipriano DJ, Sharma M, Kyoung M, Sudhof TC and Brunger AT (2013) Native alpha-synuclein induces clustering of synaptic-vesicle mimics via binding to phospholipids and synaptobrevin-2/VAMP2. Elife 2, e00592. [PubMed: 23638301]
+xb13 | Dickson DW, Braak H, Duda JE et al. (2009) Neuropathological assessment of Parkinson's disease: refining the diagnostic criteria. Lancet Neurol 8, 1150-1157. [PubMed: 19909913]
+cxqi | J Neurochem. Author manuscript; available in PMC 2020 September 01.
+qfmx | Author Manuscript
+rut3 | Author Manuscript
+m3cp | Author Manuscript
+mq4s | Author Manuscript
+95el | Doherty KM and Hardy J (2013) Parkin disease and the Lewy body conundrum. Mov Disord 28, 702- 704. [PubMed: 23653422]
+a0a5 | Hernandez D, Torres CA, Setlik W et al. (2012) Regulation of presynaptic neurotransmission by macroautophagy. Neuron 74, 277-284. [PubMed: 22542182]
+gocl | J Neurochem. Author manuscript; available in PMC 2020 September 01.
+ob1z | Author Manuscript
+m4cb | Author Manuscript
+m61y | Author Manuscript
+u2ob | Author Manuscript
+2gnm | Heuser JE and Reese TS (1973) Evidence for recycling of synaptic vesicle membrane during transmitter release at the frog neuromuscular junction. J Cell Biol 57, 315-344. [PubMed: 4348786]
+emgw | Kett LR, Stiller B, Bernath MM et al. (2015) alpha-Synuclein-independent histopathological and motor deficits in mice lacking the endolysosomal Parkinsonism protein Atp13a2. J Neurosci 35, 5724- 5742. [PubMed: 25855184]
+xaqt | J Neurochem. Author manuscript; available in PMC 2020 September 01.
+5rcb | Author Manuscript
+524j | Author Manuscript
+xd3m | Author Manuscript
+8qb6 | Author Manuscript
+wkbn | Kisos H, Ben-Gedalya T and Sharon R (2014) The clathrin-dependent localization of dopamine transporter to surface membranes is affected by alpha-synuclein. J Mol Neurosci 52, 167-176. [PubMed: 24048740]
+ftfg | Lin G, Lee PT, Chen K, Mao D, Tan KL, Zuo Z, Lin WW, Wang L and Bellen HJ (2018) Phospholipase PLA2G6, a Parkinsonism-Associated Gene, Affects Vps26 and Vps35, Retromer
+7xi5 | J Neurochem. Author manuscript; available in PMC 2020 September 01.
+w8r5 | Author Manuscript
+ybik | Author Manuscript
+gii5 | Author Manuscript
+q5eu | Author Manuscript
+a7ao | Function, and Ceramide Levels, Similar to alpha-Synuclein Gain. Cell Metab 28, 605-618 e606. [PubMed: 29909971]
+29a3 | Matta S, Van Kolen K, da Cunha R et al. (2012) LRRK2 controls an EndoA phosphorylation cycle in synaptic endocytosis. Neuron 75, 1008-1021. [PubMed: 22998870]
+sb1e | McPherson PS, Garcia EP, Slepnev VI et al. (1996) A presynaptic inositol-5-phosphatase. Nature 379, 353-357. [PubMed: 8552192]
+w2yn | J Neurochem. Author manuscript; available in PMC 2020 September 01.
+ap6l | Author Manuscript
+iest | Author Manuscript
+cox8 | Author Manuscript
+ppqi | Author Manuscript
+oxou | Middleton ER and Rhoades E (2010) Effects of curvature and composition on alpha-synuclein binding to lipid vesicles. Biophys J 99, 2279-2288. [PubMed: 20923663]
+495n | Norris A, Tammineni P, Wang S, Gerdes J, Murr A, Kwan KY, Cai Q and Grant BD (2017) SNX-1 and RME-8 oppose the assembly of HGRS-1/ESCRT-0 degradative microdomains on endosomes. Proc Natl Acad Sci U S A 114, E307-E316. [PubMed: 28053230]
+awri | Nurrish S (2014) Dense core vesicle release: controlling the where as well as the when. Genetics 196, 601-604. [PubMed: 24653208]
+bl28 | J Neurochem. Author manuscript; available in PMC 2020 September 01.
+d5bz | Author Manuscript
+ap5o | Author Manuscript
+7zvf | Author Manuscript
+mov9 | Author Manuscript
+ks7m | Vidyadhara et al.
+w1w1 | Ohsumi Y (2014) Historical landmarks of autophagy research. Cell Res 24, 9-23. [PubMed: 24366340]
+h8gv | J Neurochem. Author manuscript; available in PMC 2020 September 01.
+kwkp | Author Manuscript
+yj0m | Author Manuscript
+ewfp | Author Manuscript
+oczy | Author Manuscript
+2ttg | Page 29
+his3 | Rosendale M, Jullie D, Choquet D and Perrais D (2017) Spatial and Temporal Regulation of Receptor Endocytosis in Neuronal Dendrites Revealed by Imaging of Single Vesicle Formation. Cell Rep 18, 1840-1847. [PubMed: 28228251]
+m50z | Spillantini MG, Crowther RA, Jakes R, Hasegawa M and Goedert M (1998) alpha-Synuclein in filamentous inclusions of Lewy bodies from Parkinson's disease and dementia with lewy bodies. Proc Natl Acad Sci U S A 95, 6469-6473. [PubMed: 9600990]
+me84 | J Neurochem. Author manuscript; available in PMC 2020 September 01.
+o56m | Author Manuscript
+slz6 | Author Manuscript
+90k5 | Author Manuscript
+9m8s | Author Manuscript
+893y | Spillantini MG, Schmidt ML, Lee VM, Trojanowski JQ, Jakes R and Goedert M (1997) Alpha- synuclein in Lewy bodies. Nature 388, 839-840. [PubMed: 9278044]
+favz | Vidyadhara DJ, Yarreiphang H, Abhilash PL, Raju TR and Alladi PA (2016) Differential expression of calbindin in nigral dopaminergic neurons in two mice strains with differential susceptibility to 1- methyl-4-phenyl-1,2,3,6-tetrahydropyridine. J Chem Neuroanat 76, 82-89. [PubMed: 26775762]
+```
+
+OUTPUT:
+```

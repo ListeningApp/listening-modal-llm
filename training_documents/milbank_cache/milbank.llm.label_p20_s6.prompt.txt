@@ -1,0 +1,144 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+f682 | At the most basic level, laws encourage healthy, safe, and socially beneficial behaviors and discourage unhealthy, dangerous, and socially deleterious ones by shaping incentives (rewards) and deterrents (punish- ments). Though the theory may be simple, the process is not. Regulators have myriad levers and tactics that they can use to influence behavior directly or by manipulating the environment, and each choice in a reg- ulatory system can and should be studied for its effectiveness, in both absolute terms and relative to less burdensome alternatives. Among the mechanisms are taxation and subsidies, changes in the information en- vironment, changes in the built environment, and signals sent by tort litigation (Gostin, Thompson, and Grad 2007).
+li1k | With respect to laws imposing outright prohibitions on particular behaviors, many of the key research questions relate to mechanisms of implementation and enforcement: What penalties are applied to viola- tors of legal rules? What processes are used to detect violators? With what
+pbea | Making the Case for Laws That Improve Health
+ccpt | 189
+0fpw | degree of certainty and swiftness will sanctions ensue from a violation? Sociolegal research drawing on disciplines such as psychology, criminol- ogy, and sociology has a great deal to contribute to mechanism studies in PHLR. The psychological literature has explored contingencies of reinforcement; criminologists have fleshed out the factors influencing deterrence; and sociology research has plumbed the normative effects of standard setting. Tom Tyler's influential work, for example, has shown the importance of experiences of procedural fairness to compliance with the law (Tyler 1990).
+dqn8 | A classic example of compliance research in public health law is the investigation of primary versus secondary enforcement of seatbelt laws. Primary enforcement laws permit police to pull over motorists for not wearing a seatbelt, while secondary enforcement laws permit police to issue a ticket for not wearing a seatbelt only when the motorist has been pulled over for another reason. Because secondary enforcement relies primarily on social norms to enforce seatbelt use, with the threat of a ticket serving a greatly subordinate role, studies comparing these ap- proaches to enforcement are essentially a test of the relative effectiveness of punishment versus social norms as a means of encouraging compliance (Dinh-Zarr et al. 2001). Among the most interesting findings of this PHLR is that the relative benefits of primary enforcement laws varied across population subgroups, with the greatest marginal benefit observed for those groups with lower rates of seatbelt use, including males, young people, African Americans, and Native Americans (Beck et al. 2007).
+cop0 | These and other studies make clear that deterrence is a complex phe- nomenon. The deterrent effect of law often seems to be assumed, without an appreciation of the factors influencing whether a person's behavior is influenced by a fear of detection or punishment. The threat of fines may have an effect different from the threat of jail (Wagenaar et al. 2007). Deterrence may be weak or incomplete because people are ill informed about what the law requires, because they do not believe violation will result in a sanction, because they are insulated from the adverse effects of a sanction (e.g., by insurance coverage), or because the sanction is not strong enough to outweigh the perceived benefits of noncompliance with the law (Mello and Brennan 2002). Uncertainty about legal stan- dards can also have the opposite effect, leading to overcompliance in an attempt to avoid sanctions (Mello et al. 2006). Mechanism studies can examine all these phenomena. Survey methods, interviews, focus groups, and formal decision analysis can be used to deconstruct how people think
+lhkq | S. Burris et al.
+82ju | 190
+y2qo | through the costs and benefits of different actions. Analysis of adminis- trative data on enforcement actions can shed light on the degree to which popular perceptions reflect what actually happens when a law is violated.
+1piq | Another variable of interest in mechanism studies that focus on com- pliance with legal rules is the perceived legitimacy of the body impos- ing the legal rule. Even people who are aware of the law may not trust "the system," or they may see strategies other than compliance as more useful to them in achieving their goals (Burris 1998). Studies of the perceived legitimacy of public health lawmakers and law enforcers may be particularly useful in understanding differences in compliance across population groups whose historical experience in the United States has led to different levels of trust in government.
+7fqw | Mechanism studies may also investigate how law shapes behavior in ways more subtle than outright prohibitions. How do regulatory tools such as taxes and subsidies, mandated disclosure or receipt of informa- tion, default rules, accreditation and certification, and delegations of authority to private institutions shape how individuals and organiza- tions behave? When are these alternatives more effective and desirable than traditional, command-and-control regulation using rigid rules and penalties? For many of these forms of regulation, understanding the cog- nitive biases and heuristics that affect individual decision making about risk is critical (Kahnemann, Slovic, and Tversky 1982), and empirical research can examine how these biases influence health outcomes.
+rhaz | PHLR takes a number of forms, each utilizing diverse methods (table 1). By illuminating the paths we have delineated in our logic model, these forms each play important roles in establishing how law is being deployed to promote population health, and how and to what extent it is achieving its intended purpose.
+wak1 | Challenges Facing PHLR
+wtfz | We have argued that PHLR is a distinct and important field of research but that it faces a set of challenges shared with social research of other kinds. These include increasing methodological rigor, ensuring adequate research funding, identifying data sources, and ensuring the impact of PHLR on policy. We describe how each of these challenges takes shape in PHLR and explain why we are optimistic that they can be met.
+qy1i | Making the Case for Laws That Improve Health
+1k9e | 191
+5bjs | Increasing Methodological Rigor
+uodj | PHLR is part of a recent "explosion in empirical work" in law (Pfaff 2009). Some investigators are concerned that legal scholars are producing empirical work faster than the field can create the mechanisms necessary to ensure its rigor (Pfaff 2009). The fact that much PHLR is published in peer-reviewed health journals helps avoid one of the major problems confronting empirical legal studies more generally: the rarity of peer and expert editorial review in law journals. The further development of PHLR as a distinct field within empirical legal and public health research will be instrumental in defining and maintaining high standards of scientific rigor.
+k16v | One challenge is how to draw new investigators with the right exper- tise into the field. Perhaps to a greater extent than other areas of empirical legal research, PHLR must grapple with how to integrate individuals who are primarily practitioners into the field. Their involvement in PHLR can improve research in many ways: practitioners bring an inti- mate knowledge of what the cutting-edge public health problems are and of the practical realities of policymaking and implementation, and they constitute a pipeline for putting research into practice. However, they typically lack both significant training in research methods and experience conducting empirical research. Similarly, even methodolog- ically expert health researchers often lack any grounding in empirical legal scholarship, hampering their ability to conceptualize or measure legal influence on environments, behavior, or health outcomes.
+b2lm | The involvement of traditional legal scholars in PHLR raises similar challenges. Among the assets they bring to PHLR are a commitment to thinking deeply about the law's form, evolution, and function; the capac- ity for nuanced argument for or against particular legal approaches; and an appreciation of how social values and other normative considerations guide the law's path. Among the things they often lack are expertise in quantitative methods, an allegiance to the scientific method, and an inclination to think systematically about qualitative data collection and analysis.
+ti7f | These shortcomings can be surmounted through greater interdisci- plinarity. Increasingly, law faculties are experiencing a "PhD-ification" (Pfaff 2009), bringing aboard junior scholars dually trained in law and economics, political science, or another social science discipline. These scholars are well positioned to move from empirical legal studies
+oksu | S. Burris et al.
+wtow | 192
+o22k | generally to PHLR specifically. Even more promising is the trend toward pursuing PHLR in multidisciplinary teams. Research partnerships be- tween practitioners and scholars represent the future of the best research in this field, and interdisciplinary collaborations of scholars will become the "standard of care" very soon. Team-based approaches preclude the need for traditional legal scholars and practitioners to climb the steep learning curve necessary to conduct highly rigorous quantitative and qualitative investigations. At a minimum, however, these scholars and practitioners should receive enough training in empirical methods to become informed consumers of empirical studies and active participants in team decisions about study design (Lawless, Robbenholt, and Ulen 2010).
+nwfz | Another challenge relating to methodological rigor-one that cuts across fields of social science research-is how to adequately control for confounding variables in observational studies. This is particularly diffi- cult in intervention studies that exploit cross-sectional variation in state laws, because states differ in so many other ways, many of which are not captured in data (Mello and Zeiler 2008). Such studies are usually retrospective, relying on extant data rather than employing prospective designs that collect data on all important variables. Statistical tech- niques such as fixed-effects models and difference-in-difference models provide a means of minimizing this problem in repeated cross-section studies, although analysts need to carefully consider whether such de- signs are appropriate given the nature of their data. Prospective studies and studies involving original data collection are even stronger responses to this problem but are expensive, time-consuming, and not feasible for studying some public health law questions.
+nvfy | Yet another methodological challenge for the field is interpreting empirical findings. Empirical legal scholars have lamented the limited development of approaches to dealing with the problem of induction (Epstein and King 2002). The field of epidemiology has developed and refined tools for evaluating when it is appropriate to draw causal in- ferences from statistical associations, but the same cannot be said for empirical legal studies (Pfaff 2009). The temptation to infer causality from association, or even to infer association from observing a small, nonsystematic sample of actors or jurisdictions, has been problematic in PHLR. Here, PHLR can and should draw on epidemiology: Sir Austin Bradford Hill's classic work on indicators of causality in en- vironment exposures and disease, for instance, is useful in a broad swath
+mror | Making the Case for Laws That Improve Health
+zlxc | 193
+k0bw | of observational work (Hill 1965). Addressing the question, "What as- pects of that association should we especially consider before deciding that the most likely interpretation of it is causation?" Bradford Hill listed strength, consistency, specificity, temporality, "biological gradi- ent" (a dose-response relationship), biological plausibility, coherence with known facts, availability of experimental evidence, and availability of analogous phenomena.
+aq5a | As the factors inhibiting greater rigor are gradually overcome, PHLR will move from its current state, in which simple descriptive studies, nonsystematic qualitative work, and overly simplistic regression mod- eling are common, to a greater use of more sophisticated study designs. This process will be guided by the application of methodological stan- dards developed in related fields of research. For example, the Society for Prevention Research has established criteria for judging whether laws and policies aimed at disease prevention are efficacious, effective, and ready for dissemination (Flay et al. 2005). The U.S. Preventive Services Task Force has developed a rating system for the strength of evidence for preventive health measures provided by different types of study designs, ranging from case reports to randomized controlled trials (Harris et al. 2001). The Campbell and Cochrane Collaborations are highly informa- tive examples of how work in PHLR can be systematically evaluated and, through this evaluation, spurred to higher levels of rigor (Campbell Collaboration 2009; Cochrane Collaboration 2009). The process will also be driven by the increasing extent to which PHLR scholars view them- selves as a professional community engaged in stimulating, collaborating in, and critiquing one another's work. Ultimately, a clear professional identity for the field will emerge, and at its core will be a commitment to the disciplined application of the scientific method and the most sophis- ticated methodological approaches to study public health law questions.
+sc5y | Ensuring Adequate Research Funding
+0yab | Collecting, analyzing, and communicating research data all cost money. Although the problem of securing research funding is not unique to PHLR, it poses special problems in this field because many public health law researchers work in soft-money environments, and extramural fund- ing for PHLR is sparse. The recent commitment of the Robert Wood Johnson Foundation (RWJF) to building PHLR represents a milestone in the field's evolution. First through its overall public health law
+w95z | S. Burris et al.
+0i1k | 194
+dqlg | portfolio (which has also included support for policy-related initiatives like the Substance Abuse Policy Research Program, Healthy Eating Research, Active Living Research, and PHSSR) and now through its program in Public Health Law Research, RWJF has supported PHLR at an unprecedented level. Previously, researchers relied on small programs such as the National Science Foundation's Law and Social Science program and the Centers for Disease Control and Prevention's (CDC's) short-lived Public Health Law for research opportunities, or they tried to shoehorn legal research projects into health research solicitations, for example, the NIH's and the CDC's requests for proposals on drug addiction or injury prevention. While these attempts have often been successful, they have limited the researchers' ability to address the core areas of inquiry of PHLR, and they have precluded ready identification of studies that constitute the PHLR literature across a wide array of health topics. The RWJF initiative thus will pay for research and also build the field of PHLR by stimulating new investigators to enter the field, bringing researchers together, signaling what constitutes rigor in the field, and gathering together PHLR studies across diverse topics and methods.
+p6pq | The question of sustainability does arise, however. A longer-term and more broad-based commitment by research sponsors is needed to support the field's continued flourishing. This is most likely to occur if public health law researchers spend time educating sponsors and policymakers as to the significance of the problems that the field addresses as well as researchers' ability to provide useful, credible answers. Empirical research examining how research influences policy has emphasized the importance of the relationships between researchers and their audiences (Lavis, Moynihan, et al. 2008). We hope that over time, law and policy studies will become seen as a core component of all public health research solicitations, in the way that ethics is increasingly viewed in the context of genomic, cancer, and other population health research.
+zse6 | Identifying Data Sources
+p2n3 | Although a wide array of data sets on health risk exposures, health behaviors, and health outcomes are available, data on health laws are much harder to find (Hadfield 2006; Heise 1999; Mello and Zeiler 2008). Unlike many other areas of public health research, research on public health law and policy has developed few surveillance systems (Brownson et al. 2006; McGowan et al. 2003). Gathering information
+ohh7 | Making the Case for Laws That Improve Health
+vbni | 195
+dgcw | about the patterns of public health law adoption and implementation across states and local governments over time generally is done de novo in each research project.
+```
+
+OUTPUT:
+```

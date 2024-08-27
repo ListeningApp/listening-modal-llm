@@ -1,0 +1,131 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+bqfb | 358
+wwdt | 15481360, 2014, 2, Downloaded from https://anthrosource.onlinelibrary.wiley.com/doi/10.14506/ca29.2.09 by University Of Oslo, Wiley Online Library on [25/08/2023]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+mn1r | accountability, and more homework? Why have we been shaped so that we know the things we do and are ignorant to various degrees about so much else?
+5vqw | The process so far has been diagnostic. If you are seriously considering a topic for a research project or, cyborg forbid, a dissertation, and you get sick or bored of it after a week of imploding it, then you definitely need a different topic. The implosion process is designed to daunt and to lure. If you already know your story, then you will do no more than repeat common sense. Ideally the process will reveal connections that you did not know and that you did not know you cared about. Thicker weaves of dependence, accountability, and care are part of the result of this process. "Commitment after the implosions of technoscience requires immersion in the work of materializing new tropes in an always contin- gent practice of grounding or worlding" (Haraway 1997, 113).
+meyw | Teaching Implosion
+2e62 | I have taught the above assignment in graduate classes where each step took a whole week. Students involved in dissertations or still figuring out their topic were instructed to braindump the first week, then comment on others the second week. The third week each individual constructed a gap map (some in color, all revealing of both "personal" preferences and the cultural, societal, and educational shaping of those preferences), and the following week everybody tried to see where they could find information and where they could not (or how expensive it would be to obtain). Attending to this process sometimes mutated students' prior arguments and sometimes deepened them; it also nuanced their understand- ing of how every argument persists within <LATEX>a</LATEX> field of knowledge threads that are themselves "analytical, imaginative physical, and political choice[s]" (Haraway 1997, 129). From my reading, they became more careful writers, aware of the dimensions they were ignoring and of the limitations of the threads they depended on. Those going into the field reported that the process exploded their topic's apparent coherence and the common sense that they brought to it, creating op- portunities for connections and especially for gaps, generating a state of readiness to pay attention to surprise in the field.
+75y3 | In undergraduate classes for the Google generation, I developed a quicker and less intense artifact assignment aimed at learning to see connections-the world in the object (as multiplicities), and the object in the world (as lines of circulation and as a biography of things). Students were asked to first try and answer the questions without search, and then to use search, and in both cases to map the ways in which everything is not connected, and many connections are
+s2g2 | 15481360, 2014, 2, Downloaded from https://anthrosource.onlinelibrary.wiley.com/doi/10.14506/ca29.2.09 by University Of Oslo, Wiley Online Library on [25/08/2023]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+q1q2 | nonobvious even in the search bar. Another version of this applied the same set of questions to Wikipedia entries, challenging students to ask which dimensions were left out of the entries and to see whether they could discover them and add to Wikipedia (a process that quickly reveals the ongoing politics of Wikipedia knowledge).
+cb7r | Other versions have been used in a writing class as a one-shot two-hour brainstorming activity-go, go go! A quick map of present thinking, jogging other thoughts, and then returning to writing. We also used a version in an STS (Science and Technology Studies) workshop, asking participants to make their answers into a map to post on walls and to bring others in on, finding inspiration in other maps, additional lines, and ways of following dimensions one had not thought of.
+68xu | I want to end by recalling the humor, the pleasure, the joy with which Haraway writes and works on the world. This is due, I think, to the homework side of the implosive project I have emphasized. Once one has worked on all of this, analysis continues with renewed vigor, writing flows, new tables and clas- sifications can be elaborated. I try never to forget Haraway's (1997, 128) wry admonishment: "Both people and things have a nonreducible trickster quality that resists categories and projects of all kinds. Yearning is fed from the gaps in categories and from the quirky liveliness of signs." Deleuze (1986a, 67) similarly explained, "What interests me is a rather special discipline, taxonomy, a classi- fication of classifications, which, unlike linguistics, can't do without the notion of a sign. . . . Nothing is more fun than classifications!"9 And he explained of Foucault's work, "All this did not prevent him from sometimes treating the intolerable with great humor; we laughed a lot. Because it was not a matter of feeling indignant, but of seeing something not visible, of thinking about something almost at the limit of thought" (Deleuze 1986a, 1). 10
+hd35 | Writing anew thus emerges from the encounter of our commitments with the liveliness of their objects. "What would be the value of the passion for knowl- edge if it resulted only in a certain amount of knowledgeableness and not, in one way or another and to the extent possible, in the knower's straying afield of himself?" (Foucault 1986, 8). Haraway (1997, 129) provides a pedagogical guide to staying with this encounter:
+2zpk | Objects like the fetus, chip/computer, gene, race, ecosystem, brain, data- base, and bomb are stem cells of the technoscientific body. Each of these curious objects is a recent construct or material-semiotic "object of knowl- edge," forged by heterogeneous practices in the furnace of technoscience.
+epu7 | 15481360, 2014, 2, Downloaded from https://anthrosource.onlinelibrary.wiley.com/doi/10.14506/ca29.2.09 by University Of Oslo, Wiley Online Library on [25/08/2023]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+7od1 | To be a construct does not mean to be unreal or made up; quite the opposite. Out of each of these nodes or stem cells, sticky threads lead to every nook and cranny of the world. Which threads to follow is an analytical, imaginative, physical, and political choice. I am committed to show how each of these stem cells is a knot of knowledge-making practices, industry and commerce, popular culture, social struggles, psychoanalytic formations, bodily histories, human and nonhuman actions, local and global flows, inherited narratives, new stories, syncretic technical/cultural processes, and more. (emphasis added)
+0bqy | This article puts a reading of Gilles Deleuze's Cinema 2 in dialogue with Donna Haraway's works and methods. Working through the former helps me unpack the process of Haraway's inquisitive "implosion" method and some of its aims better. I describe this as exploring how the world is interconnected one process and thing at a time, how these connections are vitally and politically important, and how this work is inexhaustible. Following this exegesis, I offer a series of exercises for putting this method into practice, one that I use myself and teach to graduate students and undergrads. [ethnography; writer's block; history of knowledge; commitment]
+b780 | NOTES
+ccmb | 1. Michel Foucault and Daniel Defert initiated the Group for Information on Prisons (GIP) that included Deleuze and others; the group published a newsletter, Intolerable, insti- gating change in talk about prisons. "Foucault . . . was in some fashion a seer. He saw things, and like all people who know how to see, who see something and see it deeply, he found what he saw to be intolerable. For him, to think meant to react to the intolerable, to something intolerable he had seen. And the intolerable never was the visible; it was something more. .. . But the intolerable was not a matter of ethics. That is, his ethics were to apprehend or to see something as intolerable, but it was not in the name of morals that something was intolerable. . . . If thinking did not reach the intolerable, it was not worthwhile to think. To think always meant to think about the limits of a situation. But it also meant to see" (Deleuze 1986b, 1). See also Foucault 2000; Foucault and Deleuze 1977.
+ma93 | 2. I learned to work with Deleuze's words through attending John Rajchman's seminars at MIT (from 1997 to 2004). Rajchman's approach to the experimental and empirical practices of Deleuze and Foucault, in dialogue with my training in attention and writing from Haraway and Susan Harding, shaped the empirical methods and teaching forms <LATEX>I</LATEX> now employ (see Rajchman 1985, 1988, 2000).
+c6hh | 3. The full sentence reads: "But the films and articles rigorously exclude the contextualizing politics of decolonization and exploitation of the emergent Third World, obligatory and normative heterosexuality, masculine dominance of a progressively war-based scientific enterprise in industrial civilization, and the racial symbolic and institutional organization of scientific research" (Haraway 1989, 156).
+y7ea | 15481360, 2014, 2, Downloaded from https://anthrosource.onlinelibrary.wiley.com/doi/10.14506/ca29.2.09 by University Of Oslo, Wiley Online Library on [25/08/2023]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+nav4 | 4. "The modern fact is that we no longer believe in this world. We do not even believe in the events which happen to us, love, death, as if they only half concerned us. It is not we who make cinema, it is the world which looks to us like a bad film" (Deleuze 1989, 171). See also Rajchman 2000.
+gem8 | 5. Of course, science fiction is also a form of radical empiricism.
+e8nr | 6. On "strong objectivity," see Harding 1991.
+k78w | 7. 8. See the conference by the same name for other agnotologists, http://www.stanford. edu/ dept/HPS/ AgnotologyConference.html (accessed February 27, 2014). Steve Hil- gartner has also been exploring non-knowledge.
+g9du | See Deleuze and Guattari 1986.
+f682 | 9. See also Rajchman's discussion of Deleuze's humor (2000), and Deleuze's discussion of the Stoic's humor versus Platonic irony (1987).
+li1k | 10. Foucault (1985, 4) described his relation to humor, writing, and struggle like this: "The bourgeoisie is not at all what Baudelaire thought, a pack of stupid and sluggish fools. The bourgeoisie is intelligent, lucid, calculating. No other form of domination has ever been so efficient, and subsequently so dangerous, so deeply rooted. It won't suffice to call the bourgeoisie villainous; it won't simply disappear like the flame of a blown-out candle. This justifies a certain sadness; it is thus necessary to bring into the struggle as much gaiety, lucidity and determination as possible. The only really sad thing is not to fight. . . . Basically I don't like to write: it is a very difficult activity to master. Writing interests me only in the measure that incorporates the reality of combat, as an instru- ment, a tactic, a spotlight. I would like my books to be like surgeon's knives, Molotov cocktails, or galleries in a mine, and, like fireworks, to be carbonized after use."
+pbea | 15481360, 2014, 2, Downloaded from https://anthrosource.onlinelibrary.wiley.com/doi/10.14506/ca29.2.09 by University Of Oslo, Wiley Online Library on [25/08/2023]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+```
+
+OUTPUT:
+```

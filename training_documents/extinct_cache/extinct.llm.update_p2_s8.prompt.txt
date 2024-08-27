@@ -1,0 +1,77 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document. Your task is to faithfully reproduce the text for our text-to-speech engine so that it is easily read aloud.
+
+Note that the text might not start at the beginning and paragraphs may be split acrosss multiple textboxes. Textboxes may start or end in the middle of a word which is acceptable: do not combine text between textboxes and leave broken words at the start and end of a textbox unchanged.
+
+You will receive one textbox per-line in the format `id | Textbox content`. The output must be in the format `id | Clean content`.
+
+RULES:
+ • Remove inline citations and references e.g. "(Author, 2021)" or "(https://wikipedia.org/article.html)" or "[ECMOS 35b, 47, 49]".
+ • Spell out numbers, dates, and chemical formulas for the TTS engine e.g. "-2.5" -> "negative two point five" or "Jan. 2020" -> "January twenty twenty".
+ • Spell out LaTeX formulas for the TTS engine e.g. "<LATEX>p = 1</LATEX>" -> "P equals one".
+ • Rejoin hyphenated word fragments within the same textbox e.g. "synth -esize" -> "synthesize".
+ • Fix simple typos and OCR errors e.g. "O nce upon a 1ime." -> "Once upon a time.".
+ • Delete nonsequiter textboxes that interrupt the middle of a sentence if they obviously do not belong.
+
+Otherwise, the output should exactly match the input text:
+ • Do not combine text across lines or attempt to fix words broken across lines.
+ • Ensure each ID from the input is included in the output.
+ • Make as few changes as possible while respecting the above rules.
+
+EXAMPLE INPUT:
+```
+ccpt | stigate the effectiveness of psychedelics for ADHD symp- toms in adults.
+0fpw | 2. Materia1 and methods
+dqn8 | 2.1. Study design and participants
+cop0 | The study employed a naturalistic design, assessing the experiences of participants at bas-,
+lhkq | eline before they start, and at 2 and 4 weeks after initiation. The target population included adults with ADHD symptoms who had not been diag- nosed with ADHD before. To be included, participants needed to score on Conner's Adult ADHD Rating Scale (CAARS-S:SV). This cut-off was indicative of clinically elevated symptoms (Conners et al., 1999) (see section 2.3).
+82ju | 2.2. Study procedure
+y2qo | The online advertisement was placed on a website providing information about psychedelics (www.microdo sing.nl). Interested participants were redirected to information explaining the study rationale and procedure. The baseline survey took 20 min to complete. If the survey had not been completed after 24 h, a reminder was sent. Each of the surveys at the 2- and 4-week time points took about 15 min to complete. Par- ticipants were able to pause the surveys. Data collection occurred between Nov. 2020 and Jul. 2021. The study was approved by the Ethics Review Committee of Psy- chology and Neuroscience at Maastricht University (ERCPN- 215_05_11_2019_A1).
+1piq | 2.3. Measures
+7fqw | 2.3.1. Demographic information and history of substance use
+rhaz | At baseline, demographic information was collected. History of substance use assessed experience with psyche- delics (i.e., ayahuasca, DMT, 5-MeO-DMT, LSD, novel lysergamides (e.g., 1P-LSD, ALD-52), psilocybin, salvia divinorum, ibogaine, and mescaline) in both full (psychedelic) doses and microdoses.
+wak1 | 2.3.2. Psychiatric and physiological diagnoses
+wtfz | Participants were asked whether they had a current diagnosis of a disorder. These answer options were chosen because most of the listed diagnoses are often reported to co-occur with ADHD (Kooij et al., 2019), or because these diagnoses were reported to be common in people who microdose (Fadiman and Korb, 2019). We 
+3j2l | REVIEW ARTICLE Frontiers in Psychiatry | www.frontiersin.org
+03k3 | 2
+1k9e | constructed a variable Comorbidity alongside ADHD, differenti- ating respondents with and without a comorbid diagnosis alongside ADHD (<LATEX>p < . 0 0 1 =</LATEX> only ADHD or no ADHD diagnosis; <LATEX>p > . 0 1 =</LATEX> ADHD and at least one other diagnosis). We constructed a variable Medication use alongside microdosing, differentiating respondents who were and were not using conven- tiona1 ADHD medication alongside microdosing (<LATEX>0 =</LATEX> only microdosing; <LATEX>1 =</LATEX> conven-
+```
+
+EXAMPLE OUTPUT:
+```
+ccpt | stigate the effectiveness of psychedelics for ADHD symptoms in adults.
+0fpw | Two. Material and methods
+dqn8 | Two point one. Study design and participants
+cop0 | The study employed a naturalistic design, assessing the experiences of participants at bas-,
+lhkq | eline before they start, and at two and four weeks after initiation. The target population included adults with ADHD symptoms who had not been diagnosed with ADHD before. To be included, participants needed to score on Conner's Adult ADHD Rating Scale. This cut-off was indicative of clinically elevated symptoms (see section two point three).
+82ju | Two point two. Study procedure
+y2qo | The online advertisement was placed on a website providing information about psychedelics. Interested participants were redirected to information explaining the study rationale and procedure. The baseline survey took twenty minutes to complete. If the survey had not been completed after twenty-four hours, a reminder was sent. Each of the surveys at the two and four-week time points took about fifteen minutes to complete. Participants were able to pause the surveys. Data collection occurred between November twenty twenty and July twenty twenty-one. The study was approved by the Ethics Review Committee of Psychology and Neuroscience at Maastricht University.
+1piq | Two point three. Measures
+7fqw | Two point three point one. Demographic information and history of substance use
+rhaz | At baseline, demographic information was collected. History of substance use assessed experience with psychedelics (i.e., ayahuasca, DMT, five-MeO-DMT, LSD, novel lysergamides (e.g., one-P-LSD, ALD-fifty-two), psilocybin, salvia divinorum, ibogaine, and mescaline) in both full (psychedelic) doses and microdoses.
+wak1 | Two point three point two. Psychiatric and physiological diagnoses
+wtfz | Participants were asked whether they had a current diagnosis of a disorder. These answer options were chosen because most of the listed diagnoses are often reported to co-occur with ADHD, or because these diagnoses were reported to be common in people who microdose. We
+3j2l |
+03k3 |
+1k9e | constructed a variable Comorbidity alongside ADHD, differentiating respondents with and without a comorbid diagnosis alongside ADHD (P is less than point zero zero one equals only ADHD or no ADHD diagnosis; P is greater than point zero one equals ADHD and at least one other diagnosis). We constructed a variable Medication use alongside microdosing, differentiating respondents who were and were not using conventional ADHD medication alongside microdosing (zero equals only microdosing; one equals conven-
+```
+
+INPUT:
+```
+magd | to the chosen literature for this overview and the narrative pre- sented. Firstly, because this review is largely limited to the Western anglophone analytical literature (except for some of the authors mentioned in the last section on extinction studies, which is neces- sitated by the character of that area of research), it can neither represent the rich variety of arguments and positions found in other philosophical traditions such as so-called continental philosophy and non-Western philosophy (e.g. Asian or African environmental philosophical traditions and Indigenous philosophies), nor does it cover relevant philosophical literature published in other lan- guages. Secondly, by starting with Soulé's postulate this review paints a particular narrative of the relevant reasons speaking in its favour or against it. We thereby particularly emphasise matters of moral value (i.e. different intrinsic and instrumental values) for providing reasons against or in favour of species extinctions due to their centrality in the environmental ethics literature, as well as in interdisciplinary conservation debates more broadly. Yet, certainly other somewhat different narratives that, for example, highlight more the differences between different ethical theories (e.g. rights- based versus virtue-focused perspectives) would be as plausible.
+tb74 | In the following, we start by presenting some noteworthy themes that have emerged from discussions within environmental ethics that address the concept of extinction and its history within that literature (section "Understanding extinction"). Then, we turn to different reasons for why anthropogenic extinctions might be morally problematic and cases where anthropogenic extinctions might be justified (section "Why (or when) might anthropogenic extinctions be morally problematic?") and how to respond to extinctions (section "How to respond to extinctions?"). Finally, we look beyond our own narrow disciplinary perspective and introduce other viewpoints on the ethics of extinction from a body of work called 'extinction studies' (section "Extinction studies") before concluding (section "Conclusion").
+8l69 | Understanding extinction
+1jyv | The history of the concern about extinction in environmental ethics
+olce | A period from the late eighteenth century to the early twentieth century changed the way extinction was thought about in Europe and North America. During that time, three developments came together. Firstly, mostly thanks to Darwin, the idea of evolution and extinction as its key component replaced creationist ideas that distrusted the very possibility of extinction, if it was not outright denied. Reasons for this former denial are historical, as the influ- ential Greek philosophers Plato and Aristotle, unlike some popular writers of the time, paid no attention to fossil bones of no longer existing vertebrates (Mayor, 2011). For them, species could not disappear except locally - a belief in line with the principle of plenitude dating back to Plato (Lovejoy, 1936), which states that all possible lifeforms necessarily exist and cannot disappear. Fig- uratively, the extant kinds form a 'great chain of being' and each kind in this chain is there necessarily; thus, the chain is unbreakable, and nature is in balance. This idea prevailed in pre- and early modern Europe and was endorsed by, for instance, Linnaeus as late as the eighteenth century.
+erx1 | Secondly, given the importance of the notion of extinction to evolutionary thinking, extinction was not seen as a matter of concern but rather the opposite: extinct species were too weak to survive, or an extinct species was replaced by another, thus main- taining the balance in nature. Both cases - through weeding out the
+b3bt | weak and introducing novel species - were regarded as improve- ments in natural evolution (Barrow, 2009; Sepkoski, 2020).
+0w8m | Thirdly, despite this, and most relevant for thinking about the ethics of extinction, a concern about extinctions as universal and irreversible events started taking shape (as early as Marsh, 1864/ 2003) and was broadly reflected in new legislation such as the Sea Birds Preservation Act of 1869 in the UK. This historical change is well conveyed by Aldo Leopold (1949/1989, 110), when he stated that '[t]he sailor who clubbed the last auk thought nothing at all. But we, who have lost our [passenger] pigeons, mourn the loss'. Leopold (1989, 210-211) also already noted that economic considerations fail to provide reasons for protecting those species that lack economic value. Instead of extending economic valu- ation, as has been proposed later by economists, Leopold saw conservation as action against extinction that also rests on non- anthropocentric ethical ideas. Nevertheless, a systematic philo- sophical discussion on the ethics of extinction evolved much later with the formation of the academic field of environmental ethics since the 1970s.
+vcu3 | Early books and articles on environmental ethics did not expli- citly discuss the ethics of extinction. The discussion focused on the flipside of the coin: Why protect endangered species (Elliot, 1980; Gunn, 1980; Rescher, 1980)? One could see here a connection with new legislation, such as the US Endangered Species Act (1973), but the discussion broadened to also include the significance of diver- sity in nature more broadly (Naess, 1973; Norton, 1987), to incorp- orate the possibility of multiple extinctions in a relatively short period of time (for mass extinction, see Sepkoski, 2020) and to introduce a new concept, biodiversity (Wilson, 1986). For example, some ethicists have tried to develop a naturalistic account of the human propensity to value species and their diversity (Callicott, 1984, 305, 1986; or, more recently, elaborated E.O. Wilson's bio- philia hypothesis, Baxter, 2007; cf. Takacs, 1996).
+hjzj | Arguably, one of the earliest contributions on the ethics of extinction is Richard Sylvan's (then still known as Routley) famous thought experiment of the last person on earth (originally the 'last man'), firstly formulated in 1973, which can be made relevant for thinking about extinction. Sylvan writes:
+j79f | The last man (or person) surviving the collapse of the world system lays about him, eliminating, as far as he can, every living thing, animal or plant (but painlessly if you like, as at the best abattoirs). What he does is quite permissible according to basic chauvinism, but on environmental grounds what he does is wrong (Sylvan, 1973/ 2003, 49).
+6tbv | Later in the same article, he also specifically considers 'vanishing species':
+xb13 | Consider the blue whale ( ... ). The blue whale is on the verge of extinction because of his qualities as a private good, as a source of valuable oil and meat. The catching and marketing of blue whales does not harm the whalers; it does not harm or physically interfere with others in any good sense, though it may upset them and they may be prepared to compensate the whalers if they desist; nor need whale hunting be willful destruction. ( ... ) The behavior of the whalers in eliminating this magnificent species of whale is accord- ingly quite permissible - at least according to basic chauvinism. But on an environmental ethic it is not (1973/2003, 50).
+cxqi | He asked whether species or nature more broadly are valuable beyond their potential usefulness for humans. What Sylvan's fam- ous case suggests is that the permissibility of extinguishing species - as he argued, allowed by traditional Western ethical systems that conceive of nature as something to be used by humans as they please - is an example of what he called 'human chauvinism', now
+```
+
+OUTPUT:
+```

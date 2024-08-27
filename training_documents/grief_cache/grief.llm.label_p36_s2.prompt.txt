@@ -1,0 +1,131 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+ftfg | Grief Counseling and Grief Therapy
+7xi5 | The main distinctions between grief and depression are these: In depression as well as grief, you may find the classic symptoms of sleep disturbance, appetite disturbance, and intense sadness; however, in a grief reaction, there is not the loss of self-esteem commonly found in most clinical depressions. That is, the people who have lost someone do not have less regard for themselves as a result of such a loss, or if they do, it tends to be for only a brief time. And if the survivors of the deceased experience guilt, it is usually guilt associated with some spe- cific aspect of the loss rather than a general overall sense of culpability. Even though grief and depression share similar objective and subjec- tive features, they do seem to be different conditions. Depression over- laps with bereavement but is not the same (Robinson & Fleming, 1989, 1992; Wakefield & Schmitz, 2013; Worden & Silverman, 1993; Zisook & Kendler, 2007). Freud believed that in grief, the world looks poor and empty, while in depression, the person feels poor and empty. These differences in cognitive style have been identified by Beck and associ- ates (1979) and other cognitive therapists who have suggested that the depressed have negative evaluations of themselves, the world, and the future. Although such negative evaluations can exist in the bereaved, they tend to be more transient.
+w8r5 | However, there are some bereaved individuals who do develop major depressive episodes (MDE) following a loss (Zisook, & Kendler, 2007; Zisook, Paulus, Shucter & Judd, 1997; Zisook & Shuchter, 1993, 2001). The recent Diagnostic and Statistical Manual (5th ed .; DSM-5; American Psychiatric Association [APA], 2013) allows for this distinc- tion. Zisook and colleagues (2012), who were influential in the drop- ping of the previous 2-month bereavement exclusion where depression could not be diagnosed in the bereaved until 2 months after the death, argue that, "the preponderance of data suggests that bereavement-related depres- sion is not different from MDE that presents in any other context; it is equally genetically influenced, most likely to occur in individuals with past personal and family histories of MDE, has similar personality characteristics and patterns of comorbidity, is as likely to be chronic and/or recurrent, and responds to antidepressant medications." If a major depressive episode develops during bereavement, this should be considered a type of complicated mourning-exaggerated grief (see Chapter 5).
+ybik | At Yale, Jacobs, Hansen, Berkman, Kasi, and Ostfeld (1989), Jacobs et al. (1990), and Jacobs, Nelson, and Zisook (1987) have been interested in depression within the context of bereavement. According to them, "Although the majority of depressions of bereavement are transient and require no professional attention, there is growing appreciation that some depressions, especially those that persist throughout the first year
+gii5 | 1 Attachment, Loss, and the Experience of Grief
+q5eu | of bereavement, are clinically significant" (1987, p. 501). They have used antidepressant medication to treat patients whose depression persisted late into the course of bereavement and did not resolve spontaneously or respond to interpersonal interventions. These were usually people who had a history of depression or some other mental health disorder. They found improvement in sleep disorders and appetite disturbance as well as an improvement in mood and cognition. This response sug- gests a biological dimension to the depression.
+a7ao | A section in the DSM-5 (APA, 2013) advises that:
+29a3 | Responses to a significant loss [such as bereavement] may include the feeling of intense sadness, rumination about the loss, insomnia, poor appetite and weight loss which may resemble a depressive episode. Although such symptoms may be understandable or con- sidered appropriate to the loss, the presence of a major depres- sive episode in addition to the normal response to a significant loss should also be carefully considered. This decision inevitably requires the exercise of clinical judgement based on the individu- al's history and the cultural norms for the expression of distress in the context of loss. (p. 95)
+sb1e | One of the functions of the counselor who has contact with peo- ple during the time of acute grief is to assess which patients might be undergoing a major depression by using current standard diagnostic criteria from the DSM-5 (APA, 2013). Patients so identified can then be given additional help such as a medical evaluation and possibly the use of antidepressant medications. Once depression begins to lift through medication, then the focus of treatment changes to the underlying con- flicts of the attachment. These conflicts cannot be addressed through medications alone (Miller et al., 1994).
+w2yn | If grief is defined as one's experiences after a loss, then mourning is the process one goes through leading to an adaptation to the loss. In the next two chapters, we look at the mourning process in detail.
+ap6l | FOR REFLECTION AND DISCUSSION
+iest | · In this chapter the terms grief, bereavement, and mourning are defined. How does this distinction make this topic more understandable for you? In what ways would you modify these definitions?
+cox8 | · Looking at the diversity of (a) feelings, (b) physical sensations, (c) cognitions, and (d) behaviors that are typical of normal,
+ppqi | Grief Counseling and Grief Therapy
+oxou | uncomplicated grief, which of these have you witnessed most frequently in your work with bereaved individuals? Which have you experienced yourself in the aftermath of a significant loss?
+495n | · Bereaved individuals sometimes report a sense they are losing their mind. How do the cognitions and emotions described in this chapter contribute to this sense of craziness?
+awri | . Behaviors such as carrying around items that belonged to the deceased might cause some well-meaning family members and friends to think the bereaved person needs professional help. How could you reassure your clients about the normalcy of these behaviors?
+bl28 | · What might be some of the problems when treating normal bereavement reactions as if they were the symptomatic criteria for major depressive disorder? How might these problems be significant in clinical practice and why?
+d5bz | REFERENCES
+ap5o | Ainsworth, M., Blehar, M., Waters, E., & Wall, S. (1978). Patterns of attachment: A psychological study of strange situations. Hillsdale, NJ: Erlbaum.
+7zvf | American Psychiatric Association. (2013). Diagnostic and statistical manual of mental disorders (5th ed.). Washington, DC: Author.
+mov9 | Beck, A. T., Rush, A. J., Shaw, B. F., & Emery, G. (1979). Cognitive therapy of depression. New York, NY: Guilford Press.
+ks7m | Bowlby, J. (1977a). The making and breaking of affectional bonds: I. Aetiology and psychopathology in the light of attachment theory. British Journal of Psychiatry, 130, 201-210. doi:10.1192/bjp.130.3.201
+w1w1 | Bowlby, J. (1977b). The making and breaking of affectional bonds: II. Some principles of psychotherapy: The fiftieth Maudsley lecture (expanded edition). British Journal of Psychiatry, 130, 421-431. doi:doi:10.1192/ bjp.130.5.421
+h8gv | Bowlby, J. (1980). Attachment and loss: Loss, sadness, and depression (Vol. II). New York, NY: Basic Books.
+kwkp | Cerney, M. S., & Buskirk, J. R. (1991). Anger: The hidden part of grief. Bulletin of the Menninger Clinic, 55, 228-237.
+yj0m | Cookson, K. (1990). Dreams and death: An exploration of the literature. OMEGA-Journal of Death and Dying, 21, 259-281. doi:10.2190/8LJ8- 6GN1-YT22-B8D4
+ewfp | Darwin, C. (1872). The expression of emotions in man and animals. London, UK: Murray.
+oczy | Demi, A. S., & Miles, M. S. (1987). Parameters of normal grief: A Delphi study. Death Studies, 11, 397-412. doi:10.1080/07481188708252206
+```
+
+OUTPUT:
+```

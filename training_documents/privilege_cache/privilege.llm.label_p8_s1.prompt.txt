@@ -1,0 +1,127 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+pdjh | 581
+xmgs | Donna Haraway
+bd9h | THE PERSISTENCE OF VISION
+m047 | I would like to proceed by placing metaphorical reliance on a much maligned sensory system in feminist discourse: vision.7 Vi- sion can be good for avoiding binary oppositions. I would like to insist on the embodied nature of all vision and so reclaim the sen- sory system that has been used to signify a leap out of the marked body and into a conquering gaze from nowhere. This is the gaze that mythically inscribes all the marked bodies, that makes the un- marked category claim the power to see and not be seen, to repre- sent while escaping representation. This gaze signifies the un- marked positions of Man and White, one of the many nasty tones of the word "objectivity" to feminist ears in scientific and tech- nological, late-industrial, militarized, racist, and male-dominant societies, that is, here, in the belly of the monster, in the United States in the late 1980s. I would like a doctrine of embodied ob- jectivity that accommodates paradoxical and critical feminist science projects: Feminist objectivity means quite simply situated knowledges.
+gy8c | The eyes have been used to signify a perverse capacity - honed to perfection in the history of science tied to militarism, capi- talism, colonialism, and male supremacy-to distance the know- ing subject from everybody and everything in the interests of unfettered power. The instruments of visualization in multina- tionalist, postmodernist culture have compounded these meanings of disembodiment. The visualizing technologies are without ap- parent limit. The eye of any ordinary primate like us can be end- lessly enhanced by sonography systems, magnetic reasonance imaging, artificial intelligence-linked graphic manipulation sys- tems, scanning electron microscopes, computed tomography scan- ners, color-enhancement techniques, satellite surveillance sys- tems, home and office video display terminals, cameras for every purpose from filming the mucous membrane lining the gut cavity of a marine worm living in the vent gases on a fault between con- tinental plates to mapping a planetary hemisphere elsewhere in the solar system. Vision in this technological feast becomes unregulated gluttony; all seems not just mythically about the god trick of seeing everything from nowhere, but to have put the myth into ordinary practice. And like the god trick, this eye fucks the world to make techno-monsters. Zoe Sofoulis calls this the cannibaleye of mas- culinist extra-terrestrial projects for excremental second birthing.
+y4mj | Donna Haraway
+vpgq | A tribute to this ideology of direct, devouring, generative, and unrestricted vision, whose technological mediations are simulta- neously celebrated and presented as utterly transparent, can be found in the volume celebrating the 100th anniversary of the Na- tional Geographic Society. The volume closes its survey of the magazine's quest literature, effected through its amazing photography, with two juxtaposed chapters. The first is on "Space," introduced by the epigraph, "The choice is the universe-or nothing." This chapter recounts the exploits of the space race and displays the color-enhanced "snapshots" of the outer planets re- assembled from digitalized signals transmitted across vast space to let the viewer "experience" the moment of discovery in immediate vision of the "object."9 These fabulous objects come to us simulta- neously as indubitable recordings of what is simply there and as heroic feats of technoscientific production. The next chapter, is the twin of outer space: "Inner Space," introduced by the epigraph, "The stuff of stars has come alive."10 Here, the reader is brought in- to the realm of the infinitesimal, objectified by means of radiation outside the wave lengths that are "normally" perceived by hominid primates, that is, the beams of lasers and scanning electron microscopes, whose signals are processed into the wonderful full- color snapshots of defending T cells and invading viruses.
+ousl | But, of course, that view of infinite vision is an illusion, a god trick. I would like to suggest how our insisting metaphorically on the particularity and embodiment of all vision (although not ne- cessarily organic embodiment and including technological media- tion), and not giving in to the tempting myths of vision as a route to disembodiment and second-birthing allows us to construct a usable, but not an innocent, doctrine of objectivity. I want a feminist writing of the body that metaphorically emphasizes vi- sion again, because we need to reclaim that sense to find our way through all the visualizing tricks and powers of modern sciences and technologies that have transformed the objectivity debates. We need to learn in our bodies, endowed with primate color and stereoscopic vision, how to attach the objective to our theoretical and political scanners in order to name where we are and are not, in dimensions of mental and physical space we hardly know how to name. So, not so perversely, objectivity turns out to be about particular and specific embodiment and definitely not about the false vision promising transcendence of all limits and responsibili-
+m4ju | Donna Haraway
+a0mb | 583
+ki8m | ty. The moral is simple: only partial perspective promises objec- tive vision. All Western cultural narratives about objectivity are allegories of the ideologies governing the relations of what we call mind and body, distance and responsibility. Feminist objectivity is about limited location and situated knowledge, not about trans- cendence and splitting of subject and object. It allows us to become answerable for what we learn how to see.
+km8w | These are lessons that I learned in part walking with my dogs and wondering how the world looks without a fovea and very few retinal cells for color vision but with a huge neural processing and sensory area for smells. It is a lesson available from photographs of how the world looks to the compound eyes of an insect or even from the camera eye of a spy satellite or the digitally transmitted signals of space probe-perceived differences "near" Jupiter that have been transformed into coffee table color photographs. The "eyes" made available in modern technological sciences shatter any idea of passive vision; these prosthetic devices show us that all eyes, including our own organic ones, are active perceptual systems, building on translations and specific ways of seeing, that is, ways of life. There is no unmediated photograph or passive camera obscura in scientific accounts of bodies and machines; there are only highly specific visual possibilities, each with a wonderfully detailed, active, partial way of organizing worlds. All these pictures of the world should not be allegories of infinite mobility and interchangeability but of elaborate specificity and difference and the loving care people might take to learn how to see faithfully from another's point of view, even when the other is our own machine. That's not alienating distance; that's a possible allegory for feminist versions of objectivity. Understanding how these visual systems work, technically, socially, and psychically, ought to be a way of embodying feminist objectivity.
+wzno | Many currents in feminism attempt to theorize grounds for trusting especially the vantage points of the subjugated; there is good reason to believe vision is better from below the brilliant space platforms of the powerful.11 Building on that suspicion, this essay is an argument for situated and embodied knowledges and an argument against various forms of unlocatable, and so irrespon- sible, knowledge claims. Irresponsible means unable to be called into account. There is a premium on establishing the capacity to see from the peripheries and the depths. But here there also lies a
+xagm | Donna Haraway
+iwn5 | serious danger of romanticizing and/or appropriating the vision of the less powerful while claiming to see from their positions. To see from below is neither easily learned nor unproblematic, even if "we" "naturally" inhabit the great underground terrain of sub- jugated knowledges. The positionings of the subjugated are not ex- empt from critical reexamination, decoding, deconstruction, and interpretation; that is, from both semiological and hermeneutic modes of critical inquiry. The standpoints of the subjugated are not "innocent" positions. On the contrary, they are preferred because in principle they are least likely to allow denial of the critical and interpretive core of all knowledge. They are knowl- edgeable of modes of denial through repression, forgetting, and disappearing acts-ways of being nowhere while claiming to see comprehensively. The subjugated have a decent chance to be on to the god trick and all its dazzling-and, therefore, blinding-illu- minations. "Subjugated" standpoints are preferred because they seem to promise more adequate, sustained, objective, transform- ing accounts of the world. But how to see from below is a problem requiring at least as much skill with bodies and language, with the mediations of vision, as the "highest" technoscientific visualiza- tions.
+uooz | Such preferred positioning is as hostile to various forms of relati- vism as to the most explicitly totalizing versions of claims to scien- tific authority. But the alternative to relativism is not totalization and single vision, which is always finally the unmarked category whose power depends on systematic narrowing and obscuring. The alternative to relativism is partial, locatable, critical knowl- edges sustaining the possibility of webs of connections called solidarity in politics and shared conversations in epistemology. Relativism is a way of being nowhere while claiming to be every- where equally. The "equality" of positioning is a denial of respon- sibility and critical inquiry. Relativism is the perfect mirror twin of totalization in the ideologies of objectivity; both deny the stakes in location, embodiment, and partial perspective; both make it im- possible to see well. Relativism and totalization are both "god tricks" promising vision from everywhere and nowhere equally and fully, common myths in rhetorics surrounding Science. But it is precisely in the politics and epistemology of partial perspectives that the possibility of sustained, rational, objective inquiry rests.
+pxbq | So, with many other feminists, I want to argue for a doctrine and
+jfsr | Donna Haraway
+u15r | 585
+lq35 | practice of objectivity that privileges contestation, deconstruction, passionate construction, webbed connections, and hope for trans- formation of systems of knowledge and ways of seeing. But not just any partial perspective will do; we must be hostile to easy rela- tivisms and holisms built out of summing and subsuming parts. "Passionate detachment"12 requires more than acknowledged and self-critical partiality. We are also bound to seek perspective from those points of view, which can never be known in advance, that promise something quite extraordinary, that is, knowledge potent for constructing worlds less organized by axes of domination. From such a viewpoint, the unmarked category would really dis- appear-quite a difference from simply repeating a disappearing act. The imaginary and the rational -the visionary and objective vision - hover close together. I think Harding's plea for a successor science and for postmodern sensibilities must be read as an argu- ment for the idea that the fantastic element of hope for transfor- mative knowledge and the severe check and stimulus of sustained critical inquiry are jointly the ground of any believable claim to objectivity or rationality not riddled with breathtaking denials and repressions. It is even possible to read the record of scientific revolutions in terms of this feminist doctrine of rationality and ob- jectivity. Science has been utopian and visionary from the start; that is one reason "we" need it.
+3g9w | A commitment to mobile positioning and to passionate detach- ment is dependent on the impossibility of entertaining innocent "identity" politics and epistemologies as strategies for seeing from the standpoints of the subjugated in order to see well. One cannot "be" either a cell or molecule-or a woman, colonized person, laborer, and so on-if one intends to see and see from these posi- tions critically. "Being" is much more problematic and contingent. Also, one cannot relocate in any possible vantage point without being accountable for that movement. Vision is always a question of the power to see-and perhaps of the violence implicit in our visualizing practices. With whose blood were my eyes crafted? These points also apply to testimony from the position of "oneself." We are not immediately present to ourselves. Self-knowledge re- quires a semiotic-material technology to link meanings and bodies. Self-identity is a bad visual system. Fusion is a bad strategy of posi- tioning. The boys in the human sciences have called this doubt about self-presence the "death of the subject" defined as a single
+d09o | Donna Haraway
+ylhz | ordering point of will and consciousness. That judgment seems bizarre to me. I prefer to call this doubt the opening of noniso- morphic subjects, agents, and territories of stories unimaginable from the vantage point of the cyclopean, self-satiated eye of the master subject. The Western eye has fundamentally been a wandering eye, a traveling lens. These peregrinations have often been violent and insistent on having mirrors for a conquering self-but not always. Western feminists also inherit some skill in learning to participate in revisualizing worlds turned upside down in earth-transforming challenges to the views of the masters. All is not to be done from scratch.
+a3td | The split and contradictory self is the one who can interrogate positionings and be accountable, the one who can construct and join rational conversations and fantastic imaginings that change history.13 Splitting, not being, is the privileged image for feminist epistemologies of scientific knowledge. "Splitting" in this context should be about heterogeneous multiplicities that are simulta- neously salient and incapable of being squashed into isomorphic slots or cumulative lists. This geometry pertains within and among subjects. Subjectivity is multidimensional; so, therefore, is vision. The knowing self is partial in all its guises, never finished, whole, simply there and original; it is always constructed and stitched to- gether imperfectly, and therefore able to join with another, to see together without claiming to be another. Here is the promise of ob- jectivity: a scientific knower seeks the subject position, not of identity, but of objectivity, that is, partial connection. There is no way to "be" simultaneously in all, or wholly in any, of the privi- leged (i.e., subjugated) positions structured by gender, race, na- tion, and class. And that is a short list of critical positions. The search for such a "full" and total position is the search for the fetishized perfect subject of oppositional history, sometimes ap- pearing in feminist theory as the essentialized Third World Woman.14 Subjugation is not grounds for an ontology; it might be a visual clue. Vision requires instruments of vision; an optics is a politics of positioning. Instruments of vision mediate standpoints; there is no immediate vision from the standpoints of the sub- jugated. Identity, including self-identity, does not produce science; critical positioning does, that is, objectivity. Only those occupying the positions of the dominators are self-identical, unmarked, disembodied, unmediated, transcendent, born again. It is unfor-
+ex5k | Donna Haraway
+```
+
+OUTPUT:
+```

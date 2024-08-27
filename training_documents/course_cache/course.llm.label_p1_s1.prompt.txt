@@ -1,0 +1,289 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+1pjs | COURSE CODE ABCS 349
+o2kr | COURSE TITLE ANIMAL ECOLOGY
+v6sk | CREDIT HOURS THREE
+1wj6 | OLecture Period & Venue
+936l | Course Instructors
+06yq | OAssessment & Grading
+dpv6 | · Continuous Assessment 30% (Interim Assessment, Assignments & Quizzes)
+8r5j | · Examination 70%
+2taz | >Mr. Yahaya Musah (3 weeks)
+o3ya | · Measuring Ecological Diversity: Within- and Between Habitat Diversity Indices, Strengths and Limitations
+r5il | · Comparing Alpha and Beta Indices: Shannon-Wiener, Simpson, Margalef, Berger-Parker, Jaccard, Sorenson
+5gui | Prof. D. K. Attuquayefio (2 weeks)
+82qc | · Behavioural Ecology: Decisions, Adaptations, Social Behaviour and Mating Systems and Strategies
+ls7d | Objectives of lecture 1
+tzt3 | >Introduction to the major scopes and concepts in Animal Ecology
+t8vv | · Trophism, Mobility, Ranges, Behaviour, Reproduction and Dispersion
+qvnu | · Plant-Animal Interactions: Symbiosis and targeted taxa
+kggw | >An overview of 5 major aspects in Animal Ecology
+xrd1 | · Evolutionary-Behavioural-Population-Community-Macro-Ecology
+5746 | >Spatial/Organisational levels of Animal Ecology studies
+7toz | · Species: Genetics (Phenotype/ genotype), niches, habitat requirements
+j346 | · Populations: Growth, structure, regulation and interactions
+v8uq | · Guilds: Assemblages of similar species (ecological and/or taxonomical)
+x972 | · Communities: Assemblages of similar and different guilds that interact
+cwrw | · Ecosystems: Species, guilds, communities and abiotic factors interacting
+4i0e | · Biomes: Highest level with large macro-ecological and geographical regions
+h2l3 | Scope and Objectives
+dfzb | Basic differences between animals and plants
+u6ty | 1. Trophism
+awvu | · Plants only one trophic level; animals up to 5-7 or more levels (Predators of 6th degree)
+on9b | . Algae - Copepod - Fish larvae (1) - Dragon fly larvae (2) - Tilapia (3) - Pied kingfisher (4)
+a8ge | · Grass - Locust - Preying mantis (1) - Lizard (2) - Cobra (3) - Mongoose (4) - Python (5) - Leopard (6)
+h27a | · The relationship between competition and predation in community structuring is far more complex for animals as these can be both prey and predators at the same time (plants are normally only prey for herbivores and few are predatory - carnivorous plants e.g. Drosera spp.) 5
+pdjh | 2. Mobility
+xmgs | . Generally, all plants are immobile (except for a few algae) whereas all animals are mobile (except corals and barnacles)
+bd9h | · Field study of animals far more difficult due to seasonal movements, cryptic behaviour etc.
+m047 | · Implications - challenges in assessing animal population dynamics (distribution, abundance, density and diversity)
+gy8c | 3. Ranges
+y4mj | · Animals have larger ranges than plants, especially for migratory animals
+vpgq | · Spatio-temporal (circadian/ circannual) variation in animal ranges poses challenges for describing community structure and interspecific interactions
+ousl | 4. Behaviour
+m4ju | · Animal generally have more complex and diversified behavioural patterns (intra-/ inter- specific interaction, predation, reproduction)
+a0mb | 5. Reproduction
+ki8m | · Plants are immobile and reproduction is by fertilization agent (animals, wind or water)
+km8w | . Many plants depend on animals for their reproduction. E.g. pollinators of pollen and dispersers of seeds
+wzno | · Mobile animals actively search for reproductive partners, engage in complex courtship behaviour (e.g. vocalization, body display, pheromone attraction, building of structures such as nesting sites, mating chambers) to initiate copulation
+xagm | · Immobile animals (e.g. marine corals and barnacles) reproduces in a way similar to that of plants (more passive fertilization modes)
+iwn5 | 6. Dispersion
+uooz | · Plants depends on agents for dispersal whereas animals disperse by themselves by virtue of their mobility
+pxbq | · Good dispersers include flying organisms as well as aquatic organisms that can tolerate a broad temperature range, or highly prolific species with high population turnover
+jfsr | Plant and Animal Interactions
+u15r | · Plants depend on animals and vice versa
+lq35 | . Examples of animal dependencies on plants: Food (Herbivory), Building materials (Nests), Roosting and shelter (Protection)
+3g9w | · Examples of plant dependencies on animals: Pollination, Seed dispersal, Protection (Predators on Herbivores)
+d09o | Different aspects of Animal Ecology
+ylhz | · Evolutionary Ecology - Focus on how ecology and evolution are linked as inter-related processes. Ecology drives speciation/extinction which again affect community structure
+a3td | · Behavioural Ecology - Focus on how ecology and behaviour is linked. Survival strategies such as Optimal Foraging and Reproductive strategies such as Semelparity/Iteroparity
+ex5k | . Population Ecology - Focus on how population grow, are regulated and interaction within and between different species (Competition, Predation, Mutualism, Parasitism)
+9d4o | · Community Ecology - Focus on how communities of animals are structured with groups made up of taxonomical and ecological guilds
+cjq2 | · Macro-ecology: Focus on large scale (global) patterns of animal communities, spatio-temporal patterns of distribution, abundance an diversity on the Earth
+5esx | ECOSYSTEM: Biotic and abiotic factors interacting in a specific area (Ghana's coastal woodland)
+m5ka | Practical Implications
+byu8 | · Understanding the relationship amongst niches, species, community structure and functioning;
+76b0 | *Land and water - Species-area relationship, habitat heterogeneity, island biogeography models
+zxz6 | Crop pests: Predator-prey relations, anti-predator strategies, invasive species ecology
+xnth | Design of conservation regions - Species diversity concentrations, gradients, endemic centres
+vafm | Vector control of tropical diseases - Trophic organisations and food webs, predation, competition
+2zmw | * World fish stock - Food webs, predator-prey relations, invasive alien species
+bf9k | In Summary
+otkr | 1. Animal Ecology is very complex. Plant-Animal interactions important for both
+ibgs | · Trophism - Interactions - Mobility - Ranges - Dispersion - Behaviour - Reproduction - Communication
+colo | 2. Five major disciplines in the study of Animal Ecology
+d6r4 | · Evolutionary ecology, Behavioural ecology, Population ecology, Community ecology and Macro ecology
+9mrz | 3. Three major interrelated themes
+pk06 | · Species abundance, Distribution and Diversity (spatio-temporal)
+7wn9 | 4. Six major organisational/ Spatial levels
+wcd0 | · Species/Niche - Population - Guild - Community - Ecosystem - Biome
+caos | Lecture 2 - Experimental Methods in Animal Ecology
+qrvy | 1. An introduction to the 3 major experimental methodologies in Animal Ecology:
+pn9j | Laboratory tests, Field Experiments, Natural Experiments
+1pmc | 2. An overview of how ecologists use different field approaches to show that Competitive Exclusion Principle (Gause's Law) is real
+5z6q | 3. A comparison of the strengths and weaknesses of experimental methodologies
+yeoh | 4. An account of important ecological concepts related to Gause's Law - Niche overlap and Niche shift
+b8hf | Method
+hntf | Laboratory Experiments
+99fo | Field (Manipulation) Experiments
+y5r7 | Famous Examples
+lrry | · Diamond's island ground doves and honey eaters
+hvhm | Major Advantages
+863b | Relatively good controls
+fj24 | Major Limitations
+uz3c | · Confounding factors can compromise validity of patterns
+d5bi | Laboratory Experiments
+ba4l | OGeorgy Gause's (1934) Protozoa Cultures (Paramecium aurelia & P. caudatum)
+ffx8 | . Glass tube experiments
+s6su | . Grown separately (allopatric "A & B") or together (sympatric "C")
+y219 | · Logistic population growth until carrying capacity (K) reached
+06ht | · Carrying capacities (K) measured as volume density of each organism (population density)
+v3r2 | <LATEX>K _ { \text { aurelia } \left( A \right) } = 5 2 0</LATEX> Number per 0.5 ml sample
+nv42 | · Similar decrease in
+xags | Rockwood, 2006
+jc47 | Sympatric Logistic Growth
+ko3c | <LATEX>\mathrm { K } :</LATEX> <LATEX>\surd P .</LATEX> <LATEX>a u r e l i a = \left( 5 2 0 - 3 0 0 \right) / 5 2 0 = 4 2 . 3</LATEX> <LATEX>\surd P .</LATEX> <LATEX>\mathrm { d a t u m } = \left( 3 6 0 - 2 0 0 \right) / 3 6 0 = 4 4 . 4 \%</LATEX> 17
+xek3 | Laboratory Experiment 2
+bbpr | Thomas Park's (1948) Three Grain Beetle species (Tribolium confusum, T. castaneum and Oryzaephilus surinamensis)
+5zyf | · Variable - Climatic conditions (temperature/ moisture) and food availability
+9own | · Monitoring of competitive outcome (highest fitness) among 3 grain beetles
+bqfb | v Moisture gradient: Dry - Moist
+wwdt | Temperature gradient: Hot - Warm - Cold
+mn1r | · Demonstrations of Fundamental & Realised niches
+5vqw | V T. castaneum: hot-moist specialist
+meyw | V T. confusum: cold-dry specialist
+2e62 | · Fundamental niches
+75y3 | · Hot-moist vs. cold-dry specialists
+s2g2 | · Both species of beetles exhibit identical climate niches in allopatry
+q1q2 | · Climatic extremes represented in only one of the two species, with the other species occupying the middle range
+cb7r | · In sympatric medium, T. confusum always elimate O. surinamensis because of its higher rate of reproduction and better predation ability
+68xu | · An extra dimension, e.g. space in the form of glass tubes, allow co-existence of the two species
+hd35 | Oryzaephilus
+2zpk | Interspecific Competition - Field Experiments
+epu7 | OJoseph H. Connell's (1961) Tidal Barnacles (Balanus balanoides/ Chthamalus stellatus)
+7od1 | Adult Chthamalus usually occur above Balanus
+0bqy | · Chthamalus larvae do settle in Balanus Lower Tide Zone (LTZ)
+b780 | · Adult Balanus never in high tide zones (due to desiccation)
+ccmb | . Methodology - Connell suspected that adult Balanus out competed adult Chthamalus. He kept removing Balanus adult in lower zones in experimental plots in one set as well as removing Chthamalus from upper zone in another
+ma93 | · Results
+c6hh | 1. Removing Balanus from lower zones caused Chthamalus to survive
+y7ea | 2. Balanus never settled in upper zone even as Chthamalus was removed there
+nav4 | · Conclusion
+gem8 | 1. Adult barnacles compete over space in lower zones
+e8nr | 2. Balanus is superior (crushing Chthamalus) leaving a small realized niche (upper zone) for Chthamalus
+k78w | 3. Fundamental niche of Chthamalus includes dry upper zones where Balanus cannot withstand desiccation 23
+g9du | Interspecific competition - Field Experiment 2
+f682 | Brown & Davidson's Granivorous Desert Ants and Rodents in Arizona
+li1k | · Ants and rodents were observed to overlap in seed utilization, and the question was then: Are they competing for a limited resource (=seeds)?
+pbea | · Experimental Design
+ccpt | 1. Ant-Removal Plots were sprayed with pesticides regularly
+0fpw | 2. Rodent-Removal Plots were fenced and subjected to intensive trapping protocols
+dqn8 | 3. Both ants and rodents removed
+cop0 | 4. Control Plots with both ants and rodents present
+lhkq | · Results
+82ju | 1. Rodents removed - Ant colonies increase above control plots
+y2qo | 2. Ants removed - Rodents densities increase above control plots
+1piq | · Conclusions
+7fqw | 1. As one competitor is removed the remaining increase. Density Compensation occur - Release of extra resources that is no more utilized by the removed species
+rhaz | 2. Ants and rodents have overlapping limited food resource niche (seeds) over which they compete
+wak1 | Interspecific Competition - Field Experiment 3
+wtfz | OPaine's (1966) starfish (Pisaster) in rocky intertidal zones of the US: Predator- mediated Coexistence
+qy1i | · Picaster (a keystone predator) predates differentially on the dominant competitors (bivalves & acorn barnacles)
+1k9e | · Removal of the predator showed that the more dominant competitors crowded out the inferior species (goose barnacles, limpets and chitons)
+5bjs | . This reduced the total number of coexisting species from 15 to 8
+uodj | · A classic example of Top-Down control of communities (trophic cascading effects or predator-mediated coexistence at lower trophic levels) A B Starfish (Pisaster)
+k16v | Ecological Release (Habitat) - Natural Experiments 1
+b2lm | Jared M. Diamond's (1975) Ground Doves on Papua New Guinea and associated islands (Chalcophaps indica, C. stephani and Gallicolumba rufigula)
+ti7f | · Mainland (New Guinea): All 3 Ground doves living sympatrically in distinct habitats (no overlap)
+oksu | · Large island (Bagabag): Only 2 species - In the absence of G. rufigula, C. stephani expands its niche to include inland rainforest
+wtow | · Very small islands (New Britain, Tolokiwa, Karkar, Espiritu Santo) - Only one species (C. indica) present and it's able to occupy all three types
+o22k | OConclusion
+nwfz | · Fundamental niches of the 3 doves shown only when in allopatry
+nvfy | . When in sympatry, each species excludes the other two from its specialized habitat = Contiguous Allopatry
+mror | · There is competitive exclusion on New Guinea and competitive release elsewhere
+zlxc | Ecological Release (Habitat) - Natural Experiments 2
+k0bw | Jared M. Diamond's <LATEX>\left( 1 9 7 5 \right) - \quad 2</LATEX> Honeyeaters on 3 Papua New Guinea mountains
+aq5a | · Fundamental niche: similar - P. <LATEX>g u i s e i = 3 0 0 \quad - \quad 3 5 0 0 m ;</LATEX> <LATEX>P .</LATEX> peristriata = 200 - 3850m
+sc5y | · Fundamental niche: overlap
+0yab | <LATEX>- 3 2 0 0 / 3 6 5 0 \approx 8 8 \%</LATEX> · Ranged reduced (allopatry to sympatry) from 200-3700 to 3000-3850 m:
+w95z | <LATEX>8 5 0 / 3 5 0 0 \approx 2 5 \%</LATEX> · Realised niche of inferior species (P. peristriata) only 25% of the fundamental niche
+0i1k | · Another example of habitat related (altitudinal = vertical spatial) Ecological Release
+dqlg | Contiguous Allopatry - Natural Experiment 3 OH. C. Heller's (1971) chipmunks in Sierra Nevada mountains, California
+p6pq | Ecological Release/Niche Shift - Natural Experiment 4
+zse6 | ONils-Arvid Nilsson's (1963) Salmonids in Swedish Lakes (Asymmetric Niche Shift)
+p2n3 | · Assessment of diets (6 food types) of 2 Salmonids
+ohh7 | · Great overlap in food utilization in allopatry
+vbni | · Large crustaceans (C), Insect larvae (D) and terrestrial insects (E) preferred by both species in allopatry
+dgcw | In sympatry;
+gvwz | V Char specializes greatly (60%) on small crustaceans (B), greatly reducing consumption of insect larvae (D) and terrestrial insects (E)
+sk5m | V Trout largely remains a generalist in sympatry 1 Large crustaceans/molluscs are shared in sympatry
+qws8 | V Char's dietary composition greatly changed in sympatry; Trout's not
+877u | Limiting Similarity - Character Displacement 1
+rzhj | Tom Fenchel's (1975) Character Displacement in Marine Mud Snails, Denmark
+bfax | · Measurement of lengths of 2 species of snails; Hydrobia ulvae and H. ventrosa
+f2y8 | · Shell length correlated with food size
+o7qm | . Allopatry: Snail length almost identical, mode = 3.0 mm
+d52l | · Sympatry: Snail length distinctively smaller for H. ventrosa, mode ~ 1.8 mm, but bigger for H. ulvae, mode ~ 3.7 mm
+qlbb | Tom Fenchel's (1975) Character Displacement in Marine Mud Snails, Denmark
+nhsg | · Food size of the two species in allopatry very similar
+hy0l | · Allopatry: Both species - mode = c.60 um in diameter
+```
+
+OUTPUT:
+```

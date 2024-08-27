@@ -1,0 +1,78 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document. Your task is to faithfully reproduce the text for our text-to-speech engine so that it is easily read aloud.
+
+Note that the text might not start at the beginning and paragraphs may be split acrosss multiple textboxes. Textboxes may start or end in the middle of a word which is acceptable: do not combine text between textboxes and leave broken words at the start and end of a textbox unchanged.
+
+You will receive one textbox per-line in the format `id | Textbox content`. The output must be in the format `id | Clean content`.
+
+RULES:
+ • Remove inline citations and references e.g. "(Author, 2021)" or "(https://wikipedia.org/article.html)" or "[ECMOS 35b, 47, 49]".
+ • Spell out numbers, dates, and chemical formulas for the TTS engine e.g. "-2.5" -> "negative two point five" or "Jan. 2020" -> "January twenty twenty".
+ • Spell out LaTeX formulas for the TTS engine e.g. "<LATEX>p = 1</LATEX>" -> "P equals one".
+ • Rejoin hyphenated word fragments within the same textbox e.g. "synth -esize" -> "synthesize".
+ • Fix simple typos and OCR errors e.g. "O nce upon a 1ime." -> "Once upon a time.".
+ • Delete nonsequiter textboxes that interrupt the middle of a sentence if they obviously do not belong.
+
+Otherwise, the output should exactly match the input text:
+ • Do not combine text across lines or attempt to fix words broken across lines.
+ • Ensure each ID from the input is included in the output.
+ • Make as few changes as possible while respecting the above rules.
+
+EXAMPLE INPUT:
+```
+ccpt | stigate the effectiveness of psychedelics for ADHD symp- toms in adults.
+0fpw | 2. Materia1 and methods
+dqn8 | 2.1. Study design and participants
+cop0 | The study employed a naturalistic design, assessing the experiences of participants at bas-,
+lhkq | eline before they start, and at 2 and 4 weeks after initiation. The target population included adults with ADHD symptoms who had not been diag- nosed with ADHD before. To be included, participants needed to score on Conner's Adult ADHD Rating Scale (CAARS-S:SV). This cut-off was indicative of clinically elevated symptoms (Conners et al., 1999) (see section 2.3).
+82ju | 2.2. Study procedure
+y2qo | The online advertisement was placed on a website providing information about psychedelics (www.microdo sing.nl). Interested participants were redirected to information explaining the study rationale and procedure. The baseline survey took 20 min to complete. If the survey had not been completed after 24 h, a reminder was sent. Each of the surveys at the 2- and 4-week time points took about 15 min to complete. Par- ticipants were able to pause the surveys. Data collection occurred between Nov. 2020 and Jul. 2021. The study was approved by the Ethics Review Committee of Psy- chology and Neuroscience at Maastricht University (ERCPN- 215_05_11_2019_A1).
+1piq | 2.3. Measures
+7fqw | 2.3.1. Demographic information and history of substance use
+rhaz | At baseline, demographic information was collected. History of substance use assessed experience with psyche- delics (i.e., ayahuasca, DMT, 5-MeO-DMT, LSD, novel lysergamides (e.g., 1P-LSD, ALD-52), psilocybin, salvia divinorum, ibogaine, and mescaline) in both full (psychedelic) doses and microdoses.
+wak1 | 2.3.2. Psychiatric and physiological diagnoses
+wtfz | Participants were asked whether they had a current diagnosis of a disorder. These answer options were chosen because most of the listed diagnoses are often reported to co-occur with ADHD (Kooij et al., 2019), or because these diagnoses were reported to be common in people who microdose (Fadiman and Korb, 2019). We 
+3j2l | REVIEW ARTICLE Frontiers in Psychiatry | www.frontiersin.org
+03k3 | 2
+1k9e | constructed a variable Comorbidity alongside ADHD, differenti- ating respondents with and without a comorbid diagnosis alongside ADHD (<LATEX>p < . 0 0 1 =</LATEX> only ADHD or no ADHD diagnosis; <LATEX>p > . 0 1 =</LATEX> ADHD and at least one other diagnosis). We constructed a variable Medication use alongside microdosing, differentiating respondents who were and were not using conven- tiona1 ADHD medication alongside microdosing (<LATEX>0 =</LATEX> only microdosing; <LATEX>1 =</LATEX> conven-
+```
+
+EXAMPLE OUTPUT:
+```
+ccpt | stigate the effectiveness of psychedelics for ADHD symptoms in adults.
+0fpw | Two. Material and methods
+dqn8 | Two point one. Study design and participants
+cop0 | The study employed a naturalistic design, assessing the experiences of participants at bas-,
+lhkq | eline before they start, and at two and four weeks after initiation. The target population included adults with ADHD symptoms who had not been diagnosed with ADHD before. To be included, participants needed to score on Conner's Adult ADHD Rating Scale. This cut-off was indicative of clinically elevated symptoms (see section two point three).
+82ju | Two point two. Study procedure
+y2qo | The online advertisement was placed on a website providing information about psychedelics. Interested participants were redirected to information explaining the study rationale and procedure. The baseline survey took twenty minutes to complete. If the survey had not been completed after twenty-four hours, a reminder was sent. Each of the surveys at the two and four-week time points took about fifteen minutes to complete. Participants were able to pause the surveys. Data collection occurred between November twenty twenty and July twenty twenty-one. The study was approved by the Ethics Review Committee of Psychology and Neuroscience at Maastricht University.
+1piq | Two point three. Measures
+7fqw | Two point three point one. Demographic information and history of substance use
+rhaz | At baseline, demographic information was collected. History of substance use assessed experience with psychedelics (i.e., ayahuasca, DMT, five-MeO-DMT, LSD, novel lysergamides (e.g., one-P-LSD, ALD-fifty-two), psilocybin, salvia divinorum, ibogaine, and mescaline) in both full (psychedelic) doses and microdoses.
+wak1 | Two point three point two. Psychiatric and physiological diagnoses
+wtfz | Participants were asked whether they had a current diagnosis of a disorder. These answer options were chosen because most of the listed diagnoses are often reported to co-occur with ADHD, or because these diagnoses were reported to be common in people who microdose. We
+3j2l |
+03k3 |
+1k9e | constructed a variable Comorbidity alongside ADHD, differentiating respondents with and without a comorbid diagnosis alongside ADHD (P is less than point zero zero one equals only ADHD or no ADHD diagnosis; P is greater than point zero one equals ADHD and at least one other diagnosis). We constructed a variable Medication use alongside microdosing, differentiating respondents who were and were not using conventional ADHD medication alongside microdosing (zero equals only microdosing; one equals conven-
+```
+
+INPUT:
+```
+afbe | These microfluidic systems allow for the culture of multiple cell types, which can be separated by porous membranes or cultured in different chambers, in order to obtain a more complex tumor model where cell interactions can be recapitulated [102,103]. Additionally, microfluidic devices can be adapted to study several biological changes that occur in cancer, such as metastasis and angiogenesis [104]. A major advantage of microfluidic devices is the capacity to control the tumor microenvironment, allowing for a controlled release of several molecules, such as growth factors and nutrients [7,105]. Microfluidic systems have other advantages, such as affordability, transparency, and the power to establish a physiologically accurate environment, making them suitable alternatives for anti-tumoral drug testing [84]. Overall, microfluidic devices are able to mimic different aspects of the tumor microenvironment, such as vasculature, pressure, co-culture, shear stress, and oxygen and nutrient gradients [106]. Despite being an interesting platform for high-throughput drug screening, the manipulation of microfluidic devices requires specific equipment and the number of cells cultured may be lower than what is needed for certain assays [107]. To overcome this last problem, several laboratorial assays have been adapted to be compatible with lower cell numbers, and systems that are able to produce higher cell numbers have also been developed [7,108].
+78r8 | 3.3. Scaffold-Based Models
+320g | Scaffolds are 3D biomaterials designed to resemble the ECM, promoting cellular in- teractions and proliferation while remaining non-toxic. Scaffolds can be used to produce spheroid-like aggregates, or their surface can be functionalized in order to allow for cell adhesion [36]. The 3D scaffold-based models are particularly used for cancer cell prolifer- ation and to mimic the complexity of the tumor microenvironment, being an interesting tool to study cellular functions and interactions [109,110]. These biomaterials can be pro-
+tp8g | duced from natural or synthetic materials, such as chitosan and Poly(lactic-coglycolic acid) (PLGA), respectively, according to the desired application. Additionally, hybrid materials, made of biological and synthetic components, can also be used, such as poly(ethylene glycol) (PEG) associated with collagen and Matrigel® [111,112]. Porous scaffolds and hydrogels are two scaffolding techniques commonly used [113].
+gxfd | 3.3.1. Porous Scaffolds
+s2v1 | Porous scaffolds can have a sponge, foam, or mesh appearance, and their porosity enables cell seeding and adequate nutrient exchange [113,114]. Porous scaffolds provide a surface for cells to adhere to and build their own ECM, as well as enhance nutrient delivery via interconnected pores, lowering the likelihood of a necrotic center forming [114]. However, this type of scaffold presents thickness and non-transparency as its key disad- vantages, making observing biological events through high-content imaging approaches quite challenging [36].
+jkp9 | 3.3.2. Hydrogels
+z8tt | Hydrogels are cross-linked three-dimensional networks of hydrophilic polymers that are rich in water content and are important for the development of 3D cancer models due to their ability to mimic the in vivo ECM [115]. In this type of scaffold, cells can be grown on top of the matrix after it has solidified, or they can be mixed with the liquid hydrogel and embedded inside the matrix during gelation [7]. Despite being interesting for their similar mechanics, chemistry, and structural properties to in vivo tissues, hydrogels still have some limitations [7]. Similar to other scaffolds, hydrogels derived from natural materials, such as collagen or Matrigel®, have weak mechanical properties, may be subject to batch-to-batch variation and rapid degradation, and can result in immunogenic responses [116]. Therefore, synthetic materials, such as PEG, present themselves, in some cases, as a better alternative, allowing for better reproducibility, control over microenvironmental cues, and molecule transport [115,117,118]. Nevertheless, synthetic hydrogels may present some problems, such as the availability of oxygen, discrepancy in the distribution of soluble growth factors, microenvironment variability, and imaging and cell analysis complications [116]. Another important issue is that scaffold-based 3D models have a low propensity for vascularization, which is crucial in cancer development research [92].
+9g22 | 3.4. Organoids and Tumoroids
+41fx | Organoids are in vitro aggregates derived from stem cells that are capable of self- organization, forming a structure similar to an organ with several cell types while main- taining similarities with the in vivo tissue. The utilization of organoids in research aims to replicate the organ's structure, organization, and function [119,120]. Despite several protocols that have been established for the production of cancer organoids, as far as we know, all of them require exogenous ECM [36,121,122]. This represents a limitation as it is known that cancer development triggers several biological changes, such as ECM remodeling, which affects drug resistance [36].
+7um8 | Tumoroids are organoids derived from patient biopsies that are able to recapitulate the patients' tumors more accurately as they preserve the genetic characteristics and hetero- geneity of the original tumor, hence better capturing inter-patient heterogeneity [36,123]. This makes tumoroids a crucial model for studying rare cancers for which there are no immortalized cell lines [36,124]. Tumoroid growth protocols for several types of cancer have been established [78,125,126]. Similar to some organoid protocols, tumoroids need to be supplemented with external growth factors and be in the presence of exogenous ECM, such as Matrigel® [36,127]. An important advantage of using tumoroids is that drug response in these models more accurately represents the patient's drug response and thus may allow for a personalized therapy selection [128]. A drawback of this model, as well as organoids, is the need for highly trained staff to perform patient cell isolation and manipu- lation [36]. Moreover, these cell models may be prone to ethical concerns, regarding the
+uow2 | source of the stem cells, and the informed consent and privacy of cell donors. Nevertheless, when comparing these models' advantages and disadvantages, the potential outcomes are considered to outweigh the ethical questions when these are properly addressed [129].
+iat7 | As mentioned before, cancer 3D models can be applied to various fields of research and development, such as the preclinical testing of metallodrugs. Next, we describe and discuss the importance of metallodrugs in cancer, as well as the application of cancer 3D models for the preclinical evaluation of these types of drugs.
+ywwr | 4. Metallodrugs in Cancer
+0i6j | Currently, there are several targeted therapies available to treat different types of cancer, for example, anti-hormonal treatments and monoclonal antibodies against cancer cell-specific receptors. Nevertheless, conventional chemotherapy and radiotherapy remain the key tools for cancer treatment. Thus, there is an unmet need to develop innovative and improved pharmacological options for cancer therapy [130,131], but the design and development of effective anti-cancer drugs with high selectivity, minimal toxicity, and reduced side effects is still a challenging endeavor [132,133].
+```
+
+OUTPUT:
+```

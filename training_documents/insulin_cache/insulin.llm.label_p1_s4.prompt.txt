@@ -1,0 +1,133 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+1pjs | ELSEVIER
+o2kr | Impact of insulin and insulin resistance on brain dopamine signalling and reward processing - An underexplored mechanism in the pathophysiology of depression?
+v6sk | ARTICLE INFO
+1wj6 | Keywords: Insulin Dopamine Diabetes Ventral tegmental area Striatum Reward Motivation Depression Anhedonia
+936l | 1. Introduction
+06yq | Insulin is a peptidergic hormone mainly produced by the beta-cells of the pancreas and was initially thought to regulate blood glucose con- centrations only by binding to its receptor and promoting glucose uptake into cells in the periphery. However, when insulin receptors were identified in multiple brain areas, the essential role of central insulin signalling in the regulation of whole-body glucose metabolism was recognized. Amongst other regions, insulin receptors (IR) are highly expressed in the dopaminergic (DA) midbrain (Figlewicz et al., 2003; Jones et al., 2017; Milstein and Ferris, 2021; Pardini et al., 2006a), which encodes reward-seeking behaviour, so that a further role of cen- tral insulin signalling - the regulation of reward-related behaviour - has
+dpv6 | Neuroscience and Biobehavioral Reviews
+8r5j | journal homepage: www.elsevier.com/locate/neubiorev
+2taz | Neuroscience and Biobehavioral Reviews 149 (2023) 105179
+o3ya | Contents lists available at ScienceDirect
+r5il | ABSTRACT
+5gui | Type 2 diabetes and major depressive disorder (MDD) are the leading causes of disability worldwide and have a high comorbidity rate with fatal outcomes. Despite the long-established association between these conditions, the underlying molecular mechanisms remain unknown.
+82qc | Since the discovery of insulin receptors in the brain and the brain's reward system, evidence has accumulated indicating that insulin modulates dopaminergic (DA) signalling and reward behaviour. Here, we review the evidence from rodent and human studies, that insulin resistance directly alters central DA pathways, which may result in motivational deficits and depressive symptoms. Specifically, we first elaborate on the differential effects of insulin on DA signalling in the ventral tegmental area (VTA) - the primary DA source region in the midbrain - and the striatum as well as its effects on behaviour. We then focus on the alterations induced by insulin defi- ciency and resistance. Finally, we review the impact of insulin resistance in DA pathways in promoting depressive symptoms and anhedonia on a molecular and epidemiological level and discuss its relevance for stratified treatment strategies.
+ls7d | been progressively unravelled in recent years. Due to the alterations observed in DA-encoded reward-related behaviour, it has been proposed that impaired DA signalling in conditions of central insulin resistance might be causally related to depressive and anxious symptoms (Cai et al., 2018b; Dutheil et al., 2016a; Ho et al., 2012a; Kleinridders et al., 2015). In recent years, a wave of fundamental rodent studies has revived the old debate regarding the comorbidity, and causality, of diabetes and depression, offering new opportunities to investigate underlying mech- anisms and use them to improve treatment efficacy.
+tzt3 | In this review, we explore the role of insulin in regulating DA sig- nalling in the midbrain - with a focus on the projections from the ventral tegmental area (VTA) (see 2.1) to the ventral striatum (see 2.2) - and consequently in reward-related behaviour encoded by the mesolimbic
+t8vv | pathways (2.3 and 2.4). Further, we review how central insulin resis- tance affects DA signalling (3.1 and 3.2) and reward-seeking behaviour in rodents (3.3) as well as humans (3.4) and as an outlook discuss the clinical importance of (impaired) insulin signalling in depression and its therapeutical implications (3.5).
+qvnu | 1.1. Encoding of reward-related behaviour in the DA midbrain
+kggw | The DA midbrain including the VTA and the substantia nigra (SN) is the major source of DA neurons in the brain. DA neurons are organized in subpopulations, which are heterogeneous in their anatomical loca- tion, projection site, electrophysiological properties, and function (German and Manaye, 1993; Roeper, 2013). While DA neurons in the SN (pars compacta) mainly project to the dorsal striatum (nigrostriatal pathway) and are involved in movement control, different sub- populations of DA neurons projecting from the VTA to the prefrontal cortex (mesocortical pathway) and the ventral striatum (mesolimbic pathway), in particular the nucleus accumbens (NAc), encode multiple aspects of reward-seeking behaviour, such as reward-driven (rein- forcement) learning and motivation to work for reward (Beier et al., 2015; Tobler et al., 2005). Palatable food, sex, and social contact are considered as primary rewards that are strongly encoded in this system. According to the currently dominant theory of reward learning, reward-driven learning is guided by reward prediction errors (PE), which reflect the discrepancy between an expected reward and the actual level of the obtained reward. These PEs function as learning signals and are encoded by dopamine (DA) cell spiking in the VTA causing phasic DA release in the NAc in case of a bigger reward obtained than expected (positive PE) and by a decrease of DA spiking if a smaller than expected reward is gained (negative PE) (Mohebi et al., 2019). As learning progresses, phasic DA release shifts from responding to the obtained rewards to responding to the perception of a learned cue pre- dicting an upcoming reward (Schultz, 2001; Schultz et al., 1997). Both the cue and reward-associated DA signals are essential for consolidating learned associations so that inhibition of either cue- or reward-related
+xrd1 | the B-cells of the pancreas the AP2-bound inceptor mediates the clathrin-mediated endocytosis of IR and promotes its degradation. The inceptor has also been identified in the brain, but its role is still unclear. Created with BioRender.com.
+5746 | Neuroscience and Biobehavioral Reviews 149 (2023) 105179
+7toz | DA signals impairs the expression of learned associative behaviour (Van Zessen et al., 2021). The reward PE theory has currently been challenged by Jeong et al. (2022), who developed an algorithm for retrospective causal learning and found that mesolimbic dopamine release conveys retrospective causal associations but not prospective reward PE. While these theories diverge conceptually and propose different biological frameworks of DA action, they both consolidate the relevance of DA signals in association learning, which guides adaptive behaviour.
+j346 | Additionally, DA not only encodes learning signals but also moti- vates action initiation to obtain a reward. As such, DA release ramps up when we approach a reward, reflecting reward expectancy (Mohebi et al., 2019). The amount of DA released during this phase is locally controlled in the NAc without corresponding changes in VTA DA cell spiking (Mohebi et al., 2019) and provides information about the value of the anticipated reward, motivating the initiation of action to obtain it (Hamid et al., 2016; Howe et al., 2013; van Swieten and Bogacz, 2020). In this constant feedback circle, the actions initiated upon the perception of a potential reward shape future reward behaviour, as NAc DA release is attenuated unless a correct action to obtain the reward is initiated (Syed et al., 2016).
+v8uq | 1.2. Dopamine signalling in the ventral striatum
+x972 | Since DA ramping in the NAc is independent of VTA DA cell spiking, the magnitude and duration of DA signalling not only depends on the somatic firing of DA VTA neurons but also on the regulation of DA release from nerve terminals within the NAc (Fig. 2). DA release in the NAc is regulated by cholinergic interneurons within the NAc, which are tonically active and release acetylcholine (ACh). ACh binds to nicotinic and muscarinic acetylcholine receptors on DA nerve terminals to directly depolarize DA terminals increasing striatal DA release inde- pendently of somatic firing, which provides a distinct modulatory mechanism (Aosaki et al., 1995; Kramer et al., 2022; Shin et al., 2015; Zhou et al., 2001). Moreover, terminal DA signalling depends on DA
+cwrw | Fig. 1. Intracellular insulin signalling: Insu- lin and IGF-1 (with lower affinity) bind to the «-subunit of the IR and induce two signalling pathways by autophosphorylation of the IR B- subunit. PI3K/AKT pathway: Phosphorylated IR leads to phosphorylation of IRS thus resulting in binding of PI3K to the IRS. This in turn leads to conversion of PIP2 into PIP3 which leads to phosphorylation of AKT via PDK1. AKT acti- vates several proteins including mTORC1 and inhibits FOXO1. The latter is transferred to the cytoplasm thus inhibiting transcription of genes relevant in neuronal functions. MAPK/ERK pathway: Phosphorylated IR leads to Shc in- duction which in turn activates the Grb2/SOS- complex. Alternatively, or additionally, IRS can bind to that complex. In consequence, this leads to regulation of cell growth-related gene expression through activation of Ras which in- duces Raf thus resulting in a cascade of acti- vating MEK and finally MAPK/Erk. (IR= insulin receptor; AKT=protein kinase B; PI3K=phos- phatidylinositol 3-kinase; IRS=insulin receptor substrate proteins; PIP2 =phosphatidylinositol (3,4)-bisphosphate; PIP3 =phosphatidylinositol (3,4,5)-trisphosphate; PDK1 =phosphoinosi- tide- dependent protein kinase 1; MEK = mitogen-activated protein kinase kinase, MAPK=mitogen-activated protein kinase, ERK= extracellular-signal regulated kinases). In
+4i0e | Fig. 2. The effect of insulin and insulin resistance on DA signalling. Insulin has differential effects on somatodendritic (SN/VTA) and terminal (Striatum) DA turnover. In the SN/VTA, insulin induces DAT expression and diminishes the excitatory input of glutamatergic neurons resulting in decreased extracellular DA levels. In turn, insulin resistance diminishes DAT expression and increases the excitatory input of glutamatergic neurons resulting in increased extracellular DA levels. In the striatum insulin enhances DA reuptake by increased DAT expression. Here, insulin increases DA release by activating excitatory inputs of cholinergic interneurons and ATP-releasing astrocytes. Moreover, insulin directly binds to IR on MSNs, and activates excitatory projections to the MSN. In contrast, insulin resistance reduces DA reuptake by decreased DAT expression. Insulin resistance inhibits DA release by reducing excitatory inputs of cholinergic interneurons and ATP-releasing as- trocytes. Moreover, insulin resistance inhibits direct binding of insulin to IR on MSNs, and reduces excitatory projections to the MSN. (SN=substantia nigra; VTA=ventral tegmental area; DA = dopamine; DAT=dopamine active transporter; NAc=Nucleus accumbens; TH = tyrosine hydroxylase; MAO=monoamine oxidase; D1R= dopamine D1 receptor; D2R= dopamine D2 receptor; MSN=medium spiny neuron) Created with BioRender.com.
+h2l3 | receptor availability and the efficiency of DA clearance, which is determined by the DA transporter (DAT) (Carvelli et al., 2002), the level of enzymatic degradation of DA (by COMT, mainly in cortex and less in DA midbrain), and its diffusion from the synapse. The inhibitory DA auto-receptor D2 modulates several of these regulatory steps: Upon binding of DA to axonal D2 receptors in the NAc, it reduces the
+dfzb | Neuroscience and Biobehavioral Reviews 149 (2023) 105179
+u6ty | exocytotic release of DA from axon terminals (Anzalone et al., 2012; Benoit-Marand et al., 2001, 2011; Kennedy et al., 1992; Palij et al., 1990; Phillips et al., 2002; Rougé-Pont et al., 2002; Schmitz et al., 2002), increases the activity of the DAT and consequently DA clearance from the synaptic cleft (Benoit-Marand et al., 2011; Cass and Gerhardt, 1994; Dickinson et al., 1999; Mayfield and Zahniser, 2001; Schmitz et al.,
+awvu | 2002; Wu et al., 2002). It also inhibits tyrosine hydroxylase activity (Kehr et al., 1972; Wolf and Roth, 1990) and therefore DA synthesis (Ford, 2014). Somatodendritic D2 receptors in the VTA also regulate DA signalling. Upon DA release from the soma and dendrites, DA binds to somatodendritic D2 receptors, which activates hyperpolarizing G protein-gated inwardly rectifying potassium channel (GIRK) currents resulting in reduced firing rate and excitability of VTA DA neurons (Beckstead and Williams, 2007; Lacey et al., 1987; Mercuri et al., 1997). While both axonal and somatodendritic D2 receptors reduce DA sig- nalling onto medium spiny neuron (MSN) in the NAc, it is unclear how regulation of DA signalling via axonal and somatodendritic D2 receptors is intertwined and whether treatments, that change efferent axonal DA release, also cause similar changes in local somatodendritic DA release. Additionally, neuronal DA signalling is modulated by surrounding as- trocytes, along with microglia and oligodendrocytes, which are impor- tant for the homeostasis of the brain microenvironment (Cai et al., 2018a).
+on9b | 1.3. Operationalization of dopamine-dependent reward behaviour
+```
+
+OUTPUT:
+```

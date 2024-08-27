@@ -1,0 +1,182 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+cox8 | person has with their self. This severed internal relationship with the self needs to be restored so that the person can go on to trust and value themselves, as well as begin to trust others again. When this type of healing has yet to occur, people func- tioning from the fearful-avoidant attachment style will tend to see themselves as broken and unworthy and will expect that others are untrustworthy or will only hurt them in the end. In more extreme cases, this attachment style is associated with high relationship turmoil, dissatisfaction and toxicity, self-destructive behaviors, relationship abuse, mental illness and addictions.
+ppqi | Diane Poole Heller makes two important distinctions in regard to this attach- ment style. The first is that the expression of this style can either look more dismis- sive and withdrawing or more anxious, clingy and pursuing. Heller refers to these two variations as either being more disorganized avoidant or disorganized anxious. In my own practice, I make a distinction between the internal fearful-avoidant and the external fearful-avoidant. In the category of internal fearful-avoidant, we find people who, when under stress or threat, are triggered into higher anxiety and have the internal disorganized experience of wanting connection and wanting to move clos- er to someone, yet simultaneously feeling an inner pull back, believing the connec- tion to be unsafe. However, such people do not act this dynamic out in ways that are destructive to themselves or others. The experience is more internally disrup- tive than externally damaging.
+oxou | Other people express the experience of having one foot on the gas and the other on the brake in a relationship in a much more external and reactive way. These people react externally in ways that are confusing, contradictory or harmful. The distinction between internal and external fearful-avoidant might be a difference in degree or severity within this attachment style, or it might also be two different stages in healing. A person with a fearful-avoidant attachment style who has been engaging in healing work that is moving them towards more secure functioning may initially develop less external reactivity while still experiencing an inner "push/ pull" dynamic. The process of resolving their trauma may have enabled them to now choose differently with how they externally respond.
+495n | The second important distinction that Heller makes is that we can have a chron- ically disorganized style that functions as a primary attachment style, or more of a situational disorganized style. In the situational kind, someone might be more con- sistently secure, dismissive or preoccupied in their attachment style, but in certain situations or under the influence of certain triggers, they get activated into a tempo- rary disorganized state. Once the stressor or situation resolves, they then return to their other, more dominant style.
+awri | Since people with the fearful-avoidant style experience both attachment anxiety and attachment avoidance, see which of the above statements for the dismissive and preoccupied styles also describe your experience. Some statements that some- one with a fearful-avoidant style might make are:
+bl28 | . I often don't feel safe or fully trusting in relationships, even if my partner acts in safe and trustworthy ways.
+d5bz | . I frequently get triggered by things that may seem to come out of nowhere.
+ap5o | . I genuinely want intimacy and closeness but I can experience episodes of fearful overwhelm when intimacy with a partner increases.
+7zvf | . When in conflict, I can vacillate from being overwhelmed or aggressive to being dismissive and numb.
+mov9 | . I can vacillate between different types of chaos or rigidity.
+ks7m | . When in distress I have acted in ways that have been harmful to myself or my partners.
+w1w1 | . I often expect that the worst will happen in a relationship, even when things are going well.
+h8gv | . I have elaborate negative fantasies about what will go wrong or how my part- ner will inevitably hurt me beyond repair, even if things are mostly going well.
+kwkp | . Being in a relationship can cause me to become dysregulated, dissociative or confused.
+yj0m | . There are times when I look fine on the outside, but I am actually a complete tsunami on the inside.
+ewfp | . I frequently experience the conflicting internal drives of wanting to be close
+oczy | and share myself but fearing that closeness or vulnerability will be dangerous or cause the relationship to end.
+2ttg | Parental Interactions
+his3 | . Protective
+m50z | . Emotionally available
+me84 | · Responsive
+o56m | . Attuned
+slz6 | . Unavailable
+90k5 | · Unresponsive
+9m8s | · Imperceptive or mis-attuned
+893y | · Rejecting
+favz | · Inconsistently responsive, available or attuned
+7szx | · Intrusive
+hx9e | . Acting out of their needs for attention or affection over the child's needs
+ywn2 | . Frightening
+a63r | Threatening
+dqvj | · Frightened
+r17u | · Disorienting
+3c47 | Alarming
+g345 | TABLE 1.1: The types of parental interactions that are related to the different attach- ment styles in childhood, and how the names of the insecure styles change in adulthood. The percentages of each style are also noted. These percentages do not neatly add up to 100 percent since they are more of a general range, with each study finding slightly different percentages for each style (since people with a
+svhz | Childhood
+oaen | Adult Attachment Style
+5u67 | Attachment Style
+dvms | Secure 50-60%
+qrd3 | Secure
+rxrg | Dismissive 20-30%
+tf43 | Insecure: Avoidant
+fcco | Preoccupied 15-20%
+8uji | Insecure: Anxious
+df3e | Insecure: Fearful-Avoidant
+53eu | Disorganized 20-40%
+a5u1 | fearful-avoidant style might initially test as being one of the other insecure styles). Gender differences have not been found between the different styles.
+ry7u | An important takeaway from this overview of attachment theory is the importance of securely attaching to others who will care for us. This is our first survival strat- egy because without the loving and attentive presence from others we would die. Accordingly, emotional attunement and connection are wired into us as basic human needs that persist through life. Depending on the environment and circum- stance that we were born into and how well our parents were able to meet our at- tachment needs (some conditions our parents had control of and others they did not) we will either develop a secure attachment style, where we feel safe to be with our caretakers and explore the world beyond them, or we will develop an insecure attachment style. Insecure attachment can take the form of overly pulling into our- selves to avoid and withdraw, overly turning outward to others to grasp and pro- cure, or vacillating between the two. These insecure attachment styles are sec- ondary survival strategies that make sense based on what we went through as a child and will continue to impact how we attach and bond in our adult romantic relationships. Here I invite you to reflect on your own personal attachment history, what style or styles you experienced with your different attachment figures and how this relates to the attachment behaviors you have exhibited in your adult romantic relationships.
+5mda | O
+i4li | CHAPTER TWO THE DIFFERENT DIMENSIONS OF ATTACHMENT
+r8sm | MOST ATTACHMENT RESEARCHERS base their work on the idea of categorizing peo- ple under one of four specific types: secure, preoccupied, dismissive or fearful- avoidant. More recently, however, some researchers have proposed that attach- ment is better described using the two dimensions of attachment anxiety and at- tachment avoidance, and looking at the different ways these dimensions can interact.29 They place each of these dimensions along an axis from high to low, and then cross the axes to form a diagram with four quadrants. While this model still produces the same four basic types (one per quadrant), it lets us see a few things in more nuanced ways based on how far along each axis we find ourselves. Not every person with a preoccupied attachment style is exactly the same, for instance. It also helps show the common ground between the different types; for example, both the fearful and the dismissive attachment styles share a higher level of emo- tional avoidance. This model can help us better understand how we might be able to move the needle on our own emotional tendencies when they're not serving us well.
+cuin | Being high in the attachment anxiety dimension relates to increased fears of being rejected, neglected, abandoned or separated from an attachment figure. Being low in attachment anxiety relates to being less fearful or preoccupied that such things will occur. Attachment avoidance is the dimension that relates to how comfortable or uncomfortable a person feels when it comes to being close, inti- mate or reliant on a partner. Stated more positively, low attachment avoidance refers to being more comfortable with intimacy, closeness and reliance on a part- ner and being more likely to approach and engage with a partner.
+n1i7 | Low Avoidance
+0r5m | Preoccupied
+ne2o | Secure
+sqxn | Low Anxiety
+6pmo | High Anxiety
+195r | Fearful
+kqmi | Dismissive
+g8rd | High Avoidance
+nns9 | FIGURE 2.1: Attachment styles expressed using the two dimensions of attachment anxiety and attachment avoidance.
+9uwy | The four different attachment styles relate to where people land on these two dimensions.
+srly | . When someone is low in attachment anxiety and low in attachment avoid- ance, they are in the secure attachment zone.
+dl6i | . When a person has low avoidance but high anxiety, their attachment style is preoccupied.
+89ub | . Dismissive attachment happens when a person's anxiety is low, but their avoidance is high.
+dhle | When someone is high in both anxiety and avoidance, they have a fearful- avoidant style.
+2nib | These dimensions also influence each other. For example, both the secure and preoccupied styles are low in attachment avoidance, but their differences in attach- ment anxiety will alter the way a person expresses their attachment. Someone lower in attachment anxiety will approach a partner from a more secure stance, moving
+naev | towards them with a sense of openness, flexibility and interdependence, whereas someone who is higher in anxiety is more likely to seek proximity to their partner in order to grasp at or control them, be overly dependent on them, or simply to alle- viate their own fears and anxiety.
+7h0h | On the flip side, the internal experience of being higher in attachment avoid- ance will be very different based on where someone is positioned on the attach- ment anxiety dimension. Someone who is high in avoidant behaviors but low in at- tachment anxiety might experience minimal internal conflict when there is in- creased distance from a partner-this person may not even recognize their own high avoidance. Someone who is equally high in avoidance but higher in anxiety can feel an enormous amount of internal conflict and distress. Their avoidance does not necessarily feel like a safe refuge for them, but can feel more like a freeze response. This person feels two things at once: desire for proximity to a partner but fear of what that closeness might bring.
+a64c | I also think that the ways someone might experience being low in attachment anxiety will vary greatly depending on where they lie in the attachment avoidance dimension. For example, both the secure and dismissive styles would be consid- ered as being low in attachment anxiety, but I don't think they are felt in the same way. Someone who is more secure and lower in attachment avoidance probably ex- periences little anxiety, whereas for someone who is more dismissive and higher in attachment avoidance, low anxiety is probably related to the repressing or evading of anxious feelings rather than not having them.
+gi7n | Both personally and professionally I have experienced this four-quadrant model as more both more precise and more useful than simply talking about the four at- tachment styles as stand-alone concepts. When I present attachment in this way to workshop participants and clients, they express being able to better place them- selves within these dimensions. We are then able to have much more nuanced and empowering conversations about approach/avoidance behaviors and low or high anxiety. With this model, people seem better able to reflect on how and why these dimensions play out (often differently) in their relationships. Clients often describe
+3pn1 | feeling less "pathologized" by this approach.
+wjuz | Speaking for myself, before learning about these dimensions, I was often con- fused about exactly where I fit within the three insecure styles. From going through the Adult Attachment Interview (an interview and scoring system developed to as- sess adult attachment) with my own therapist, I knew I had earned secure attach- ment, but there were still times when my insecure strategies arose, especially when under relational stress. I could place some of my behaviors in the dismissive style (I was self-reliant to a fault) but not all of them (I'm extremely empathic, comfort- able with intimacy and emotionally focused). I could definitely relate to several of the ways the preoccupied style internally experiences things, but externally I was not presenting as the anxious preoccupied type at all. Some of my childhood ex- periences undoubtedly fall into the disorganized camp, but the initial descriptions of the fearful-avoidant style that I encountered were encumbered with much more volatility, toxicity and dysfunction than I had experienced in my adult life and rela- tionships.
+3yxv | When I came across Mikulincer and Shaver's two-dimensional description of attachment I could immediately place myself as sometimes being high in anxiety and high in avoidance (fearful avoidance). Under certain circumstances, | expe- rience internal anxiety, feel mentally preoccupied with relational dynamics and have emotional flare-ups in response to the slightest signal that a partner is withdrawing or low in their ability to be present and attuned. But externally, I was more likely to withdraw, play it cool and take the self-reliant route. My reaction could go unno- ticed or be seen as me pulling in and withdrawing, but internally I was thrashing around, getting emotional whiplash from the "one foot on the gas and one foot on the brake" experience. The two-dimensional model offered more accuracy in under- standing my own attachment style and helped me to identify the directions I still needed to focus on in my own healing.
+d8zj | I've found that many of my clients also describe relating to this style. They too are not presenting in the more extreme ways that the fearful-avoidant style is typi- cally depicted, where mental illness, violence, abuse and/or forms of self-abuse are
+ywxn | at play, but nonetheless they are functioning from this style and still need support in the unresolved trauma and pains that it surfaces from. These less extreme or overt expressions of fearful-avoidance can easily go undetected by professionals, leaving people confused about how to understand and identify their own attach- ment experiences. For any psychological model, there will always be people who do not neatly fit into what the theory or diagnostic criteria state, and when a typol- ogy is too rigid it can easily leave people to fall through the cracks. It is important that we recognize the significance of these different attachment categories and ac- knowledge that they are shining a beneficial light on specific patterns that arise for people. But we also need to hold these categorical descriptions with some flexi- bility. Different attachment patterns can exist on a spectrum, such as in this case with fearful-avoidant showing up in mild, moderate or more extreme expressions.
+uxhs | FROM DYSFUNCTION TO DESIRE
+ed6e | Another way to conceive of the attachment dimensions is not through their "dys- functions," but through their strengths and desires. Defining the attachment styles through the dimensions of attachment avoidance and attachment anxiety can easily paint a bleak picture of dysfunction and leave people focusing on what's "wrong" with them. Based on this two-dimensional model, even a secure attachment, which is revered as the desired goal, is just being framed as how low in attachment anx- iety and attachment avoidance it is, instead of being presented in its fullness with all the positive strengths and capacities that this attachment style embodies.
+6qqm | Let's take a person with a dismissive style as an example and look at how nega- tive framing works. Because they're high on the avoidance axis and low on the anx- iety axis, someone with a dismissive style is likely to use distancing and deacti- vating strategies when faced with relationship challenges. On the other end of the spectrum, someone in the preoccupied style sits low on the avoidance axis and high on the anxiety axis. Their strategies look more like hyperactivation and pur- suing their partner in moments of relationship pain.
+onum | But we don't need to only use this negative framing of how these attachment- based emotional tendencies often play out. If instead of looking at how people with
+```
+
+OUTPUT:
+```

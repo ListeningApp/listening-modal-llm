@@ -1,0 +1,167 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+lq35 | Importance for the Company
+3g9w | Sustainability reporting and materiality
+d09o | 345
+ylhz | Figure 1. Materiality matrix based on GRI definition
+a3td | Figure 2.
+ex5k | Materiality matrix based on SASB dimensions
+9d4o | SAMPJ 13,2
+cjq2 | 346
+5esx | illustrated in Figure 2 is not used by SASB, it visualizes an approach to materiality that lies closer to the SASB variant. As is evident from the axes in Figure 2, such an approach to materiality much more strictly delineates those sustainability issues that are financially material - a concept that SASB indeed has begun using to distinguish it from other forms of materiality. We should note, however, that issues that are judged to be important for the company's business performance by the company itself, may not necessarily be financially material. Thus, to use Figure 2 as a visual proxy for the SASB approach to materiality, we need to assume that "Sustainability issues that are important for the company" refers to sustainability issues that are deemed financially material for the sector in which the company operates.
+m5ka | Companies increasingly use such materiality analyses and develop materiality matrices to analyze and visualize which sustainability issues are material to them and that therefore needs to be addressed. Such materiality assessments can thus inform sustainability strategy as well as the measurement and reporting of sustainability performance, as they are a tool for identifying and prioritizing between sustainability issues (Whitehead, 2017; Jørgensen and Pedersen, 2018). Consequently, materiality analyses can be found on corporate websites, in strategy documents and in sustainability reports or integrated reports to visualize and communicate such prioritizations.
+byu8 | A relatively recent development in sustainability reporting that should be taken into account is the emphasis on so-called dynamic materiality, which reflects the time dimension of materiality. As pointed out by Kuh et al. (2020, p. 13), "[a]s companies more rapidly change their business models, what is material to such companies will be changing in stride. Just as the new material topics will emerge for companies as the company evolves, some sustainability issues that were previously material financially to companies will no longer be." This dynamic characteristic of materiality, that the relative importance of sustainability issues to companies and their stakeholders as well as their sustainability impacts can vary over time, requires approaches to materiality that are not static. This is in line with the findings of a field study by Edgley et al. (2015), who found evidence of a forward-looking rather than historical focus in the conceptualization of materiality. [4]
+76b0 | In a recent paper, Rogers and Serafeim (2019) analyze the processes through which sustainability issues become financially material. By systematically shedding light on these "pathways to materiality," the authors accentuate the importance of the dynamic materiality understanding of sustainability. One need only refer to the present situation of the COVID- 19 pandemic to recognize an ESG issue that companies likely had not expected, but that has had immense financial, social and environmental consequences. Rogers and Serafeim (2019) point out the #MeToo phenomenon as another social issue that took many companies off guard. For companies and their investors alike, taking on a forward-looking and dynamic perspective on materiality is important to make qualified assessments of which sustainability issues might rise in importance in the time to come. The fundamental concept of financial valuation is to estimate today the value of all future, risky, cash-flows and financially material sustainability issues will necessarily impact these cash-flows and thus the value of a company.
+zxz6 | Tensions between the two approaches to materiality
+xnth | In principle, there is nothing problematic in having two rival approaches to materiality, as long as both are clearly defined and communicated and the subsequent use of the concepts in practice is well-informed. Arguably, when inspecting the GRI and SASB sources outlined above, the concepts are clearly defined and communicated in the initial sources. We propose, however, that there are tensions between the two approaches to materiality as they are
+vafm | applied in practice and that these can lead to confusion or wrongful conclusions being drawn by users of sustainability performance information.
+2zmw | There are many examples of tensions between different concepts in corporate sustainability (Hahn et al., 2015). In this regard, tensions can be defined as "two phenomena in a dynamic relationship that involve both competition and complementarity" (Epstein et al., 2014, p. 3). As pointed out by Haffar and Searcy, 2017), many concepts in corporate sustainability have a "private value vs shared value" tension, which not at least extends to the question of "value for whom," i.e. which stakeholders are taken into consideration (Wannags and Gold, 2020). The difference between the GRI and SASB approaches to materiality is exactly tied to this question, as the difference in the X-axes in Figures 1 and 2 show. Furthermore, this also relates to the tension between short-term and long-term orientation, i.e. between relatively short-term measurement of financial performance versus the need for long-term orientation for environmental protection and social equity (Hahn et al., 2015, p. 304). Users of information will typically differ in the degree to which they emphasize performance information related to each of the two. For instance, investors will arguably have an appetite for the former, while an environmental regulatory agency or an NGO will typically emphasize the latter.
+bf9k | Even if the two approaches to materiality are clearly defined and communicated by the two standard-setting institutions GRI and SASB, however, there might still be conflation among the two in practice, by users of sustainability reports. For instance, the widespread belief, or even hope, that addressing financially material sustainability issues can drive financial performance may increase investor demand for such information. As this relationship has been found for issues that are material in a SASB sense, it does not necessarily hold for issues that are material in a GRI sense. Thus, it is crucial that users of sustainability information receive such claims about materiality in a manner that unequivocally communicates which concept of materiality is assumed. If not, an investor may draw unjustified conclusions about whether any given sustainability effort communicated in a sustainability report is likely to make the company more valuable.
+otkr | Practical illustration
+ibgs | Let us consider what such potential tension and conflation might mean in practice. When companies improve their sustainability conduct, investors are particularly interested in the financial implications of those improvements, while other stakeholders may care more about the real sustainability impacts of the improvements. For instance, companies in logistics can pursue strategies to electrify their transportation fleets, which can reduce greenhouse gas emissions and at the same time result in lower fuel bills. Similarly, agricultural companies can reduce the waste from their operations by attempting to make products from the residual resources in their production, for instance, sugar companies that make energy from sugarcane residue. Such efforts can clearly lead to improvements both in sustainability performance and business performance.
+colo | However, not all sustainability improvements have such evident potential for positive effects on revenues or costs. To the contrary: many sustainability measures will be unprofitable, especially in the short term, e.g. the current high investment cost of electric lorries. These may be important for many stakeholders, but not necessarily for investors. One could also turn the problem upside-down. Companies that make improvements only on material issues as defined by SASB will be attractive for investors, but they may underperform on issues emphasized by other stakeholders. [5] That sustainability issues are non-material in a SASB sense does not imply that they cannot be important for sustainable development, i.e. have significant impacts on society and the environment. Therefore, users
+d6r4 | Sustainability reporting and materiality
+9mrz | 347
+pk06 | SAMPJ 13,2
+7wn9 | 348
+wcd0 | of information benefit from being able to discern between these different types of sustainability improvements and their materiality.
+caos | Consider the case of the category "Clothing, accessories and footwear" in SASB's materiality map. This shows that no environmental improvements are considered to have positive effects on profits for companies in this industry, as studies of financial materiality in the textile industry do not find that investments in the environment have yielded financial returns. Hence, the environmental footprints of NIKE's footwear or Zara's apparel are not judged as financially material when applying SASB's materiality map, even though one might expect such environmental improvements to have beneficial outcomes with regard to the companies' brands and reputations. They will, however, likely be considered socially and environmentally material in a GRI-based materiality assessment.
+qrvy | This challenge of discernment has important implications for numerous questions:
+pn9j | Q1. Which sustainability efforts should companies prioritize and which KPIs should they monitor that reflect relevant improvement?
+1pmc | Q2. Should the reporting company only emphasize financially material sustainability issues, or also those that are environmentally and socially material?
+5z6q | Q3. If both types are reported, how should the report communicate in which sense and by what definition, any given sustainability issue is material?
+yeoh | Q4. How would the sorting between the two materiality categories vary by reporting horizon?
+b8hf | Empirical study: method and results
+hntf | To shed light on our proposition that there are tensions and potential conflation between different approaches to materiality, we conducted a mixed-method empirical study of various stakeholders in Norwegian financial markets. Through a combination of a brief survey on sustainability reporting, materiality and information quality (n = 30) and follow- up interviews with a selected set of the survey respondents, we aimed to provide insight into the beliefs and assessments of these users of information.
+99fo | Method
+y5r7 | We conducted a two-part empirical study - the survey and semi-structured interviews - on a sample of financial market professionals who were enrolled in an Executive MBA program in sustainable financial analytics in Norway, offered by the Norwegian School of Economics and the Norwegian Society of Financial Analysts in cooperation. The respondents are experienced professionals working in different roles related to financial markets. The sample is dominated by financial analysts and portfolio managers from large institutional investors, but also includes financial market regulators, managers in finance positions in corporations, professionals from banking and insurance, auditors and financial journalists.
+lrry | We wanted to capture respondents' perceptions of central concepts related to materiality as it relates to sustainability reports. We developed 17 items in four broad categories related to sustainability reporting as follows:
+hvhm | . the information needs of users;
+863b | · approaches to materiality in sustainability reports;
+fj24 | · information availability in sustainability reports; and
+uz3c | · information quality in sustainability reports.
+d5bi | Regarding information needs, we developed items to capture three informational needs: those that relate to financial materiality and the two information dimensions of Adams' definition of materiality outlined above. Regarding approaches to materiality, we developed items to capture respondents' views on disclosure requirements with regard to double and dynamic materiality. Regarding information availability, we developed items to capture respondents' assessment of how available the information in sustainability reports is and the degree to which they were able to discern between information related to different approaches to materiality. Regarding information quality, we developed items to capture respondents' assessment of sustainability disclosures, in light of traditional quality of information concepts. In addition, we collected data on respondents' socio-demographic characteristics.
+ba4l | All items are shown in Table 1 and were measured on Likert scales where 1 indicated "strongly disagree" and 7 indicated "strongly agree." We distributed the survey through the online platform Qualtrics and collected all responses in March 2021. We conducted all statistical analyses in IBM SPSS Statistics 27. The analyses were largely descriptive statistics of the respondents' views on the different themes of the survey.
+ffx8 | We conducted follow-up interviews with six of the respondents from the survey in April 2021. As demonstrated by Guest et al. (2020), six to seven interviews provide reasonable information saturation within a relatively homogeneous sample, which is the case in this study. Still, we recruited participants in a manner that was intended to capture the relative diversity of stakeholders represented in the sample as follows:
+s6su | · one financial officer who is also in charge of the company's sustainability reporting (male, 52);
+y219 | · one sustainability manager in a large bank (male, 46);
+06ht | · one manager in a public funding body for innovation (female, 41);
+v3r2 | · one compliance officer in a financial institution (female, 37);
+nv42 | · one financial analyst (male, 35); and
+xags | · one portfolio manager (male, 53).
+jc47 | We conducted the interviews in Zoom owing to the ongoing Corona pandemic. The interviews lasted from 30 to 45 min and were based on the interview guide in Table 2. However, the interviews were semi-structured to allow respondents to address related issues that they deemed important in light of the questions we asked. We conducted the interviews in the respondents' native Norwegian language, but we have translated all quotes below. Initially, we used the findings from the survey responses as guidance for patterns to investigate further in the analysis of the qualitative interviews. Statements that either supported or contrasted with findings from the survey analyses in interesting ways were selected for inclusion in the account of our qualitative findings in the results section. In this way, we aimed to triangulate between the qualitative and quantitative investigations of the respondents' views and perceptions.
+ko3c | Results from the survey
+xek3 | The survey had 30 respondents, of which 80% were male, equivalent to in the whole class of students. The average age was 48.5 years <LATEX>\left( \mathrm { S D } = 9 . 4 \right.</LATEX> and the average work tenure 22 years <LATEX>\left( \mathrm { S D } = 8 . 9 \right) .</LATEX> The respondents mainly worked in banking (30.0%), institutional investment firms (23.3%), regulatory units or other public sector entities (6.7%) as well as other corporate roles such as consultancy firms, insurance firms or financial positions in
+bbpr | Sustainability reporting and materiality
+5zyf | 349
+9own | SAMPJ 13,2
+bqfb | 350
+wwdt | Table 1. Measures and items in the survey
+mn1r | sustainability impacts <LATEX>\left( \mathrm { M } = 6 . 3 7 \right.</LATEX> <LATEX>\left. \mathrm { S D } = 0 . 4 9 \right) .</LATEX> Respondents to a somewhat lesser degree desired information about sustainability issues that were deemed important by the general public, NGOs and so on
+5vqw | <LATEX>\left( M = 5 . 6 3 ; S D = 0 . 9 6 \right) .</LATEX> Regarding materiality, Table 3 shows the respondents' beliefs about materiality and the relationship between material sustainability issues and financial performance. We note that the respondents believe quite strongly that dynamic materiality should be taken into account in reporting and that they do not believe that sustainability reporting should be limited to financially material sustainability issues alone. They also believe that properly addressing material sustainability issues is crucial for companies' financial performance.
+meyw | Regarding information availability, the respondents strongly disagreed that it was easy to identify financially material sustainability issues in sustainability reports <LATEX>\left( M = 2 . 9 7 ; S D = \right.</LATEX> 1.30) and also disagreed that it was easy to distinguish sustainability issues that are financially material from those that are material in other ways, e.g. based on a GRI understanding <LATEX>\left( M = 2 . 9 3 ; \right.</LATEX> <LATEX>\mathrm { S D } = 1 . 3 6 .</LATEX> Overall, the respondents seem skeptical to the information availability in such reports and express a high appetite for reporting in accordance with recognized standards
+2e62 | <LATEX>\left( M = 4 . 7 7 ; S D = 1 . 5 5 \right) .</LATEX> Finally, with regard to information quality, the respondents gave a mixed assessment. When asked to consider different information quality characteristics of sustainability
+75y3 | Sustainability reporting and materiality
+s2g2 | 351
+q1q2 | Table 2. Interview guide for the semi-structured interviews
+cb7r | SAMPJ 13,2
+```
+
+OUTPUT:
+```

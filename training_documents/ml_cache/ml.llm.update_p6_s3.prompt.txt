@@ -1,0 +1,81 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document. Your task is to faithfully reproduce the text for our text-to-speech engine so that it is easily read aloud.
+
+Note that the text might not start at the beginning and paragraphs may be split acrosss multiple textboxes. Textboxes may start or end in the middle of a word which is acceptable: do not combine text between textboxes and leave broken words at the start and end of a textbox unchanged.
+
+You will receive one textbox per-line in the format `id | Textbox content`. The output must be in the format `id | Clean content`.
+
+RULES:
+ • Remove inline citations and references e.g. "(Author, 2021)" or "(https://wikipedia.org/article.html)" or "[ECMOS 35b, 47, 49]".
+ • Spell out numbers, dates, and chemical formulas for the TTS engine e.g. "-2.5" -> "negative two point five" or "Jan. 2020" -> "January twenty twenty".
+ • Spell out LaTeX formulas for the TTS engine e.g. "<LATEX>p = 1</LATEX>" -> "P equals one".
+ • Rejoin hyphenated word fragments within the same textbox e.g. "synth -esize" -> "synthesize".
+ • Fix simple typos and OCR errors e.g. "O nce upon a 1ime." -> "Once upon a time.".
+ • Delete nonsequiter textboxes that interrupt the middle of a sentence if they obviously do not belong.
+
+Otherwise, the output should exactly match the input text:
+ • Do not combine text across lines or attempt to fix words broken across lines.
+ • Ensure each ID from the input is included in the output.
+ • Make as few changes as possible while respecting the above rules.
+
+EXAMPLE INPUT:
+```
+ccpt | stigate the effectiveness of psychedelics for ADHD symp- toms in adults.
+0fpw | 2. Materia1 and methods
+dqn8 | 2.1. Study design and participants
+cop0 | The study employed a naturalistic design, assessing the experiences of participants at bas-,
+lhkq | eline before they start, and at 2 and 4 weeks after initiation. The target population included adults with ADHD symptoms who had not been diag- nosed with ADHD before. To be included, participants needed to score on Conner's Adult ADHD Rating Scale (CAARS-S:SV). This cut-off was indicative of clinically elevated symptoms (Conners et al., 1999) (see section 2.3).
+82ju | 2.2. Study procedure
+y2qo | The online advertisement was placed on a website providing information about psychedelics (www.microdo sing.nl). Interested participants were redirected to information explaining the study rationale and procedure. The baseline survey took 20 min to complete. If the survey had not been completed after 24 h, a reminder was sent. Each of the surveys at the 2- and 4-week time points took about 15 min to complete. Par- ticipants were able to pause the surveys. Data collection occurred between Nov. 2020 and Jul. 2021. The study was approved by the Ethics Review Committee of Psy- chology and Neuroscience at Maastricht University (ERCPN- 215_05_11_2019_A1).
+1piq | 2.3. Measures
+7fqw | 2.3.1. Demographic information and history of substance use
+rhaz | At baseline, demographic information was collected. History of substance use assessed experience with psyche- delics (i.e., ayahuasca, DMT, 5-MeO-DMT, LSD, novel lysergamides (e.g., 1P-LSD, ALD-52), psilocybin, salvia divinorum, ibogaine, and mescaline) in both full (psychedelic) doses and microdoses.
+wak1 | 2.3.2. Psychiatric and physiological diagnoses
+wtfz | Participants were asked whether they had a current diagnosis of a disorder. These answer options were chosen because most of the listed diagnoses are often reported to co-occur with ADHD (Kooij et al., 2019), or because these diagnoses were reported to be common in people who microdose (Fadiman and Korb, 2019). We 
+3j2l | REVIEW ARTICLE Frontiers in Psychiatry | www.frontiersin.org
+03k3 | 2
+1k9e | constructed a variable Comorbidity alongside ADHD, differenti- ating respondents with and without a comorbid diagnosis alongside ADHD (<LATEX>p < . 0 0 1 =</LATEX> only ADHD or no ADHD diagnosis; <LATEX>p > . 0 1 =</LATEX> ADHD and at least one other diagnosis). We constructed a variable Medication use alongside microdosing, differentiating respondents who were and were not using conven- tiona1 ADHD medication alongside microdosing (<LATEX>0 =</LATEX> only microdosing; <LATEX>1 =</LATEX> conven-
+```
+
+EXAMPLE OUTPUT:
+```
+ccpt | stigate the effectiveness of psychedelics for ADHD symptoms in adults.
+0fpw | Two. Material and methods
+dqn8 | Two point one. Study design and participants
+cop0 | The study employed a naturalistic design, assessing the experiences of participants at bas-,
+lhkq | eline before they start, and at two and four weeks after initiation. The target population included adults with ADHD symptoms who had not been diagnosed with ADHD before. To be included, participants needed to score on Conner's Adult ADHD Rating Scale. This cut-off was indicative of clinically elevated symptoms (see section two point three).
+82ju | Two point two. Study procedure
+y2qo | The online advertisement was placed on a website providing information about psychedelics. Interested participants were redirected to information explaining the study rationale and procedure. The baseline survey took twenty minutes to complete. If the survey had not been completed after twenty-four hours, a reminder was sent. Each of the surveys at the two and four-week time points took about fifteen minutes to complete. Participants were able to pause the surveys. Data collection occurred between November twenty twenty and July twenty twenty-one. The study was approved by the Ethics Review Committee of Psychology and Neuroscience at Maastricht University.
+1piq | Two point three. Measures
+7fqw | Two point three point one. Demographic information and history of substance use
+rhaz | At baseline, demographic information was collected. History of substance use assessed experience with psychedelics (i.e., ayahuasca, DMT, five-MeO-DMT, LSD, novel lysergamides (e.g., one-P-LSD, ALD-fifty-two), psilocybin, salvia divinorum, ibogaine, and mescaline) in both full (psychedelic) doses and microdoses.
+wak1 | Two point three point two. Psychiatric and physiological diagnoses
+wtfz | Participants were asked whether they had a current diagnosis of a disorder. These answer options were chosen because most of the listed diagnoses are often reported to co-occur with ADHD, or because these diagnoses were reported to be common in people who microdose. We
+3j2l |
+03k3 |
+1k9e | constructed a variable Comorbidity alongside ADHD, differentiating respondents with and without a comorbid diagnosis alongside ADHD (P is less than point zero zero one equals only ADHD or no ADHD diagnosis; P is greater than point zero one equals ADHD and at least one other diagnosis). We constructed a variable Medication use alongside microdosing, differentiating respondents who were and were not using conventional ADHD medication alongside microdosing (zero equals only microdosing; one equals conven-
+```
+
+INPUT:
+```
+5mda | 3.4. Computation and storage cost
+i4li | The use of ML for multi-omics analysis comes with computational and data storage cost (Herrmann et al., 2020). Most ML algorithms require high computation power and large volumes of storage capacity to save the logs, results and analysis. In recent years, ML models can be deployed on dedicated graphics processing units (Schmidhuber, 2015) and cloud computing platforms (Armbrust et al., 2010) such as Amazon EC2 ("Amazon EC2,", 2021), Microsoft Azure ("Cloud Computing Ser- vices | Microsoft Azure,", 2021a) and Google Cloud Platform ("Cloud Computing Services,", 2021b). The related costs should be considered well in advance before planning an ML-based multi-omics workflow.
+r8sm | 3.5. What algorithm works best for what conditions?
+cuin | The commonly used ML algorithms have different attributes (Table 4) and therefore it is crucial to choose an appropriate algorithm for the multi-omics analysis. In the literature, many reviews cover the key strengths and weaknesses of different ML algorithms using single omics (Amancio et al., 2014; López Pineda et al., 2015; Sakr et al., 2017; Uddin et al., 2019) and multi-omics (Ma et al., 2016; Francescatto et al., 2018; Xu et al., 2019a; Sathyanarayanan et al., 2020) datasets. Most of them use a systematic workflow that involves simultaneous performance evaluation of different algorithms using a common dataset. Since each multi-omics dataset is unique, using a similar workflow could allow the selection of the best-suited algorithm. Later, in Section 6 a recommen- dation flowchart is proposed which can help the inter-disciplinary user to choose from available methods.
+n1i7 | Recently, various artificial intelligence-driven automated ML plat- forms and tools (Feurer et al., 2015; Olson et al., 2018; Waring et al., 2020) have also emerged which can be utilised to exhaustively search for the best ML model and corresponding parameter tuning, however, they are computationally expensive.
+0r5m | 3.6. Translating ML: bench to bedside
+ne2o | Various ML-based multi-omics publications have emerged in the past 5 years (see Fig. 1) and some use performance metrics such as decision curve (Vickers and Elkin, 2006) and calibration (Dankers et al., 2019) analytics to evaluate their diagnostic utility. Still, only very few have been translated into clinical practice, for example, Idx (diabetic reti- nopathy detection), FerriSmart (measure liver iron concentration) and SubtleMR (image processing software for radiology) (Benjamens et al., 2020; Hamamoto et al., 2020).
+sqxn | One of the key issues which hinder the clinical deployment of ML methods is transparency and explainability (Black box medicine and transparency, 2020). A transparent and explainable ML algorithm seems essential to building trust for clinical decision making (Gunning et al., 2019). Recently, the U.S. Food and Drug Administration (FDA) has is- sued the "Artificial Intelligence/Machine Learning (AI/ML)-Based Software as a Medical Device Action Plan" to ensure deployment of ML-based products is safe for patients to better assist the health care providers (Health, 2021). A recent in-depth analysis by Muehlematter showed most of the FDA approved and "Conformité Européenne" marked ML products are in the field of radiology. It also highlighted the key dif- ferences between U.S. and European policy implications around the approval of AI/ML-based devices (Muehlematter et al., 2021).
+6pmo | All the above challenges directly impact the use of ML for multi- omics analysis. However, there are few other challenges related to multi-omics studies which are not ML related such as study design (Haas et al., 2017), multi-site sample collection & management (Pinu et al., 2019), multi-site data sharing and governance (Saulnier et al., 2019), visualisation (Mougin et al., 2018), ethical standards (Lévesque et al., 2018), and finally making the research reproducible (Conesa and Beck, 2019) and translational (Schumacher et al., 2014). A broader checklist of criteria is investigated by McShane while focussing on various aspects ranging from specimen requirements, predictive model development to clinical trial designing and related regulatory approvals (McShane et al., 2013b; McShane et al., 2013a).
+195r | 4. Data integration methods for multi-omics
+kqmi | In recent years, various new data integration methods have been introduced from the modern developments in mathematical, statistical and computational sciences. For the benefit of the readers, Table 5 in- cludes a summary of a few reviews which cover the breadth of multi- omics integration for generic as well as specialised domains such as oncology (Buescher and Driggers, 2016; Nicora et al., 2020) and toxi- cology (Canzler et al., 2020). Most of these reviews have strived to introduce different categorical terminologies (for example: "early', 'late' and 'intermediate' in (Gligorijević and Pržulj, 2015) or 'bottom-up' and 'top-down' in (Yu and Zeng, 2018)) which enable them to group the integration methods based on different factors/parameters.
+g8rd | As mentioned earlier, this section adopts the categorical terminol- ogies from Ritchie (Ritchie et al., 2015) and builds upon it to summarise a complete spectrum of recent integration methods. It concisely covers them giving a clear perspective to a new interdisciplinary user. The various integration methods are classed as either 'concatenation-', 'model-' or 'transformation'-based and described below in detail.
+nns9 | 4.1. Concatenation-based integration methods
+9uwy | Concatenation-based integration methods consider developing a model using a joint data matrix which is formed by combining multiple omics datasets. Fig. 2 shows the stages of concatenation-based integration. Stage 1 includes the raw data from three individual omics (e.g. genomics, proteomics, and metabolomics) along with the corresponding pheno- typic information. Commonly, concatenation-based integration does not require any pre-processing and hence does not have a Stage 2. In Stage 3, the data from the individual omics is concatenated to form a single large
+srly | matrix of multi-omics data. Finally, in Stage 4 the joint matrix is used for supervised or unsupervised analysis. The main advantage of using concatenation-based methods is the simplicity of employing ML for analysing continuous or categorical data, once the concatenation of all individual omics is completed. These methods use all the concatenated features equally and can select the most discriminating features for a given phenotype.
+dl6i | The different concatenation-based integration methods can be further classed as:
+89ub | 4.1.1. Supervised learning concatenation-based methods
+dhle | Different concatenation-based supervised learning methods have been used for phenotypic prediction. In scenarios where the number of features in the joint matrix are higher, different feature selection methods described in Section 3 can be employed during concatenation (Sorzano et al., 2014).
+```
+
+OUTPUT:
+```

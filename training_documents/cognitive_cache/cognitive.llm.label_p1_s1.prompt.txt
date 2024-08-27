@@ -1,0 +1,178 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+1pjs | Learning Factors Analysis - A General Method for Cognitive Model Evaluation and Improvement
+o2kr | Abstract. A cognitive model is a set of production rules or skills encoded in intelligent tutors to model how students solve problems. It is usually generated by brainstorming and iterative refinement between subject experts, cognitive scientists and programmers. In this paper we propose a semi-automated method for improving a cognitive model called Learning Factors Analysis that combines a statistical model, human expertise and a combinatorial search. We use this method to evaluate an existing cognitive model and to generate and evaluate alternative models. We present improved cognitive models and make suggestions for improving the intelligent tutor based on those models.
+v6sk | 1 Introduction
+1wj6 | A cognitive model is a set of production rules or skills encoded in intelligent tutors to model how students solve problems. (Production, skill, and rule are used inter- changeably in this paper.) Productions embody the knowledge that students are trying to acquire, and allows the tutor to estimate each student's learning of each skill as the student works through the exercises [4].
+936l | A good cognitive model captures the fine knowledge components in a curriculum, provides tailored feedback and hints, select problem with difficulty level and learning pace matched to individual students, and eventually, improves student learning. However, initial models are usually generated by brainstorming and iterative refinement between subject experts, cognitive scientists and programmers. These first pass models are best guesses and our experience is that such models can be improved.
+06yq | In this paper, we propose a method called Learning Factors Analysis (LFA) and use it to answer three questions relevant to the field of intelligent tutoring systems.
+dpv6 | 1. How can we describe learning behavior in terms of an existing cognitive model? We need to identify the initial difficulty level of each production and how fast can a student learn each rule (i.e., what is the learning rate). We can then provide parameters that indicate student performance on this set of rules and how that performance improves with practice and instruction on those rules.
+8r5j | 2. How can we evaluate and improve a cognitive model in an inexpensive way? We need to identify the causes of the deviation from the deterministic cognitive model, define the measures of a model's complexity and fit, and mine the student- tutor log data.
+2taz | Learning Factors Analysis - A General Method for Cognitive Model Evaluation
+o3ya | 165
+r5il | 3. How can we use the information from LFA to improve the tutor and the curriculum? We need to identify over-taught or under-taught rules, and even "hidden" knowledge components within them. As a result, we can adjust their contribution to curriculum length without compromising student performance.
+5gui | 2 Literature Review
+82qc | One measure of the performance of a cognitive model is how the data fit the model. Newell and Rosenbloom found a power relationship between the error rate of performance and the amount of practice [13]. Depicted by equation (1), the relationship shows that the error rate decreases according to a power function as the amount of practice increase. The curve for the equation is called a "learning curve".
+ls7d | (1)
+tzt3 | Y = axb .
+t8vv | where
+qvnu | Y = the error rate X = the number of opportunities to practice a skill a = the error rate on the first trial, reflecting the intrinsic difficulty of a skill b = the learning rate, reflecting how easy a skill is to learn
+kggw | The learning curve model has been used to visually identify non-obvious or "hidden" knowledge components. Corbett and Anderson observed that the power relationship might not be readily apparent in some complex skills, which have blips in their learning curves [5], as shown in figure 2. They also found the power relationship holds if the complex skill can be decomposed into subskills, each of which exhibits a smoother learning curve.
+xrd1 | Fig. 2. A learning curve with blips (left) split into two smoother learning curves (right)
+5746 | 166
+7toz | H. Cen, K. Koedinger, and B. Junker
+j346 | As seen in the graphs above, the single production Declare-Parameter produces a learning curve with several blips. However by breaking it into two more specific productions, Declare-First-Parameter and Declare-Second-Parameter, the model becomes more fine-tuned and recognizes that the skills are different. The knowledge decomposition (considering parameter position) that was non-obvious from the original model became revealed on closer inspection of learning curve data.
+v8uq | Other approaches to model refinement include having a simulated student to find incorrect rules and to learn new rules via human tutor intervention [16], using theory refinement to introduce errors to models incorrect student behaviors [1] and using Q- matrix to discover knowledge structure from student response data [15,2]. Compared with the simulated student approach, our method does not require building a simulated student. The theory refinement approach starts with an initial knowledge base and keeps correcting errors in the knowledge base from error examples until the knowledge base is consistent with the examples. It may lead to overfit the examples. The Q-matrix approach was used to automatically extract features in the problem set. The model found by this approach may be similar to the model adding or merging difficulty factors in our method.
+x972 | 3 The Cognitive Model and Its Data Under Investigation
+cwrw | We illustrate the LFA methodology using data obtained from the Area Unit of the Geo- metry Cognitive Tutor (see http://www.carnegielearning.com). The initial cognitive model implemented in the Tutor had 15 skills that correspond to productions or, in some cases, groups of productions. The productions are
+4i0e | Circle-area - Given the radius , find the area of a circle Circle-circumference - Given the diameter, find the circumference of a circle. Circle-diameter -- Given the radius or circumference, find the diameter of a circle. Circle-radius -- Find the radius given the area, circumference, or diameter. Compose-by-addition - In a+b=c, given any two of a, b, or c, find the third. Compose-by-multiplication - In a*b=c, given any two of a, b, or c, find the third. Parallelogram-area - Given the base and height, find the area of a parallelogram. Parallelogram-side - Given the area and height (or base), find the base (or height). Pentagon-area - Given a side and the apothem, find the area of a pentagon. Pentagon-side - Given area and apothem, find the side (or apothem).
+h2l3 | Trapezoid-area - Given the height and both bases, find the area of a trapezoid. Trapezoid-base - Given area and height, find the base of a trapezoid. Trapezoid-height - Given the area and the base, find the height of a trapezoid. Triangle-area - Given the base and height, find the area of a triangle. Triangle-side - Given the base and side, find the height of a triangle.
+dfzb | Our data consist of 4102 data points involving 24 students, and 115 problem steps. Each data point is a correct or incorrect student action corresponding to a single production execution. Table 1 displays typical student action records in this data set. It has five columns - student, success, step, skill, and opportunities. Student is the names of the students. Success is whether the student did that step correctly or not in the fist attempt. 1 means success and 0, failure. Step is the particular step in a tutor
+u6ty | Learning Factors Analysis - A General Method for Cognitive Model Evaluation
+awvu | 167
+on9b | problem the students are involved in. "pls1" stands for problem 1 step 1. Skill is the production rule used in that step. Opportunities mean the number of previous times to use a particular skill. It increments every time the skill is used by the same student, and can be computed from the first and fourth columns.
+a8ge | Table 1. The sample data
+h27a | 4 Learning Factor Analysis
+pdjh | LFA has three components: a statistical model that quantifies the skills, the difficulty factors that may affect student performance in the tutor curriculum, and a combinatorial search that does model selection.
+xmgs | 4.1 The Statistical Model
+bd9h | The power law model applies to individual skills and does not typically include student effects. Because the existing cognitive model has multiple rules, and the data contains multiple students, we made four assumptions about student learning to extend the power law model.
+m047 | 1. Different students may initially know more or less. Thus, we use an intercept parameter for each student.
+gy8c | 2. Students learn at the same rate. Thus, slope parameters do not depend on student. This is a simplifying assumption to reduce the number of parameters in equation 2. We chose this simplification, following Draney, Wilson and Pirolli [7], because we are focused on refining the cognitive model rather than evaluating student knowledge growth.
+y4mj | 3. Some productions are more likely to be known than others. Thus, we use a intercept parameter for each production.
+vpgq | 4. Some productions are easier to learn than others. Thus, we need a slope parameter for each production.
+ousl | Based on the assumptions, we developed a multiple logistic regression model.
+m4ju | In(2) = Σαχί+ Σβύ + ΣΟΥΤΙ.
+a0mb | (2)
+ki8m | Where
+km8w | p = the probability to get an item right
+wzno | X = the covariates for students
+xagm | Y = the covariates for skills
+iwn5 | T = the covariates for the number of opportunities practiced on the skills
+uooz | Y T = the covariates for interaction between skill and the number of practice opportunities for that skill
+pxbq | 168
+jfsr | H. Cen, K. Koedinger, and B. Junker
+u15r | a = the coefficient for each student, i.e. the student intercept
+lq35 | B = the coefficient for each rule, i.e. the production intercept
+3g9w | y = the coefficient for the interaction between a production and its opportunities, i.e. the production slope.
+d09o | 4.2 Difficulty Factors
+ylhz | A difficulty factor refers specifically to a property of the problem that causes student difficulties (e.g., first vs. second parameter in figure 3). By assessing the performance difference on pairs of problems that vary by one factor at a time, we can identify the hidden knowledge component(s) that can be used to improve a cognitive model [9]. Difficulty factors have been used to empirically evaluate a small number of alternative models [6, 10, 11].
+a3td | In our study, subject experts identified four multi-valued factors for the Area Unit of the Geometry Tutor. Table 2 lists their names and values.
+ex5k | Table 2. Factors for the Area Unit and their values
+9d4o | "Embed" indicates whether a shape is embedded in another shape. Consider two tutor problems requiring the same production rule CIRCLE-AREA at some step in the problem. In one of the problems, the circle is embedded in a square; while in the other one, the circle is presented alone. Students may find it harder to find the area of circle when it is embedded in another figure because extra effort is necessary to find the circle and its radius. "Backward" means whether the production rule to be used is in its backward form of a taught formula, or its forward form. The forward form of Compose-by-addition is S = S1 + S2, and its backward forma is S1 = S - S2. "Repeat" indicates whether the production rule has been used previously in the same problem. "FigurePart" indicates the part of the figure in the geometry shape to be computed.
+cjq2 | 4.3 Combinatorial Search
+5esx | The goal of the combinatorial search is to do model selection within the logistic regression model space [8]. Difficulty factors are incorporated into an existing cognitive model through a model operator called Binary Split, which splits a skill a skill with a factor value, and a skill without the factor value. For example, splitting production Circle-area by factor Embed with value alone leads to two productions: Circle-area with the factor value alone (called Circle-area*alone), and Circle-area with the factor value embed (Circle-area*embed). Table 3 shows the data before and after a split with Embed.
+m5ka | Learning Factors Analysis - A General Method for Cognitive Model Evaluation
+byu8 | 169
+76b0 | Table 3. The data before and after split. Factors are incorporated in column Skill (after split). The opportunities (after split) change accordingly.
+zxz6 | <LATEX>\mathrm { A } ^ { * }</LATEX> search is the combinatorial search algorithm [14] in LFA. It starts from an initial node, iteratively creates new adjoining nodes, explores them to reach a goal node. To limit the search space, it employs a heuristic to rank each node and visits the nodes in order of this heuristic estimate.
+xnth | In our study, the initial node is the existing cognitive model. Its adjoining nodes are the new models created by splitting the model on the difficulty factors. We do not specify a model to be the goal state because the structure of the best model is unknown. We do specify the stopping criterion by setting the upper bound of the number of node expansions, for this paper to 50 node expansions per search.
+vafm | The heuristic guiding the search is one of the two scoring functions for regression models - AIC (Akaike Information Criterion) and BIC (Bayesian Information Criterion) Each search is run twice, guided by a different heuristic each time. A good model captures sufficient variation in the data but is not overly complicated by balancing between model fit and complexity minimizing prediction risk [17]. AIC and BIC are two estimators for prediction risk, and hence used as heuristics in the search.
+2zmw | <LATEX>\mathrm { A I C } = - 2 ^ { * } \log \mathrm { - l i k e l i h o o d } + 2 ^ { * } \text { number of parameters } .</LATEX> <LATEX>B I C = - 2 ^ { * } l o g - l i k e l i h o o d + n u m b e r o f p a r a m e t e r s ^ { * } n u m b e r o f o b s e r v a t i o n s .</LATEX> (3) (4)
+bf9k | where log-likelihood measures the fit, and the number of parameters, which is the number of covariates in equation 2, measures the complexity. Based on these two formulas, the lower the <LATEX>\mathrm { A I C }</LATEX> or BIC, the better the balance between model fit and complexity. BIC puts a more severe penalty for complexity, leading to a smaller model than other methods.
+otkr | A more interpretable metric for fit is Mean Absolute Deviance (MAD) -- the average of the absolute values of the differences between observed values and predicted values. We do not use it as a heuristic because it leads to over fitting. <LATEX>\mathrm { W } e</LATEX> include it as a measure of the improvement in the model fit.
+ibgs | Figure 4 illustrates <LATEX>A ^ { * }</LATEX> search with AIC as the heuristic. The original model is evaluated and <LATEX>\mathrm { A I C }</LATEX> is computed. The model is then split into a few new models by incorporating the factors. AICs are computed from each of the new model. A* selects the best one (the shaded node with value 5301) for the next model generation. <LATEX>A ^ { * }</LATEX> does not always go down. It may go up to select a model (the shaded node with value 5312) to expand if all the new models have worse heuristic scores than a previous model has. After several expansions, it finds a best node with the lowest AIC value.
+colo | 170
+d6r4 | H. Cen, K. Koedinger, and B. Junker
+9mrz | Fig. 3. Using A* algorithm search through the model space
+pk06 | 5 Experiments and Results
+7wn9 | 5.1 Experiment 1
+```
+
+OUTPUT:
+```

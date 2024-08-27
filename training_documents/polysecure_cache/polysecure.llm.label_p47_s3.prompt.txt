@@ -1,0 +1,130 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+en95 | Societal issues including homophobia, racism, sexism and mononormativity do not exist solely at the societal level. They influence and play out in very real and impactful ways, including the neighborhoods and homes we live in, which schools we have access to and what funding they receive, how we approach or avoid others and how we are treated by teachers, taxi drivers or clerks at the grocery store. A black man is likely to have a very different experience of how safe and secure he feels when walking past a police officer than a white woman in the same scenario. In a time when mass shootings are rampant in the US and amid the current polit- ical climate, a person of color who practices Islam will likely feel very differently
+l3do | walking into a mosque than a white Catholic person walking into a church. These societal experiences can then trickle all the way down to the self level, where social- level issues become internalized as forms of shame or self-loathing, again hin- dering one's ability to bond, attach and connect. Studies have shown that children with socioeconomic risks are more likely to develop disorganized attachment34 and that children are at an increased risk of disorganized attachment when they are in non-maternal care for more than 60 hours a week, due to parental work hours.35
+u9bo | Is it honestly possible to feel safe and secure in a capitalist society that defines our human value based on what we do and how much we make, rather than who we are? Is it honestly possible to feel safe and secure in a society that bombards us with messages asserting (even aggressing) that in order to be secure in our self or with our place in the world we need to acquire more money, more religion, more objects, more products, more body-altering procedures or more property? Society teaches us how to love and who is worthy of love via the media, commercials and through institutionalized practices such as tax benefits for married couples. Rela- tionships are defined as valuable and potential partners are evaluated as worthy based on how much money is spent on dinner, date nights, vacations, diamonds and wedding arrangements. Flipping to the other extreme and thinking that money doesn't matter or is unimportant in a relationship can also be damaging, since we live in a society where money is a basic requirement for survival. It's difficult to show up and thrive in relationships when we can't feed ourselves, pay the bills or afford basic health care.
+7avo | In addition to the ways that capitalism can influence who and how we love, in couples therapy I regularly witness how patriarchal values and gender discourses eclipse intimate connection and attachment. Developing healthy relational attach- ment requires feelings of safety and security. While significant achievements have been made for women over the past several decades, many women still experience sexism, objectification, invisibility, exclusion or even servitude within their most intimate relationships. My generation was taught that girls can do anything that boys can do, but most of my peers still feel the need to have to shave, pluck, color,
+uzo6 | tint, laser, push up or add extensions to parts of their bodies just to achieve base- line attractiveness and feel good enough to walk out the door every day.
+89b4 | For many women, feminism has added more criteria to what it means to be a woman. In commenting on how increased racial and ethnic diversity in Hollywood has had a positive change on body image, the comedian Tina Fey credits women like Jennifer Lopez and Beyonce for revising the definition of American beauty. Being skinny is no longer the only ideal, but having a larger butt and thighs is now also considered desirable. These changes have definitely added more nuance to our beauty standards and represent positive developments, particularly for racial- ized women, larger-bodied women, trans women and disabled women who have typically been found wanting or lesser-than in comparison to the narrow beauty norms of privileged thin, cisgender, able-bodied white women. However, Tina Fey points out, these changes did not necessarily emancipate all women to embrace their body as it is, but rather,
+5f7e | added to the laundry list of attributes women must have to qualify as beautiful. Now every girl is expected to have: Caucasian blue eyes, full Spanish lips, a classic button nose, hairless Asian skin with a California tan, a Jamaican dance hall ass, long Swedish legs, small Japanese feet, the abs of a lesbian gym owner, the hips of a nine-year-old boy, the arms of Michelle Obama and doll tits.36
+h83u | In addition to inflated beauty standards, women are now also expected to be ca- reer-driven, achievement-orientated, financially independent, and a competent badass in the boardroom, bedroom, kitchen and nursery.
+kjoa | On the flip side, the plights of men are often dismissed and unseen, since men are regarded as the ones wielding all the privilege and power. But what happens when the same societal structures that grant men superiority also deny them the full range of human emotions and threaten their status as men if they experience even the slightest form of sensitivity, vulnerability or indication of their needs for love, emotional safety and tenderness (basically, if men admit to having any attach- ment needs at all)? What happens when men are paralyzed by shame and made to feel unworthy of love and partnership unless they meet certain masculine
+wb1c | expectations around financial or professional success? And what happens to a per- son's ability to feel safe and connected when they are transgender or do not fit in the gender binary at all? Many of the personal problems and relationship struggles that we face are actually societal issues impairing our ability to bond, connect and love in secure ways.
+ak13 | Global or Collective Level
+s7el | The earth is alive. It is where we come from, it is what nourishes life and it is where we will return to. If we are going to talk about attachment relationships it would be remiss not to mention our original mother: Mother Earth. For many of us, our rela- tionship to the environment is dissociative and overly abstracted. Even though the earth is the very ground upon which we move, we still see it as separate, unaffected and removed from our daily existence. Growing up in New York City, it was fre- quently modeled to me that the ground was not a place to revere or enjoy. This was mostly because actual areas of earth and grass in the city were few and far between. What I saw instead was that the earth was something to pour concrete over, to drive over, to blast through, to take for granted or the place to literally throw your trash. The earth was more of a means to an end, a resource to take from instead of a living entity to be in relationship with. I think it's safe to say that in the US, many people have a dismissive attachment to the earth. They downplay its importance, cutting off any potential experience of wisdom or intimacy that could be gained through connection with the natural world.
+0lfu | On a daily basis, people are immediately confronted with the sudden and over- whelming realities of our planet through fires, floods, hurricanes, earthquakes, tor- nados, tsunamis, volcanoes and pandemics. Needless to say, it can be trauma- tizing to lose loved ones, homes, and entire communities in natural disasters. Ac- cess to post-disaster aid and support can also be further traumatizing when pover- ty, racism or public policy further influence who, how and when people are helped. In a 2019 TED Talk, How Climate Change Affects Your Mental Health, Britt Wray articulates the ways in which natural disasters can lead to increased PTSD and sui- cide in survivors. She addresses how our changing environment threatens our
+cnjl | social, mental, relational and spiritual health, and how some psychologists are treating "pre-traumatic stress" in regard to climate change.37 Zhiwa Woodbury ex- plains that humans are being confronted with a new type of trauma that has never been confronted before-one that is ongoing and continuous without immediate solutions, and which calls into question our shared identity as humans. In an arti- cle titled "Climate Trauma: Towards a New Taxonomy of Traumatology," he writes:
+rtdl | Climate Trauma is an ever-present existential threat with a bevy of constant cognitive reminders-melting ice caps; eroding shorelines; waves of homeless refugees; the ravaging storms, floods, and fires broadcast into our homes 24/7; and the constant roll-call of disappearing species, vanishing rain forests, and dying coral reefs. There are certain things in life that we cannot "unsee," and Climate Trauma indelibly stamps our consciousness in that way, fundamentally altering the way we see the world and our place in it.38
+norp | Not everyone is currently or directly in harm's way of natural disasters, but many of us still experience climate trauma or a preoccupied attachment to the earth by liv- ing in daily anxiety about the state of our water, air pollution, the state of forests, the loss of biodiversity and the extinction of animal species, just to name a few. For one of my clients, the bulk of our therapy has revolved around her environ- mental anxiety and its impact on every area of her life. When she wakes up every day, she looks through her window to what she sees as a world in peril. She is per- sonally pained by the manifold ways that humans are mistreating the planet. Even though she has everything she needs on a physical level, she often tells me that "If the environment isn't OK, then I'm just not OK." She feels intensely unsafe and unstable living in a world where a natural disaster could occur at any time, and where the future sustainability of human life seems so precarious. This particular client illuminated for me how the current state of the earth has changed the way in which some people orient to their personal future and even their individual sense of purpose. Where for many it appears to be a given truth that we are working to- wards a better future for the next generations, infusing our individual life with a larger sense of meaning, for this client the future was no longer something secure
+chx3 | that she could hang her sense of meaning and fulfillment on.
+sfcf | Another client of mine always felt a strong sense that the meaning of his life had everything to do with becoming a father. Ever since he could remember he de- sired to be a dad, seeing parenthood as his greatest contribution to this life. When he learned more about global issues such as overpopulation and food scarcity, it seriously called into question whether having a child made sense for him anymore. His concern for the environment ignited a personal identity crisis as he contem- plated who he would be and what he would do if having children no longer seemed viable or wise from an environmental perspective. His worry for the planet created a state of constant urgency in his internal nervous system and hypervigilance that disrupted his work and marriage.
+nuxs | With both of these clients, I found that by treating their attachment anxiety with the environment the same way I would work with relational attachment trauma, they were both able to rebuild an inner sense of safety and security. Each of them developed a larger felt sense of trust in the wisdom and support that the earth has to offer, while also feeling more empowered, rather than overwhelmed or compla- cent, about their environmental efforts.
+umx0 | Finally, in talking about the global level, it is also extremely important to high- light collective trauma. This is the traumatic impact that happens to societies over multiple generations when experiences including slavery, genocide, famine, war or the subjugation of women occur. The individuals who experience these events are undeniably impacted, but the effect also transcends the individual, altering the course of the world in unfathomable and incalculable ways. Thomas Hubl is the cofounder of the The Pocket Project, a nonprofit organization dedicated to the healing of collective trauma. He posits that we currently exist in a traumatized col- lective and the main symptom of being in a traumatized world is that we feel sepa- rate from each other, from the world, from spirit and from the natural world as a whole.39 These symptoms are not just present in the collective or even individual psyches, but can become evident through actual changes in our genetic expres- sion. Unresolved trauma from previous generations can alter the expression of
+o306 | DNA, making subsequent generations more susceptible to certain health issues, in- creased anxiety, PTSD and wariness to danger. This means that certain mental health or physical symptoms that you are experiencing today at the self level may have actually been inherited from collective traumas that your ancestors went through generations ago.
+qm1b | con
+n9ms | Traumas arise in many forms over multiple generations and how each person and their nervous system responds to the very same incident can vary greatly in degree. Trauma and attachment wounds separate us from feeling safe and secure, and left unaddressed they can create serious impairments in our ability to connect, re- spond or even function. All of these levels can cause threats, ruptures and viola- tions that activate the attachment system. This means that each level has the potential to impact how safe we feel in our bodies, with others and in the world at large. Living in regular chaos, fear or uncertainty is not conducive to secure attach- ment. At each separate level we can look at a potential trauma occurring at that level and see how it then permeates to all of the levels above and below. Traumas that continue to occur at the levels of culture, society and the collective cannot en- tirely be healed by the individual, but that does not mean that they are beyond cleansing and repair at the self and relationship levels where we do have more power to take responsibility for our own healing. As I've already alluded to, healing is available to all of us at these different levels too. When ruptures occur at one level, we can focus our healing on that specific level, but we must also utilize the repair and respite that the other levels have to offer us-whether through self- compassion, a warm embrace from a loved one, a home where we can relax, being acknowledged and accepted within a community, receiving legal rights or benefits that were previously denied, or a quiet walk in nature to restore our inner equi- librium.
+icdp | Part Two
+wtse | Now that we have become more familiar with attachment theory and trauma, we will use Part Two to become better acquainted with consensual nonmonogamy. This section will address what consensual nonmongamy is, what attachment re- search has to say about nonmonogamy, why understanding attachment is partic- ularly important for people practicing nonmonogamy, and how attachment rup- tures and traumas can occur at multiple levels of the nested model of attachment and trauma when a person is nonmonogamous.
+bm7g | O
+jr68 | CHAPTER FOUR CONSENSUAL NONMONOGAMY
+axix | WE ARE LIVING IN A TIME OF NOTABLE CHANGE. Since change is the only constant, we could probably say that about any time in history, but over the last several decades, multiple established beliefs and deeply rooted cultural and societal prac- tices have shifted. This includes attitudes towards race, class, gender and sexuality. While these societal revisions are far from complete and there is still much room for improvement, over the past 50 years or so marginalized groups have received more access, acknowledgment, justice and rights than previously granted in West- ern history. These necessary changes have come from the courageous and sus- tained efforts of the oppressed. Many people, known and unknown, have sacrificed their personal safety, their own freedoms and even their lives for the collective.
+```
+
+OUTPUT:
+```

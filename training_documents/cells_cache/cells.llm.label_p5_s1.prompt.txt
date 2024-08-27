@@ -1,0 +1,136 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+gy8c | Review article
+y4mj | plaques; high-magnitude, stable flow within the casted region, with no plaque development; and disturbed flow in the region distal to the cast, which induces the development of stable plaques21,24. This mouse model demonstrates flow-dependent atherosclerosis development within a single carotid artery21,24 (Fig. 2b). Both animal models have been used in numerous laboratories worldwide and are extremely valuable tools to study flow-dependent endothelial cell function and athero- genic mechanisms in vivo. One major difference between the models is that in the PCL model, atherosclerotic plaques form throughout the entire length (~1 cm) of the LCA, whereas the contralateral RCA remains healthy and serves as a control. Therefore, this model provides sufficient endothelial samples from the LCA and RCA from the same animal to conduct omics studies, such as single-cell RNA sequencing (scRNA-seq) or bulk RNA sequencing, unlike the cuff model, which provides relatively smaller amounts of endothelial samples15.
+vpgq | In addition to these mouse models of disturbed flow-induced ath- erosclerosis, the use of zebrafish has emerged as a genetically tractable model to examine early events of atherogenesis 25,26. Combined with genetic manipulation approaches to reduce blood flow, zebrafish mod- els provide further evidence that disturbed flow causes atherosclerosis under hypercholesterolaemic conditions27-31. An interesting question is whether disturbed flow-induced atherosclerosis occurs with other risk factors, such as diabetes and hypertension, independently of hypercholesterolaemia.
+ousl | In vitro flow models
+m4ju | Numerous in vitro models of shear stress, including the cone-and-plate viscometer, the parallel-plate flow chamber and the microfluidic chan- nel have been developed and have been reviewed previously14,32-34 These in vitro bioreactors expose endothelial cells to various shear con- ditions and can be used to determine the detailed mechanisms of shear stress-dependent endothelial function in a well-defined biomechanical environment (Fig. 2c,d).
+a0mb | Blood flow regulates endothelial function
+ki8m | Endothelial cells in vivo are constantly exposed to various haemo- dynamic factors, especially shear stress associated with blood flow, which potently regulates nearly all facets of endothelial cell function. Blood flow regulates vascular tone; endothelial barrier permeability; angiogenesis; endothelial cell proliferation, death, differentiation, senescence, metabolism, inflammation and morphology; and extra- cellular matrix remodelling13,14,16. Defining the mechanisms by which stable flow protects endothelial homeostatic function and disturbed flow induces endothelial dysfunction is crucial for understanding the pathogenesis of flow-dependent atherosclerosis and developing novel therapeutic approaches.
+km8w | Blood flow potently regulates endothelial barrier function. Stable flow protects endothelial barrier permeability, whereas disturbed flow promotes endothelial barrier dysfunction13,14,16. Stable flow regulates endothelial cell permeability by promoting tight junction stability via control of occludin expression and attachment to the actin cytoskeleton, as well as control of adherens junction integrity via phosphorylation and degradation of VE-cadherin35-37. Disturbed flow increases both endothe- lial cell proliferation and apoptosis via multiple mechanisms, including downregulation of the expression of the tumour suppressor protein p53 and inhibition of the anti-apoptotic kinase AKT38-41. Stable flow induces autophagy through a sirtuin 1-dependent and FOXO1-dependent pathway, providing a cytoprotective mechanism for endothelial cells42. Disturbed flow induces endothelial cell senescence through a
+wzno | Nature Reviews Cardiology
+xagm | p53-dependent and sirtuin 1-dependent mechanism, thereby reducing endothelial cell migration and disrupting arterial repair mechanisms43.
+iwn5 | Blood flow also regulates metabolism and redox reactions in endothelial cells. Whereas stable flow reduces endothelial glucose uptake and metabolic activity as well as the expression of genes encod- ing proteins involved in glycolysis, disturbed flow promotes glycolytic metabolism, causing a markedly different metabolomic profile and increased mitochondrial fission44-47. Disturbed flow also increases the endothelial production of reactive oxygen species (ROS) and oxidative stress48-51. This process is mediated by bone morphogenetic protein 4 (BMP4), which induces increased production of superoxide via NADPH oxidases and endothelial nitric oxide synthase (eNOS) uncoupling- dependent mechanisms48-53. Endothelial ROS generation in response to disturbed flow increases vascular oxidative stress and LDL oxidation in the context of atherosclerosis and hypertension 51,54-57
+uooz | Disturbed flow potently induces endothelial cell inflammation and transdifferentiation of endothelial cells, which have crucial roles in the initiation and progression of atherosclerosis. Disturbed flow induces endothelial inflammation by increasing the expression of endothelial adhesion molecules (VCAM1, ICAM1 and E-selectin), which mediate monocyte adhesion to endothelial cells16. Activation of nuclear factor-KB (NF-KB) signalling is crucial in disturbed flow-induced inflammation58. In addition, disturbed flow promotes the expression of cytokines and chemokines such as IL-1, IL-6 and CCL5 (refs. 58,59). Disturbed flow can induce the transdifferentiation of endothelial cells to mesenchymal cells (endothelial-to-mesenchymal transition; EndMT) and immune-like cells (endothelial-to-immune cell transition; EndIT)15. The pathophysiological importance of EndMT in disturbed flow- induced atherosclerosis has been demonstrated, but the validation and relevance of EndIT in atherosclerosis remain to be determined60. Increased endothelial cell turnover under disturbed flow condi- tions also coincides with increased transcription of genes encoding angiogenic factors and with increased neovascularization 61-63.
+pxbq | Morphologically, endothelial cells adopt an elongated, fusiform shape and align to the direction of flow under stable flow conditions 32,64. By contrast, endothelial cells under disturbed flow or no-flow static conditions adopt a polygonal, 'cobblestone' shape without uniform alignment65,66. These morphological changes are accompanied by actin cytoskeleton remodelling from a pattern of bands encircling the periphery of the cell to a pattern of thick, central stress fibres aligned in the direction of shear stress 67,68. These cytoskeletal changes alter intercellular stress and cellular traction forces, affecting subsequent cellular strain and status 69,70. In addition, shear stress induces subcellu- lar structural changes, such as changes in nuclear shape and relocation of the Golgi apparatus towards the upstream flow direction71,72.
+jfsr | Mechanosensors and mechanotransduction
+u15r | Endothelial cells transduce flow signals into intracellular changes through the processes of mechanosensing and mechanosignal transduction. Endothelial cells recognize fluid shear stress through mechanosensors located in the apical and basal surfaces of the cell, in cell-cell junctions and intracellularly73 (Fig. 3). On the apical surface, the mechanosensors include plasma membrane proteins, such as the cation channels PIEZO1 and P2X purinoreceptor 4, NOTCH1, protein kinases, G protein-coupled receptors and plexin D1, as well as membrane- associated structures, such as caveolae, the glycocalyx and primary cilia74-87. PIEZO1 is an inward-rectifying calcium channel present in many cell types that opens in response to mechanical force88. In endothelial cells, PIEZO1 mediates shear stress magnitude-dependent increases in
+lq35 | Review article
+3g9w | Fig. 3 | Mechanosensors and mechanosignal transduction pathways in endothelial cells. The apical surface of the endothelial cell contains protein mechanosensors, such as plexin D1, NOTCH1, PIEZO1, P2X4 and G protein-coupled receptors (such as GPR68), as well as mechanosensitive cell structures, such as caveolae, primary cilia and the glycocalyx. Cell-cell junctions contain the mechanosensory complex comprising VE-cadherin, platelet endothelial cell adhesion molecule (PECAM1), vascular endothelial growth factor receptor 2 (VEGFR2) and VEGFR3. The basal surface of endothelial cells contains integrin
+d09o | intracellular calcium levels, influencing flow-induced, anti-atherogenic and pro-atherogenic responses, such as cell alignment80,87,89. NOTCH1 mediates stable flow-induced cellular alignment, suppression of cell proliferation and maintenance of cell-cell junctional integrity, and pro- tects against atherosclerosis development81. These effects have been suggested to be controlled by tension-induced NOTCH1 signalling and modulation of intracellular calcium levels81. However, another study showed that shear stress-mediated activation of the NOTCH1 response requires PIEZO1, warranting additional clarification regarding the mechanosensory role of NOTCH1 (ref. 76). G protein-coupled receptors, such as the proton-sensing GPR68, undergo conformational changes in response to flow in endothelial cells, mediating shear-induced cal- cium influx53,90. Plexin D1, potentially in connection with the junctional mechanosensory complex, mediates flow-dependent atherosclerosis development by regulating calcium uptake, phosphorylation of vas- cular endothelial growth factor receptor 2 (VEGFR2), AKT, eNOS, ERK1 and ERK2, as well as induction of the major flow-sensitive transcription factors, Krüppel-like factor 2 (KLF2) and KLF4 (ref. 82).
+ylhz | In cell-cell junctions, platelet endothelial cell adhesion molecule (PECAM1), VE-cadherin and VEGFR2 form the junctional mechanosen- sory complex, which mediates integrin activation, cellular align- ment and eNOS activation in response to stable flow via PI3K-AKT signalling69. On the basal surface of endothelial cells, flow induces conformational activation and expression changes in extracellular matrix-binding integrin mechanosensors91,92. Stable flow activates the integrin avß3, causing increased binding to the extracellular matrix and inactivation of downstream RHO signalling91. In addition,
+a3td | Nature Reviews Cardiology
+ex5k | mechanosensors. Mechanosignal transduction pathways include the PI3K-AKT pathway, ERK1-ERK2 pathway, YAP-TAZ pathway and the RHO signalling pathway. Many mechanosignal transduction pathways result in activation of transcription factors including Krüppel-like factor 2 (KLF2) and KLF4, nuclear factor-KB (NF-KB) and hypoxia-inducible factor 1x (HIF1x). EndMT, endothelial-to-mesenchymal transition; eNOS, endothelial nitric oxide synthase; FAK, focal adhesion kinase; JAM, junctional adhesion molecule; NRF2, nuclear factor erythroid 2-related factor 2; ROS, reactive oxygen species; SOX13, transcription factor SOX13.
+9d4o | the actin cytoskeleton in the cytosol has been shown to serve as a mechanosensory structure93.
+cjq2 | Flow mechanosensing in endothelial cells activates numerous early-to-intermediate (seconds to minutes) cell signalling pathways that lead to long-term (hours to days) atheroprotective or pro-atherogenic processes. However, it is important to note that both pro-atherogenic disturbed flow and atheroprotective stable flow often activate many of the same early-to-intermediate signalling pathways, especially in in vitro studies. For example, stable flow transiently activates NF-KB signalling without leading to long-term endothelial inflammation, whereas disturbed flow induces persistent NF-KB activation resulting in endothelial inflammation94. The mechanisms that distinguish these flow-pattern-dependent activation pathways, especially in vitro, are not well understood and remain crucial knowledge gaps that need to be filled. This uncertainty is due in part to the common experimental strat- egy of conducting in vitro studies with endothelial cells cultured under no-flow conditions that are suddenly subjected to stable flow or disturbed flow. Under these conditions, early-to-intermediate responses might over- lap with common adaptative changes in response to altered mechanical cues regardless of flow patterns and magnitudes. With this caveat in mind, we review the literature that provides crucial knowledge in understanding flow-dependent endothelial cell mechanosignal transduction pathways.
+5esx | PIEZO1
+m5ka | PIEZO1 mediates both atheroprotective and pro-atherogenic flow- dependent endothelial cell responses74,80,85,95. PIEZO1 mechanosens- ing of stable flow induces intracellular calcium influx, leading to ATP
+byu8 | Review article
+76b0 | release and eNOS activation and the production of the atheroprotective and vasorelaxant nitric oxide from endothelial cells80,85. The PIEZO1- induced effect on ATP is mediated by the P2Y2 and Gag/11 pathways, which activate AKT, which in turn activates eNOS96,97. PIEZO1 also mediates pro-atherogenic endothelial responses of disturbed flow. Disturbed flow stimulates NF-KB activity and endothelial inflammation via PIEZO1- Gag/11-mediated integrin activation, which in turn activates the focal adhesion kinase (FAK)74. Endothelial cell-targeted deletion of Piezo1 in Ldlr-knockout mice inhibited atherosclerotic plaque development in disturbed flow regions, suggesting a pro-atherogenic role of PIEZO1 in endothelial cells74.
+zxz6 | Plexin D1
+xnth | Plexin D1is another mechanosensor that responds to both stable flowand disturbed flow, mediating both atheroprotective and pro-atherogenic responses, respectively. Knockdown of Plxnd1, which encodes plexin D1, in mouse endothelial cells inhibits atheroprotective signal transduction pathways, such as eNOS activation, cell alignment and KLF2 and KLF4 expression in response to stable flow82. Interestingly, Plxnd1 knockout in endothelial cells also prevents pro-atherogenic inflammatory responses, including expression of VCAM1 and CCL2 in response to disturbed flow82. Endothelial cell-specific knockout of Plxnd1 in mice prevented atherosclerosis development in arterial regions with disturbed flow but exacerbated plaque development in arterial regions with stable flow82. These results suggest that plexin D1 is a mechanosensor with dual functions depending on blood flow patterns.
+vafm | Junctional mechanosensory complex
+2zmw | Stable flow stimulates eNOS activation through the mechanosensory complex formed by PECAM1, VE-cadherin and VEGFR2 or VEGFR3, which in turn activates the PI3K-AKT pathway69. Stable flow also induces integrin avß3 and NF-KB activation through the junctional mechanosen- sory complex69. However, Pecam1 knockout in mice prevents endothe- lial inflammation and atherosclerosis in arterial regions with disturbed flow69,98. This finding suggests that PECAM1 is a mechanosensor that mediates pro-atherogenic effects of disturbed flow in vivo.
+bf9k | Integrins
+otkr | Integrin activation in response to stable flow inactivates RHO GTPases through RHO-like GTPase signalling99. RHOA inactivation promotes YAP phosphorylation (at Ser127 and Ser381) in the cytoplasm to maintain an atheroprotective endothelial cell phenotype100. These interactions between integrins and RHO GTPases further activate RAC, leading to the assembly of the junctional mechanosensory complexes101. Addition- ally, the RHO GTPase CDC42 is polarized and activated in an integrin- dependent manner and subsequently regulates the polarity of the microtubule-organizing centre102,103. Under disturbed flow conditions, the cooperation between RGD-binding integrins (including &5ß1andavß3 integrins) and fibronectin has been shown to drive pro-inflammatory signal transduction involving the nuclear translocation of NF-KB, YAP and serine/threonine-protein kinase PAK 104-107.
+ibgs | Flow-sensitive transcription factors
+```
+
+OUTPUT:
+```

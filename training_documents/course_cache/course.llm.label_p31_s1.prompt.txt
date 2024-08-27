@@ -1,0 +1,284 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+4jmz | Ecological Release/Niche Shift - Natural Experiment 4
+b7cq | ONils-Arvid Nilsson's (1963) Salmonids in Swedish Lakes (Asymmetric Niche Shift)
+0b39 | · Assessment of diets (6 food types) of 2 Salmonids
+qecd | · Great overlap in food utilization in allopatry
+1o7p | · Large crustaceans (C), Insect larvae (D) and terrestrial insects (E) preferred by both species in allopatry
+cp13 | In sympatry;
+bgre | V Char specializes greatly (60%) on small crustaceans (B), greatly reducing consumption of insect larvae (D) and terrestrial insects (E)
+57lp | V Trout largely remains a generalist in sympatry 1 Large crustaceans/molluscs are shared in sympatry
+ukth | V Char's dietary composition greatly changed in sympatry; Trout's not
+kpvt | Limiting Similarity - Character Displacement 1
+jie2 | Tom Fenchel's (1975) Character Displacement in Marine Mud Snails, Denmark
+d0ik | · Measurement of lengths of 2 species of snails; Hydrobia ulvae and H. ventrosa
+0x0s | · Shell length correlated with food size
+4exe | . Allopatry: Snail length almost identical, mode = 3.0 mm
+0myz | · Sympatry: Snail length distinctively smaller for H. ventrosa, mode ~ 1.8 mm, but bigger for H. ulvae, mode ~ 3.7 mm
+xh3i | Tom Fenchel's (1975) Character Displacement in Marine Mud Snails, Denmark
+syiw | · Food size of the two species in allopatry very similar
+kg3t | · Allopatry: Both species - mode = c.60 um in diameter
+lvae | · Sympatry: H. ulvae = c. 100 um; H. ventrosa = c. 60 um
+o9sc | · Conclusion: The snails compete for the same limiting food resource and H. ulvae diverge towards the large- sized food hence reducing niche- overlap
+121u | Limiting Similarity - Character Displacement (2)
+zh03 | Community-wide Character Displacement & Hutchinson's Size Ratio Rule 0 Niche partitioning among fruit pigeons - 4 key niche dimensions (Diamond 1973): 1.Fruit Size: Larger species feed mostly on larger fruits (large beaks can handle these)
+1mvw | 2.Bird Size and Weight: Body size positively correlated to preferred fruit sizes eaten
+6d4s | 3.Thickness of Branches: Body size positively correlated with branch thickness
+mqah | 4.Position on Branches: Small species foraging on outer branches and twigs due to lower weight.
+xxr8 | Summary - Animal Ecology Experimental Methods
+rl4j | 1. Three Animal Ecology Experimental Methods
+vz32 | · Laboratory: small animals, simple principles, strong controls
+ncb0 | · Field Experiments: small-medium sized, advanced set-up, limited control
+8mp0 | · Natural Experiments: any size of animal, large sample size, poor controls
+xjyk | 2. Seven Major Ways to demonstrate competitive interactions
+mt0f | · Competitive Exclusion: Yeast and grain beetle competition for space
+awab | · Niche shift: Dietary shift between two salmonids (allopatry-sympatry)
+ixcc | · Ecological release: Barnacle competition for space (Displacement)
+8p6h | . Density compensation: Rodent-ant competition for seed (Displacement) · Contiguous allopatry: Chipmunk habitat occupation (allopatry-sympatry)
+pmgl | · Character displacement: Food partitioning - Fruit pigeons, mud snails
+90no | · Predator-mediated co-existence: Starfish predation (Displacement)
+jt0y | Summary - Animal Ecology Experimental Methods
+qb7o | 3. Three Manipulation Methods to demonstrate competitive interactions
+oae5 | · Displacement
+s0fl | · Occupational Comparative (allopatry-sympatry)
+43ia | 4. The Explanatory Concept for competition: Fundamental vs Realised Niche
+3g2y | Lecture 3: The Basis of the Ecological Niche Concept
+gc7v | 1. Definitions of important terminologies in Ecological Niche Concept
+wqfv | · Habitat component: Grinnell (1917)
+j30a | · Trophic component: Elton (1927)
+7bdk | · Multi-dimensional: Hutchinson (1957)
+fim0 | · Abiotic-biotic multidimensional: Begon-Krebs-Ricklefs (1986-1997)
+ojro | 2. Overview of perception of niche dimensionality
+l6t9 | · Niche dimensions: Biotic and abiotic components interacting
+1ujy | · Graphical depiction: One-, two-, three-, multi-dimensional visualization
+qzor | · Dimensional interaction: Dimensions can be unrelated or inter-dependent
+a0by | Lecture 3: The Basis of the Ecological Niche Concept
+u1ky | 3. Comparison of 2 niches types and the eco-potential of a species
+htm9 | · Eco-potential: Genotype determined/ limited maximum potential
+8hul | · Fundamental: Optimum niche, phenotype limited by environmental factors
+87vz | · Realised: Limited by biotic interactions: competition, predation, parasitism
+ym66 | 4. Foraging Niche concept and fitness of animals
+l0a3 | · Fitness: Population size, reproductive and survivorship rates
+u8nw | · Utilization and Response Curves: Bell-shaped, normal distribution, idealized
+l2v9 | · Three Levels: Trophic (what-), Spatial (where-), Temporal (when) to eat
+afbe | · According to Joseph Grinnel, an American ecologist, Ecological Niche is defined it as "The ultimate distributional unit of a species"
+78r8 | · Grinnel implied that niches do not overlap, but are disjunct. Species display their fundamental niches; hence there is no apparent competition among them.
+320g | . Charles S. Elton (1927), a British ecologist, went further by using a more functional view concept, and defined Ecological niche as: "The trophic position of a species in the biotic environment".
+tp8g | . Elton viewed the niche as a simplistic subdivision within the traditional trophic grouping as herbivores, carnivores etc., i.e. the mere feeding habits or dietary trait of a species.
+gxfd | . George Evelyn Hutchinson (1957), after 30 years, proposed the most comprehensive concept to date
+s2v1 | "The n-dimensiona hypervolume or hyperspace of a species"
+jkp9 | · The Hutchinsonian concept implies the total range of environmental variables to which a species must be adapted, and under which a species population lives and reproduces indefinitely.
+z8tt | . The Hutchinsonian concept therefore involves both habitat and functional aspects
+9g22 | · The environmental variables include physical, chemical and biotic parameters
+41fx | · These variables can be viewed as a gradient along which species utilize with different intensities, and each gradient is considered as an n-dimensional space. Adding up all these forms the niche hyperspace
+7um8 | . The niche can be viewed as an n-sided flexible ball that can take any form in an n-dimensional coordinate system and represents the responses of the species population to all environmental variables.
+uow2 | . In multidimensional geometry with n-number of axes, the niche of an organism is graphically depicted, when all relevant environmental variables are included and these are independent of each other
+iat7 | · Begon et al. (1986): "The limits, for all important environmental features, within which all individuals of a species can survive, grow and reproduce"
+ywwr | . Krebs (1994): "The role or profession of an organism in the environment; its activities and relationships in the community"
+0i6j | V A very broad definition comprising all biotic interactions (competition, mutualism etc)
+87cq | . Ricklefs (1997): Formal Definition - "The ranges of many conditions and resource qualities within which the organism or species persists" (i.e. perceived as the multi-dimensional space)
+0qs3 | v Informal Definition - "The ecological role of a species in the community"
+z8f7 | · Polechová & Storch (2008): "Ecological niche indicates the position of a species within an ecosystem, describing both the range of conditions necessary for persistence of species, and its ecological role in the ecosystem
+7w7j | . The diversity of definitions illustrates to what extent the niche is perceived as a species or community property: Is the niche created by the species itself, or by its surroundings?
+51vd | . Or as a dynamic mutual interaction? Let us examine an example - The Beaver
+baj1 | The Niche Concept - Dynamics
+n1wo | . The Beaver (Castor Canadensis, C. fiber) creates dams by felling trees across fast-flowing rivers, hence creating a new environment of stagnant water in which they build their nests.
+5bq3 | . Hence beavers create their own habitat which is conducive both for itself and for many other organisms - i.e. beavers impact their habitat by virtue of a specialised niche of dam building.
+ezla | We can generalise that:
+rsbu | . Eco- or Biotic Potential: The full genetic potential of a species population in all ecological matters (Note: Genotype limited; not necessarily expressed in the phenotype).
+magd | · Fundamental Niche: Phenotype limited by environmental factors and physical constraints currently shaping the genotype; e.g. the temperature or food type range of an organism.
+tb74 | · Realized Niche: Phenotype limited by biotic interactions = competition, predation, parasitism; e.g. the population growth of an organism after predators have reduced it.
+8l69 | The Niche Theory - Niche Dimensions & Fitness
+1jyv | (a) One Dimension:
+olce | Abiotic: Temperature
+erx1 | The Niche Theory - Niche Dimensions & Fitness
+b3bt | . Resource Utilisation Curve (Resource Gradient = Seed size, Fruit ripeness, Tree height etc.)
+0w8m | . Species Response Curve (Environmental Gradient = Temperature, pH, Salinity etc.)
+vcu3 | . Note that only one dimension is shown on these ‘bell-shaped curves'.
+hjzj | The Niche Theory - Niche Dimensions & Fitness
+j79f | · Graphical expressions of multidimensional niches can also incorporate fitness
+6tbv | · Again with more than three niche dimensions this becomes increasingly problematic to show in graphic diagrams.
+xb13 | . Examples are shown below: (a) Fitness highest at <LATEX>X = 5 . 5</LATEX> units;
+cxqi | <LATEX>Y = 3 . 0</LATEX> · (b) Fitness highest at
+qfmx | The Niche Theory - Niche Dimensions & Fitness
+rut3 | Summarizing the Overall Levels of Ecological (Foraging) Niche Dimensions
+m3cp | Summary of Lecture 3 - The Basis of the Ecological Niche Concept
+mq4s | 1. Historically the Niche Concept was initiated and developed about 100 years ago
+95el | · Grinnel (1917): Geographical-spatial distributional unit of a species
+a0a5 | . Elton (1927): Trophic-foraging positioning of a species in the ecosystems
+gocl | . Hutchinson (1957): The first comprehensive n-dimensional hyper volume
+ob1z | · Begon-Krebs-Ricklefs (1986-1997): Further advancing of Hutchinson's · Polechová & Storch (2008): Duality - both position and role in ecosystems
+m4cb | 2. Species Niches are controlled by Dynamic Ecological Interactions:
+m61y | · Abiotic components: Climatic conditions, chemical-physical environment
+u2ob | · Biotic components: Competitors, parasites, predators-prey, disease
+2gnm | Summary of Lecture 3 - The Basis of the Ecological Niche Concept
+emgw | 3. Three types defined within the Theory of the ecological Niche Concept:
+xaqt | · Eco/Biotic Potential: Absolute maximum potentiality - genotype determined
+5rcb | · Fundamental: Actual uncontested, resource unlimited - phenotype determined
+524j | · Realized: Actual in the presence of other biotic interactors - resource limited
+xd3m | 4. Three major Niche Dimensions: Trophic (food), Spatial (area), Temporal (time)
+8qb6 | Objectives of lecture 4 - Theory & Concept of the Ecological Niche
+wkbn | 1. An introduction to Niche Width - populations and individual morphs:
+ftfg | · What is the effect of phenotypic traits on niche width and shape?
+7xi5 | 2. An Overview of interspecies niche relationship and positioning:
+w8r5 | . Included niches: Which are inferior and which are superior?
+ybik | . Abutting niches: How limited is competition such as in Contiguous Allopatry?
+gii5 | · Overlapping niches: How much can niches overlap before exclusion results?
+q5eu | 3. A Comparison of Niche Overlap and Competition:
+a7ao | . Interspecific: The relationship between species density and niche width.
+29a3 | 4. An Account of the rules for Niche Width, Overlap and Limiting Similarity:
+sb1e | . Diffuse Competition: Additive competitors may drive exclusion from Niche.
+w2yn | Niche Theory - Niche Width & Overlap (1)
+ap6l | . Natural populations have variability in both resource use and diversity of morphs
+iest | · (b) Between Phenotype Component (BPC): morphological diversity of a population.
+cox8 | · Niche width (W) = WPC + BPC
+ppqi | · If WPC is high then the population consists of mono/oligo-morph generalists (a)
+oxou | · If BPC is high then the population consists of poly-morph specialists (b)
+495n | (a) Intraspecific: Increased population density (L->H) increases competition among individuals for limited resources (food and space), forcing individuals to search for and adapt to other opportunities = increasing niche width.
+awri | (b) Interspecific: Increased competition between species force these to reduce niche overlap or segregate niches by virtue of specialisation = decreasing niche width (narrow niches allow more dense packing of species in communities).
+bl28 | Niche Theory - Niche Width & Overlap (3)
+d5bz | · Possible niche relationships of two species (S1, S2and S3; one niche dimension):
+ap5o | · A) Included, B) Overlapping, C) Abutting, D) Disjunct niches.
+7zvf | Niche Theory - Niche Width & Overlap (4)
+mov9 | Realized Niche (G) =
+ks7m | G - >[(A+B+C+D+E+F)/G]
+w1w1 | · Diffuse competition of several species on a single species.
+h8gv | . The fundamental niche of species G is greatly reduced by subtracting the overlapping fundamental niches of species A-F.
+kwkp | . This illustrates how several species may squeeze out another species by this cumulative or diffuse competition.
+yj0m | · No competition (disjunct): <LATEX>d / w > 3 ,</LATEX> Invasion of adjacent species:
+ewfp | Objectives - Differential Niche overlap & Complementarity
+oczy | 1. An Introduction to the concept of niche overlap and interspecific competition:
+2ttg | . How does spatio-temporal variation on food availability affect trophic niche?
+his3 | · Which mechanisms separate species to limit similarity and segregate niches?
+m50z | 2. An Overview of various modes of differential niche overlap
+me84 | · How does various means of niche segregations operate?
+o56m | · What are the relationships among trophic and spatio-temporal niche division?
+slz6 | 3. An Account of relationships between niche dimensionality and complementarity:
+90k5 | · What is the effect of increasing niche dimensions and complementarity?
+9m8s | · What are the basic rules for complementarity and niche dimensionality?
+893y | . How does niche differentiation and complementarity increase coexistence?
+favz | 4. A Comparison of ways in which niches are partitioned at the community level:
+7szx | · What are the basic rules (Hutchinson's) of community wide niche partitioning?
+hx9e | Differential Niche Overlap & Complementarity (1)
+ywn2 | Categories of species separation along complementary resource dimensions
+a63r | 1. Food type & habitat - species showing overlap in habitat eat different foods, or vice versa
+dqvj | 2. Food type & time - species use the same food at different times or different foods at the same time
+r17u | 3. Habitat & time - species uses the same habitat at different times or different habitats at the same time
+3c47 | 4. Habitat & habitat - species overlapping in horizontal habitat often differ in vertical habitat or vice versa
+g345 | 5. Food type and food type - species may eat similar-sized foods but different species or types, or vice versa
+svhz | Differential Niche Overlap & Complementarity(2)
+oaen | · Seasonal (temporal)variation in habitat and dietary overlap among granivorous birds in an Arizonian grassland (= spatio-temporal dietary niche segregation):
+5u67 | · Rainy Season (food plenty): Birds specialize on a seed type across overlapping habitat types
+dvms | · Dry Season (food scarce): Birds specialize on separate habitats foraging on many seed types
+qrd3 | Differential Niche Overlap & Complementarity (3)
+rxrg | ODifferential Niche Overlap between 4 hypothetical species (A, B, C, D)
+tf43 | · Horizontal niche dimension considered alone: Species C is apparently in trouble facing diffuse competition from both B and D - coexistence doubtful.
+fcco | · Vertical niche dimension considered alone: Species C subject to heavy niche overlap with A, and moderate overlap from B - coexistence doubtful.
+8uji | · Both Niche dimensions considered simultaneously
+df3e | Resulting Niche Space
+53eu | · A, B, C versus D disjunct
+a5u1 | · A versus B disjunct
+ry7u | · A and C abutting
+5mda | · Only little overlap between species B and C
+i4li | Differential Niche Overlap & Complementarity (4)
+r8sm | OForaging Techniques of 5 sympatric Bird Species in Oak Forest
+```
+
+OUTPUT:
+```

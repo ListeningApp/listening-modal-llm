@@ -1,0 +1,205 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+naev | (3) Where the Board of Trustees fails to appoint a fund manager or the settlor fails to issue the notice in accordance with sub-regulation (2) of this regulation, the Commission may appoint an interim fund manager to manage the reserve fund.
+7h0h | B 2135
+a64c | (4) The interim fund manager shall manage the reserve fund until a fund manager is appointed by the Board of Trustees in accordance with these Regulations.
+gi7n | (5) The Board of Trustees shall provide the interim fund manager with all necessary documents and access required to manage the reserve fund.
+3pn1 | (6) The remuneration of the interim Fund Manager shall be borne by the trust.
+wjuz | PART VI - INVESTMENT OF THE RESERVE FUND AND REPORTING OBLIGATIONS
+3yxv | 34 .- (1) Money standing to the credit of the reserve fund-
+d8zj | (a) may be invested by the fund manager on the approval of the Board of Trustees ; and
+ywxn | (b) shall be invested by the fund manager with the objectives of safety and maintenance of fair returns on amounts invested.
+uxhs | (2) The fund manager shall only invest in allowable instruments prescribed under the Regulations on Investment of Pension Fund Assets, subject to the quality ratings set out therein.
+ed6e | (3) The Commission may issue guidelines for the investment of the reserve fund by the fund manager.
+6qqm | (4) The funds in the reserve fund shall not be invested in unlisted securities by the fund manager, where the investment-
+onum | (a) is in early or start up stage of the target company, or may qualify as seed capital ;
+3iir | (b) shall cause the value of the fund so invested in the securities of the unlisted company to exceed five percent of the net asset value of the reserve fund ; or
+7a0a | (c) is in a company where the board, management, or affiliate of the fund manager or settlor jointly or severally have more than five percent equity stake.
+o1qp | (5) Fund managers shall not invest funds in the reserve fund in any instruments that are subject to any type of prohibitions or limitations on sale or purchase of such investment save for close-ended funds.
+jrik | (6) Fund managers shall ensure that they maintain a diversified portfolio of allowable instruments and avoid undue concentration in one of the allowable instruments.
+xv78 | (7) The proportion of reserve fund invested in a particular allowable instrument shall not exceed five percent of the amount in the reserve fund.
+sdks | B 2136
+y8fb | (8) Fund managers shall not apply funds in the Reserve Fund by way of loans or credit or as collateral for any loan taken by any person including the settlor.
+521q | (9) Interests derived from any investments shall be dealt with as directed by the Board of Trustees subject to section 246 of the Act.
+yogo | (10) In accordance with section 256 of the Act, interests, dividends, profits, investments and other incomes accruable to the reserve fund shall be tax exempted.
+2285 | (11) A fund manager who fails to comply with the provisions of these Regulations shall be liable to administrative penalty of $20,000 or its equivalent in Naira or such additional sum as may be prescribed by the Commission and where the investment resulted in a diminution of the fund, the fund manager shall make up for the loss from personal funds.
+ys0g | (12) The agreement between the trust and a fund manager shall incorporate the provisions of sub-regulation (11) of this regulation.
+7zvp | 35 .- (1) A settlor shall submit to the Commission, the mid-year and annual reports prepared by the management committee and Board of Trustees under section 255 (a) (b) and (c) of the Act, within 30 days from the expiration of the period prescribed therein.
+ww6u | (2) A settlor shall submit an annual report of its activities on the trust in the preceding year accompanied by the audited accounts of the trust to the Commission, not later than 31st May of the following year.
+hpi6 | (3) The annual report shall be in such form as the Commission shall specify from time to time and shall contain sufficient details to show the financial position of the Fund at any given time, the list of proposed projects for the host communities for the following year and status of executed or ongoing projects for the host communities and cost of the individual projects.
+4uhb | (4) The Commission may where it deems fit after the review of the report, require the settlor to provide additional documents to clarify any item contained in the report.
+epyi | (5) The documents or information referred to under sub-regulation (4) of this regulation may include receipts of purchase, contracts with third parties, bank statements, title documents or any other document the Commission may require based on the content of the annual return filed.
+y51p | B 2137
+x95m | PART VII - MISCELLANEOUS PROVISIONS
+yfum | 36 .- (1) A settlor that fails to comply with the provisions of regulations 20, 21 and 22 of these Regulations shall be liable to an administrative penalty of $20,000 or its Naira equivalent and an additional administrative penalty of $1,000 or its Naira equivalent for each day during which the offence continues.
+ppx4 | (2) A settlor who-
+qf11 | (a) fails to comply with any of the requirements specified in regulations 24(8) and 38(3) of these Regulations ;
+8oqt | (b) makes false, inaccurate, incomplete or misleading information in any record or report ;
+6zah | (c) fails to comply with official notice or directive issued by the Commission ;
+4v5o | (d) fails to remit funds within the stipulated period pursuant to section 253 of the Act ;
+ha9e | (e) fails to discharge surviving obligations pursuant section 237 of the Act ;
+xrnt | (f) fails to provide any information, document or report required to be provided to the Commission pursuant to the Act or these Regulations within the prescribed period,
+c8ra | shall be liable to a penalty issued by the Commission not exceeding $250,000 or its equivalent in Naira and in addition the Commission may make a recommendations to the Minister, for the revocation of the license or lease of the defaulting settlor.
+p1l0 | 37 .- (1) Where an act of vandalism, sabotage or civil unrest is suspected to have occurred that causes damage to the facilities used in upstream petroleum operations of the settlor within the host communities or disrupts production activities, the settlor shall notify the Commission within 24 hours of the disruptive act.
+1i8b | Vandalism.
+5sfj | (2) A settlor shall within 30 days of the disruptive act, submit a report on the disruptive act to the Commission and the Board of Trustees.
+vk4h | (3) The report shall contain-
+nsm3 | (a) a description of the disruptive act ;
+jdfw | (b) the area of the settlor's operations affected by the disruptive act ;
+uc9r | (c) the extent of damage to the settlor's facilities used in upstream petroleum operations ;
+l0ap | (d) the value of crude oil, condensates, natural gas liquids or natural gas that was spilled or lost as a result of the act ;
+x815 | B 2138
+epbj | (e) the estimated cost of repair of damage to the settlor's facilities used in upstream petroleum operations, and where the damage requires a replacement of the facility, the estimated cost of the replacement ;
+nmn2 | (f ) in case of a shut-down of the settlor's operations, the operating expenditures incurred during the period that the production was shut down or where a part of the operations is shut down, the operating costs of the part that was shut down ; and
+g3tm | (g) the reductions that may be obtained in taxation as a result of additional costs that may be charged for tax purposes and a cash - flow illustrating how the total costs under Paragraphs (d), (e) and (f) of this sub-regulation, less the tax recovery under regulation 37(3) (g) of these Regulations shall be recovered pursuant to section 257(2) of the Act.
+tfra | (4) The damage calculated pursuant to section 257(2) of the Act, shall not include loss of profits, losses due to delay of production of reserves, or other losses not specifically included in sub-regulation (3) of this regulation, since the losses shall be deemed to be a business risk of the settlor.
+5lm9 | (5) The Commission shall review the report submitted by the settlor pursuant to sub-regulation (2) of this regulation and in the event of a spill, the Commission shall deal with it in accordance with the environmental and remediation regulation issued by the Commission.
+wp2c | (6) The Commission shall, on the basis of the report of the joint investigation team, determine whether the disruptive act was due to technical or natural cause or third-party interference and establish the costs and tax recovery under regulation 37(3) of these Regulations and any adjustment required in the cash-flow pursuant to regulation 37(3)(g) of these Regulations.
+us5v | (7) The decision of the Commission shall be binding on the settlor and the host communities.
+rs2m | 38 .- (1) Where a licence or lease, is surrendered pursuant to section 237 (2) of the Act, or is revoked, terminated or expires pursuant to section 237(3) of the Act, the settlor shall fulfil its surviving obligations and where these obligations have been complied with, the settlor shall have no further obligations either partly or wholly with respect to the area that was surrendered.
+uz9y | (2) Where a portion of a license or lease area is surrendered or relinquished, the area of operations shall be considered adjusted as a result of such surrender or relinquishment.
+8ov0 | (3) A settlor shall, in the event of the adjustment stated under sub- regulation (2) of this regulation, apply to the Commission for its approval of the following-
+mj9m | (a) host communities that the settlor no longer considers its responsibility ;
+94h3 | (b) revised or new Board of Trustees ;
+9jx1 | (c) revised constitution of the Host Communities Development Trust ;
+c3lz | (d) revised forecast of contributions pursuant to section 240(2) of the Act ;
+8bwk | (e) revised host communities development plan ; and
+ez9s | (f) amount in the reserve fund to be allocated to the host communities for which the operations of the settlor has ceased.
+mqot | (4) The Commission shall review the information in sub-regulation (3) (a)-(e) of this regulation and decide on matters pursuant to this regulations.
+oc99 | (5) Surviving obligations of the settlor shall not include any matter related to the management and utilization of the reserve fund pursuant to section 244(b) of the Act.
+gipz | (6) Where an amount in the reserve fund is remaining upon the cessation of activities by the settlor, the Board of Trustees shall continue to manage the Fund and report to the Commission in the manner contemplated by the Act as if it were the settlor.
+b4wj | (7) With respect to the host communities for which the operations of the settlor has ceased, pursuant to sub-regulation (2) of this regulation, the Board of Trustees shall continue to manage the Fund and report to the Commission in the manner contemplated by the Act as if it were the settlor.
+5xlt | 39 .- (1) Where a dispute arises between-
+9bz4 | (a) one or more host communities in relation to the trust or the Fund ; and
+yfv2 | (b) a host community and a settlor in connection with upstream petroleum operations or a trust,
+pujl | the disputing parties shall follow the procedure set out in this regulation to resolve the dispute.
+3rqe | (2) In the case of a-
+nsi3 | (a) dispute arising between host communities, the aggrieved host community shall give a dispute notice to the settlor and the Board of Trustees, support the notice with relevant documents and after service of the dispute notice, the settlor and the Board of Trustees shall attempt in good faith to resolve the dispute between the host communities ; and
+nil3 | (b) dispute between the settlor and a host community or communities, the Board of Trustees shall give a dispute notice to the chairman of the . Board of Directors of the settlor, support the notice with relevant documents and after service of the dispute notice, the Board of Directors of the settlor and the Board of Trustees shall attempt in good faith to resolve the dispute.
+68a1 | B 2140
+seik | (3) A copy of the dispute notice shall be sent to the Commission.
+oq7c | (4) Where the settlor and the Board of Trustees, in the case of a dispute between host communities, or the Board of Directors of the settlor and the Board of Trustees, in the case of a dispute between a settlor and a host community, are unable to resolve the dispute within 30 days after service of the dispute notice, any of the disputing parties may refer the dispute to the Alternative Dispute Resolution Centre of the Nigerian Oil and Gas Excellence Centre for mediation.
+z4mi | (5) A mediation may be initiated by the aggrieved party serving a mediation notice in writing on the other party or parties to the dispute, referring the dispute to mediation.
+hkft | (6) A copy of the mediation notice shall be sent to the Commission.
+jai3 | (7) Unless as otherwise agreed between the disputing parties, the mediation shall be concluded within 45 days of the issuance of the mediation notice.
+p57i | (8) The mediation meetings shall be held at a venue agreed by the disputing parties, failing which, it shall be held in the state capital of the host community.
+u5ug | (9) Any settlement reached by the disputing parties pursuant to the mediation and duly signed by the disputing parties or their representatives shall be final and binding on them.
+i9k5 | (10) Where the dispute is not resolved within 30 days after the commencement of the mediation, or an aggrieved party fails or ceases to participate in the mediation before the 30 days expiry period, or the mediation terminates before 30 days, an aggrieved party may refer the dispute to the Commission, who shall attempt in good faith to resolve the dispute.
+20z2 | (11) Where the Commission is unable to resolve the dispute within 45 days of the dispute being referred to it, the disputing parties may refer the dispute to an Arbitrator under the Arbitration and Conciliation Act.
+4cgs | (12) Final resolution by the Commission shall not increase the budget of the trust unless the dispute relates to inaccurate calculation of the budget.
+htre | 40 .- (1) Prior to the incorporation of a host community development trust pursuant to section 235(1) of the Act, the settlor shall make arrangements for the effective transfer of existing host community development projects and schemes to the fund and notify the Commission in accordance with section 316 of the Act.
+da3c | B 2141
+890q | (2) Upon the establishment of the Fund, the settlor shall-
+jomo | (a) select all the communities under any of its existing memoranda of understanding or any other agreements, community development programmes and corporate social responsibility schemes as host communities' beneficiaries under the applicable Fund to be established pursuant to the Act ;
+06fi | (b) transfer any money accrued in any account as its annual payment obligation under such arrangements to the Fund ;
+hb4s | (c) transfer all invested and investable instruments under any existing memoranda of understanding or any other agreement to the reserve fund under the management of the fund manager ;
+cqq2 | (d) transfer all development projects, schemes, assets and liabilities under any existing memoranda of understanding or any other agreement pursuant to section 316 of the Act to the relevant fund ; and
+1ews | (e) ensure the continued execution of all development projects or schemes in paragraph (d) of this sub-regulation by the Fund.
+afyn | 41 .- (1) The definitions contained in section 318 of the Act, shall apply to these Regulations.
+8sye | (2) In these Regulations-
+r04h | "Act" means the Petroleum Industry Act, 2021 ;
+orpr | "advisory committee" means the host communities advisory committee set up pursuant to section 249 of the Act ;
+k36m | "annual contribution" means three per cent of a settlor's actual annual operating expenditure of the preceding financial year in the upstream petroleum operations affecting the host communities for which the applicable host communities development trust fund was established ;
+wnuz | "applicable law" means all applicable laws, statutes, rules, regulations, official directives, ordinance, licence, permits or orders of any competent authority (whether administrative, legislative, executive or otherwise) including judgments, orders and decrees of courts, commissions or bodies exercising similar functions in each case as is in effect from time to time ;
+sy14 | "Board of Trustees" means the governing board of the trust established under section 242 of the Act ;
+ghss | "Commission" means the Nigerian Upstream Petroleum Regulatory Commission ;
+```
+
+OUTPUT:
+```

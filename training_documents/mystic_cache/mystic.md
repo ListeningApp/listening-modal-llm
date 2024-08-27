@@ -1,0 +1,27 @@
+## An exploration of the relationship between psychedelic drug use, mystical experiences, mindfulness, and mental health.
+
+Overview
+
+Research into psychedelic drugs and their therapeutic potential has gained increasing attention in recent years, however an understanding of the psychological mechanisms by which these substances exert their influence is not yet fully established. The purpose of this thesis was to better understand the relationship between psychedelic drug use and the psychotherapeutic constructs implicated in explaining their proposed benefits.
+
+This volume is comprised of three parts. Part One presents a review of relevant literature, pertaining to the question of which psychotherapeutic constructs may be relevant to psychedelic experiences and their effects. The relevance of constructs such as 'mindfulness' and 'psychological flexibility' are considered, as well as the role of psychedelic-induced 'mystical experiences'.
+
+Part Two of the thesis describes an exploratory cross-sectional study, gathering data from a large sample of recreational psychedelic drug users using an internet-based survey. This study explored the association between lifetime psychedelic drug use, mystical experiences, mindfulness and depression, and examined the pathways between demonstrated effects.
+
+Finally, a critical appraisal of the process of conducting the research is provided. This includes personal reflections on the undertaking of research within the subject area of psychedelics, as well as a consideration of the process of establishing a direction for the study from a psychological position.
+
+
+## Impact Statement
+
+A revival of interest in the therapeutic potential of psychedelic drugs has been seen in recent years, with an evidence-base for their application in the treatment of mental health problems expanding. Whilst benefits have been demonstrated in depression and addiction, for example, the mechanisms by which psychedelics exert their therapeutic effects are not yet fully understood. Evidence to date has explored aspects of the acute psychedelic experience which appear to be important in explaining their therapeutic effects. Likely change processes at a neurobiological level have also been identified, however psychological mechanisms remain unclear. The role of mindfulness has very recently been investigated with regard to psychedelics, with studies suggesting increases in this capacity following their use. The aim of this study was therefore to explore the relationship between mindfulness-related constructs, mental health, psychedelic use, and psychedelic-induced mystical experiences.
+
+It is envisaged that findings will contribute to a growing understanding of the psychological pathways involved in psychedelic effects and potentially inform future research on their therapeutic use. By providing preliminary exploratory data from a large sample of psychedelic users, support may be provided for future research on the relevance of mindfulness-related psychotherapeutic constructs, both enabling an understanding of the mechanisms of change in psychedelic therapy and improving our understanding of the recreational use of these drugs.
+
+
+## 'Third-Wave' psychotherapeutic constructs and their relevance to the psychedelic experience.
+
+Abstract
+
+This literature review takes the form of a conceptual introduction, providing a comprehensive overview of those constructs investigated as part of the empirical study of this thesis. An introduction to classic psychedelic drugs and psychedelic experiences is provided, including a consideration of mystical and/or challenging or difficult experiences. The evidence regarding therapeutic outcomes following psychedelic use is discussed, as well as an overview of theories which seek to explain these effects. A proposed overlap between psychedelic experiences and meditative practices is examined, and relevant aspects of 'third wave' cognitive-behavioural psychotherapeutic approaches are identified, such as 'mindfulness' and 'psychological flexibility' (core components of Acceptance and Commitment Therapy). The value that these psychotherapeutic constructs may hold in understanding, supporting and integrating psychedelic experiences is explored, and discussed in relation to both acute and sustained effects.
+
+Having highlighted the relevance of mystical experiences and mindfulness-related capacities with regard to psychedelics and their therapeutic potential, this review concludes by outlining the aims of the empirical study presented in Part Two.

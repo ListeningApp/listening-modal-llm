@@ -1,0 +1,271 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+gajg | 85
+3j8z | THE WAVELENGTH OF A WARM PARTICLE
+4dol | In thermal equilibrium, the average energy of a classical free particle in 3d space is
+h72f | (E) = CkT 3
+v3n3 | where T is the temperature and k is Boltzmann's constant.
+t03d | If the particle has mass m,
+2q4e | E= mv2, p=mv = p= V2mE = V3mkT
+ktxm | In quantum mechanics, a particle of momentum p has wavelength X = h/p where h is the unreduced Planck's constant. So, at temperature T, the typical wavelength of a free particle of mass m is roughly
+y7mc | V3mkT
+nafx | Particles are waves! Their wavelength is shorter when their momentum is bigger. And the warmer they are, the bigger their momentum tends to be. So there should be a formula for the typical wavelength of a warm particle. And here it is! It helps us visualize the world: particles are a bit blurry, with a characteristic wavelength that depends on temperature.
+je6f | We get this formula from a blend of ideas. Classical mechanics says kinetic energy is E = p2/2m. Classical statistical mechanics says (E) = 2kT. Quantum mechanics says X = h/p. It's pretty optimistic to put these formulas together and see what we get. But the result is approximately correct, though subject to limitations.
+ms51 | We derived (E) = kT using classical statistical mechanics. But it's close to cor- rect for a single quantum particle in a big enough box at high enough temperatures. Otherwise quantum effects kick in.
+v9sh | Another problem is that (E) = 2kT and E = p2/2m do not imply (p) = V3mkT, even if p here means the magnitude of the momentum vector. The arithmetic mean of a square is not the square of the arithmetic mean! Really the 'root mean square' of p is v3mkT. Similarly, even if the root mean square of p is v3mkT and quantum mechanically > = h/p, we cannot conclude that the root mean square of \ is h/v3mkT. Again, you cannot pass a root mean square through a reciprocal!
+rnor | So, our derivation above is dodgy-but it's okay as an order-of-magnitude approxi- mation for a warm enough particle in a big enough box.
+3tz7 | 86
+e02w | THE PARTITION FUNCTION AND THE THERMAL WAVELENGTH
+0ldf | The partition function of a classical free particle of mass m in a 1d box of length L is
+4rgq | Z = −∞ −∞ 0 [L 100 e-Bp2/2m
+srag | dp dq h
+vm1l | = L
+2ulk | 2Tm β
+oc27 | where
+xv2d | 1= h \ 2m
+0yfu | 27Tm
+2icd | is called the 'thermal wavelength'.
+ln4r | Last time we saw that at temperature T, the typical wavelength of a free particle of mass m is roughly
+1iz9 | 1 V3mkT h = hy β 3m
+o5cc | But the partition function of a classical particle of mass m in a box simplifies a lot if we introduce a slightly different distance scale, which people call the thermal wavelength
+b430 | A = 2TmkI = hv
+5k15 | V2TmkT
+v24x | Then the partition function is just the length of the box divided by A. The thermal wavelength A is a bit smaller than X: we have A ~ 0.69). But we probably shouldn't worry about this too much, since our calculation of \ was so rough. Of course all these details are worth thinking about. But the thermal wavelength will turn out to be very useful!
+26hh | 87
+w533 | FREE ENERGY AND THE THERMAL WAVELENGTH
+fj70 | In thermal equilibrium, a classical free particle of mass m in a 1d box of length L has free energy
+04yk | F =- 1 1 B ln
+5l8x | L h -
+h425 | 2Tm
+xfce | β
+trvq | F = - kT In
+ztx4 | where
+d4i8 | 2Tm β
+qp9u | A = hy
+b6jo | is the thermal wavelength.
+f9x6 | Since the partition function of the classical free particle in a one-dimensional box is
+w558 | and free energy is related to the partition function by
+18y0 | F =- InZ,
+779a | we have
+v8xg | Expressing this in terms of temperature rather than coolness, we have
+fmso | F = - kT In
+ndxn | 88
+sb9k | ENTROPY AND THE THERMAL WAVELENGTH
+z2gn | In thermal equilibrium, a classical free particle of mass m in a 1d box of length L has expected energy
+mgx1 | (E) = KT
+x0do | and free energy
+r8qt | F = - kT In Λ L
+sga6 | where A = h/V2TmkT is the thermal wavelength.
+7af5 | But entropy S is ((E) - F)/T, so
+uds2 | S = k ln
+jp0o | Now that we have clean formulas for the expected energy and free energy of the classical free particle in a 1-dimensional box, we can get a nice formula for its entropy. This is equivalent to the formula we saw before, but it's easier to understand. It's a sum of two terms:
+akty | S=k (In +2).
+olz9 | Let's make sure we understand this! We've seen that for any system in thermal equilibrium, the entropy is the sum of two parts:
+5rex | 1. The free energy part. For the classical particle in a 1-dimensional box, this is
+hiwi | 7 = kln -. F L
+zsp2 | V
+qzw0 | 2. The expected energy part. For the classical particle in a 1-dimensional box, this is
+6hya | (E)
+h0lh | 1 = 2 k .
+u5th | The free energy part is always k times the logarithm of the number of accessible states, and for the particle in a one-dimensional box the number of accessible states is L/A. The expected energy part is 2k, by the equipartition theorem, because the particle's expected energy depends on one degree of freedom.
+kelb | Let us think a bit more about why the number of accessible states is L/A. The most rigorous approach is simply to compute the number of accessible states that is,
+xtdb | 89
+f48k | the partition function:
+pg0s | Z =
+aiap | = 0 CL
+55v8 | = L h 2Tm β
+6sol | = L Λ
+gtra | A more hand-wavy approach is to imagine the space of states of the particle, meaning the space of position-momentum pairs (q, p) € [0, L] x R. When it comes to counting accessible states, each region of area h holds one state. The 'accessible' states are those where the energy is not too big compared to kT, so the probability density e-E/kT is fairly large. This is a bit vague, as it must be, because 'accessibility' is not really a yes- or-no matter. But let's just pretend it is, and demand E ≤ kT. Then the 'accessible' region of state space is where p2 /2m ≤ kT, or
+bhjq | pl V2m/ B.
+67jy | This region is
+u6kp | {(q, p) | ≤ q ≤ L, - \2m/ B < p ≤ \2m/ B } { [0, L] x IR
+vpph | It has area L x 21/2m/3, so the number of states it holds is this divided by h, or
+03xu | 2L
+54ay | 2m h VB VITA 4 L
+aohh | This is just 13% more than the exact value of Z. More importantly, I hope this cal- culation gives you a mental picture of number of accessible states for the particle in a one-dimensional box. A mental picture can be helpful even if it's oversimplified. I like to imagine counting the little rectangles of area h that can fit into the 'accessible' region of state space.
+pb0r | In fact this idea is related to Bohr and Sommerfeld's early approach to quantum physics, the 'old quantum theory', which was later subsumed by the theory of 'geometric quantization'. In Bohr and Sommerfeld's approach, when we quantize a classical system with one position and one momentum degree of freedom, there should be approximately one quantum state for each region of area h in the qp plane. More generally, when we quantize a classical system with n position and n momentum degrees of freedom, there should be approximately one quantum state for each region R C R2n with
+5j88 | R ď™pď™q hn =1.
+nfec | So, delving into more quantum mechanics, and geometric quantization, would shed more light on the calculations we're doing now.
+b5nq | 90
+p2om | PARTICLE IN A 3D BOX: PARTITION FUNCTION
+ynxq | The partition function of a classical free particle of mass m in a 3d box B of volume V is
+uoj7 | B e-ßp.p/2m ď3pd3q h3
+vwkw | where B = 1/kT is the coolness.
+tutj | This result becomes prettier using the thermal wavelength A = h(8/2mm)1/2
+xclk | Then we get simply
+pah4 | V A3
+2avs | Z =
+d0nn | Now that we've worked out the statistical mechanics of a classical particle in a one- dimensional box, it's easy to copy everything for a three-dimensional box of any shape. We start with the partition function. The energy of a free particle of mass m is p. p/2m, so the partition function is the integral of exp(-p . p/2m) over all possible positions and momenta. Integrate over momentum and you get
+nv44 | - e-B(p?+p3+p3)/2m dp1dp2dp3 h3 (10 -30/2m Ap) = = h 2mm β 3
+l6cw | In terms of the thermal wavelength this is just 1/A3. Integrate over position and you multiply this by the volume of the box, say V. So we get an incredibly simple final answer:
+z8po | Z = X- V
+wm8m | And this sort of calculation works in any dimension: there's nothing special about the number 3 here.
+fmj9 | 91
+50jk | PARTICLE IN A 3D BOX: ENTROPY
+fvhd | In thermal equilibrium, a classical free particle of mass m in a 3d box of volume V has expected energy
+6jwe | (E) = kT 2 3
+keja | and free energy
+n7w8 | A3 V
+qcfr | F = - kT In
+idjq | where A = h/V2xmkT is the thermal wavelength. But entropy S is ((E) - F)/T, so
+p07t | S = k ln (MAS +3)
+deod | The entropy of a particle in thermal equilibrium in a three-dimensional box works very much like our earlier calculation for a one-dimensional box, with a couple of ad- justments due to the dimension. Since the particle's energy is now a quadratic function of 3 variables, the equipartition theorem now says its expected energy is
+tzks | 〈 E>= kT.
+9f7o | We can work out its free energy from its partition function, which we computed in the last tweet:
+5n75 | V
+3ljd | F =- kT ln Z =- kln
+2oqd | 13.
+c4uf | Thus its entropy is
+gmje | S = (E) - F T
+a8px | The meaning of the two terms here is very similar to that for the particle in the one-dimensional box. The first term is k times the logarithm of the number of accessible states, as always for the Gibbs entropy of a system in thermal equilibrium. Here the number of accessible states is V/A3. The second term is 2k thanks to the equipartition theorem, since the particle's expected energy depends quadratically on 3 degrees of freedom. When V >> A3 this second term is a small correction to the first. As this ceases to be true, the second term becomes more important-and when A3 is comparable to V, quantum corrections to our calculation also become significant.
+uz6l | 92
+xaka | A TALE OF TWO GASES
+p46y | The entropy of an ideal gas of N distinguishable classical particles of mass m in a box of volume V is
+4rcq | Sa = kN (In V + -InkT + - Inkl+ In Im + 2mm 3
+zie9 | 2
+qx9z | while for indistinguishable particles it's
+otrq | Si ~ KN In + InkT + In m +
+ule8 | 2
+6yp6 | 2
+qx7g | where the corrections are small compared to N as N > 0.
+17ou | Now we are finally ready to tackle the entropy of a gas. We start with a 'monatomic ideal gas', which means N free point particles bouncing around in a box. But there's a subtlety! We'll get different answers depending on whether we think of these particles as distinguishable or indistinguishable. That is: do we count the state of the gas as different if we switch two particles, or not?
+l7mi | The formulas look very similar. There are three differences:
+odfd | · For distinguishable particles we'll get an exact formula, while for indistinguishable particles we'll get an approximate one, where the corrections are small compared to N when N become large.
+zlby | · The entropy for distinguishable particles has a term equal to 2kN, while for indistinguishable particles it has a term equal to 2kN.
+k37v | · Most importantly, there's a huge difference in the volume dependence! Where the distinguishable particles have a term in the entropy equal to kN ln V , the indis- tinguishable ones have a term equal to kN In ~, so their entropy is considerably smaller for large volumes.
+77oz | The last difference makes the entropy behave strangely for distinguishable particles, so in practice the physically important case is the gas of indistinguishable particles. But we'll do the calculations in both cases, because the distinguishable case is easier, and interesting.
+aw8u | 93
+ktnk | GAS OF DISTINGUISHABLE PARTICLES: PARTITION FUNCTION
+qiri | The partition function of an ideal gas of N distinguishable classical particles of mass m in a 3d box B of volume V is
+aapk | Za = JBN J 1. IRON e -B i=1 N 2m d3 p1 . . . d3PN d3 q1 . . . d3 qN
+b3dl | pi · Pi h3N
+30p1 | 27Tm β 3N/2
+jp3l | = VN h3N
+2pzg | Thus Za = 3N A3N VN
+qeue | where A = h(8/2Tm)1/2 is the thermal wavelength.
+77jl | Suppose we have a system of N distinguishable classical free particles in a three- dimensional box B of volume V. The state of this system is described by N positions q1, ... , qN E B and N momenta Pi, ... , PN E R3. If each particle has mass m, the energy of the ith particle is equal to
+a9ul | Ei = pi · Pi 2m
+9jxp | and the energy of the system is
+ejzi | E = SEi. i=1 N Let's call the partition function of this system Za. To compute this we integrate exp(-BE) over the space of states, obtaining
+lgbb | Za = LAN JARON BN JR3N exp(-ßE) d3 p1 . . . d3pNd3q1 . . . d3qN h3N .
+hdy5 | Above, I proceeded to compute Za directly by doing the Gaussian integral over momenta and integrating each position over the box. Here's a slightly different way. Because
+rlsz | exp(-(E) =exp(-ßE1) ... exp(-BEN),
+wf16 | the partition function Za is a product of integrals which are all equal:
+syuf | BJR3 e-Bp·p/2m d3pd3q h3 .
+n8b1 | Za =
+wurf | 94
+v7s4 | The integral in the parentheses is the partition function of an single particle in a box. We have already seen that this equals
+yg3g | JB JR3 e - Bp.p/2m ď3pd3q _V h3
+7fo3 | A3
+mwxk | where A is the thermal wavelength. Thus we have
+ovs7 | Za =
+0dyv | We can also do this calculation with a lot less work using Puzzle 36. This implies that when we build a new system from N identical noninteracting copies of some old system, the partition function of the new system is the Nth power of the partition function of the old system. What I just did is show this in a special case.
+sl16 | 95
+lrz1 | GAS OF DISTINGUISHABLE PARTICLES: ENTROPY
+ku5c | In thermal equilibrium, an ideal gas of N distinguishable classical particles of mass m in a 3-dimensional box of volume V has expected energy
+3z35 | (Ed) = kNT 3
+0xdu | and free energy
+bpdv | A3N VN
+b0xd | Fa = - kT In
+e106 | where A = h/V2TmkT is the thermal wavelength. Its entropy Sa is ((Ea) - Fa)/T, so
+mh8r | Sa = kN In N (InN +3)
+```
+
+OUTPUT:
+```

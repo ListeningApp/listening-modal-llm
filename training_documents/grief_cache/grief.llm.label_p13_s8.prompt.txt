@@ -1,0 +1,168 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+wcd0 | Affirmation of the uniqueness of grief is not a new emphasis in the field of bereavement. Colin Parkes (2002) said, "From the start, Bowlby and I recognized that there was a great deal of individual variation in
+caos | Grief Counseling and Grief Therapy
+qrvy | the response to bereavement and that not everybody went through these phases in the same way or at the same speed" (p. 380).
+pn9j | An interesting affirmation of the uniqueness and subjective qual- ity of grief comes from an fMRI study of grief by Gundel, O'Connor, Littrell, Fort, and Lane (2003). After investigating the grief experience in the brains of eight women, they concluded that grief is mediated by a distributed neural network that subserves a number of neural pro- cesses affecting various parts of the brain and its functions, including affect processing, mentalizing, memory retrieval, visual imagery, and autonomic regulation. This neural network may account for the unique, subjective quality of grief, and this finding provides new leads in our quest to understand the health consequences of grief and the neurobi- ology of attachment.
+1pmc | I believe that the mediators of mourning outlined in detail in Chapter 3 hold the key to understanding individual differences in the mourning experience-the adaptation to loss from death.
+5z6q | REFERENCES
+yeoh | Aho, A., Paavilainen, E., & Kaunonen, M. (2012). Mothers' experiences of peer support via an Internet discussion forum after the death of a child. Scandinavian Journal of Caring Sciences, 26, 417-426. doi:10.1111 /j.1471-6712.2011.00929
+b8hf | Attig, T. (2004). Disenfranchised grief revisited: Discounting hope and love. OMEGA-Journal of Death and Dying, 49, 197-215. doi:10.2190/P4TT-J3BF -KFDR-5JB1
+hntf | Bell, J., Bailey, L., & Kennedy, D. (2015). "We do it to keep him alive": Bereaved individuals' experiences of online suicide memorials and continuing bonds. Mortality, 20, 375-389. doi:10.1080/13576275.2015.1083693
+99fo | Bonnano, G. (2004). Loss, trauma, and human resilience. American Psychologist, 59, 20-28. doi:10.1037 /0003-066X.59.1.20
+y5r7 | Bonanno, G. (2009). The other side of sadness. New York, NY: Basic Books. Caserta, M. S., Lund, D. A., Ulz, R. L., & Tabler, J. L. (2016). "One size
+lrry | doesn't fit all"-Partners in hospice care, an individualized approach to bereavement intervention. OMEGA-Journal of Death and Dying, 73, 107-125.
+hvhm | Davis, C., Wortman, C., Lehman, D., & Silver, R. (2000). Searching for meaning in loss: Are clinical assumptions correct? Death Studies, 24, 497-540. doi:10.1080/07481180050121471
+863b | De Groot, J. (2012). Maintaining relational continuity with the deceased on Facebook. OMEGA-Journal of Death and Dying, 65, 195-212. doi:10.2190/ OM.65.3.c
+fj24 | Introduction
+uz3c | De Groot, J. (2014). "For whom the bell tolls": Emotional rubbernecking in Facebook memorial groups. Death Studies, 38, 79-84. doi:10.1080/074811 87.2012.725450
+d5bi | Doka, K. (Eds). (1989). Disenfranchised grief: Recognizing hidden sorrow. Lexington, MA: Lexington Books.
+ba4l | Doka, K. (2002). Disenfranchised grief: New directions, challenges, and strategies for practice. Champaign, IL: Research Press.
+ffx8 | Dominick, S., Blair, I., Beauchamp, N., Seeley, J., Nolen-Hoeksema, S.,
+s6su | Doka, K., & Bonanno, G. A. (2009). An Internet tool to normalize grief.
+y219 | OMEGA-Journal of Death and Dying, 60, 71-87. doi:10.2190/OM.60.1.d Faschingbauer, T., Devaul, R., & Zisook, S. (2001). Texas revised inventory of grief. Death Studies, 25, 1-32.
+06ht | Feigelman, W., Gorman, B., Beal, K., & Jordan, J. (2008). Internet support groups for suicide survivors: A new mode for gaining bereavement assistance. OMEGA-Journal of Death and Dying, 57, 217-243. doi:10.2190/ OM.57.3.a
+v3r2 | Field, N. P., Gao, B., & Paderna, L. (2005). Continuing bonds in bereavement: An attachment theory based perspective. Death Studies, 29, 277-299. doi:10.1080/07481180590923689
+nv42 | Field, N., & Filanosky, C. (2010). Continuing bonds, risk factors for complicated grief, and adjustment to bereavement. Death Studies, 34, 1-29. doi:10.1080/07481180903372269
+xags | Freud, S. (1957). Mourning and melancholia. In J. Strachey (Ed. and Trans.), Standard edition of the complete works of Sigmund Freud (Vol. 14, pp.
+jc47 | 237-260). New York, NY: Basic Books. (Original work published 1917)
+ko3c | Gundel, H., O'Connor, M. F., Littrell, L., Fort, C., & Lane, R. D. (2003).
+xek3 | Functional neuroanatomy of grief: An fMRI study. American Journal of Psychiatry, 160, 1946-1953. doi:10.1176/appi.ajp.160.11.1946
+bbpr | Hogan, N. S., Greenfield, D. B., & Schmidt, L. A. (2001). Developmental and validation of the Hogan grief reaction checklist. Death Studies, 25, 1-32. doi:10.1080/07481180125831
+5zyf | Irwin, M. O. (2015). Mourning 2.0-Continuing bonds between the living and the dead on Facebook. OMEGA-Journal of Death and Dying, 72, 119-150. doi:10.1177/0030222815574830
+9own | Klass, D., Silverman, P., & Nickman, S. (Eds.). (1996). Continuing bonds: New understandings of grief. Washington, DC: Taylor & Francis.
+bqfb | Lazare, A. (1979). Outpatient psychiatry: Diagnosis and treatment. Baltimore, MD: Williams & Wilkins.
+wwdt | Lazare, A. (1989). Bereavement and unresolved grief. In A. Lazare (Ed.),
+mn1r | Outpatient psychiatry: Diagnosis and treatment (2nd ed., pp. 381-397).
+5vqw | Baltimore, MD: Williams & Wilkins.
+meyw | Middleton, W., Moylan, A., Raphael, B., Burnett, P., & Martinek, N. (1993). An international perspective on bereavement related
+2e62 | concepts. Australian & New Zealand Journal of Psychiatry, 27, 457-463. doi:10.3109 /00048679309075803
+75y3 | Grief Counseling and Grief Therapy
+s2g2 | Miller, E. (2015). Content analysis of select YouTube postings: Comparisons of reactions to the Sandy Hook and Aurora shootings and Hurricane Sandy. Cyberpsychology, Behavior & Social Networking, 18, 635-640. doi:10.1089/ cyber.2015.0045
+q1q2 | Neimeyer, R. (2000). Searching for the meaning of meaning: Grief therapy and the process of reconstruction. Death Studies, 24, 541-558. doi:0.1080/07481180050121480
+cb7r | Neimeyer, R. (Ed.). (2001). Meaning reconstruction and the experience of loss. Washington, DC: American Psychological Association.
+68xu | Neimeyer, R., Prigerson, H. G., & Davies, B. (2002). Mourning and meaning. American Behavioral Scientist, 46, 235-251. doi:10.1177/000276402236676 Parkes, C. M. (2002). Grief: Lessons from the past, visions for the future. Death Studies, 26, 367-385. doi:10.1080/02682620208657543
+hd35 | Paulus, T., & Varga, M. (2015). "Please know that you are not alone with your pain": Responses to newcomer posts in an online grief support forum. Death Studies, 39, 633-640. doi:10.1080/07481187.2015.1047060
+2zpk | Rando, T. A. (2003). Public tragedy and complicated mourning. In M. Lattanzi- Licht & K. J. Doka (Eds.), Living with grief: Coping with public tragedy (pp. 263-274). New York, NY: Brunner- Routledge.
+epu7 | Rynearson, E., Schut, H., & Stroebe, M. (2013). Complicated grief after violent death: Identification and intervention. In M. Stroebe, H. Schut, & J. van den Bout (Eds.), Complicated grief: Scientific foundations for health care professionals (pp. 278-292). New York, NY: Routledge.
+7od1 | Sandler, I., Wolchik, S., & Ayers, T. (2008). Resilience rather than recovery: A contextual framework on adaptation following bereavement. Death Studies, 32, 59-73. doi:10.1080/07481180701741343
+0bqy | Shuchter, S. R., & Zisook, S. (1988). Widowhood: The continuing relationship with the dead spouse. Bulletin of the Menninger Clinic, 52, 269-279.
+b780 | Silverman, P. R. (2000). Never too young to know: Death in children's lives. New York, NY: Oxford University Press.
+ccmb | Silverman, P. R., Nickman, S., & Worden, J. W. (1992). Detachment revisited: The child's reconstruction of a dead parent. American Journal of Orthopsychiatry, 62, 494-503. doi:10.1037/h0079366
+ma93 | Sofka, C., Cupit, I., & Gilbert, K. (Eds.). (2102). Dying, death, and grief in an online universe: For counselors and educators. New York, NY: Springer Publishing.
+c6hh | Stroebe, M., & Schut, H. (2005). To continue or relinquish bonds: A review of consequences for the bereaved. Death Studies, 29, 477-494. doi:10.1080/07481180590962659
+y7ea | Stroebe, M., Schut, H., & Finkenauer, C. (2001). The traumatization of grief: A conceptual framework for understanding the trauma-bereavement interface. The Israel Journal of Psychiatry and Related Sciences, 38, 185-201.
+nav4 | Stroebe, M., van der Houwen, K., & Schut, H. (2008). Bereavement support, intervention, and research on the Internet: A critical review. In M. S. Stroebe, R. O. Hansson, H. Schut, & W. Stroebe (Eds.), Handbook of
+gem8 | Introduction
+e8nr | bereavement research and practice: Advances in theory and intervention (pp. 551-574). Washington, DC: American Psychological Association.
+k78w | Suhail, K., Jamil, N., Ovebode, J., & Ajmal, M. A. (2011). Continuing bonds in bereaved Pakistani Muslims: Effects of culture and religion. Death Studies, 35, 22-41.
+g9du | van der Houwen, K., Schut, H., van den Bout, J., Stroebe, M., & Stroebe, W. (2010). The efficacy of a brief Internet based self-help intervention for the bereaved. Behaviour Research and Therapy, 48, 359-367. doi:10.1016/j .brat.2009.12.009
+f682 | van der Houwen, K., Schut, H., van den Bout, J., Stroebe, M., & Stroebe, W. (2010). The efficacy of a brief internet-based self-help intervention for the bereaved. Behaviour Research and Therapy, 48, 359-367. doi:10.1016/j .brat.2009.12.009
+li1k | van der Houwen, K., Stroebe, M., Stroebe, W., Schut, H., van den Bout, J., & Wijngaa rds-de Meij, L. (2010). Risk factors for bereavement outcome: A multivariate approach. Death Studies, 34, 195-220.
+pbea | White, R. J. (1952). Lives in progress. New York, NY: Holt, Rinehart & Winston. WolfeIt, A. (2005). Companioning the bereaved: A soulful guide for caregivers. San Jose, CA: Companion Press.
+ccpt | Worden, J. W. (1996a). Children & grief: When a parent dies. New York, NY: Guilford Press.
+0fpw | Worden, J. W. (1996b). Tasks and mediators of mourning: A guideline for the mental health practitioner. In Session: Psychotherapy in Practice, 2, 73-80. doi:10.1002/(SICI)1520-6572(199624)2:4<73 :: AID-SESS7>3.0.CO;2-9
+dqn8 | Yu, W., He, L., Xu, W., Wang, J., & Prigerson, H. G. (2016). How do attachment dimensions affect bereavement adjustment? A mediation model of continuing bonds. Psychiatry Research, 23, 893-899. doi:10.1016/j .psychres.2016.02.030
+cop0 | 1 ATTACHMENT, LOSS, AND THE EXPERIENCE OF GRIEF
+lhkq | ATTACHMENT THEORY
+82ju | Before one can fully comprehend the impact of a loss and the human behavior associated with it, one must have some understanding of the meaning of attachment. There is considerable writing in the psychologi- cal and psychiatric literature as to the nature of attachments-what they are and how they develop. One of the key figures and primary think- ers in this area is the late British psychiatrist John Bowlby. He devoted much of his professional career to the area of attachment and loss and wrote several substantial volumes as well as a number of articles on the subject.
+```
+
+OUTPUT:
+```

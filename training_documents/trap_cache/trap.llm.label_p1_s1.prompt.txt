@@ -1,0 +1,146 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+1pjs | Downloaded from https://www.cambridge.org/core. Seoul National University - Statistics Department, on 27 Nov 2019 at 01:38:53, subject to the Cambridge Core terms of use, available at https://www.cambridge.org/core/terms.
+o2kr | https://doi.org/10.1017/S0043887116000095
+v6sk | THE MIDDLE-INCOME TRAP More Politics than Economics
+1wj6 | I. INTRODUCTION
+936l | SI INCE the mid-2000s, economists in both academia and develop- ment multilaterals have drawn increasing attention to the middle- income (MI) trap, especially in Southeast Asia and Latin America.1 Their writings have been valuable in identifying and defining the trap, in exploring its proximate sources (especially productivity slowdowns), in recommending policy remedies (such as improvements in human capital), and in highlighting the importance of broad political coali- tions to implement such remedies. Why then-if experts and leaders are aware of the weaknesses of their economies, if they can identify the policies required to improve productivity, and if they recognize the need for broad support and engagement-has it been so difficult to move forward? In probing this question, we find that the existing analyses simply do not explain precisely why there is a trap. We propose that one answer to the puzzle is to get at how today's middle-income econo- mies are different from their predecessors. And yet, as Shekhar Aiyar and colleagues conclude in their survey of the debate, "there is virtu- ally no theory about why and how middle-income economies may be
+06yq | Downloaded from https://www.cambridge.org/core. Seoul National University - Statistics Department, on 27 Nov 2019 at 01:38:53, subject to the Cambridge Core terms of use, available at https://www.cambridge.org/core/terms.
+dpv6 | https://doi.org/10.1017/S0043887116000095
+8r5j | 609
+2taz | different."2 In our view, the absence of such a theory reflects the neglect of the political economy bases of the middle-income trap. To address this considerable gap, we argue for a deeper appreciation of the chal- lenges inherent in upgrading3 policies, of the institutions required to address these challenges, and, most critically, of the political obstacles to developing such institutions.
+o3ya | Among those writing about the middle-income trap, most agree on defining it as an extensive period of middle-income limbo, especially in contrast to earlier developers. Jesus Felipe, Arnelyn Abdon, and Ustav Kumar label countries stuck in the MI trap as those remaining in the income range of $2,000-$7,500 for over twenty-eight years or within a range of $7,500-$11,500 for more than fourteen years, or in middle income for a total of forty-two years (the median number of years ear- lier developers spent in middle income).4 We use these basic criteria to identify countries in the MI trap. Others find growth slowdowns since 1960 to be more frequent in middle-income than in low- or high- income countries.5 Of 101 middle-income economies in 1960, only 13 had graduated to high income (HI) by 2008.6 Today's middle-income countries are caught in a developmental nutcracker, "unable to compete with low-income (LI), low-wage economies in manufactured exports and unable to compete with advanced economies in high-skill innova- tions."7 There is also agreement that the trap reflects a slowdown in productivity growth as economies exhaust the gains from moving into middle-income status.8
+r5il | The emphasis on the need for productivity growth translates into broad agreement among economists on many of the policies needed to get out of the MI trap. These include more and better education (espe- cially higher and technical), greater savings and better investment, bet- ter infrastructure, and more innovation and R and D.9 Views diverge on whether targeted industrial policies should be added to the mix,10 but
+5gui | Downloaded from https://www.cambridge.org/core. Seoul National University - Statistics Department, on 27 Nov 2019 at 01:38:53, subject to the Cambridge Core terms of use, available at https://www.cambridge.org/core/terms.
+82qc | https://doi.org/10.1017/S0043887116000095
+ls7d | this debate does not detract from the consensus on the list of policies above. Nor is there disagreement on the need for institutional strength- ening, especially better administrative capacity to deliver public services and economic regulation.
+tzt3 | Most studies of the MI trap-often drawing on the experiences of latecomers such as Finland, Ireland, Singapore, and South Korea- recognize the need for some minimal political requisites for enacting necessary policies, although that is rarely their primary focus.11 These requisites include political will, long time horizons on the part of politi- cal leaders, broad societal consensus, business-government collabora- tion, and some degree of inclusive politics.12
+t8vv | Beyond these areas of agreement, the scholarship on the MI trap suf- fers from serious gaps. One is the lack of systematic attention to the difficulties inherent in the prescribed policies. Measures designed to improve local technological capacities, such as vocational training, R and D, or standards and testing, are in crucial ways much more chal- lenging than many of the earlier investment-driven growth policies focused largely on the accumulation and mobilization of capital that helped countries move out of low-income to middle-income status.13 Subsequent upgrading of policies to get beyond MI and move closer to technological frontiers takes more time to implement, requires the participation of more actors (for example, teachers or trainers), and demands more technical and site-specific information. These features, in other words, necessitate more sophisticated institutional arrange- ments.14 In addition, as we discuss below, graduating to HI is more dif- ficult in the twenty-first century than it was in the past century.
+qvnu | Most central to this article is the lack of scholarly attention to insti- tutional origins. Few ask what would motivate key actors to coordinate. Why would self-interested political and economic elites expend scarce resources to construct the complex institutions required to implement initiatives in areas such as technical education and R and D? Which groups are most likely to take the lead in demanding upgrading and related institutions? Who are the likely coalition partners? That is, are politics-reflected in relations among key societal actors-in MI coun- tries in fact less amenable to building the consensus economists advo- cate than were politics in other stages or trajectories of development?
+kggw | Our answer to this last question is affirmative. The conditions that facilitated or accompanied the earlier ascension to MI status, such as
+xrd1 | Downloaded from https://www.cambridge.org/core. Seoul National University - Statistics Department, on 27 Nov 2019 at 01:38:53, subject to the Cambridge Core terms of use, available at https://www.cambridge.org/core/terms.
+5746 | https://doi.org/10.1017/S0043887116000095
+7toz | 611
+j346 | foreign investment, low-skilled and low-paid work, inequality, and in- formality, over time generated cleavages that impeded subsequent up- grading policies and building the institutions necessary to implement them. What makes exiting the trap difficult is the institution-intensive nature of the required policy solutions combined with weak societal demand for such institutions.
+v8uq | The main political obstacle to institution building is the fragmen- tation of social groups and the resulting absence of strong upgrading coalitions. Growth trajectories on the way to MI status fractured the groups, especially business and labor, which are the core potential con- stituencies for a coalition that could take the big leap. Broadly put, big business is split between foreign and domestic firms, labor is divided between formal and informal sectors, and societies overall are riven by high inequality. These cleavages splinter interests and make coalition building more difficult.
+x972 | These arguments reflect an expansion of our comparative lens be- yond the small number of developmental states that successfully made the leap from middle-income to high-income status-especially coun- tries like Finland, Korea, Singapore, and Taiwan-to those countries that have not made the leap. Much of the scholarship on the successes concentrated on the institutions of developmental states such as their professionalized, Weberian bureaucracies, "pilot" agencies, and close business-government collaboration. But this scholarship is limited by the range of institutions it addresses and, most critically, by a neglect of coalitional underpinnings.15 Focusing on the countries that have not made the leap alerts us to the underlying structural obstacles to form- ing the broad coalitions needed for institution building. As such, the implications of our arguments go beyond the study of the MI trap to ad- dress the shortcomings of what has become an apolitical institutionalist hegemony in development studies and practice.16
+cwrw | The article proceeds as follows: Section II examines the significant institutional challenges facing MI countries through the examples of hu- man capital and investment in R and D. Section III turns to the sociopo- litical obstacles to addressing these and other institutional challenges by exploring social cleavages, especially those created by inequality, foreign direct investment (FDI), and informality. Section IV illustrates the frac- tious interests of groups in MI politics in the crucial case of education reform. Section V then broadens the comparative analysis and includes China as well. Section VI concludes with some practical and theoretical
+4i0e | Downloaded from https://www.cambridge.org/core. Seoul National University - Statistics Department, on 27 Nov 2019 at 01:38:53, subject to the Cambridge Core terms of use, available at https://www.cambridge.org/core/terms.
+h2l3 | https://doi.org/10.1017/S0043887116000095
+dfzb | 612
+u6ty | implications. Most of the empirical material focuses on comparisons between MI and HI countries in the twenty-first century. Where data are available, we include some comparisons with past experiences of earlier graduates to HI, especially to show that earlier graduates did not face the same challenges and cleavages as those facing today's MI countries.
+awvu | II. THE INSTITUTIONAL CHALLENGES OF TODAY'S MIDDLE-INCOME TRAP
+on9b | The upgrading reforms required to move out of middle-income status are difficult and complex, especially compared to reforms that, while generating real distributional tensions, can be implemented by fiat by small groups of insulated technocrats (for example, devaluation, rais- ing interest rates, or trade liberalization). Because of their complexities, implementing upgrading reforms requires institutions to coordinate, to monitor and reconcile the interests of multiple actors, and to help provide specialized information. Such institutions operate at multiple levels, ranging from overall sectoral coordinating institutes and public- private consultative councils, to judicial offices for effective contract enforcement and patent protection, to agencies specializing in areas such as innovation financing, testing and standards, R and D promo- tion, and vocational training. Creating such institutions is difficult be- cause they require both (horizontal) coordination among state agencies, among firms, and between public and private actors (as in Peter Evans's concept of embedded autonomy), 17 and (vertical) coordination of nu- merous providers, such as highly trained researchers, judges, teachers, curriculum developers, and test engineers, each of whom plays impor- tant roles in long implementation chains.
+a8ge | This section focuses on two such institution-intensive reform areas essential to increasing productivity: education (human capital) and in- vestment in R and D. These are, for good reason, usually at the top of the policy priorities identified by economic studies of the MI trap.18 The scatterplots of Figures 1 and 2 show both the wide gap between HI and MI countries and that large MI countries fall below the levels expected at their income. Most important, these policy areas also illustrate the huge institutional hurdles facing countries seeking to exit MI limbo. Our goal in this section is not to attempt to identify a short list of reforms that
+h27a | Downloaded from https://www.cambridge.org/core. Seoul National University - Statistics Department, on 27 Nov 2019 at 01:38:53, subject to the Cambridge Core terms of use, available at https://www.cambridge.org/core/terms.
+pdjh | https://doi.org/10.1017/S0043887116000095
+xmgs | might solve the MI trap (other scholars have recommended a host of policy prescriptions), but rather to show the major institution building necessary to get out of it. For brevity, we concentrate on education and R and D, but the framework applies to a range of other policy areas, including legal and financial systems, which are similarly institution intensive.
+bd9h | Moreover, the challenges are greater now than they were in the twentieth century, when countries graduated to HI with lower levels of education and R and D. In education, for example, the average years of school in the adult population was 8 for countries that graduated to HI in the 1960s and 1970s (Europe, Anglo settler countries, and Japan), and 8.4 for countries that graduated in the 1980s and 1990s. The av- erage in our nine large countries in MI limbo was already 8.8 years by 2010, while the average for all advanced countries in 2010 had risen to 11 years.19
+m047 | The empirical analysis concentrates on large upper-MI countries of Latin America (Brazil, Mexico, Argentina, Colombia, and Peru), Southeast Asia (Thailand and Malaysia), South Africa, and Turkey.20 One reason for this is that the median time in MI status for these nine countries is sixty years and counting, well beyond the average noted in the introduction of forty-two years for earlier industrializers. Excluding China (considered below), these nine countries account for two-thirds of all the people living in MI countries.
+gy8c | Further, given extensive heterogeneity among the fifty-three coun- tries listed as middle income in 2014, we think analyses of the dynamics of more homogeneous subsets of MI countries is likely to yield better insights. Among the subsets, we exclude smaller MI countries (under twenty million inhabitants) that depend more on their larger regional trading partners and have advantages, as discussed below, in overcom- ing the divisions of MI politics. Another subset, postsocialist transition economies, entered MI with much stronger educational institutions and lower inequality and informality, and the institutional challenges they face are related more to transitions to capitalism. Last, MI countries heavily dependent on oil exports face challenges of overcoming the distinctive perils of the resource curse. Enormous heterogeneity not-
+y4mj | Downloaded from https://www.cambridge.org/core. Seoul National University - Statistics Department, on 27 Nov 2019 at 01:38:53, subject to the Cambridge Core terms of use, available at https://www.cambridge.org/core/terms.
+vpgq | https://doi.org/10.1017/S0043887116000095
+ousl | WORLD POLITICS
+m4ju | withstanding, our quantitative analysis often includes all MI countries, and many of our arguments could travel, in revised form, to other MI countries. Of course, even among our nine large MI countries there are major differences, to which we return in Section V.
+a0mb | EDUCATION
+ki8m | Despite steady progress over recent decades in increasing access and spending, educational achievement in MI countries continues to lag. Conversely, countries where education levels have historically exceeded the norm for their income levels have been some of the fastest growing in East Asia and the ones most likely to escape the MI trap.21 Several measures give a clear picture of gaps in educational quality and perfor- mance: Program for International Student Assessment (PISA) scores, proportion of the labor force with tertiary education, and number of technical workers in R and D activities (see Table 1). The gaps show both the problem of low human capital and the enormous challenge to overcoming the MI trap.22
+```
+
+OUTPUT:
+```

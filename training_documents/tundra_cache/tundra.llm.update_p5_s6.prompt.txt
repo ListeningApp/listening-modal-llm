@@ -1,0 +1,83 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document. Your task is to faithfully reproduce the text for our text-to-speech engine so that it is easily read aloud.
+
+Note that the text might not start at the beginning and paragraphs may be split acrosss multiple textboxes. Textboxes may start or end in the middle of a word which is acceptable: do not combine text between textboxes and leave broken words at the start and end of a textbox unchanged.
+
+You will receive one textbox per-line in the format `id | Textbox content`. The output must be in the format `id | Clean content`.
+
+RULES:
+ • Remove inline citations and references e.g. "(Author, 2021)" or "(https://wikipedia.org/article.html)" or "[ECMOS 35b, 47, 49]".
+ • Spell out numbers, dates, and chemical formulas for the TTS engine e.g. "-2.5" -> "negative two point five" or "Jan. 2020" -> "January twenty twenty".
+ • Spell out LaTeX formulas for the TTS engine e.g. "<LATEX>p = 1</LATEX>" -> "P equals one".
+ • Rejoin hyphenated word fragments within the same textbox e.g. "synth -esize" -> "synthesize".
+ • Fix simple typos and OCR errors e.g. "O nce upon a 1ime." -> "Once upon a time.".
+ • Delete nonsequiter textboxes that interrupt the middle of a sentence if they obviously do not belong.
+
+Otherwise, the output should exactly match the input text:
+ • Do not combine text across lines or attempt to fix words broken across lines.
+ • Ensure each ID from the input is included in the output.
+ • Make as few changes as possible while respecting the above rules.
+
+EXAMPLE INPUT:
+```
+ccpt | stigate the effectiveness of psychedelics for ADHD symp- toms in adults.
+0fpw | 2. Materia1 and methods
+dqn8 | 2.1. Study design and participants
+cop0 | The study employed a naturalistic design, assessing the experiences of participants at bas-,
+lhkq | eline before they start, and at 2 and 4 weeks after initiation. The target population included adults with ADHD symptoms who had not been diag- nosed with ADHD before. To be included, participants needed to score on Conner's Adult ADHD Rating Scale (CAARS-S:SV). This cut-off was indicative of clinically elevated symptoms (Conners et al., 1999) (see section 2.3).
+82ju | 2.2. Study procedure
+y2qo | The online advertisement was placed on a website providing information about psychedelics (www.microdo sing.nl). Interested participants were redirected to information explaining the study rationale and procedure. The baseline survey took 20 min to complete. If the survey had not been completed after 24 h, a reminder was sent. Each of the surveys at the 2- and 4-week time points took about 15 min to complete. Par- ticipants were able to pause the surveys. Data collection occurred between Nov. 2020 and Jul. 2021. The study was approved by the Ethics Review Committee of Psy- chology and Neuroscience at Maastricht University (ERCPN- 215_05_11_2019_A1).
+1piq | 2.3. Measures
+7fqw | 2.3.1. Demographic information and history of substance use
+rhaz | At baseline, demographic information was collected. History of substance use assessed experience with psyche- delics (i.e., ayahuasca, DMT, 5-MeO-DMT, LSD, novel lysergamides (e.g., 1P-LSD, ALD-52), psilocybin, salvia divinorum, ibogaine, and mescaline) in both full (psychedelic) doses and microdoses.
+wak1 | 2.3.2. Psychiatric and physiological diagnoses
+wtfz | Participants were asked whether they had a current diagnosis of a disorder. These answer options were chosen because most of the listed diagnoses are often reported to co-occur with ADHD (Kooij et al., 2019), or because these diagnoses were reported to be common in people who microdose (Fadiman and Korb, 2019). We 
+3j2l | REVIEW ARTICLE Frontiers in Psychiatry | www.frontiersin.org
+03k3 | 2
+1k9e | constructed a variable Comorbidity alongside ADHD, differenti- ating respondents with and without a comorbid diagnosis alongside ADHD (<LATEX>p < . 0 0 1 =</LATEX> only ADHD or no ADHD diagnosis; <LATEX>p > . 0 1 =</LATEX> ADHD and at least one other diagnosis). We constructed a variable Medication use alongside microdosing, differentiating respondents who were and were not using conven- tiona1 ADHD medication alongside microdosing (<LATEX>0 =</LATEX> only microdosing; <LATEX>1 =</LATEX> conven-
+```
+
+EXAMPLE OUTPUT:
+```
+ccpt | stigate the effectiveness of psychedelics for ADHD symptoms in adults.
+0fpw | Two. Material and methods
+dqn8 | Two point one. Study design and participants
+cop0 | The study employed a naturalistic design, assessing the experiences of participants at bas-,
+lhkq | eline before they start, and at two and four weeks after initiation. The target population included adults with ADHD symptoms who had not been diagnosed with ADHD before. To be included, participants needed to score on Conner's Adult ADHD Rating Scale. This cut-off was indicative of clinically elevated symptoms (see section two point three).
+82ju | Two point two. Study procedure
+y2qo | The online advertisement was placed on a website providing information about psychedelics. Interested participants were redirected to information explaining the study rationale and procedure. The baseline survey took twenty minutes to complete. If the survey had not been completed after twenty-four hours, a reminder was sent. Each of the surveys at the two and four-week time points took about fifteen minutes to complete. Participants were able to pause the surveys. Data collection occurred between November twenty twenty and July twenty twenty-one. The study was approved by the Ethics Review Committee of Psychology and Neuroscience at Maastricht University.
+1piq | Two point three. Measures
+7fqw | Two point three point one. Demographic information and history of substance use
+rhaz | At baseline, demographic information was collected. History of substance use assessed experience with psychedelics (i.e., ayahuasca, DMT, five-MeO-DMT, LSD, novel lysergamides (e.g., one-P-LSD, ALD-fifty-two), psilocybin, salvia divinorum, ibogaine, and mescaline) in both full (psychedelic) doses and microdoses.
+wak1 | Two point three point two. Psychiatric and physiological diagnoses
+wtfz | Participants were asked whether they had a current diagnosis of a disorder. These answer options were chosen because most of the listed diagnoses are often reported to co-occur with ADHD, or because these diagnoses were reported to be common in people who microdose. We
+3j2l |
+03k3 |
+1k9e | constructed a variable Comorbidity alongside ADHD, differentiating respondents with and without a comorbid diagnosis alongside ADHD (P is less than point zero zero one equals only ADHD or no ADHD diagnosis; P is greater than point zero one equals ADHD and at least one other diagnosis). We constructed a variable Medication use alongside microdosing, differentiating respondents who were and were not using conventional ADHD medication alongside microdosing (zero equals only microdosing; one equals conven-
+```
+
+INPUT:
+```
+0bqy | Owing to the prevalence of noise in data layers with such high resolution, most layers were smoothed using a circular mean Focal Statistics filter (Spatial Analyst in ArcGIS, ESRI, Redlands CA). This type of smoothing retains the original spatial resolution, but tends to improve classification predictions (e.g., Gottfried et al 2014) by decreasing the impact of meaningless local variation, instrument noise, and small shadows. We initially processed layers at several smoothing distances (0.5 m, 0.75 m, 1 m, 1.25 m), but we only retained layers that appeared important in preliminary models and had a Spearman correlation less than 0.95 at the reference plot locations. Once the layers were prepared, the values of all predictor layers at the location of each reference plot were extracted for model training and validation.
+b780 | 2.5. Random forest modeling
+ccmb | Random Forest (Breiman 2001) is a machine learning algorithm that uses ensembles ('forests') of classification or regression trees. In a Random Forest, each tree selects and permutes random subsets of predictor variables at each splitting node, which reduces overfitting and improves the strength of predictions. Additionally, Random Forest is non-parametric, models local interactions naturally, and is relatively robust against the collinearity common to ecological variables (but not perfectly; Dormann et al 2013), making it an effective tool for ecological research (e.g., Cutler et al 2007, Evans and Cushman 2009, Reese et al 2014, Belgiu and Drăgu 2016).
+ma93 | We implemented Random Forest using the package 'randomForest' (Liaw and Wiener 2002) along with model training tools in the package 'caret' (Kuhn 2016) in the R statistical language (R Core Team 2017). Twenty-five percent of the reference data plots (selected proportionally from each class; n = 196 plots total)
+c6hh | a Smoothing, summing, and standard deviations were performed using ArcGIS (ESRI, Redlands, CA) Focal Statistics in Spatial Analyst via arcpy in Python (Python Software Foundation version 2.7, www.python.org).
+y7ea | b Canopy and terrain heights estimated from lidar as described in Greaves et al (2017).
+nav4 | " Calculated from RGBN imagery via the 'raster' package (Hijmans 2015) in R (R Core Team 2017).
+gem8 | e Hue derived from RGBN imagery via ENVI (Exelis Visual Information Solutions, Boulder, Colorado).
+e8nr | f Raw intensity gridded using LAStools (Isenburg 2017).
+k78w | " Implemented in SAGA GIS (Conrad et al 2015) via the 'RSAGA' package (Brenning 2008) in R.
+g9du | were withheld from model building to be used as a test dataset; the remaining 75% of the plots <LATEX>\left( n = 6 0 4 \right)</LATEX> were used to build the model. One model was built to predict all three footprints.
+f682 | Because the Random Forest algorithm strives to produce the best overall accuracy, it is susceptible to producing poor accuracy for small classes in imbalanced datasets. Since our input dataset was imbalanced, we used an upsampling algorithm implemented in the caret package to ensure equal weighting of each class (Chen et al 2004). The model building was an iterative process: we used out-of-bag error rates and confusion matrices from early models to determine which classes could not be differentiated, then collapsed input classes accordingly (table S1 is available online at stacks.iop.org/ERC/1/105004/mmedia) and retrained the model, seeking a balance between accuracy and retention of informative classes. The final class names and reference plot membership counts are in table 3. We also used tools in the caret package to tune the number of trees and the number of variables selected for splitting at each tree node (mtry) based on 5-fold cross-validation repeated ten times. We found that any number of trees greater than 500 and any value of mtry less than approximately 6 gave largely similar results (data not shown). The final model used 1001 trees and an mtry of 1.
+li1k | 2.6. Mapping
+pbea | After building the final Random Forest model, we applied it across the three data collection footprints using the AsciiGridPredict tool in the R package 'yaImpute' (Crookston and Finley 2007). Once the initial maps were built,
+ccpt | pixels in class patches smaller than 25 pixels (i.e., 1 m2) were replaced by the surrounding majority class; therefore, while the map spatial resolution is 20 cm, the minimum mapping area is 1 m2. Queen-related pixels (i.e., pixels touching only at one corner) were considered to be connected to each other, so 1 m2 patches may not appear as cohesive blocks. Minor manual cleanup was performed to correct pixels where infrastructure had been classified as vegetation on the Toolik Field Station gravel pad. Some misclassifications of other infrastructure on the landscape, such as boardwalks, remain uncorrected but are apparent to the human eye.
+0fpw | To evaluate the accuracy of the map, we extracted the final mapped class at the location of each withheld test plot. From these mapped locations, we determined the overall accuracy (i.e., the proportion correct), balanced accuracy (i.e., the mean class-wise accuracy), Cohen's kappa, and Cohen's weighted (fuzzy) kappa (Cohen 1968). Like Cohen's kappa, Cohen's weighted kappa quantifies the overall agreement after accounting for agreement occurring by chance, but it also permits the investigator to subjectively indicate the degree of disagreement present (table S2). Given that vegetation classes are discrete labels that represent gradients of species abundance and structure, and given that our class labels were highly granular, it is reasonable to treat some disagreements as more or less serious in this way. For example, in most applications it would be considerably less serious to confuse Tussock Tundra with Shrubby Tussock Tundra than to confuse it with Tall Shrub. Detailed descriptions of the classes are in table S3.
+dqn8 | 3. Results and discussion
+cop0 | 3.1. Model and map accuracy
+lhkq | Random Forest upsampled out-of-bag overall accuracy was 0.86, with a kappa of 0.85 and weighted kappa of 0.91 (data not shown). Based on extraction of final mapped classes for withheld test plots, overall map accuracy was 0.52, and balanced (mean class-wise) map accuracy was 0.57 (table 4). Kappa was 0.47 for the mapped withheld plots, indicating moderate agreement. Weighted kappa was considerably higher (0.65), suggesting that many disagreements were relatively minor in an ecological sense. The confusion matrix (table 4) shows that the main confusion was among shrubby classes (e.g., Shrubby Moist Non-Tussock Tundra and Low to Tall Moist Shrub) and among moist upland classes (e.g., Tussock Tundra and Moist Non-Tussock Tundra), which was expected because these classes grade into each other on the landscape. Mean user's accuracy was slightly higher than mean producer's accuracy (0.63 versus 0.57). The confusion matrix also illustrates that although the withheld test data represented 25% of all reference data, the imbalanced class sizes led to very small withheld sample sizes for small classes (as small as 4 members, mean 13); this makes the accuracy metrics more difficult to interpret, since there were relatively few opportunities to test accuracy in these smaller classes.
+82ju | 3.2. Sources of error and challenges of high-resolution mapping
+```
+
+OUTPUT:
+```

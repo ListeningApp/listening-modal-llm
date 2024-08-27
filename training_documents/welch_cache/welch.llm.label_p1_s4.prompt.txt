@@ -1,0 +1,160 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+1pjs | WHAT GILLIAN WELCH AND DAVID RAWLINGS TOOK FROM THE TORNADO
+o2kr | The legendary folk artists discuss rescuing their tapes from a catastrophic storm, singing as if they have one mouth, and making music that's like a pebble tossed in a river.
+v6sk | S ince 1996, when Gillian Welch and her partner, the guitarist David Rawlings, released "Revival," their début album, they've been making tense and eerie acoustic music about desire and devastation, the sacred and the profane, by and by, Lord, by and by. The duo's music-some of the first to be dubbed "Americana"- often feels both ancient and instinctive, as though these songs have always existed, oozing out of a phonograph horn on some distant astral plane. These days, it seems preposterous that Welch's provenance-she was adopted and brought up in Los Angeles-was once controversial within the roots-music scene. Though it was honed in the American South, the vernacular music that she and Rawlings pull from is inclusive and yielding by design; to be proprietary about this sort of folk music is to misunderstand its ethos entirely. These songs obliterate notions of time and place, focussing, instead, on the threads of joy and sorrow that make us human.
+1wj6 | This month, Welch and Rawlings will release "Woodland," their seventh collaboration. The record was shaped, in part, by the fallout of a catastrophic tornado that whipped through Nashville in the early-morning hours of March 3, 2020. I recently spoke with Welch and Rawlings from their home on the east side of the city. During our conversation, which has been edited and condensed, I found them thoughtful, open, and prone to finishing each other's sentences. "Before we started talking to you today, I was actually thinking about the frustrations of trying to give meaningful interviews," Welch told me. "Art is how I relate to the world; I have to do this to communicate, because I'm not that great at expressing myself outside of it. I try; I'm a decently verbal person. What's really going on in here, it's hard for me to tell you-but it goes into the songs."
+936l | Your new record is named after Woodland Studios, in East Nashville, which you bought in 2002. Can you tell me a little about your history there?
+06yq | GILLIAN WELCH: We worked there on our first record, with T Bone Burnett.
+dpv6 | DAVID RAWLINGS: We intended to make the second record there, then T Bone wanted to make it out in California, at Sound City. But we were in and out of the building enough for us to figure out that it was our favorite studio in town. When a tornado came through in the late nineties and damaged the roof, there was a little bit of a dispute between the landlord and the person who ran the studio. That ended with the building coming up for sale. Then it sat on the market for a couple years.
+8r5j | G.W .: Neil Young made "Comes a Time" there. The beginnings of Americana, before it was Americana-way before. The first coming together of country and bluegrass and folk.
+2taz | My admittedly speculative sense is that Woodland is maybe a bit of a sacred space-I realize tornadoes and things of that nature are not remotely romantic or sacramental, but there's something about its persistent physical survival that's almost spooky.
+o3ya | D.R .: Since 1900, there have been three tornadoes that we know of that have gone through Nashville. And, if you look at the map that shows their paths, they're virtually on the same vector. I mean, they barely cross. They're almost parallel lines. But if you look at where all three of those tornadoes did cross-
+r5il | G.W .: It's Five Points. It's our studio. It's literally in the intersection. Every time, they come right over our studio.
+5gui | What do you remember about the night of the 2020 tornado? It was just the two of you and your friend Glen Chausse, who was staying at the studio.
+82qc | G.W .: I remember an almost miraculous strength, and a feeling of providence. I don't know how we did what we managed to do. It was very chaotic and very scary. I grew up in California and was accustomed to huge wildfires, to just turning around seeing an entire hillside aflame. But this was dark and confusing-twelve thousand feet of pitch blackness. We didn't know how much of the building had been compromised, because we couldn't see. It was the middle of the night, and we knew that water was starting to come through, and so we kept moving stuff to a place we thought was safe. And when I say stuff, I mean so much stuff. All of our master tapes, all of our guitars. Everything. Our entire musical life.
+ls7d | D.R .: I remember listening. A lot of my memory from that night is auditory: listening to the water as the upper parts of the roof were starting to come down. It was just getting worse and worse, more and more intense. We were running into different rooms and trying to assess. I remember going into one room, just outside the tape vault, opening the door, and the ceiling came down. Like, O.K .- well, that one's not good.
+tzt3 | G.w .: We thought a corner of the "A" room-where, in the end, we made this record-was safe.
+t8vv | D.R .: It was an isolation booth that had its own ceiling. But, three hours later, the water's getting all the way through. That was where we had put all the instruments. We had to move them again.
+qvnu | G.W .: It was a terrible feeling because it just got progressively worse.
+kggw | D.R .: At the same time, we were unbelievably fortunate, because if we hadn't been in town, if we'd been on the road, we would have lost pretty much all of it. We were able to be there; so many people never get that kind of a chance. There was so much calculus in trying to figure out what the next move was. I have one L.E.D. light that, if it hadn't been charged, I don't know what we would have done.
+xrd1 | D.R .: We were trying to call everyone we know, and of course, the phones didn't work. You don't realize how far out on the technological ledge you live, every single day of your life, until the power goes out.
+5746 | G.W .: Communications go down, and then you are three people, alone, trying to save your life's work.
+7toz | D.R .: There are fifteen people who would have come over, but you can't reach them, and they don't know what's happening.
+j346 | Was there a moment in that process-running in and out, grabbing tape, grabbing guitars, dodging rubble, getting soaked-where you thought, We're gonna get ourselves killed?
+v8uq | G.W .: I only had the thought of personal danger after the fact, when people were saying, "Thank goodness you guys are O.K. and didn't get clobbered." Honestly, in the moment, it never crossed my mind. It was just, Keep moving the guitars, keep moving the tapes. I did start to flip out at one point when the entire "A" room was standing water, and big chunks of ceiling were starting to come down, and we still had to get eight racks of guitars. We'd gotten them onto dollies, and we had to run this gauntlet through the six inches of water in the hallway, under sheets of cascading water, just going as fast as we could. I was really going into reptile-panic mode.
+x972 | D.R .: I just kept thinking, Wow, it's so interesting that this building has so many different ceilings!
+cwrw | It feels as though all of this could be generative in a dark way-a lesson in how to remain. That idea feels central-spiritually, lyrically-to the new record.
+4i0e | D.R .: The truth of it is, we were trying to tie that all in. We were already planning a nod to the tornado and the chaos. The working title of the project was "Empty Trainload of Sky." But as we got closer to finishing the sequence, it crossed my mind that, since the tornado, I've been in that building fourteen to sixteen hours a day, every day, for five years. And so if anything had shaped the emotional content
+h2l3 | G.W .: It was Woodland. So much energy and effort and tears and sweat-and certainly a little blood-went into bringing it back again. We were so happy to not have it destroyed.
+dfzb | D.R .: Let's discuss even the wisdom of bringing it back.
+u6ty | G.W .: It's gonna happen again!
+awvu | D.R .: It's not like anything has changed with the environment. Severe weather events are more common. We're doing this thing, and I'm thinking, What do we get? Maybe twelve months? Do we get two years?
+on9b | But there's something so beautiful about that, too. It's like falling in love-you know it could end in absolute disaster, in boundless heartache, but what choice do you have? You do it anyway.
+a8ge | G.W .: [Laughs.] It's gonna end in darkness and a collapsing ceiling.
+h27a | The theme of disaster has been on my mind lately: all these horrifying, existentially unsettling things that once seemed off the table, things that were so unlikely or impossible, things that only conspiracy theorists worried about, man, they all feel so possible now. I suppose Woodland, as a place, can be seen as a kind of nexus of that?
+pdjh | G.w .: You're right on. So much of what went into this record was things happening that you couldn't imagine happening, losing things that you could not imagine losing. Unimaginable destruction.
+xmgs | D.R .: We had enough songs that we were kind of aiming toward a double record. Then I changed my mind and thought, Maybe we'll do something akin to what Bright Eyes did in 2005-put out two records that are slightly different in theme at the same time. But as I was sequencing what ended up being "Woodland," I saw these themes of-"Bells and the Birds," is it a song, or is it a warning? It's about trying to interpret what is happening around you, and decide is it good, or is it bad?
+bd9h | G.W .: Is it happy, or sad? What is it? This theme of "What is it?" is in "Empty Trainload of Sky." What is it? It came from this vision of a train that didn't seem to have any substance. It was passing across the sky and there was a real moment of "What are we seeing? What is this?"
+m047 | D.R .: Is it carrying everything-
+gy8c | G.W .: Or is it nothing?
+y4mj | Did your experience of the tornado change how you think about the ephemerality or materiality of your work? Because it is very possible, right now, to make music using software, and to store and release it digitally-so the experience, from start to finish, is never a tactile one, unless you count fingers on a laptop keyboard or a phone.
+vpgq | G.W .: I'm so grateful that it was tape. If a hard drive had gotten wet, it would have been toast.
+ousl | D.R .: I think we've spent a lot of time confronting that idea, thinking about how ephemeral everything is. I mean, that's a theme that runs through the music. So it wasn't an awakening, like, "Oh, I've never considered this." It was almost a reinforcement of what we've chosen to spend our lives thinking about.
+m4ju | G.w .: There was a renewed courage at that point. The last vestiges of the room that weren't really tailored to what we do were wiped away. We were almost kids when
+a0mb | we bought it, and we didn't change a lot of stuff. I had too much respect for the room. But now it is really our room, and tailored to the sounds we make.
+ki8m | D.R .: We can do strings in the "A" room now, because it's become this big open space. And we were able to set up a new system where I can record without anyone else there, which means it can be even more intimate. Once we were back up and running, it had a beautiful lift to it.
+km8w | With any kind of major loss, it seems as if there's always this little kernel of radical possibility on the other side. When everything is destroyed, you get to remake your life.
+wzno | G.w .: Though certain things you really don't want to rebuild. The night of the tornado, two of our main guitars were here at the house. When the sirens started going off, first we suited up-we put on boots. Don't want to be barefoot. And then we grabbed the guitars. We don't have a basement here, so I was in the hall bathroom with the two guitars, hugging the toilet while the tornado went overhead.
+xagm | Years ago, I wrote a book about obsessive collectors of very rare, prewar 78- r.p.m. records. I remember finding it so beautiful and poignant, so miraculous, that any of those disks had survived at all. Shellac is brittle; it shatters and chips easily. Holding some of those rare records in my hands, these utterly extraordinary recordings, I don't know, it reminded me that sometimes, stuff matters.
+iwn5 | G.W .: Of course it matters! You're talking about art. You're talking about saving art, in the moment, when, in fact, your life is in danger. But you're gonna brave that danger.
+uooz | Because there's an understanding that the art will outlive you? Not to minimize the human experience, but at least theoretically, art has an endless reach-
+pxbq | D.R .: It can last generations. I remember Robyn Hitchcock saying something to us a long time ago about how after a certain number of these records that we made, you're part of the cultural bloodstream.
+jfsr | G.W .: It's in there.
+u15r | D.R .: I'd never thought of it that way. But I think anyone who makes art and shares it with other people-no matter how few people-has enacted a change. Even somebody who does a really good job building a front door to a house. When you walk through that door, it makes you feel different about the human experience. All of these things affect us. With art, you move to, "Well, is that thing useful, beyond the fact that when I see it on the wall, it makes my eyes happy?" And then you confront these large questions that we could talk about forever.
+lq35 | G.W .: It's surprising to me, thinking about this very thing. More than ever I feel part of a musical continuum. I really feel the people who inspired and came before us. I was thinking about our song "Hashtag," which is at least partly about Guy Clark dying.
+3g9w | D.R .: I think about John Hartford, and what it was like when we spent time with him when we first got to town. Thinking, I just want to live up to these people, and their contributions, and how they were as human beings when they were around the age I am now.
+d09o | G.W .: There was a particular and beautiful kind of reciprocity to it, too. Let's take Guy, for instance, or Hartford. I felt this joy from them. We were almost like their musical children. They could see their music moving forward in us, and they were so happy. They were so relieved. They were so grateful!
+ylhz | David, I remember reading an interview with you in Rolling Stone, where you were talking about how folk music picks up a little bit of the DNA of everybody who has ever performed it. And, because of that, playing those tunes, it feels
+a3td | like there's a hundred people in the room-it makes a person feel less lonely. It's a pliable form, and you can always see the fingerprints.
+ex5k | G.W .: A pebble in the river that's just been rolled and tossed and turned.
+```
+
+OUTPUT:
+```

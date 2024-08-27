@@ -1,0 +1,129 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+gy8c | Antonio et al. Journal of the International Society of Sports Nutrition
+y4mj | ignored, was only slightly higher than the daily creatine intake of a typical omnivore's dietary intake, or in terms of food, a large hamburger or steak per day (meat con- tains about 0.7 g of creatine / 6 oz. serving; see [54]). In response to this case study, two separate teams of ex- perts in creatine metabolism wrote letters to the editor of Lancet [53, 55]. However, the notion that creatine supplementation leads to kidney damage and/or renal dysfunction gained traction and momentum.
+vpgq | Since this case study was reported in 1998, experimen- tal and controlled research trials investigating the effects of creatine supplementation on kidney/renal function has substantially increased [50, 56-58]. Overall, in healthy individuals, there appears to be no adverse ef- fects from consuming recommended doses of creatine supplements on kidney/renal function [50, 56-58]. Inter- estingly, Gualano et al. [58] reviewed a small number of case studies which reported renal dysfunction in individ- uals who were supplementing with creatine. Similar to the case report by Pritchard and Kalra [51], these add- itional case reports were confounded by medications, pre-existing kidney disease, concomitant supplement in- gestion, inappropriate creatine dosages (e.g., 100 X rec- ommended dose), and anabolic androgenic steroid use.
+ousl | It is prudent to be cautious when ingesting any dietary supplement or medication. Survey data indicates that creatine supplementation usage ranges between 8-74% in athletes and other exercising individuals (reviewed in Rawson et al. [59]). Even with a low estimate of 8% of exercising individuals using creatine supplements, this indicates thousands of exposures across several decades. If the link between creatine supplementation and kidney health was valid, there would be an expected increase in kidney damage / renal dysfunction in low risk (i.e. young, physically fit, healthy) individuals since 1992 after Harris et al. published their seminal work [60]. After nearly 30 years of post-marketing surveillance, thou- sands of exposures, and multiple clinical trials, no such evidence exists.
+m4ju | In summary, experimental and controlled research indicates that creatine supplementation, when ingested at recommended dosages, does not result in kidney damage and/or renal dysfunction in healthy individuals.
+a0mb | Does creatine cause hair loss / baldness?
+ki8m | The vast majority of speculation regarding the relation- ship between creatine supplementation and hair loss/ baldness stems from a single study by van der Merwe et al. [61] where college-aged male rugby players who supplemented with creatine (25 g/day for 7 days, followed by 5 g/day thereafter for an additional 14 days) experienced an increase in serum dihydrotestosterone
+km8w | (2021) 18:13
+wzno | Page 4 of 17
+xagm | (DHT) concentrations over time. Specifically, DHT in- creased by 56% after the seven-day loading period, and remained 40% above baseline values after the 14-day maintenance period. These results were statistically sig- nificant compared to when the subjects consumed a pla- cebo (50 g of glucose per day for 7 days, followed by 30 g/day for 14 days thereafter). Given that changes in these hormones, particularly DHT, have been linked to some (but not all) occurrences of hair loss/baldness [62], the theory that creatine supplementation leads to hair loss / baldness gained some momentum and this potential link continues to be a common question / myth today. It is important to note that the results of van der Merwe et al. [61] have not been replicated, and that intense re- sistance exercise itself can cause increases in these an- drogenic hormones.
+iwn5 | DHT is a metabolite of testosterone, formed when the enzyme 5-alpha-reductase converts free testosterone to DHT [63]. In males, DHT can bind to androgen recep- tors in susceptible hair follicles and cause them to shrink, ultimately leading to hair loss [64]. However, in the van der Merwe et al. [61] study, no increase in total testosterone was found in the 16 males who completed the study. Free testosterone was not measured. Moreover, the increase in DHT and the DHT: testosterone ratio remained well within normal clinical limits. Furthermore, baseline (prior to supplementation), DHT was 23% lower in the creatine group (0.98 nmol/L) compared to the pla- cebo group (1.26 nmol/L). Thus the small increase in DHT in the creatine group (+ 0.55 nmol/L after 7 days of supplementation and + 0.40 nmol/L after 21 days of sup- plementation), in combination with a small decrease in the placebo DHT response (-0.17 nmol/L after 7 days of supplementation and -0.20 nmol/L after 21 days of sup- plementation) explains the "statistically significant" in- crease in DHT noted by van der Merwe et al. [61]. While it is possible that creatine supplementation upregulated 5- alpha-reductase activity in these males (potentially leading to increased formation of DHT), no study has reported hair loss/baldness in humans.
+uooz | To date, 12 other studies have investigated the effects of creatine supplementation (i.e. doses ranging from 3-25 g/ day for 6 days to 12 weeks) on testosterone. Two studies re- ported small, physiologically insignificant increases in total testosterone after six and seven days of supplementation [65, 66], while the remaining ten studies reported no change in testosterone concentrations. In five of these studies [67- 71], free testosterone, which the body uses to produce DHT, was also measured and no increases were found.
+pxbq | In summary, the current body of evidence does not indicate that creatine supplementation in- creases total testosterone, free testosterone, DHT or causes hair loss/baldness.
+jfsr | Antonio et al. Journal of the International Society of Sports Nutrition
+u15r | Does creatine lead to dehydration and muscle cramping? Speculation exists that creatine supplementation causes dehydration and muscle cramping [72, 73]. In the early 2000's, with limited data and based primarily on specula- tion, the American College of Sports Medicine (ACSM) recommended that individuals controlling their weight and exercising intensely or in hot environments should avoid the use of creatine supplementation [74]. The physiological rationale suggesting that creatine supple- mentation may cause dehydration and muscle cramping is based on the premise that creatine is an osmotically active substance found primarily in skeletal muscle and may alter whole-body fluid distribution by preferentially increasing intracellular water uptake and retention, par- ticularly over the short-term [38, 75]. In situations of body water loss, such as severe sweating from exercise and/or increased environmental temperature, the bound intracellular fluid, in theory, may be detrimental to ther- mal regulation and lead to extracellular dehydration, electrolyte imbalance and muscle cramping or other heat-related musculoskeletal issues [44]. The initial load- ing phase of creatine supplementation (i.e. 20 g/day for 5-7 days) typically results in a 1-3 kg increase in body mass, mostly attributable to net body water retention [75, 76]. Some anecdotal evidence indicates that creatine users perceive supplementation to result in some adverse effects [77]. For example, in a survey involving 219 ath- letes, 90 participants reported using creatine with 34 of them (38%) reporting perceived negative effects such as cramping (27%) [77]. <LATEX>\mathrm { S i m i l a r l } _ { Y } ,</LATEX> in National Collegiate Athletic Association <LATEX>\left. \mathrm { N C A A } \right)</LATEX> Division 1 baseball and football players <LATEX>\left( N = 5 2 \right)</LATEX> using creatine, 25% reported in- cidences of muscle cramping and 13.5% reported symp- toms of dehydration. Importantly, these studies failed to control for the use of other supplements and the dosage of creatine ingested. Greenwood et al. [77] noted that 91% of participants exceeded the recommended creatine maintenance dose <LATEX>o f \quad 5 \quad g / d a y .</LATEX> However, these self-report surveys are in contradiction to experimental and clinical evidence. Greenwood et al. [78] monitored injury rates in Division IA NCAA collegiate football players <LATEX>\left( N = 7 2 ; \right.</LATEX> age: <LATEX>\left. 1 9 . 7 + 1 . 0 \quad y r s \right)</LATEX> where environmental conditions were hot <LATEX>\left( 2 7 . 3 \pm 1 0 . 9 ^ { 0 } C \right)</LATEX> and humid <LATEX>\left( 5 4 . 2 9 . 7 \right) .</LATEX> Par- ticipants chose to receive either creatine <LATEX>\left( n = 3 8 : 0 . 3 \quad g / \right.</LATEX> kg/day for 5 days; followed by 0.03 <LATEX>g / k g / d a y</LATEX> for 115 days) or a sport drink placebo <LATEX>\left( n = 3 4 \right)</LATEX> throughout the football season. Injuries treated by the athletic training staff were monitored. Creatine users had significantly less cramping <LATEX>\left( \mathrm { p } = 0 . 0 2 1 \right. ,</LATEX> heat illnesses and dehydration <LATEX>\left( p = 0 . 0 4 3 \right) ,</LATEX> muscle tightness <LATEX>\left( p = 0 . 0 2 0 \right) ,</LATEX> muscle strains <LATEX>\left( p = 0 . 0 2 1 \right) ,</LATEX> and total injuries <LATEX>\left( p < 0 . 0 0 1 \right)</LATEX> compared to non-users. Non-contact joint injuries, contact injuries, illnesses, missed practices due to injuries, and players lost for the season were not different between groups. In
+lq35 | (2021) 18:13
+3g9w | Page 5 of 17
+d09o | a clinical setting, haemodialysis patients <LATEX>\left( n = 1 0 \right)</LATEX> who fre- quently reported muscle cramping were provided creatine (12 g) 5 minutes prior to haemodialysis [79]. Creatine sup- plementation reduced the frequency of symptomatic muscle cramping by 60% [79]. These beneficial effects from creatine may be explained by fluid distribution and electrolyte imbalances, as previously discussed.
+ylhz | In summary, experimental and clinical research does not validate the notion that creatine supplementation causes dehydration and muscle cramping.
+a3td | Is creatine harmful for children and adolescents?
+ex5k | Concerns regarding the safety of creatine supplementa- tion in children and adolescents (< 19 yrs) continues to be highly prevalent. The overwhelming majority of evi- dence in adult populations indicates that creatine sup- plementation, both short- and longer-term, is safe and generally well tolerated [2]. However, the question of whether or not this holds true for children and adoles- cents is relatively unclear. The physiological rationale supporting the potential ergogenic benefits of creatine supplementation in children and adolescents was first postulated by Unnithan and colleagues in 2001 [80]; which established a strong basis for future applications of creatine for younger athletes. More recently, in a comprehensive review examining the safety of creatine supplementation in adolescents, Jagim et al. [16] sum- marized several studies that examined the efficacy of creatine supplementation among various adolescent ath- lete populations and found no evidence of adverse ef- fects. However, it is important to note that none of the performance-focused studies included in the Jagim et al. [16] review provided data examining specific markers of clinical health and whether or not they were impacted by the supplementation protocols.
+9d4o | From a clinical perspective, creatine supplementation has been found to potentially offer health benefits with minimal adverse effects in younger populations. Hayashi et al. [81] found improvements in pediatric patients with systemic lupus erythematosus and reported no adverse changes in laboratory parameters of hematology, kidney function, liver function or inflammatory markers after 12 weeks of creatine supplementation. Tarnopolsky et al. [82] reported significant improvements in fat-free mass and hand grip strength in 30 pediatric patients with Duchenne muscular dystrophy following 4 months of creatine supplementation. Importantly, the creatine sup- plementation protocol appeared to be well tolerated and did not adversely affect laboratory markers of kidney function, oxidative stress, and bone health [81-83]. In addition, Sakellaris et al. [83] reported significant im- provements in traumatic brain injury-related outcomes
+cjq2 | Antonio et al. Journal of the International Society of Sports Nutrition
+5esx | in children and adolescents who received oral creatine supplementation (0.4 g/kg/day) for 6 months. These neurological benefits may have potential applications for young athletes participating in collision sports, which pose underlying risks of concussions or sub-concussive impacts. Further, several of these clinical trials imple- mented strict clinical surveillance measures, including continual monitoring of laboratory markers of kidney health, inflammation, and liver function; none of which were negatively impacted by the respective creatine sup- plementation interventions. These findings support the hypothesis of creatine supplementation likely being safe for children and adolescents. However, perhaps the strongest supporting evidence for the safety of creatine is the recent classification of creatine as generally recog- nized as safe (GRAS) by the United States Food and Drug Administration (FDA) in late 2020 (https://www. fda.gov/media/143525/download). Ultimately, this classi- fication indicates that the currently available scientific data pertaining to the safety of creatine, is sufficient and has been agreed upon by a consensus of qualified ex- perts, thereby determining creatine to be safe under the conditions of its intended use (https://www.fda.gov/ media/143525/download). Even though infants and young children are excluded from GRAS, this would still apply to older children and adolescent populations.
+m5ka | The majority of dietary supplement survey data indicates that a relatively high percentage of youth and adolescent athletes are currently or have previously supplemented with creatine. For example, Kayton et al. [84] found that in a sample of 270 high school boys and girls, 21% of boys and 3% of girls reported supplementing with creatine. Further- more, in a sample of elite Olympic level sample of young German athletes (14-18 yrs), 12% of those surveyed re- ported supplementing with creatine [85]. Therefore, these trends warrant additional research to determine with greater certainly whether creatine supplementation, both acute and longer-term, is safe for children and adolescents.
+byu8 | In summary, based on the limited evidence, creat- ine supplementation appears safe and potentially beneficial for children and adolescents.
+76b0 | Does creatine increase fat mass?
+```
+
+OUTPUT:
+```

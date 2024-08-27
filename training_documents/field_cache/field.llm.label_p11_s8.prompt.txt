@@ -1,0 +1,131 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+863b | 13. Understand fairness concerns.
+fj24 | As my field experimental work has taken me deeper into the public policy world, I am more often met with fairness concerns. The line of argument is that it is not fair to only give a fraction of the population a potentially beneficial treatment. While I am sympathetic to this line of reasoning, it is ultimately flawed. First of all, it only considers contemporaneous trade-offs. One could easily argue that it is not fair to future generations to bypass learning opportunities that could make them better off. I am personally glad that earlier generations executed experiments to determine the efficacy of promising drugs so that today my father's heart condi- tion can be treated appropriately. Second, even if one insists on everyone receiving treatment, it remains possible to execute an experiment whereby people receive treatment in waves over time.
+uz3c | 14. Always obtain IRB approval.
+d5bi | Local Research Ethics Committees and Institutional Review Boards (IRBs) in the United States serve an important role in monitoring experimental research. Before commencing a field experiment, you should be sure to receive IRB approval. Some researchers do not have Local Research Ethics Committees and
+ba4l | 14 Journal of Economic Perspectives
+ffx8 | Institutional Review Boards. Outside the United States, for example, researchers in the social sciences must rely largely on their own principles. In those cases, I urge the researcher to follow, as closely as possible, strict guidelines that protect the rights of experimental subjects.
+s6su | Conclusion
+y219 | When economists are struggling to understand a key causal connection or an important structural parameter or the effects of a change in business practice or public policy, they have long used this semiautomatic approach: write down a theoretical model and start looking for available naturally occurring data. To econo- mists, "field research" has often meant chatting with the cab driver on the way from the airport to another academic seminar. But more and more empirical economists are opening their eyes and searching for situations and questions in which a field experiment might offer a feasible and desirable approach.
+06ht | As I have noted elsewhere, field experiments represent a unique manner in which to obtain data because they force the researcher to understand everyday phenomena, many of which we stumble upon frequently. Merely grasping the interrelationships of factors in field settings is not enough, however, as the field experimenter must then seek to understand more distant phenomena that have the same underlying structure. Until this is achieved, one cannot reap the true rewards of field experimentation. I hope that this symposium furthers economists' usage of the field experimental method.
+v3r2 | Why Economists Should Conduct Field Experiments and 14 Tips
+nv42 | 15
+xags | 16 Journal of Economic Perspectives
+jc47 | This article has been cited by:
+ko3c | 1. Saileshsingh Gunessee, Tom Lane. 2023. Changing perceptions about experimentation in economics: 50 years of evidence from principles textbooks. Journal of Behavioral and Experimental Economics 107, 102086. [Crossref]
+xek3 | 18. Jennifer Kee, Michelle S. Segovia, Piruz Saboury, Marco A. Palma. 2022. Appealing to generosity to reduce food calorie intake: A natural field experiment. Food Policy 110, 102274. [Crossref]
+bbpr | 19. Dana B. Weinberg, Adam Kapelner. 2022. Do book consumers discriminate against Black, female, or young authors ?. PLOS ONE 17:6, e0267537. [Crossref]
+5zyf | 38. Andreas Ziegler. 2021. New Ecological Paradigm meets behavioral economics: On the relationship between environmental values and economic preferences. Journal of Environmental Economics and Management 109, 102516. [Crossref]
+9own | 39. William J. Bazley, Henrik Cronqvist, Milica Mormann. 2021. Visual Finance: The Pervasive Effects of Red on Investor Behavior. Management Science 67:9, 5616-5641. [Crossref]
+bqfb | 55. Jesper Asring Hansen, Lars Tummers. 2020. A Systematic Review of Field Experiments in Public Administration. Public Administration Review 80:6, 921-931. [Crossref]
+wwdt | 75. Arch G. Woodside, Pedro Bernal Mir. 2019. Clicks and purchase effects of an embedded, social- media, platform endorsement in internet advertising. Journal of Global Scholars of Marketing Science 29:3, 343-357. [Crossref]
+mn1r | 93. Catrine Jacobsen, Toke Reinholt Fosgaard, David Pascual-Ezama. 2018. WHY DO WE LIE? A PRACTICAL GUIDE TO THE DISHONESTY LITERATURE. Journal of Economic Surveys 32:2, 357-387. [Crossref]
+5vqw | 94. Alexander Khudokormov, A. . Nelyubina, M. . Safina, E. . Andronova, K. . Temirbulatova. 2018. New studies on modern Economic Theory of the West. Scientific Research of Faculty of Economics. Electronic Journal 10:1, 7-73. [Crossref]
+meyw | 114. Caroline Graham Austin, Agnieszka Kwapisz. 2017. The Road to Unintended Consequences Is Paved with Motivational Apps. Journal of Consumer Affairs 51:2, 463-477. [Crossref]
+2e62 | 132. Luisa Menapace, Roberta Raffaelli. 2016. Preferences for locally grown products: evidence from a natural field experiment. European Review of Agricultural Economics 40. . [Crossref]
+75y3 | 151. Gigi Foster. Experimental Economics 546-551. [Crossref]
+s2g2 | 152. Francesco D'Acunto. 2015. Identity, Overconfidence, and Investment Decisions. SSRN Electronic Journal . [Crossref]
+q1q2 | 153. Robert J. Bloomfield, Mark W. Nelson, Eugene F. Soltes. 2015. Gathering Data for Financial Reporting Research. SSRN Electronic Journal 81. . [Crossref]
+cb7r | 172. Ralph Henger. 2013. Tradable Planning Permits to Control Land Development in Germany: A Laboratory Testbed Experiment. Journal of Environmental Policy & Planning 15:2, 247-267. [Crossref]
+68xu | 173. Brian Wansink, David R. Just, Andrew S. Hanks, Laura E. Smith. 2013. Pre-Sliced Fruit in School Cafeterias. American Journal of Preventive Medicine 44:5, 477-480. [Crossref]
+```
+
+OUTPUT:
+```

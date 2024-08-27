@@ -1,0 +1,245 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+1pjs | UNIVERSITY OF CAPE COAST
+o2kr | Our Ref: CONV/ADHOC/23/ V.1/16
+v6sk | 7th June, 2023
+1wj6 | Chairman of Convocation UCC
+936l | Dear Sir,
+06yq | SUBMISSION OF REPORT (CONVOCATION ADHOC COMMITTEE)
+dpv6 | We refer to your letter CON/DPA/23/VOL.01/008 dated 3rd February, 2023 and forward herewith the attached report for your information and necessary action.
+8r5j | Thank you.
+2taz | Yours faithfully,
+o3ya | Millan Ahema Tawiah (Ms.) SECRETARY CONVOCATION ADHOC COMMITTEE
+r5il | cc: Vice-Chancellor Pro Vice-Chancellor Registrar Board of Convocation
+5gui | REPORT OF THE AD-HOC COMMITTEE OF ENQUIRY INTO BOARD OF CONVOCATION'S PETITION SUBMITTED TO MANAGEMENT OF THE UNIVERSITY OF CAPE COAST ON 12TH JULY 2022
+82qc | 1.0 INTRODUCTION
+ls7d | Convocation at its meeting held on 2nd February, 2023 constituted an Ad-Hoc Committee of enquiry to look into a petition submitted by the Board of Convocation to Management of the University on 12th July, 2022. At the Convocation meeting Prof. Samuel Kyei and Prof. Emmanuel Kwesi Abu indicated that their names were mentioned in the petition and expressed their displeasure about the content of the petition. The Professors informed Convocation that they had initiated the process to seek legal redress. Members of Convocation expressed different views about the petition and the concerns raised by the Professors. Subsequently, this Ad-hoc Committee was constituted on the floor of Convocation to look into the petition.
+tzt3 | 2.0 MEMBERSHIP OF THE COMMITTEE
+t8vv | The following are the members of the Ad-hoc Committee:
+qvnu | i. Prof. Akwasi Kumi-Kyereme
+kggw | ii. Prof. (Mrs.) Christine Adu-Yeboah - Member
+xrd1 | iii. Mr. Kwabena Antwi-Konadu - Member
+5746 | iv. Dr. Samuel Bert Boadi-Kusi - Member
+7toz | V. Ms. Millan Ahema Tawiah - Member/Secretary
+j346 | 3.0 TERMS OF REFERENCE
+v8uq | The terms of reference of the Ad-hoc Committee were to:
+x972 | i. determine the veracity and appropriateness of the petition.
+cwrw | ii. profess the next line of action regards to the submission of the petition.
+4i0e | iii. consider other relevant issues that might emanate from your committee activities.
+h2l3 | iv. make appropriate recommendations.
+dfzb | 4.0 PROCEDURE ADOPTED
+u6ty | 4.1 Meetings
+awvu | 4.2 Sources of Information
+on9b | The following are the major sources of information for the Ad-hoc Committee:
+a8ge | i. University of Cape Coast Statutes, 2016.
+h27a | ii. The petition submitted by the Board of Convocation to the Management of University of Cape Coast.
+pdjh | iii. Upon request the Chairman of Convocation furnished the Ad-hoc Committee with copies of the following:
+xmgs | a. The notice to Convocation on the appointment of Chairman and members of the Board's Special Committee.
+bd9h | b. The report submitted by the Board's Special Committee to the Board of Convocation.
+m047 | iv. The Secretary to Convocation furnished the Ad-hoc Committee with copies of the following upon request:
+gy8c | a. Minutes of the Convocation meeting held on Thursday 14th July, 2022.
+y4mj | b. Minutes of the Convocation meeting held on Thursday 21st October, 2023.
+vpgq | V. The Ad-hoc Committee received copies of the legal responses from Prof. Emmanuel Kwesi Abu and Prof. Samuel Kyei to Prof. Benjamin Kofi Nyarko following the submission of the petition to Management of the University.
+ousl | vi. Upon request, the Ad-hoc Committee received copies of the legal responses from Prof. Benjamin Kofi Nyarko to the letters received from the Lawyers of Prof. Emmanuel Kwesi Abu and Prof. Samuel Kyei.
+m4ju | vii. Upon request, the Ad-hoc Committee received a response from the Directorate of Human Resource concerning the appointments and promotions history of Prof. Emmanuel Kwesi Abu and Prof. Samuel Kyei.
+a0mb | 5.0 FINDINGS OF THE AD-HOC COMMITTEE
+ki8m | The following are the findings of the Ad-hoc Committee based on the documents consulted and the responses to the requests received:
+km8w | i. The Board of Convocation verbally constituted a four-member Special Committee, chaired by the Chairman of Convocation at its meeting held on Thursday, 13th January 2022.
+wzno | ii. The terms of reference for the Special Committee were not explicitly stated in the report submitted.
+xagm | iii. The Special Committee was to investigate concerns from some Members of Convocation regarding promotions.
+iwn5 | iv. The Board of Convocation communicated to Members of Convocation to send any concerns regarding the subject matter to the Chairman of the Special Committee, Prof. Benjamin Kofi Nyarko.
+uooz | v. There is no evidence of any written or verbal complaints from Members of Convocation to the Committee.
+pxbq | vi. The report submitted by the Special Committee to the Board of Convocation has no cover letter and there is no evidence that members of the Special Committee signed the report.
+jfsr | vii. The findings of the Special Committee include appointments to positions in the University which is outside the main issue the Special Committee was tasked to investigate.
+u15r | viii. The report submitted by the Special Committee was four pages but the petition, which was sent to Management was 14 pages.
+lq35 | ix. There are differences in the content of the report submitted by the Special Committee to the Board of Convocation and the petition sent to Management of the University by the Board of convocation. For instance, the report has ten recommendations (pages 3 and 4) but the petition has no recommendation.
+3g9w | X. The petition contains matters that are not mentioned in the report. For instance, the report has no case studies on Prof. Samuel Kyei and Prof Emmanuel Kwesi Abu but the petition has about four pages (page 3 to 6) on the promotions of the two Professors.
+d09o | xi. The Board of Convocation sent copies of the petition to the Pro Vice-Chancellor, the Registrar, Convocation representatives on Council, Former Vice-Chancellors,
+ylhz | Former Pro Vice-Chancellors and Academic Board representatives on Appointments and Promotions Board.
+a3td | xii. At a meeting of Members of Convocation, at the instance of the Appeals Board, held on Wednesday, 23rd March, 2022, the Chairman of Convocation as part of his closing remarks informed Members of Convocation that the Board was working on some complaints received from some members of Convocation and that at the right time, members would be provided with the details of the work.
+ex5k | xiii. At a Convocation meeting held on 14th July 2022, the Chairman of Convocation informed Convocation about the submission of a petition to the Vice- Chancellor/Management of the University. He presented highlights of the petition to members and added that it was for their information only but not for discussion on same since the Board was waiting for the Vice-Chancellor's or Management's response.
+9d4o | xiv. Some members of Convocation whose names were mentioned or cited in the petition including Prof. Samuel Kyei and Prof. Emmanuel Kwesi Abu were not given a hearing.
+cjq2 | 6.0 OPINION OF THE AD-HOC COMMITTEE
+5esx | The opinion of the Ad-hoc Committee on the constitution of the Special Committee, the report submitted by the Special Committee and the petition sent to Management of the University based on the findings are as follows:
+m5ka | i. The constitution of the Special Committee is unconventional because it should have been done by Convocation. Conventionally, members who serve on Committees of Convocation are nominated and seconded by Members of Convocation.
+byu8 | ii. The appointment of the Chairman of Convocation to chair the Special Committee constituted by the Board of Convocation is problematic since the Special Committee was expected to submit its report to him.
+76b0 | iii. The composition of the Special Committee is unconventional because all the members of the Special Committee are members of the Board of Convocation.
+zxz6 | iv. The report submitted to the Board of Convocation by the Special Committee without explicit terms of reference is unacceptable.
+xnth | V. The report submitted by the Special Committee, which was not signed by the members, is an anomaly because it raises questions about the authenticity of the report.
+vafm | vi. A procedural error was committed because the report submitted by the Special Committee to the Board of Convocation should have been brought to the attention of Convocation as per Statute 39.11(b).
+2zmw | vii. The basis for the petition sent to Management of the University is questionable because it is not premised on the report submitted by the Special Committee.
+bf9k | viii. The disparities in the content of the report submitted by the Special Committee and the petition sent to Management of the University by the Board of Convocation is unacceptable.
+otkr | ix. The rules of natural justice are breached because Members of Convocation who are cited in the petition were not given a hearing.
+ibgs | X. The Ad-hoc Committee is of the view that, it is inappropriate to send copies of the petition meant for Management of the University to former Vice-Chancellors and Pro Vice-Chancellors because they are not part of Management.
+colo | The members of the Ad-hoc Committee are grateful for the opportunity to be of service to Convocation.
+d6r4 | 9.0 APPRECIATION
+9mrz | 1
+pk06 | iv. The Board of Convocation should adopt engagement with Management and other stakeholders as a first option in resolving issues rather than petitions. Petitions may, however, be considered as a last option.
+7wn9 | iii. Convocation may properly constitute a committee on the floor of Convocation with specific terms of reference to consider any issue(s) it deems necessary.
+wcd0 | ii. The Board of Convocation should render an unqualified apology to Prof. Emmanuel Kwesi Abu and Prof. Samuel Kyei as well as Convocation.
+caos | i. The Board of Convocation should officially write to withdraw the petition from Management of the University and all who were served with copies.
+qrvy | Based on the findings of the Ad-hoc Committee and the conclusion, it makes the following recommendations for the consideration of Convocation:
+pn9j | 8.0 RECOMMENDATIONS
+1pmc | Based on the findings of the Ad-hoc Committee the veracity and the appropriateness of the petition cannot be sustained.
+5z6q | 7.0 CONCLUSION
+yeoh | MEMBERSHIP
+b8hf | Name
+hntf | Prof. Akwasi Kumi-Kyereme Prof. (Mrs.) Christine Adu-Yeboah Mr. Kwabena Antwi-Konadu Dr. Samuel Bert Boadi-Kusi
+99fo | Ms. Millan Ahema Tawiah
+y5r7 | Designation Chairman Member Member Member Member/Secretary
+lrry | Signature
+hvhm | APPENDIX A UNIVERSITY OF CAPE COAST BOARD OF CONVOCATION
+863b | TELEPHONE: +233(0)206640183
+fj24 | +233(0)2444789140
+uz3c | :233(0)570889140
+d5bi | E-MAIL:
+ba4l | convocation ucc.edu.gh
+ffx8 | CONV/DPA/VOL.1
+s6su | Our Ref:
+y219 | Your Ref .:
+06ht | 12th July, 2022
+v3r2 | Vice-Chancellor University of Cape Coast Cape Coast
+nv42 | Dear Sir,
+xags | PETITION FROM CONVOCATION ON MATTERS OF INTEREST TO MEMBERS OF CONVOCATION AND THE UNIVERSITY
+jc47 | On behalf of Convocation, I submit the petition attached hereto on matters that have been brought to the attention of the Board of Convocation from members of Convocation. The issues have the potential to threaten the harmony, morale and integrity of the university system and therefore deserve urgent attention.
+ko3c | The following are the major issues in the petition:
+xek3 | (a) Wrongful withdrawal of the promotion of a senior member whereas other unmeritorious promotions have been allowed to stay;
+bbpr | (b) Undue delay, seeming abuse of process and unfairness in the promotion of some senior members of the University;
+5zyf | (c) Breach and selective application of the criteria for appointment and promotion of some senior members;
+9own | (d) Unilateral appointment to positions that do not exist and without recourse to the Statutes and practices/convention in the University;
+bqfb | (e) Unfair and wrongful interpretation and application of a committee's recommendation to override the Criteria for Appointments and Promotions of Senior Members;
+wwdt | (f) Unexplained delays in the promotion of Clinicians at the School of Medical Sciences.
+mn1r | Please find the details in the attached petition. It is our expectation that the petition would be given the attention and urgency it deserves to restore calm and defuse the simmering tension in the University.
+5vqw | We should be grateful to receive responses from the University Management within fourteen days to inform our next line of action.
+meyw | Thank you.
+2e62 | PROF. BENJAMIN KOFI NYARKO CHAIRMAN OF CONVOCATION
+75y3 | Pro Vice-Chancellor
+s2g2 | Registrar
+q1q2 | Convocation Reps on Council
+cb7r | Former Vice-Chancellors
+68xu | Former Pro Vice-Chancellors
+hd35 | Academic Board Rep on the Appointments and Promotions Board
+2zpk | ---
+epu7 | UNIVERSITY OF CAPE COAST
+7od1 | CONVOCATION OF UNIVERSITY OF CAPE COAST
+0bqy | PETITION FROM THE BOARD OF CONVOCATION ON APPOINTMENTS, PROMOTIONS AND RELATED ISSUES
+b780 | INTRODUCTION
+ccmb | This petition is anchored on the powers conferred on Convocation of the University of Cape Coast by statute. 39.2 (a and b) of the University of Cape Coast Statutes, 2016.
+ma93 | It is the outcome of the work of a four-member special committee constituted by the Board of Convocation to investigate and seek clarifications from University Management on individual petitions on promotion and related matters received by the Board.
+c6hh | The impetus to form the Committee came from a groundswell of complaints regarding promotions, appointments and interpretation of the University's policies. The following are some of the complaints:
+y7ea | a) Promotion of some faculty members delays unduly. The undue delays have created serious tension in the University and disaffection among many colleagues.
+nav4 | b) Faculty members of the School of Medical Sciences of the College of Health and Allied Sciences seem to be suffering from promotion-related issues. Most of them, especially Clinicians, are demotivated to work beyond their core mandate. They are not putting in their maximum effort to continue to enhance teaching and especially research, and also perform their affiliate duties at the teaching hospitals as it used to be.
+gem8 | c) Promotion of scholars who have contributed to the University's THE ranking and grooming of the Medical School to be number one in Ghana are, on the contrary, treated with disdain, particularly with regard to consideration of their promotion documents.
+e8nr | d) The established norm on appointment based on seniority and experience has not been adhered to recently.
+k78w | e) The criteria for appointments and promotions has been observed to be applied selectively.
+g9du | f) Misinterpretation of Statutes and policies by Management and Boards has become a commonplace in the University.
+f682 | g) There are communication lapses in promotion/appointment decisions
+li1k | APPROACH USED BY THE COMMITTEE
+pbea | The Special Committee consulted some key stakeholders in the University, including some members of Convocation and also relied on documents received from colleagues. Some of the stakeholders consulted included the Provost of the College of Health and Allied Sciences as well as the Dean, Vice-Dean and Faculty Officer of the School of Medical Sciences.
+ccpt | Documents consulted by the Committee included the University of Cape Coast Statutes (the current Statutes and its predecessors, i.e. 2012, 2003); Report of the Prof. Yankson's Committee on Grievances of UTAG UCC and other documents.
+0fpw | ISSUES RAISED DURING THE INTERACTIONS
+dqn8 | It was admitted that some individuals and Departments are the cause of delay in processing of promotion documents. The Faculty Members of the School of Medical Sciences, however, raised the following concerns regarding delays in processing of their promotion documents:
+cop0 | 1. The time it takes to receive updates on assessment outcomes is too long; in some instances it has taken three to five years.
+lhkq | 2. There are ambiguities in communication to applicants regarding assessment results. An example of such communication is; "Two reports received to submit two new assessors", even when the names of assessors have been re-submitted countless times.
+82ju | 3. There are unexplained delays and lack of clarity on some decisions taken on the promotion of some colleagues at the Appointments and Promotions Board.
+y2qo | 4. The requirement for acquisition of terminal degrees before some colleagues are considered for promotion to a higher rank is unfair and a demotivation to Clinicians in the School, particularly those with Fellowship qualifications who have contributed immensely to the University's achievements.
+```
+
+OUTPUT:
+```

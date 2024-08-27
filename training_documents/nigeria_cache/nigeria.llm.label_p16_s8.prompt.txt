@@ -1,0 +1,211 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+1jyv | (b) details of signatories to the bank account and sub-accounts, which shall comprise the representatives of the settlor and Board of Trustees ;
+olce | (c) a copy of the settlor's board resolution approving the opening of the bank accounts and sub-accounts comprising the Fund and the bank account mandate ; and
+erx1 | (d) a forecast of the contributions for the subsequent five years.
+b3bt | (6) Where the credit rating of a bank in which the Fund is domiciled declines below the prescribed rating under sub-regulation (2) of this regulation, the Board of Trustees shall within one month, transfer the Fund to a bank with the prescribed rating and shall provide the Commission with the following-
+0w8m | (a) details of each of the bank accounts and sub-accounts comprising the Fund ;
+vcu3 | (b) details of signatories to the bank account and sub - accounts, which shall comprise of representatives of the settlor and board of trustees ; and
+hjzj | (c) a copy of the Board of Trustees' resolution approving the opening of the bank accounts and sub - accounts comprising the Fund and the mandate of bank account.
+j79f | (7) The Board of Trustees or settlor as may be applicable, shall not make any change to the signatories, mandate, name or other details of the Fund or change the bank where the Fund is domiciled, without the prior approval of the Commission.
+6tbv | (8) Where the Commission approves any of the changes contemplated in regulation 23(7) of these Regulations, the Board of Trustees shall within five working days of making such changes provide the Commission with the information and documents set out in sub-regulation (6) of this Regulations.
+xb13 | 24 .- (1) The settlor shall make its first annual contribution to the Fund within one month after the Fund has been established by the Board of Trustees, and thereafter make contributions on a yearly basis within three months to the end of each year.
+cxqi | (2) Any financial contribution made by a settlor between August 16, 2021 to August 15, 2022 to any ongoing host communities development project or scheme in accordance with their terms, shall be deemed to constitute a contribution made by a settlor under sub-regulation (1) of this regulation, provided the settlor shall be liable to pay the difference where the financial contribution is less than three percent of their operating expenditure of the preceding financial year.
+qfmx | (3) The annual contribution made in the preceding year shall not form part of the operating expenditure for the determination of annual contribution for the succeeding year.
+rut3 | (4) Where the settlor is responsible for host communities in different areas of operation, the 3% share of the operating costs shall be determined based on the operating costs that are attributable to each area of operation.
+m3cp | (5) Where the settlor established "any other community" as a host community pursuant to section 235(3) of the Act, the settlor shall allocate the share of the operating costs to the various host communities in line with section 245 of the Act.
+mq4s | (6) Contributions for littoral communities to deep-water area of operations, shall be pooled and distributed amongst beneficiary trusts equitably considering annual operating expenditure of the preceding financial year, asset value, size and any other criteria as may be determined by the Commission.
+95el | (7) In determining operating expenditure pursuant to section 240(2) of the Act, the settlor shall take into consideration non-capital production costs, cost of sales, administrative expenses and any other expense incurred for the operations of the business on a day-to-day basis as included in the audited financial report, provided that such expenditures shall not include capital expenditures, impairment, depreciation or amortisation.
+a0a5 | (8) The Fund shall consist of -
+gocl | (a) sums accruing to the trust from donations, gifts, grants or honoraria ; and
+ob1z | (b) interest, revenue or profits accruing to the reserve fund.
+m4cb | (9) The settlor shall submit to the Commission, its annual audited report within three months to the end of the preceding year and the report shall include the details of the settlor's annual operating expenditure in the preceding financial year in the upstream petroleum operations affecting the host communities for which the Fund was established.
+m61y | (10) In accordance with section 234(4) (b) of the Act, the settlor may, subject to obtaining the approval of the Commission, discontinue contribution to the reserve fund or disengage the fund manager or decline to hire a fund manager in order to reduce expenditures, where the available funds for administration under section 244(c) of the Act are insufficient to fund ongoing operations.
+u2ob | (11) A settlor shall in support of its application for approval, provide such information as the Commission may from time to time require.
+2gnm | 25 .- (1) All money standing to the credit of the Fund shall be utilised in accordance with section 244(a)-(c) of the Act.
+emgw | (2) Money in the capital fund shall be disbursed for projects in each of the host communities as shall be determined by the management committee pursuant to section 244(a) of the Act and approved by the Board of Trustees.
+xaqt | (3) Money in the reserve fund shall be invested by the Fund Manager in accordance with regulation 34 of these Regulations, for utilisation of the trust in the event of a cessation of contribution payable by the settlor pursuant to section 244 (b) of the Act.
+5rcb | (4) Money in the administrative expense fund account shall be utilised solely for administrative costs pursuant to section 244(c) of the Act.
+524j | (5) Administrative costs shall consist of -
+xd3m | (a) remuneration in form of sitting allowance for the Board of Trustees pursuant to section 242(3) of the Act ;
+8qb6 | (b) remuneration for the management committee pursuant to section 247(4)(b) of the Act ;
+wkbn | (c) remuneration in form of stipends for the advisory committee pursuant to section 249(2)(b) of the Act ;
+ftfg | (d) fees of the fund manager ;
+7xi5 | (e) fees payable to auditors appointed ; and
+w8r5 | (f ) such other costs wholly reasonable and necessary for the administ ation of the trust and the Fund.
+ybik | (6) Any money not utilised in administrative expense fund at the end of each year shall be remitted into the capital fund account.
+gii5 | 26. Withdrawals shall not be made from the Fund unless-
+q5eu | (a) at least one signatory to the account authorising the withdrawal is the representative of the settlor ;
+a7ao | (b) the withdrawal complies with the annual host community development plan submitted to the Commission in accordance with regulation 21 of these Regulations ; or
+29a3 | (c) withdrawal shall not result in the account being overdrawn or being put into negative balances.
+sb1e | 27. Where the available sum for the administration of the Fund is insufficient, the settlor shall have the power to make any of the following adjustments as may be considered necessary or expedient in the interest of the ongoing operations-
+w2yn | Reduction of administrative costs.
+ap6l | (a) reduction of the number of members of the Board of Trustees, provided that the number of members of the Board of Trustees shall not be less than five at any given period ;
+iest | (b) discontinue contribution to the reserve fund or disengage the fund manager or decline to hire a fund manager in accordance with regulation 31 of these Regulations ;
+cox8 | (c) reduction of the frequency of meetings of the Board of Trustees, provided that the number of meetings held by the Board of Trustees in a year shall not be less than four ;
+ppqi | (d) reduction of the number of members of the management committee under section 247 of the Act, provided that such number of members shall not fall below five at any given period ;
+oxou | (e) reduction of the frequency of meetings of the management committee, provided that the management committee shall meet at least four times in a year ; and
+495n | (f) reduction of the frequency of meetings of the host communities advisory committee under section 249 of the Act, provided that the number of meetings shall not fall below two times in a year.
+awri | 28 .- (1) The capital fund and administrative cost fund shall be managed by the Board of Trustees and settlor respectively, who shall ensure that any payments into and out of the accounts shall be in accordance with the Act and the host communities development plan approved by the Commission.
+bl28 | (2) The Board of Trustees and settlor in administering the capital fund and administrative cost fund shall-
+d5bz | (a) act with honesty and fairness ;
+ap5o | (b) act with skill, care and diligence ;
+7zvf | (c) act in the interest of the host communities ;
+mov9 | (d) act with independence, objectivity and in accordance with the Act ;
+ks7m | (e) apply the sums in accordance with the host communities development plan and the Act ;
+w1w1 | (f) refuse to participate in any business relationship or accept any gift that could reasonably be expected to affect its independence or objectivity ; and
+h8gv | (g) keep proper account and accurate records.
+kwkp | 29. The reserve fund shall be managed by the fund manager in accordance with the provisions of the Act and regulation 34 of these Regulations.
+yj0m | 30 .- (1) The settlor shall render quarterly returns to the Commission in relation to the Fund, which shall include-
+ewfp | (a) the statement of each bank account and sub-accounts constituting the Fund ;
+oczy | (b) an audited report of the Fund detailing amongst others, payments into and out of the funds and the purposes for which such payments were made ;
+2ttg | (c) any approved withdrawals outside of the approved host communities development plan and the basis for such withdrawals ; and
+his3 | (d) any other information as may be prescribed by the Commission from time to time.
+m50z | (2) A settlor which fails, neglects or refuses to file the quarterly returns shall be liable to-
+me84 | (a) administrative penalty of $10,000 or its equivalent in Naira ; and
+o56m | (b) in the case of a continuous offence, to an additional administrative penalty of $1,000 or its equivalent in Naira for each day during which the offence continues.
+slz6 | (3) Where the settlor provides evidence that the inability to provide annual returns as at and when due arises from the refusal of the Board of Trustees to provide same promptly, the administrative penalty imposed pursuant to sub-regulation (2) of this regulation shall not apply and the Commission shall give the settlor extension of time to provide the annual returns following its liaison with the Board of Trustees.
+90k5 | (4) Where the settlor provides evidence that it is unable to provide the annual returns after the expiration of the extension of time given to the settlor, the Commission may exercise its powers to issue enforcement orders pursuant to section 217 of the Act to compel the settlor to deal with the erring Board of Trustees.
+9m8s | B 2133
+893y | (5) Where the Commission discovers that a withdrawal was made from the Fund in contravention of the approved host communities development plan or the Act without the approval of the Commission by the settlor, the fund manager or any other person, such person shall-
+favz | (a) immediately refund such monies into the Fund, provided that such refund, shall not serve as a defence to any criminal liability ; and
+7szx | (b) be liable to administrative penalty of $1,000 per day from the date on which the withdrawal was made until the date that such funds are refunded into the Fund.
+hx9e | 31 .- (1) The Board of Trustees shall be responsible for appointing the fund manager on the recommendation of the Management Committee.
+ywn2 | (2) The fund manager shall be appointed within one month of the establishment of the Fund.
+a63r | (3) A person shall not be appointed as a fund manager in respect of the reserve fund unless-
+dqvj | (a) it is incorporated under the Companies and Allied Matters Act ;
+r17u | (b) the total market value of assets managed by the fund manager is not less than five years projected value of the reserve fund ;
+3c47 | (c) it is registered as a fund manager with the Securities and Exchange Commission ; and
+g345 | (d) it is registered as a fund manager with the Commission ;
+svhz | (4) Any appointment made in contravention of sub-regulation (3) of this regulation shall be null and void and any trustee who participates in the appointment of a fund manager in contravention of the provisions of this regulation shall be liable to an administrative penalty of not less than $2,500 or its equivalent in Naira and a further sum of $1,000 or its equivalent in Naira for every day during which the contravention persists.
+oaen | (5) Where the Commission discovers that a fund manager has been appointed in contravention of sub-regulation (3) of this regulation, the Commission may by notice require the Board of Trustees to immediately appoint a fund manager in compliance with sub-regulation (3) of this regulation and the Board of Trustees shall appoint another fund manager within 14 days of receiving the Commission's notice.
+5u67 | 32. The fund manager shall in administering the reserve fund-
+dvms | (a) act with honesty and fairness ;
+qrd3 | (b) act with skill, care and diligence ;
+rxrg | (c) act in the interest of the host communities ;
+tf43 | (d) act with independence and objectivity ;
+fcco | B 2134
+8uji | (e) communicate with the Board of Trustees in a timely and accurate manner ;
+df3e | (f) refuse to participate in any business relationship or accept any gift that could reasonably be expected to affect its independence or objectivity ;
+53eu | (g) exercise due diligence in ensuring the maintenance of the reserve fund and shall ensure that there is no avoidable deterioration in value ;
+a5u1 | (h) institute such mechanisms to ensure proper care is taken for the collection, monitoring and supervision of the reserve fund ;
+ry7u | (i) avoid conflict between its interests and the interest of the host communities ;
+5mda | (j) disclose the interests of its directors and management that may conflict with its duties to the Board of Trustees ; and
+i4li | (k) ensure that it keeps proper and accurate records, including recording the details of its decision-making process in dealing with any investments together with justifications of such decisions and forwarding same to the Board of Trustees.
+r8sm | 33 .- (1) The fund manager shall cease to act as a fund manager where-
+cuin | (a) its registration with the Securities and Exchange Commission is withdrawn or revoked in accordance with the Investments and Securities Act ;
+n1i7 | (b) it becomes bankrupt or makes a compromise with its creditors or a moratorium is granted on its debt or such other comparable measures are taken against the fund manager ;
+0r5m | (c) it is found guilty of a crime involving fraud or dishonesty or any other felony or it is sanctioned for misconduct by Securities and Exchange Commission or any professional body or association ; or
+ne2o | - (d) it resigns its appointment as fund manager by a notice to the Board of Trustees.
+sqxn | (2) Where a fund manager ceases to act or is otherwise removed under these Regulations, the Board of Trustees shall notify the settlor within 10 working days and shall appoint another fund manager within 10 working days of the removal of the previous fund manager and the settlor shall notify the Commission within 10 working days of receipt of notice from the Board of Trustees provided that the settlor may pursuant to regulation 24(10) of these Regulations, notify the Commission of its decision not to appoint a fund manager.
+6pmo | (3) Where the Board of Trustees fails to appoint a fund manager or the settlor fails to issue the notice in accordance with sub-regulation (2) of this regulation, the Commission may appoint an interim fund manager to manage the reserve fund.
+195r | B 2135
+kqmi | (4) The interim fund manager shall manage the reserve fund until a fund manager is appointed by the Board of Trustees in accordance with these Regulations.
+g8rd | (5) The Board of Trustees shall provide the interim fund manager with all necessary documents and access required to manage the reserve fund.
+nns9 | (6) The remuneration of the interim Fund Manager shall be borne by the trust.
+9uwy | PART VI - INVESTMENT OF THE RESERVE FUND AND REPORTING OBLIGATIONS
+srly | 34 .- (1) Money standing to the credit of the reserve fund-
+dl6i | (a) may be invested by the fund manager on the approval of the Board of Trustees ; and
+89ub | (b) shall be invested by the fund manager with the objectives of safety and maintenance of fair returns on amounts invested.
+dhle | (2) The fund manager shall only invest in allowable instruments prescribed under the Regulations on Investment of Pension Fund Assets, subject to the quality ratings set out therein.
+2nib | (3) The Commission may issue guidelines for the investment of the reserve fund by the fund manager.
+```
+
+OUTPUT:
+```

@@ -1,0 +1,248 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+1pjs | What Is Entropy
+o2kr | John C. Baez 2024
+v6sk | To my wife, Lisa Raphals
+1wj6 | Foreword
+936l | Once there was a thing called Twitter, where people exchanged short messages called 'tweets'. While it had its flaws, I came to like it and eventually decided to teach a short course on entropy in the form of tweets. This little book is a slightly expanded version of that course.
+06yq | It's easy to wax poetic about entropy, but what is it? I claim it's the amount of information we don't know about a situation, which in principle we could learn. But how can we make this idea precise and quantitative? To focus the discussion I decided to tackle a specific puzzle: why does hydrogen gas at room temperature and pressure have an entropy corresponding to about 23 unknown bits of information per molecule? This gave me an excuse to explain these subjects:
+dpv6 | · information
+8r5j | · Shannon entropy and Gibbs entropy
+2taz | . the principle of maximum entropy
+o3ya | · the Boltzmann distribution
+r5il | · temperature and coolness
+5gui | · the relation between entropy, expected energy and temperature
+82qc | · the equipartition theorem
+ls7d | · the partition function
+tzt3 | · the relation between entropy, free energy and expected energy
+t8vv | · the entropy of a classical harmonic oscillator
+qvnu | . the entropy of a classical particle in a box
+kggw | . the entropy of a classical ideal gas.
+xrd1 | I have largely avoided the second law of thermodynamics, which says that entropy always increases. While fascinating, this is so problematic that a good explanation would require another book! I have also avoided the role of entropy in biology, black hole physics, etc. Thus, the aspects of entropy most beloved by physics popularizers will not be found here. I also never say that entropy is 'disorder'.
+5746 | I have tried to say as little as possible about quantum mechanics, to keep the physics prerequisites low. However, Planck's constant shows up in the formulas for the entropy of the three classical systems mentioned above. The reason for this is fascinating: Planck's constant provides a unit of volume in position-momentum space, which is necessary to define the entropy of these systems. Thus, we need a tiny bit of quantum mechanics to get a good approximate formula for the entropy of hydrogen, even if we are trying our best to treat this gas classically.
+7toz | Since I am a mathematical physicist, this book is full of math. I spend more time trying to make concepts precise and looking into strange counterexamples than an actual 'working' physicist would. If at any point you feel I am sinking into too many technicalities, don't be shy about jumping to the next tweet. The really important stuff is in the boxes. It may help to reach the end before going back and learning all the details. It's up to you.
+j346 | Contents
+v8uq | THE ENTROPY OF THE OBSERVABLE UNIVERSE . 1
+x972 | THE ENTROPY OF HYDROGEN 2
+cwrw | WHERE ARE WE GOING? 3
+4i0e | FIVE KINDS OF ENTROPY 4
+h2l3 | FROM PROBABILITY TO INFORMATION 5
+dfzb | UNITS OF INFORMATION 7
+u6ty | THE INFORMATION IN A LICENSE PLATE NUMBER 8
+awvu | JUSTIFYING THE FORMULA FOR INFORMATION 11
+on9b | WHAT IS PROBABILITY? 13
+a8ge | PROBABILITY MEASURES 14
+h27a | SHANNON ENTROPY: A FIRST TASTE 16
+pdjh | SHANNON ENTROPY: A SECOND TASTE 17
+xmgs | THE DEFINITION OF SHANNON ENTROPY 18
+bd9h | THE PRINCIPLE OF MAXIMUM ENTROPY 20
+m047 | 23
+gy8c | THERMAL EQUILIBRIUM 29
+y4mj | COOLNESS 30
+vpgq | COOLNESS VERSUS TEMPERATURE
+ousl | 31
+m4ju | TEMPERATURE
+a0mb | ABSOLUTE ZERO: THE LIMIT OF INFINITE COOLNESS
+ki8m | 36
+km8w | THE FINITE VERSUS THE CONTINUOUS
+wzno | 39
+xagm | ENTROPY, ENERGY AND TEMPERATURE
+iwn5 | 41
+uooz | THE EQUIPARTITION THEOREM 47
+pxbq | THE EQUIPARTITION THEOREM-BACKGROUND 48
+jfsr | PROOF OF THE EQUIPARTITION THEOREM: 1
+u15r | PROOF OF THE EQUIPARTITION THEOREM: 2 50 PROOF OF THE EQUIPARTITION THEOREM: 3 51 THE AVERAGE ENERGY OF AN ATOM . .
+lq35 | ENTROPY OF THE HARMONIC OSCILLATOR: 1 55
+3g9w | ENTROPY OF THE HARMONIC OSCILLATOR: 2 57
+d09o | ENTROPY OF THE HARMONIC OSCILLATOR: 3
+ylhz | 58
+a3td | ENTROPY OF THE HARMONIC OSCILLATOR: 4
+ex5k | 59
+9d4o | ENTROPY OF THE HARMONIC OSCILLATOR: 5 60
+cjq2 | ENTROPY OF THE HARMONIC OSCILLATOR: 6 61 ENTROPY OF THE HARMONIC OSCILLATOR: 7 62
+5esx | WHERE ARE WE NOW? 63
+m5ka | THE PARTITION FUNCTION 64
+byu8 | THE PARTITION FUNCTION KNOWS ALL!
+76b0 | 66
+zxz6 | THE PARTITION FUNCTION KNOWS THE EXPECTED ENERGY
+xnth | 67
+vafm | THE PARTITION FUNCTION KNOWS THE ENTROPY
+2zmw | 68
+bf9k | THE PARTITION FUNCTION KNOWS THE FREE ENERGY
+otkr | 69
+ibgs | THE PARTITION FUNCTION KNOWS ALL: REVISITED 70
+colo | THE MEANING OF THE PARTITION FUNCTION 71
+d6r4 | 73
+9mrz | THE POWER OF THE PARTITION FUNCTION .
+pk06 | 74
+7wn9 | 75
+wcd0 | HARMONIC OSCILLATOR: PARTITION FUNCTION
+caos | HARMONIC OSCILLATOR: EXPECTED ENERGY
+qrvy | 76
+pn9j | 77
+1pmc | WHERE ARE WE NOW? 84
+5z6q | THE WAVELENGTH OF A PARTICLE 85
+yeoh | THE WAVELENGTH OF A WARM PARTICLE 86
+b8hf | THE PARTITION FUNCTION AND THE THERMAL WAVELENGTH . 87 FREE ENERGY AND THE THERMAL WAVELENGTH 88
+hntf | ENTROPY AND THE THERMAL WAVELENGTH 89
+99fo | GAS OF INDISTINGUISHABLE PARTICLES: PARTITION FUNCTION . 98
+y5r7 | THE SACKUR-TETRODE EQUATION 101
+lrry | THE ENTROPY OF HYDROGEN: THEORY 111
+hvhm | THE ENTROPY OF THE OBSERVABLE UNIVERSE
+863b | In 2010, Chas A. Egan and Charles H. Lineweaver estimated the biggest contributors to the entropy of the observable universe. Mea- suring entropy in bits, these are:
+fj24 | · stars: 1081 bits.
+uz3c | · interstellar and intergalactic gas and dust: 1082 bits.
+d5bi | · gravitons: 1088 bits.
+ba4l | · neutrinos: 1090 bits.
+ffx8 | · photons: 1090 bits.
+s6su | . stellar black holes: 1098 bits.
+y219 | . supermassive black holes: 10105 bits.
+06ht | So, almost all the entropy is in supermassive black holes!
+v3r2 | In 2010, Chas A. Egan and Charles H. Lineweaver estimated the entropy of the observable universe. Entropy corresponds to unknown information, so there's a heck of a lot we don't know! For stars, most of this unknown information concerns the details of every single electron and nucleus zipping around in the hot plasma. There's more entropy in interstellar and intergalactic gas and dust. Most of the gas here is hydrogen-some in molecular form H2, some individual atoms, and some ionized. For all this stuff, the unknown information again mostly concerns the details, like the position and momentum, of each of these molecules, atoms and ions.
+nv42 | There's a lot more we don't know about the precise details of other particles whizzing through the universe, like gravitons, neutrinos and photons. But there's even more entropy in black holes! One reason Stephen Hawking is famous is that he figured out how to compute the entropy of black holes. To do that you need a combination of statistical mechanics, general relativity and quantum physics. Statistical mechanics is the study of physical systems where there's unknown information, which you study using probability theory. I'll explain some of that in these tweets. General relativity is Einstein's theory of gravity, and while I've explained that elsewhere, I don't want to get into it here so I will say nothing about the entropy of black holes.
+xags | Quantum physics was also necessary for Hawking's calculation, as witnessed by the fact that his answer involves Planck's constant, which sets the scale of quantum uncertainty in our universe. I will try to steer clear of quantum mechanics in these tweets, but in the end we'll need a tiny bit of it. There's a funny sense in which statistical mechanics is somewhat incomplete without quantum mechanics. You'll eventually see what I mean.
+jc47 | 1
+ko3c | THE ENTROPY OF HYDROGEN
+xek3 | At standard temperature and pressure, hydrogen gas has an entropy of
+bbpr | 130.68 joule/kelvin per mole
+5zyf | But a joule/kelvin of entropy is about
+9own | 1.0449 . 1023 bits of unknown information and a mole of any chemical is about
+bqfb | 6.0221 . 1023 molecules
+wwdt | So the unknown information about the precise microscopic state of hydrogen is
+mn1r | 1.0449 · 1023 ≈ 23 bits per molecule!
+5vqw | 130.68 . 6.0221 · 1023
+meyw | Egan and Lineweaver estimated the entropy of all the interstellar and intergalactic gas and dust in the observable universe. Entropy corresponds to information we don't know. Their estimate implies that there are 1082 bits of information we don't know about all this gas and dust.
+2e62 | Most of this stuff is hydrogen. Hydrogen is very simple stuff. So it would be good to understand the entropy of hydrogen. You can measure changes in entropy by doing experiments. If you assume hydrogen has no entropy at absolute zero, you can do experiments to figure out the entropy of hydrogen under other conditions. From this you can calculate that each molecule in a container of hydrogen gas at standard temperature and pressure has about 23 bits of information that we don't know.
+75y3 | You can see a sketch of the calculation above. But everything about it is far from obvious! What does 'missing information' really mean here? Joules are a unit of energy; kelvin is a unit of temperature. So why is entropy measured in joules per kelvin? Why does one joule per kelvin correspond to 1.0449 . 1023 bits of missing information? How can we do experiments to measure changes in entropy? And why is missing information the same as-or more precisely proportional to-entropy?
+s2g2 | The good news: all these questions have answers! You can learn them here. How- ever, you will have to persist. Since I'm starting from scratch it won't be quick. It takes some math-but luckily, nothing much more than calculus of several variables. When you can calculate the entropy of hydrogen from first principles, and understand what it means, that will count as true success.
+q1q2 | See how it goes! Partial success is okay too.
+cb7r | WHERE ARE WE GOING?
+68xu | The mystery: why does each molecule of hydrogen have ~ 23 bits of entropy at standard temperature and pressure?
+hd35 | The goal: derive and understand the formula for the entropy of a classical ideal monatomic gas:
+2zpk | S = kN (InkT + In ~+ r ) N V
+epu7 | including the mysterious constant y.
+7od1 | The subgoal: compute the entropy of a single classical particle in a 1-dimensional box.
+0bqy | The sub-subgoal: explain entropy from the ground up, and compute the entropy of a classical harmonic oscillator.
+b780 | To understand something deeply, it can be good to set yourself a concrete goal. To avoid getting lost in the theory of entropy, let's try to understand the entropy of hydrogen gas. This is a 'diatomic' gas since a hydrogen molecule has two atoms. At standard temperature and pressure it's close to 'ideal', meaning the molecules don't interact much. It's also close to 'classical', meaning we don't need to know quantum mechanics to do this calculation. Also, when the hydrogen is not extremely hot, its molecules don't vibrate much-but they do tumble around.
+ccmb | Given all this, we can derive a formula for the entropy S of some hydrogen gas as a function of its temperature T, the number N of molecules, the volume V, and a physical constant k called 'Boltzmann's constant'. This formula also involves a rather surprising constant which I'm calling y. We'll figure that out too. It's so weird I don't want to give it away!
+ma93 | As a warmup, we will derive the formula for the entropy of an ideal 'monatomic' gas a gas made of individual atoms, like helium or neon or argon. Sackur and Tetrode worked this out in 1912. Their result, called the Sackur-Tetrode equation, is similar to the one for a diatomic gas.
+c6hh | But before doing a monatomic gas, we'll figure out the entropy of a single atom of gas in a box. That turns out to be a good start, since in an ideal monatomic gas the atoms don't interact, and the entropy of N atoms-as we'll see is just N times the entropy of a single atom.
+y7ea | But before we can do any of this, we need to understand what entropy is, and how to compute it. It will take quite a bit of time to compute the entropy of a classical harmonic oscillator! But from then on, the rest is surprisingly quick.
+nav4 | 3
+gem8 | FIVE KINDS OF ENTROPY
+e8nr | Entropy in thermodynamics: the change in entropy as we change a system's internal energy by an infinitesimal amount dE while keeping it in thermal equilibrium is dS = dE/T, where T is the temperature.
+k78w | Entropy in classical statistical mechanics: S = -k fx P(x) In(p(x))du(x) where p is a probability distribution on the measure space (X, u) of states and k is Boltzmann's constant.
+g9du | Entropy in quantum statistical mechanics: S = - ktr(pln p) where p is a density matrix.
+f682 | Entropy in information theory: H = - Liex Pi log pi where p is a probability distribution on the set X.
+li1k | Algorithmic entropy: the entropy of a string of symbols is the length of the shortest computer program that prints it out.
+pbea | Before I actually start explaining entropy, a warning: it can be hard at first to learn about entropy because there are many kinds-and people often don't say which kind they're talking about. Here are 5 kinds. Luckily, they are closely related!
+ccpt | In thermodynamics we primarily have a formula for the change in entropy: if you change the internal energy of a system by an infinitesimal amount dE while keeping it in thermal equilibrium, the infinitesimal change in entropy is dS = dE/T where T is the temperature.
+0fpw | Later, in classical statistical mechanics, Gibbs explained entropy in terms of a prob- ability distribution p on the space of states of a classical system. In this framework, entropy is the integral of -pln p times a constant k called Boltzmann's constant.
+dqn8 | Later von Neumann generalized Gibbs' formula for entropy from classical to quantum statistical mechanics! He replaced the probability distribution p by a so-called density matrix p, and the integral by a trace.
+cop0 | Later Shannon invented information theory, and a formula for the entropy of a probability distribution on a set (often a finite set). This is often called 'Shannon entropy'. It's just a special case of Gibbs' formula for entropy in classical statistical mechanics, but without the Boltzmann's constant.
+lhkq | Later still, Kolmogorov invented a formula for the entropy of a specific string of symbols. It's just the length of the shortest program, written in bits, that prints out this string. It depends on the computer language, but not too much.
+82ju | There's a network of results connecting all these 5 concepts of entropy. I will first explain Shannon entropy, then entropy in classical statistical mechanics, and then en- tropy in thermodynamics. While this is the reverse of the historical order, it's the easiest way to go.
+y2qo | I will not explain entropy in quantum statistical mechanics: for that I would feel compelled to teach you quantum mechanics first. Nor will I explain algorithmic entropy.
+1piq | FROM PROBABILITY TO INFORMATION
+7fqw | How much information do you get when you learn an event of prob- ability <LATEX>p</LATEX> has happened? It's
+rhaz | <LATEX>- \log p</LATEX> where we can use any base for the logarithm, usually <LATEX>e</LATEX> or 2.
+```
+
+OUTPUT:
+```

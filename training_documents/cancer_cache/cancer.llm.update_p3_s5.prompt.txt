@@ -1,0 +1,76 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document. Your task is to faithfully reproduce the text for our text-to-speech engine so that it is easily read aloud.
+
+Note that the text might not start at the beginning and paragraphs may be split acrosss multiple textboxes. Textboxes may start or end in the middle of a word which is acceptable: do not combine text between textboxes and leave broken words at the start and end of a textbox unchanged.
+
+You will receive one textbox per-line in the format `id | Textbox content`. The output must be in the format `id | Clean content`.
+
+RULES:
+ • Remove inline citations and references e.g. "(Author, 2021)" or "(https://wikipedia.org/article.html)" or "[ECMOS 35b, 47, 49]".
+ • Spell out numbers, dates, and chemical formulas for the TTS engine e.g. "-2.5" -> "negative two point five" or "Jan. 2020" -> "January twenty twenty".
+ • Spell out LaTeX formulas for the TTS engine e.g. "<LATEX>p = 1</LATEX>" -> "P equals one".
+ • Rejoin hyphenated word fragments within the same textbox e.g. "synth -esize" -> "synthesize".
+ • Fix simple typos and OCR errors e.g. "O nce upon a 1ime." -> "Once upon a time.".
+ • Delete nonsequiter textboxes that interrupt the middle of a sentence if they obviously do not belong.
+
+Otherwise, the output should exactly match the input text:
+ • Do not combine text across lines or attempt to fix words broken across lines.
+ • Ensure each ID from the input is included in the output.
+ • Make as few changes as possible while respecting the above rules.
+
+EXAMPLE INPUT:
+```
+ccpt | stigate the effectiveness of psychedelics for ADHD symp- toms in adults.
+0fpw | 2. Materia1 and methods
+dqn8 | 2.1. Study design and participants
+cop0 | The study employed a naturalistic design, assessing the experiences of participants at bas-,
+lhkq | eline before they start, and at 2 and 4 weeks after initiation. The target population included adults with ADHD symptoms who had not been diag- nosed with ADHD before. To be included, participants needed to score on Conner's Adult ADHD Rating Scale (CAARS-S:SV). This cut-off was indicative of clinically elevated symptoms (Conners et al., 1999) (see section 2.3).
+82ju | 2.2. Study procedure
+y2qo | The online advertisement was placed on a website providing information about psychedelics (www.microdo sing.nl). Interested participants were redirected to information explaining the study rationale and procedure. The baseline survey took 20 min to complete. If the survey had not been completed after 24 h, a reminder was sent. Each of the surveys at the 2- and 4-week time points took about 15 min to complete. Par- ticipants were able to pause the surveys. Data collection occurred between Nov. 2020 and Jul. 2021. The study was approved by the Ethics Review Committee of Psy- chology and Neuroscience at Maastricht University (ERCPN- 215_05_11_2019_A1).
+1piq | 2.3. Measures
+7fqw | 2.3.1. Demographic information and history of substance use
+rhaz | At baseline, demographic information was collected. History of substance use assessed experience with psyche- delics (i.e., ayahuasca, DMT, 5-MeO-DMT, LSD, novel lysergamides (e.g., 1P-LSD, ALD-52), psilocybin, salvia divinorum, ibogaine, and mescaline) in both full (psychedelic) doses and microdoses.
+wak1 | 2.3.2. Psychiatric and physiological diagnoses
+wtfz | Participants were asked whether they had a current diagnosis of a disorder. These answer options were chosen because most of the listed diagnoses are often reported to co-occur with ADHD (Kooij et al., 2019), or because these diagnoses were reported to be common in people who microdose (Fadiman and Korb, 2019). We 
+3j2l | REVIEW ARTICLE Frontiers in Psychiatry | www.frontiersin.org
+03k3 | 2
+1k9e | constructed a variable Comorbidity alongside ADHD, differenti- ating respondents with and without a comorbid diagnosis alongside ADHD (<LATEX>p < . 0 0 1 =</LATEX> only ADHD or no ADHD diagnosis; <LATEX>p > . 0 1 =</LATEX> ADHD and at least one other diagnosis). We constructed a variable Medication use alongside microdosing, differentiating respondents who were and were not using conven- tiona1 ADHD medication alongside microdosing (<LATEX>0 =</LATEX> only microdosing; <LATEX>1 =</LATEX> conven-
+```
+
+EXAMPLE OUTPUT:
+```
+ccpt | stigate the effectiveness of psychedelics for ADHD symptoms in adults.
+0fpw | Two. Material and methods
+dqn8 | Two point one. Study design and participants
+cop0 | The study employed a naturalistic design, assessing the experiences of participants at bas-,
+lhkq | eline before they start, and at two and four weeks after initiation. The target population included adults with ADHD symptoms who had not been diagnosed with ADHD before. To be included, participants needed to score on Conner's Adult ADHD Rating Scale. This cut-off was indicative of clinically elevated symptoms (see section two point three).
+82ju | Two point two. Study procedure
+y2qo | The online advertisement was placed on a website providing information about psychedelics. Interested participants were redirected to information explaining the study rationale and procedure. The baseline survey took twenty minutes to complete. If the survey had not been completed after twenty-four hours, a reminder was sent. Each of the surveys at the two and four-week time points took about fifteen minutes to complete. Participants were able to pause the surveys. Data collection occurred between November twenty twenty and July twenty twenty-one. The study was approved by the Ethics Review Committee of Psychology and Neuroscience at Maastricht University.
+1piq | Two point three. Measures
+7fqw | Two point three point one. Demographic information and history of substance use
+rhaz | At baseline, demographic information was collected. History of substance use assessed experience with psychedelics (i.e., ayahuasca, DMT, five-MeO-DMT, LSD, novel lysergamides (e.g., one-P-LSD, ALD-fifty-two), psilocybin, salvia divinorum, ibogaine, and mescaline) in both full (psychedelic) doses and microdoses.
+wak1 | Two point three point two. Psychiatric and physiological diagnoses
+wtfz | Participants were asked whether they had a current diagnosis of a disorder. These answer options were chosen because most of the listed diagnoses are often reported to co-occur with ADHD, or because these diagnoses were reported to be common in people who microdose. We
+3j2l |
+03k3 |
+1k9e | constructed a variable Comorbidity alongside ADHD, differentiating respondents with and without a comorbid diagnosis alongside ADHD (P is less than point zero zero one equals only ADHD or no ADHD diagnosis; P is greater than point zero one equals ADHD and at least one other diagnosis). We constructed a variable Medication use alongside microdosing, differentiating respondents who were and were not using conventional ADHD medication alongside microdosing (zero equals only microdosing; one equals conven-
+```
+
+INPUT:
+```
+olce | When applying a 3D model to cancer research, one must consider that each system presents its advantages and limitations, as none are capable of mimicking integrally the in vivo tissue [5,11]. Overall, the 3D models may be divided into several major categories: spheroid-based, microengineering-based, and scaffold-based categories, and organoids and tumoroids. A graphical summary of each 3D model can be found in Figure 1, while Table 1 presents the main advantages, disadvantages, and complexity (evaluated from low to high) of each cancer 3D model. Besides these types of cellular 3D models, explant-based 3D models have also been applied to cancer research. Precision-cut tissue slices (PTCS) are a type of 3D tissue explant derived from human or animal organs. Notwithstanding their ability to closely mimic in vivo conditions, explant-based models such as PTCS still present ethical questions regarding the use of animal models [41,42]. Thus, we will not explore the details of this type of cell model more deeply in the present review.
+erx1 | 3.1. Spheroid-Based Models
+b3bt | Multicellular tumor spheroids (MCTS) are 3D models that resemble micrometastases or microregions of a tumor, comprising peripheral proliferating cells, deep non-proliferating cells, and, in some cases, a necrotic core, obtained through the self-assembly of tumoral cells [43-45]. Additionally, the geometry of spheroids allows for studying different sub- populations of cancer cells in relation to their microenvironment [45]. In comparison with 2D monolayer models, spheroids are able to better recapitulate in vivo aspects, such as microenvironment interactions, tissue architecture, gene expression, hypoxic regions, and metabolism [46-49]. As a result of their similarities with in vivo tumors, MCTS have been extensively used in research, in particular for the evaluation of different therapeutic strategies [47,50,51].
+0w8m | Despite their several advantages, spheroids also present some limitations, such as imaging difficulties using fluorescence microscopy due to the spheroid thickness and light- scattering phenomenon. This makes high-resolution images of intact spheroids, particularly from their interior, difficult to obtain [52,53]. This could be addressed by cutting the spheroids into thin slices; however, it may damage the spheroid structure and result in the introduction of artifacts during computational analysis [12,52]. Alternatively, optical sectioning microscopes, such as confocal laser scanning microscopy (CLSM), multiphoton microscopy (MPM), and light-sheet fluorescence microscopy (LSFM), can be used to image the deeper regions of intact spheroids [54,55].
+vcu3 | Several methods for the efficient growth and manipulation of spheroids derived from rodent and human cancers have been established [56-58]. The four principal approaches for spheroid production are suspension cultures, hanging drop plates, liquid overlay technique, and low adhesion plates.
+hjzj | 3.1.1. Suspension Cultures
+j79f | In suspension-based or agitation-based approaches, a cell suspension is maintained in motion through stirring or rotation. As the suspended cells are constantly moving, they do not attach to the container walls, but instead develop cell-cell interactions, forming spheroids [59]. This type of culture can be performed in spinner flask bioreactors or rotational culture systems [60,61].
+6tbv | Spinner flasks are a simple way of producing spheroids in higher quantities, depending on the size of the bioreactor [62]. Moreover, spinner flasks allow for the control of culture properties, such as culture duration, while constant agitation promotes the transport of nutrients and waste products [59,63]. However, using spinner flasks involves a constant cell motion, resulting in a shear force that may have a negative impact on cellular physiology, as well as a larger volume of culture medium, making this technique more expensive than other methods [64,65]. Rotational systems present several similarities with spinner flasks, both in terms of their advantages and disadvantages [59]. However, contrary to the spinner flask, rotational systems present the advantage of having low shear forces, as in this method, both the container and its content are rotating [61]. These two techniques have advantages such as easy maneuvering, affordability, and the ability to scale-up production. However, heterogeneous spheroids regarding size and morphology are limitations that need to be considered, as the manual selection of spheroids may be necessary for drug screening [59].
+xb13 | 3.1.2. Hanging Drop
+cxqi | Hanging drop plates benefit from the fact that when no surface is available for cell adhesion, cells self-aggregate into spheroids. This is possible using a traditional tissue culture petri dish, where the lid is used to place small droplets, in which the spheroids form [66]. Alternatively, specialized plates with bottomless, open wells that allow for the formation of a small media droplet, can also be used [11]. Kelm et al. described a protocol using hanging drop plates that allows MCTS growth from a variety of cell lines, including some that are not frequently obtained with other methods. The spheroids produced present
+qfmx | reproducibility, rapid generation, and homogenous size distribution, qualities that are essential for drug screening assays [58]. This last feature in particular is crucial, ensuring that the spheroids can be used immediately without the need to select the appropriate spheroids [67]. Furthermore, with these types of plates, it is possible to use the spheroids in an automated drug-screening platform, which may be relevant to the pharmaceutical industry [58]. However, due to plate incompatibility with microscopes and uncentered spheroids in the well plates, hanging drop plates can be difficult to image [68]. Moreover, media exchange is a difficult process in traditional plates, whereas specialized open-top plates are costly and difficult to adapt to the experimental requirements [59].
+rut3 | 3.1.3. Liquid Overlay Technique and Low Adhesion Plates
+m3cp | In the liquid overlay technique, cells are cultured on a nonadherent surface and centrifuged to induce spheroid formation [48,79]. Nevertheless, it is necessary to take
+```
+
+OUTPUT:
+```

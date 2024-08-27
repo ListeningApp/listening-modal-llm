@@ -1,0 +1,140 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+mror | Kleinridders et al. (2015) reported that brain/neuron IR knockout (NIRKO) mice, show age-dependent depressive and anxious behaviour due to impaired mitochondrial function and increased DA turnover by MAO, which is normally suppressed by insulin. Insulin receptor knock-out in glial cells, in turn, reduces ATP exocytosis, resulting in decreased purinergic signalling on DA neurons and subsequently anxi- ety- and depressive-like behaviour (Cai et al., 2018a). Mechanistically, a subsequent hyperdopaminergic state within the amygdala is probably responsible for the increase in anxiety observed in insulin-resistant and diabetic rats (Rebolledo-Solleiro et al., 2016). Interestingly, down- regulation of the IR in the hypothalamus can also induce depressive-like behaviour in rodents (Grillo et al., 2014) indicating that insulin signal- ling in the hypothalamus might also affect DA signalling in the midbrain.
+zlxc | 4.2. Therapeutic approaches targeting insulin pathways
+k0bw | Based on the molecular evidence for the role of (impaired) insulin signalling in the development of depressive and anxious symptoms, these behavioural changes (see Section 3.3.) respond to treatments altering metabolic state and/or DA signalling: In NIRKO-mice depressive and anxious behaviour is reversed by MAO inhibitors (Kleinridders et al., 2015). In STZ-induced diabetes, depressive symptoms were reduced by insulin therapy, with some (but not all) studies indicating the same impact on anxiety (Gupta et al., 2014; Ho et al., 2012b). Furthermore, physical activity and food restriction, as well as the insulin sensitizers rosiglitazone or pioglitazone alleviated depressive-like behaviour in insulin-resistant rodents (Gilak-Dalasm et al., 2021; Para- shar et al., 2018; Shimomura et al., 1990). Despite these promising animal results, the therapeutic link between insulin, DA and depression has hardly been examined in humans. Mansur et al. (2019) demon- strated, that being overweight moderated the association between reduced effort spending (which is DA-dependent) and MDD. Moreover, a single intranasal insulin administration has been shown to improve mood in overweight/obese women <LATEX>\left( n = 1 7 \right)</LATEX> without psychiatric condi- tions (Schneider et al., 2022). Equally, repeated administration of intranasal insulin across eight weeks improved mood in obese <LATEX>\left( n = 1 5 \right)</LATEX> and normal-weight participants without depression <LATEX>\left( n = 1 9 \right)</LATEX> (Benedict et al., 2004; Hallschmid et al., 2008). Furthermore, diabetes and over- weight attenuate the responsiveness to classical antidepressants (Miyata et al., 2003; Rizvi et al., 2014) and adjunctive therapies that enhance insulin sensitivity including both lifestyle (exercise) and dietary inter- vention improve antidepressant treatment response, even if peripheral insulin resistance is not used for treatment stratification (Jeremiah et al., 2020). A similar effect has been reported for adjunctive therapy with
+aq5a | Neuroscience and Biobehavioral Reviews 149 (2023) 105179
+sc5y | insulin sensitizers (Colle et al., 2016; Lin et al., 2015; Rasgon et al., 2010). Moreover, in the state of insulin resistance, different classes of antidepressants show distinct treatment efficacy and suppressing or enhancing effects on blood glucose levels and body weight (Anderson et al., 2002; Srisurapanont et al., 2022) indicating that the choice of antidepressant therapy should be influenced by the metabolic state. However, clinical trials targeting this question are still lacking. Overall, current data regarding the association between antidepressant-specific mechanism-of-action and effects on metabolic state and depressive symptoms, remain inconclusive but imply that SSRIs might have the best anti-depressive effect in the state of insulin resistance and have a beneficial effect on insulin sensitivity (Markowitz et al., 2011; Silva et al., 2012).
+0yab | Notably, altered DA signalling is only one potential pathway that links insulin resistance and depression. There are several other factors, that contribute to this bidirectional link including impairments in serotonergic transmission, HPA-axis, neurogenesis, (neuro-)inflamma- tion, opioid-mediated pathways, gut microbiome and gut-brain signal- ling (Carr, 1994; Zou et al., 2020), which are important, but beyond the scope of this review. Nevertheless, these presented findings are collec- tively of high (pre)clinical relevance as they point toward a metabolic subtype of depression, in which increased insulin resistance might function as a state marker. Targeting insulin resistance in depression might serve as an important avenue toward a personalized medicine approach in psychiatry.
+w95z | 5. Conclusions
+0i1k | Overall, DA signalling in the midbrain and consequently the DA encoded reward behaviour is modulated by insulin signalling. The effect of insulin on DA release, turn-over, and firing rate might seem contra- dictory at first glance, but this is due to the differential effects of insulin on the somato-dendritic spines in the midbrain and the axonal terminals in the striatum. Different rodent models of insulin resistance have pro- vided clear evidence that insulin resistance leads to altered DA signal- ling and impaired reward behaviour. This might represent one critical mechanism in the bidirectional link between insulin resistance and depression. Hence, a detailed molecular understanding of the regulation of DA signalling by insulin will lay the basis for therapeutic advances in the metabolic treatment of depressive disorders.
+dqlg | Funding
+p6pq | JG is funded by the European Union's Horizon 2020 Research and Innovation Program under grant agreement No 847879. The funding source has had no involvement in the study design, data collection, interpretation of the findings, or writing of this manuscript. RH is funded by the Deutsche Forschungsgemeinschaft. SET is funded by the Else- Kroner-Frisenius Foundation. SET and AB are supported by the Leis- tungszentrum Innovative Therapeutics (TheraNova) funded by the Fraunhofer Society and the Hessian Ministry of Science and Art.
+zse6 | Appendix A. Supporting information
+p2n3 | Supplementary data associated with this article can be found in the online version at doi:10.1016/j.neubiorev.2023.105179.
+ohh7 | References
+vbni | Adamo, M., Raizada, M.K., LeRoith, D., 1989. Insulin and insulin-like growth factor receptors in the nervous system. Mol. Neurobiol. 3 (1-2), 71-100. https://doi.org/ 10.1007/BF02935589.
+dgcw | Alsaadi, H.M., Van Vugt, D.A., 2015. Insulin sensitivity affects corticolimbic brain responses to visual food cues in polycystic ovary syndrome patients. Horm. Mol. Biol. Clin. Investig. 24 (2), 101-115. https://doi.org/10.1515/HMBCI-2015-0048.
+gvwz | Anderson, J.W., Greenway, F.L., Fujioka, K., Gadde, K.M., McKenney, J., O'Neil, P.M., 2002. Bupropion SR enhances weight loss: a 48-week double-blind, placebo- controlled trial. Obes. Res. 10 (7), 633-641. https://doi.org/10.1038/OBY.2002.86. Ansarullah, Jain, C, Far, F.F., Homberg, S., Wißmiller, K., von Hahn, F.G., Raducanu, A., Schirge, S., Sterr, M., Bilekova, S., Siehler, J., Wiener, J., Oppenländer, L., Morshedi, A., Bastidas-Ponce, A., Collden, G., Irmler, M., Beckers, J., Feuchtinger, A., Lickert, H., 2021. Inceptor counteracts insulin signalling in ß-cells to control glycaemia. Nature 590 (7845), 326-331. https://doi.org/10.1038/s41586-021- 03225-8.
+sk5m | Cai, W., Xue, C., Sakaguchi, M., Konishi, M., Shirazian, A., Ferris, H.A., Li, M.E., Yu, R., Kleinridders, A., Pothos, E.N., Kahn, C.R., 2018a. Insulin regulates astrocyte
+qws8 | gliotransmission and modulates behavior. J. Clin. Investig. 128 (7), 2914-2926. https://doi.org/10.1172/JCI99366.
+877u | Cai, W., Xue, C., Sakaguchi, M., Konishi, M., Shirazian, A., Ferris, H.A., Li, M.E., Yu, R., Kleinridders, A., Pothos, E.N., Kahn, C.R., 2018b. Insulin regulates astrocyte gliotransmission and modulates behavior. J. Clin. Investig. 128 (7), 2914-2926. https://doi.org/10.1172/JCI99366.
+rzhj | Carr, K.D., 1994. Streptozotocin-induced diabetes produces a naltrexone-reversible lowering of self-stimulation threshold. Brain Res. 664 (1-2), 211-214. https://doi. org/10.1016/0006-8993(94)91973-9.
+bfax | Dutheil, S., Ota, K.T., Wohleb, E.S., Rasmussen, K., Duman, R.S., 2016b. High-fat diet induced anxiety and anhedonia: impact on brain homeostasis and inflammation. Neuropsychopharmacology 41, 1874-1887. https://doi.org/10.1038/ npp.2015.357.
+f2y8 | Eckstrand, K.L., Mummareddy, N., Kang, H., Cowan, R., Zhou, M., Zald, D., Silver, H.J., Niswender, K.D., Avison, M.J., 2017. An insulin resistance associated neural correlate of impulsivity in type 2 diabetes mellitus. PLoS ONE 12 (12). https://doi. org/10.1371/JOURNAL.PONE.0189113.
+o7qm | Edwin Thanarajah, S., Iglesias, S., Kuzmanovic, B., Rigoux, L., Stephan, K.E., Brüning, J. C., Tittgemeyer, M., 2019. Modulation of midbrain neurocircuitry by intranasal insulin. NeuroImage 194, 120-127. https://doi.org/10.1016/j.
+d52l | neuroimage.2019.03.050.
+qlbb | Ehrmann, D., Schmitt, A., Reimer, A., Haak, T., Kulzer, B., Hermanns, N., 2017. The affective and somatic side of depression: subtypes of depressive symptoms show diametrically opposed associations with glycemic control in people with type 1 diabetes. Acta Diabetol. 54 (8), 749-756. https://doi.org/10.1007/S00592-017- 1006-X/FIGURES/2.
+nhsg | Fulton, S., Woodside, B., Shizgal, P., 2000. Modulation of brain reward circuitry by leptin. Science 287 (5450), 125-128. https://doi.org/10.1126/ science.287.5450.125.
+hy0l | Neuroscience and Biobehavioral Reviews 149 (2023) 105179
+4jmz | Furman, B.L., 2015. Streptozotocin-induced diabetic models in mice and rats. Curr. Protoc. Pharmacol. 70 (1), 5.47.1-5.47.20. https://doi.org/10.1002/0471141755. PH0547S70.
+b7cq | Furman, B.L., 2021. Streptozotocin-induced diabetic models in mice and rats. Curr. Protoc. 1 (4) https://doi.org/10.1002/cpz1.78.
+0b39 | Gammeltoft, S., Fehlmann, M., Van Obberghen, E., 1985. Insulin receptors in the mammalian central nervous system: binding characteristics and subunit structure. Biochimie 67 (10-11), 1147-1153. https://doi.org/10.1016/S0300-9084(85)80113- 9.
+qecd | Islam, M.S., Loots, D.T., 2009. Experimental rodent models of type 2 diabetes: a review. Methods Find. Exp. Clin. Pharmacol. 31 (4), 249-261. https://doi.org/10.1358/ MF.2009.31.4.1362513.
+1o7p | Jeong, H., Taylor, A., Floeder, J.R., Lohmann, M., Mihalas, S., Wu, B., Zhou, M., Burke, D.A., Namboodiri, V.M.K., 2022. Mesolimbic dopamine release conveys causal associations. Science 378 (6626). https://doi.org/10.1126/SCIENCE. ABQ6740.
+cp13 | Jeremiah, O.J., Cousins, G., Boland, F., Kirby, B.P., Ryan, B.K., 2020. Evaluation of the effect of insulin sensitivity-enhancing lifestyle- and dietary-related adjuncts on antidepressant treatment response: a systematic review and meta-analysis. Heliyon 6 (9), e04845. https://doi.org/10.1016/j.heliyon.2020.e04845.
+bgre | Jones, K.T., Woods, C., Zhen, J., Antonio, T., Carr, K.D., Reith, M.E.A., 2017. Effects of diet and insulin on dopamine transporter activity and expression in rat caudate- putamen, nucleus accumbens, and midbrain. J. Neurochem. 140, 728-740. https:// doi.org/10.1111/jnc.13930.
+57lp | Lacey, M.G., Mercurit, N.B., North, R.A., Lacey, M.C., Mercuri, N.B., 1987. Dopamine acts on D2 receptors to increase potassium conductance in neurones of the rat
+ukth | Neuroscience and Biobehavioral Reviews 149 (2023) 105179
+kpvt | substantia nigra zona compacta. Wiley Online Libr. 392 (1), 397-416. https://doi. org/10.1113/jphysiol.1987.sp016787.
+jie2 | Li, C.R., Sun, S.G., 2010. Spontaneous rodent models of diabetes and diabetic retinopathy. Int. J. Ophthalmol. 3 (1), 1-4. https://doi.org/10.3980/J.ISSN.2222- 3959.2010.01.01.
+```
+
+OUTPUT:
+```

@@ -1,0 +1,120 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+1pjs | The Atlantic
+o2kr | Kamala Harris Is Rerunning Hillary Clinton's 2016 Campaign
+v6sk | But without the fumbles
+1wj6 | The Democratic National Convention is over, and the verdict is in: It was a remarkable heist. "They stole traditional Republican themes (faith, patriotism) and claimed them as their own," the conservative Wall Street Journal columnist Peggy Noonan wrote. "Democrats Show That Republicans Aren't the Only Ones Who Can Wrap Themselves in the Flag," read a New York Times headline. "Speaker after speaker," CNN reported, "struck themes that have long been hallmarks of Republican rhetoric: tributes to service, sacrifice, American leadership and, above all, a repeated reaffirmation of American exceptionalism." Or, as The Washington Post put it, "Democrats claim patriotism, God and American exceptionalism at convention."
+936l | Oh, wait-my mistake. Those last two quotes are from coverage of the 2016 Democratic National Convention, in Philadelphia, when Hillary Clinton accepted her party's nomination. And they're not the only part of last week's DNC that felt like a rerun.
+06yq | In 2016, retired four-star Marine Corps General John Allen endorsed Clinton alongside dozens of Democratic veterans and former military officials, while delegates throughout the hall waved giant American flags and thunderously chanted "U-S-A!" This past week, the Arizona congressman and Marine Corps veteran Ruben Gallego
+dpv6 | Kamala Harris Is Rerunning Hillary Clinton's Campaign - The Atlantic took the stage with fellow Democratic elected veterans, before a sea of flags and a giant backdrop of Old Glory, to declare, "We stand united as Democrats and patriots to fight for anyone who serves." In 2016, the billionaire and former New York Mayor Michael Bloomberg assailed Donald Trump and his business acumen. In 2024, Illinois Governor J. B. Pritzker told delegates, "Take it from an actual billionaire- Trump is rich in only one thing: stupidity."
+8r5j | At first glance, these parallels are not encouraging for Democrats. After all, they know what happened in 2016. So should liberals elated after their convention be concerned that its seeming success might actually be a mirage that will be dispelled in November, just as it was eight years ago? Not quite. Although Kamala Harris is reviving the Clinton playbook, she has so far managed to avoid its biggest fumbles.
+2taz | Some of this is due to political skill. But much of it is because Harris has one key advantage that Clinton lacked: Thanks to the unusual way she assumed the nomination, the vice president sidestepped a bruising primary-which meant that she did not have to spend the convention mollifying left-wing critics. In 2016, Clinton had to contend with 1,831 Bernie Sanders delegates, close to half of the convention's roughly 4,000 total. Many of them went "Bernie or Bust," accused Clinton of stealing the primary, and repeatedly disrupted her acceptance speech and other proceedings. Harris, however, had to reckon with just 30 uncommitted delegates protesting Joe Biden's Gaza policy, who-regardless of the merits of their critique-could ultimately be turned away with little consequence.
+o3ya | Freed from the need to appeal to internal opponents, Harris was able to appeal to her skeptics across the country-to embrace elements of moderation not just in style but also in substance. Consider: In her 2016 acceptance speech, Clinton barely addressed Trump's signature issue, immigration, gesturing only briefly to "a path to citizenship for millions of immigrants who are already contributing to our economy" and "comprehensive immigration reform." Harris, by contrast, backed up her pivot to the center on the same issue with an explicit promise:
+r5il | After decades in law enforcement, I know the importance of safety and security, especially at our border. Last year, Joe [Biden] and I brought together Democrats and conservative Republicans to write the strongest border bill in decades. The Border Patrol endorsed it. But Donald Trump believes a border deal would hurt his campaign, so he ordered his allies in Congress to kill the deal. Well, I refuse to play politics with our security, and here is my pledge to you. As president, I will bring back the bipartisan border-security bill that he killed, and I will sign it into law.
+5gui | In Chicago, Harris acknowledged that "there are people of various political views watching tonight" and promised "to be a president for all Americans." So did Clinton in Philadelphia, saying, "I will be a president for Democrats, Republicans, and independents; for the struggling, the striving, and the successful; for those who vote for me and those who don't; for all Americans." But from the vantage point of wavering Republican voters, Clinton also muddled that message by delivering broadsides against the wealthy and making unpopular pledges to the activist class. "When more than 90 percent of the gains have gone to the top one percent, that's where the money is," she said, echoing her primary rival, "and we are going to follow the money." She also declared that "Bernie Sanders and I will work together to make college tuition-free for the middle class and debt-free for all." For Clinton, these were necessary concessions to the Sanders supporters in the room, but because Harris has not had to constantly look over her left shoulder, such rhetoric was conspicuously absent from her acceptance speech.
+82qc | This is not the only area where Harris has been buoyed by being able to shed concerns that dogged her predecessor. In 2016, Clinton, as the first woman to be nominated for president by a major party, had to contend with skepticism over her gender. But in 2024, Harris has largely been able to avoid the issue, thanks to Clinton normalizing
+ls7d | the idea of a woman as commander in chief, just as Barack Obama normalized the idea of a Black president. "Together, we've put a lot of cracks in the highest, hardest glass ceiling," Clinton told delegates on the opening night of last week's convention. She is personally responsible for many of them.
+tzt3 | There are still 71 days to go until the election. In the months ahead, Harris will need to sidestep the same factional traps that snared Clinton, while also navigating press conferences and media interviews where she will face questions that she has thus far evaded about her policy shifts. But if she succeeds in maintaining the approach that made the convention so effective, her 2024 campaign may prove to be the rare reboot that exceeds the original.
+t8vv | ABOUT THE AUTHOR
+qvnu | Yair Rosenberg is a staff writer at The Atlantic and the author of its newsletter Deep Shtetl, about the intersection of politics, culture, and religion.
+kggw | More Stories The New AOC Trump's Crocodile Tears for the Jews
+```
+
+OUTPUT:
+```

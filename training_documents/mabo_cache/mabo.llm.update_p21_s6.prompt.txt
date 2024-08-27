@@ -1,0 +1,81 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document. Your task is to faithfully reproduce the text for our text-to-speech engine so that it is easily read aloud.
+
+Note that the text might not start at the beginning and paragraphs may be split acrosss multiple textboxes. Textboxes may start or end in the middle of a word which is acceptable: do not combine text between textboxes and leave broken words at the start and end of a textbox unchanged.
+
+You will receive one textbox per-line in the format `id | Textbox content`. The output must be in the format `id | Clean content`.
+
+RULES:
+ • Remove inline citations and references e.g. "(Author, 2021)" or "(https://wikipedia.org/article.html)" or "[ECMOS 35b, 47, 49]".
+ • Spell out numbers, dates, and chemical formulas for the TTS engine e.g. "-2.5" -> "negative two point five" or "Jan. 2020" -> "January twenty twenty".
+ • Spell out LaTeX formulas for the TTS engine e.g. "<LATEX>p = 1</LATEX>" -> "P equals one".
+ • Rejoin hyphenated word fragments within the same textbox e.g. "synth -esize" -> "synthesize".
+ • Fix simple typos and OCR errors e.g. "O nce upon a 1ime." -> "Once upon a time.".
+ • Delete nonsequiter textboxes that interrupt the middle of a sentence if they obviously do not belong.
+
+Otherwise, the output should exactly match the input text:
+ • Do not combine text across lines or attempt to fix words broken across lines.
+ • Ensure each ID from the input is included in the output.
+ • Make as few changes as possible while respecting the above rules.
+
+EXAMPLE INPUT:
+```
+ccpt | stigate the effectiveness of psychedelics for ADHD symp- toms in adults.
+0fpw | 2. Materia1 and methods
+dqn8 | 2.1. Study design and participants
+cop0 | The study employed a naturalistic design, assessing the experiences of participants at bas-,
+lhkq | eline before they start, and at 2 and 4 weeks after initiation. The target population included adults with ADHD symptoms who had not been diag- nosed with ADHD before. To be included, participants needed to score on Conner's Adult ADHD Rating Scale (CAARS-S:SV). This cut-off was indicative of clinically elevated symptoms (Conners et al., 1999) (see section 2.3).
+82ju | 2.2. Study procedure
+y2qo | The online advertisement was placed on a website providing information about psychedelics (www.microdo sing.nl). Interested participants were redirected to information explaining the study rationale and procedure. The baseline survey took 20 min to complete. If the survey had not been completed after 24 h, a reminder was sent. Each of the surveys at the 2- and 4-week time points took about 15 min to complete. Par- ticipants were able to pause the surveys. Data collection occurred between Nov. 2020 and Jul. 2021. The study was approved by the Ethics Review Committee of Psy- chology and Neuroscience at Maastricht University (ERCPN- 215_05_11_2019_A1).
+1piq | 2.3. Measures
+7fqw | 2.3.1. Demographic information and history of substance use
+rhaz | At baseline, demographic information was collected. History of substance use assessed experience with psyche- delics (i.e., ayahuasca, DMT, 5-MeO-DMT, LSD, novel lysergamides (e.g., 1P-LSD, ALD-52), psilocybin, salvia divinorum, ibogaine, and mescaline) in both full (psychedelic) doses and microdoses.
+wak1 | 2.3.2. Psychiatric and physiological diagnoses
+wtfz | Participants were asked whether they had a current diagnosis of a disorder. These answer options were chosen because most of the listed diagnoses are often reported to co-occur with ADHD (Kooij et al., 2019), or because these diagnoses were reported to be common in people who microdose (Fadiman and Korb, 2019). We 
+3j2l | REVIEW ARTICLE Frontiers in Psychiatry | www.frontiersin.org
+03k3 | 2
+1k9e | constructed a variable Comorbidity alongside ADHD, differenti- ating respondents with and without a comorbid diagnosis alongside ADHD (<LATEX>p < . 0 0 1 =</LATEX> only ADHD or no ADHD diagnosis; <LATEX>p > . 0 1 =</LATEX> ADHD and at least one other diagnosis). We constructed a variable Medication use alongside microdosing, differentiating respondents who were and were not using conven- tiona1 ADHD medication alongside microdosing (<LATEX>0 =</LATEX> only microdosing; <LATEX>1 =</LATEX> conven-
+```
+
+EXAMPLE OUTPUT:
+```
+ccpt | stigate the effectiveness of psychedelics for ADHD symptoms in adults.
+0fpw | Two. Material and methods
+dqn8 | Two point one. Study design and participants
+cop0 | The study employed a naturalistic design, assessing the experiences of participants at bas-,
+lhkq | eline before they start, and at two and four weeks after initiation. The target population included adults with ADHD symptoms who had not been diagnosed with ADHD before. To be included, participants needed to score on Conner's Adult ADHD Rating Scale. This cut-off was indicative of clinically elevated symptoms (see section two point three).
+82ju | Two point two. Study procedure
+y2qo | The online advertisement was placed on a website providing information about psychedelics. Interested participants were redirected to information explaining the study rationale and procedure. The baseline survey took twenty minutes to complete. If the survey had not been completed after twenty-four hours, a reminder was sent. Each of the surveys at the two and four-week time points took about fifteen minutes to complete. Participants were able to pause the surveys. Data collection occurred between November twenty twenty and July twenty twenty-one. The study was approved by the Ethics Review Committee of Psychology and Neuroscience at Maastricht University.
+1piq | Two point three. Measures
+7fqw | Two point three point one. Demographic information and history of substance use
+rhaz | At baseline, demographic information was collected. History of substance use assessed experience with psychedelics (i.e., ayahuasca, DMT, five-MeO-DMT, LSD, novel lysergamides (e.g., one-P-LSD, ALD-fifty-two), psilocybin, salvia divinorum, ibogaine, and mescaline) in both full (psychedelic) doses and microdoses.
+wak1 | Two point three point two. Psychiatric and physiological diagnoses
+wtfz | Participants were asked whether they had a current diagnosis of a disorder. These answer options were chosen because most of the listed diagnoses are often reported to co-occur with ADHD, or because these diagnoses were reported to be common in people who microdose. We
+3j2l |
+03k3 |
+1k9e | constructed a variable Comorbidity alongside ADHD, differentiating respondents with and without a comorbid diagnosis alongside ADHD (P is less than point zero zero one equals only ADHD or no ADHD diagnosis; P is greater than point zero one equals ADHD and at least one other diagnosis). We constructed a variable Medication use alongside microdosing, differentiating respondents who were and were not using conventional ADHD medication alongside microdosing (zero equals only microdosing; one equals conven-
+```
+
+INPUT:
+```
+rsbu | If the international law notion that inhabited land may be classified as terra nullius no longer commands general support, the doctrines of common law which depend on the notion that native peoples may be 'so low in the scale of social organisation' that it is 'idle to impute to such people some shadow of the rights known to our law'127 can hardly be retained. If it were permissible in past centuries to keep the common in step with international law, it is im- perative in today's world that the common law should neither be nor seen to be frozen in an age of racial discrimination. The fiction by which the rights and interests of indigenous inhabitants in land were treated as non-existent was justified by a policy which has no place in the contemporary law of this country.
+magd | Adopting a slightly different approach, one could argue alternatively that all the Mabo decision did was to reject the notion that the Murray Islands were properly categorised as terra nullius and made clear what the applicable common law actually was in that circumstance. If that be the case, the common law was not really overturned at all. It was not even changed (except in as far as the earlier cases held that Australia had been terra nullius at the time of settlement). Instead, a fundamental error of fact about Australia at the time of settlement was corrected.
+tb74 | If one accepts the foregoing, Mabo was essentially nothing more that a clarification of law and a re-finding of fact. In such a case, the spectre of
+8l69 | Mabo, as an illegitimate decision of law, is properly answered. The essen- tial question for legal advisers of today is relatively simple. It is: in a par- ticular situation, do the factual circumstances give rise to a prima facie claim for indigenous native title and if so, what, if any, actions by indig- enous people themselves, the Crown or a legislature with power may be said to have extinguished that prima facie claim? The only substantive question of law which then remains, if a claim exists or has been non- consensually terminated, is the disputable question of compensation.
+1jyv | THE IMPACT OF INTERNATIONAL LAW
+olce | The Mabo decision also provides guidance as to the appropriate influence which international law and instruments may have on the development of Australia's common law in the years ahead.
+erx1 | Before Mabo, there was no doubt that international law was a source of our law. However, the impact of international law was, for the most part, one of influence only. It remains probable that international law is not, as such, part of the domestic law of Australia - as indeed of most countries. International law does not generally become part of domestic law until either Parliament so enacts or the judiciary incorporates the principles into the domestic law.128 In adopting and adapting the princi- ples of international law in domestic decisions, the influence of interna- tional law is increased. Nevertheless, the incorporation of international law into domestic law by the judiciary remains the exception, and not the rule.
+b3bt | It is usually only where the issue for determination before a court is uncertain that a judge will seek the guidance of international legal mate- rial.129 Such uncertainty may arise where an established doctrine of the common law, by the passage of time, becomes inappropriate to the re- sponsibilities and demands of modern society. Such was the case in Mabo. It may also arise where a statute is ambiguous and a principle of interna- tional law is relevant to assist in resolving the ambiguity.130
+0w8m | Early recognition within the High Court of Australia of the potential role of international instruments to influence Australian law may be found in the judgments of Murphy J.131 However, in recent years, the acceptance of international law and international instruments in performing the ju- dicial function has steadily grown.132 The culmination in Australia of this
+vcu3 | In Defence of Mabo
+hjzj | new-found legitimacy for international law - as an influence upon do- mestic law - was the Mabo decision.
+j79f | For the purposes of determining what the common law of Australia truly was in Mabo, Brennan J had regard to the influence of international law. He said:133
+6tbv | Whatever the justification advanced in earlier days for refusing to recognize the rights and interests in land of the indigenous inhabitants of settled colo- nies, an unjust and discriminatory doctrine of that kind can no longer be ac- cepted. The expectations of the international community accord in this re- spect with the contemporary values of the Australian people. The opening up of international remedies to individuals pursuant to Australia's accession to the Option Protocol to the International Covenant on Civil and Political Rights134 brings to bear on the common law the powerful influence of the Covenant and the international standards it imports. The common law does not neces- sarily conform with international law, but international law is a legitimate and important influence on the development of the common law, especially when international law declares the existence of universal human rights. A common law doctrine founded on unjust discrimination in the enjoyment of civil and political rights demands reconsideration. It is contrary both to inter- national standards and to the fundamental values of our common law to en- trench a discriminatory rule which, because of the supposed position on the scale of social organization of the indigenous inhabitants of a settled colony, denies them a right to occupy their traditional lands.
+xb13 | Brennan J's statement is significant for a number of reasons. It is the most explicit recognition of the stated principle yet found in the deci- sions of Australia's highest court. It provides for the future development of the common law of Australia in general harmony with the developing principles of international law. It provides to those who advocate the ben- eficial influence of international law a cause for renewed vigour.135
+cxqi | The impact of Mabo, in this respect, has already been felt to some ex- tent. For example, the High Court in Australian Capital Television Pty Ltd v The Commonwealth136 implied into the Australian Constitution a guaran- tee of freedom of communication as to public and political discussion. Brennan J,137 in particular, had regard to Canadian and United States de- cisions on basic rights as well as decisions in the European Commission of Human Rights. In Dietrich v The Queen, 138 the High Court also consid- ered the International Covenant on Civil and Political Rights. Of the Cov- enant, Brennan J in that case said:139
+qfmx | Although this provision of the Covenant is not part of our municipal law, it is a legitimate influence on the development of the common law.140 Indeed, it is incongruous that Australia should adhere to the Covenant containing the pro- vision unless Australian Courts recognize the entitlement and Australian gov- ernments provide the resources required to carry that entitlement into effect. But the Courts cannot, independently of the legislature and the executive, legitimately declare an entitlement to legal aid.
+rut3 | Similarly, in Chu Keng Lim v The Minister for Immigration, Local Govern- ment & Ethnic Affairs, 141 the International Covenant on Civil and Political Rights was considered once again. While it was not determinative of the deci- sion in that case, Brennan, Deane and Dawson JJ made their position clear. Their Honours said:142
+m3cp | We accept the proposition that the courts should, in a case of ambiguity, fa- vour a construction of a Commonwealth statute which accords with the obli- gations of Australia under an international treaty.143 The provisions of [the relevant statute] ... are, however, quite unambiguous.
+```
+
+OUTPUT:
+```

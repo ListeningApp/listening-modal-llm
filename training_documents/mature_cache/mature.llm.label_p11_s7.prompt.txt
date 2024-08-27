@@ -1,0 +1,178 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+e8nr | (1) Initial proposition (hearable as extreme)
+k78w | (2) Concession (positions the original proposition as disputable)
+g9du | (3) Revised, weaker statement (hearable now as more reasoned)
+f682 | In the extract below, Don and Hal build two rather robust concessions to manage
+li1k | 2044835x, 2004, 4, Downloaded from https://bpspsychub.onlinelibrary.wiley.com/doi/10.1348/0261510042378281 by <Shibboleth>member@biu.ac.il, Wiley Online Library on [06/12/2023]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+pbea | 482 Neill Korobov and Michael Bamberg
+ccpt | propositions that display interest or importance in looks. They then partially weaken the force of such concessions through strategically designed reassertions.
+0fpw | Excerpt 3
+dqn8 | Participants: M: Moderator, D: Don, H: Hal, A: Andy
+cop0 | 1 M: so looks (.) Timportant (.) not that important really, or=
+lhkq | 2 D: =no (.) not=
+82ju | 3 M: =although good looking is not bad
+y2qo | 4 D: yeah (.) but not unless like you don't know em' not unless (.) only 5 when you don't know em (.) then looks do everything for you
+1piq | 6 M: but (.) you know (.) do you think guys are more interested in girls' 7 looks than girls are interested in guys' looks
+7fqw | 8 H: guys are more so (.) but you have to go through a certain number of girls first (.) like that number in growing up (.) you know (.) to
+rhaz | 10 see through girls (1.0) I don't know if they've ((motions to other boys)) went through that (.) I did and I don't really count on looks no more (.) 12 but it still has to be there (.) you know (.) you can't be like the ugliest girl (.) you know (.) it still has to be like half-and-half (.) I don't want like the prettiest girl in the world=
+wak1 | 13
+wtfz | 14
+qy1i | 15 D: =you can't always have it (.) you can't always have the prettiest girl
+1k9e | 16 H: ((leans into Don and Andy)) °I did though (.) remember Kaylaº
+5bjs | 17 A: [ahh yea']
+uodj | 18 D: [OHH: ah] yeah ((looks to moderator)) he did (.) he 19 was like the luckiest man in the world
+k16v | Below is an abridged version of the way their propositions, concessions, and reassertions are sequentially arranged:
+b2lm | (1) Initial proposition - (Only when you don't know them, looks do everything for you - line 5)
+ti7f | (2) Concession 1 - (But as you grow older, you count on looks less and less - lines 8-11)
+oksu | (3) Revised, weaker statement - (Although looks are still necessary - line 12)
+wtow | (4) Concession 2 - (But you can't always have the prettiest girl - line 15)
+o22k | (5) Revised, weaker statement - (But I once did have the prettiest girl, remember Kayla - line 16)
+nwfz | The moderator opens with a three-part list on the topic of looks (line 1) - looks as 'important', 'not that important really', and the 'or' seems to indicate a forthcoming third option or invitation to respond to the first two. Don cuts in and seems to orient to the 'not that important' option (line 2). The moderator quickly cuts back in line 3 and softly amends it to 'although good looking is not bad'. By doing this, he is able to offer a third option that maintains the importance of looks before Don can fully construct a position to the contrary. Don agrees with this more softened option, and goes on to draw up the initial proposition that when you do not know the person, 'looks do everything for you' (line 5). Hal's first concession comes several lines later (lines 8-11), and it positions Hal in at least three ways. It softens the extremity of 'looks do everything' in Don's original proposition, it insulates guys' interests in girls' looks from appearing unaffected by maturation, and it makes Hal appear sexually mature, experienced, and reasonable. Despite his concession, however, Hal shifts back in line 12 to the tenor of the original proposition in saying 'but it still has to be there (.) you
+nvfy | 2044835x, 2004, 4, Downloaded from https://bpspsychub.onlinelibrary.wiley.com/doi/10.1348/0261510042378281 by <Shibboleth>member@biu.ac.il, Wiley Online Library on [06/12/2023]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+mror | Positioning a 'mature' self 483
+zlxc | know (.) you can't be like the ugliest girl'. This weaker statement is designed to counter the concession itself, as if to make sure Hal doesn't now appear too mature, and thus totally uninterested in girls' looks. But then, both he and Don (lines 14-15) soften again this already weaker statement by admitting that having the prettiest girl is not always possible, nor do they necessarily want it. Again, this concession is designed to fend off potential counter-arguments, and offers a more mature position that appears rational, in the sense of 'knowing' that always having the prettiest girl is not realistic. As Couper- Kuhlen and Thompson (in press) argue, concessions often explicitly display the rationality behind repairs and reformulations of prior assertions, thus accomplishing accountability. Thus, 'doing maturity' emerges as the discursive effect of concessive repair practices.
+k0bw | However, in line 16, Hal's aside to Don ('I did though (.) remember Kayla"') and Andy and Don's celebration of it in lines 17-18 works yet again as a reassertion that undermines the maturity heard in the second concession. But because it is delivered as an afterthought (with Hal turning to Don and Andy and saying it with a downshift in voice), it carries a kind of off-the-record quality, marking its status as a direct or serious reassertion of the original proposition as ambiguous. The ambiguousness is essential for bringing off the hearable immaturity of reassertion without trouble. The laughter constructs the reassertion as both ironic, and thus less serious, but yet still invested to some degree in bragging about it. In other words, while the concession allows Hal and Don to counter the threat of appearing immature and overly preoccupied or naïve about looks, the design of the reassertion allows them to buy back into a kind of sexual interest that celebrates Hal's status as a (hetero)sexual man ('luckiest man in the world') for having had a really pretty girl. By strategically employing concessive repairs, the boys are able to position themselves as mature while simultaneously attending to their interest in heterosexual attraction.
+aq5a | The next excerpt from a different group discussion involves a precarious negotiation of young males' interest in a particular girl whom they know from school and who they have characterized (earlier in the discussion) as someone who sleeps around a lot. In what follows, the moderator inquires about their potential interest in such a girl. Managing an interest is done in a delicate tongue-in-cheek way that protects them from appearing immature or desperate.
+sc5y | Excerpt 4 Participants: M: Moderator, B: Bob, D: Dirk; C: Carl
+0yab | M: okay different question (.) and no need to uh (.) but isn't there
+w95z | 2 a little bit of attraction there in this kind of stuff
+0i1k | 3 C: ((shakes head no))
+dqlg | 4 D: YEAH RIGHT
+p6pq | 5 B: NOT HER ((Dirk and Bob look at each other and smile))
+zse6 | M: okay okay (.) okay okay (2.0) I just was asking=
+p2n3 | 6 6789 0 = 7 8 9
+ohh7 | D: =attraction between :::: ((makes inquisitive smile face at moderator))
+vbni | M well (.) if I (.) if I (.) uhh (.) well I don't know (.) I was just thinking (.) gee (.) if I=
+dgcw | 10 B: =I don't find her attractive at all=
+gvwz | D: =you mean if a girl has sex then maybe she'll: do it with: me
+sk5m | 12 M: well (.) uh maybe
+qws8 | 13 D: if that's the question (.) then NO (.) no because uh: well: ((smiles 14 and looks at Bob))=
+877u | 2044835x, 2004, 4, Downloaded from https://bpspsychub.onlinelibrary.wiley.com/doi/10.1348/0261510042378281 by <Shibboleth>member@biu.ac.il, Wiley Online Library on [06/12/2023]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+rzhj | 484 Neill Korobov and Michael Bamberg
+bfax | 15 B: =we're not that desperate=
+f2y8 | 16 D: =yeah (.) and: she's: not (.) huh (1.0) she's: not what I would call=
+o7qm | 17 B: =she's NOT good looking=
+d52l | 18 D: =yes, she's not attractive enough=
+qlbb | 19 B: =but ((smiling at Dirk)) she's: not exactly ugly though (.) she's not
+nhsg | 20 exactly ugly (.) I mean she does (.) she's got big boobs (.) so I don't know ((laughter, 2.0))
+hy0l | 21
+4jmz | The moderator opens up the space for the initial proposition in lines 1-2 by asking whether they are attracted to 'this kind of stuff. Whatever 'this kind of stuff' is, it is interpreted to be extreme, as seen in the way Dirk and Bob immediately counter it with emphatic denials (lines 4-5) and Dirk's display of non-understanding (line 7). This draws up the initial, though potentially overstated proposition that they are not at all interested in 'this kind of stuff. What is peculiar, though, is that Bob's and Dirk's denials are crafted with overly exaggerated emphatic stress and with a bit of cheeky smiling at one another, as if they are parodying the act of making a denial by protesting too much. Even Dirk's question to the moderator (line 7) is given with an inquisitive smile face, underscoring the not-being-said aspect of the conversation. This suggests that conceding something positive or of interest about promiscuous girls is something to be oriented to delicately and indirectly. For instance, in line 13, as Dirk attempts yet again to display disinterest, he hedges ('because uh ::: well ::: '), and ends up smiling at <LATEX>B o b \quad a s \quad h e</LATEX> falters to finish his turn. It is as if his soft and hedged account is a way of playing dumb <LATEX>\delta _ { b }</LATEX> crafting a weak denial that is itself designed to concede that there is perhaps something attractive or interesting in a promiscuous girl.
+b7cq | Interestingly, the reasons the boys give for their disinterest have to do with her lack of attractiveness (lines 10, 17-18) and their lack of desperation (line 15). This leaves the possibility that if she were good looking enough and/or if they were more desperate, then they might be interested. As such, their denial of interest is not based in principle, but rather in particular features of the situation. Again, this underscores the concessionary element to their original denial. This is solidified more explicitly in lines 19-21 as Bob momentarily demurs with their denials and concedes that there is, after all, something attractive about this promiscuous girl ('she's got big boobs'). By equivocating back and forth with an 'off-the-record' kind of concessionary hedging and qualification, the boys are able to orient to dual concerns. The concessive repair allows them to interactively negotiate a position of not looking obviously duped into, desperate, or naïve about what might be at stake, while at the same time implying that given the right situation (the girl being attractive or them being more desperate), they would be potentially attracted to a girl whom they have characterized as promiscuous. The careful deployment of concessive repairs allows both positions to remain open; they allow them to appear sexually interested, but also knowing, in control, and thus mature in the way they display heterosexual interest.
+0b39 | Differentiation through caricature
+qecd | In the following excerpt, the boys differentiate themselves from guys who are only interested in girls for their looks. Showing how one does not possess certain features can be a way of differentiating oneself or resisting membership of the social categories indexed by those features (see Widdicombe & Wooffitt, 1995). One way to do this is by 'styling the other' (Rampton, 1999) through actively caricaturing their voices (see Georgakopoulou, 2002). When heard casually, the reported dialogue or 'caricature' can
+1o7p | 2044835x, 2004, 4, Downloaded from https://bpspsychub.onlinelibrary.wiley.com/doi/10.1348/0261510042378281 by <Shibboleth>member@biu.ac.il, Wiley Online Library on [06/12/2023]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+cp13 | Positioning a 'mature' self 485
+bgre | appear to position the 'other' as extreme, absurd, or problematic in some way. But the caricature need not always establish complete differentiation. Depending on its design, it may work selectively to problematize some features of the 'other', while indirectly leaving other features intact. Consider the following excerpt.
+57lp | Excerpt 5
+ukth | Participants: M: Moderator, D: Don, H: Hal, A: Andi
+kpvt | 1 M: okay listen (.) so is it that the girls think that the guys are only looking for looks and =
+jie2 | 3 D: =depends on the guy (.) cause [some ( )]
+d0ik | 5 M: is that a common thing [some guys] just look for looks
+0x0s | 4 A:
+4exe | 7 M very common (1.0) so you think you all are different from these guys
+0myz | 9 ((all three boys nod))
+xh3i | 10 M you think so huh (.) Hal (.) you too
+syiw | H: yeah (.) those guys annoy me actually (.) like the guys that are all OHH she has such a nice bu :: tt (.) OH: I like it so: much' ((laughter, 1.0))
+kg3t | 13 M: now are these also kids in your group
+lvae | 14 D: yeah (.) like we say: that (.) like but if we really wanna go out with em' (.) 15 we like just say Įhey you have a nice ass' (.) just say that and like (.) but 16 DON'T be like THEY: I WANNA GO OUT ((laughter, 1.0))
+```
+
+OUTPUT:
+```

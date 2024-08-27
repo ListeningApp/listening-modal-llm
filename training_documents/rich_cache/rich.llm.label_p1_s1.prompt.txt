@@ -1,0 +1,199 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+1pjs | THE SCIENCE
+o2kr | OF GETTING RICH
+v6sk | R
+1wj6 | Wallace D. Wattles
+936l | Timeless wisdom and a practical, step-by-step prosperity program from a forgotten 1910 classic
+06yq | With a new introduction by Rebecca Fine
+dpv6 | THE
+8r5j | SCIENCE
+2taz | OF
+o3ya | GETTING RICH Wallace D. Wattles
+r5il | @1999 Rebecca Fine. All rights reserved. You are encouraged to share this book in printed or electronic form with as many other people as possible, as long as no changes are made, no fee is charged, and you include all the pages (two appendices at the end).
+5gui | The Science of Getting Rich Network
+82qc | www.scienceofgettingrich.net Download this book. Online discussion groups Audiotape version Free weekly newsletter Workshops Much more!
+ls7d | Mission Statement: To inspire, encourage, and exemplify abundance thinking and a strong sense of self-worth for people of goodwill everywhere.
+tzt3 | Certain Way Productions
+t8vv | 1001 Cooper Point Road SW Suite 140 #345 Olympia, WA 98502 360-427-5514 certain way@scienceofgettingrich.net
+qvnu | Table of Contents
+kggw | Preface vii
+xrd1 | Chapter 1: The Right To Be Rich
+5746 | Chapter 2: There Is A Science of Getting Rich 3
+7toz | Chapter 3: Is Opportunity Monopolized? 5
+j346 | Chapter 4: The First Principle in The Science of Getting Rich 7
+v8uq | Chapter 5: Increasing Life 11
+x972 | Chapter 6: How Riches Come To You 15 Chapter 7: Gratitude 19 Chapter 8: Thinking in The Certain Way 21
+cwrw | Chapter 9: How To Use The Will 25
+4i0e | Chapter 10: Further Use of The Will 29
+h2l3 | Chapter 11: Acting in The Certain Way 31
+dfzb | Chapter 12: Efficient Action
+u6ty | 35 Chapter 13: Getting Into The Right Business
+awvu | 39
+on9b | Chapter 14: The Impression of Increase 41
+a8ge | Chapter 15: The Advancing Personality 43
+h27a | Chapter 16: Some Cautions and Concluding Observations 45
+pdjh | Chapter 17: A Summary of The Science of Getting Rich 49
+xmgs | Appendix A: Support The Network li
+bd9h | Appendix B: Get The Audiotapes liii
+m047 | Note: This book is designed to be printed out, and the page numbers above are correct for that version. When viewing online, Acrobat uses a different system. To read onscreen (not recommended), click on the Table of Contents button on your Acrobat Reader toolbar to bring up Acrobat's Table of Contents. Then, choose one of the three sizing buttons to adjust the page size to your liking. Click on any chapter above to go there.
+gy8c | TofC Button Sizing Buttons
+y4mj | Introduction
+vpgq | ABOUT EIGHTEEN MONTHS AGO, a man I'd never met sent me a book I'd never heard of by a man who'd been dead nearly 90 years.
+ousl | That little book changed my entire life. As I put into practice the principles you'll learn about in this book, the results were astonishing - and they began almost instantly and continue to this day.
+m4ju | When The Science of Getting Rich arrived in the mail that afternoon I immediately ripped open the package, sat down, and read it with an open mind - mostly because the title was just so intriguing. And even though I must admit I found some of the old-fashioned language and some of the ideas in the first part a bit confusing, there was something about it that compelled me to reread those little confus- ing bits two or three times until I got it!
+a0mb | Once I did that, I couldn't stop reading until I'd read the whole thing!
+ki8m | Right away I began to put into practice what the book outlines ... and everything began to change. "Coincidences" happened - happy ones that led to connections with people ... that led to more con- nections ... that led to money beginning to flow toward me in increasingly larger amounts and from several sources, including new and unexpected ones.
+km8w | And even though changing your habitual thinking is difficult and I'm still not as good at it as I intend to be, my businesses began to "click," my income doubled , then tripled, and continues to rise ... my cramped city apartment has given way to a spacious waterfront house ... I've established reward- ing new relationships with many generous, successful, wealthy people ... and opportunities to be, do, have, and give more continue to show up at my doorstep almost daily.
+wzno | It's amazing - and wonderful.
+xagm | Until this book arrived, nothing I had ever read or heard before had explained to me so clearly that there are universal laws at work regarding wealth and success and that if we'll just work with those laws - go with the tide instead of trying to swim against it (usually unknowingly) - the results we want will begin to come to us. That if we will scientifically reproduce the causes of wealth, we will invariably reproduce the results.
+iwn5 | Now, right off the bat author Wallace D. Wattles says that instead of questioning how these prin- ciples work, you'll need simply to accept them and begin to practice them. So I did that, even though as I read I did find myself resisting from time to time and thinking, "Well, I don't know if I can agree with that." But I'd already decided just to accept (at least temporarily) each premise as if I did thoroughly believ it.
+uooz | By the time I finished the book I understood why he had included that warning. You see, some of what you'll read or hear will most likely challenge some of your previous thinking. That seems to be the case for most people. But keep on, and you'll soon see how Mr. Wattles beautifully builds each chapter on what he presents in the preceding ones. I think you'll find yourself saying - as I and many others have - "Oh, now I see why he said that. Now I see how it all fits together."
+pxbq | I believe, also, that you'll find it absolutely refreshing to know that to get rich by the method outlined here, it is essential that you embrace and practice what we all know as the Golden Rule ... that the daily practice of gratitude is one of the conduits by which your wealth will come to you ... and that
+jfsr | www.scienceofgettingrich.net
+u15r | The Science of Getting Rich
+lq35 | by accomplishing your financial dreams through this method, everyone with whom you come into contact will also have more.
+3g9w | A far cry from the dog-eat-dog, claw your way to the top, anything for a buck mentality so many believe to be the only way to wealth.
+d09o | Pay close attention to the message of this book with an open mind. Get a free copy of the entire printed version (what you're reading now) at The Science of Getting Rich Network website - www.scienceofgettingrich.net - and read it. Print it out and give it to your friends. Distribute it on your own website if you like. Join the Network and get the free weekly ezine to share in the insights and amazing experiences of others. Focus constantly on your own personal vision and share that vision with other like-minded people who are doing the same.
+ylhz | You WILL see results!
+a3td | You already have within you everything you need to turn your dreams into reality. You are a person of infinite worth and unique possibility. Even if you don't think of yourself as a creative person, and even if you've failed before, and even if you think you've tried everything, open your mind to this book.
+ex5k | You've probably heard the saying, "When the student is ready, the teacher appears." That has certainly held true for me and many, many others, and perhaps you're ready, too - right now. If you're not yet where you want to be in terms of income and your own personal success, the problem may not be what you're doing so much as how you're doing it. And that begins with how you think.
+9d4o | If you want to change your life, you may just need to change your mind!
+cjq2 | - Rebecca Fine Olympia, WA November, 1999
+5esx | Editor's Note
+m5ka | I've lightly edited the 90-year-old manuscript to accomodate modern readers. Unfortu- nately, though, there is as yet no graceful way in English to avoid completely the use of the masculine gender to represent all people, especially in working with such an old book.
+byu8 | Luckily for us women, we have vast experience in reading ourselves back in - just as we have learned to dance backward! Where it does not interfere with the gracefulness of the writing, I have changed man to person, men to people, and mankind to humankind.
+76b0 | To Mr. Wattles' credit, although writing just after the turn of the 20th century, he makes it clear that The Science of Getting Rich applies equally to men and women alike.
+zxz6 | - Rebecca
+xnth | www.scienceofgettingrich.net
+vafm | Preface
+2zmw | THIS BOOK IS PRAGMATICAL, NOT PHILOSOPHICAL - a practical manual, not a treatise upon theories. It is intended for the men and women whose most pressing need is for money, who wish to get rich first, and philosophize afterward. It is for those who want results and who are willing to take the conclusions of science as a basis for action, without going into all the processes by which those conclusions were reached.
+bf9k | It is expected that the reader will take the fundamental statements upon faith, just as he would take statements concerning a law of electrical action if they were promulgated by a Marconi or an Edison, and, taking the statements upon faith, that he will prove their truth by acting upon them without fear or hesitation. Every man or woman who does this will certainly get rich, for the science herein applied is an exact science and failure is impossible.
+otkr | In writing this book I have sacrificed all other considerations to plainness and simplicity of style, so that all might understand. The plan of action laid down herein was deduced from the conclusions of philosophy. It has been thoroughly tested, and bears the supreme test of practical experiment: It works.
+ibgs | WD Wattles Very Truly yours
+colo | www.scienceofgettingrich.net vii
+d6r4 | CHAPTER |
+9mrz | The Right To Be Rich
+pk06 | WHATEVER MAY BE SAID IN PRAISE OF POVERTY, the fact remains that it is not possible to live a really complete or successful life unless one is rich. No one can rise to his greatest possible height in talent or soul development unless he has plenty of money, for to unfold the soul and to de-velop talent he must have many things to use, and he cannot have these things unless he has money to buy them with.
+7wn9 | A person develops in mind, soul, and body by making use of things, and society is so organized that man must have money in order to become the possessor of things. Therefore, the basis of all advancement must be the science of getting rich.
+wcd0 | The object of all life is development, and everything that lives has an inalienable right to all the development it is capable of attaining.
+caos | A person's right to life means his right to have the free and unrestricted use of all the things which may be necessary to his fullest mental, spiritual, and physical unfoldment; or, in other words, his right to be rich.
+qrvy | In this book, I shall not speak of riches in a figurative way. To be really rich does not mean to be satisfied or contented with a little. No one ought to be satisfied with a little if he is capable of using and enjoying more. The purpose of nature is the advancement and unfoldment of life, and everyone should have all that can contribute to the power, elegance, beauty, and richness of life. To be content with less is sinful.
+pn9j | The person who owns all he wants for the living of all the life he is capable of living is rich, and no person who has not plenty of money can have all he wants. Life has advanced so far and become so complex that even the most ordinary man or woman requires a great amount of wealth in order to live in a manner that even approaches completeness. Every person naturally wants to become all that they are capable of becoming. This desire to realize innate possibilities is inherent in human nature; we cannot help wanting to be all that we can be. Success in life is becoming what you want to be. You can become what you want to be only by making use of things, and you can have the free use of things only as you become rich enough to buy them. To understand the science of getting rich is therefore the most essential of all knowledge.
+1pmc | There is nothing wrong in wanting to get rich. The desire for riches is really the desire for a richer, fuller, and more abundant life - and that desire is praiseworthy. The person who does not desire to live more abundantly is abnormal, and so the person who does not desire to have money enough to buy all he wants is abnormal.
+5z6q | There are three motives for which we live: We live for the body, we live for the mind, we live for the soul. No one of these is better or holier than the other; all are alike desirable, and no one of the three - body, mind, or soul - can live fully if either of the others is cut short of full life and expression. It is not right or noble to live only for the soul and deny mind or body, and it is wrong to live for the intellect and deny body or soul.
+yeoh | The Science of Getting Rich
+b8hf | We are all acquainted with the loathsome consequences of living for the body and denying both mind and soul, and we see that real life means the complete expression of all that a person can give forth through body, mind, and soul. Whatever he can say, no one can be really happy or satisfied unless his body is living fully in its every function, and unless the same is true of his mind and his soul. Wherever there is unexpressed possibility or function not performed, there is unsatisfied desire. Desire is possibil- ity seeking expression or function seeking performance.
+hntf | A person cannot live fully in body without good food, comfortable clothing, and warm shelter, and without freedom from excessive toil. Rest and recreation are also necessary to his physical life.
+99fo | One cannot live fully in mind without books and time to study them, without opportunity for travel and observation, or without intellectual companionship.
+y5r7 | To live fully in mind a person must have intellectual recreations, and must surround himself with all the objects of art and beauty he is capable of using and appreciating.
+lrry | To live fully in soul, a person must have love, and love is denied fullest expression by poverty.
+hvhm | A person's highest happiness is found in the bestowal of benefits on those he loves; love finds its most natural and spontaneous expression in giving. The individual who has nothing to give cannot fill his place as a spouse or parent, as a citizen, or as a human being. It is in the use of material things that a person finds full life for his body, develops his mind, and unfolds his soul. It is therefore of supreme importance to each individual to be rich.
+863b | It is perfectly right that you should desire to be rich. If you are a normal man or woman you cannot help doing so. It is perfectly right that you should give your best attention to the science of getting rich, for it is the noblest and most necessary of all studies. If you neglect this study, you are derelict in your duty to yourself, to God and humanity, for you can render to God and humanity no greater service than to make the most of yourself.
+fj24 | 2 www.scienceofgettingrich.net
+uz3c | CHAPTER 2
+d5bi | There Is A Science of Getting Rich
+ba4l | THERE IS A SCIENCE OF GETTING RICH, and it is an exact science, like algebra or arithmetic. There are certain laws which govern the process of acquiring riches, and once these laws are learned and obeyed by anyone, that person will get rich with mathematical certainty.
+ffx8 | The ownership of money and property comes as a result of doing things in a certain way, and those who do things in this certain way - whether on purpose or accidentally - get rich, while those who do not do things in this certain way - no matter how hard they work or how able they are - remain poor.
+s6su | It is a natural law that like causes always produce like effects, and, therefore, any man or woman who learns to do things in this certain way will infallibly get rich.
+y219 | That the above statement is true is shown by the following facts:
+```
+
+OUTPUT:
+```

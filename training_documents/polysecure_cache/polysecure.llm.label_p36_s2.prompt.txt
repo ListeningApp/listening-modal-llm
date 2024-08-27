@@ -1,0 +1,150 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+3iir | FROM DYSFUNCTION TO DESIRE
+7a0a | Another way to conceive of the attachment dimensions is not through their "dys- functions," but through their strengths and desires. Defining the attachment styles through the dimensions of attachment avoidance and attachment anxiety can easily paint a bleak picture of dysfunction and leave people focusing on what's "wrong" with them. Based on this two-dimensional model, even a secure attachment, which is revered as the desired goal, is just being framed as how low in attachment anx- iety and attachment avoidance it is, instead of being presented in its fullness with all the positive strengths and capacities that this attachment style embodies.
+o1qp | Let's take a person with a dismissive style as an example and look at how nega- tive framing works. Because they're high on the avoidance axis and low on the anx- iety axis, someone with a dismissive style is likely to use distancing and deacti- vating strategies when faced with relationship challenges. On the other end of the spectrum, someone in the preoccupied style sits low on the avoidance axis and high on the anxiety axis. Their strategies look more like hyperactivation and pur- suing their partner in moments of relationship pain.
+jrik | But we don't need to only use this negative framing of how these attachment- based emotional tendencies often play out. If instead of looking at how people with
+xv78 | these insecure attachment styles jump to using either hyperactivating or deacti- vating strategies, we were to measure their levels of attachment avoidance or at- tachment anxiety, we can explore the positive aspects of these styles. Each of the different styles comes with its own strengths and values. The insecure attachment styles are not just survival strategies that kick into gear in response to attachment rupture or relationship distress. At their root, they can also be expressions of the essential human desires for autonomy and connection.
+sdks | On one hand we have the need for agency, independence and choice, and on the other hand we have the need for closeness, connection, support and union. Ken Wilber, creator of integral theory, sees the horizontal dimension, the "anxiety" axis on the diagram above, as relating to drives that we all share. The basic human drive for agency sits on one end of the spectrum, and the equally human drive for communion sits at the other. All people, regardless of sex or gender, share these internal energies, capacities and drives for both autonomy and connection.
+y8fb | From this perspective, the dismissive style, which uses minimizing and dis- missing strategies to dampen and cope with attachment distress, can also be seen as the strategy of someone who, when in less reactivity, is more aligned with their needs for autonomy and agency. In its healthier expression, people with a higher draw to autonomy can exhibit more highly developed abilities for self-sufficiency and competence in tending to the needs of the practical, logistical and material as- pects of the world. They have the ability to compartmentalize emotions, which can be a very handy skill in certain circumstances. When these needs move too far out- side of their healthy expressions, agency and autonomy can transform into feeling alienation and isolation, becoming emotionally unreachable, or refusing or even denying the need for connection or help from others. A person's boundaries can get too rigid, and they may shut others out and shut themselves too far in. When this happens, the values of autonomy and agency distort into more of a reactive strategy than a skillful expression of a person's needs.
+521q | Here's another example. The preoccupied style is based on hyperactivating strategies in response to attachment distress, and people with this style are often
+yogo | portrayed as being needy and codependent. But when someone is in the healthy range, this style can be reframed as being more aligned with the values of connec- tion and togetherness. People with this style can have highly developed skills when it comes to identifying and attuning to the emotions of others, and they can be highly competent in tending to others' needs and handling the responsibilities of interpersonal relationships. When this goes too far, straying from its healthy ex- pression, a person's communing drives can become unhealthy forms of enmesh- ment and fusion. They may lose themselves in a relationship and see a decreased ability to truly know themselves or even make up their own minds.
+2285 | Connection
+ys0g | Fusion
+7zvp | Autonomy
+ww6u | Isolation
+hpi6 | FIGURE 2.2: How the values and drives for agency and communion can go beyond their healthier manifestations and turn into either self-alienation or self- abandonment.
+4uhb | To navigate our relationships from a place of health and wholeness, we need to learn how to manage these seemingly contradictory drives. We need to find ways to feel sovereign without losing our connection to others, and to be in communion with others without losing our sense of self. The healthy range on this spectrum corresponds to the skills and abilities of the secure attachment style, where a per- son is able to embrace their autonomy without fear of abandonment, as well as dive deep into intimacy and connection without the concern of engulfment.
+epyi | Attachment researcher Mary Main posits that, in childhood, secure attachment arises when a parent responds in a sensitive way to their child's need for both autonomous exploration and proximity and comfort.30 The dismissive attachment style results from parents who discourage their child's proximity-seeking attach- ment behaviors, and the preoccupied attachment style develops from the expe- rience of having parents who discourage autonomy. Being open and responsive to the full spectrum of our attachment needs is important for embodying the fullness of our emotional capacities as adults.
+y51p | A common predicament that arises in relationships is referred to as the dis- tancer-pur-suer dance. In this type of relationship, a person pairs up with their ostensible opposite from an attachment perspective, so one partner (the distancer) constantly seeks more space, while the other (the pursuer) constantly pursues more connection. As the distancer attempts to take physical or emotional space, the pursuer moves in closer to try to bridge the gap. The closer that the pursuer comes, the more the distancer pulls back, which then provokes the pursuer to move in even more. The pursuer never catches up, while the distancer never fully gets the breathing room they need. The pursuer fears that they will be abandoned, while the distancer fears being engulfed.
+x95m | In this dance, both partners are left frustrated and unable to get their needs met, often missing that this archetypal pattern has more to do with their inner self than their partner, who is just serving as a mirror reflecting back the parts of them that have been exiled and disowned. The distancer has cast off the parts of their self that yearn for closeness and connection and that desperately fear being aban- doned. They are drawn to the pursuer, who will act these needs and fears out for them so that the distancer doesn't have to. The pursuer, in turn, has projected out- ward the parts of their self that crave autonomy and independence and that are actually afraid of truly being vulnerable, being seen and being close. The pursuer is drawn to the distancer, who will act out these needs and fears for them so that they don't have to. They are both trying to achieve wholeness, which is what keeps them dancing, but it's the dance itself that prevents them from taking responsibility for the parts of themselves they have disowned; they instead blame their partners for enacting these elements of themselves.
+yfum | When I began working with these aspects of autonomy and connection within myself, I came across the dilemma of how to bring these two poles together. Ini- tially, when I conceived of these drives as existing on a spectrum, they often felt in opposition to each other, with only one need or drive being attainable at a time, usually at the expense of the other. How could I inch myself more towards communion without compromising my integrity, and how could I move more
+ppx4 | towards my independence without compromising my connections? So, when in doubt, I've learned it can be useful to switch metaphors. Instead of seeing these needs and attachment expressions as existing on a continuum, a two-dimensional space in which you can only occupy one position at a time, what if we conceive of the needs for autonomy and connection as the two reins of secure functioning? When riding a horse, we use two reins to control and direct the horse. If we want to turn left, we tighten our grip to tug on the left rein, simultaneously loosening the other rein. We do the opposite to move right. The terrain ahead is constantly changing, and so the reins in our hands are constantly readjusting. With time and practice, we gain the ability to simultaneously tighten and loosen the reins without tightening so hard that we hurt or jerk the horse, or loosening so much so that communication and direction are lost.
+qf11 | To best respond to whatever arises in front of us day by day or even moment by moment, we sometimes need to tighten up on the reins of autonomy, while loos- ening the reins of connection. In other moments, we tighten the connection reins, moving in closer to our partners while releasing the autonomy reins. In her book Mating in Captivity, Esther Perel warns us how too much closeness can collapse into fusion and that too much distance impedes connection. She advises that we need both separateness and connection for intimacy and eroticism, so when it comes to secure functioning, I would say that we must be able to "straddle" both of these needs simultaneously. With practice, we learn that autonomy and connec- tion aren't an either/or experience but a both/and experience. We can be both dif- ferent and connected. With practice we can also learn how to ebb and flow between the two states with more skill and grace, using both reins simultaneously to em- brace both our independence and our dependency, our autonomy and our connec- tion.
+8oqt | BOUNDARIES AND THE GIVING AND RECEIVING OF LOVE
+6zah | Our boundaries are the ways we protect ourselves physically, mentally and emo- tionally. They are how we establish our sovereignty, as well as how we open our- selves to others. Our boundaries are the meeting point between ourselves and
+4v5o | another-the point at which we can be both separate and connected. Our bound- aries guide us in navigating our relationships and they are directly related to the ways in which we are able to give and receive love. When we've experienced attach- ment wounds as children or adults, we can experience disruptions in our ability to give love, receive love, or both. If connection and love from our caretakers was ab- sent, inconsistent or dangerous, we may want love from others, but then have diffi- culty fully letting it in. We can struggle to believe that it is safe and real, that it doesn't have strings attached, and that it's here to stay (or at least that it won't im- mediately leave). It can be extremely vulnerable to try to let people into the deeper places and we may not even allow ourselves to go there. Soaking up the love from our partners and allowing it to penetrate into our bones and cells can be foreign and frightening.
+ha9e | Giving love can also feel problematic when we have attachment wounds. We are unsure whether our partners will receive it, see it as enough, reject it, take it for granted or take advantage of it. We might wonder whether our love will be recip- rocated or if we will we be left standing on the relational edge alone? Giving love can be just as vulnerable as receiving it because when we give, we are taking the risk of revealing our hearts. We're declaring our desire to be close to someone and we are potentially exposing our limitations in the process.
+xrnt | When we have attachment insecurity we may find ourselves struggling on both the giving and receiving ends. We may either over-take or under-take from others, as well as over-give or under-give to our partners. All these are forms of boundary issues.
+c8ra | In the book Loving Bravely, Alexandra H. Solomon defines healthy boundaries as the balancing point where you are able to both connect to another as well as be separate from another, maintaining your own energy and sense of self while your partner maintains the energy that is theirs. Similar to how we need both autonomy and connection to be in secure functioning, we need to have connection and protec- tion in concert with each other to maintain healthy boundaries. Our boundaries begin to become unhealthy when we're either underprotected or overprotected
+p1l0 | towards others, as well as when we're being too connected or not connected enough. Solomon further describes boundaries as either being too porous or too rigid in terms of what we allow in from others and how we give outwardly to others. Porous boundaries arise when we are connected but not protected, and rigid boundaries stem from being protected, but not connected.
+1i8b | Input
+5sfj | Output
+vk4h | We share our feelings, opinions and perspectives, while respecting and allowing others to be distinct and separate from us. We can give to others.
+nsm3 | Healthy Boundaries We can connect with others,
+jdfw | Being connected and while also maintaining our protected. sense of self. We can take in love from others.
+uc9r | Over-receiving: We absorb and lose our sense of self.
+l0ap | Over-giving: We intrude onto others, inserting our thoughts, feelings, opinions, perspectives or sense of self into them.
+x815 | Porous Boundaries
+epbj | Being connected but allow in what is not ours. We not protected.
+nmn2 | Under-receiving: We block out the input and love of others. ourselves from expressing or giving to others.
+g3tm | Under-giving: We restrain
+tfra | Rigid Boundaries Being protected but
+5lm9 | not connected.
+wp2c | TABLE 2.1: Healthy, porous and rigid boundaries, adapted from Loving Bravely by Alexandra H. Solomon.
+us5v | Porous Boundaries
+rs2m | According to Solomon, when our boundaries are porous on the input, we are ab- sorbing, and when they are too porous on the output we are intruding. When our boundaries are porous from the outside in, we are being too wide open. We let other people's thoughts, opinions, preferences and judgments eclipse our own
+uz9y | inclinations, wisdom or better knowledge. Absorbing is when we take in what is not ours, when we lack enough self-definition that we leave ourselves underprotected while being over-connected. When our boundaries are porous from the inside out, we become intrusive to others, trying to inhabit their skin or meddling too much in their business. We are intruding when we give unsought advice or tell people what they should or shouldn't do in the name of helping them. Usually the help we're offering was either unsolicited or not a match to what the other person actually needs. Intruding also includes crossing or ignoring other people's boundaries, especially when those lines have been articulated. In both cases of porous bound- aries, we may find ourselves feeling overly responsible for others, either absorbing or intruding in order to fix, accommodate, people please or overcompensate.
+8ov0 | Rigid Boundaries
+mj9m | Rigid boundaries are a sign that we are overfocused on protection without allowing sufficient connection. When our boundaries are rigid on the input, we are blocking and when they are too rigid on the output we are restraining. When our boundaries are rigid from the inside out we are obstructing input from others, whether that is their love, attention, feedback or requests. When blocking, we are guarding what comes in and disallowing the influence of others, usually from fear of being hurt or attacked. When blocking, we can come off as prickly, abrupt, edgy, defensive, frozen or withdrawn. When our boundaries are rigid from the inside out we restrain ourselves from expressing what is true for us internally. We restrain our feelings (positive or negative), thoughts, preferences, requests and even the affection we have for others. Restraining is usually the result of feeling unsafe in expressing our- selves, so we instead hold back and hold in to try to stay protected at the expense of being connected. In either version of rigid boundaries, we are holding tight to our emotional armor, restricting the flow of love and expression coming in or out. Questions to Consider
+94h3 | . How do you find yourself over-giving in relationships? What beliefs about yourself play into this? What beliefs about others play into this?
+```
+
+OUTPUT:
+```

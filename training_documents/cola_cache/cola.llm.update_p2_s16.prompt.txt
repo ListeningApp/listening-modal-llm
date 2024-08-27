@@ -1,0 +1,82 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document. Your task is to faithfully reproduce the text for our text-to-speech engine so that it is easily read aloud.
+
+Note that the text might not start at the beginning and paragraphs may be split acrosss multiple textboxes. Textboxes may start or end in the middle of a word which is acceptable: do not combine text between textboxes and leave broken words at the start and end of a textbox unchanged.
+
+You will receive one textbox per-line in the format `id | Textbox content`. The output must be in the format `id | Clean content`.
+
+RULES:
+ • Remove inline citations and references e.g. "(Author, 2021)" or "(https://wikipedia.org/article.html)" or "[ECMOS 35b, 47, 49]".
+ • Spell out numbers, dates, and chemical formulas for the TTS engine e.g. "-2.5" -> "negative two point five" or "Jan. 2020" -> "January twenty twenty".
+ • Spell out LaTeX formulas for the TTS engine e.g. "<LATEX>p = 1</LATEX>" -> "P equals one".
+ • Rejoin hyphenated word fragments within the same textbox e.g. "synth -esize" -> "synthesize".
+ • Fix simple typos and OCR errors e.g. "O nce upon a 1ime." -> "Once upon a time.".
+ • Delete nonsequiter textboxes that interrupt the middle of a sentence if they obviously do not belong.
+
+Otherwise, the output should exactly match the input text:
+ • Do not combine text across lines or attempt to fix words broken across lines.
+ • Ensure each ID from the input is included in the output.
+ • Make as few changes as possible while respecting the above rules.
+
+EXAMPLE INPUT:
+```
+ccpt | stigate the effectiveness of psychedelics for ADHD symp- toms in adults.
+0fpw | 2. Materia1 and methods
+dqn8 | 2.1. Study design and participants
+cop0 | The study employed a naturalistic design, assessing the experiences of participants at bas-,
+lhkq | eline before they start, and at 2 and 4 weeks after initiation. The target population included adults with ADHD symptoms who had not been diag- nosed with ADHD before. To be included, participants needed to score on Conner's Adult ADHD Rating Scale (CAARS-S:SV). This cut-off was indicative of clinically elevated symptoms (Conners et al., 1999) (see section 2.3).
+82ju | 2.2. Study procedure
+y2qo | The online advertisement was placed on a website providing information about psychedelics (www.microdo sing.nl). Interested participants were redirected to information explaining the study rationale and procedure. The baseline survey took 20 min to complete. If the survey had not been completed after 24 h, a reminder was sent. Each of the surveys at the 2- and 4-week time points took about 15 min to complete. Par- ticipants were able to pause the surveys. Data collection occurred between Nov. 2020 and Jul. 2021. The study was approved by the Ethics Review Committee of Psy- chology and Neuroscience at Maastricht University (ERCPN- 215_05_11_2019_A1).
+1piq | 2.3. Measures
+7fqw | 2.3.1. Demographic information and history of substance use
+rhaz | At baseline, demographic information was collected. History of substance use assessed experience with psyche- delics (i.e., ayahuasca, DMT, 5-MeO-DMT, LSD, novel lysergamides (e.g., 1P-LSD, ALD-52), psilocybin, salvia divinorum, ibogaine, and mescaline) in both full (psychedelic) doses and microdoses.
+wak1 | 2.3.2. Psychiatric and physiological diagnoses
+wtfz | Participants were asked whether they had a current diagnosis of a disorder. These answer options were chosen because most of the listed diagnoses are often reported to co-occur with ADHD (Kooij et al., 2019), or because these diagnoses were reported to be common in people who microdose (Fadiman and Korb, 2019). We 
+3j2l | REVIEW ARTICLE Frontiers in Psychiatry | www.frontiersin.org
+03k3 | 2
+1k9e | constructed a variable Comorbidity alongside ADHD, differenti- ating respondents with and without a comorbid diagnosis alongside ADHD (<LATEX>p < . 0 0 1 =</LATEX> only ADHD or no ADHD diagnosis; <LATEX>p > . 0 1 =</LATEX> ADHD and at least one other diagnosis). We constructed a variable Medication use alongside microdosing, differentiating respondents who were and were not using conven- tiona1 ADHD medication alongside microdosing (<LATEX>0 =</LATEX> only microdosing; <LATEX>1 =</LATEX> conven-
+```
+
+EXAMPLE OUTPUT:
+```
+ccpt | stigate the effectiveness of psychedelics for ADHD symptoms in adults.
+0fpw | Two. Material and methods
+dqn8 | Two point one. Study design and participants
+cop0 | The study employed a naturalistic design, assessing the experiences of participants at bas-,
+lhkq | eline before they start, and at two and four weeks after initiation. The target population included adults with ADHD symptoms who had not been diagnosed with ADHD before. To be included, participants needed to score on Conner's Adult ADHD Rating Scale. This cut-off was indicative of clinically elevated symptoms (see section two point three).
+82ju | Two point two. Study procedure
+y2qo | The online advertisement was placed on a website providing information about psychedelics. Interested participants were redirected to information explaining the study rationale and procedure. The baseline survey took twenty minutes to complete. If the survey had not been completed after twenty-four hours, a reminder was sent. Each of the surveys at the two and four-week time points took about fifteen minutes to complete. Participants were able to pause the surveys. Data collection occurred between November twenty twenty and July twenty twenty-one. The study was approved by the Ethics Review Committee of Psychology and Neuroscience at Maastricht University.
+1piq | Two point three. Measures
+7fqw | Two point three point one. Demographic information and history of substance use
+rhaz | At baseline, demographic information was collected. History of substance use assessed experience with psychedelics (i.e., ayahuasca, DMT, five-MeO-DMT, LSD, novel lysergamides (e.g., one-P-LSD, ALD-fifty-two), psilocybin, salvia divinorum, ibogaine, and mescaline) in both full (psychedelic) doses and microdoses.
+wak1 | Two point three point two. Psychiatric and physiological diagnoses
+wtfz | Participants were asked whether they had a current diagnosis of a disorder. These answer options were chosen because most of the listed diagnoses are often reported to co-occur with ADHD, or because these diagnoses were reported to be common in people who microdose. We
+3j2l |
+03k3 |
+1k9e | constructed a variable Comorbidity alongside ADHD, differentiating respondents with and without a comorbid diagnosis alongside ADHD (P is less than point zero zero one equals only ADHD or no ADHD diagnosis; P is greater than point zero one equals ADHD and at least one other diagnosis). We constructed a variable Medication use alongside microdosing, differentiating respondents who were and were not using conventional ADHD medication alongside microdosing (zero equals only microdosing; one equals conven-
+```
+
+INPUT:
+```
+bqfb | The sequences of androgen receptor primers (Gene ID: NM_013476.4) were forward primer: 5'- aagagacgaggaggcaggata-3' and reverse primer: 5'- gccgggaggtgctatgttag-3' (17, 18); mouse beta- actin (NM_007393) forward primer sequence: 5'-gtatgcctctggtcgtacca-3' and Reverse primer primer sequence: 5'-ttgctgacaggatgcagaag-3'; mouse glyceraldehyde-3-phosphate dehydrogenase (GAPDH, NM_008084.2) forward primer sequence: 5'- cttcaacagcgacactcactct-3' and reverse primer sequence: 5'- ccaccaccctgttgctgta-3'. The expression level of androgen receptor mRNA was determined using qRT- PCR. The level of every group was assessed by the 2- AACT method and normalized to beta-actin of CG on day 0. Each sample was executed in triplicate.
+wwdt | Western blot analysis of androgen receptor protein in testes
+mn1r | Western blot was performed so as to evaluate the expression levels of androgen receptor (AR) protein in testis tissues after Pepsi-Cola and Coca-Cola treatment. Summarily, the polyvinylidene fluoride membranes (PVDF) were incubated with Anti-AR antibody (Sigma, diluted 1:500) and ß-actin (1:1000, ab8227, USA) polyclonal antibodies at 4 ℃ overnight, before being exposed to the appropriate secondary antibody (1:2000) for 1 h. Monoclonal antibody (1:10 k) of mouse anti-ß-actin was used as a control. The integrated optical densities (OD) of image bands were determined using Quantity One software (Bio-Rad, Hercules, CA, USA). Expression of AR protein was measured as grey value ratio between target band and ß-actin band. The negative control was set without primary antibody.
+5vqw | Carbonated beverages effects on androgen receptor in mice
+meyw | Statistical analyses
+2e62 | All variables of three groups complied with the assumptions for an one-way ANOVA using SPSS v. 20.0. Then, Tukey's post-hoc tests were done to compare pair wise differences after significant differences were identified. Significance level was
+75y3 | The testes weights of PEP-2, COC-1 and COC- 2 were significantly increased on day 15 (P<0.05) as compared to PEP-1 and CG (Table 1). The outcomes demonstrated a high dose of Pepsi-Cola or Coca-Cola could promote testis growth and development.
+s2g2 | Data in Table 2 showed that TLD values of four experimental groups were elevated as compared to CG on days 10 and 15. TLDs of COC-2 and PEP-2 were significantly greater than that of CG. On day 15, TTD values of COC-2 and PEP-2 were also larger than that of CG, COC-1 and PEP-1 groups. The results indicated that higher doses of Pepsi-Cola and Coca-Cola could enhance the testis longitudinal and transverse diameter, and then they promoted testis growth of mice.
+q1q2 | As shown in Figure 1A, the concentrations of serum testosterone in all mice were enhanced after the Pepsi-Cola and Coca-Cola treatment. Serum testosterone
+cb7r | concentration of PEP-2 was higher than that of other four groups. On days 10 and 15, there were significant differences between PEP-2 and CG. Serum testosterone concentration of COC-2 was also higher than that of CG <LATEX>\left( \mathrm { P } < 0 . 0 5 \right) .</LATEX> The outcomes indicated that high doses of Pepsi-Cola and Coca-Cola could improve testosterone secretion of male mice.
+68xu | Data in Figure 1B showed that the serum concentrations of epidermal growth factor (EGF) of treatment groups were slightly increased as compared to CG on days 10 and 15. EGF concentrations of PEP-2 and COC-2 were significantly higher than CG (P<0.05) on day 15,. The results demonstrated a high dose of Pepsi-Cola and Coca-Cola could raise EGF activity.
+hd35 | Expression levels of AR mRNAs in mouse testes were detected using qRT-PCR so as to assess the FRBI influences on s of AR mRNAs. As shown in Figure 2, expressions of AR mRNAs in four treatment groups were increased. On day 15, increments of COC-1, COC-2, PEP-1 and PEP-2 mice were 60.18%, 67.26%, 65.93% and 78.76% <LATEX>\left( \mathrm { P } < 0 . 0 5 \right)</LATEX> on the bases of the CG level. Pepsi-Cola and Coca-Cola could enhance expressions of AR mRNAs in the testes of mice.
+2zpk | Expression levels of androgen receptor (AR) proteins in CBs-treated mice were increased (Fig. 3) in comparison with CG. On day 15, AR proteins levels of PEP-2 and COC-2 mice were increased as compared to CG (P<0.05). A high concentration of Pepsi-Cola and Coca-Cola could accelerate expressions of AR protein in the testes of mice.
+epu7 | DISCUSSION
+7od1 | Currently, carbonated beverages (CBs), are daily consumed by many people worldwide (3, 19). CBs have been a deleterious key factor along with their consumption increase. The overweight, obesity, diabetes and endocrine disorders are associated with massive consumption of CBs (2, 20). CBs harmfully affect reproduction functions (21, 22). A survey of 2500 men indicated that the sperms
+0bqy | quantity was reduced by 30% after men drank 1 liter cola beverage every day as compared to those without drinking any CSD. The oxidants and additives in CBs result in proteins oxidation, cell damages (15) and reduce sperm motility (23).
+b780 | In our study, we found that testes masses of PEP-2, COC-1 and COC-2 groups were increased in comparison with PEP-1 and CG (P<0.05) on day 15. The testes longitudinal and transverse diameters become larger as compared to CG. Our initial experiments demonstrated that Pepsi-Cola and Coca-Cola could reduce ovarian weight, inhibited the development of follicles and oocytes. Pepsi-Cola and Coca-Cola obviously reduced pregnancy rate and fetus numbers of female mice, such affected reproduction behaviors
+ccmb | of female mice (11). Our results revealed serum EGF contents of COC-2 and PEP-2 were higher than that of CG. These findings demonstrated high doses of Coca- Cola and Pepsi-Cola could enhance EGF activity and testosterone secretion. These are in agreement with our previous study in rabbits (12). However, the effects have to be deeply studied. Its mechanisms also have to be further explained in other mammals in the future (5).
+ma93 | Androgen and its receptor (AR) affect the development of normal prostate and prostate cancer (24). In the present study, we investigated the effects of Coca-Cola and Pepsi-Cola on androgen receptor (AR) expression levels in the mouse testes. The findings indicated AR mRNA and protein levels of the CBs- treated mice were strikingly increased when compared
+```
+
+OUTPUT:
+```

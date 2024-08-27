@@ -1,0 +1,140 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+1pjs | Journal of Economic Perspectives-Volume 25, Number 3-Summer 2011-Pages 3-16
+o2kr | Why Economists Should Conduct Field Experiments and 14 Tips for Pulling One Off
+v6sk | T he experimental approach has been a cornerstone of the scientific method for centuries. In one classic 1882 example, Louis Pasteur desig- nated half of a group of 50 sheep as controls and vaccinated the other half. All animals then received a lethal dose of anthrax. Two days after inocula- tion, every one of the 25 control sheep were dead whereas the 25 vaccinated sheep were alive and well!
+1wj6 | However, many economists have long been pessimistic that an experimental approach could offer such vivid illustrations of cause and effect in their field. For example, Samuelson and Nordhaus (1985) wrote in their introductory economics textbook a quarter-century ago:
+936l | The economic world is extremely complicated. There are millions of people and firms, thousands of prices and industries. One possible way of figuring out economic laws in such a setting is by controlled experiments. A controlled experiment takes place when everything else but the item under investiga- tion is held constant. Thus a scientist trying to determine whether saccharine causes cancer in rats will hold "other things equal" and only vary the amount of saccharine. Same air, same light, same type of rat.
+06yq | 4 Journal of Economic Perspectives
+dpv6 | Economists have no such luxury when testing economic laws. They cannot perform the controlled experiments of chemists or biologists because they cannot easily control other important factors. Like astronomers or meteorolo- gists, they generally must be content largely to observe.
+8r5j | In my own travels, I have often found similar skepticism. However, such skepti- cism has become more muted in recent decades as experimental methods have found a foothold in economics. In fact, complications that are difficult to under- stand or control represent a key reason to conduct a field experiment rather than a reason for skepticism. This is because field experiments use randomization as an instrumental variable, balancing the unobserved variables across the treated and control states.
+2taz | In this introduction to the symposium, I first offer an overview of the spectrum of experimental methods in economics, from laboratory experiments to the field experiments that are the subject of this symposium. I then offer some thoughts about the potential gains from doing economic research using field experiments and my own mental checklist of 14 steps to improve the chances of carrying out an economics field experiment successfully.
+o3ya | The Spectrum of Experimentation in Economics
+r5il | Within economics, much experimental research has taken the form of labo- ratory experiments in which student volunteers gather in a research lab to make decisions. This work draws on the legacy of Vernon Smith, who shared the 2002 Nobel Prize in economics for, in the words of the Nobel committee, "having established laboratory experiments as a tool in empirical economic analysis, especially in the study of alternative market mechanisms" (Nobelprize.org, 2011). Work using labo- ratory experiments has offered a variety of insights. For example, Smith's research illustrated the robustness of market mechanisms in reaching an equilibrium price, showed the effect of institutions on allocations, and explored the formation and dissolution of asset bubbles in markets, among other lessons.
+5gui | However, results in laboratory economics are inevitably subject to questions over the extent to which they generalize to non-laboratory settings. One concern is that such experiments are often done with college students as subjects. During my time in 2002-2003 at the Council of Economic Advisers, as I was urging my colleagues to take account of certain laboratory experimental results in our revi- sions of the Federal Benefit/Cost Guidelines, an official from the White House responded with some phrases that have been etched in my mind ever since: "even though these results appear prevalent, they are suspiciously drawn . . . by methods similar to scientific numerology . . . because of students . . . who are not real people."
+82qc | A natural response to this concern is the "artefactual field experiment," which mimics a lab experiment except that it uses "nonstandard" subjects, in the sense that the subjects are not students, but participants drawn from the market of interest.
+ls7d | John A. List
+tzt3 | 5
+t8vv | Drawing from the Oxford English Dictionary, Glenn Harrison and I (2004) adopted the term "artefactual" to denote such studies-meaning that they are an empirical approach created by the experimenter that is artificial or synthetic in certain dimensions.1 In the past decade, artefactual field experiments have been fruitfully used in financial applications, public economics, environmental economics, and industrial organization, and to test predictions of game theory. In my own work, I have invited participants as varied as chief executive officers, farmers, traders from the Chicago Board of Trade and other trading outfits, as well as politicians into the laboratory for experiments. Similar work has been done more recently within development economics, where scholars have taken the laboratory tools to the field and examined behavior in a controlled setting. For instance, Henrich et al. (2005) looked at ultimatum games and dictator games in 15 different countries; Cardenas (2004) used a game that involved paying for common goods in dozens of rural communities in Colombia; and Carpenter, Daniere, and Takahashi (2004) generated data from a game that involves making contributions to a public good in Vietnam and Thailand.
+qvnu | Of course, a plausible concern about laboratory experiments in economics, whether the participants are students or others, is the extent to which the results are influenced by the laboratory setting. A "framed field experiment" resolves such issues by conducting a structured experiment in the natural environment of the subject rather than in the laboratory. Glenn Harrison and I denoted it "framed" because the research experiment is framed in the field context of the commodity, task, stakes, or information set of the subjects. Social experiments are a type of framed field experiment in that subjects are aware that they are taking part in an experiment and in many cases understand that their experience is for research purposes. In Europe, early social experiments included electricity pricing schemes in Great Britain in the late 1960s.
+kggw | The first wave of social experiments in the United States began in earnest in the late 1960s and included government agencies' attempts to evaluate programs by deliberate variations in policies (Hausman and Wise, 1985). Other prominent social experiments include the negative income tax experiments done in four main groups across the United States in the 1970s, which looked at how labor supply responded to a gradual phase-out of welfare benefits; the RAND health insurance experiments in the 1970s, which examined how households responded to different levels of copayments and deductibles in their health insurance; the experiments with work requirements for welfare recipients in the 1980s and early 1990s; and the Moving to Opportunity experiment in the 1990s and 2000s, in which some welfare recipients were given the option of moving to nonpoverty neighborhoods. These
+xrd1 | 6 Journal of Economic Perspectives
+5746 | experiments have had an important influence on policy and have generated much academic debate.
+7toz | Framed field experiments have also been used in smaller-scale settings. Peter Bohm (1972) was an early experimenter to depart from traditional laboratory economics methods with an experiment on the willingness to pay for a public good-in this case, a highly anticipated new television show that was being broad- cast on Sweden's one television station in 1969. While Bohm's work touched off an interesting stream of research within environmental and resource economics, for reasons I cannot guess, the broader economics literature did not quickly follow Bohm's lead to pursue research outside of the typical lab experiment.
+j346 | More recent examples of framed field experiments within economics include my study with Jason Shogren exploring the efficacy of the contingent valuation method to estimate economic values of nonmarketed goods and services (List and Shogren, 1998); Lucking-Reiley's (1999) study testing theoretical predictions concerning various auction formats; and Fryer's (2010) study of students' responses to an experiment offering some of them financial incentives for good academic performance. More recently, the wave of field experiments or "randomized control trials" executed in developing countries are often framed field experiments, which typically are geared toward advancing policy (for example, Kremer, Miguel, and Thornton, 2009; Duflo, Dupas, Kremer, and Sinei, 2006).
+v8uq | Of course, a plausible concern is that when subjects know they are participating in an experiment, whether as part of an experimental group or as part of a control group, they may react to that knowledge in a way that leads to bias in the results. A "natural field experiment" occurs in the environment where the subjects are natu- rally undertaking certain tasks, and where the subjects do not know that they are participants in an experiment. Such an experiment combines the most attractive elements of the experimental method and naturally occurring data: randomization and realism.
+x972 | By combining randomization and realism in this manner, natural field experi- ments provide a different parameter estimate than do laboratory, artefactual, and framed field experiments. One possible source of bias in these other experimental approaches is that generally the subjects who choose to participate in the experi- ment are those who expect to gain the most (perhaps because they believe they are likely to get good results from the treatment). As a result, the estimated causal effect from these other experimental types, while valid, might not generalize to the target population of interest-which of course includes the subpopulation (often the majority) that did not volunteer for the experiment when offered the opportunity.
+cwrw | Natural field experiments address this problem. Because subjects do not make a choice about whether they will participate, the treatment effect obtained from natural field experiments is, in the best-case scenario, an estimate that is both causal and broadly generalizable (in Al-Ubaydli and List, 2011, my coauthor and I offer a formal treatment). Put simply, since participants in the natural field experiment are a representative, randomly chosen, non-self-selected subset of the treatment population of interest, the causal effect obtained from this type of experiment is
+4i0e | Why Economists Should Conduct Field Experiments and 14 Tips 7
+h2l3 | the average causal effect for the full population-not for a nonrandom subset that choose to participate.
+dfzb | Natural field experiments have recently been used to answer a wide range of questions in economics. By now, natural field experiments have touched nearly every subfield of economics. Papers in this symposium reveal how they have affected our understanding of theories in labor economics as well as in industrial economics. In List (2006a), I review a broader set of my own natural field experiments that have: 1) explored the economics of charity, 2) extended Vernon Smith's seminal work to explore market mechanisms in the field, 3) measured preferences to advance our knowledge of issues ranging from benefit-cost analysis to why people discriminate in markets, and 4) provided a means to test the implications of behavioral and neoclassical theories.
+u6ty | Natural field experiments have addressed many other areas as well. More recent examples of clever natural field experiments include those of Karlan and Zinman (2009), who use variations in how credit is provided in a developing country context to explore tenets of principal-agent theory. Using door-to-door salespeople in Zambia, Ashraf, Berry, and Shapiro (2010) explore how product pricing affects not only the quantity purchased, but also whether the product is ultimately used by the consumer. Finally, Hossain and Morgan (2006) use an Internet natural field experiment to examine how treatment of shipping and handling charges affects on-line shopping.
+awvu | Although my discussion in this section divides experimental studies according to whether they are artefactual, framed, or natural field experiments, these lines can become blurred. Indeed, in List (2004), I present a series of field experiments-from artefactual to framed to natural-in an actual marketplace to provide an empirical framework for disentangling the animus and statistical theories of discrimination. In some cases, comparing behavior across different kinds of field experiments permits crisp insights into whether behavior is different across the lab and the field, and why such differences exist. In List (2006b), I used a similar approach, parsing the roles of gift exchange and strategic reciprocity in markets to explore whether, and to what extent, fairness concerns affect actual market transactions.
+on9b | Over the past decade or so, field experiments in economics have matured to the point that they now readily 1) measure key parameters to test theory and, when the theory is rejected, provide information to inform a new theory; 2) extend to both nonprofit and for-profit firms; 3) aid in bridging laboratory and nonexperimental data; and 4) inform policymakers. A snapshot of this work is cited and discussed in the three papers in this symposium.
+a8ge | What Happened to Informed Consent?
+h27a | What issues arise when experimenting with subjects who do not know that they are part of an experiment? I have discussed this issue elsewhere-List (2008) and Levitt and List (2009)-but it is worth briefly summarizing some of those
+pdjh | 8 Journal of Economic Perspectives
+xmgs | thoughts here. The Nuremberg Code of 1947 was created as a way to prevent the sorts of immoral experiments conducted by Nazi doctors during World War II. One of the principle protections devised for participants in studies was volun- tary consent. Voluntary consent required that subjects i) are physically able to provide consent, ii) are free from coercion, and iii) can comprehend the risks and benefits involved in the experiment. In experiments that can affect the physical health of the participants, voluntary consent remains essential. However, the case for voluntary consent in economic experiments is less clear-cut.
+bd9h | For example, consider a study that attempts to measure racism by sending people of different races but otherwise similar appearance to car dealers and then observing the prices that car dealers offer. The car dealer suffers no physical injury from participating in this experiment; indeed, the dealer may forever be unaware of having participated. Moreover, if the car dealer were aware of the experiment, that could quite possibly lead to different behavior. In a number of situations, behavior often changes when people know they are being observed (Homan, 1991). Clearly, natural field experiments should be subject to clear-cut and severe ethical oversight. In U.S. colleges and universities, there are often Local Research Ethics Commit- tees and Institutional Review Boards to serve as effective advocates for the rights of subjects. With the benefit of such oversight, there are valid arguments for not making informed consent an ironclad rule in natural field experiments. That said, the costs and benefits of covert experimentation is not a settled issue and the inter- ested reader should see Dingwall (1980) and Punch (1985).
+m047 | The Promise of Field Experiments in Economics
+gy8c | The empirical gold standard in the social sciences is to estimate a causal effect of some action, but amidst the complexity of the real world, this is easier said than done. Economists have long worked on approaches that seek to separate cause and effect in naturally occurring data. A few decades ago, a standard approach was to use multiple regression analysis in an attempt to hold other factors constant. But economists have now taken to heart the old maxim that "correlation doesn't imply causation," and have in recent decades sought out a variety of other approaches.
+```
+
+OUTPUT:
+```

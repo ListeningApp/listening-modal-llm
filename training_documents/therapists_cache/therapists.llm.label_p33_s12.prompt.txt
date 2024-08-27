@@ -1,0 +1,194 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+8oqt | 1 = highly consistent with how I would usually respond
+6zah | 2 = very consistent with how I would usually respond
+4v5o | 3 = moderately consistent with how I would usually respond
+ha9e | 4 = slightly or not at all consistent with how I would usually respond
+xrnt | a. Provide the client with hope, positive feedback, and generally show a positive attitude or emotions (e.g., point out the client's strengths, highlighting all of his good progress thus far; remind him that as his functioning improves, he will begin to build increasing confidence about returning home and eventually get- ting back to work).
+c8ra | Copyright 2020. F. A. Davis Company. All rights reserved.
+p1l0 | Chapter 4 Knowing Ourselves as Therapists 113
+1i8b | b. Assume a clear leadership role by providing the client with information, struc- ture, guidance, or constructive feedback (e.g., educate the client about the course of rehabilitation, emphasizing that he will not be discharged from the hospital to outpatient and work rehabilitation until he feels confident about his abilities and is assessed by the treatment team to be ready and safe for such).
+5sfj | c. Ask questions or engage in a discussion that leads the client to think about alternative ways of approaching the situation (e.g., ask the client about the source of his concerns-if it was something someone said or something else that happened since the accident that is causing him to be concerned about his independence).
+vk4h | d. Give the client total and complete control over the situation (e.g., ask the client what he thinks he will need to be able to do before he returns home, and assist him in converting his thoughts into short- and long-term goals for therapy).
+nsm3 | 6. You are working with a 50-year-old retired cook who is a mother and a grandmother. She experienced a traumatic brain injury approximately 3 years ago, and for the past year she has been attending a day center in her community that serves individuals with brain injuries. The client typically loves participating in and sometimes leading a range of activities, including a cooking group that she sometimes leads because of her expertise in this area. Recently, she has not been participating in most of the activities and has had to be encouraged to come into the dining room during mealtimes. Today, she refuses to eat or participate in the cooking group. She states that she believes that the kitchen is not clean enough for eating and cooking. You know that the kitchen is particularly clean. Please rank-order each response according to the following scale:
+jdfw | 1 = highly consistent with how I would usually respond
+uc9r | 2 = very consistent with how I would usually respond
+l0ap | 3 = moderately consistent with how I would usually respond
+x815 | 4 = slightly or not at all consistent with how I would usually respond
+epbj | a. Assume a clear leadership role by providing the client with information, struc- ture, guidance, or constructive feedback (e.g., explain that the kitchen is cleaned after each use and was just cleaned this morning; offer to clean it with her again).
+nmn2 | b. Ask questions or engage in a discussion that leads the client to think about al- ternative ways of approaching the situation (e.g., ask the client if there is some- thing in particular that is giving her the idea that the kitchen is not clean; invite her to show you where the kitchen is not clean).
+g3tm | c. Witness, listen to, and show full acceptance of the client's thoughts, feelings, or behavior (e.g., tell the client that you want to understand more about her concerns about the kitchen and ask her to explain more about why she does not want to eat or participate in the cooking group).
+tfra | Copyright @ 2020. F. A. Davis Company. All rights reserved.
+5lm9 | 114 Part 1 Theoretical Foundations and Guidelines for Practice
+wp2c | d. Provide the client with hope or positive feedback and generally show a positive attitude or emotions (e.g., remind the client of how much she usually enjoys the cooking group, and tell her that you, in particular, enjoy eating the food during times when she leads the group).
+us5v | 7. You are working with a 72-year-old farmer who has been working on his family's large acreage since he was very young. He is currently in the middle of a severe gout flare-up. You can see that he is becoming increasingly upset about the situation. The harvest is approaching, and if he misses it, his business will lose a significant amount of money. He is particularly worried about whether he will be able to drive the tractor for as long as the harvest requires. His son and daughter, who would normally be available to help him, are both out of town. He cannot take the type of pain medications that would provide him with rapid relief because of the side effects they have caused, and the gout medication that he takes is effective only if taken during a period of several days. Please rank-order each response according to the following scale:
+rs2m | 1 = highly consistent with how I would usually respond
+uz9y | 2 = very consistent with how I would usually respond
+8ov0 | 3 = moderately consistent with how I would usually respond
+mj9m | 4 = slightly or not at all consistent with how I would usually respond
+94h3 | a. Provide the client with hope or positive feedback and generally show a positive attitude or emotions (e.g., based on your knowledge of the usual length of his gout flare-ups, remind the client that the attack is very likely to end soon, as it has every other time; encourage him not to lose hope that he will bring the har- vest in on time).
+9jx1 | b. Ask questions or engage in a discussion that leads the client to think about alternative ways of approaching the situation (e.g., ask the client questions to help him compare different alternatives and plans for how to manage the needs of his business during the flare-up).
+c3lz | c. Normalize the client's experience or connect him with social or physical re- sources that will enable him to have equal access and opportunities (e.g., work with the client to reach out to an advocacy-based organization whose mission is to help farmers in crisis).
+8bwk | d. Assume a clear leadership role by providing the client with information, struc- ture, guidance, or constructive feedback (e.g., review all of the pain management strategies that you and the client have tried, including modifying his diet and sleep hygiene; remind the client of adaptations that may be used and show him alternative ways to manage the pain during the flare-up).
+ez9s | 8. You are working with a 3 1/2-year-old boy with speech and fine motor delays and be- havioral problems. The child's tantrums are becoming more frequent during therapy, so you decide to address them, involving the child's mother in your plan. The child's Taylor, Renee R .. The Intentional Relationship1: Occupational Therapy and Use of
+mqot | Copyright 2020. F. A. Davis Company. All rights reserved.
+oc99 | Chapter 4 Knowing Ourselves as Therapists 115
+gipz | approach today, however, the child's mother interrupts therapy and reports that she has been feeling uncomfortable with the approach. Please rank-order each response accord- ing to the following scale:
+b4wj | 1 = highly consistent with how I would usually respond
+5xlt | 2 = very consistent with how I would usually respond
+9bz4 | 3 = moderately consistent with how I would usually respond
+yfv2 | 4 = slightly or not at all consistent with how I would usually respond
+pujl | a. Witness, listen to, and show full acceptance of the parent's thoughts, feelings, or behavior (e.g., ask the child's mother to tell you more about her concerns, taking the time to validate her feelings of discomfort).
+3rqe | b. Ask questions or engage in a discussion that leads the parent to think about alternative ways of approaching the situation (e.g., weigh all of the different options for responding to the client's tantrums with his mother; discuss the pros and cons of each option with her).
+nsi3 | c. Normalize the parent's experience or connect the parent with social or physical resources that will enable her to have equal access and opportunities (e.g., let the child's mother know that she is not alone and that many parents are uncom- fortable with this approach; provide her with contact information for a parent empowerment group that critically evaluates this method and many other dif- ferent methods for addressing behavioral problems).
+nil3 | d. Give the parent total and complete control over the situation (e.g., inform the child's mother that she is in control of what happens during her son's therapy; ask her if she can think of a way to modify the approach so that she feels more comfortable with it, or if there is another strategy she wants to try instead of this one).
+68a1 | 9. You are working with a 10-year-old girl who loves and excels at many sports. She has academic difficulties related to dyslexia and attention deficit-hyperactivity disorder. You have noticed that when anyone gives her an assignment that is slightly more challenging than what she is used to, she reacts immediately by not even looking at it, and instead says she doesn't get it. At the same time, if she discovers an even more challenging as- signment on her own, she often completes it without errors. It is clear to you that the client is capable of doing the slightly upgraded assignments that you are recommending, but she gives up before even attempting them. Today is not different than any other day. When you present the client with a slightly more advanced assignment that you know she is capable of completing, she quickly claims she does not understand it. Please rank-order each response according to the following scale:
+seik | 1 = highly consistent with how I would usually respond
+oq7c | 2 = very consistent with how I would usually respond
+z4mi | 3 = moderately consistent with how I would usually respond
+hkft | Copyright 2020. F. A. Davis Company. All rights reserved.
+jai3 | 116 Part 1 Theoretical Foundations and Guidelines for Practice
+p57i | a. Assume a clear leadership role by providing the client with information, struc- ture, guidance, or constructive feedback (e.g., give the client feedback that you have noticed that she completes more challenging assignments that she gives herself, but when given assignments by others, she says she does not understand it before she even reads the directions and considers how she might complete it).
+u5ug | b. Normalize the client's experience or connect her with social or physical re- sources that will enable her to have equal access and opportunities (e.g., tell the client that it is normal for people to say that they can't do something when they are feeling challenged; provide her with self-advocacy language so that she can tell others what she needs when she is given more challenging assignments).
+i9k5 | c. Provide the client with hope or positive feedback and generally show a positive attitude or emotions (e.g., remind the client how well she did on a similar as- signment the previous week; tell her you know she can do it).
+20z2 | d. Give the client total and complete control over the situation (e.g., invite the client to share what she thinks would be most helpful the next time she is given something new to work on).
+4cgs | A scoring key and interpretation map for this assessment are presented on the following pages. So that you will have a better understanding of the strengths and limitations of each mode, it is recommended that you read this chapter before scoring your self-assessment.
+htre | Scoring for Exercise 4.1: Determining Your Therapeutic Style
+da3c | To determine your therapeutic style (i.e., the modes you are more or less inclined to use), you should first record your responses to the Self-Assessment of Modes Question- naire, Version III, on the Modes Scoring Key by circling the response you chose for each question. Then, add up the number of times you chose responses corresponding to each mode and record them at the bottom of each column. The total possible number of responses for each mode is 6. You may calculate your percentage score for each mode by dividing the total number of actual responses for each mode by the total number of response possibilities (6) and then multiplying by 100. The higher your score for each mode, the more comfortable you may feel with using the mode.
+890q | You may plot your profile on the Therapeutic Style Form by darkening each area in the arrows that fall inside the concentric circle that corresponds to your mode scores. This will provide a visual representation of the therapeutic style you are most likely to use during therapy.
+jomo | Copyright 2020. F. A. Davis Company. All rights reserved.
+06fi | Visual Map: My Therapeutic Style
+hb4s | Problem-solving
+cqq2 | Total:
+1ews | Total:
+afyn | Percent: % Percent: %
+8sye | Percent: % Percent:
+r04h | Chapter 4 Knowing Ourselves as Therapists 117
+orpr | Advocating
+k36m | Instructing Total: /6
+wnuz | Problem-Solving Total: /6
+sy14 | /6
+ghss | Percent: %
+3s61 | Percent:
+s3rm | Copyright 2020. F. A. Davis Company. All rights reserved.
+pqxb | 118 Part 1 Theoretical Foundations and Guidelines for Practice
+08qc | Exercise 4.2
+hdj2 | Examining Your Therapeutic Style
+a57g | The Therapeutic Style Form indicates the relative amount of comfort you have with each mode. In the end, however, you should reflect on and plan your own therapeutic style. A good beginning is to think about:
+g8m3 | Your natural modes and their strengths and cautions
+a9av | The modes you want to incorporate into your therapeutic style (including the modes with which you may wish to become more comfortable and proficient)
+73l3 | Your Natural Modes and Their Strengths and Cautions
+ornm | By examining your Therapeutic Style Form and reflecting on the descriptions of the modes provided in this chapter, you should first decide for yourself the extent to which you are comfortable with each mode. To facilitate this process, you can use the following table to think carefully about the six modes and decide your degree of comfort with each of them.
+u2z1 | I need to
+atmh | Next, go back and review Table 4.1, looking at the potential strengths of your preferred mode(s). Each person uses a given mode in different ways, so the actual strengths of your use of a mode depend on how you typically use it. So, reflecting on the particular way that you use your preferred mode(s), list five key strengths of your therapeutic style.
+7hgg | 3.
+xwsv | Copyright 2020. F. A. Davis Company. All rights reserved.
+756b | Exercise 4.3
+6bx7 | Modes You Want to Incorporate Into Your Therapeutic Style
+spl6 | Now, examine the strengths of the modes that are not your preferred modes (either those you listed as "Mode(s) I can use when I need to" or "Mode(s) with which I am less comfortable/less able to use"). Consider whether the strengths of these modes are a good counterbalance to the liabilities of your preferred modes. Based on this consideration, identify the mode(s) you wish to use more naturally and regularly. Record them here.
+7wzm | If the mode(s) you wish to incorporate into your therapeutic style fall in the category of "Mode(s) I can use when I need to," you may wish to make plans for the situations in which you want to practice these modes and monitor your use of them. Record your thoughts here.
+e9xj | If the mode(s) you wish to incorporate into your therapeutic style fall in the category of "Mode(s) with which I am less comfortable/less able to use," you may wish to seek supervision, training, or other kinds of support that would help you develop the ability and comfort with using that mode.
+9vl6 | REFERENCES
+c2fd | American Occupational Therapy Association. (1993). Core values and attitudes of occupational therapy practice. American Journal of Occupational Therapy, 47, 1085-1086. American Occupational Therapy Association. (2015). Occupa- tional therapy code of ethics. Bethesda, MD: Author. Retrieved from http://www.ajot.aota.org/.
+jzvp | Chapter 4 Knowing Ourselves as Therapists 119
+f71y | Kohut, H. (1984). How does analysis cure? Chicago, IL: University of Chicago Press. Taylor, R.R. (2008). The Intentional Relationship: Occupational Therapy and Use of Self: Philadelphia, PA: F.A. Davis.
+```
+
+OUTPUT:
+```

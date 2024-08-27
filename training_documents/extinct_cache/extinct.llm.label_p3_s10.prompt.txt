@@ -1,0 +1,128 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+y4mj | He asked whether species or nature more broadly are valuable beyond their potential usefulness for humans. What Sylvan's fam- ous case suggests is that the permissibility of extinguishing species - as he argued, allowed by traditional Western ethical systems that conceive of nature as something to be used by humans as they please - is an example of what he called 'human chauvinism', now
+vpgq | https://doi.org/10.1017/ext.2023.21 Published online by Cambridge University Press
+ousl | better known as 'anthropocentrism' (for a critical discussion of the 'last person' argument, see Peterson and Sandin, 2013). Sylvan's thought experiment has successively been modified and discussed by many other philosophers such as Mary Ann Warren (1983) and Robin Attfield (1981, 1983). The latter engaged in this type of argument to scrutinise the possibility of human extinction in the context of nuclear armament and 'ecocatastrophe'. He aimed to show that non-sentient living nature such as trees has morally relevant interests and that causing their extinction by the 'last man' would be morally wrong, even if it would not affect any other humans.
+m4ju | Writing at the same time as Sylvan, Joel Feinberg (1974) addressed the ethics of species protection from a different argumen- tative angle. Because he argued that only (human and nonhuman) individuals with interests can have rights, he rejected the idea that species have a right to exist (for an opposing view, see Staples and Cafaro, 2012). Therefore, he claimed that humans have a duty to protect endangered species, but the ultimate addressees of this duty are future humans, not the species themselves (see also Elliot, 1980). Likewise, Nicholas Rescher (1980) depicted species conservation 'as a quintessential humanitarian task' and John Passmore (1974) con- sidered wanton eradication of species to be acts of vandalism.
+a0mb | In brief, very early on, there were opposing opinions about why human-caused extinctions are morally wrong, while there was largely agreement on the issue that anthropogenic extinctions are wrong (with exceptions such as the smallpox virus). The similarity between these different views was that they regard extinction as a loss of value, either for humanity or for the universe as considered from a human- independent perspective. Independently of whether one endorses an anthropocentric (i.e. human-focused) or non-anthropocentric rationale for species conservation, both give rise to a range of result- ing questions that were formulated in the literature of environmental ethics early on, such as: Are species individual entities or life processes that come to an end with extinction (Rolston, 1985, 1995) (section "Defining extinction")? What are acceptable costs for pro- tection efforts (Norton, 1987; Naess, 1989), and relatedly, should all species, even the most harmful ones, be conserved (Rolston, 1985; Johnson, 1991) (section "Future generations")? Are species as col- lectives more valuable than nonhuman individuals (Russow, 1981; Johnson, 1991) and does that therefore justify the culling of individ- uals that threaten the existence of native populations (Warren, 1997; Varner, 1998)?
+ki8m | Defining extinction
+km8w | What constitutes an extinction is a complex subject matter. How- ever, for the purpose of ordinary concerns about extinction and for how moral philosophers discuss its moral relevance, most theorists' primary concern lies with anthropogenic species extinctions - while treating 'extinctions' and 'species extinctions' synonymously. Moreover, while many theorists put an emphasis on extinctions on a mass scale (such as Bendik-Keymer, 2014; Cafaro, 2015; Panagiotarakou, 2016; Baquedano Jer, 2019), some theorists are also explicitly concerned with the extinction of individual species (such as Rolston, 1995).2 Accordingly, there are four conceptual components found in many accounts of the ethics of extinction.
+wzno | Firstly, there are different ontological positions on the meaning of'species', that is what a species is (see Delord, 2007; Maclaurin and Sterelny, 2008; Ereshefsky, 2022), which then also have different
+xagm | ethical implications (such as in Hull, 1978; Gruen, 2011; Smith, 2016). Moreover, because different kinds of species conservation practices change the genetic makeup of the target species (via conventional breeding programmes or synthetic biology) and/or influence their behaviour, it is also necessary to consider (1) whether the resulting population still belongs to the same species (which in turn influences whether we consider it extinct or not) and (2) whether that matters morally (see Preston, 2021). Thus, there are different conceptions of species and these impact how extinc- tion is defined (see Maclaurin and Sterelny, 2008; Godfrey-Smith, 2014; Korsgaard, 2018a).
+iwn5 | Secondly, the term 'extinction' can also be understood in differ- ent ways (see Delord, 2007; Tanswell, 2022), which is of ethical relevance because (1) it frames what falls within the ethics of extinction and, in turn, (2) the way extinction is constructed in controversial cases is in itself subject to ethical scrutiny. When speaking about extinctions as something morally problematic, many (not all) authors will refer to 'final' extinctions, if not specified further in works of practical ethics. Thus, an emphasis is put on 'global' (all individuals of a species are gone) as opposed to 'local' (loss of a population) extinctions. However, because a species can be extinct in several senses of the term, some authors also specif- ically problematise, for example cases where there still exist some (or even many) living individuals belonging to the species of concern. That is, it is not finally extinct, but it may be 'functionally' extinct. Drawing on the example of the whitebark pine as a case of a functional extinction, Christopher Preston (2021, 4, italics in ori- ginal) argues in this regard that '[t]he concern with this type of extinction is not that you will never see individuals of the taxon again. The concern centres on the anthropogenic reordering of relationships. Not a loss of life, but a loss of arrangement'. That is, regarding this type of extinction an emphasis is put on changing ecological relationships rather than on the circumstance whether some individual members of the species are still alive.
+uooz | Thirdly, many positions will argue - in different ways - that there is a moral difference between anthropogenic and non- anthropogenic extinctions. In Holmes Rolston's III words, '[n]atural extinction opens doors, anthropogenic extinction closes them' (2012, 139). Independently from whether Rolston's view on the matter is convincing, some people will intuitively find it morally objectionable that a species in the form of all the individ- uals belonging to that species abruptly disappears due to human actions (such as in Sylvan's thought experiment, see section "The history of the concern about extinction in environmental ethics") and thereby also ending an evolutionary process, instead of taking issue with natural evolutionary processes in themselves. This distinction not only assumes that anthropogenic and non- anthropogenic extinctions are conceptually different (Aitken, 1998), but usually also relies on the judgement that human-caused extinctions are morally more problematic than non- anthropogenic extinctions. So, for many authors it is relevant to know whether human causation is at play for the ethical assess- ment of the extinction in question (for epistemic barriers to assessing this causation, see Tanswell, 2022) and that, in turn, is closely related to judgements about moral responsibility (Oksanen, 2007). Contrasting views consider all species extinc- tions to be similarly morally problematic (i.e. similar 'badness') and thereby downplay the moral relevance of anthropogenic causation by adding 'wrongness' (Powell, 2011).
+pxbq | The fourth conceptual distinction needs to be made between mass extinctions and non-mass extinctions, with mass extinctions differing from an ordinary extinction event in several ways (see
+jfsr | https://doi.org/10.1017/ext.2023.21 Published online by Cambridge University Press
+u15r | Anna Wienhues et al.
+lq35 | Bendik-Keymer and Haufe, 2016). Because of these differences, evaluative judgements about the current 'sixth mass extinction' event on earth seem to be often based on the intuition that mass extinctions are morally more problematic than single extinction events. For example, consider how different terms such as 'envir- onmental atrocities' (see Card, 2004) or 'ecocide' (see Baquedano Jer, 2019) can be potentially linked to extinction. While many might think that single extinction events added together are as bad as a mass extinction event involving the same number of species lost, some authors argue that a mass extinction is worse - for example due to additionally involving a 'planetary shift' (Sandler, 2021a).
+3g9w | Why (or when) might anthropogenic extinctions be morally problematic?
+d09o | Returning to our question from the introduction, conservation biologists Soulé and Wilcox famously claimed that '[d]eath is one thing; an end to birth is something else' (1980, 8). This implies an evaluative judgement about the badness of species extinctions, but what might that mean? In the more recent environmental ethics literature, we can find a variety of reasons given to explain why anthropogenic extinctions might be (or might not be) morally problematic. We will present the main (but not sole) reasons found in this literature focusing on (1) the value of species, (2) harming nonhuman individuals, (3) the value of biodiversity and (4) duties to future (human and nonhuman) generations. In the last part of this section, we will also turn to (5) instances where extinctions might even be morally desirable.
+ylhz | Involving loss of value due to the loss of species
+a3td | Because species extinctions involve the loss of species, the most obvious place to start is to think about whether this loss is in itself problematic (see Passmore, 1974). A common argumentative route in this regard is to argue that species are valuable and, thus, their extinction involves a loss of something that has been important to someone. For example, certain species might be instrumentally valuable because they are useful for human purposes (see section "Leading to the loss of valuable biological variety"). How- ever, species might also be valuable independently from their actual or potential use value. That is, in contrast they might have intrinsic value as entities that we value in themselves.3 Let us briefly intro- duce three (non-exhaustive) versions of this position (for further examples, see Callicott, 1986 [for a critique, see Lo, 2001]; Gorke, 2003; for a more general critical analysis of holistic accounts of species value, see Agar, 2001).
+ex5k | For one, authors such as Rolston have argued that species - not understood as classes but as 'living historical forms' (Rolston, 1985, 2012) - are objectively intrinsically valuable ('some values are objectively there-discovered, not generated, by the valuer'. 1988,
+9d4o | Cambridge Prisms: Extinction
+cjq2 | 116), which means that with each species that disappears, we lose something of value even if we fail to recognise this loss. In his words,
+5esx | [t]he species defends a particular form of life, pursuing a pathway through the world, resisting death (extinction), by regeneration maintaining a normative identity over time. It is as logical to say that the individual is the species' way of propagating itself as to say that the embryo or egg is the individual's way of propagating itself. The value resides in the dynamic form; the individual inherits this, exemplifies it, and passes it on (1994, 21).
+m5ka | However, only anthropogenic extinctions are subject to moral evaluation (a duty to avoid extinctions) in Rolston's account. He relies for this purpose on the analogy between 'natural death' (i.e. a natural extinction) and 'murder' (an anthropogenic extinction), which leads him to assess each anthropogenic extinction as a 'superkilling' (Rolston, 1995). That is, on Rolston's account the metaphor of a superkilling illustrates the badness of extinctions by putting an end to an evolutionary 'story' and precluding its future evolutionary possibilities. Other authors such as Lawrence E. Johnson have spelled out similar ideas, but with less emphasis on evolution and rather in terms of the species' interests and their resulting moral standing (see Johnson, 1991).
+byu8 | Criticism of accounts such as Rolston's or Johnson's position, in turn, has been aimed at different aspects of their theories. Two primary areas of debate stand out. Firstly, the plausibility of the underlying theory of objective intrinsic value in Rolston's account is a matter of debate (for a critique, see Elliot, 1980; Callicott, 1992). Against the background that intrinsic values were intensely dis- cussed in the field of environmental ethics at the time when Rolston published his account (see O'Neill, 1992), it should be noted that other authors such as Callicott (1984, 1986) defended alternative value accounts relying on subjective values or human sentiments as the basis of a non-anthropocentric environmental ethic. Secondly, Johnson's position relies on the idea that species can be considered to be akin to living beings (i.e. it relies on a specific species concept - as a living entity - that has been widely criticised not only by individualist perspectives but also by other holistic accounts; see Smith, 2016) and, thus, also be morally considerable in the same way. However, whether that analogy is convincing and whether species have morally relevant interests are also a matter of debate (for a critique, see Sandler and Crane, 2006; Sandler, 2012). Con- sequently, in the more recent literature other arguments in favour of the moral value of species that are not based on such an understanding of species are more widespread.
+76b0 | For example, secondly, Ian Smith argues in favour of the view that a species has an 'intrinsic good' that 'consist in its abilities to flourish', based on a Hennigian species concept that sees species as 'historical individuals', which, in turn, gives us reasons to preserve species on Smith's account because, amongst other things, '[a species'] flourishing is a species' organisms continuing to repro- duce successfully (that is, the organisms producing fertile offspring) and the species remaining safe from extinction' (2016, 14). Smith takes it for granted that 'species taxa are real' (2016, 3-4) but subspecies are not. Therefore, only species are of intrinsic value. Critics have seen this presumption, in turn, as a failure to properly consider subspecies and higher categories in taxonomy (Burbrink et al., 2022).
+```
+
+OUTPUT:
+```

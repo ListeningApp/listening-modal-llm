@@ -1,0 +1,146 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+1pjs | Experimental Evidence on the Productivity Effects of Generative Artificial Intelligence
+o2kr | We examine the productivity effects of a generative artificial intelligence technology-the assistive chatbot ChatGPT-in the context of mid-level professional writing tasks. In a preregistered online experiment, we assign occupation-specific, incentivized writing tasks to 444 college-educated professionals, and randomly expose half of them to ChatGPT. Our results show that ChatGPT substantially raises average productivity: time taken decreases by 0.8 SDs and output quality rises by 0.4 SDs. Inequality between workers decreases, as ChatGPT compresses the productivity distribution by benefiting low-ability workers more. ChatGPT mostly substitutes for worker effort rather than complementing worker skills, and restructures tasks towards idea-generation and editing and away from rough-drafting. Exposure to ChatGPT increases job satisfaction and self-efficacy and heightens both concern and excitement about automation technologies.
+v6sk | 1 Introduction
+1wj6 | Recent advances in generative artificial intelligence may have widespread implications for production and labor markets. New generative AI systems like ChatGPT or DALL-E, which can be prompted to create novel text or visual outputs from large amounts of training data, are qualitatively unlike most historical examples of automation technologies. Previous waves of automation predominantly impacted "routine" tasks consisting of explicit sequences of steps that could be easily codified and programmed into a computer (Autor and Dorn, 2013; Autor, 2015). Creative, difficult-to-codify tasks (such as writing and image generation) largely avoided automation-a pattern that scholars noted might change with the advent of the deep learning techniques that now underpin generative AI systems.
+936l | The emergence of powerful generative AI technologies reintroduces a host of classic questions in a new context. Automation technologies-by definition-perform specific tasks in place of humans. But, more broadly, they may either displace humans completely from certain occupations or complement existing human workers and increase their productivity (Acemoglu and Restrepo, 2020; Boustan et al., 2022; Kanazawa et al., 2022). Insofar as automation technologies mostly displace human workers, they can increase unemployment, while their impacts on aggregate productivity may be small or nonexistent to the degree that they mainly serve to redistribute income from workers to owners of capital (Acemoglu and Restrepo, 2018). Insofar as automation complements existing workers, it can simultaneously benefit workers, capital owners, and consumers by raising productivity and wages and lowering prices (Kleinberg et al., 2018; Hoffman et al., 2018; Agrawal et al., 2019).
+06yq | For example, a potent generative writing tool like ChatGPT might entirely replace certain kinds of writers, such as grant writers or marketers, by letting companies directly automate the creation of grant applications and press releases with minimal human oversight. This might not increase the quality of the resulting written output, but would let companies save on wage costs by eliminating human labor. Alternatively, a tool like ChatGPT could substantially raise the productivity of grant writers and marketers, for example by automating relatively routine, time-consuming subcomponents of their writing tasks, such as translating ideas into an initial rough draft. In this case, demand for these services could expand, resulting in higher employment and wages as well as greater productivity for companies and cheaper products for consumers. Inequalities between workers could also be affected: inequality could decrease if lower-ability workers are helped more by ChatGPT, or increase if higher-ability workers have the skills necessary to take advantage of the new technology.
+dpv6 | Which of these eventualities will generative AI systems bring about? The answer depends on a host of questions: how do generative AI systems affect workers' productivity in existing tasks? Do they affect productivity largely by substituting for worker effort or complementing worker skills? Do they differentially affect low- or high-ability workers, or workers with
+8r5j | different skill profiles? Do they affect workers' enjoyment of their work (Schwabe and Castellacci, 2020)?
+2taz | This paper takes the first step towards answering these questions.1 In an online experiment, we recruit 444 experienced, college-educated professionals and assign each to complete two occupation-specific, incentivized writing tasks. The occupations we draw on are marketers, grant writers, consultants, data analysts, human resource professionals, and managers. The tasks, which include writing press releases, short reports, analysis plans, and delicate emails, comprise 20-to 30-minute assignments designed to resemble real tasks performed in these occupations; indeed, most of our participants report completing similar tasks before and rate the assigned tasks as realistic representations of their everyday work. Participants face high-powered incentives, in the form of large bonus payments, to produce high-quality work. Quality is assessed by (blinded) experienced professionals working in the same occupations. Evaluators are asked to treat the output as if encountered in a work setting and are incentivized to grade outputs carefully. Evaluators assign an overall grade as well as separate grades for writing quality, content quality, and originality. Each piece of output is seen by three evaluators, with an average within-essay cross-evaluator correlation of 0.44.
+o3ya | A randomly-selected 50% of our participants-the treatment group-are instructed to sign up for ChatGPT between the first and second task, are walked through how to use it, and are told they are permitted to use it on the second task if they find it useful. The control group is instead instructed to sign up for the LaTeX editor Overleaf. This design allows us to estimate the causal effects of ChatGPT using a combination of within-person and between-person variation, and performance on the first task serves as a measure of baseline ability that enables our inequality analyses.
+r5il | We collect participants' output and elicit total time taken, time taken on various subcom- ponents of the task, job satisfaction, self-efficacy, and beliefs about automation. We also take a snapshot of each participant's output each minute while they perform the task, to construct an objective measure of time active on the task and to detect ChatGPT usage in the control group and on the pre-treatment task.
+5gui | A complete description of our experimental design, a copy of relevant survey questionnaires, and additional figures validating our central measures and extending our main results are included in the Online Appendix. Descriptive statistics about the sample, as well as balance and selective attrition tests, are available in Table 1. The attrition rate is 5% in the control group and 10% in the treatment group. Balance tests indicate that across 13 pre-treatment characteristics, the treatment and control group exhibit a small significant difference only for only two characteristic (employment status and being an HR professional). Our partly within-person design, which controls for performance on the pre-treatment task, should
+82qc | eliminate any influence of selective attrition on our results; in the Online Appendix, we also report Lee (2009) bounds on our main results and versions of our results controlling for employment status and occupation, which confirm that our results are <LATEX>\mathrm { h i g h l y }</LATEX> robust to selective attrition.
+ls7d | 2 Results
+tzt3 | 2.1 Takeup of ChatGPT
+t8vv | In the treatment group, 92% of treated participants successfully sign up for ChatGPT,2 and 81% choose to use it on the second task, giving it an average self-assessed usefulness score of 4.4 out of 5.
+qvnu | Prior to treatment, about 70% of our participants had heard of ChatGPT and 30% had used it before. Self-reported and objective measures indicate only 10-20% of the control group use ChatGPT on the tasks, meaning there is at least a 60 percentage point experimentally-induced gap in usage between our treatment and control groups on the second task. The fact that some control participants are using the tool means our estimates provide lower bounds on the effects of ChatGPT usage on productivity.
+kggw | 2.2 Productivity
+xrd1 | We measure productivity as earnings per minute. Figure 1 shows that the experimental intervention increases this outcome dramatically. In the treatment group, time taken on the post-treatment task drops by 10 minutes (37%) relative to the control group, who take an average of 27 minutes <LATEX>\left( p = 0 . 0 0 0 \right) .</LATEX> Average evaluator grades in the treatment group increase by 0.45 standard deviations <LATEX>\left( p = 0 . 0 0 0 \right) ,</LATEX> with roughly similar increases for overall grades and specific grades for writing quality, content quality, and originality.
+5746 | Figure 1 Panels (c) and (d) show that these effects are not limited to specific pockets of the time or grade distributions: the entire time distribution shifts to the left (faster work) and the entire grade distribution shifts to the right (higher quality). At the individual worker level, Figure 2 shows that treated workers who received a low grade on the first task experience both increases in grades and decreases in time spent, while workers who received a high grade maintain their grade level while substantially reducing their time spent.
+7toz | These results are virtually identical across our two main incentive schemes, covering 80% of respondents: a "linear" scheme in which respondents are paid $1 for each point they receive
+j346 | on each submission (each of which is graded on a 1-7 point scale), and a "convex" scheme in which respondents are additionally paid $3 for earning a grade of 6 or 7, giving them an extra incentive to produce high-quality output.
+v8uq | Figure 1: Treatment Effects on Productivity
+x972 | Note: Panels (a) and (b) plot means (and 95% confidence intervals for those means) of self-reported time taken and average grades in the first and second task, separately in the treatment and control groups. The results look very similar for the objective measure of time active; see Supplementary Materials. The panels also display the coefficient on the treatment dummy from a person-evaluator-level OLS regression of the outcome variable (the within-person difference in the outcome between task 2 and task), on a treatment dummy, evaluator fixed effects, incentive arm fixed effects, and occupation*task-order fixed effects, clustering at the worker level. The treatment effect coefficient and standard error are normalized by dividing by the pre-treatment standard deviation of the outcome in the relevant incentive group(s). Panels (c)-(d) display raw graphs of the outcome distribution in the treatment versus control group on the second task.
+cwrw | Two supplementary interventions allow us to probe further. In one arm involving 20% of participants, we require participants in both the treatment and control group to spend exactly 15 minutes on each task. This holds effort fixed across the treatment and control groups, allowing us to interpret any difference in grades as a pure effect of ChatGPT access on productive capacity. In this arm, the treatment increases grades by a similar 0.39 standard deviations (p = 0.13), albeit imprecisely estimated and with a slight imbalance in pre-treatment
+4i0e | outcomes (see Online Appendix Figure A.7).
+h2l3 | In another arm involving 30% of the treatment group, after completing the second task, respondents are shown their first-task output and given the opportunity to edit or replace it using ChatGPT if they wish. 23% choose to replace their response with ChatGPT's output and 25% use ChatGPT to edit their original response, suggesting that participants view ChatGPT as a way to improve output quality in addition to a convenient way to save time.
+dfzb | 2.3 Productivity Inequality
+u6ty | The control group exhibits persistent productivity inequality: participants who score well on the first task also tend to score well on the second task. As Figure 2 Panel (a) shows, there is a correlation of 0.49 between a control participant's average grade on the first task and their average grade on the second task.
+awvu | In the treatment group, initial inequalities are half-erased by the treatment: the correlation between first-task and second-task grades is only 0.25 (p-value on difference in <LATEX>\left. \mathrm { s l o p e s } = 0 . 0 0 4 \right) .</LATEX> This reduction in inequality is driven by the fact that participants who scored lower on the first round benefit more from ChatGPT access, as the figure shows: the gap between the treatment and control lines is much larger at the left-hand end of the x-axis.
+on9b | 2.4 Human-Machine Complementarity
+a8ge | ChatGPT could increase workers' productivity in two ways. On the one hand, it could substitute for worker effort by quickly producing output of satisfactory quality that workers directly submit, letting them reduce the time they spend on the task. On the other hand, it could complement workers' skills: humans and ChatGPT working together could produce more than the sum of their parts, for example if ChatGPT aids with the brainstorming process, or quickly produces a rough draft and humans then edit and improve on the draft. In our experiment, evidence for the complementarity story could come in two forms: (a) we could observe treatment-group participants choosing to expend significant time editing ChatGPT's output or repeatedly prompting ChatGPT in anticipation of earning higher grades, and (b) we could observe that treatment participants' essays receive higher grades than ChatGPT's raw output, suggesting that human input adds value.
+h27a | We observe neither of these pieces of evidence, suggesting that ChatGPT is increasing productivity primarily by substituting for worker effort. 68% of treated participants report submitting ChatGPT's initial output without editing it, and on average treated participants are active on the task for only 3 minutes after we first observe them pasting in a large quantity of text (presumably from ChatGPT). There is also no correlation between how long a participant is active after pasting in the ChatGPT text and the grade they ultimately receive, and treated
+pdjh | respondents do not receive higher average grades than raw ChatGPT output that we give to evaluators to grade, meaning we find no evidence that human editing is improving the ChatGPT output. This is true even when participants are given strong pecuniary incentives to do so, in the convex incentives group.
+xmgs | Figure 2: Effects on Grades and Time Across the Initial Grade Distribution
+bd9h | (b) Time Taken Decreases Across Grade Distribution
+m047 | - Control, Slope: 0.802 (SE 0.600)
+gy8c | Treatment, Slope: - 0.198 (SE 0.564)
+y4mj | Note: this figure display scatterplots, binning responses in equal intervals, of respondents' task-2 grade (Panel (a)) and task-2 time spent (Panel (b)) on their task-1 grade, separately by treatment and control group. Slopes are calculated through a worker-level regression.
+vpgq | 2.5 Task Structure
+ousl | As suggested by the preceding discussion, ChatGPT substantially changes the structure of writing tasks. Figure 3 Panel A shows that prior to the treatment, participants spend about 25% of their time brainstorming, 50% writing a rough draft, and 25% editing. Post-treatment, the share of time spent writing a rough draft falls by more than half and the share of time spent editing more than doubles.
+m4ju | 2.6 Skill Demand
+a0mb | If ChatGPT is especially helpful to those with poor writing and communication skills relative to their other skills, it could have major labor market implications by expanding the available occupational choices and raise the earnings of individuals with strong idea-generation skills who struggle to effectively get those ideas onto paper.
+ki8m | We perform several tests of this hypothesis. We construct two measures of a person's relative writing skills. First, at the beginning of the experiment, we ask participants to rank from 1 to 3 their skills at communication (writing and speaking), problem solving, and creativity. Second, in addition to assigning overall grades, evaluators separately assess each piece of output based on writing quality, content quality, and originality; the gap between a person's first-task overall score and their writing score affords another measure.
+```
+
+OUTPUT:
+```

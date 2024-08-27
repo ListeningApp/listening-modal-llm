@@ -1,0 +1,157 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+1pjs | DESIGN, TESTING, AND APPLICATION OF MOISTURE IMPERVIOUS CABLE
+o2kr | Kenneth E. Bow Member, IEEE The Dow Chemical Company Granville, Ohio
+v6sk | Abstract - Moisture barriers can effectively protect the insulation of medium voltage cables from water treeing. Activities to study and qualify the performance of moisture barrier cable have progressed on a global scale. Design concepts for three types of moisture barrier cable are presented. One design includes wire neutrals with a separate moisture barrier over the neutrals and under the jacket. In the second design, the moisture barrier acts as both a radial water block as well as a shield. Materials for the sheath, such as plastic coated metals, water- blocking tapes, cushion layers for thermal expansion, and adhesives for sealing are discussed. The third design utilizes a thin lead/plastic laminate placed directly over the insulation semi-conducting screen. This is called an "on-core design." Standardization activities for watertight cable are proceeding on an international scale. Application of watertight cables in several power systems indicate reduced fault rates and lack of failures associated with treeing.
+1wj6 | INTRODUCTION
+936l | A research project sponsored by the Canadian Electrical Association (CEA) evaluated the performance of an XLPE insulated cable with a plastic coated aluminum foil as a moisture barrier.' The work showed that "Moisture barriers can be very effective in reducing the ingress of moisture into the cable to the extent that water treeing is not a problem."
+06yq | A research project sponsored by the Electrical Power Research Institute (EPRI) examined both materials for moisture barriers and the preparation of. cable models to test these materials.2 In the final phase of the project, prototype cables were evaluated with coated copper or coated aluminum under-jacket moisture barriers. The tests run were: 1) 60 cable loading cycles of four hours up to 90℃, four hours at 90°C, and sixteen hours of cooling; 2) bending around a 14 inch (356mm) mandrel for three cycles; and 3) moisture penetration using weight loss. There was no failure in any of the tests. The conclusion was that "the moisture barrier metal foil/ polyolefin laminates essentially protect the cable from moisture ingress without any adverse effect on the mechanical properties of the cable."
+dpv6 | Activities such as these to study and quantify the performance of moisture barrier cable are progressing on a global basis. The data continue to indicate that the common sense approach to prevent water treeing is to keep moisture out of the cable. Along these lines the concept of moisture impervious cable
+8r5j | 0-7803-0219-2/91/0009-0143/$01.00@1991IEEE
+2taz | Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on July 06,2023 at 07:27:15 UTC from IEEE Xplore. Restrictions apply.
+o3ya | is emerging. Moisture impervious cable can be defined as a cable that is designed to block both the longitudinal and radial ingress of moisture to the cable. The objective is to prevent moisture from reaching either the inner or outer surface of the insulation. Radial moisture transmission is blocked by a layer of metal between the outer surface of the insulation and the inner surface of the protective jacket. Longitudinal moisture transmission is blocked by strand filling of the conductor and by the use of swellable powders or tapes within the air spaces or interfaces between the insulation system, the metallic shield or neutral and the protective jacket.
+r5il | There are other related terms that have also come into use in defining cables that include some form of protection against the effects of moisture. A moisture barrier cable can be defined as a cable with a metallic layer over the core to block radial ingress of moisture. A moisture resistant cable can be defined as a cable designed to accept moisture ingress, but incorporating design measures and/or materials to reduce susceptibility to moisture.
+5gui | This paper will review the design concepts for under-jacket and on-core moisture impervious cable, discuss the material requirements for such cable, cover standard- ization activities for moisture impervious cable, including test development, and provide application data.
+82qc | DESIGN CONCEPTS FOR MOISTURE BARRIER CABLE
+ls7d | Under-Jacket Moisture Barrier With Wire Neutral
+tzt3 | Coated aluminum moisture barriers, bonded to the jacket, are recommended for use with wire neutrals. Table I describes the construction of a cable design utilizing coated aluminum. The aluminum is not acting as a shield, but should be grounded to the neutrals at their ground points to insure that there is no build-up of voltage on the moisture barrier. For this reason, a one-side coated tape is recommended. The uncoated side is in contact with the semi-conductive water- blocking tape and the neutrals. The moisture barrier should be at ground potential over its entire length.
+t8vv | By bonding the moisture barrier to the cable jacket, the coated aluminum or copper can be applied smooth rather than corrugated. A significant advantage of bonding the aluminum to the jacket is improved mechanical properties, such as bend and crush resistance. The bond between the jacket and the moisture
+qvnu | barrier forms a longitudinal water block. The seal in the overlap blocks moisture in this interface. The moisture barrier forms a radial moisture block. The water swellable tapes form a longitudinal water block at the moisture barrier - core interface. If a strand filled conductor is used, then the cable can be described as moisture impervious. The strand filling or solid conductor forms a longitudinal conductor water block.
+kggw | Use of semi-conductive water-swellable tapes, longitudinally folded, will usually reduce costs and increase line speeds versus the use of helically wrapped tapes. There are several choices for the waterblocking tape. Combinations of higher or lower swelling ratio tape can be used.
+xrd1 | Charge transfer through the semi-conductive tape to the bare side of the moisture barrier will bring the barrier to the electrical . potential of the neutral. This eliminates grounding concerns over the cable length. Corrosion should not be a problem in case of sheath puncture or exposed ends. Water flow is limited by the swelling of the water blocking tape.
+5746 | Under-Jacket Using Combination Moisture Barrier And Shield
+7toz | A cable construction using coated copper as both a radial moisture barrier and shield is described in Table II. This type of cable may be used in industrial applications and as substation feeder cable by power companies. The coated copper can function as both the shield or neutral as well as the moisture barrier. The use of a longitudinally folded coated copper
+j346 | 0.15 mm (0.006 in) is recommended to replace spirally wrapped shields of copper tapes. Economics are improved with the combination shield/moisture barrier as compared to constructions with separate components.
+v8uq | The copper tape can be applied smooth or corrugated. However, the use of corrugated copper shields for power cable is increasing due to a number of factors. First, the longitudinally applied corrugated shield has many electrical and mechanical advantages over helically applied copper tape shields or copper wire shields. equipment and operation for applying Second, the forming corrugated shields has advanced significantly in recent years, allowing the use of longitudinally folded shields on large diameter power cables. Generally use of smooth tape on the larger cables is a difficult manufacturing operation. Third, the experience history of cables with longitudinally corrugated and folded shields is approaching 20 years. This experience has been excellent which is now leading to increased utilization of this type of shield.
+x972 | On-Core Moisture Barrier
+cwrw | In this construction, a laminate of lead coated on both sides with a semi-conducting adhesive copolymer is utilized. The lead is quite thin, usually 2 mils, and the laminate is designed to expand and contract with the cable core. The moisture barrier laminate is placed directly over the semi-conducting
+4i0e | Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on July 06,2023 at 07:27:15 UTC from IEEE Xplore. Restrictions apply.
+h2l3 | screen and under the concentric neutral or shield. A semi-conducting bedding tape is normally used to protect the moisture barrier from the cutting effect of the neutral wires. Any jacket material may be utilized.
+dfzb | The principle advantage of the "On-Core" type of moisture barrier is that it directly protects the outer surface of the insulation screen and thus guards against longitudinal water migration around the neutral wires as well as radial permeation through the jacket. Thus, a water blocking tape at the neutral jacket interface is not a necessity. However, a semi-conducting bedding tape over the moisture barrier is required to prevent damage to the moisture barrier by the neutral wires when the insulation is expanded by load cycling. The moisture barrier must also be able to expand and contract with the insulation under such conditions.
+u6ty | The material considerations and testing of on-core moisture barrier cable has been extensively covered elsewhere.3, 4, 5
+awvu | Material considerations for under-jacket cable will be covered in the following section. Standardization activities and applications include both types of constructions.
+on9b | MATERIALS FOR MOISTURE IMPERVIOUS SHEATHS
+a8ge | Plastic Coated Metallic Tapes
+h27a | For many years, a plastic coated aluminum product has been in widespread use as a moisture barrier in telecommunication cables and low voltage power, control and instrument cables.6, 7 The aluminum is coated with a copolymer of polyethylene which forms a highly moisture resistant bond to the aluminum.8
+pdjh | The copolymer is adhesively compatible with low, linear low, medium and high density polyethylene jacketing materials as well as chlorinated polyethylene (CPE) and the zero- halogen jacketing materials. These latter two materials are used when ignition suppression is required. As noted in the previous section, coated aluminum is the laminate of choice in combination with neutral wires or wire shields. The use of coated aluminum tapes minimizes the added cost for moisture barrier protection.
+xmgs | Plastic coated copper is the material of choice when the moisture barrier serves a dual role of both shield and moisture barrier. Coated copper offers several benefits as a moisture barrier. First it forms terminations having excellent electrical stability. Second, it offers corrosion resistance. Third, because of its conductivity, it allows the moisture barrier to be used as the neutral in many instances. The modified copolymer used on the copper forms a long term moisture resistant bond.9
+bd9h | This copolymer is also compatible with the wide variety of polyethylene jackets in use by the industry as well as chlorinated polyethylene and the zero- halogen materials.
+m047 | A new family of coated aluminum, steel, or copper products has been developed which are adhesively compatible with PVC. 10
+gy8c | 144
+y4mj | Cushion Layer
+vpgq | A cushion layer is used between the core and moisture barrier sheath to absorb the thermal expansion of the core during load cycling. One type of material is a non-woven textile tape which incorporates a swellable powder to achieve water blocking. "1 A swell- able powder is applied to a non-woven substrate and a very thin, porous, non-woven cover is laminated on top. Upon contact with water, the powder absorbs up to 500 times its weight and swells. The swelling produces a jelly that exudes through the porous cover. This jelly forms a dam in the cable interstices that eliminates the longitudinal water flow under the moisture barrier. The intrinsic porosity of the non-woven textile allows immediate wetting of the powder and allows migration of the jellied powder to fill all interstices of the cable. If heat generated within the cable drives the water out, the jelly returns to powder form. It is reactivated when contacted again with water.
+ousl | The non-woven aspect of the tape also allows it to act as a cushion layer to protect the moisture barrier sheath from expansion and contraction of the insulation that occurs during electrical loading of the cable. These tapes are rated 90°C for continuous use and can withstand 150℃ during short term emergency use. They can also withstand the 230°C or so exposure that can occur during cable manufacture. Non-woven tapes can be impregnated with carbon black to provide good semi-conducting properties.
+m4ju | More recently, another type of cushion layer has been developed based on a semi- conductive cross-linked polyethylene foam.
+a0mb | Adhesives For Sealing
+ki8m | A hot melt adhesive is inserted into the overlap of the metallic moisture barrier to aid in the sealing of the overlap. The use of hot melt adhesives provides a reliable method of sealing the overlap during continuous cable production. The desirable characteristics of hot melts for use in moisture barrier cable include (1) adhesive compatibility with the coated metal laminate used as the moisture barrier; (2) compatibility with any lubricating oils used to facilitate forming of the laminate; (3) moisture resistant bonds; (4) bond stability; and (5) low viscosity to allow uniform spreading within the overlap. Adhesion and cable performance studies have indicated that a hot melt based on a blend of polyamide and ethylene vinyl acetate are suitable for application in power cable 12.
+km8w | Strand Filling Material
+wzno | A recent technological advance in materials for power cable has been the development of filling materials for the conductors. These materials are applied by an extrusion process or pumped into place during the stranding operation. The fillers block the longitudinal migration of moisture in the conductors. They prevent accumulation of moisture in the strand during cable manufacture, storage, installation and use. These materials have no adverse effect on splicing and termination procedures. 13
+xagm | Authorized licensed use limited to: KTH Royal Institute of Technology. Downloaded on July 06,2023 at 07:27:15 UTC from IEEE Xplore. Restrictions apply.
+iwn5 | Jackets
+uooz | As noted in the section describing the coated metal laminates, it is most important that jackets for use on moisture barrier cable have adhesive compatibility with the coatings on the laminate. Another key requirement is the degree of ignition suppressance required for the cable. Polyethylene jackets in a variety of densities and types are chosen when flame resistance is not a consideration. Chlorinated polyethylene is selected when flame resistance and chemical resistance are required. Zero-halogen jackets are selected when there is a need to minimize the emission of smoke and corrosive fumes. Polyvinyl chloride jackets are chosen for general purpose applications where ignition suppression and lower cost are the main considerations.
+pxbq | STANDARDIZATION ACTIVITIES WITH MOISTURE IMPERVIOUS CABLE
+jfsr | Background
+u15r | There are several industry groups working on standardization of moisture impervious cable. These activities are taking place during the introductory and developmental stages of moisture impervious cable, before widespread commercialization. The standards- making process is helping to shape the moisture impervious cable technology, rather than just reacting to the developing technology. The process is dynamic, coming from the top-down.
+lq35 | IEC Activities
+3g9w | IEC 840, "Tests for Power Cables with Extruded Insulation for Rated Voltages above 30 kV up to 150 kV" was published in 1988. At that time, the "Water Penetration Test" (Paragraph 5.6.16) was under consideration. An International Electrotechnical Commission (IEC) working group is defining this test. A draft document 20A (CO) 99, under the six months rule, was published as a secretariat document under 20A (Secretariat) 164. This document describes a water penetration test for those cables where barriers to longitudinal penetration have been included. The test is applicable to barriers applied over the core
+d09o | and within the conductor. The water penetration test is applied after a length of cable has been subjected to the bending test. A 50 mm wide ring is removed from the center of the length including layers external to the insulation screen or, alternatively, the conductor. A tube at least 10 mm in diameter is placed vertically over the exposed ring and sealed to the surface of the oversheath. Normally tap water is used to fill the tube. A period of five minutes is allowed for filling. The height of the water in the tube is 1000 mm above the center of the cable. The water is allowed to stand for 24 hours. The sample is then subjected to 10 heating cycles. The conductor is heated until it reaches a temperature not less than 5° C or more than 15° C above the maximum rated temperature of the insulation in normal operation. The heating cycle is 8 hours on and 16 hours off.
+```
+
+OUTPUT:
+```

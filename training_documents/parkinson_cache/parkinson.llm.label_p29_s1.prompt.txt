@@ -1,0 +1,150 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+7szx | Page 29
+hx9e | Rosendale M, Jullie D, Choquet D and Perrais D (2017) Spatial and Temporal Regulation of Receptor Endocytosis in Neuronal Dendrites Revealed by Imaging of Single Vesicle Formation. Cell Rep 18, 1840-1847. [PubMed: 28228251]
+ywn2 | Spillantini MG, Crowther RA, Jakes R, Hasegawa M and Goedert M (1998) alpha-Synuclein in filamentous inclusions of Lewy bodies from Parkinson's disease and dementia with lewy bodies. Proc Natl Acad Sci U S A 95, 6469-6473. [PubMed: 9600990]
+a63r | J Neurochem. Author manuscript; available in PMC 2020 September 01.
+dqvj | Author Manuscript
+r17u | Author Manuscript
+3c47 | Author Manuscript
+g345 | Author Manuscript
+svhz | Spillantini MG, Schmidt ML, Lee VM, Trojanowski JQ, Jakes R and Goedert M (1997) Alpha- synuclein in Lewy bodies. Nature 388, 839-840. [PubMed: 9278044]
+oaen | Vidyadhara DJ, Yarreiphang H, Abhilash PL, Raju TR and Alladi PA (2016) Differential expression of calbindin in nigral dopaminergic neurons in two mice strains with differential susceptibility to 1- methyl-4-phenyl-1,2,3,6-tetrahydropyridine. J Chem Neuroanat 76, 82-89. [PubMed: 26775762]
+5u67 | J Neurochem. Author manuscript; available in PMC 2020 September 01.
+dvms | Author Manuscript
+qrd3 | Author Manuscript
+rxrg | Author Manuscript
+tf43 | Author Manuscript
+fcco | Vidyadhara DJ, Yarreiphang H, Raju TR and Alladi PA (2017) Admixing of MPTP-Resistant and Susceptible Mice Strains Augments Nigrostriatal Neuronal Correlates to Resist MPTP-Induced Neurodegeneration. Mol Neurobiol 54, 6148-6162. [PubMed: 27704331]
+8uji | Zhao Y, Perera G, Takahashi-Fujigasaki J et al. (2018) Reduced LRRK2 in association with retromer dysfunction in post-mortem brain tissue from LRRK2 mutation carriers. Brain 141, 486-495. [PubMed: 29253086]
+df3e | J Neurochem. Author manuscript; available in PMC 2020 September 01.
+53eu | Author Manuscript
+a5u1 | Author Manuscript
+ry7u | Author Manuscript
+5mda | Author Manuscript
+i4li | J Neurochem. Author manuscript; available in PMC 2020 September 01.
+r8sm | Author Manuscript
+cuin | Author Manuscript
+n1i7 | Author Manuscript
+0r5m | Author Manuscript
+ne2o | Figure 1. E-L system in the compartments of a nigrostriatal dopaminergic neuron, with the normal functional locations of E-L system proteins linked to PD.
+sqxn | A. Soma: E-L system proteins that form structural and functional components are synthesized in the neuronal soma. Following production in the endoplasmic reticulum (ER) and post-translational modifications in the Golgi apparatus, proteins (e.g. lysosomal hydrolases) are packed into vesicles and delivered to the trans-Golgi network (TGN). In the TGN, based on the nature of post-translational modification, the vesicles are diverted either towards lysosomes (black arrows) or to the secretory pathway (red arrows). Vesicles that are destined for lysosomes bud off from the TGN to form early endosomes. Simultaneously, early endosomes carrying nutrients and surface receptors for recycling are also derived from the plasma membrane through clathrin mediated endocytosis (CME, purple arrows). These early endosomes, with the help of the endosomal sorting complex required for transport (ESCRT), pass through highly dynamic tubulovesicular structures like multivesicular bodies (MVB) and/or late endosomes before fusing with lysosomes. Leucine-rich repeat kinase 2
+6pmo | J Neurochem. Author manuscript; available in PMC 2020 September 01.
+195r | Author Manuscript
+kqmi | Author Manuscript
+g8rd | Author Manuscript
+nns9 | Author Manuscript
+9uwy | Vidyadhara et al.
+srly | Page 34
+dl6i | (LRRK2) plays a significant role in this sorting, whereas Glucocerebrosidase 1 (GBA) and ATPase cation transporting 13A2 (ATP13A2) are crucial for normal lysosomal function. Early endosomes from the cell surface that are not sorted follow the recycling pathway back to the plasma membrane (blue arrows). Retrograde transport of receptors that are used for sorting from early endosomes to TGN occurs through the retromer complex where Vacuolar Protein Sorting 35 (VPS35) and VPS13C take part (yellow arrows). An expanding membrane sac called a phagophore sequesters malfunctioning organelles (e.g. sick mitochondria) and misfolded proteins to form a double-membraned autophagosomes. These later fuses with lysosomes and releases its contents for degradation and recycling of components; the complete process is called autophagy (green arrows). PTEN Induced Putative Kinase 1 (PINK1) and Parkin are important in identifying sick mitochondria and diverting them to a specialized form of autophagy called mitophagy.
+89ub | B. Axon: Axons form a crucial bridge for retrograde transport of endosomes/ autophagosomes from presynaptic terminals to soma for lysosomal degradation. A gradual development of phagophore to full-fledged autophagosome happens within the axon (green arrows) as the encapsulated cargo arrives towards proximal end.
+dhle | C. Synapse: Neurotransmitter release in the presynaptic terminal is regulated principally by the synaptic vesicle cycle, an integral part of the neuronal E-L system. Initially, endosomes derived from the soma forms synaptic vesicles (SV) in the nerve terminal where RME-8 plays a role in association with clathrin (yellow arrow). Neurotransmitters are loaded into these SVs through specialized transporters. Upon arrival of an action potential in the synaptic terminal, these SVs fuse with the plasma membrane at active sites and release neurotransmitters via exocytosis (black arrows). Empty SVs are then recycled through CME (Purple arrows). a-Synuclein and endophilin A play roles here in membrane bending and SV curvature formation. Clathrin forms a layer on these invaginations with the help of adaptors, and in conjunction with dynamin leads to membrane fission forming clathrin coated vesicles (CCV). Clathrin uncoating is a prerequisite for SV recycling, which is performed by coordinated action of auxilin, Hsc70, endothelin A1, and synaptojanin 1. Phosphorylation by LRRK2 is necessary for activation of these proteins. Synaptic autophagy and mitophagy are also crucial in maintaining the health of the presynaptic terminal (green arrows), where PINK1/Parkin are crucial.
+2nib | J Neurochem. Author manuscript; available in PMC 2020 September 01.
+naev | Author Manuscript
+7h0h | Author Manuscript
+a64c | Author Manuscript
+gi7n | Author Manuscript
+3pn1 | Vidyadhara et al.
+wjuz | PD genes linked to E-L system with their PARK nomenclature, proteins they encode and their primary function
+3yxv | Table 1:
+d8zj | J Neurochem. Author manuscript; available in PMC 2020 September 01.
+```
+
+OUTPUT:
+```

@@ -1,0 +1,130 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+pdjh | 2044835x, 2004, 4, Downloaded from https://bpspsychub.onlinelibrary.wiley.com/doi/10.1348/0261510042378281 by <Shibboleth>member@biu.ac.il, Wiley Online Library on [06/12/2023]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+xmgs | Positioning a 'mature' self 475
+bd9h | Positioning
+m047 | For the purpose of analysing the discourse data of adolescent males, we draw on the concept of 'positioning'. This concept has gained current relevance in theorizing identity and subjectivity, where 'positions' are typically conceptualized being grounded in discourses (also variously called 'master narratives', 'plot lines', 'master plots', 'dominant discourses' or simply 'cultural texts'). These discourses are taken to provide the meanings and values within which subjects are 'positioned' (Davies & Harré, 1990; Harre & van Langenhove, 1999; Hollway, 1984). Here, the 'problem of agency' is addressed by giving the subject a semi-agentive status inasmuch as discourses are construed as inherently contradictive and in competition with one another, so that subjects are forced to choose. In other words, subjects 'agentively' pick a position among those available. Thus, positions, within this view, are resources that subjects can choose; when practised for a while, these positioning activities become repertoires that can be drawn upon in other contexts.
+gy8c | In a somewhat contrasting view, and by elaborating on Butler's (1990, 1995) notion of performing identities in acts of 'self-marking', we argue for a view of positioning that is more concerned with self-reflection, self-criticism and agency (all ultimately orientated toward self-revision). In so doing, we suggest that a line be drawn between the 'being positioned' orientation, which is susceptible to discursive determinism, and a more agentive notion of the subject as 'positioning itself', in which the discursive resources or repertoires are not always and already given but rather are accomplished. Moreover, Bamberg (in press a, b) has argued that 'being positioned' and 'positioning oneself are themselves metaphoric constructs of two very different agent-world relationships: the former with a world-to-agent direction of fit, the latter with an agent- to-world direction of fit. One way to overcome this rift is to argue that both operate concurrently in a kind of dialectic as subjects engage in talk-in-interaction and make sense of self and others in their stories. However, the interaction between these two direction-of-fit metaphors may be a lot more complex than that suggested by the idea of subjects employing relatively ready-made resources or repertoires within talk-in- interaction and becomes even more complex if we see positions themselves as constructed in talk by lexical, grammatical and interactive means (and not just 'expressed' through them). As such, we may be better off analysing the process by which such positions come into existence and with how such positions are instrumental in the construction of a sense of self and identity.
+y4mj | In taking this orientation, the 'who-am-I?' (identity) question should no longer start from a notion of a unitary subject as the ground for its investigation. Rather, the agentive subject is the 'point of departure' for its own empirical instantiation (Butler, 1995, p. 446) - as a subject that is constantly seeking to legitimate itself, situated in language practices and interactively accomplished: 'world- and person-making take place simultaneously' (Bamberg, 2000, p. 763). Thus, the pluralization of identities 'disrupts the social ontology of the subject itself ... as the internal impossibility of the subject as a discrete and unitary kind of being' (Butler, 1995, p. 446). This pluralization simultaneously opens up a new empirical territory for where and how subjects come to existence; that is, a conversational and discursive territory where positions are actively and interactively taken (and explored) for the purpose of self and world construction.
+vpgq | Our analysis of how speakers actively and agentively position themselves in talk starts from the assumption that the orderliness of talk is situationally and interactively accomplished. However, since this orderliness is the result of what is being achieved,
+ousl | 2044835x, 2004, 4, Downloaded from https://bpspsychub.onlinelibrary.wiley.com/doi/10.1348/0261510042378281 by <Shibboleth>member@biu.ac.il, Wiley Online Library on [06/12/2023]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+m4ju | 476 Neill Korobov and Michael Bamberg
+a0mb | and therefore inherently oriented to, we begin our actual discursive analysis by paying close attention to the ways in which the represented world (what the talk is 'about') is drawn up. Here we attempt to spot descriptions and evaluations of characters as well as time and space coordinates in the way that these relate to social categories and their action potential. From there we move into a closer analysis of the way these referential and representational aspects of language construction are used in their sequential arrangement among the participants of the conversation. The assumption is simply that particular descriptions and evaluations were chosen for interactive purposes. These descriptions and evaluations rhetorically function to convey how the conversationalists signal to each other how they want to be understood.
+ki8m | In working from these two levels of positioning (one vis-à-vis the content of what the talk is supposedly about, the other vis-à-vis the coordination of the interaction by the speakers), we are better situated to make assumptions about the ideological orientation within which the speakers are positioning a sense of self (as a sense of who they are). The analysis of the first two positioning levels is intended to progressively lead to a differentiation of how speakers work up constructions of normative discourses. It is at this juncture that we come full circle by showing how subjects position themselves in relation to discourses by which they are positioned. In other words, analysing talk-in-interaction along these lines enables us to circumvent the aporia of two opposing subject theories, one in which the subject is determined by existing discourses, the other in which the subject is the ground from which discourses are constructed.
+km8w | Ironically, this way of analysing talk-in-interaction for the purpose of gaining an understanding of how interactants establish a sense of self (in talk-in-interaction) resembles closely what in developmental theorizing is termed 'microgenesis' (see Bamberg, 2003, in press a). This approach focalizes the momentary history of human sense-making in the form of emergent processes. It assumes that developmental changes (such as learning or better understanding) emerge as individuals create and accomplish interactive tasks in everyday conversations. In our group discussions, the interactive space between the participants is the arena in which identities are micro- genetically performed and consolidated and where they can be micro-analytically accessed. Here we are borrowing from developmental (Bamberg, 2000; Catan, 1986; Riegel, 1975; Werner, 1948; Werner & Kaplan, 1984; Wertsch & Stone, 1978), conversation-analytic (Sacks, 1995; Sacks, Schegloff, & Jefferson, 1974; Schegloff, 1982), and 'communities of practice' approaches (Eckert, 1989, 2002; Hanks, 1996) to analyse the sequential and relational structure of talk-in-interaction, for the purpose of inquiring not only into the developing sense of self and others, but also into what is shared as a cultural model of sense-making. This does not imply that such 'senses' of self, other and generalized other (culture) do not exist previously to or outside of the discourse situation. However, for analysing talk-in-interaction, we are suggesting bracketing these categories together so that we can be open to the analysis of what the participants make currently relevant in the interactive setting. In entering this orientation from a sociolinguistic/ethnomethodological vantage point, we will deal with talk and identity work that focuses on the active and interactive 'occupation of discursive spaces', making particular use of contextualization and contextualization cues (cf. Bamberg, 2000; Gumperz, 1981 Sacks, Schegloff & Jefferson, 1974, 1992 Sacks, Schegloff & Jefferson, 1974, 1996).
+wzno | 2044835x, 2004, 4, Downloaded from https://bpspsychub.onlinelibrary.wiley.com/doi/10.1348/0261510042378281 by <Shibboleth>member@biu.ac.il, Wiley Online Library on [06/12/2023]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+xagm | Positioning a 'mature' self 477
+iwn5 | The present study
+uooz | Participants and procedure
+pxbq | Our data come from the first phase of a longitudinal and cross-sectional study investigating adolescent boys' (ages 10-15 years) discourse and identity development (Bamberg, in press a). Within the first phase, over 300 hours of talk were audio- and video-recorded from 54 boys, including adult-guided and non-adult-guided discussions. All 54 of the participants were from public schools of a large city in the northeast of the USA. For this article, we specifically examine five excerpts from three different adult- guided group discussions with boys aged 12-15 years. Each of the group discussions included between four and six boys, lasted between 1.5 and 2 hours, was videotaped, and was moderated by an adult male. The boys were told that the purpose of the group discussions was to generate talk about what it means, from their perspectives, to be growing up as young men. Because the discussions were adult-moderated, the boys did orient to the setting as a research setting with questions and answers, but did so flexibly, using their own vernacular to collectively fashion their own perspectives to the moderator's queries (see Morgan, 1997).
+jfsr | The main reason for examining only five excerpts of data versus a larger corpus of smaller excerpts is to provide sufficient specificity and analytic detail of the discursive processes that are used to orient to and against the gendered social norms that are occasioned in talk about physical attraction. Within discourse-analytic qualitative paradigms, the goals of analytic rigour, in-depth rendering of the participant's own positions, context specificity and particularization are key evaluative criteria (Denzin & Lincoln, 2000; Patton, 2002; Silverman, 1993). In contrast to some ethnographic and content-analytic approaches, the goal here is not to report a general compendium of findings, nor is it to offer summary snapshots, paraphrases or general themes of the conversational data. Instead of offering analyses that support the general finding that young men often work to appear 'mature' while talking about their heterosexuality (something we may already know), we are interested in examining in detail how such talk is accomplished; that is, the discursive work required to mitigate immaturity while securing a stake in hetero-normative masculinity. This type of micro-analytic focus not only addresses the 'how' question, but it also binds the analyst's claims to actual data. It reveals (rather than conceals) how the analysis was conducted, invites reflexive re- interpretations, and provides a concrete model for analysing similar segments of data.
+u15r | Data and analysis
+lq35 | Coming across as 'mature' while displaying an active 'heterosexuality' is one of the central activities for negotiating the 'developmental imperative' to demonstrate new age-appropriate or mature behaviours that consistently require a strategic engagement with the heterosexual social order (Eckert, 1994). Micro-genetically, this engagement can be accomplished using a variety of discursive procedures, ranging from the construction of 'normativity' and irony (see Speer, 2002), to rendering the familiar 'mysterious' (Eckert, 1994), to engaging in different forms of 'differentiation' (Edley & Wetherell, 1997), to the use of 'suppression' (see Gough, 2001), or through the construction of 'in-agentive' versus 'agentive' voicing (see Bamberg, in press a), to name but a few. For the current analysis, we will focus on three discursive methods that
+3g9w | 2044835x, 2004, 4, Downloaded from https://bpspsychub.onlinelibrary.wiley.com/doi/10.1348/0261510042378281 by <Shibboleth>member@biu.ac.il, Wiley Online Library on [06/12/2023]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+d09o | 478 Neill Korobov and Michael Bamberg
+ylhz | are particularly relevant in the establishment of <LATEX>a</LATEX> 'system of social value' (Eckert, 2002, p. 107). These three discursive methods are:
+a3td | (1) Underscoring the non-literality of actions by appealing to motives
+ex5k | (2) Denials with built-in concessions
+9d4o | (3) Differentiation through caricature.
+cjq2 | In previous studies, these discursive methods have been micro-analytically examined as ways of resisting being positioned within certain social categories, or alongside the less-than-desired features of certain social categories. For instance, Edwards' (2000) work on romantic couples' talk in therapy, and Widdicombe and Wooffitt's (1995) examination of 'punk' subcultures, each focus on how speakers cast their identities as 'non-literal' (or 'non-serious') exemplars of social categories by claiming that their outward behaviours or actions do not reflect their inward motives or dispositions. Speer and Potter (2000) have examined the ways that men attempt to resist the appearance of heterosexism in casual group discussions by strategically crafting less-than-robust denials that have concessionary elements to them; that is, concessions that allow the men to partly buy back into heterosexism at a less direct, or more subtle level. And finally, the use of 'caricature' as a strategy of differentiation has been documented by Rampton (1999) in his work on 'linguistic crossing' and 'stylization', and Georgako- poulou (2002) in her sociolinguistic work on the discursive strategies used to construct gender in Greek youth subcultures. What is common in each of these different research foci is an emphasis on these methods as discursive ways of indirectly or subtly constructing social and gendered identity positions so as to resist challenges and counters to such positions, and the micro-analytical aim of opening up these methods to closer inspection and potential critique.
+5esx | Underscoring the non-literality of actions by appealing to motives
+```
+
+OUTPUT:
+```

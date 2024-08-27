@@ -1,0 +1,131 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+y4mj | Wind, tide, sea-surface temperature, chlorophyll-a, and modelled surface currents
+vpgq | The satellite-derived sea-surface chlorophyll-a (Chl- a) concentration data are 8-day composited Level-3 global standard mapped images (SMI) derived from the moderate resolution imaging spectroradiometer (MODIS) aboard the Aqua satellite. The sea-surface temperature (SST) data were derived from long-wave (11 um) SST algorithm (Franz, 2006). Only night- time data were used to avoid any surface skin created by diurnal warming. The satellite-derived sea-surface wind data are from a daily near-real-time (NRT) product derived from WindSat Polarimetric Radiome- ter instrument. These satellite images were down- loaded from the Remote Sensing Systems under the sponsorship of NASA (http://www.remss.com/). The
+ousl | Hydrobiologia
+m4ju | Springer
+a0mb | time span of the MODIS images is from 4th August, 2012 to 30th October, 2012, and the geographic area covers in 121-123ºN and 17-19°S, with a resolution of 4 km x 4 km. The satellite wind data are from the same area and time period but with a resolution of 0.25° x 0.25°. For statistical analysis of daily satellite wind data, an average of only the 16 data points comprising a 1º square (17.5°S-18.5°S and 121.0°E- 122.0°E) immediately off Cable Beach was used. The depth in the area of this grid is 0-108 m, with three quarters of the area between 30 and 100 m deep. Additional wind speed and direction data (daily averages of anemometer and wind vane) along with tide data were obtained from the land-based Broome station of the Australian Bureau of Meteorology (BOM) http://www.bom.gov.au (which is within 10 km of all our study sites). The land-based wind data are more readily available than satellite data (which have data gaps) but are less relevant to affecting sea conditions in the offshore location of the jellyfish swarms. In addition, the land-based wind data can be influenced by factors such as the daily land/sea breeze cycle, which sometimes occurs. Modelled surface current data were derived from BOM's OceanMAPS http://wp.csiro.au/bluelink/global/oceanmaps/ model using the analysis phase data. Model data are available on a 0.1º x 0.1º grid with 51 layers; the surface layer represents the top 5 m and does not take into account tides. Daily surface velocities for the region bounded by 17.5°S-18.5°S and 121.0°E-122.0°E were extrac- ted and spatially averaged to produce a daily time series of current velocity and direction relative to north and magnitude in m.s 1 for 24 August 2012 to 20 October 2012 inclusive. Comparisons of swarm occurrence and the Southern Oscillation Index were made using data reported by the National Oceanic and Atmospheric Administration at https://www.ncdc. noaa.gov/teleconnections/enso/indicators/soi/.
+ki8m | Predictors of beach stranding events
+km8w | In order to test the hypothesis that the incidence of beach strandings was independent of local wind, current and tide conditions we sought to compare the incidence of jellyfish strandings (19 out of 58 days) with the prevailing offshore oceanographic and weather conditions. We compared the conditions on days with strandings to conditions on days without strandings for the 58 day period from 24 August to 20
+wzno | Springer
+xagm | Hydrobiologia
+iwn5 | October (3 days before the first and 3 days after the last major stranding) using the x2 statistic. As Cable Beach is oriented north-south, we were interested in the influence of onshore (north-west through to south- west) and offshore winds and currents (northeast through to south-east). Thus for wind and current, we used the satellite wind/current direction to determine for each day whether the wind/current was predom- inantly blowing/flowing from each of the NW (e.g., 270°-360°), SW, NE, or SE quarters. On days where both a morning (around 6 a.m.) and an evening (around 6 p.m.) wind reading was available and they were not the same (onshore vs offshore), we used the wind direction from the observation with the highest wind speed. This only occurred on three occasions and it made no difference to the result of the x2 hypothesis testing whether we chose the wind direction with the slowest speed or omitted these three data points altogether. When the satellite did not provide any wind data (23 of 58 days), these days were not included in the analyses. For tides, we compared tidal ranges of <5 or ≥5 m (approximately half the maximum range of 9.82 m observed in this period). To calculate the tidal range, we used the difference between the highest and lowest of the semi-diurnal tides for that day. The reason we chose to do the likelihood test on wind direction and tide as categorical variables, in addition to the more dynamical multivariate approach described below, was to attempt to have a easy to use decision tool for lifeguards patrolling what is a popular tourist beach.
+uooz | Logistic regression analysis has previously been used (Decker et al., 2007) to relate jellyfish presence/ absence data to environmental variables. We used a similar approach using the LOGIT module in SYSTAT (Systat Software Inc., San Jose, USA) to determine which predictor variable contributed the best fit to the regression, and which combination of environmental variables best described the relation- ship between the occurrence of jellyfish strandings and the potential environmental predictor variables of tide range, model current direction and speed, wind speed and wind direction at Broome. We used only envi- ronmental variables for which we had data over all the jellyfish sampling dates. For this reason, chlorophyll- a, sea-surface temperature and satellite wind data obtained were not used because of gaps resulting from intermittent cloud cover. A total dataset of 58 days including 19 days when jellyfish strandings took place
+pxbq | Hydrobiologia
+jfsr | (stranding events) was analysed. We used a two- staged approach, first modelling the presence/absence of jellyfish strandings with individual environmental variables, and then we applied a backward and forward stepwise regression in SYSTAT to choose the best set of predictive variables. Descriptive measures of goodness of fit provided from the analysis for each variable (log likelihood, receiver operating character- istic (ROC) analysis, McFadden's <LATEX>\rho ^ { 2 } ,</LATEX> Cox and Snell <LATEX>\mathrm { R } ^ { 2 }</LATEX> and Nagelkerke <LATEX>R ^ { 2 }</LATEX> were used to determine the variables which provided the highest level of predic- tion. The models with multiple predictors were compared using log likelihood, Aikaike's information criterion (AIC) and Bayesian information criterion (BIC) to determine the best model selection. The use of AIC and BIC is considered more rigorous that likelihood analysis alone in evaluating logistic regres- sion models and their use is described by Neath & Cavanaugh (2012). We have had to ignore the possibility of autocorrelation in the daily observations of stranding events, and we did not account for the circular nature of wind and current direction data (e.g., <LATEX>5 ^ { \circ }</LATEX> is closer to 355° than is 340°). However, we do not think this would have had a large bearing on the analyses, at least for the wind direction as just two values were from the northeast direction (i.e., between <LATEX>0 ^ { \circ }</LATEX> and 90°). Current directions were more uniformly distributed around the compass.
+u15r | Results
+lq35 | Location, occurrence and timing of swarms and beach strandings
+3g9w | Observations and locations of known swarms and beach strandings of C. mastigophora are shown in Fig. 1ii and summarised in Electronic Supplementary Material (ESM) Table 1. The earliest swarm recorded in the region was in August 1976 when the power plant at Cape Lambert (near Karratha, see Fig. 1ii) was forced into an emergency shutdown when the intake pipes became clogged with red jellyfish (Marsh & Slack-Smith, 2010) (see also ESM Table 1). The largest swarm is likely to have been in April 2000 when high densities of C. mastigophora were observed from the air stretching over 1,200 km from Ningaloo (Fig. 1ii) south to Rottnest Island (Marsh & Slack- Smith, 2010, see also ESM Table 1). Photographs of
+d09o | the recent swarms, at Cable Beach (Fig. 2iii) and 80 Mile Beach (Fig. 2iv) in 2012 and in the water column at Ningaloo in 2013 (Fig. 3), are shown. With the exception of the 1976 swarm, the swarms were recorded from two regions: near Broome on the Dampier Peninsula and elsewhere in the southern Kimberley region in 2006 (September/October), 2010 (April), 2011 (September to November) and 2012 (late August to November) and further south of Exmouth and Ningaloo in 1987, 2000, 2007, 2010, and 2013 (always in April/May for these large swarms). Except for the observation of high densities of <LATEX>C .</LATEX> mastigo- phora offshore of the Dampier Peninsula in April 2010, all swarms in the northern region have been in the late August/September to November period and those in the more southern region occur in April and May. Some non-serious stings to swimmers on Cable Beach in 2011 and 2012 were treated by one of us (TT; see ESM Table 1). It is difficult to compare the size and significance of swarms between years; however, observations recorded in daily log books by life guards at Cable Beach show 2006 and 2012 as the largest strandings, with swarms in the intervening years not of comparable size.
+ylhz | During 2012, numbers of <LATEX>C .</LATEX> mastigophora built up from 12 August with the first significant strandings on 27-29 August, becoming more dense from 12 to 15 September (Fig. 2i). The beach was closed to swimmers on 12 September. On subsequent days, when jellyfish were present in large numbers, although the beach was not closed, life guards continued to patrol and advised visitors of the hazard of swimming with the jellyfish. Life guards treated 396 minor stings in September and 336 in October. The last significant stranding was on 17 October, and <LATEX>C .</LATEX> mastigophora were uncommon by 23 October. The jellyfish were present throughout this period, but the very large strandings of many thousands of individuals occurred on 12, 13, 14, 15, 28, 29 September and 1, 4, 5, 8, 9, 10, 12, 15, 16, 17 October (Fig. 4). On days in-between, there were fewer jellyfish washed up but very high densities were being seen offshore. Log book records of the Broome Shire Life Guards and our own observations confirmed very high densities offshore of Cable Beach on 3 September and at the mouth of Dampier Creek in Roebuck Bay on 17 September; jellyfish were still very abundant offshore of Gantheaume Point on 19 September and another large influx was observed offshore of Cable Beach observed on 28 September. In the days following 12 September
+a3td | Springer
+ex5k | Fig. 3 Crambione mastigophora bloom photographed underwater off Ningaloo Reef 12 April 2013
+9d4o | Fig. 4 Timeline of 2012 showing dates of jellyfish beach strandings (jellyfish icon), tide range (vertical bars) and satellite wind direction (down arrow is southerly wind, up northerly, right westerly, left easterly)
+cjq2 | and as late as 20 September, when we (JK, DB) used a vehicle to visit beaches along the coastline to about 60 km north of Broome, small numbers of jellyfish could be observed along the Dampier Peninsula but campers and tourists we interviewed reported no large strandings. We (TT) found jellyfish stranded in large numbers from Gantheaume Point as far north as Coconut Wells on 8 October. They may have occurred further north as this was as far as observations were made at that time.
+5esx | Oceanographic information in relation to jellyfish strandings in 2012
+m5ka | Tide range varied from 1.25 m to 9.82 m during the period 24 August to 20 October. Of the 19 days with significant jellyfish strandings, there were 9 days (47.4%) that occurred when the tidal range was <5 m although only 18 days (31.0%) of all days during the same period had tidal ranges <5 m. This
+byu8 | Springer
+76b0 | Hydrobiologia
+zxz6 | association was not significant (P = 0.061, x2 statis- tic = 3.522, 1 d.f.). However, tide range <5 m that occurred 1 and 2 days prior to the stranding days were both significantly associated with stranding events (P = 0.013, x2 statistic = 6.158, 1 d.f. for both 1 and 2 day lags). This result indicates that strandings were significantly more likely to follow days of small tidal range than those of larger tidal ranges. However, as shown in Fig. 4, not all stranding events occurred on days which followed smaller than average tide ranges.
+xnth | Water temperature increased from 20.5 to 28.5℃ over the two-month period from early August until late October (ESM Fig. 1). The most significant change was during September water temperatures of Cable Beach increasing from 24℃ to 27℃ between 28 August and 29 September. Chlorophyll-a levels of Cable Beach were low (0.4-0.5 mg m 3) from 4 August to 4 September and then increased to 1.3-1.5 mg m-3 as chlorophyll-a levels increased first in Roebuck Bay and south and north to Cable Beach and beyond (ESM Fig. 2). Winds
+vafm | Hydrobiologia
+```
+
+OUTPUT:
+```

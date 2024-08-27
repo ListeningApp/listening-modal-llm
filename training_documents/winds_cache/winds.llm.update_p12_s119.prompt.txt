@@ -1,0 +1,78 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document. Your task is to faithfully reproduce the text for our text-to-speech engine so that it is easily read aloud.
+
+Note that the text might not start at the beginning and paragraphs may be split acrosss multiple textboxes. Textboxes may start or end in the middle of a word which is acceptable: do not combine text between textboxes and leave broken words at the start and end of a textbox unchanged.
+
+You will receive one textbox per-line in the format `id | Textbox content`. The output must be in the format `id | Clean content`.
+
+RULES:
+ • Remove inline citations and references e.g. "(Author, 2021)" or "(https://wikipedia.org/article.html)" or "[ECMOS 35b, 47, 49]".
+ • Spell out numbers, dates, and chemical formulas for the TTS engine e.g. "-2.5" -> "negative two point five" or "Jan. 2020" -> "January twenty twenty".
+ • Spell out LaTeX formulas for the TTS engine e.g. "<LATEX>p = 1</LATEX>" -> "P equals one".
+ • Rejoin hyphenated word fragments within the same textbox e.g. "synth -esize" -> "synthesize".
+ • Fix simple typos and OCR errors e.g. "O nce upon a 1ime." -> "Once upon a time.".
+ • Delete nonsequiter textboxes that interrupt the middle of a sentence if they obviously do not belong.
+
+Otherwise, the output should exactly match the input text:
+ • Do not combine text across lines or attempt to fix words broken across lines.
+ • Ensure each ID from the input is included in the output.
+ • Make as few changes as possible while respecting the above rules.
+
+EXAMPLE INPUT:
+```
+ccpt | stigate the effectiveness of psychedelics for ADHD symp- toms in adults.
+0fpw | 2. Materia1 and methods
+dqn8 | 2.1. Study design and participants
+cop0 | The study employed a naturalistic design, assessing the experiences of participants at bas-,
+lhkq | eline before they start, and at 2 and 4 weeks after initiation. The target population included adults with ADHD symptoms who had not been diag- nosed with ADHD before. To be included, participants needed to score on Conner's Adult ADHD Rating Scale (CAARS-S:SV). This cut-off was indicative of clinically elevated symptoms (Conners et al., 1999) (see section 2.3).
+82ju | 2.2. Study procedure
+y2qo | The online advertisement was placed on a website providing information about psychedelics (www.microdo sing.nl). Interested participants were redirected to information explaining the study rationale and procedure. The baseline survey took 20 min to complete. If the survey had not been completed after 24 h, a reminder was sent. Each of the surveys at the 2- and 4-week time points took about 15 min to complete. Par- ticipants were able to pause the surveys. Data collection occurred between Nov. 2020 and Jul. 2021. The study was approved by the Ethics Review Committee of Psy- chology and Neuroscience at Maastricht University (ERCPN- 215_05_11_2019_A1).
+1piq | 2.3. Measures
+7fqw | 2.3.1. Demographic information and history of substance use
+rhaz | At baseline, demographic information was collected. History of substance use assessed experience with psyche- delics (i.e., ayahuasca, DMT, 5-MeO-DMT, LSD, novel lysergamides (e.g., 1P-LSD, ALD-52), psilocybin, salvia divinorum, ibogaine, and mescaline) in both full (psychedelic) doses and microdoses.
+wak1 | 2.3.2. Psychiatric and physiological diagnoses
+wtfz | Participants were asked whether they had a current diagnosis of a disorder. These answer options were chosen because most of the listed diagnoses are often reported to co-occur with ADHD (Kooij et al., 2019), or because these diagnoses were reported to be common in people who microdose (Fadiman and Korb, 2019). We 
+3j2l | REVIEW ARTICLE Frontiers in Psychiatry | www.frontiersin.org
+03k3 | 2
+1k9e | constructed a variable Comorbidity alongside ADHD, differenti- ating respondents with and without a comorbid diagnosis alongside ADHD (<LATEX>p < . 0 0 1 =</LATEX> only ADHD or no ADHD diagnosis; <LATEX>p > . 0 1 =</LATEX> ADHD and at least one other diagnosis). We constructed a variable Medication use alongside microdosing, differentiating respondents who were and were not using conven- tiona1 ADHD medication alongside microdosing (<LATEX>0 =</LATEX> only microdosing; <LATEX>1 =</LATEX> conven-
+```
+
+EXAMPLE OUTPUT:
+```
+ccpt | stigate the effectiveness of psychedelics for ADHD symptoms in adults.
+0fpw | Two. Material and methods
+dqn8 | Two point one. Study design and participants
+cop0 | The study employed a naturalistic design, assessing the experiences of participants at bas-,
+lhkq | eline before they start, and at two and four weeks after initiation. The target population included adults with ADHD symptoms who had not been diagnosed with ADHD before. To be included, participants needed to score on Conner's Adult ADHD Rating Scale. This cut-off was indicative of clinically elevated symptoms (see section two point three).
+82ju | Two point two. Study procedure
+y2qo | The online advertisement was placed on a website providing information about psychedelics. Interested participants were redirected to information explaining the study rationale and procedure. The baseline survey took twenty minutes to complete. If the survey had not been completed after twenty-four hours, a reminder was sent. Each of the surveys at the two and four-week time points took about fifteen minutes to complete. Participants were able to pause the surveys. Data collection occurred between November twenty twenty and July twenty twenty-one. The study was approved by the Ethics Review Committee of Psychology and Neuroscience at Maastricht University.
+1piq | Two point three. Measures
+7fqw | Two point three point one. Demographic information and history of substance use
+rhaz | At baseline, demographic information was collected. History of substance use assessed experience with psychedelics (i.e., ayahuasca, DMT, five-MeO-DMT, LSD, novel lysergamides (e.g., one-P-LSD, ALD-fifty-two), psilocybin, salvia divinorum, ibogaine, and mescaline) in both full (psychedelic) doses and microdoses.
+wak1 | Two point three point two. Psychiatric and physiological diagnoses
+wtfz | Participants were asked whether they had a current diagnosis of a disorder. These answer options were chosen because most of the listed diagnoses are often reported to co-occur with ADHD, or because these diagnoses were reported to be common in people who microdose. We
+3j2l |
+03k3 |
+1k9e | constructed a variable Comorbidity alongside ADHD, differentiating respondents with and without a comorbid diagnosis alongside ADHD (P is less than point zero zero one equals only ADHD or no ADHD diagnosis; P is greater than point zero one equals ADHD and at least one other diagnosis). We constructed a variable Medication use alongside microdosing, differentiating respondents who were and were not using conventional ADHD medication alongside microdosing (zero equals only microdosing; one equals conven-
+```
+
+INPUT:
+```
+0fpw | <LATEX>\left( \pm 0 . 0 2 \mathrm { S E } \right. ,</LATEX> <LATEX>\left. n = 2 1 \right) .</LATEX> Abundance and biomass of <LATEX>C .</LATEX> mastigophora stranded on Cable Beach
+dqn8 | The average wet weight of 168 C. mastigophora washed ashore on Cable Beach on 5 October 2012 (as predicted from mean bell diameter) was 268.4 g. The mean density (ind. per <LATEX>\mathrm { m } ^ { 2 } \pm 1</LATEX> standard error) of <LATEX>C .</LATEX> mastigophora washed ashore on Cable Beach on 8 October 2012 was <LATEX>2 . 6 5 \pm 0 . 6 4</LATEX> (range 0.6-5.4) for the six high-water transects and <LATEX>1 . 7 4 \pm 0 . 5 8</LATEX> (range 0.5-3.9) for the six low-water transects. The average was <LATEX>2 . 2 0 \pm 0 . 4 3</LATEX> ind. per <LATEX>m ^ { 2 }</LATEX> for all 12 transects along the whole beach. This was used as an estimate of density
+cop0 | for the whole beach and corresponded to a wet weight of 590.6 ± 115.4 g per m2. Using a conservative estimate of beach width of 100 m (measured average was 115.5 m, see Materials and Methods section) along the
+lhkq | Hydrobiologia
+82ju | 2.5 km of beach where the density data were collected, means that the area of beach surveyed was 250,000 m2. Accordingly it can be calculated that along this stretch of beach, 147.6 ± 28.9 tonnes of jellyfish was deposited
+y2qo | Hydrobiologia
+1piq | by the tide. This is equivalent to 59.0 ± 11.5 tonnes per linear kilometre of beach. The survey by vehicle of the extent of the swarm south and north of Cable Beach revealed that the jellyfish were washed up in similar numbers between Gantheaume Point and Coconut Wells, a distance of 15 km (Fig. 1iii). If the density and size distribution of C. mastigophora along this section of coastline were similar to that measured on Cable Beach as suggested by the photographic record obtained in our survey, then this would equate to a biomass of 886 ± 173 tonnes (3.30 million ± 0.64 million jellyfish) being deposited along the coast on 8 October 2012. Strandings of similar scale were observed on a total of 16 days between 12 September and 17 October 2012 meaning a total of 52.8 million ± 10.3 million (14,172 ± 2,770 tonnes) jellyfish may have washed ashore during this time. The estimate is
+7fqw | conservative given on each of these 16 days that there were two tidal cycles each depositing jellyfish on the beach and there were smaller (but significant) numbers washed up on each of the other 57 days between 12 August and 23 October (see ESM Table 1).
+rhaz | Diet and commensal organisms
+wak1 | The prey items recovered from the tentacles of 14 C. mastigophora are shown in Fig. 8. On average, 220 organisms were recovered from tentacles (±68 SE). The taxonomic composition included small copepods, copepod fragments and other crustaceans, bivalves, invertebrate eggs, phytoplankton and microzooplank- ton (Fig. 8). All medusae had invertebrate eggs, and the majority had bivalves, pteropods, amphipods and copepods (Fig. 8). Proportionately bivalves,
+wtfz | pteropods and invertebrate eggs dominated the prey captured (Fig. 8). There was no difference in organ- isms found in tentacles of medusae collected from Dampier Creek or Gantheaume Point (Permanova Pseudo-F = 079, P = 0.6). Two jellyfish from Gantheaume Point harboured small (2 cm) carangid fishes as associate/commensal organisms.
+qy1i | Discussion
+1k9e | Distribution and occurrence of swarms
+5bjs | This study found that significant jellyfish stranding events were associated with smaller than average tide range, with a time lag of 2 days. Using the same time lag, more than 90% of all strandings occurred when winds (as measured by satellite out over the oceans to the west of the beach) were blowing onshore, but this result was not statistically significant. Modelled cur- rents flowing onshore were associated with 63-68% of strandings depending on the time lag used. Combining these three factors in a logistic regression model failed to provide a better prediction of stranding events than tide range on its own (but see comment on use of circular data in methods section). The influence of tide alone on meso-scale physical processes affecting jellyfish distribution would explain why days with significant beach strandings were interspersed with days of absent or minimal stranding. However, we expect that some combination of influence of wind or currents acting to bring the jellyfish close to the shore and the small tides preventing significant advection away from the beach is taking place. Tides, winds and currents are known to influence distribution of jellyfish and cause them to concentrate or "swarm" near to the shore (Zavodnik, 1987; Graham et al., 2001). The time lags account for the period between when physical processes are enacted and when their consequences (jellyfish on beach) are observed. The use of time lags in wind data has previously been shown (Pontin et al., 2009) to be important in predicting jellyfish distribu- tion in Physalia (which have "sails"). Our study shows that the use of time lags in tide range may be a useful predictor of rhizostome jellyfish distribution, at least, in areas where large tide ranges exist, such as in the north-west of Australia (Short, 2011). Tidal influence has been shown to be the dominant onshore-offshore current transport mechanism in this region (Condie
+uodj | Hydrobiologia
+```
+
+OUTPUT:
+```

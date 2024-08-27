@@ -1,0 +1,79 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document. Your task is to faithfully reproduce the text for our text-to-speech engine so that it is easily read aloud.
+
+Note that the text might not start at the beginning and paragraphs may be split acrosss multiple textboxes. Textboxes may start or end in the middle of a word which is acceptable: do not combine text between textboxes and leave broken words at the start and end of a textbox unchanged.
+
+You will receive one textbox per-line in the format `id | Textbox content`. The output must be in the format `id | Clean content`.
+
+RULES:
+ • Remove inline citations and references e.g. "(Author, 2021)" or "(https://wikipedia.org/article.html)" or "[ECMOS 35b, 47, 49]".
+ • Spell out numbers, dates, and chemical formulas for the TTS engine e.g. "-2.5" -> "negative two point five" or "Jan. 2020" -> "January twenty twenty".
+ • Spell out LaTeX formulas for the TTS engine e.g. "<LATEX>p = 1</LATEX>" -> "P equals one".
+ • Rejoin hyphenated word fragments within the same textbox e.g. "synth -esize" -> "synthesize".
+ • Fix simple typos and OCR errors e.g. "O nce upon a 1ime." -> "Once upon a time.".
+ • Delete nonsequiter textboxes that interrupt the middle of a sentence if they obviously do not belong.
+
+Otherwise, the output should exactly match the input text:
+ • Do not combine text across lines or attempt to fix words broken across lines.
+ • Ensure each ID from the input is included in the output.
+ • Make as few changes as possible while respecting the above rules.
+
+EXAMPLE INPUT:
+```
+ccpt | stigate the effectiveness of psychedelics for ADHD symp- toms in adults.
+0fpw | 2. Materia1 and methods
+dqn8 | 2.1. Study design and participants
+cop0 | The study employed a naturalistic design, assessing the experiences of participants at bas-,
+lhkq | eline before they start, and at 2 and 4 weeks after initiation. The target population included adults with ADHD symptoms who had not been diag- nosed with ADHD before. To be included, participants needed to score on Conner's Adult ADHD Rating Scale (CAARS-S:SV). This cut-off was indicative of clinically elevated symptoms (Conners et al., 1999) (see section 2.3).
+82ju | 2.2. Study procedure
+y2qo | The online advertisement was placed on a website providing information about psychedelics (www.microdo sing.nl). Interested participants were redirected to information explaining the study rationale and procedure. The baseline survey took 20 min to complete. If the survey had not been completed after 24 h, a reminder was sent. Each of the surveys at the 2- and 4-week time points took about 15 min to complete. Par- ticipants were able to pause the surveys. Data collection occurred between Nov. 2020 and Jul. 2021. The study was approved by the Ethics Review Committee of Psy- chology and Neuroscience at Maastricht University (ERCPN- 215_05_11_2019_A1).
+1piq | 2.3. Measures
+7fqw | 2.3.1. Demographic information and history of substance use
+rhaz | At baseline, demographic information was collected. History of substance use assessed experience with psyche- delics (i.e., ayahuasca, DMT, 5-MeO-DMT, LSD, novel lysergamides (e.g., 1P-LSD, ALD-52), psilocybin, salvia divinorum, ibogaine, and mescaline) in both full (psychedelic) doses and microdoses.
+wak1 | 2.3.2. Psychiatric and physiological diagnoses
+wtfz | Participants were asked whether they had a current diagnosis of a disorder. These answer options were chosen because most of the listed diagnoses are often reported to co-occur with ADHD (Kooij et al., 2019), or because these diagnoses were reported to be common in people who microdose (Fadiman and Korb, 2019). We 
+3j2l | REVIEW ARTICLE Frontiers in Psychiatry | www.frontiersin.org
+03k3 | 2
+1k9e | constructed a variable Comorbidity alongside ADHD, differenti- ating respondents with and without a comorbid diagnosis alongside ADHD (<LATEX>p < . 0 0 1 =</LATEX> only ADHD or no ADHD diagnosis; <LATEX>p > . 0 1 =</LATEX> ADHD and at least one other diagnosis). We constructed a variable Medication use alongside microdosing, differentiating respondents who were and were not using conven- tiona1 ADHD medication alongside microdosing (<LATEX>0 =</LATEX> only microdosing; <LATEX>1 =</LATEX> conven-
+```
+
+EXAMPLE OUTPUT:
+```
+ccpt | stigate the effectiveness of psychedelics for ADHD symptoms in adults.
+0fpw | Two. Material and methods
+dqn8 | Two point one. Study design and participants
+cop0 | The study employed a naturalistic design, assessing the experiences of participants at bas-,
+lhkq | eline before they start, and at two and four weeks after initiation. The target population included adults with ADHD symptoms who had not been diagnosed with ADHD before. To be included, participants needed to score on Conner's Adult ADHD Rating Scale. This cut-off was indicative of clinically elevated symptoms (see section two point three).
+82ju | Two point two. Study procedure
+y2qo | The online advertisement was placed on a website providing information about psychedelics. Interested participants were redirected to information explaining the study rationale and procedure. The baseline survey took twenty minutes to complete. If the survey had not been completed after twenty-four hours, a reminder was sent. Each of the surveys at the two and four-week time points took about fifteen minutes to complete. Participants were able to pause the surveys. Data collection occurred between November twenty twenty and July twenty twenty-one. The study was approved by the Ethics Review Committee of Psychology and Neuroscience at Maastricht University.
+1piq | Two point three. Measures
+7fqw | Two point three point one. Demographic information and history of substance use
+rhaz | At baseline, demographic information was collected. History of substance use assessed experience with psychedelics (i.e., ayahuasca, DMT, five-MeO-DMT, LSD, novel lysergamides (e.g., one-P-LSD, ALD-fifty-two), psilocybin, salvia divinorum, ibogaine, and mescaline) in both full (psychedelic) doses and microdoses.
+wak1 | Two point three point two. Psychiatric and physiological diagnoses
+wtfz | Participants were asked whether they had a current diagnosis of a disorder. These answer options were chosen because most of the listed diagnoses are often reported to co-occur with ADHD, or because these diagnoses were reported to be common in people who microdose. We
+3j2l |
+03k3 |
+1k9e | constructed a variable Comorbidity alongside ADHD, differentiating respondents with and without a comorbid diagnosis alongside ADHD (P is less than point zero zero one equals only ADHD or no ADHD diagnosis; P is greater than point zero one equals ADHD and at least one other diagnosis). We constructed a variable Medication use alongside microdosing, differentiating respondents who were and were not using conventional ADHD medication alongside microdosing (zero equals only microdosing; one equals conven-
+```
+
+INPUT:
+```
+b780 | Prior to Ag electrodeposition, the GC or Au electrodes were polished with 0.3 um aluminum oxide and subsequently sonicated (for at least 5 min) in water, 0.1 M KOH in ethanol, bidistilled water, 5% nitric acid, and finally rinsed with bidistilled water and dried. These substrates with a deposited silver layer are denoted in the text as GC/Ag or Au/Ag. Before the reference membrane casting, the surfaces of the Ag, GC/Ag, or Au/Ag were rinsed with methanol and THF. The reference cocktails were allowed to dry for at least 24 h, and after that the quality of the dry REF-Br membranes was inspected using an optical microscope to check for possible faults (namely, adhesion to the substrate, compactness of the membrane layer, the presence of cracks, and uncovered substrate areas),
+ccmb | and to select the membranes without faults for further experiments.
+ma93 | Apparatus. The potentiometric measurements were performed using a homemade 16-channel setup. The input impedance was greater than 1013 Ohms and the input current was lower than 20 fA for each of the 16 inputs as well as for the reference electrode input. The multichannel potential-meter was coupled with a personal computer equipped with a 16-bit resolution data acquisition card PCI DAS 6014 (Computer Boards; U.S.) and custom-made software. In typical conditions, the potential resolution was better than 0.02 mV.
+c6hh | In the potentiometric measurements the double junction REF251 (Metrohm; Switzerland) reference electrodes were used. All the experiments were performed at room temperature (22-24 ℃). Stirring up to 500 rpm did not significantly affect the readouts.
+y7ea | RESULTS AND DISCUSSION
+nav4 | 1. The rate of standard potential stabilization and its repeatability. Freshly prepared electrodes with dry REF-Br membranes were immersed in 2 M KBr and their potential changes were recorded. The shortest soaking time (usually several tens of seconds) was needed for electrodes with REF- Br-nano membranes. A longer soaking (several hundreds of seconds) was required for the electrodes with REF-Br-photo membranes, while the longest was for the electrodes with REF- Br-QB membranes. The short-time behavior of the electrodes is similar for the metallic silver and the substrates with a deposited silver layer on nonsilver electronically conducting substrates, for example, glassy carbon, as shown in Figure 1.
+gem8 | The results show the convergence of the short-time potentials, for the five electrodes used, to less than 3 mV after a few minutes of soaking. The mean potential after 20 min is -157.63 ± 1.09 mV. (More data can be found in Supporting Information, Table S-1.)
+e8nr | 2. Long-Term Potential Stability of the Electrodes with REF-Br Reference Membranes. For several hundreds of all the types of REF-Br membranes studied, the stable and reproducible potential readouts collected are all located in a rather narrow potential range to the mean potential -157 ± 10 mV. No systematic lifetime experiments were undertaken. However, for the same subtypes of electrodes, typically in a series of 5-16 electrodes, the potentials were reproducible within ±2 mV during continuous measurement for 10 days in 2
+k78w | M KBr (Figure S-1). These were the electrodes with the reference membranes deposited on Ag substrate embedded in a PVC body. This design facilitates the adhesion of PVC membrane to the PVC body which is advantageous to the electrodes' lifetime.
+g9du | 3. Substrate Influence on the Standard Potential Value and Its Stability. Excellent potential reproducibility and long-term potential stability were observed for all REF-Br membranes deposited on silver substrate or with GC or Au substrate covered with the silver layer. The membrane was unattached from the substrate and the presence of silver, potassium, and bromide was analyzed by SEM/EDAX on both sides of the membrane, Figure 2.
+f682 | The largest amount of silver and bromide were determined on the side of the membrane in contact with Ag substrate, whereas for the other side, mainly bromide and potassium signals were detected.
+li1k | If the reference membranes were placed directly on GC or Au substrate, unpredictable and unstable potential values were recorded (see Table S-2).
+pbea | 4. EIS Spectra for Electrodes with REF-Br Membranes Deposited on Silver or Nonsilver Substrate. The influence of the Ag phase was inspected by electrochemical impedance (EIS).
+ccpt | A striking difference in the impedance spectra for electrodes with reference membranes deposited on Ag substrate or nonsilver substrate was observed. Namely, the difference is manifested by a disappearance of a low-frequency branch for the membranes deposited on Ag substrate which is present if the substrate is a nonsilver one. The EIS results indicate a slower electrochemical process rate in the membrane without dispersed Ag. The appearance of Warburg type behavior at lower frequencies can be attributed to a slower ion-transport in the membrane. It can be hypothesized that dispersed silver facilitates the overall electrochemical process.
+0fpw | The EIS spectra illustrating this effect, recorded for electrodes with REF-Br-photo membranes deposited on a bare GC substrate and for the GC substrate covered with Ag are presented in Figure S-2.
+dqn8 | 5. Mechanism of the Br-REF Response. Undoubtedly, the fact that the metallic silver, both as the layer on the substrate and in the form of dispersed nanosilver in the membrane, significantly contribute to stabilizing the potential of the REF-Br systems is of general importance to solid contact
+```
+
+OUTPUT:
+```

@@ -1,0 +1,153 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+y4mj | The Promise of Field Experiments in Economics
+vpgq | The empirical gold standard in the social sciences is to estimate a causal effect of some action, but amidst the complexity of the real world, this is easier said than done. Economists have long worked on approaches that seek to separate cause and effect in naturally occurring data. A few decades ago, a standard approach was to use multiple regression analysis in an attempt to hold other factors constant. But economists have now taken to heart the old maxim that "correlation doesn't imply causation," and have in recent decades sought out a variety of other approaches.
+ousl | For example, the instrumental variables approach seeks out a sometimes unex- pected source of exogenous variation to disentangle cause and effect. "Natural experiments" seek out an event or a change in the law that arguably creates exogenous variation in the variable of interest. One typically analyzes changes in a population that received the variation compared with changes in another population that didn't, under the assumption that they would have experienced much the same change in the absence of the treatment. A regression disconti- nuity approach looks for a situation where those immediately above the level of a certain characteristic-perhaps age or income-are treated differently than those just below that level, and then, based on the assumption that those barely above the defining line are not that different than those barely below the line, looks for
+m4ju | 9
+a0mb | John A. List
+ki8m | whether a discontinuity occurs. Structural modeling can be a powerful approach to guide empirical regressions. It's possible to evaluate treatment programs not by experimental methods, but by making a statistical adjustment for those who are in the program compared with those outside the program, using the method of propensity score matching (Rosenbaum and Rubin, 1983).
+km8w | All of these approaches of modeling naturally occurring data, along with others not mentioned here, are quite useful. I do not come to bury econometric studies based on nonexperimental data, but rather to praise them. As I have argued for over a decade, my strong belief is that field experiments can usefully complement studies based on naturally occurring data and lab data. In this way, field experiments offer another useful set of arrows for the quiver of empirically minded economists. When combined with theory, field experiments represent an important and undervalued approach to further our understanding of economics.
+wzno | To be sure, we must work carefully when drawing conclusions based on the results of field experiments. Was the selection of participants into the treatment and experimental groups truly random? Do those who are not treated take some action as a result of being in the experiment, albeit in the control group, that they might not otherwise have taken? Is there something about the population being studied-perhaps risk-tolerance or persistence or belief that the treatment works- that warrants caution in generalizing the results to other populations? In the last few years, a lively literature has debated these and other issues that can arise in field experiments. The reader interested in these debates might begin with Heckman and Smith (1995) and Deaton (2010), who focus their criticisms largely on framed field experiments.
+xagm | The papers in this symposium offer a wide sampling of field experimental work in economics as it has been evolving. Along the way, these papers show how researchers are seeking practical ways to address many of these potential concerns. In "Mechanism Experiments and Policy Evaluations," Jens Ludwig, Jeffrey R. Kling, and Sendhil Mullainathan discuss how we can learn from doing field experiments in complex policy environments. They emphasize the importance of uncovering the mechanism through which a treatment effect actually occurs-an insight that in many cases can be derived from a relatively simple set of field experimental treatments. In "The Role of Theory in Field Experiments," David Card, Stefano DellaVigna, and Ulrike Malmendier propose a way of classifying experimental studies according to the ways in which they are linked to economic theory, and they provide evidence that as field experiments have become more prominent in top economics journals, so have explicit theoretical foundations for those experiments. In "Field Experiments with Firms," Oriana Bandiera, Iwan Barankay, and Imran Rasul show how field experiments can illuminate a variety of firm decisions about methods of employee compensation and competitive strategy. Reading their paper, I was struck by how much of the modern-day business school curriculum might usefully be explored with the judicious use of field experiments.
+iwn5 | Along with their many specific lessons, these three papers illustrate the general advantages of field experiments. First, field experiments offer a distinctive and new
+uooz | 10 Journal of Economic Perspectives
+pxbq | source of empirical evidence, which can then be compared, contrasted, reconciled, and eventually intertwined with evidence from nonexperimental and lab methods. Admittedly, this new experimental evidence will bring its own methodological chal- lenges, but when the field experiments are well-designed and rooted in economic theory, their evidence also has some distinctive strengths. Second, field experiments offer an immediate opportunity to specify and address the economic question of interest, rather than waiting and hoping for a natural event or a cast-iron econo- metric specification that would allow the researcher to address the issue cleanly. Consequently, conducting successful field experiments demands a different set of skills from traditional economic research, including the ability to recognize opportunities for experimentation hidden amidst everyday phenomena, an under- standing of experimental design, and the interpersonal skills to manage what are often a complex set of relationships involving parties to an experiment. Finally, field experiments offer economists the possibility of an improved connection from economic theory and empirical evidence to the real world, built on a deeper contextual understanding of real-world issues and institutions.
+jfsr | How Do I Get Started?
+u15r | The idea of carrying out a field experiment may seem daunting. It means visiting a market or a firm that you may not know well, introducing yourself, and figuring out how to randomize important economic variables within a possibly complex situation. You must brace yourself for possible pitfalls along the way. Here, I offer 14 tips for improving your chances of executing successful field experiments.
+lq35 | 1. Use economic theory to guide your design and as a lens to interpret your findings.
+3g9w | Economic theory is portable; empirical results in isolation offer only limited information about what is likely to happen in a new setting. Together, however, theory and experimental results provide a powerful guide to situations heretofore unexplored. Experimental results are most generalizable when they are built on tests of economic theory.
+d09o | 2. Be an expert about the market that you are studying.
+ylhz | This is perhaps the most important insight that I have gained over my nearly 20 years of running field experiments. As a sports card dealer running natural field experiments in the early 1990s, I needed to understand the inner workings of the market-to have detailed knowledge of the underlying motivations of the actors in the market: buyers, sellers, third-party certifiers, and organizers. My past experience with this market was quite beneficial in crafting designs in which the incentives would be understood and interpreted correctly, and also in generating alternative hypotheses and understanding how to interpret the experimental data.
+a3td | Why Economists Should Conduct Field Experiments and 14 Tips 11
+ex5k | 3. Have a proper control group.
+9d4o | Experimentation is ubiquitous. Wherever I go to set up research-across profit and nonprofit firms, federal and local government agencies, school districts, Chinese manufacturing plants, and trading pits-I see that everyone already experiments. Unfortunately, what is common across all of these venues is that the experimenter rarely has a proper control group to compare results with the treated group. In nearly all cases, the comparison or control group is ill-conceived-past behavioral patterns or current behavioral patterns from a different population are used as a control group. Doing this is like neutering homo experimentalis.
+cjq2 | 4. Obtain sufficient sample sizes.
+5esx | One prominent reason why field experiments fail is that they were ill-powered from the beginning. This stems from the fact that experimentalists do not pay enough attention to the power of the experimental design-whether it be that clustering was not accounted for or other potential nuances were ignored. Indeed, beyond that, one of the first questions I am always asked when I meet to obtain an initial agreement to run a field experiment is: "How many people do we need for the experiment?" To respond, "It depends on the variance of the sample," is inap- propriate. Rather, you should place sample sizes in the language of standardized effect sizes. For example, I tell the local school superintendant that if we want to detect a quarter of a standard deviation treatment effect, we need 256 observations in treatment and 256 in control. Of course, the superintendant does not typically understand what a quarter of a standard deviation is, so I complement that state- ment with something along the lines of "That is in the neighborhood of one-half of the black/white achievement gap."
+m5ka | 5. Have a champion within the organization-the higher up the better.
+byu8 | Making the experiment a "we" project instead of an "us versus them" pursuit as early as possible is critical. This may be the most important element to having a field experiment actually completed. Within firms, having the chief executive officer behind the research is optimal; if the chief executive officer is not your champion, then try to obtain the help of the chief information officer, chief strategy officer, or a comparable person. Within school districts, the superintendant or at least the school principal must be at your side. You may not get much in-person help from these champions; the point is, they have the wherewithal to make others in the organization more likely to help.
+76b0 | 6. Understand organizational dynamics.
+zxz6 | In every venue that I have worked, someone seemingly was put there to halt my efforts. I call this the "Adam" effect because in two firms, my nemesis was actu- ally named Adam! This person, who is typically smart but insecure, will key in on potential vulnerabilities and will attempt to thwart your efforts at every turn. I have found that in just about every case, it is better to be collegial and seek to turn this person to your side rather than buck horns continuously. Insiders always have a way
+xnth | 12 Journal of Economic Perspectives
+vafm | to stop your field experiment or to make it so costly that you will want to halt the experiment yourself.
+2zmw | 7. Organizations that have "skin in the game" are more likely to execute your design and use your results to further organizational objectives.
+bf9k | One interesting feature of field experiments is that when the organization has invested resources-even if they are sunk costs-the organization is more likely to complete the project. This spills over to how they use your results afterwards, too. I have found, across firms and agencies, that my results are more likely to be considered useful and implemented if the organization has invested resources to help execute the experiment. I suspect this result is not because the research is "better" in some way due to the resource investment of the organization. Perhaps the organization believes the results are more "trustworthy" or they must make use of them because they have paid to obtain the information.
+otkr | 8. Run the field experiment yesterday rather than tomorrow.
+ibgs | My curriculum vitae would double in length if I could turn back the clock and execute all my planned field experiments two weeks before their planned execu- tion. Sometimes, there are the "cold feet" cancellations. In other cases, the field experiment is cancelled because the chief executive officer is fired, your project manager is shipped to the Venezuelan office, your insider goes on personal leave because his wife becomes ill, or a nemesis finally succeeds in sabotaging your efforts.
+colo | 9. Change the nature of the discussion of the cost of the experiment.
+d6r4 | An aspect of potential field experiments salient to partners is the burden of their cost. After the query concerning sample sizes, the next question will concern cost-Adam will be sure to mention it. Your task is to enlighten such efforts with basic economic arguments. For instance, when a nemesis claims that this experiment will cost the firm too much money, I often respond that we are "costing" the firm too much money by not experimenting. Every minute that passes wherein the organization does not know the elasticity of demand, whether its ads are really working, or the effectiveness of dollars spent on teacher resources, is money lost. When an organization understands the opportunity cost of time-of not yet using field experiments to maximize feedback-you have effectively reversed the cost argument in your favor. Indeed, in many cases I have worked on, there was actually a prospect of making money during the experi- ment and so producing a double dividend.
+9mrz | 10. Make clear that you do not have all the answers.
+pk06 | You typically gain entrance into an organization because it is having problems. People in organizations know that they are facing problems, and they may not welcome an outsider-especially one who claims to arrive with all of the answers. And of course, economists often do not have the correct answers to the organiza- tion's most pressing challenges. Admitting this up front, while adding that you have
+7wn9 | John A. List
+wcd0 | 13
+caos | the tools to learn about the answers in a partnership with them, goes a long way towards ensuring long-term success. For example, within education circles, I readily admit that I do not know the education production function; but I emphasize that I have tools that will help us discover aspects of it.
+qrvy | 11. Be open to running experiments that might not provide high-powered research findings in the short run.
+pn9j | Organizations are often wary of giving an economist carte blanche to randomize some variable of interest-and justifiably so! Sometimes getting your foot in the door by conducting experiments that are not intellectually satisfying can lay the ground- work for much more intellectually interesting exogenous variation in the future. In this way, the original experiments represent a long-term investment in building the trust of the organization.
+1pmc | 12. Don't be captured by the organization.
+5z6q | Of course, tip no. 11 can be pushed too far. An organization may wish to focus on experiments that have a high private return to the organization, but a lower social return for the research community. To do so, it may seek to limit the number of interesting treatments that can be employed. In addition, it may wish to have the power to block publication of certain findings-especially findings that support a negative interpretation of some kind. These issues are rarely black-and-white, and there is often some room for compromise between the agendas of the researcher and the organization. But independent researchers will also have to define for themselves the lines that should not be crossed so their research goals are not overly limited by the organization.
+yeoh | 13. Understand fairness concerns.
+b8hf | As my field experimental work has taken me deeper into the public policy world, I am more often met with fairness concerns. The line of argument is that it is not fair to only give a fraction of the population a potentially beneficial treatment. While I am sympathetic to this line of reasoning, it is ultimately flawed. First of all, it only considers contemporaneous trade-offs. One could easily argue that it is not fair to future generations to bypass learning opportunities that could make them better off. I am personally glad that earlier generations executed experiments to determine the efficacy of promising drugs so that today my father's heart condi- tion can be treated appropriately. Second, even if one insists on everyone receiving treatment, it remains possible to execute an experiment whereby people receive treatment in waves over time.
+hntf | 14. Always obtain IRB approval.
+99fo | Local Research Ethics Committees and Institutional Review Boards (IRBs) in the United States serve an important role in monitoring experimental research. Before commencing a field experiment, you should be sure to receive IRB approval. Some researchers do not have Local Research Ethics Committees and
+y5r7 | 14 Journal of Economic Perspectives
+lrry | Institutional Review Boards. Outside the United States, for example, researchers in the social sciences must rely largely on their own principles. In those cases, I urge the researcher to follow, as closely as possible, strict guidelines that protect the rights of experimental subjects.
+hvhm | Conclusion
+```
+
+OUTPUT:
+```

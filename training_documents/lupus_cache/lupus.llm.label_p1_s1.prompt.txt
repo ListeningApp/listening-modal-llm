@@ -1,0 +1,156 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+1pjs | Open Access Rheumatology: Research and Reviews
+o2kr | Dovepress
+v6sk | REVIEW
+1wj6 | A Framework to Overcome Challenges in the Management of Infections in Patients with Systemic Lupus Erythematosus
+936l | Abstract: Infections remain one of the leading causes of death in systemic lupus erythematosus (SLE), despite awareness of factors contributing to increased susceptibility to infectious diseases in SLE. Clinicians report challenges and barriers when encountering infection in SLE as certain infections may mimic a lupus flare. There are no evidence-based practice guidelines in the management of fever in SLE, with suboptimal implementations of evidence-based benefits related to infectious disease control and/or prevention strategies in SLE. Vigilance in identifying an opportunistic infection must be stressed when confronted by a diagnostic challenge during a presentation with a febrile illness in SLE. A balanced approach must focus on management of infections in SLE, and reduction in the glucocorticoids dose, given the need to control lupus disease activity to avoid lupus related organ damage and mortality. Clinical judgement and application of biomarkers of lupus flares could reduce false positives and overdiagnosis and improve differentiation of infections from lupus flares. Further precision-based risk and screening measures must identify individuals who would benefit most from low dose immunosuppressive therapy, targeted immune therapy, and vaccination programs.
+06yq | Keywords: systemic lupus erythematosus, infections, challenges, management, lupus flares
+dpv6 | Plain Language Summary
+8r5j | Patients with systemic lupus erythematosus (SLE) are at considerable risk of serious infections. Clinical providers report an ongoing challenge during an encounter with a febrile illness in SLE patients, by way of the varied types of infections mimicking lupus disease flare. Misdiagnosis of an infection for lupus flare will lead to complications and death if not treated. Lupus patients must seek medical attention when a febrile illness occurs. Providers should initiate prompt antibiotic treatment and reduce the dose of steroids during a febrile illness in SLE. In addition, providers should apply infectious disease controls and vaccine preventive measures during low disease activity state to prevent life-threatening conditions and death.
+2taz | Introduction
+o3ya | Infectious diseases and their causative agents pose considerable challenges for the management of patients with systemic lupus erythematosus (SLE).1,2 Despite awareness of factors contributing to increased susceptibility to infections in SLE, and having the knowledge of vaccinations and pre-exposure prophylaxis, infections remain one of the leading causes of death in SLE across all times. 3,4
+r5il | The poor clinical outcome of infection in SLE reflects the complex interplay of infectious pathogens and the highly dysregulated nature of the immune system in SLE. Infections are at times coupled with lupus disease activity states where glucocorticoids and cytotoxic immune suppressive therapy may trigger infections. The major burden is that there are no evidence-based practice guidelines in the management of fever, or evidence-based benefits related to implementation of infectious disease controls and/or prevention strategies in SLE. In addition, the lack of specific
+5gui | Dovepress
+82qc | biomarkers of lupus flare or lupus related infections and the near absence of clear principles on the use of preventive measures with their insufficient evidence are barriers implied in the poor outcome.
+ls7d | To reduce the risk of infections in SLE and their complications, providers should apply strategies of glucocorticoids dose reduction and judicious use of immunosuppressive and targeted biological therapies with treatment to target approaches.5 Novel therapeutics in SLE, though safer and efficacious in controlling disease activity and in achieving disease remission, must also prevent infections, damage accrual and death.
+tzt3 | Importantly, providers should apply diverse therapeutic strategies including general hygienic methods, vaccinations, recognition of latent and opportunistic infections and antibiotic prophylaxis.6,7 However, implementation of these measures and their use in clinical practice is inconsistent and rarely applied.8,9
+t8vv | In this manuscript we analyzed the burden, the types of infection, the factors related to higher risk of infection, and highlight certain tools used in predicting infection in SLE. We propose a framework to overcome challenges in the manage- ment of infections in SLE patients and explore opportunities that can benefit the therapeutic and preventive plan of care.
+qvnu | Methods and Materials
+kggw | We performed a semi-structured systematic review of the literature of adults (age ≥18 years) with infections in SLE between January 1985 and June 2022, using search words such as, "systemic lupus erythematosus", "infection", "viral syndrome", "bacterial infections", "fungal", "opportunistic infections", "parasites", and "prevention" were reported. Sources of literature from which full-length clinical studies in humans were extracted were published in Medline, PubMed Clinical Queries and Embase, Cochrane library, and the database from CINHAL.
+xrd1 | The Burden of Infections in SLE
+5746 | Mortality and hospitalization rates related to infections in SLE have increased dramatically over the past decade compared to the general population.6 Researchers suggest a change in the trend and the pattern in SLE mortality where infection is the biggest reason for mortality compared to lupus related disease activity, lupus nephritis or cardiovascular diseases.1º Similar observations have appeared in not just the United States, but in Japan, South Korea, Canada, China, Hong Kong, Malaysia, Jamaica, Columbia, Mexico, Chile, Brazil, United Kingdom, Spain, Denmark, France, and Sweden. The impact of infection in SLE is even more pronounced in developing countries.2,11
+7toz | Infections account for 20% to 55% of all deaths in SLE patients and are the leading cause of deaths within the first year after the diagnosis of SLE.12 Bacterial infections contribute to a higher relative risk of hospitalization which could be serious requiring high level care. Pulmonary infections and septicemia had the largest positive effect on increased mortality in SLE.13
+j346 | Types of Infections in SLE Bacterial Infections
+v8uq | Around 60% to 75% of all reported infections in SLE are common bacterial infections14 The systems of respiratory, urinary tract, skin and soft tissue are the most common sites of infection in SLE. Respiratory tract infections are common in hospitalized patients, whereas urinary system, skin and soft tissue infections are more frequent in the outpatient setting.15
+x972 | Escherichia coli causing urine tract infections and streptococcal pneumonia causing bronchopneumonia, bacteremia, and sepsis represent the most frequent pathogens.16,17 Streptococcal infections are severe in SLE related to reduction in opsonization with complement factor 3b/inactive C3b (C3b/iC3b) as compared to other rheumatic syndromes and the healthy population. 18
+cwrw | Staphylococcus aureus causes skin and soft tissue infections, bone and joint infections, as well as bacteremia. Klebsiella and pseudomonas species may cause urine tract infections related bacteremia in SLE that are associated with shortened survival rate.19
+4i0e | Salmonella enterica infections are more frequent among SLE subjects as compared to the general population causing a spectrum of syndromes including gall bladder infection and bacteremia.20 Atypical presentations of Salmonella species infections in SLE patients include osteomyelitis of long bones, septic arthritis, soft tissue abscess, meningitis, typhoid
+h2l3 | 126
+dfzb | Open Access Rheumatology: Research and Reviews 2023:15
+u6ty | Dovepress
+awvu | fever, and sepsis syndrome. Risk factors for salmonella infection in SLE are associated with splenic dysfunction and opsonization defects as well as high disease activity and use of immune suppressive therapy.21
+on9b | Mycobacterial Infections
+a8ge | Various mycobacterial species infections are common in SLE and may disseminate leading to serious and lethal disease.22 The prevalence of Mycobacteria tuberculosis ranges from 5% to 30% depending on the specific geographic region which is higher in SLE subjects than the general population.23 Clinical presentations of mycobacteria may mimic lupus clinical syndrome, with features that involve severe extrapulmonary disease, extensive pulmonary syndromes, and high relapse rates.24 non-tuberculosis mycobacterial infections cause skin and soft tissue infections with skin nodules and skin abscesses. Higher cumulative doses of glucocorticoids and renal disease are associated with increased risk of mycobacterial species in SLE.25
+h27a | Viral Infections
+pdjh | Herpes zoster (HZ) represents the most common viral infection in SLE patients, followed by cytomegalovirus (CMV) and human papilloma virus (HPV).26,27 Other viruses with high frequency in SLE include, parvovirus B19, hepatitis B and C, influenza, and SARS-COV-2.28,29
+xmgs | HZ infections occur at the age of 30 to 40 years in SLE with higher prevalence in the Asian population than in the US population.30 Risk factors include increasing age, lymphopenia, major organ disease, multi morbidities, glomerulonephri- tis, high dose glucocorticoids and non-glucocorticoid therapy such as mycophenolate mofetil and cyclophosphamide.31 HZ infection and reactivation occurring even during a low disease activity state is associated with serious morbidity, inferior quality of life and death. The use of high-dose glucocorticoids is associated with bacterial superinfection.
+bd9h | CMV infection in SLE may present as gastrointestinal bleed, colitis, hepatitis, retinitis, or encephalitis, with a high incidence of pneumonitis.32 High dose of glucocorticoids, cyclophosphamide, plasma exchange, pancytopenia and concurrent infections have been associated with serious CMV clinical syndrome. High CMV viral loads are associated with the development of CMV infection in patients with SLE.33
+m047 | The rate of cervical HPV infections is higher in SLE patients than in the general population, with an increased risk for high grade squamous interepithelial lesions.34 This may be due to delayed clearance of infections or greater reactivation of latent infections, in addition to higher rates of HPV coinfection. The association between immunosuppressive medications and risk of HPV infection needs additional evaluation.
+gy8c | A higher proportion of hepatitis C infection is frequent in patients with SLE compared to healthy controls.35 However, there appears to be a lower risk of hepatitis B infection in patients with SLE (possible protective role of overexpressed cytokines in these patients). Nonetheless, the risk of reactivation of hepatitis B virus is higher in SLE patients receiving a daily steroid dose of >10 mg/day and patients over the age of 40. Rituximab, to treat SLE, is associated with a higher risk of reactivation of hepatitis B and patients should be screened prior to therapy.
+y4mj | Parvovirus B19 and SLE share certain similarities in terms of presentation, including fevers, malaise, lymphadeno- pathy, anemia, and rash.36 This viral infection is also able to induce the production of autoantibodies specific to SLE, like anti-dsDNA and soluble nuclear antigens. It has been proposed that parvovirus B19 can induce pathogenic autoimmunity through a variety of mechanisms, including molecular mimicry.37 However, it is difficult to estimate the prevalence of this parvovirus infection in SLE patients as immune therapy inhibits immunoglobulin (IgM and IgG) seroconversion.
+vpgq | The COVID-19 Global Rheumatology Alliance and OpenSAFELY databases provide data that suggest that patients with SLE are at a higher risk of severe disease, hospitalization and death from COVID-19 compared to the general population.38 The risk is highest in patients on prednisone dose >10 mg/day, and those on rituximab, as compared to those patients maintained on belimumab, hydroxychloroquine, azathioprine, methotrexate, or mycophenolate mofetil.39
+ousl | Opportunistic Infections
+m4ju | Opportunistic infections like Listeria monocytogenes, Nocardia species, Aspergillus fumigatus, and others may present as neurologic syndromes that mimic neuropsychiatric lupus and behave more aggressively to cause severe disease leading to death.4º Cryptococcus neoformans presents in SLE as meningitis, meningoencephalitis, lung nodules and pneumonia/ bronchiolitis driven by long term use of glucocorticoids and cytotoxic drugs and is associated with higher mortality rates.41
+a0mb | 127
+ki8m | Open Access Rheumatology: Research and Reviews 2023:15
+km8w | Dovepress
+wzno | Candida albicans is a usual form of candidemia in SLE and usually involves the gastrointestinal and genitourinary system and may become invasive at times. 42
+xagm | Why are Lupus Patients at Substantial Risk for Infections? Aberrant Immune Functions in SLE
+iwn5 | The aberrant immune response in SLE, low serum complement levels, functional asplenia, and abnormal host response of neutrophils and macrophages to pathogens have contributed to the rise in infectious rates in SLE (Table 1). The impaired inflammatory response with decreased chemotaxis, membrane recognition and attachment to microorganisms, phagocy- tosis, oxidative metabolism could also predispose to infection.
+uooz | Lymphopenia and neutropenia are common hematologic manifestations in SLE and can have poor clinical outcomes with predisposition to infection given decreased T-cell activity and dysfunctional macrophages and monocyte systems.43 Prior studies have shown that a decrease in phagocytic function and the impaired handling of immune complexes due to the presence of autoantibodies against Fc gamma receptors (FcgR) which belong to the tumor necrosis factor (TNF) alpha superfamily contribute to the risk of infections.44
+pxbq | Complement dysfunction is frequent in SLE, reflected by inherited complement deficiency, and hypocomplementemia during SLE disease activity. SLE patients with complement dysfunctions show an increase in risk to capsulated organisms such as Streptococcal pneumonia, Neisseria meningitis and Neisseria gonorrhea. Hypogammaglobulinemia encountered in SLE contributes to an increased risk of recurrent and severe bacterial infections, although polyclonal hypergammaglobulinemia is common in SLE. Whether immunoglobulin replacement therapy decreases the risk of infection in those patients requires further investigation. 45
+jfsr | In addition, the risk of infection in SLE is higher in the presence of comorbidities and when using glucocorticoids, immunosuppressive and immune modulatory therapy. The incidence of kidney involvement, diabetes, and higher lupus damage index (SDI/SLE international collaborating clinic) scores were dramatically higher in SLE patients with an infection compared to SLE patients without an infection. In fact, the use of aggressive immunosuppressive therapy is a serious risk factor for the development of infections in SLE.46
+u15r | Impact of Immune Therapy and Risk of Infections
+lq35 | The use of immunosuppressive therapy will induce difficulty in mounting an immune response to viral and bacterial infections in SLE, including the exposure to immunosuppressive agents including high-dose glucocorticoids, alkylating agents such as cyclophosphamide, in addition to mycophenolate mofetil, azathioprine, cyclosporin, and hydroxychloroquine.4,6
+3g9w | Importantly, glucocorticoid use is a significant risk factor for serious infections requiring hospitalization. Indeed, the risk for infection in SLE patients is a 10-fold increase in patients at a prednisone dose over 20 mg daily. Thus, the emphasis on keeping the prednisone dose below 7.5 mg daily or the use of pulses of intravenous methylprednisolone to control disease activity.47
+```
+
+OUTPUT:
+```

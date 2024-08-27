@@ -1,0 +1,159 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+hntf | (2) The müllerian ducts are derived from the coelomic epithelium and will later form to develop the Fallopian tubes, the ducts in the pelvic region fuse to give rise to the uterovaginal canal. In the female, the wolffian duct begins to regress at about 2 months of gestation.
+99fo | (3) Regression of müllerian ducts and differentiation of the wolffian duct into the male accessory organs is a key element of male differentiation of the internal reproductive tract organs: The initial indication of male differentiation of the genital tract occurs in about 55-60 day old embryos. The müllerian duct first undergoes epithelial to Bipotential Gonad mesenchymal transformation and a wave of Genads apoptosis spreads along the müllerian duct. The connections between the mesonephric Müllerian Duct tubules and gonadal primordium are Male Hormones: Wolffian MIS Duct No Male established by week 6 of gestation and give Testosterone Hormones Ins13 rise to the rete testis. The wolffian duct survives and the upper part gives rise to the epididymis and, below that, the vas deferens. Male Gonad Epididymis Oviduct Female Gonad The seminal vesicle emerges from a dilation Testes Ovarles of the terminal portion of the vas deferens in Vas the male fetus at 3 months gestation. Deterens Uterus Cervix
+y5r7 | iii) Testicular Descent (Figure 5): The upper pole of the testis is
+lrry | 4.8
+hvhm | connected to the posterior abdominal wall by the cranial suspensory ligament. A primitive gubernaculum extends from the caudal pole to the inner inguinal ring, so essentially the testis, epididymis, and vas deferens are supported by the cranial suspensory ligament above and the gubernaculum below. At three months of gestation, the cranial suspensory ligament dissolves and then swells. This process begins to move the testis down towards the inguinal ring. At 25 weeks, the first phase (transabdominal) of testicular descent is completed when the gubernaculum bulges beyond the inguinal ring and the process vaginalis allows the external inguinal ring to open. The second phase of testicular descent from the inguinal ring into the scrotum is largely androgen controlled and occurs between 27-35 weeks of gestation.
+863b | iv) Prostate Development and the Urogenital Sinus: Prostatic buds develop at about 10 weeks at the site of the müllerian tubercle, and solid branching cords form. A prostatic utricle accompanies the development of the prostate. Sinoutricular bulbs then develop from the urogenital sinus. This serves to close the opening of the wolffian ducts and fuse with the medial Müllerian tubercle to form the sinoutricular cord within the prostate gland. This structure canalizes at 18 weeks to form the prostatic utricle. This male structure is considered to be analogous to the female vagina. The urogenital sinus also develops into the urethra of both sexes and the urinary bladder.
+fj24 | 4.9
+uz3c | Figure 6. Differentiation of external genitalia: Diagram depicting morphological differences in male and female external genitalia in humans. Initial development of external genitalia begins as an ambisexual genital tubercle that will differentiate into male or female genitalia in response to molecular and hormonal signals. Yellow signifies mesenchymal structures and pink signifies epithelial structures.
+d5bi | v) External genitalia (Figure 6): The genital tubercle develops from the mesoderm and ectoderm surrounding the cloaca which also gives rise to the genital swellings and genital folds. The tubercle becomes the body and glans of the penis in males and the body and glans of the clitoris in females. The swellings become scrotal tissue in males and labia majora in females. The genital folds become the ventral aspect of the penis in males and the labia minora in females. The urethral plate gives rise to the male urethra after the urethral folds fuse ventrally and tubularization occurs. Urethral organogenesis is completed by 14 weeks of gestation. Penile and clitoral size is the same in fetuses until 14 weeks of gestation. Maximal phallic growth occurs during the third trimester of pregnancy and testosterone levels are declining.
+ba4l | sid
+ffx8 | 4.10
+s6su | Table 1. Time course of sex differentiation in males and females (from Rey et al., 2000).
+y219 | 4.11
+06ht | Figure 7. Male Reproductive System.
+v3r2 | 1) THE TESTIS AND SPERMATOGENESIS IN THE ADULT
+nv42 | a) Testicular Function
+xags | i) The testis serves three distinct but related roles in the male: an exocrine and an endocrine function, as well as a paracrine function.
+jc47 | (1) The exocrine function of the testis is involved in the production of mature sperm. The site of this function is localized in the seminiferous epithelium of the seminiferous tubules. The exocrine function of the testis involves the Sertoli cells, which serve as nurse cells and maintain the blood-testis barrier.
+ko3c | (2) The endocrine function of the testis involves the production and secretion of androgens from the Leydig cells in the interstitial compartment of the testis. The exocrine function of the testis is dependent upon the endocrine function.
+xek3 | (3) The paracrine function of the testis involves the local controls of spermatogenesis and intercompartmental signaling between the seminiferous tubules, the interstitial cells (Leydig cells, macrophages, and other cells), and the peritubular myoid cells. These paracrine factors include growth factors, cytokines, and factors affecting the spermatogonial stem cell niche.
+bbpr | 4.12
+5zyf | ii) Organization of the Cells of the Seminiferous Epithelium (Figure 8): The wall of the seminiferous tubule is surrounded by fibroblasts and peritubular myoid cells. The myoid cells are flattened and have the characteristics of smooth muscle. These cells are separated from the seminiferous tubule by the basement membrane.
+9own | b) Function of the Seminiferous Tubules: The seminiferous tubules provide a unique environment for the production of germ cells. Production of germ cells involve the germinal elements-the spermatogonia-and supporting cells, the Sertoli cells, and peritubular cells of the basement membrane. Each cell type is described below. The process of meiosis is described afterwards.
+bqfb | (1) The Sertoli cells (Figure 9) are the only non-germinal cell within the seminiferous epithelium. A large voluminous cytoplasm envelops the developing germ cells while the base of the cell adheres to the basal lamina. It is usually difficult to distinguish the outlines of the Sertoli cell by bright light microscopy. The cells have abundant smooth endoplasmic reticulum, and some rough ER, a well-developed Golgi complex, mitochondria, and lysosomes. The nucleus is elongated and has numerous invaginations of the membrane, a prominent nucleolus and little heterochromatin. The spermatogonia are located in the basal compartment (outside of the blood-testis barrier) surrounded by the Sertoli cell with the basal lamina below. The spermatocytes and early spermatids are found in adluminal niches between adjacent Sertoli cells (protected by the blood-testis barrier-formed by tight or occluding junctions). The elongating spermatids are in crypts at the luminal side of the Sertoli cell. The tight junctions serve to prevent proteins and antibodies from reaching the spermatogenic cells and eliciting an immune response. The Sertoli cells do not divide after puberty. The Sertoli cells form niches between adjacent cells for the spermatocytes and spermatids. The late spermatids are in crypts at the luminal surface of the Sertoli cells. After puberty the Sertoli cells are terminally differentiated and no longer undergo mitosis. The seminiferous tubules also produce an
+wwdt | 4.13
+mn1r | Figure 9. Illustration of the Sertoli cell. The adluminal and basal compartments, separated by tight junctions which comprise the blood-testis barrier, are shown (Keel 2006).
+5vqw | environment known as the blood-testis barrier. Since the differentiating germ cells (with 1N haploid DNA) are potentially antigenic, and recognizable as foreign, the barrier sequesters these cells from the blood environment. The blood-testis barrier is maintained by the Sertoli cells.
+meyw | c) Factors Controlling Sertoli Cell Function
+2e62 | i) Follicle-Stimulating Hormone (FSH): The Sertoli cell has the receptors for FSH secreted by the pituitary gland, and this hormone stimulates the release of inhibin (alpha and beta subunits) by the Sertoli cell that feeds back to inhibit GnRH release, FSH release. and activin (an alpha-alpha or beta-beta homodimer of the inhibin subunits that stimulates the release of FSH).
+75y3 | ii) Testosterone: Androgens are absolutely required for normal spermatogenesis, and the androgen receptors are located in the Sertoli cells. There are no receptors in the developing germ cells, and all actions of androgen are on the Sertoli cells.
+s2g2 | Growth Factors and Cytokines, Small Peptides and RNAs provide the local controls of Sertoli cell function and spermatogenesis (for a review see Wu et al., 2019).
+q1q2 | 4.14
+cb7r | d) Functions of the Sertoli Cell:
+68xu | i) Supportive, protective and nourishing for the developing germ cells: The cell acts as a supporting matrix for the developing germ cells without having a permanent attachment to the germ cells. Sertoli cells also provide the germ cells with nutrients and may act as a "bridge" to bring substances from the capillaries to the germ cells. The hormones FSH and testosterone act directly on the Sertoli cells working through their cognate receptors to alter Sertoli cell function and impact the process of spermatogenesis.
+hd35 | ii) Phagocytosis of residual bodies of excess cell portions during spermiogenesis (spermatid differentiation): Sertoli cells are capable of ingesting degenerating germ cells and residual bodies. The phagocytic activity becomes more pronounced following germinal epithelium damage and massive degeneration of the germ cells.
+2zpk | iii) Spermiation (The release of the mature spermatids into the lumen of the tubule.)
+epu7 | iv) The number of Sertoli cells ultimately determines the spermatogenic potential of the testis in a normal man: Sertoli cell proliferation during the pre-pubertal phase is influenced by FSH and activin as well as thyroxin.
+7od1 | v) The blood-testis barrier, like the blood-brain barrier, serves to separate the testes from the normal circulation of blood and other body fluids throughout the body. Proteins, which are abundant in blood plasma and testicular lymph, are present in very low concentrations in the tubule fluid, but only proteins secreted by the Sertoli cell enter the lumen of the tubule. Specialized junctional complexes (tight junctions) formed by neighboring Sertoli cells (see Figure 9) create an effective blood-testis barrier, which accounts for the differences in
+0bqy | 4.15
+b780 | chemical composition of the tubule fluid and the blood plasma or lymph. This barrier protects the sperm from the immune system and ensures that the fluid balance within the seminiferous tubule is conducive to sperm development. These complexes between Sertoli cells divide the epithelium into two compartments:
+ccmb | (1) Basal compartment between the Sertoli junctions and the basal lamina containing the spermatogonia
+ma93 | (2) Adluminal compartment above the Sertoli cell junctions containing the more advanced germ cells (Figure 9). The movement of leptotene spermatocytes from the basal to the adluminal compartment involves the blood-testis barrier. The formation of the blood-testis barrier might be required to establish an appropriate environment for the completion of meiosis.
+c6hh | vi) Secretion of proteins and ions into the lumen: Tubule Fluid - The seminiferous tubules contain fluid which has a different composition from that of blood plasma or lymph. Sertoli cells probably are responsible for the secretion of this fluid. Its function is to transport spermatozoa to the epididymis and provide substrates for sperm survival.
+y7ea | (1) Inhibin - Sertoli cells produce this protein hormone, which specifically inhibits the release of FSH from the pituitary. Severe damage to the germinal epithelium results in decreased production of inhibin and subsequent increases in FSH secretion. The human male produces primarily inhibin B (see below).
+nav4 | (2) Secretion of müllerian-inhibiting substance (MIS), also called anti-müllerian hormone (AMH). MIS/AMH inhibits the growth and causes regression of the müllerian ducts during fetal development and, thus, plays an important role during sexual differentiation.
+gem8 | Local factors: There is evidence for strong local control via growth factors and their receptors of spermatogenesis
+e8nr | 1) THE LEYDIG CELL AND TESTICULAR STEROIDOGENESIS
+k78w | Leydig Cells: The Leydig cells are clusters of cells that occur in the interstitial tissue between the seminiferous tubules (see Figure 8). These cells comprise only about 5% of the total testicular volume. The Leydig cell synthesizes androgens from cholesterol (Figure 10 a, b). Androgens secreted from the Leydig cell regulate the development and function of the male reproductive tract and secondary sexual characteristics as well as promote spermatogenesis. The major androgen secreted is testosterone. Its synthesis and release is stimulated by pituitary LH. Leydig cells can synthesize cholesterol from acetate or take up cholesterol from lipoproteins for steroidogenesis. The rate limiting step for steroid biosynthesis is the mobilization of cholesterol from the intracellular stores to the inner mitochondrial membrane where it is converted to the first steroid formed, pregnenolone. Although several proteins have been implicated in this process of cholesterol transport to the mitochondria, acute steroidogenic regulatory protein (StAR) plays a major role in regulated steroid production. A second protein (translocator protein
+g9du | 4.16
+f682 | or TSPO) has been implicated as a possible regulator as well. From pregnenolone, the Leydig cell produces testosterone via metabolism through the 44 steroidogenic pathway shown in
+li1k | Figure 10 a and b. Testosterone is reduced in peripheral tissue by the enzyme 50 reductase to dihydrotestosterone (DHT).
+pbea | In addition to androgens, the testis also synthesizes estradiol (via conversion of testosterone by the enzyme aromatase) and secretes significant amounts of estrogens. Estrogens may act intratesticularly to regulate testosterone production. This action may be mediated through estrogen receptors, which have been localized in Leydig cells.
+ccpt | a) Characteristics and Location: The Leydig cells are located between the tubules in the interstitial space close to the blood vessels and lymphatics. The cells are characterized by:
+0fpw | (1) lipid droplets
+dqn8 | (2) mitochondria with tubular cristae
+cop0 | (3) a smooth endoplasmic reticulum.
+lhkq | (4) These cells express the receptors for LH, which stimulates steroidogenesis through a cAMP-mediated signal transduction pathway.
+```
+
+OUTPUT:
+```

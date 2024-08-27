@@ -1,0 +1,128 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+1pjs | War and Political Violence in
+o2kr | Twentieth-Century Europe
+v6sk | IAN KERSHAW
+1wj6 | The last volume of the so-called 'New' - meanwhile fairly old - Cambridge Modern History, published in 1960, covered the years 1898 to 1945. It was entitled 'The Era of Violence'. The title was dropped for the second edition, which appeared eight years later, and replaced by 'The Shifting Balance of World Forces'. The editor of the revised edition, C. L. Mowat, thought that 'the era of violence' was appropriate for the earlier version, reflecting as it did the understandable 'spirit of the 1950s'. But by the late 1960s this emphasis had changed. In his introduction to the new edition Professor Mowat remarked that 'As he surveys the twenty years or more since 1945, . .. the historian may feel that violence has not been the main characteristic of this century'. Despite nuclear weapons, Mowat looked optimistically from the vantage point of 1968 to a future greatly improved through advances in science and technology, to which world politics would positively respond. He saw a world 'increasingly bound together by common problems, common aspirations, and the world-wide effects of ever larger advances in science', concluding that 'though public war and private violence still rage, the historian is less likely to see violence as the mark of the age'.1
+936l | Even if our view is narrowed to Europe, Bosnia and Kosovo prompt us to pause at such a statement. And the merest glance at the wider world, not least events very close to our own time, might make us even more sceptical. Even so, and however pessimistically we look back on world history in recent decades, it is plain that the ultra-violence that characterised the first half of the century had no equivalent in the second half, though the later decades could still witness the horrific episodes of violence in, for example, the Chinese Cultural Revolution, Khmer Rouge Cambodia or Rwanda. This first half of the century - or, more precisely, the years 1914 to 1950 that spanned the period from the beginning of the First World War to the end of
+06yq | Contemporary European History
+dpv6 | the Second World War, embracing also its immediate aftermath, when high levels of violence against civilian populations with the resulting misery of millions continued - has indeed claim, more surely than any other period in history, to be labelled 'the era of violence'. That is to say: in these four decades of the twentieth century, violence had epochal character; it determined the age.
+8r5j | A number of questions come immediately to mind. A first is obvious: what caused such an earth-shattering explosion of immense, state-sponsored violence in the first half of the twentieth century? Nothing in the previous decades had prepared the world for what was to come. The First World War is obviously a major part of the answer. But it it is unlikely to have been the only cause. Epochal forces in history do not usually have just short-term causes. And this, surely, was no exception.
+2taz | Another question relates to the propensity of states and the societies they claimed to represent to violence. If we understand the politics of violence in a wide sense - as violence stimulated by political motives or intentions, within, between, by or against states - or even if we speak more narrowly (though widely enough) of state violence against civilian populations involving physical repression in all its manifestations, then it becomes immediately obvious that, looked at comparatively, nation-states and the political systems that operated within them can be placed in a spectrum running from those presiding over very low levels to those where the levels soared into the stratosphere. Why, to take the question this prompts, were states more - or less - prone to use of extreme violence?
+o3ya | The answer to this question might help with a third. Since, arguably, every century (or even half-century) throughout history has been violent in greater or lesser measure, is it merely the scale of violence, made possible by new technologies of destruction, that singles out the twentieth century? Or was there something qualitatively different, essentially modern, about this violence?
+r5il | Returning to Mowat for a moment, and accepting that the second half of the twentieth century - at least in Europe - was immeasurably less violent than the first half, we face the obvious question: why was this the case? Eric Hobsbawm, whose vision in his Age of Extremes was nothing if not global, spoke of an 'Age of Catastrophe' spanning the world wars followed by the 'Golden Age' that ran up to the oil crisis of the 1970s. Even the onset after that time of new, structural crises, causing great instability and disturbance, did not, Hobsbawm points out, usher in a new 'age of catastrophe'.2 But Hobsbawm's brilliant book ends in 1990 and therefore takes no account of the upsurge of violence that began in the 1990s - and still continues. Does this renewed violence, if not so extreme as the period of what Arno Mayer called the 'Thirty Years War of the Twentieth Century',3 mean that, after all, we should see violence as a hallmark of the whole of the twentieth century, perhaps of modernity itself, and not just of a more limited period?
+5gui | War and Political Violence in Twentieth-Century Europe
+82qc | 109
+ls7d | In what follows I hope to offer some hints of my own highly tentative and superficial answers, though these amount in essence to little more than thinking aloud - often about areas where my knowledge is scant, to say the best - and voicing my reflections on the questions which, I think, are of some importance to understanding the century just gone and the world we live in at present.
+tzt3 | Before addressing the questions, however, let us remind ourselves - leaving aside for the moment qualitative differences - of the sheer scale of the violence, that is the quantitative difference with what had gone before, in the 'era of violence'. Raw statistics tell nothing, of course, of the death, pain and misery of the millions who suffered so grievously through the violence. They shock, nevertheless. Take first the deaths from war - the most extreme form of inter-state violence. In Europe, the century between the Congress of Vienna in 1815 and the First World War in 1914 was probably the most peaceful - that is, war-free - of any hundred-year period to that time. The Crimean War of 1854-6, leaving some 400,000 dead, and the Franco-Prussian War of 1870-1, when 184,000 lives were lost, were the most violent European conflicts of that era.4 In the First World War, the dead totalled more than eight million military casualties and perhaps, according to some estimates, a further five million civilians (mainly on the eastern front, though including victims of famine in Poland and probably of the continued bitter fighting in eastern Europe after the Armistice); in the Second World War, 40 million military and civilian deaths would be a minimal estimate.5 Beyond these figures are those of the refugees forced from hearth and homeland: four to five million in 1918-22, as many as 40 million 'displaced persons' between 1945 and 1950.6 A good number were driven out or deported. Others fled from repression, terror, ethnic cleansing and genocide. How many were affected by ethnic cleansing in this period (even if the horrible phrase was not then in circulation) is not known with any precision. Some estimates of the numbers affected worldwide by ethnic cleansing across the twentieth century put the figure at anywhere between 60 and 120 million.7
+t8vv | Another statistic is worth bearing in mind. Whereas the civilian dead in the First World War formed on the highest estimate just over a third of the victims, in the Second a conservative ratio is around two-thirds - from a maximum of five up to some 27 millions.8 This huge increase was not just a reflection of the new technology of mass killing - for instance, through area bombing. It is an indicator, too, that war
+qvnu | Contemporary European History
+kggw | was changing character. Away from the areas of fighting, earlier wars had not tended to drag in the civilian population. Even the killing grounds of the First World War on the western front were a relatively confined space (though the eastern front was a different matter). Civilian life could continue remarkably unscathed not very far away. Even so, beginning with the French revolutionary armies, the gulf between soldier and civilian was narrowing. Atrocities against civilians had featured in the American Civil War and in the Franco-Prussian War. The scale of such atrocities was enlarged significantly during the First World War. The brutalisation of warfare, now making civilian populations the target of assault and destruction, which would become so prominent a feature of the Second World War, was present, if on a smaller scale, during the First.
+xrd1 | Recent research by Alan Kramer and John Horne has demonstrated that 6,427 Belgian and French civilians were deliberately killed, often in highly brutal fashion, by invading German troops from a variety of army units during August 1914, that is, at the very onset of war. Some brutal treatment of civilians by German, Austrian and Russian soldiers, though on a much smaller scale, also took place on the eastern front in 1914. There was a sharp increase the following year as the Russians retreated from Lithuania and western Poland. The death toll is impossible to calculate. But scorched- earth policies and mass deportations were the order of the day. At least 300,000 Lithuanians, 250,000 Latvians, 350,000 Jews (especially singled out for maltreatment) and 743,000 Poles were deported to the interior of Russia.9 These brutalities were coupled with a intensified paranoia towards 'the enemy within'. In the crumbling Ottoman Empire to the south, this same paranoia was exploited in what became a major genocide involving upwards of 800,000 Armenians.
+5746 | Myths legitimating massive violence towards civilian populations now became a part of modern warfare. By the Second World War, military front and home front were scarcely divisible; this was now a popular war in the sense of the full involvement of the peoples of Europe in the fighting, and the suffering. A country like Poland, therefore, which was part of a shooting war for not much more than a month, suffered the deaths of around a fifth of its population during the six long years that followed and the highest percentage of civilian deaths of any country in the war. This indicates a new feature of war - and of political violence more widely: in contrast to earlier centuries, a whole people could now be regarded as 'the enemy' and therefore as the legitimate target of the politics of violence, backed by what, even then, for their time, were weapons of mass destruction.
+7toz | This points unmistakably, taking us, perhaps, into our first question, to an ideological component (exploiting existing social and political cultures) in the causes of the explosion of violence in the first half of the twentieth century, and the propaganda methods by which modern governments could orchestrate violence. Plainly, war on such a scale and of such a character as the First World War was a major breeding-ground of such violence, and I shall return briefly to it in a moment.
+j346 | War and Political Violence in Twentieth-Century Europe
+v8uq | But first we need to be clear that the roots of the violence lie deeper than the war itself.
+x972 | The glamorisation of violence as a form of social and political protest against decadent bourgeois society, though only institutionalised in fascist movements after 1919, began before the war. The French fascist intellectual Pierre Drieu La Rochelle later looked back at the pre-war years and recalled 'young men from all classes of society, fired by a core of heroism and violence, who dreamed of fighting . . . capitalism and parliamentary socialism'.10 The Italian nationalist Enrico Corradini used Marxist terminology and analogy to speak in 1910 of Italy as a 'proletarian nation', arguing that 'we must teach Italy the value of the international struggle. But international struggle means war. Well, let it be war! And let nationalism arouse in Italy the will to win a war'.11 The Italian Futurists, whose leader, Giacomo Marinetti, stayed faithful to Mussolini to the end, advertised their somewhat eccentric views in their manifesto of 1909: 'We want to exalt movements of aggression, ... the blow with the fist ... We want to glorify war - the only cure for the world - and militarism, patriotism, the destructive gesture of the anarchists, the beautiful ideas which kill, and contempt for women. We want to demolish museums and libraries, fight morality, feminism, and all opportunist and utilitarian cowardice'.12 The incorporation of pseudo-scientific race theories into populist politics advocating national assertiveness, particularly prominent in Germany and the German-speaking part of the Austrian empire, brought with it an increasingly shrill and menacing rhetoric of violence. And in some parts of Europe, notably the Balkans, ethnicity had already been decisive in the appalling massacres of Armenians in the tottering Ottoman Empire. The estimated 200,000 Armenian victims of the atrocities of 1894-6, and subsequent massacres, including those of around 20,000 Armenians in 1909, were stepping-stones en route to the genocide of 1915.13 Meanwhile, well before the First World War, and across Europe, race theories were being advanced to advocate exclusion or repression of 'inferior elements' of society, thought to damage or weaken it.
+cwrw | In different ways, and in different measures, three of the major ideological currents of the nineteenth century paved the way for the violence that would erupt after 1919. Most crucial was the blending of popular sovereignty with nationalist ideology. This began to lead, in contested territory with an ethnic mix, to increased pressure, often accompanied by violence, upon minority or subjugated populations. Trends in this direction, though nowhere near fully expressed, are visible in the later nineteenth century as earlier liberal features of nationalist thinking were sidelined. They came to their full expression, with baleful consequences, in the post-Versailles Europe,
+4i0e | Contemporary European History
+```
+
+OUTPUT:
+```

@@ -1,0 +1,121 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+1pjs | Site Navigation
+o2kr | The Atlantic
+v6sk | American Is Doubling Down on Sewer Surveillance
+1wj6 | Not long ago, tracking the spread of a virus by sampling wastewater counted as a novelty in the United States. Today, wastewater monitoring offers one of the most comprehensive pictures anyone has of COVID- 19's summer surge. This type of surveillance has been so effective at forecasting the risks of the virus's rise and fall that local governments are now looking for other ways to use it. That has meant turning from tracking infections to tracking illicit and high-risk drug use.
+936l | Monitoring wastewater for viruses works because infected people excrete tiny bits of viral matter; similarly, someone who's taken a drug expunges biomarkers from their body. Because drugs tend to show up in sewage before overdoses rise, city officials can discover when, say, a potent fentanyl supply is likely being mixed with other drugs, and alert residents. One town began an aggressive prescription-opioid-disposal campaign after discovering the drugs in abundance in its wastewater. Other communities have used wastewater tracking to allocate Narcan and study the effectiveness of programs funded by opioid settlements.
+06yq | Wastewater monitoring for drug use has been routine in Europe and Australia for at least a decade but is quickly spreading across the United States. Biobot Analytics, a biotechnology company that was one of the CDC's go-to labs for COVID wastewater tracking, now has federal funding from the National Institute on Drug Abuse and is working with 70 sites across 43 states to monitor wastewater for illicit drugs. Other commercial and academic organizations are pursuing similar initiatives.
+dpv6 | More than 100,000 Americans die of overdose each year, and more precise data from wastewater tracking could help public-health departments focus their interventions. But getting such specific data means sampling closer to the source and from smaller population groups-small enough that, in theory, police could use such information to target certain communities and neighborhoods. This surveillance isn't limited to municipalities, either: Prisons and office buildings are also contracting with Biobot to track illicit drug use. Make wastewater monitoring granular enough, and many researchers and public-health officials worry that law enforcement could use it against the people it's intended to help.
+8r5j | For governments, surveilling drug use through wastewater is simple enough. Last year, for instance, Marin County, in Northern California, expanded its pandemic-era wastewater program to address drug overdoses,
+2taz | now the leading cause of death for its residents under 55. Samples from wastewater-treatment plants are mailed to Biobot, which uses mass spectrometry to determine which drugs are prevalent in the community. Using this information, Marin has developed an early-warning overdose alert system, and it first discovered xylazine (or tranq) in the area through its wastewater. Where traditional surveillance relies on emergency medical records and autopsy reports, this method allows public officials to avoid some of those bad outcomes, Haylea Hannah, a senior analyst in Marin's health department, told me. (The county cannot yet say if wastewater monitoring has directly reduced overdoses.) More than 100,000 people contribute to each catchment site: Marin is intentionally keeping the sample sizes large so that there are fewer collection areas and lower costs-and to avoid ethical concerns.
+o3ya | For Biobot, this type of program matches the company's ambition "to do policy and health care in new ways," Mariana Matus, the CEO and a co-founder of Biobot, told me. In her view, wastewater monitoring could also inform health departments about sexually transmitted infections, tobacco use, even our diets. When I asked her about generating this sort of data without people's consent and qualms over how it might be used, she told me that she views those worries as an "academic" concern, disconnected with "what is happening in reality." For now, Matus is right: The collection sites are currently so large that the information can't be traced to one person or household. And from a legal perspective, precedent exists for sewage to be viewed as trash-once it's out on the street, it's for anyone to take. But, some experts ask, what if wastewater is more like cellphone location data, which follows us everywhere and over which we have far less control? After all, a person can choose where and how to discard sensitive garbage, but using the public sewage system is unavoidable for most people in the United States.
+r5il | Inevitably, though, if sample sizes get smaller and wastewater data get more detailed, public-health officials will have to confront the question of "how granular is too granular," Tara Sabo-Attwood, a University of Florida professor who researches wastewater surveillance for drugs, told me. The experts I spoke with agreed that sampling block by block would run the risk of pinpointing certain households; most seem comfortable with a catchment size in at least the thousands. This question ought to be clarified before a city or company collects data so specific that it violates people's privacy or is used to prosecute someone, Lance Gable, a public-health-law professor at Wayne State University, told me.
+5gui | Even simply collecting and sharing these data may have consequences beyond its intended public-health purposes. Some governments treat drug data as openly as virus data: Tempe, Arizona, which tracked opioids through wastewater even before the pandemic, shares the data on a public, online map that shows weekly opioid use in the eight collection areas. Recently, the state of New Mexico surveilled illicit and prescription drug use in its public high schools through its wastewater and publicly posted the results for each school. These dashboards offer data transparency and don't reflect a level of information that could be used to identify people. Still, police departments could use the data to intensify their presence in certain neighborhoods, potentially triggering a self-reinforcing cycle of increased policing and drug detection. Substance-use patterns could affect real-estate values; teachers might avoid working in certain schools.
+82qc | To Neelke Doorn, a water-engineering-ethics professor at Delft University of Technology, in the Netherlands, these possible effects start to look like function creep-when technology shifts from its original purpose to serve new, potentially troubling ends. The barriers between public-health data and law enforcement have been breached before: Gable pointed out that hospitals, for instance, have passed expectant mothers' positive drug tests on to police. And with wastewater surveillance, the line between public health and law enforcement is already blurring-both the National Institutes of Health and the Department of Justice have funded this research. If wastewater monitoring for drugs evolves into more granular testing of, say, a neighborhood block, those data could justify searches and arrests, which would undermine its original intention. After all, criminalizing substance abuse has not been shown to improve drug problems. And Sabo-Attwood cautions that wastewater surveillance, like much of public health, rests on trust, and that trust evaporates if people fear their data could be co-opted for ulterior purposes.
+ls7d | Monitoring wastewater for drugs in a building only makes these problems more pointed, because data on that level could more easily identify individuals. Though such surveillance is not yet pervasive, it's already increasing. Currently in the U.S, a private company can test for illicit drugs through its building's wastewater without informing its employees or residents, Gable told me. During the early pandemic, some college campuses monitored individual dorms through wastewater analysis for the virus-an approach that could pivot to detecting illicit drug use.
+tzt3 | Ostensibly, collecting data through wastewater could be less biased and intrusive than other means of drug testing. But Doorn warns that's true only if the samples are taken from all neighborhoods, or at least randomly, rather than testing select communities. In prisons, though, where drug testing is already routine, studies do suggest that wastewater analysis may actually offer a less invasive and more accurate alternative to individual urine tests-and could help criminal-justice systems move toward taking a public-health approach to drug use.
+t8vv | Marin County has tried to navigate some of this murky ethical landscape by actively seeking the perspectives of people who use drugs. Initially, only 13 percent of the people in the county's focus groups opposed wastewater monitoring, while the rest-44 percent-supported it or felt neutral. Not surprisingly, the most pressing concern was the possibility that the data could be used for other means, particularly by law enforcement. Yet if the county's strategy can keep the community's trust, a potentially contentious surveillance method could greatly benefit the people it's meant to help.
+qvnu | ABOUT THE AUTHOR
+kggw | Helen Ouyang is an emergency physician, associate professor at Columbia University, and an Abelin-Bevier fellow at the Type Media Center. She is a contributing writer at The New York Times Magazine, and her work has been a finalist for the National Magazine Award.
+xrd1 | More Stories Africa's Top Health Challenge: Cardiovascular Disease Even as a Doctor With Decent Insurance, I Had Difficulty Entering the Healthcare System
+```
+
+OUTPUT:
+```

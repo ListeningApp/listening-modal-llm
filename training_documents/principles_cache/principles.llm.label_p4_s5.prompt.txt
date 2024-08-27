@@ -1,0 +1,168 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+99fo | Next, during guided practice, the teacher helped the students practice asking questions by helping them select a prompt and
+y5r7 | Many of the skills taught in classrooms can be conveyed by providing prompts, modeling use of the prompt, and then guiding students as they develop independence.
+lrry | develop a question that began with that prompt. The students practiced this step many times with lots of support from the teacher.
+hvhm | Then, the students read new passages and practiced asking questions on their own, with support from the teacher when needed. Finally, students were given short passages followed by questions, and the teacher expressed an opinion about the quality of the students' questions.
+863b | This same procedure-providing a prompt, modeling, guiding practice, and supervising independent practice-can be used for many tasks. When teaching students to write an essay, for exam- ple, an effective teacher first modeled how to write each para- graph, then the students and teacher worked together on two or more new essays, and finally students worked on their own with supervision from the teacher.
+fj24 | Worked examples are another form of modeling that has been used to help students learn how to solve problems in mathematics and science. A worked example is a step-by-step demonstration of how to perform a task or how to solve a problem. The presenta- tion of worked examples begins with the teacher modeling and explaining the steps that can be taken to solve a specific problem. The teacher also identifies and explains the underlying principles for these steps.
+uz3c | Usually, students are then given a series of problems to com- plete at their desks as independent practice. But, in research car- ried out in Australia, students were given a mixture of problems to solve and worked examples. So, during independent practice, students first studied a worked example, then they solved a prob- lem; then they studied another worked example and solved another problem. In this way, the worked examples showed stu- dents how to focus on the essential parts of the problems. Of course, not all students studied the worked examples. To correct
+d5bi | AMERICAN EDUCATOR | SPRING 2012 15
+ba4l | this problem, the Australian researchers also presented partially completed problems in which students had to complete the miss- ing steps and thus pay more attention to the worked example.
+ffx8 | 5. Guide student practice: Successful teachers spend more time guiding students' practice of new material.
+s6su | Research findings
+y219 | It is not enough simply to present students with new material, because the material will be forgotten unless there is sufficient rehearsal. An important finding from information-processing research is that students need to spend additional time rephras- ing, elaborating, and summarizing new material in order to store this material in their long-term memory. When there has been sufficient rehearsal, the students are able to retrieve this material
+06ht | easily and thus are able to make use of this material to foster new learning and aid in problem solving. But when the rehearsal time is too short, students are less able to store, remember, or use the material. As we know, it is relatively easy to place something in a filing cabinet, but it can be very difficult to recall where exactly we filed it. Rehearsal helps us remember where we filed it so we can access it with ease when needed.
+v3r2 | A teacher can facilitate this rehearsal process by asking ques- tions; good questions require students to process and rehearse the material. Rehearsal is also enhanced when students are asked to summarize the main points, and when they are supervised as they practice new steps in a skill. The quality of storage in long-term memory will be weak if students only skim the material and do not engage in it. It is also important that all students process the new material and receive feedback, so they do not inadvertently store partial information or a misconception in long-term memory.
+nv42 | In the classroom
+xags | In one study, the more successful teachers of mathematics spent more time presenting new material and guiding practice. The more successful teachers used this extra time to provide addi- tional explanations, give many examples, check for student under- standing, and provide sufficient instruction so that the students could learn to work independently without difficulty. In contrast, the less successful teachers gave much shorter presentations and explanations, and then they passed out worksheets and told stu-
+jc47 | 16 AMERICAN EDUCATOR | SPRING 2012
+ko3c | dents to work on the problems. Under these conditions, the stu- dents made too many errors and had to be retaught the lesson.
+xek3 | The most successful teachers presented only small amounts of material at a time. After this short presentation, these teachers then guided student practice. This guidance often consisted of the teacher working the first problems at the blackboard and explain- ing the reason for each step, which served as a model for the students. The guidance also included asking students to come to the blackboard to work out problems and discuss their proce- dures. Through this process, the students seated in the classroom saw additional models.
+bbpr | Although most teachers provided some guided practice, the most successful teachers spent more time in guided practice, more time asking questions, more time checking for understand- ing, more time correcting errors, and more time having students work out problems with teacher guidance.
+5zyf | Teachers who spent more time in guided practice and had higher success rates also had students who were more engaged during individual work at their desks. This finding suggests that, when teachers provided sufficient instruction during guided practice, the students were better prepared for the independent practice (e.g., seatwork and homework activities), but when the guided practice was too short, the students were not prepared for the seatwork and made more errors during independent practice.
+9own | 6. Check for student understanding: Checking for student understanding at each point can help students learn the material with fewer errors.
+bqfb | Research findings
+wwdt | The more effective teachers frequently checked to see if all the students were learning the new material. These checks provided some of the processing needed to move new learning into long- term memory. These checks also let teachers know if students were developing misconceptions.
+mn1r | In the classroom
+5vqw | Effective teachers also stopped to check for student understand- ing. They checked for understanding by asking questions, by ask- ing students to summarize the presentation up to that point or to repeat directions or procedures, or by asking students whether they agreed or disagreed with other students' answers. This check- ing has two purposes: (a) answering the questions might cause the students to elaborate on the material they have learned and augment connections to other learning in their long-term mem- ory, and (b) alerting the teacher to when parts of the material need to be retaught.
+meyw | In contrast, the less effective teachers simply asked, "Are there any questions?" and, if there were no questions, they assumed the students had learned the material and proceeded to pass out worksheets for students to complete on their own.
+2e62 | Another way to check for understanding is to ask students to think aloud as they work to solve mathematical problems, plan an essay, or identify the main idea in a paragraph. Yet another check is to ask students to explain or defend their position to oth- ers. Having to explain a position may help students integrate and elaborate their knowledge in new ways, or may help identify gaps in their understanding.
+75y3 | Another reason for the importance of teaching in small steps, guiding practice, and checking for understanding (as well as obtaining a high success rate, which we'll explore in principle 7) comes from the fact that we all construct and reconstruct knowl- edge as we learn and use what we have learned. We cannot simply repeat what we hear word for word. Rather, we connect our under- standing of the new information to our existing concepts or "schema," and we then construct a mental summary (i.e., the gist of what we have heard). However, when left on their own, many students make errors in the process of constructing this mental summary. These errors occur, particularly, when the information is new and the student does not have adequate or well-formed background knowledge. These constructions are not errors so much as attempts by the students to be logical in an area where their background knowledge is weak. These errors are so common that there is a research literature on the development and correc-
+s2g2 | The most successful teachers spent more time in guided practice, more time asking questions, more time checking for understanding, and more time correcting errors.
+q1q2 | tion of student misconceptions in science. Providing guided practice after teaching small amounts of new material, and check- ing for student understanding, can help limit the development of misconceptions.
+cb7r | 7. Obtain a high success rate: It is important for students to achieve a high success rate during classroom instruction.
+68xu | Research findings
+hd35 | In two of the major studies on the impact of teachers, the investi- gators found that students in classrooms with more effective teachers had a higher success rate, as judged by the quality of their oral responses during guided practice and their individual work. In a study of fourth-grade mathematics, it was found that 82 per- cent of students' answers were correct in the classrooms of the most successful teachers, but the least successful teachers had a success rate of only 73 percent. A high success rate during guided practice also leads to a higher success rate when students are working on problems on their own.
+2zpk | The research also suggests that the optimal success rate for fostering student achievement appears to be about 80 percent. A success rate of 80 percent shows that students are learning the material, and it also shows that the students are challenged.
+epu7 | In the classroom
+7od1 | The most effective teachers obtained this success level by teaching in small steps (i.e., by combining short presentations with super-
+0bqy | vised student practice), and by giving sufficient practice on each part before proceeding to the next step. These teachers frequently checked for understanding and required responses from all students.
+b780 | It is important that students achieve a high success rate during instruction and on their practice activities. Practice, we are told, makes perfect, but practice can be a disaster if students are prac- ticing errors! If the practice does not have a high success level, there is a chance that students are practicing and learning errors. Once errors have been learned, they are very difficult to overcome.
+ccmb | As discussed in the previous section, when we learn new mate- rial, we construct a gist of this material in our long-term memory. However, many students make errors in the process of construct- ing this mental summary. These errors can occur when the infor- mation is new and the student did not have adequate or
+ma93 | well-formed background knowledge. These constructions are not errors so much as attempts by the students to be logical in an area where their background knowledge is weak. But students are more likely to develop misconceptions if too much material is presented at once, and if teachers do not check for student understanding. Providing guided practice after teaching small amounts of new material, and checking for student understanding, can help limit the development of misconceptions.
+c6hh | I once observed a class where an effective teacher was going from desk to desk during independent practice and suddenly realized that the students were having difficulty. She stopped the work, told the students not to do the problems for homework, and said she would reteach this material the next day. She stopped the work because she did not want the students to practice errors.
+y7ea | Unless all students have mastered the first set of lessons, there is a danger that the slower students will fall further behind when the next set of lessons is taught. So there is a need for a high suc- cess rate for all students. "Mastery learning" is a form of instruc- tion where lessons are organized into short units and all students are required to master one set of lessons before they proceed to the next set. In mastery learning, tutoring by other students or by teachers is provided to help students master each unit. Variations of this approach, particularly the tutoring, might be useful in many classroom settings.
+nav4 | AMERICAN EDUCATOR | SPRING 2012 17
+gem8 | 8. Provide scaffolds for difficult tasks: The teacher provides students with temporary supports and scaffolds to assist them when they learn difficult tasks.
+e8nr | Research findings
+k78w | Investigators have successfully provided students with scaffolds, or instructional supports, to help them learn difficult tasks. A scaf- fold is a temporary support that is used to assist a learner. These scaffolds are gradually withdrawn as learners become more com- petent, although students may continue to rely on scaffolds when they encounter particularly difficult problems. Providing scaffolds is a form of guided practice.
+g9du | Scaffolds include modeling the steps by the teacher, or thinking aloud by the teacher as he or she solves the problem. Scaffolds also may be tools, such as cue cards or checklists, that complete part of the task for the students, or a model of the completed task against which students can compare their own work.
+f682 | One characteristic of effective teachers is their ability to anticipate students' errors and warn them about possible errors some of them are likely to make.
+li1k | The process of helping students solve difficult problems by modeling and providing scaffolds has been called "cognitive apprenticeship." Students learn strategies and content during this apprenticeship that enable them to become competent readers, writers, and problem solvers. They are aided by a master who models, coaches, provides supports, and scaffolds them as they become independent.
+pbea | In the classroom
+ccpt | One form of scaffolding is to give students prompts for steps they might use. Prompts such as "who," "why," and "how" have helped students learn to ask questions while they read. Teaching students to ask questions has been shown to help students' reading comprehension.
+0fpw | Similarly, one researcher developed the following prompt to help students organize material.13
+dqn8 | 1. Draw a central box and write the title of the article in it.
+cop0 | 2. Skim the article to find four to six main ideas.
+lhkq | 3. Write each main idea in a box below the central box.
+82ju | 4. Find and write two to four important details to list under each main idea.
+y2qo | Another form of scaffolding is thinking aloud by the teacher. For example, teachers might think aloud as they try to summarize a paragraph. They would show the thought processes they go through as they determine the topic of the paragraph and then use the topic to generate a summary sentence. Teachers might think aloud while solving a scientific equation or writing an essay,
+1piq | 18 AMERICAN EDUCATOR | SPRING 2012
+7fqw | and at the same time provide labels for their mental processes. Such thinking aloud provides novice learners with a way to observe "expert thinking" that is usually hidden from the student. Teachers also can study their students' thought processes by ask- ing them to think aloud during problem solving.
+rhaz | One characteristic of effective teachers is their ability to antici- pate students' errors and warn them about possible errors some of them are likely to make. For example, a teacher might have students read a passage and then give them a poorly written topic sentence to correct. In teaching division or subtraction, the teacher may show and discuss with students the mistakes other students have frequently made.
+wak1 | In some of the studies, students were given a checklist to evalu- ate their work. Checklist items included "Have I found the most important information that tells me more about the main idea?" and "Does every sentence start with a capital letter?" The teacher then modeled use of the checklist.
+wtfz | In some studies, students were provided with expert models with which they could compare their work. For example, when students were taught to generate questions, they could compare their questions with those generated by the teacher. Similarly, when learning to write summaries, students could compare their summaries on a passage with those generated by an expert.
+qy1i | 9. Require and monitor independent practice: Students need extensive, successful, independent practice in order for skills and knowledge to become automatic.
+1k9e | Research findings
+5bjs | In a typical teacher-led classroom, guided practice is followed by independent practice-by students working alone and practicing the new material. This independent practice is necessary because a good deal of practice (overlearning) is needed in order to become fluent and automatic in a skill. When material is over- learned, it can be recalled automatically and doesn't take up any space in working memory. When students become automatic in an area, they can then devote more of their attention to compre- hension and application.
+```
+
+OUTPUT:
+```

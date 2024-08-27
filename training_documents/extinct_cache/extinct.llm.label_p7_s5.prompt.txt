@@ -1,0 +1,127 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+uz3c | What is common to all these types of biodiversity-focused arguments - regarding the instrumental value of variety, the intrinsic value of variety and pertaining alternative concepts (harmony, design, otherness, etc.) - is that for them the focus of moral concern shifts from species extinctions towards biological variety or those other concepts. So, like the individualist argu- ments (section "Resulting from harm to nonhuman individuals") extinctions are again not problematised because of the loss of species themselves, but rather due to what this loss means for other valued entities or other matters of moral concern.
+d5bi | Future generations
+ba4l | A further reason for why species extinctions might be morally problematic concerns our duties to future human generations (see Feinberg, 1974; Sandler, 2021b). In essence, if we believe that the interests of future generations put current generations under an obligation to not frustrate these interests, we have a reason to protect species and biodiversity that future generations might (intrinsically and instrumentally) value and, thereby, avoid 'irre- versible loss' (Spiekermann, 2022). While there might be consider- able uncertainty about what species, ecosystems and/or ecosystem 'services' future generations will actually value and/or need, this ultimately involves again an assessment of different arguments pertaining to the value of species and biodiversity (as seen in sections "Involving loss of value due to the loss of species" and "Leading to the loss of valuable biological variety"). Moreover, considerations about duties towards future generations in terms of species conservation provide a bridge between the ethics of extinction and the ethics of sustainability (see Norton, 2003; Arm- strong, 2021).
+ffx8 | In addition to these human-focused arguments, we can also consider non-anthropocentric arguments pertaining to the future (building on some of the arguments found in sections "Resulting from harm to nonhuman individuals" and "Resulting from harm to nonhuman individuals"; see also Nolt, 2021; Whyte, 2022). There
+s6su | are two main argumentative routes open in this regard. Firstly, one can consider potential duties towards future nonhuman beings or species in so far as the extinction of other species will affect them negatively (and consider cases where species might benefit from the extinction of other species; related to this, see Palmer, 2011 and Cripps, 2013 for reflections about how certain species will benefit from climate change). Like how in intra-human intergenerational ethics a lot of thought has been given to the 'nonidentity problem' (see Norton, 1982; Parfit, 1986), also here we face a nonhuman nonidentity problem (Palmer, 2011), in so far as anthropogenic species extinctions will affect which individuals will come into existence in the future. That is, the extinction of some species will have a knock-on effect on which individuals of still remaining species will meet and mate, which in turn will influence which individuals will live in the future. The underlying philosophical problem is that those future individuals would not have come into existence without the extinction (which, in turn, is relevant for underlying considerations about how the 'harm' of extinction is understood). Secondly, the case of extinctions also leads to a 'non- existence problem' (Wienhues, 2020) in so far as nonhuman indi- viduals, species and ecosystems in the future will not only be affected by prior extinctions, but many nonhuman individuals will simply never come into existence.
+y219 | Can anthropogenic extinctions ever be justified?
+06ht | Some readers might assume that all anthropogenic extinctions are morally problematic, but does that judgement hold up in all cases? Consider these two examples from species conservation practice. Firstly, concerning 'local' (as opposed to 'global') extinctions consider restoration-based reasons in favour of the extinction of a population of an 'invasive' species (for critical discussions, see Rawles, 2004; Odenbaugh, 2022; Thresher, 2022). Secondly, other conservation practices such as captive breeding and release pro- grammes have in turn been criticised on the grounds of not allowing for a 'death with dignity' (Chessa, 2005). While in this case the extinction might still seem morally problematic, such programmes might not present an appropriate response. In both cases, it is possible to claim that an extinction can be all-things- considered better than an alternative course of action, for instance, on ecocentric or sentientist argumentative grounds (which both, in turn, can also be engaged to criticise the moral desirability of such extinctions).
+v3r2 | Also, consider the case of disease-transmitting species such as certain mosquitoes that transmit malaria, dengue fever, zika and so on, which is the most discussed case of potentially justified extinc- tion. The global health burden of these diseases is very high (WHO, 2017; Greisman et al., 2019), which provides a good reason to consider whether the eradication of such disease-transmitting species would be an appropriate means to address this problem (Fang, 2010; Bates, 2016). While it is an empirical question to decide whether this constitutes an approach that is likely to succeed while minimising the risks in comparison with alternatives, this also generates a range of ethical questions to consider, such as regarding the moral standing of individual nonhuman animals, ethical aspects of risk and the intrin- sic and/or instrumental value of species (see Pugh, 2016; Wienhues, 2021; Callies and Rohwer, 2022). A particular emphasis found in the literature on bioethics concerns questions of research ethics, risk and consent regarding genetically engineering species such as mosquitoes in this context (see Resnik, 2014; Emerson et al., 2017; Resnik, 2017; Neuhaus and Caplan, 2017; Patrão Neves and Druml, 2017; Meghani and Boëte, 2018). Notably, even some authors who consider
+nv42 | anthropogenic extinctions to be highly morally problematic acknow- ledge exceptions for disease-transmitting species such as malaria- transmitting mosquitoes (e.g. Rolston, 2001; Smith, 2016).4 While the use of synthetic biology such as gene drives remains controversial (Preston and Wickson, 2019), the health burden of vector-borne diseases constitutes a weighty reason to take them into consideration.
+xags | Intended species extinctions are also considered for other - even more controversial - purposes, which include the case of predation raised in animal ethics. While some animal ethicists consider wild animal suffering to be of serious moral concern (Horta, 2017), a few authors go as far as arguing that there are reasons speaking in favour of the extinction of predatory species.5 The benefit hoped for would be the reduction of (non-anthropogenic) suffering in the 'wild' caused by predation (see McMahan, 2010, 2016). Such pro- posals to alleviate 'wild' animal suffering (by a range of means aimed at 'dewilding' or 'redesigning nature', see Duclos, 2022; Kianpour and Paez, 2022) are in turn not shared by other animal and environmental ethicists on more general terms (see Palmer, 2010, 2015; Donaldson and Kymlicka, 2011; Aaltola, 2014; Hettin- ger, 2018), as well as specifically on the question of removing predatory species (Vincelette, 2022). Reasons include the difficul- ties of implementing such proposals and more principled objec- tions towards such interventions into 'nature'.
+jc47 | How to respond to extinctions?
+ko3c | Assuming that anthropogenic extinctions are morally problematic, how should they be avoided? What are morally permissible (or even demanded) means of doing so? One way of morally responding to extinctions is to turn our attention to species that have not yet gone extinct, but which are at risk of extinction (related to this, see arguments about the relevance of rarity [e.g. Gunn, 1980; James, 2024] and arguments that emphasise endangered species [e.g. Smith, 2016]).
+xek3 | This relates to the much broader body of work on the conservation of species in which new means and policies are being developed and discussed from a multidisciplinary perspective. To give one example (out of many) of philosophical discussion pertaining endangered species, consider 'assisted migration' or 'species translocation'. The discussion about such proposals originated in grassroot activism but was taken up by ecologists, and ethicists soon joined the debate (Sandler, 2010, 2012; Hällfors et al., 2014; Palmer and Larson, 2014; Siipi and Ahteensuu, 2016; Minteer, 2017; Preston, 2018; Palmer, 2021). The idea is to transfer populations to more suitable habitats where those species did not exist before to prevent them from going extinct. This is a conservation approach that is meant to be appro- priate because of climate change (Hällfors et al., 2014). There are different views on this matter. For example, there are discussions about how intentional translocation affects the value of the target species and its habitats (Siipi and Ahteensuu, 2016; Siipi, 2017). To Sandler, who focuses on the ethics of species, assisted colonisation is only justified in rare occasions in which 'the translocated species
+bbpr | Anna Wienhues et al.
+5zyf | would be ecologically or instrumentally valuable in the recipient site (and this can be reliably predicted in advance), or the species has final value' (2012, 85) (see section "Involving loss of value due to the loss of species" regarding Sandler's understanding of such value). From an animal rights perspective, in turn, Angie Pepper argues that 'the permissibility of practices like assisted migration hinges on whether or not we can justify imposing risks on animals in order to prevent rights violations further down the line' (2019, 602).
+9own | Risk of extinction
+bqfb | For the purposes of moral theorising, 'risk' refers to the likelihood of a loss or harm taking place, which makes 'risk' a value concept referring to an unwanted outcome through human actions, in addition to an epistemological dimension where that outcome is likely to happen with a specific probability (Hansson, 2013). If that probability is unknown, it is referred to as 'uncertainty' rather than 'risk', which often motivates a precautionary approach. With respect to species extinction, there are two main ways of discussing risks and extinctions: the first focuses on the risk of a single species facing extinction, and the second pays attention to broader systemic and accumulative risks, either in terms of mass extinction or in terms of a collapse of the biospheric system as we know it.
+wwdt | Regarding single species, risk is a premeditative concept that enables us to respond to near-extinction, such as when a species extinction is predicted to happen in the light of best ecological modelling, where the predicted quantity of extinctions has often been referred to as 'extinction debt' (Hanski and Ovaskainen, 2002; Kuus- saari et al., 2009). Against this background, deliberations on employ- ing concepts and ideas drawn from ecological sciences and (meta) population biology are taking place within environmental ethics and the philosophy of biology, which includes topics of ethical relevance such as decision-making under uncertainty and the applicability of the precautionary principle, land-use planning, protected area networking and prioritisation (Norton, 1987; Sarkar, 2005).
+mn1r | Risks have value dimensions, and what value is justifiably ascribed to a species will play a part in how it is to be prioritised (see section "Why (or when) might anthropogenic extinctions be morally problematic?"). Most efforts to save near-extinct species require prioritising: global and national Red Lists of Threatened Species are examples of such a conservation policy, as is Bryan Norton's 'triage model' (1987, 258). Yet, prioritisations come with a range of philosophical problems. According to Norton, many of those challenges arise due to the difficulties of reducing the values of species to a single scale (1987, 255).
+5vqw | A broader perspective to the risk landscape emerges when we consider what kinds of systemic risks each extinction gives rise to (which is related to some of the concerns introduced in section "Leading to the loss of valuable biological variety"). A common argument rests on an analogy between species extinctions and the loss of rivets on an airplane wing (Ehrlich and Ehrlich, 1981).6 It aims to show that the ethical significance of extinction is due to its potential effects on ecosystems (the loss of too many
+meyw | Cambridge Prisms: Extinction
+2e62 | 'rivets'), which in turn are prerequisites for human and nonhuman survival. When conjunct with uncertainty regarding the number of rivets, or species, that an airplane wing, or ecosystem, can dispose of without collapsing, it becomes essential to preserve species and avoid their extinction (for a critical discussion of the analogy, see Sarkar, 2005).
+75y3 | This expresses a form of precautionary principle, which has been discussed both critically and approvingly from different philosoph- ical perspectives (Sandin, 2004; Sarkar, 2005; Hourdequin, 2007; Newman et al., 2017; Tanswell, 2022). The precautionary principle is also a part of the preamble of the Convention of Biological Diversity (CBD, 1993) where it is stated that lack of full knowledge ought not to justify inaction, and it is mentioned in the framework of the Intergovernmental Science-Policy Platform on Biodiversity and Ecosystem Services (IPBES n.d.). The complexity and uncer- tainty pertaining to how ecosystems work (Regan et al., 2002; Sarkar, 2005) provide support for a precautionary principle con- cerning environmental decision-making. Yet, some authors con- sider its policy implications problematic due to leading to logical contradictions by potentially recommending two opposing actions (e.g. recommending the development of and simultaneously the prevention of developing genetically modified organisms), failing to account for possible benefits, neglecting that precaution has costs and for lacking conceptual clarity (Newman et al., 2017; critiqued in turn in Baard, 2022).
+s2g2 | De-extinction
+q1q2 | What should be done after extinctions have already occurred? Besides more conventional species conservation practices, there is a broader discussion on the ethics of developing and using biotech- nologies for conservation purposes and beyond (Ehrenfeld, 2006; Basl and Sandler, 2013; Kaebnick and Murray, 2013; Oksanen and Siipi, 2014; Preston, 2018). Setting these larger concerns aside, more technology-focused conservation approaches - if justifiable in cer- tain cases - should be seen as complementary rather than alterna- tives to conventional conservation practices (Sandler, 2021b). Accordingly, the subject of debate concerns whether there are certain cases where such technological means are appropriate and desirable at all.
+```
+
+OUTPUT:
+```

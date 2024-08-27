@@ -1,0 +1,129 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+zxz6 | For example, secondly, Ian Smith argues in favour of the view that a species has an 'intrinsic good' that 'consist in its abilities to flourish', based on a Hennigian species concept that sees species as 'historical individuals', which, in turn, gives us reasons to preserve species on Smith's account because, amongst other things, '[a species'] flourishing is a species' organisms continuing to repro- duce successfully (that is, the organisms producing fertile offspring) and the species remaining safe from extinction' (2016, 14). Smith takes it for granted that 'species taxa are real' (2016, 3-4) but subspecies are not. Therefore, only species are of intrinsic value. Critics have seen this presumption, in turn, as a failure to properly consider subspecies and higher categories in taxonomy (Burbrink et al., 2022).
+xnth | Finally, Ronald Sandler understands species as 'groups of bio- logically related organisms that are distinguished from other organ- isms by virtue of their shared form of life' (Sandler, 2012, 6, italics in original). What distinguishes organisms in this way, according to Sandler, are, for example, their ways to acquire energy (what they
+vafm | https://doi.org/10.1017/ext.2023.21 Published online by Cambridge University Press
+2zmw | eat), how they move (and whether they move at all), how they reproduce and so on. Because Sandler argues against objective values being applicable to species (understood in this way), he points out that species can be still valuable in other ways. For example, some species are subjectively (finally/non-instrumentally) valuable (i.e. valuable because people actually value them) in two ways: firstly, in the form of 'preference value' as the 'value that something has because people have a preference for it' (2012, 23). That value is also sometimes called 'existence value', which accord- ing to Espen Stabell (2019, 180) 'can be understood to involve self- regarding as well as other-regarding and nonanthropocentric preferences'. Secondly, species can also have 'integral value' as the 'value that something possesses when it is valued in a way that flows from one's worldview of core value commitments' according to Sandler (2012, 24).
+bf9k | This last account of the value of species neither relies on species having objective value (like Rolston), nor on species having inter- ests akin to living beings (like Johnson), nor on the premise that species are being able to flourish (like Smith), and thus, it relies on less premises that might be controversial. However, in contrast to those other accounts its scope is much narrower because it concedes that only some anthropogenic species extinctions are lamentable by involving the loss of such value and only if this value is actually held by some humans.
+otkr | Resulting from harm to nonhuman individuals
+ibgs | Non-anthropocentric individualist accounts within environmental ethics - that is sentientist (i.e. all sentient beings are morally considerable; Singer, 1975) or biocentric (i.e. all living beings are morally considerable; Taylor, 1986/2011) accounts - are only indirectly concerned with extinctions. What primarily matters to such positions is either the harm, impediment to well-being or injustice that is borne by individual nonhuman beings, and thus, the relevant harm involved in extinctions is not found on the species level (Nussbaum, 2011). Yet, it is often argued - for different reasons - that these two levels of analysis are closely related (Agar, 2001; Regan, 2004; Taylor, 2011; Korsgaard, 2018a; Donoso, 2019; Baard, 2022). For example, according to animal rights theorist Tom Regan the preservation of the biotic community follows from showing 'proper respect for the rights of the individuals' (Regan, 1983/2004, 363) that are part of that community.
+colo | As an example of emphasising the current anthropogenic mass extinction within an individualist framework, Anna Wienhues (2020) argues in favour of a biocentric theory of interspecies justice. Within this account, anthropogenic extinctions function as indica- tors of potential previous distributive injustices to nonhuman beings, due to the unjust deprivation of habitat that can ultimately lead to species extinctions. Within this context, extinctions are not injustices in themselves, but an outcome of interspecies injustice - metaphorically speaking she argues that 'each anthropogenic extinction is a memorial for past injustices' (2020, 157, italics in original).
+d6r4 | A commonality of all of these individualist accounts is that they are only indirectly concerned with extinctions and cannot explain why an extinction is in itself morally lamentable (Benton, 1993). Moreover, such accounts usually cannot morally distinguish between saving a specimen that belongs to a near-extinct species and one that does not belong to such a species (Sober, 1986/1995; Baard, 2022). If ethical relevance is placed solely on individual entities rather than species, then the extinction status of the species
+9mrz | the entity belongs to does not necessarily count ethically, which could be more of a problem for some individualist accounts (e .- g. Singer, 1975; Cochrane, 2012; see Korsgaard, 2018b), than for individualist accounts that allow for a degree of value pluralism (as opposed to everything of moral relevance being reducible to, e.g., individual well-being) and/or that allow for a degree of ethical pluralism (e.g. Wienhues, 2020).
+pk06 | An alternative solution is presented by individualist accounts that conceptualise the individual's interests as extending to 'all other organisms that are relatives' in terms of its species (under- stood following Mayr's biological species concept) (Agar, 2001, 150). Based on Nicholas Agar's (2001) account, that consequently allows for an individualist argument that proposes that individuals that are part of endangered species and therefore rare are more valuable than their plentiful counterparts. According to Agar that follows because the value of an individual is not 'a function only of its own goals. Its demise affects the other-directed and other- requiring goals of its conspecifics, depending on how plentiful its species is' (Agar, 2001, 150), which includes, for example, the ability of individuals to mate and successfully reproduce.
+7wn9 | Yet, non-individualist accounts consider a theoretical focus on the individual to be a weakness. As Johnson puts it, '[a]n ethic that deals adequately with the issues of extinction must not only avoid being anthropocentric, it must avoid being atomistic' (1991, 170, italics in original). That might make one favour again one of the earlier introduced values of species accounts, but an account like Johnson's faces in turn a range of difficulties in its own as already indicated above.
+wcd0 | Leading to the loss of valuable biological variety
+caos | Besides accounts that consider the loss of parts of biodiversity to be problematic because of the moral relevance of species or nonhuman individuals, other perspectives consider species extinctions to be problematic due to the involved loss of biological variety. While biodiversity loss does not necessarily follow from species extinc- tions and vice versa, they are clearly conceptually related and practically implicated in each other. Problematising the loss of (bio)diversity, in turn, is a notable topic in the context of species extinctions because it has been institutionalised on an international level via the Convention of Biological Diversity (established in 1993).
+qrvy | Although the convention text begins with the recognition of 'the intrinsic value of biological diversity' (CBD, 1993), it is not obvious what role the intrinsic value in the CBD plays, as it appears only in the preamble. The recognition of intrinsic value is also followed by stating that the parties are conscious of 'the ecological, genetic, social, economic, scientific, educational, cultural, recreational and aesthetic values of biological diversity' (CBD, 1993). This shows that there is ambiguity in how the value of biodiversity is to be understood. Moreover, the larger normative international legal framework and even the CBD itself mainly endorse the established resource-focused language and practice (see Oksanen and Vuor- isalo, 2019). Here, again the question arises about how biodiversity- focused claims about value should be interpreted.
+pn9j | So, the extinction of species via the resulting loss of biodiversity seems to involve a loss of value, but reasons for why the loss of variety might be problematic can rest on different argumentative grounds (Oksanen, 1997; Callicott, 2017; Heinzerling, 2017; McShane, 2017; Odenbaugh, 2017; Baard, 2022). Moreover, bio- diversity can be conceptualised in various ways (CBD, 1993; Nor- ton, 2008; Faith, 2017, 2021; Sarkar, 2017; Burch-Brown and
+1pmc | Anna Wienhues et al.
+5z6q | Archer, 2017) and normative emphasis can be put on different kinds of diversity (such as 'phylogenetic diversity', Palmer and Fischer, 2021). Generally, there are two common (not exhaustive) argumentative routes to choose from, which do not preclude each other but are often found in combination to justify the protection of biodiversity.
+yeoh | Firstly, biological variety as in the variety or abundance of, for example, genes or species might have instrumental value beyond the (instrumental) value of the species themselves (e.g. Maclaurin and Sterelny, 2008). While that is a common premise in conser- vation biology and environmental ethics that can justify why the extinction of many species is problematic due to the loss of valuable variety, different argumentative grounds for such instru- mental value such as biodiversity's contribution to ecosystem functioning or its (potential) agricultural and pharmaceutical benefits have also been critically discussed (see Maier, 2012; Deliège and Neuteleers, 2015; Newman et al., 2017; Morrow, 2023). Independent of such critiques, the loss of variety might not be problematic for instrumental value reasons in all circum- stances (e.g. consider the loss of variety of certain pathogens), which means that not necessarily all extinctions involve a loss of instrumentally valuable variety.
+b8hf | Yet that needs to be kept distinct from the instrumental value attributed to species themselves (such as their 'incalculable instru- mental value', see Smith, 2022), although not all species will be instrumentally valuable for human purposes either (see section "Future generations"). In so far as these, as well as biological variety, are fundamental grounds for the possibility of human life on earth, a mass extinction can be understood as humanity's 'autodestruction' constituting 'a wrong in its own category. The wrong is the wrong of putting an end to humankind and all that is of value in it. This is a cataclysmic wrong' as put by Bendik- Keymer and Haufe (2016, 7, italics in original). Thus, for such an argument the 'massness' (see section "Defining extinction") of the current extinction event is central and, thereby, it avoids the problem that some individual species might not be instrumentally valuable for human purposes.
+hntf | The second option is to consider the intrinsic value of biological variety as something that might be valuable in itself - independently of whether it is beneficial for humans or other lifeforms (Mikkelson, 2022). There are different versions of what this entails (see McShane, 2017). For example, deep ecologist Arne Naess famously stated that '[r]ichness and diversity of life forms ( ... ) are also values in themselves' (Naess, 1986/2003, 264). Providing a more nuanced view on the intrinsic value of biodiversity, Gregory Mikkelson (2011, 186) points out that 'variety' is not the sole determinant of value in neither Næss' deep ecology, nor in Mikkelson's own preferred richness theory. Both invoke additional determinants such as 'harmony' (Mikkelson, 2011, 2014). To Mikkelson, more related to extinction, 'anthropogenic species extinctions are decreasing the overall harmony of life on Earth' (2011, 191).
+99fo | Philosophical claims about biodiversity's intrinsic value also get external support. As already mentioned, conservation biologist Soulé considered biotic diversity to have intrinsic value (1985, 731) and also the Convention on Biological Diversity refers to intrinsic value (for a critical discussion of both, see Baard, 2022). Moreover, studies about the environmental values of the public also report intrinsic values being supported (e.g. Leiserowitz et al., 2005; discussed by both Mikkelson, 2014; Odenbaugh, 2017) and strong pro-environmental attitudes confirmed empirically have the pos- sibility of generating subjectivist non-instrumental values (see Lo, 2006). However, different proposals concerning the intrinsic value
+y5r7 | Cambridge Prisms: Extinction
+lrry | of biological variety have also been subject to critical analysis (Sarkar, 2005; Kraut, 2011; Maier, 2012; Newman et al., 2017), such as concerning whether intrinsic value can attach to biological variety itself or whether that is better understood in terms of intrinsically valuing parts of biological variety such as species and individual beings (McShane, 2017).
+hvhm | Moreover, in addition to valuing species, nonhuman individuals and biological variety, further (additional or alternative) adjacent reasons grounding the badness of species extinction can be found in the literature. To mention two examples broadly within the realm of biodiversity-focused arguments, that includes, for one, arguments pertaining valuing the 'irreplaceable design that is embodied by the individuals' part of a species (Cline, 2020, 46, italics in original). The point being that after a long evolutionary process, '[e]ach of the wonderful contrivances of nature are ( ... ) unique and irreplaceable. Such irreplaceable design has special value that we recognise when we experience awe and wonderment towards the sophisticated structures and systems and strategies exemplified by living organisms' (Cline, 2020, 59). According to Brendan Cline, that shifts the focus of concern away from the species themselves towards such 'irreplaceable design'. Secondly, the loss of biodiversity might also be considered problem- atic due to a lack of respect towards nonhuman living beings and active nature in their natural otherness. Such respect provides us with reasons to protect biodiversity and, consequently, species variety (Wienhues and Deplazes-Zemp, 2022). Subsequently, human-caused extinctions can be interpreted as a lack of such respect.
+863b | What is common to all these types of biodiversity-focused arguments - regarding the instrumental value of variety, the intrinsic value of variety and pertaining alternative concepts (harmony, design, otherness, etc.) - is that for them the focus of moral concern shifts from species extinctions towards biological variety or those other concepts. So, like the individualist argu- ments (section "Resulting from harm to nonhuman individuals") extinctions are again not problematised because of the loss of species themselves, but rather due to what this loss means for other valued entities or other matters of moral concern.
+fj24 | Future generations
+```
+
+OUTPUT:
+```

@@ -1,0 +1,167 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+wul6 | Now, if all this seems very weird, here's why: we often describe physical systems using infinitely many states, with a lowest possible energy but no highest possible energy. In this case the sum in the Boltzmann distribution can't converge for ß < 0, so negative temperatures are ruled out.
+4rhy | However, some physical systems can be approximately described using a finite set of states (or in quantum theory, a finite-dimensional Hilbert space of states). Then the things I just said hold true! And people enjoy studying these systems, and their strange properties, in the lab.
+092d | It's good to look at a simple example, and work everything out explicitly:
+94ul | Puzzle 25. Suppose a system has two states with energies E1 / E2. Compute the probabilities pi that it is in either of these states in thermal equilibrium as a function of the coolness B. Then express these probabilities as a function of the temperature T. Using these functions pi(T):
+0vdu | . Show that when 0 < T < +oo the system is more likely to be in the lower-energy state: P1(T) > p2(T).
+a230 | . Show that when -> < T < 0 the system is more likely to be in the higher-energy state: P1(T) < p2(T).
+dvoe | · Show that
+677t | T->+00 lim pi(T) = _ lim pi(T) T -- 00
+5hk6 | so we can speak unambiguously of the probabilities p; at infinite temperature.
+viei | · Show that at infinite temperature the system has an equal probability of being in either state.
+rk0j | · Show that as T approaches zero from above, the probability of the system being in the lower energy state approaches 1.
+c6x9 | · Show that as T approaches zero from below, the probability of the system being in the higher energy state approaches 1.
+g5at | 33
+re3j | INFINITE TEMPERATURE
+6z45 | If a system has finitely many states with energies Ei, in thermal equilibrium at temperature T the probability that it's in the ith state is
+20af | Pi & e BEi
+huae | where B = 1/kT and k is Boltzmann's constant.
+rblh | When 3 = 0 the system's temperature becomes infinite, and all states become equally probable!
+gl5i | The probability of finding a system in a particular state decays exponentially with energy when the coolness ß is positive. But for a system with finitely many states, ß can be zero. Then it becomes equally probable for the system to be in any state!
+x0yg | Zero coolness means 'utter randomness': that is, maximum entropy.
+mjt8 | Here's why. The probability distribution with the largest entropy is the one where all probabilities pi are all equal. This happens at zero coolness! When ß = 0 we get exp(-BE;) = 1 for all i. The probabilities pi are proportional to these numbers exp(-ßE;) = 1, so they're all equal.
+htcn | It seems zero coolness is impossible for a system with infinitely many states. With infinitely many states, all equally probable, the probability of being in any state would be zero. In other words, there's no uniform probability distribution on an infinite set.
+86d4 | One way out: replace sums with integrals. For the usual measure on [0, 1], called the Lebesgue measure dx, we have fo dx = 1. So this is a 'probability measure' that we could use to describe a system at zero coolness, whose space of states is [0,1].
+z7qp | But replacing sums by integrals raises all sorts of interesting issues. For example, there's a unique way to sum over a finite set of states, but an integral over an infinite set of states depends on a choice of measure. So a choice of measure is a significant extra structure we're slapping on our set of states.
+6t1g | We'll need to think about these issues later, since to compute the entropy of a clas- sical ideal gas we'll need integrals. But we'll encounter difficulties, which are ultimately resolved using quantum mechanics.
+cpls | Anyway: infinite temperature is really zero coolness, and at least for systems with finitely many states, the entropy becomes as large as possible at zero coolness.
+m50n | 34
+eztf | NEGATIVE TEMPERATURE
+bwsu | If a system has finitely many states with energies <LATEX>E _ { i } ,</LATEX> in thermal equilibrium at temperature <LATEX>T</LATEX> the probability that it's in the <LATEX>i</LATEX> ith state is
+oqod | <LATEX>p _ { i } \propto e ^ { - \beta E _ { i } }</LATEX> where <LATEX>\beta = 1 / k T</LATEX> and <LATEX>k</LATEX> is Boltzmann's constant.
+tey0 | When <LATEX>\beta < 0</LATEX> the system becomes 'hotter than infinitely hot'. Its temperature is negative-but the higher the energy of a state, the more probable it is!
+ghiv | A system with finitely many states can reach infinite temperature. It can get even hotter, but then its temperature 'wraps around' and become negative!
+o5ts | The possibility of negative temperatures was first discussed by the physicist Lars Onsager in 1949, and they have been created in the lab with a variety of systems that-within some approximation-can be described as having finitely many states. In quantum theory, this happens for systems that have finite basis of 'energy eigenstates': states with well-defined energies <LATEX>E _ { i } .</LATEX> For example, the nucleus of an atom may have just two spin states, and if we put it in an magnetic field these will have different energies. The result is the system we studied in Puzzle 25.
+hd7d | Here is a generalization with more energy states, all equally spaced:
+ehux | Puzzle 26. Consider a system with <LATEX>2 N + 1</LATEX> states labeled by an integer <LATEX>n</LATEX> with <LATEX>- N \leq</LATEX> <LATEX>n \leq N ,</LATEX> where the nth state has energy <LATEX>E _ { n } = \alpha n</LATEX> for some energy <LATEX>\alpha > 0 .</LATEX> Compute the Boltzmann distribution for this system at coolness <LATEX>\beta</LATEX> for all <LATEX>\beta \in \mathbb{R} .</LATEX> Compute the expected energy <LATEX>\langle E \rangle</LATEX> as a function of <LATEX>\beta .</LATEX> What is the qualitative difference in your result between the case of positive temperature <LATEX>\left( \beta > 0 \right)</LATEX> and negative temperature
+poxj | <LATEX>\left( \beta < 0 \right)</LATEX> For more, try this:
+2xvb | · Wikipedia, Negative temperature.
+m1hx | 35
+9psh | ABSOLUTE ZERO: THE LIMIT OF INFINITE COOLNESS
+aiqv | If a system with finitely many states having energies E; is in thermal equilibrium, the probability p; that it's in the ith state is propor- tional to exp(-ßE;) where ß is the coolness.
+4klz | In the limit of infinite coolness, ? - > +oo, these probabilities go to zero except for the states of lowest energy, which all become equally probable.
+xz5d | The limit ? - > +oo is also the limit where T approaches zero from above, commonly called absolute zero.
+erwx | The limit where T approaches zero from above is often called absolute zero. Why? First people made up various temperature scales like Celsius, where zero was the freez- ing point of water, and Fahrenheit, where zero is the freezing point of a mixture of water, ice, and ammonium chloride. But researchers discovered that nature had a more fundamental concept of zero temperature: the limit of infinite coolness! This happens as the temperature approaches -273.15 ℃, or roughly -459.67 ºF. This discovery led Kelvin to propose a shifted version of Celsius where zero is absolute zero. This was originally called 'absolute Celsius', but now it is called the Kelvin scale. This is the scale of temperature I'll always use here. The size of the degrees is a somewhat arbitrary convention, but the zero is not: it's absolute zero.
+ie7i | 36
+aksw | THE HAGEDORN TEMPERATURE
+0fsl | If a system has a countable infinity of states <LATEX>n = 1 , 2 , 3 , \ldots .</LATEX> with energies <LATEX>E _ { n } ,</LATEX> the Boltzmann distribution
+0m3g | <LATEX>p _ { n } = \frac { \exp \left( - E _ { n } / k T \right) } { \sum _ { n = 1 } ^ { \infty } \exp \left( - E _ { n } / k T \right) }</LATEX> is either:
+9sp0 | 1) defined for all
+nbpk | <LATEX>0 < T < + \infty</LATEX> 2) undefined for all
+xs3r | <LATEX>0 < T < + \infty</LATEX> 3) defined for all <LATEX>0 < T < T _ { \mathrm { H } }</LATEX> but not for <LATEX>T _ { \mathrm { H } } < T < + \infty ,</LATEX> where <LATEX>T _ { \mathrm { H } }</LATEX> is some temperature called the Hagedorn temperature.
+ffuj | We've been discussing systems with finitely many states, but many physical systems have a countable infinity of states. So let's think a bit about those. We can copy everything we've done so far, but we have to be careful. For thermal equilibrium to be possible at some temperature <LATEX>T ,</LATEX> we need the Boltzmann distribution
+h7f6 | <LATEX>p _ { n } = \frac { \exp \left( - E _ { n } / k T \right) } { \sum _ { n = 1 } ^ { \infty } \exp \left( - E _ { n } / k T \right) }</LATEX> to make sense. But it might not. Sometimes the sum fails to converge! This happens when the terms <LATEX>\exp \left( - E _ { n } / k T \right)</LATEX> don't go to zero fast enough as
+t74k | <LATEX>n \rightarrow + \infty .</LATEX> Let's investigate this issue. We'll assume that
+qdn7 | <LATEX>\sum _ { n = 1 } ^ { \infty } \exp \left( - E _ { n } / k T \right)</LATEX> converges for some <LATEX>T > 0 .</LATEX> Then the energies <LATEX>E _ { n }</LATEX> must be bounded below: otherwise the terms <LATEX>\exp \left( - E _ { n } / k T \right)</LATEX> will get bigger and bigger. Furthermore for any <LATEX>E \in \mathbb{R}</LATEX> there can be at most finitely many <LATEX>E _ { n }</LATEX> less than <LATEX>E :</LATEX> otherwise we'd be adding up infinitely many terms greater than <LATEX>\exp \left( - E / k T \right) .</LATEX> As a result, we can reorder the states so their energies are nondecreasing:
+dib4 | <LATEX>E _ { 1 } \leq E _ { 2 } \leq E _ { 3 } \leq \cdots .</LATEX> and
+yvqj | <LATEX>E _ { n } \rightarrow + \infty .</LATEX> Reordering a sum can't change its convergence or value if <LATEX>f \mathrm { i t } _ { s } ^ { \gamma } s</LATEX> a sum of nonnegative numbers, like the sum we have here. So we might as well assume we've listed the energies in nondecreasing order as above. Then there are two cases:
+vz2f | 1. The energies <LATEX>E _ { n }</LATEX> approach <LATEX>+ \infty</LATEX> so fast that <LATEX>\sum _ { n = 1 } ^ { \infty } \exp \left( - E _ { n } / k T \right)</LATEX> converges for all <LATEX>0 < T < + \infty .</LATEX> Then our system can be in thermal equilibrium at any finite posi- tive temperature. This is the nicest situation, and the one we typically expect ..
+wyu0 | 37
+s8xw | 2. The energies <LATEX>E _ { n }</LATEX> approach <LATEX>+ \infty</LATEX> slowly enough that <LATEX>\sum _ { n = 1 } ^ { \infty } \exp \left( - E _ { n } / k T \right)</LATEX> converges when <LATEX>T</LATEX> is small enough, but not otherwise. In this case there is some temperature <LATEX>T _ { \mathrm { H } } ,</LATEX> called the Hagedorn temperature, such that our system can be in thermal equilibrium at positive temperatures <LATEX>T</LATEX> below <LATEX>T _ { \mathrm { H } } ,</LATEX> but not above
+afv1 | <LATEX>T _ { \mathrm { H } } .</LATEX> In both cases, <LATEX>\sum _ { n = 1 } ^ { \infty } \exp \left( - E _ { n } / k T \right)</LATEX> diverges for all <LATEX>- \infty \leq T < 0</LATEX> and <LATEX>T = + \infty .</LATEX> So, for a system with a countable infinity of states, if thermal equilibrium exists for some positive temperature, it cannot exist for negative or infinite temperatures.
+fwf1 | The second case is weird and interesting. It's named after Rolf Hagedorn, who in 1964 noticed that this was a possibility in nuclear physics. He considered a model of nuclear matter where the energies <LATEX>E _ { n }</LATEX> approach <LATEX>+ \infty</LATEX> in a roughly logarithmic way. As you heat it, its expected energy keeps increasing, but its temperature can never exceed <LATEX>T _ { \mathrm { H } } .</LATEX> This model turned out to be incorrect, but <LATEX>\mathrm { i t } ^ { \gamma } \varsigma</LATEX> interesting anyway.
+3wck | Now let's solve some puzzles on systems with a countable infinity of states. Some of these show up in quantum mechanics, but you don't need to know quantum mechanics to do these puzzles.
+jq2u | Puzzle 27. Show that for a system with a countable infinity of states, if thermal equi- librium is possible for some negative temperature, it is impossible for positive or infinite temperatures.
+9zf9 | Puzzle 28. Work out the Boltzmann distribution when <LATEX>E _ { n } = n E</LATEX> for some energy <LATEX>E ,</LATEX> and show that it is well-defined for all temperatures
+clwo | <LATEX>0 < T < + \infty .</LATEX> The next puzzle is a lot like the previous one a bit more messy, but worthwhile because of its great importance in physics.
+```
+
+OUTPUT:
+```

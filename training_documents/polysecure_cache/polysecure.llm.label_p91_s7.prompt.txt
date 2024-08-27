@@ -1,0 +1,154 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+ua3p | Knowing how to stand securely on your own two feet and how to be your own safe haven and secure base is fundamental to building your internal secure attach- ment. I would say this to anyone practicing monogamy, but it is even more imper- ative in nonmonogamous relationships. In polyamory, we need the internal secu- rity of being anchored in our inner strength and inner nurturer to navigate a rela- tionship structure that is considerably less secure. Inner security is also imperative because depending on a certain partner as our only go-to support system regarding our relationship with another partner, a shared partner or one of their partners can be triangulating, messy, inappropriate, divisive and even damaging. You must be a priority in your own life. Secure attachment with yourself means being aware of your feelings and desires, as well as being able to tend to your own needs and knowing how to advocate for them in relationships. In the absence of this, your relationships can be built upon a false premise, or, at the very least, will struggle to be sustainable.
+0a2t | EARNED SECURE ATTACHMENT
+abow | Those of us who did not experience a securely attached childhood or who have had significant attachment insecurity from our adult relationships can still develop earned secure attachment. Meaningful contact with teachers, friends, lovers, men- tors, therapists, or other relatives who can empathically resonate and securely bond with us can all assist us in adjusting our attachment style towards becoming more secure. At the self level, one way to develop earned secure attachment is through making sense of your story.
+qx6n | According to Daniel Siegel, we can make sense of our attachment history by
+p2bm | creating a coherent narrative of our past experiences.72 We do this by putting to- gether the story of what we went through as a child and examining how our attach- ment history impacts our present sense of self and our relationships today. By telling the stories that have been previously unspoken, we allow ourselves to feel what has been unfelt and bring love to what has seemed unlovable. When we are able to describe our painful past experiences and craft them into a narrative that makes sense to us, healing occurs and our brains can literally be rewired for more secure functioning. Daniel Siegel's research has also shown that the main pre- dictor of a child's attachment style is not whether or not their parents had an inse- cure or secure attachment style, but whether or not their parents were able to make sense of their own attachment history. When parents had trauma and attachment insecurity but were able to create a coherent narrative of what they went through, they were then able to break the cycle of attachment insecurity that can easily get passed down from one generation to the next and, instead, parent their own child from an earned secure stance. As adults, when we experience relationship traumas, painful breakups or losses, creating a coherent narrative about what happened is just as indispensable for our healing and integration.
+cxyx | Nonmonogamy can feature certain kinds of loss and breakups that don't hap- pen anywhere else in our culture. In discussing why or how a relationship ended, we may not have the same common language that is used in describing monog- amous endings, or encounter the same level of acceptance and understanding. You may have more partners who could support you post-breakup, and many people definitely benefit from this, but I also see people who feel even more isolated and alone when their nonmonogamous relationship ends. Current partners may get tired of hearing about pain or drama from the relationship that ended, for instance, or it may be inappropriate to process the breakup with current partners (perhaps they are involved with the partner you broke up with). You may also simply not have relationships that you would turn to for this kind of emotional support. The loss of relationships with metamours or entire polycules that result from a breakup can also be confusing, disorienting and painful beyond measure. All of this can
+w0aw | leave people feeling as if they are floating in outer space with no sense of what's up and what's down, nothing to ground them and help them move forward. In such cases, finding coherence to your story can be a profound support.
+w41b | When crafting the stories of your insecurely attached past, it is important not only to be able to describe and allow the feelings associated with what you've gone through, but to also develop an appreciation for the attachment survival adapta- tions that you took on. Our attachment styles are a result of our response to how available connection was to us. When connection is unavailable, inconsistent, intrusive, dangerous or out of reach, the attachment system will either start to hy- peractivate or deactivate as a survival strategy. Your attachment adaptations are what worked best in the environment that you were embedded in, and it is impor- tant to recognize the power and wisdom in the different styles that you con- structed. As we give voice to our past, accept and allow our pain and even appre- ciate the ways we were shaped from this, we are better able to take responsibility for the ways that we still need to grow and show up differently for ourselves and in our relationships. We no longer have to be victims of our past, but can be victo- rious in the face of it.
+vokd | GO HEART YOURSELF
+efir | The HEART of secure functioning is not just for your relationships with partners, but can be directly applied to your relationship with yourself.
+vjhs | H: BEING HERE WITH MYSELF
+rcio | In order to create internal security, we must first inhabit our own being. We must fully occupy our bodies, which are the storehouse of our feelings, needs, pains, de- sires and longings. When there has been attachment insecurity or trauma, being in your body may not be safe or easy, especially when habits of defensiveness, disso- ciation or disconnection have been at play for years or decades. Traumas can limit our ability for presence. When we detach from ourselves, whether through pulling too far into ourselves or jumping too far out of ourselves into another, we lose ac- cess to our own internal states and therefore our own internal resources. We are
+7qi5 | not truly here in the moment, whether with ourselves or another.
+9f5r | Being our own safe haven and secure base requires that we first have the capac- ity to be with our self. To sit, to listen, to be available to whatever arises within us. Life occurs in the present moment and our healing needs the fullness of our atten- tion in the here and now to take place. Through embodiment, we can learn how to tolerate the uncomfortable feelings and sensations that might be necessary to move through in order to heal. We can also learn to allow positive sensations and feelings that might have been previously exiled.
+j3tt | Questions to Consider
+zoz0 | . In general, how comfortable or uncomfortable do you feel being alone with yourself?
+3blu | . What are the subtle and overt ways that you avoid being present with your- self?
+xv2l | . What does being present with yourself mean to you? How would it look?
+xt4k | . What does being more embodied mean to you? How would that look?
+ti78 | . If you were more present and embodied, what possibilities in your life or rela- tionship could open up?
+k5pk | Things to Try and to Experiment With
+n093 | · Mindfulness techniques and meditation practices.
+4khi | . Body awareness practices (e.g., yoga, dance, walking meditation, body scan meditations).
+7fh2 | · Breathwork.
+5isn | · Emotional or energetic grounding techniques.
+5vry | . Working with a somatic practitioner or body-based psychotherapist.
+9w33 | Taking a walk or drive without making calls or listening to anything.
+johv | . Sitting with yourself quietly and allowing yourself to be with whatever arises.
+2olp | . Singing or chanting when you're by yourself without worrying about how you sound.
+zb7x | E: EXPRESSED DELIGHT FOR MYSELF
+uadf | When applying the attachment need of expressed delight to yourself, we are talking about an inner sense of joy, appreciation and pleasure in your own being and exis- tence. As children, it is through mirroring, reflection and the expressed delight from our attachment figures that we are able to develop a positive sense of self and learn what we are capable of. As adults, we still need this and will typically get this through our closest relationships. When another is able to mirror us and take de- light in who we are, we can get to know ourselves even more than we did before. But as adults, our positive sense of self cannot be solely contingent on the ex- pressed delight of those around us. We need to cultivate expressed delight for our- selves in order to maintain a positive sense of worth and healthy appreciation for who and how we are that is sustainable and resilient.
+wuf4 | Imagine making a mistake and your response to yourself is one of under- standing and forgiveness. Imagine looking in the mirror and having thoughts of acceptance and self-compassion. Imagine looking forward to having some solo time because you enjoy time with yourself and are even pleasantly entertained with who you are. For those of you having flashbacks of the Saturday Night Live comedy skit where the character Stuart Smalley looks adoringly in the mirror at himself as he says, "I'm good enough, I'm smart enough, and doggone it, people like me," don't worry-I won't suggest looking in the mirror as you say positive affirmations to yourself. I am talking about the importance of positive self-talk and being kind and loving to yourself in ways that you would probably treat a friend, but so fre- quently forget when it comes to your relationship with yourself. When we have ex- perienced trauma and attachment ruptures, we can forget what it means to be kind to ourselves.
+lfk1 | Even a small shift in the way you talk to yourself has significant physical and mental health benefits and can influence your ability to regulate your feelings, thoughts, and behavior under stress. Positive self-talk is not about placating your- self, trying to falsely boost your ego or being self-delusional. It is about having an inner dialogue that is forgiving, understanding, flexible and holds a larger, often
+rwjw | more realistic, perspective than the negative, defeated or abusive self-talk that we often tolerate as the inner status quo. Expressed delight for yourself would mean being able to see your strengths, positive attributes, qualities and ways of being that you can be proud of and grateful for, as well as seeing where there is still room for self-improvement. When we delight in our children or our partners, we don't necessarily see them as perfect. In fact, we usually see them with all their amazing, difficult and quirky qualities and choose to take delight in their fullness, contra- dictions and all. Can you do this for yourself?
+iazp | I see the inner critic and shame as the largest obstacles to rewiring our inner narratives to reflect more self-expressed delight. Trauma and insecure attachment give birth to our inner critic and shame, and, just as positive self-talk has health benefits, negative self-talk can have far-reaching negative impacts on our health and can actually activate our threat system, spiraling us into the fight/flight/ freeze/peasepease response, just from our own thinking. It is difficult to embody self-worth when we have parts of ourselves that incessantly beat us up for what we've done, what we haven't done, or how we look. The inner critic is the voice in our head that is harsh, mean, critical, unsympathetic, punishing, shaming and "shoulding." Shame is the part of us that feels beat up by the inner critic, accepting what it says as true and believing that we are unworthy, not enough, too much, fundamentally broken and maybe even better off dead.
+ksn3 | Shame researcher Brene Brown makes the important distinction between guilt and shame, with guilt being the perspective that I've done something wrong, which can be helpful and motivating, and shame the perspective that I am wrong, which can be debilitating and paralyzing.73 When we have critical or perfectionistic parts of ourselves that spew inner negativity and then shameful parts that absorb these thoughts as gospel, finding love and happiness in ourselves can feel nearly impos- sible. I've come to see our inner critic as a form of emotional autoimmunity. When someone has an autoimmune condition, the immune system goes into overdrive and the body starts attacking itself instead of protecting itself from outside inva- sion. When we inquire into the motivation of the inner critic, it is usually a part of
+8xbx | us that wants to protect us, keep us safe or have us be successful, but its methods are actually self-harming and counterproductive to its protective intention. Shame is like a weakened immune system that will catch an emotional cold through even the smallest of insults, neutral feedback or questioning from another. Even though the part of us experiencing shame often feels powerless, it is quite powerful in its capacity to eclipse our ability to connect with our self and with others. Shame can function like a form of deflated narcissism where any and all phenomena in the world are taken as evidence for how you are not worthy or how you are funda- mentally failing, flawed or broken. Both the inner critic and shame can sabotage our relationships, because when we are living from these parts we are usually un- able to relate authentically or take responsibility for our actions.
+aod5 | But remember that we are more than these parts. The inner critical and shame- ful parts of us can have a prominent impact through the ways they shape and dis- tort our view of self, other and the world, and when in the driver's seat these parts can create much havoc, but they are not the totality of who we are. Just as our at- tachment styles are not the fullness of who we are, these parts are also just an as- pect of ourselves that can be healed and transformed. Therapeutic modalities such as compassion-focused therapy, narrative therapy and Internal Family Systems use techniques to externalize and engage in dialogue with these parts to gain a better understanding of the ways in which they are either trying to protect us or are still holding pain, traumas and emotional burdens that can be released. When doing this kind of inner work, the grip that these parts have on us begins to loosen and more expressed delight can begin to shine through. As problematic parts get re- vised, unburdened, updated or transformed, other parts of our self that have been disowned or exiled, such as our self-esteem, voice, joy, enthusiasm, creativity or sexuality can also be reclaimed and integrated, thus fortifying our ability to better enact the strategies and positive self-talk that encourages self-interest, excitement, play and self-delight. It is just as important to cultivate the parts of us that can have self-compassion and help us function in securely attached ways as working with our critical and shameful parts, and I will touch on this in the next section.
+ayqs | Questions to Consider
+jnpq | · What does expressed delight look like for you right now?
+r4w4 | · How could you increase your self-expressed delight?
+sswz | . Do you struggle with critical and shameful inner parts that sabotage your ability to value and appreciate yourself?
+0uoj | . What would become more possible for you in regard to yourself and your relationships if expressed delight was more central to your inner experience?
+0c89 | Things to Try and to Experiment With
+658v | . Take yourself on a date or pamper yourself with something that you genuinely enjoy.
+4gqa | . Listen to self-hypnosis tracks or positive affirmations that are aligned with what you want to feel about yourself.
+mpgz | . Write yourself a love letter or make a list of all the things you appreciate about yourself.
+gf06 | . Start a gratitude practice and make sure to include yourself as the object of gratitude.
+75hv | . Start working with your inner critic and shame through modalities such as Internal Family Systems, narrative therapy or compassion-focused therapy, which focus on inner parts work.
+tbiu | . Check out Rick Hanson's Hardwiring Happiness or Joe Dispenza's Becoming Supernatural, which both focus on how to create positive changes within your inner landscape.
+413q | . Start to identify the parts of you that do function in secure ways and focus on how to make them more prominent in your life. What daily practices or per- spectives can you take on that bring your preferred expression of self more to the front and center in your life?
+8wkl | . Let yourself laugh and seek out humor.
+```
+
+OUTPUT:
+```

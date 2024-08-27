@@ -1,0 +1,155 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+jfsr | 155
+u15r | Figura 2. Artículos sobre diabetes publicados con filiación peruana en revistas científicas indizadas en WoS o Scopus, que estén y no estén en el primer cuartil de impacto según SCImago.
+lq35 | DISCUSIÓN
+3g9w | El presente estudio describe la producción científica peruana en diabetes en el periodo 1996-2005. Se encontró un número bajo pero creciente de publicaciones sobre el tema. Aproximadamente tres cuartos de los artículos fueron originales, entre los cuales el financiamiento fue predominantemente extranjero. La UPCH participó en más de la mitad de los artículos, mientras que la participación de instituciones peruanas ubicadas fuera de la ciudad de Lima es escasa. Aproximadamente la mitad de los artículos tuvieron como autor corresponsal a un autor extranjero. En cuanto a las redes de colaboración, se pueden distinguir cinco conglomerados. La UPCH se sitúa como centro para la colaboración nacional e internacional.
+d09o | Producción científica
+ylhz | La diabetes es un problema de salud en Perú, con serias deficiencias en cuanto a su prevención, diagnóstico y manejo. Sin embargo, este impacto a la salud pública no se refleja en el número de artículos publicados. De manera que apenas encontramos 27 artículos publicados durante el periodo 2000-2010, en tanto que un estudio previo realizado en las mismas bases de datos encontró 358 artículos publicados sobre cáncer por autores peruanos en dicho periodo20. Asimismo, número de artículos publicados en el país es muy inferior al reportado en periodos de estudio similares
+a3td | 156
+ex5k | Taype-Rondan A., et al.
+9d4o | en países de la región como Brasil y Argentina8,9, además de otros del medio oriente, Nigeria, China e India6-10. Lo cual podría deberse a que la producción científica médica en general del Perú es inferior a la de los países comparados31.
+cjq2 | Esta baja producción científica en diabetes puede estar relacionado a una subestimación de la problemática en el Perú, reflejado en el hecho de que la diabetes no fuera incluida entre las prioridades nacionales de salud de investigación para los años 2010-2014 del Instituto Nacional de Salud del Perú21. Aunque debido al creciente interés, este tema es considerado una prioridad para el periodo 2015-202122.
+5esx | Una limitación importante para realizar investigación en diabetes radica en la falta de presupuesto para investigación en diabetes, puesto que el Consejo Nacional de Ciencia, Tecnología e Innovación Tecnológica (CONCYTEC), que es el principal financista público de la investigación peruana, cuenta con escasos fondos y no prioriza directamente estudios en esta área. Esto explicaría que el financiamiento de entidades extranjeras sea predominante para este tipo de investigación. En este contexto, las entidades encargadas de velar por la salud en el Perú deberán asegurar el financiamiento de investigación en temas prioritarios como diabetes.
+m5ka | En relación al incremento de artículos científicos publicados sobre diabetes en el Perú, es una situación que viene sucediendo en otros países10,23, 24. Esto puede deberse a una mayor cultura de investigación y publicación en
+byu8 | Producción científica en diabetes en Perú: Un estudio bibliométrico.
+76b0 | TABLA 1
+zxz6 | Características de los artículos sobre diabetes publicados con filiación peruana en revistas científicas indizadas en WoS o Scopus, 1996-2015.
+xnth | UPCH: Universidad Peruana Cayetano Heredia. HNCH: Hospital Nacional Cayetano Heredia. UPC: Universidad Peruana de Ciencias Aplicadas
+vafm | general, junto con un creciente interés en diabetes como problema de salud pública3,25.
+2zmw | Estudios de intervención
+bf9k | Un meta-análisis que evaluó intervenciones para mejorar la atención de pacientes con diabetes encontró que en siete de doce estudios la hipoglicemia fue más frecuente en el grupo de intervención que en el grupo control, demostrando el peligro de implementar estrategias que no han sido evaluadas26. Sin embargo, nuestro estudio no encontró estudios que hayan evaluado intervenciones de salud pública para mejorar el diagnóstico o manejo de la diabetes, lo cual sugiere que las intervenciones sobre diabetes se están implementando sin la realización previa de estudios rigurosos.
+otkr | Esto puede deberse a carencias presupuestales o a la escases de investigadores locales entrenados en la realización
+ibgs | de este tipo de estudios27. Sin embargo, para nuestro periodo de estudio el "Registro Peruano de Ensayos Clínicos" del Instituto Nacional de Salud registra 161 estudios bajo el término "diabetes"28, lo cual puede estar reflejando la realización de estudios que finalmente no son publicados en revistas indizadas. Las barreras para la publicación de estos estudios deben ser evaluadas para asegurar la generación y difusión eficiente de este tipo de evidencia.
+colo | Análisis de autores y filiaciones
+d6r4 | Pocos artículos tuvieron participación de autores peruanos fuera de la ciudad de Lima. Este marcado centralismo de la investigación biomédica en Perú ha sido descrito anteriormente20,29-33, e impide la generación de evidencias en las diferentes regiones del Perú, que requieren soluciones acordes a su contexto.
+9mrz | 158
+pk06 | Taype-Rondan A., et al.
+7wn9 | Figura 3. Análisis de colaboración de los artículos sobre diabetes publicados con filiación peruana en revistas científicas indizadas en WoS o Scopus, 1996-2015.
+wcd0 | Producción científica en diabetes en Perú: Un estudio bibliométrico.
+caos | La UPCH es la institución con mayor producción científica en diabetes. Análisis bibliométricos previos realizados a nivel nacional sobre VIH/SIDA30, tuberculosis33, cáncer20 y trastornos mentales32, mostraron resultados similares.
+qrvy | Aproximadamente la mitad de los artículos tuvieron como corresponsal a un autor con filiación peruana. En concordancia, el 30,4% de los artículos peruanos en WoS tuvieron como corresponsal a un autor con filiación peruana31, en tanto que esta cifra varía del 20,8% al 81,2% en otros países sudamericanos34. Esta participación activa de investigadores extranjeros puede estar relacionado a mayores facilidades de financiamiento para instituciones extranjeras que realizan estudios en Perú35.
+pn9j | Colaboración interinstitucional
+1pmc | La colaboración inter-institucional genera grupos de trabajo productivos, cuyas publicaciones tienen mayor impacto que aquellas producidos por entidades sin colaboración36,37. En nuestro estudio, la UPCH resalta como el centro de la colaboración nacional e internacional, lo cual concuerda con lo descrito en otros estudios bibliométricos peruanos20,31,38. Otras redes aún incipientes tienen como eje a otras instituciones, como el Instituto Nacional de Salud, el Ministerio de Salud, y la Clínica El Golf. Estas redes deberían ser potenciadas para aumentar los núcleos de producción científica en el tema. Concordantemente, países que han presentado un aumento en la producción de artículos con colaboración internacional a su vez presentaron un aumento general de la producción científica en diabetes7,9.
+5z6q | También resulta importante fomentar la creación de redes que incluyan instituciones peruanas que estén ubicadas fuera de la ciudad de Lima, con la finalidad de formar competencias en investigación en dichas instituciones, lo cual ayudaría a descentralizar la producción científica y producir evidencias en los distintos contextos peruanos. Una interesante iniciativa al respecto es la que realiza CONCYTEC bajo el nombre de "círculos de investigación", que financia propuestas de investigación que sean realizadas en colaboración interinstitucional.
+yeoh | Características de las revistas
+b8hf | Se observó que el porcentaje de publicaciones en revistas Q1 se ha mantenido casi constante en los últimos cinco años, lo cual sugiere que el aumento de la producción científica observado en los últimos años no está relegado a revistas de baja calidad, sino que parece deberse a un crecimiento armonioso en términos de cantidad y calidad.
+hntf | Resulta llamativo que un porcentaje tan alto como el 18,5% de las publicaciones evaluadas se hayan publicado en una sola revista (Revista Peruana de Medicina Experimental y Salud Pública). Este porcentaje es más alto al encontrado en otros estudios bibliométricos en Perú20,30,33. Esto podría significar que los grupos de investigación en diabetes en Perú están acostumbrados a publicar en dicha revista, o a que dicha revista tiene un gran interés en publicar artículos sobre diabetes.
+99fo | Limitaciones
+y5r7 | Se debe tener presente que el presente estudio no evalúa revistas que no estén indizadas en WoS/Scopus, debido a que se buscó evaluar la producción científica en revistas de calidad. Sin embargo, otros estudios pueden haber sido publicados en revistas no indizadas en dichas bases.
+lrry | CONCLUSIÓN
+hvhm | La producción científica peruana en diabetes es baja, y cuenta con una gran participación de investigadores y financiamiento extranjeros. Resalta la falta de estudios que evalúen intervenciones en salud pública. La institución con mayor producción científica y en la que se centran las redes de colaboración es la UPCH. Estos resultados llaman a la necesidad de incentivar la investigación en diabetes, con énfasis en la generación de evidencias sobre intervenciones en salud pública, y en el apoyo y empoderamiento de instituciones peruanas y redes de colaboración ubicadas fuera de la ciudad de Lima.
+863b | Financiamiento. El presente artículo ha sido autofinanciado por los autores
+fj24 | Conflictos de interés. Los autores declaran no tener conflictos de interés con respecto a la publicación del presente artículo
+uz3c | RESUMEN
+d5bi | Objetivo: describir la producción científica en diabetes en Perú entre 1996 y 2015. Métodos: Estudio bibliométrico. Se identificaron publicaciones científicas sobre diabetes que tuvieran algún autor con filiación peruana, en las bases de datos Web of Science Core Collection (WoS) y Scopus, entre 1996 y 2015. Se extrajeron manualmente las variables de interés. Se presentaron los resultados descriptivos y las redes de colaboración. Resultados: Se encontraron 81 publicaciones, el 75,3% fueron artículos originales, de las cuales ninguno evaluó intervenciones en salud pública y 60,7% recibieron financiamiento extranjero. El 55,6% tuvieron algún autor afiliado a la Universidad Peruana Cayetano Heredia (UPCH), y el 65,4% algún autor extranjero. Se puedo distinguir cinco conglomerados de redes de colaboración internacional, todos con participación de la UPCH. Conclusión: La producción científica peruana en diabetes ha sido baja, con ausencia de estudios que evalúen intervenciones en salud pública, y con redes de colaboración centradas en la UPCH.
+ba4l | Palabras clave: Diabetes; bibliometría; redes de colaboración; colaboración internacional; financiamiento en investigación.
+ffx8 | BIBLIOGRAFÍA
+s6su | 3. World-Health-Organization. Diabetes 2016 http://www. who.int/mediacentre/ factsheets/fs312/en/.
+y219 | 4. Royle P, Bain L, Waugh N. Systematic reviews of epidemiology in diabetes: finding the evidence. BMC Med Res Methodol 2005; 5: 2.
+06ht | 20. Mayta-Tristán P, Huamaní C, Montenegro-Idrogo JJ, Samanez- Figari C, González-Alcaide G. Scientific production and cancer-related collaboration networks in Peru 2000-2011: a bibliometric study in Scopus and Science Citation Index. Rev Peru Med Exp y Salud Pública. 2013; 30(1): 31-36.
+v3r2 | 21. Cabezas C, Yagui M, Caballero P. Priorities for health research in Peru 2010-2014: The experience of a participatory and decentralized process: Systematization of experience.
+nv42 | Taype-Rondan A., et al.
+xags | Lima, Ministerio de Salud, Instituto Nacional de Salud. 2011. http://www.ins.gob.pe/insvirtual/images/otrpubs/ pdf/Prioridades%20[13.6.11].pdf
+jc47 | 37. Leta J, Chaimovich H. Recognition and international collaboration: the Brazilian case. Scientometrics 2002; 53(3): 325-335.
+ko3c | 38. Huamaní C, Pacheco-Romero J. Scientific collaboration in Peruvian biomedical journals. An Fac med 2011; 72(4): 261-268.
+```
+
+OUTPUT:
+```

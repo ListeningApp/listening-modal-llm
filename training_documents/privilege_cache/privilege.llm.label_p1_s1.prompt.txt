@@ -1,0 +1,135 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+1pjs | IS
+o2kr | Situated Knowledges: The Science Question in Feminism and the Privilege of Partial Perspective Author(s): Donna Haraway Source: Feminist Studies, Autumn, 1988, Vol. 14, No. 3 (Autumn, 1988), pp. 575-599 Published by: Feminist Studies, Inc. Stable URL: https://www.jstor.org/stable/3178066
+v6sk | REFERENCES
+1wj6 | Feminist Studies, Inc. is collaborating with JSTOR to digitize, preserve and extend access to Feminist Studies
+936l | JSTOR
+06yq | SITUATED KNOWLEDGES: THE SCIENCE QUESTION IN FEMINISM AND THE PRIVILEGE OF PARTIAL PERSPECTIVE
+dpv6 | Academic and activist feminist inquiry has repeatedly tried to come to terms with the question of what we might mean by the curious and inescapable term "objectivity." We have used a lot of toxic ink and trees processed into paper decrying what they have meant and how it hurts us. The imagined "they" constitute a kind of invisible conspiracy of masculinist scientists and philosophers replete with grants and laboratories. The imagined "we" are the embodied others, who are not allowed not to have a body, a finite point of view, and so an inevitably disqualifying and polluting bias in any discussion of consequence outside our own little circles, where a "mass"-subscription journal might reach a few thousand readers composed mostly of science haters. At least, I confess to these paranoid fantasies and academic resentments lurking under- neath some convoluted reflections in print under my name in the feminist literature in the history and philosophy of science. We, the feminists in the debates about science and technology, are the Reagan era's "special-interest groups" in the rarified realm of epistemology, where traditionally what can count as knowledge is policed by philosophers codifying cognitive canon law. Of course, a special-interest group is, by Reaganoid definition, any collective historical subject that dares to resist the stripped-down atomism of Star Wars, hypermarket, postmodern, media-simulated citizen- ship. Max Headroom doesn't have a body; therefore, he alone sees everything in the great communicator's empire of the Global Net- work. No wonder Max gets to have a naive sense of humor and a kind of happily regressive, preoedipal sexuality, a sexuality that
+8r5j | 575
+2taz | Donna Haraway
+o3ya | we ambivalently - with dangerous incorrectness - had imagined to be reserved for lifelong inmates of female and colonized bodies and maybe also white male computer hackers in solitary elec- tronic confinement.
+r5il | It has seemed to me that feminists have both selectively and flexibly used and been trapped by two poles of a tempting dichotomy on the question of objectivity. Certainly I speak for myself here, and I offer the speculation that there is a collective discourse on these matters. Recent social studies of science and technology, for example, have made available a very strong social constructionist argument for all forms of knowledge claims, most certainly and especially scientific ones.1 According to these tempt- ing views, no insider's perspective is privileged, because all draw- ings of inside-outside boundaries in knowledge are theorized as power moves, not moves toward truth. So, from the strong social constructionist perspective, why should we be cowed by scien- tists' descriptions of their activity and accomplishments; they and their patrons have stakes in throwing sand in our eyes. They tell parables about objectivity and scientific method to students in the first years of their initiation, but no practitioner of the high scien- tific arts would be caught dead acting on the textbook versions. Social constructionists make clear that official ideologies about ob- jectivity and scientific method are particularly bad guides to how scientific knowledge is actually made. Just as for the rest of us, what scientists believe or say they do and what they really do have a very loose fit.
+5gui | The only people who end up actually believing and, goddess for- bid, acting on the ideological doctrines of disembodied scientific objectivity - enshrined in elementary textbooks and technoscience booster literature-are nonscientists, including a few very trusting philosophers. Of course, my designation of this last group is prob- ably just a reflection of a residual disciplinary chauvinism ac- quired from identifying with historians of science and from spend- ing too much time with a microscope in early adulthood in a kind of disciplinary preoedipal and modernist poetic moment when cells seemed to be cells and organisms, organisms. Pace, Gertrude Stein. But then came the law of the father and its resolution of the problem of objectivity, a problem solved by always already absent referents, deferred signifieds, split subjects, and the endless play of signifiers. Who wouldn't grow up warped? Gender, race, the
+82qc | Donna Haraway
+ls7d | 577
+tzt3 | world itself-all seem the effects of warp speeds in the play of signifiers in a cosmic force field.
+t8vv | In any case, social constructionists might maintain that the ideological doctrine of scientific method and all the philosophical verbiage about epistemology were cooked up to distract our atten- tion from getting to know the world effectively by practicing the sciences. From this point of view, science-the real game in town- is rhetoric, a series of efforts to persuade relevant social actors that one's manufactured knowledge is a route to a desired form of very objective power. Such persuasions must take account of the struc- ture of facts and artifacts, as well as of language-mediated actors in the knowledge game. Here, artifacts and facts are parts of the powerful art of rhetoric. Practice is persuasion, and the focus is very much on practice. All knowledge is a condensed node in an agonistic power field. The strong program in the sociology of knowledge joins with the lovely and nasty tools of semiology and deconstruction to insist on the rhetorical nature of truth, including scientific truth. History is a story Western culture buffs tell each other; science is a contestable text and a power field; the content is the form.2 Period.
+qvnu | So much for those of us who would still like to talk about reality with more confidence than we allow to the Christian Right when they discuss the Second Coming and their being raptured out of the final destruction of the world. We would like to think our ap- peals to real worlds are more than a desperate lurch away from cynicism and an act of faith like any other cult's, no matter how much space we generously give to all the rich and always histori- cally specific mediations through which we and everybody else must know the world. But the further I get in describing the radical social constructionist program and a particular version of postmodernism, coupled with the acid tools of critical discourse in the human sciences, the more nervous I get. The imagery of force fields, of moves in a fully textualized and coded world, which is the working metaphor in many arguments about socially negoti- ated reality for the postmodern subject, is, just for starters, an im- agery of high-tech military fields, of automated academic battle- fields, where blips of light called players disintegrate (what a meta- phor!) each other in order to stay in the knowledge and power game. Technoscience and science fiction collapse into the sun of their radiant (ir)reality - war.3 It shouldn't take decades of feminist
+kggw | Donna Haraway
+xrd1 | theory to sense the enemy here. Nancy Hartsock got all this crystal clear in her concept of abstract masculinity.4
+5746 | I, and others, started out wanting a strong tool for deconstruct- ing the truth claims of hostile science by showing the radical his- torical specificity, and so contestability, of every layer of the onion of scientific and technological constructions, and we end up with a kind of epistemological electroshock therapy, which far from ushering us into the high stakes tables of the game of contesting public truths, lays us out on the table with self-induced multiple personality disorder. We wanted a way to go beyond showing bias in science (that proved too easy anyhow) and beyond separating the good scientific sheep from the bad goats of bias and misuse. It seemed promising to do this by the strongest possible construc- tionist argument that left no cracks for reducing the issues to bias versus objectivity, use versus misuse, science versus pseudo- science. We unmasked the doctrines of objectivity because they threatened our budding sense of collective historical subjectivity and agency and our "embodied" accounts of the truth, and we end- ed up with one more excuse for not learning any post-Newtonian physics and one more reason to drop the old feminist self-help practices of repairing our own cars. They're just texts anyway, so let the boys have them back.
+7toz | Some of us tried to stay sane in these disassembled and dis- sembling times by holding out for a feminist version of objectivity. Here, motivated by many of the same political desires, is the other seductive end of the objectivity problem. Humanistic Marxism was polluted at the source by its structuring theory about the domination of nature in the self-construction of man and by its closely related impotence in relation to historicizing anything women did that didn't qualify for a wage. But Marxism was still a promising resource as a kind of epistemological feminist mental hygiene that sought our own doctrines of objective vision. Marxist starting points offered a way to get to our own versions of stand- point theories, insistent embodiment, a rich tradition of critiquing hegemony without disempowering positivisms and relativisms and a way to get to nuanced theories of mediation. Some versions of psychoanalysis were of aid in this approach, especially anglo- phone object relations theory, which maybe did more for U.S. socialist feminism for a time than anything from the pen of Marx or Engels, much less Althusser or any of the late pretenders to son-
+j346 | Donna Haraway
+v8uq | 579
+x972 | ship treating the subject of ideology and science.5
+cwrw | Another approach, "feminist empiricism," also converges with feminist uses of Marxian resources to get a theory of science which continues to insist on legitimate meanings of objectivity and which remains leery of a radical constructivism conjugated with semiology and narratology.6 Feminists have to insist on a better ac- count of the world; it is not enough to show radical historical con- tingency and modes of construction for everything. Here, we, as feminists, find ourselves perversely conjoined with the discourse of many practicing scientists, who, when all is said and done, mostly believe they are describing and discovering things by means of all their constructing and arguing. Evelyn Fox Keller has been particularly insistent on this fundamental matter, and Sandra Har- ding calls the goal of these approaches a "successor science." Femi- nists have stakes in a successor science project that offers a more adequate, richer, better account of a world, in order to live in it well and in critical, reflexive relation to our own as well as others' practices of domination and the unequal parts of privilege and op- pression that make up all positions. In traditional philosophical categories, the issue is ethics and politics perhaps more than epistemology.
+4i0e | So, I think my problem, and "our" problem, is how to have simul- taneously an account of radical historical contingency for all knowledge claims and knowing subjects, a critical practice for recognizing our own "semiotic technologies" for making meanings, and a no-nonsense commitment to faithful accounts of a "real" world, one that can be partially shared and that is friendly to earthwide projects of finite freedom, adequate material abun- dance, modest meaning in suffering, and limited happiness. Har- ding calls this necessary multiple desire a need for a successor science project and a postmodern insistence on irreducible dif- ference and radical multiplicity of local knowledges. All compo- nents of the desire are paradoxical and dangerous, and their com- bination is both contradictory and necessary. Feminists don't need a doctrine of objectivity that promises transcendence, a story that loses track of its mediations just where someone might be held responsible for something, and unlimited instrumental power. We don't want a theory of innocent powers to represent the world, where language and bodies both fall into the bliss of organic sym- biosis. We also don't want to theorize the world, much less act
+h2l3 | Donna Haraway
+dfzb | within it, in terms of Global Systems, but we do need an earth- wide network of connections, including the ability partially to translate knowledges among very different - and power-differenti- ated-communities. We need the power of modern critical theories of how meanings and bodies get made, not in order to deny meanings and bodies, but in order to build meanings and bodies that have a chance for life.
+u6ty | Natural, social, and human sciences have always been impli- cated in hopes like these. Science has been about a search for translation, convertibility, mobility of meanings, and universality- which I call reductionism only when one language (guess whose?) must be enforced as the standard for all the translations and con- versions. What money does in the exchange orders of capitalism, reductionism does in the powerful mental orders of global sciences. There is, finally, only one equation. That is the deadly fantasy that feminists and others have identified in some versions of objectivity, those in the service of hierarchical and positivist orderings of what can count as knowledge. That is one of the reasons the debates about objectivity matter, metaphorically and otherwise. Immortality and omnipotence are not our goals. But we could use some enforceable, reliable accounts of things not reduci- ble to power moves and agonistic, high-status games of rhetoric or to scientistic, positivist arrogance. This point applies whether we are talking about genes, social classes, elementary particles, genders, races, or texts; the point applies to the exact, natural, social, and human sciences, despite the slippery ambiguities of the words "objectivity" and "science" as we slide around the discursive terrain. In our efforts to climb the greased pole leading to a usable doctrine of objectivity, I and most other feminists in the objectivity debates have alternatively, or even simultaneously, held on to both ends of the dichotomy, a dichotomy which Harding des- cribes in terms of successor science projects versus postmodernist accounts of difference and which I have sketched in this essay as radical constructivism versus feminist critical empiricism. It is, of course, hard to climb when you are holding on to both ends of a pole, simultaneously or alternatively. It is, therefore, time to switch metaphors.
+awvu | 581
+on9b | Donna Haraway
+a8ge | THE PERSISTENCE OF VISION
+h27a | I would like to proceed by placing metaphorical reliance on a much maligned sensory system in feminist discourse: vision.7 Vi- sion can be good for avoiding binary oppositions. I would like to insist on the embodied nature of all vision and so reclaim the sen- sory system that has been used to signify a leap out of the marked body and into a conquering gaze from nowhere. This is the gaze that mythically inscribes all the marked bodies, that makes the un- marked category claim the power to see and not be seen, to repre- sent while escaping representation. This gaze signifies the un- marked positions of Man and White, one of the many nasty tones of the word "objectivity" to feminist ears in scientific and tech- nological, late-industrial, militarized, racist, and male-dominant societies, that is, here, in the belly of the monster, in the United States in the late 1980s. I would like a doctrine of embodied ob- jectivity that accommodates paradoxical and critical feminist science projects: Feminist objectivity means quite simply situated knowledges.
+```
+
+OUTPUT:
+```

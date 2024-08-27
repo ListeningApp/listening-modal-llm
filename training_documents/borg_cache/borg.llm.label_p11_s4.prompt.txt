@@ -1,0 +1,131 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+3g9w | 2.3 Derived Intentionality
+d09o | Computers are built and used by people, thus a common response to Searle's challenge has been to appeal to the meaning that programmers or users assign to the symbols manipulated by artificial systems: when a calculator outputs the symbol "4" in response to the input "2+2", this output means four because of the intentions of the person who designed or built the calculator and/or because of what the users of the calculator take the sign to mean. This is to appeal to what Searle termed 'derived intentionality': the symbols of an artificial system inherit meaning from their connection to human thinkers and their practices.
+ylhz | The appeal to derived intentionality takes on a special force, however, with respect to LLMs, for the signs manipulated by these systems just are the signs of ordinary natural languages that we, human speakers, manipulate in order to convey information to one another. These symbols are connected with human communicative systems both through the database of human-generated text that the system is exposed to during pre-training and through the interaction with speakers once the system is in use. Furthermore, these natural language signs are manipulated by LLMs in ways that look promising from the point of view of meaning. If we were faced with an artificial system which took English words as input but produced as output some kind of word salad - a rag-bag collection of English terms spewed out by a purely random mechanism, say - the idea that the signs produced in the output retained the meaning they would
+a3td | have in the mouths of ordinary English speakers would be on much shakier ground. Yet the outputs of LLMs respect syntactic rules (even though at no point is the system given any explicit syntactic training or instruction) and they make contextual sense.9 So, if we think the sentence "Dogs bark" means what it does when uttered by an English speaker because it combines words with a particular meaning in a particular well-formed syntactic structure, it seems a Believer might similarly hold that the sentence "Dogs bark" when produced by an LLM means what it does because it is the result of combining meaningful words in a particular well-formed syntactic string. LLM outputs are meaningful, according to this line of thought, because they stand on the shoulders of ordinary language users, re-using words and structures that have been antecedently made meaningful by us.
+ex5k | Searle himself, of course, thought that what mattered for understanding was, fundamentally, original intentionality and a Sceptic might object that the kind of derived aboutness discussed above is not really sufficient for meaning.10 Rather what is needed is the ability to invest signs with meaning de novo, an ability which Searle holds arises in biological brains and things which have the same causal powers as human brains. I'll return to the demand for original intentionality in §4, but in the next section I want to explore further the idea that derived intentionality might be sufficient to support genuine semantic attributions to LLMs (not least because the position of LLMs with regard to word-world connections may in fact mirror the position human interlocutors are often in).
+9d4o | 3. Derived intentionality as sufficient for meaning?
+cjq2 | Intention-based semantic theories hold that meaning is grounded in the intentional practices of agents, so that, e.g., "dog" means what it does because English speakers intend "dog" to refer to dogs and an intentional practice has grown up of using this term in this way. There are, however, different ways to conceive of the relationship between meaning and intentions. Borg (20xx) introduces a distinction that might be helpful here, between what she terms 'A-style' and 'B-style' versions of intention-based semantics.11 According to 'A-style' intention-based theories, speaker intentions play a preconditional role: in order for a sign to mean something there has to be a practice of using that sign with that meaning amongst intentional agents.12 A-style theories are thus likely to appeal to generalised, conventional intentions (as in Schiffer's 1972 rendition of the Gricean project). On this kind of A-style account what matters for an expression coming to have a given meaning in a given community is that the expression be used by one speaker with the intention of conveying a certain meaning and that this use be picked up by the community, so that it becomes conventional to intend to convey that meaning by using that word. A-style approaches provide an answer to a constitutive question concerning the kind of thing linguistic meaning is, grounding it in the intentional practices of language users, but they need not demand that producers of token expressions have particular intentions in order for signs to be meaningful.13 According to A-style accounts, although intentional agents (with a practice of using certain signs to represent things) are needed to get a meaningful system off the ground in the first place, once the system is up and running, token signs from the system can be meaningful without any input from the intentions of the current speaker (under an A-style intention-based account, a speaker who says "dog" but intends to mean cat will fail, at least literally, to mean cat since the meaning of this sign is fixed by the conventional fact that speakers generally intend to convey the meaning dog by saying "dog").
+5esx | B-style accounts, on the other hand, hold that a linguistic utterance is simply a good piece of evidence for determining the intentions of a speaker and that it is only once someone has grasped these speaker intentions that they can be credited with a grasp of semantic content. So, to discover the meaning of some sentence "s" as produced by U we need to look to what U
+m5ka | 13
+byu8 | intends to convey, what thought she is trying to get across by uttering what she does. B-style accounts take the locus of linguistic meaning to be utterances;14 while A-style accounts focus on the type-level, taking semantic content to attach to sentence types. Prima facie, if semantic content is, first and foremost, a property of linguistic types then it seems that the door is open to token LLM outputs sharing in semantic properties in just the way that token human utterances do.15
+76b0 | A-style accounts rely on a notion of semantic deference, according to which a speaker can produce a given linguistic token with a specific meaning not because she cognises that meaning herself (though she may do) but because her use is part of an established practice and she defers to that practice. Semantic deference is most often discussed as part of the kind of 'social externalism' defended by Burge xxxx, where a speaker defers to experts in her community for the meaning of technical terms. In Putnam's famous example (Meaning of Meaning, 1975), a speaker may be unable to distinguish elm trees from beech trees, and yet her utterance of the term "elm" still refers to elms (and not to beeches) because she defers to experts in the community who can tell these two kinds of tree apart. Social externalism allows a speaker to express a concept (and perhaps even be credited as possessing that concept) even if she has only a very partial grasp of what the concept involves. Hunter 2003: 734 frames this idea as follows:
+zxz6 | (T) If the experts in S's community use a word, W, to express concept C, and S is minimally competent with W and defers to the experts in its use, then S has C too.
+xnth | The kind of deference envisaged here need not, it seems, be limited to technical terms and experts in particular fields. Instead, A-style accounts hold that it captures a much more general feature of linguistic meaning: words in general mean what they do because intentional agents kick-start a social activity, so that a token expression produced by a speaker now means what it does because there is a community practice of using that term with a certain meaning and the current speaker defers to this practice.
+vafm | This kind of A-style, deference model is embedded in many approaches to semantic theorising which fall under the broad heading of 'formal semantics'. So, for instance, take
+2zmw | 'minimal semantics': according to minimalism, all well-formed, declarative sentences (relativized to a context of utterance) express truth-evaluable content which is fixed via the lexico-syntactic constituents of the sentence (plus their manner of composition) alone, where those constituents are, for the most part, not themselves context-sensitive.16 So, for instance, minimalism claims that there is a truth evaluable content to be recovered for sentences like "All philosophy students study logic" and "Meera is ready" just on the basis of the words and structure of these sentences (i.e. the first sentence literally claims that every philosophy student, without qualification, studies logic, while the second literally states simply that Meera is ready, without indicting what she is ready for). Even though these contents are not the ones that ordinary speakers who utter these sentences standardly convey, nevertheless minimalists argue that we need to recognise this kind of literal, minimal, type-level content as truth-evaluable semantic content (e.g. to explain our practices around holding speakers responsible for what they say, as well as for drawing distinctions like that between lying and misleading; see Borg explanatory roles). Recovery of minimal content does not (at least in some versions) require access to speaker intentions; in a slogan from Borg 2004: ? grasping semantic content is a matter of "word-reading not mind- reading".17 So, could we assign sentence-level, minimal semantic content to the outputs of LLMs?
+bf9k | One potential objection to this suggestion is that LLMs engage in autoregressive processing, which imparts more context-sensitivity to the bearers of meaning than semantic minimalism allows. As noted in §1, in an LLM the vector assigned to a word in a current input string is moderated by the expressions that come before it (so that the vector assigned to "dogs" will differ if it is preceded by "all" or "angry", etc). Yet this might seem to suggest the systems are treating word meanings as much more context-sensitive than the current appeal to type-level semantic properties allows. However, I think this objection is probably too quick. A primary aim of type-level, formal semantics accounts like minimalism is to preserve the compositionality of meaning for complex linguistic items, whereby the meaning of a sentence is fixed by the meaning of the words it contains together with their mode of combination. Yet it is possible that the contextual vector moderation LLMs undertake merely reflects the compositional process. That is to say, rather than reflecting a change to the meaning of a word at the token level, vector moderation could reflect the combinatorial process of integrating word meanings across an
+otkr | 15
+ibgs | entire string. As Fodor and Lepore 1998: 111-2 note (in their discussion of treatments of polysemy and the purported need, which they deny, for a generative lexicon of the kind defended by Pustejovsky):
+colo | It's news if the lexicons of natural language are generative; lots of people (ourselves included) think they are more or less lists. But it's no news that VPs are generative, or that their semantics must somehow integrate the meaning of a verb with the meaning of its arguments.
+d6r4 | The difficulty of deciding whether the kind of context-sensitivity introduced by autoregressive processing fits with or challenges a type-level approach to semantic content reflects a point already noted in §2, namely that there are currently no conclusive views on what the internal states of LLMs represent. Given this, however, I think it would be too soon to conclude that the mere fact of autoregressive processing shows that LLM outputs are not realising type-level semantic content.
+9mrz | A second challenge to the idea that LLMs can be treated as dealing in minimal content emerges from the fact that the outputs of LLMs are not always reflective of this type of content. That is to say, although in response to some prompts ChatGPT does deliver outputs which reflect a sensitivity to the strict, literal content of the prompts it receives, in others the outputs seem to suggest a sensitivity to richer, more contextually determined content. To see this, consider the following exchanges:
+pk06 | In both these exchanges, ChatGPT responses pick up on the minimal content of the input sentence. In response to other prompts, however, LLM outputs seem to focus more on what we might think of as the contextually enriched content of the prompt.18 For instance, tell ChatGPT that "Linda took out her key and opened the door" and the system's response incorporates the bridging inference (that Linda used her keys to open the door). Yet this bridging inference is relevant at the token, not the type, level (that is to say, the sentence form "p and q" does not always invite this kind of bridging; see Carston 2002):
+7wn9 | Yes, the sentence "Jill took out her keys and opened the door" implies that the door was locked before Jill opened it. Taking out keys and using them to open a door is typically done to unlock and then open the door. If the door was already unlocked, there would be no need for Jill to use her keys to open it.
+wcd0 | In addition, sometimes ChatGPT delivers answers in line with content commonly thought of as richly pragmatically modulated content, i.e. picking up on Gricean implicatures, as in the following:19
+caos | 17
+qrvy | As ChatGPT's response notes, Bill's utterance in the imagined context typically suggests that he can't have dinner with Gemma. ChatGPT here reflects content that Bill would commonly be taken to imply by his utterance, but such implications have standardly been thought of as highly contextualised, attaching to token utterances in very specific contexts, not as part of the general, type-level meaning of sentences (Grice xxXX).
+pn9j | So, does the fact that the responses issued by ChatGPT in the above examples capture both minimal and pragmatically enriched content show that we should not treat LLM outputs as possessing minimal semantic content? I think there are two points to note about this. First, the claims are about differences in how ChatGPT is processing linguistic prompts (i.e as reflecting rich contextual information in the latter cases but focusing on a more minimal, type-level content in the former). However, this is not directly relevant for the current claim, which is that LLM outputs can be understood as expressing minimal content. That is to say, the claim is that the sentences LLMs produce can be understood as expressing their literal, type-level meaning, regardless of whether what they are reporting is the strict, literal content of the prompt or some more contextualised content. Secondly, the fact that LLMs seamlessly report on aspects of content that have traditionally been taken to be driven by context rather than by strict, literal meaning, is unsurprising. LLMs are massively holistic systems, where every answer they produce reflects the entire database they were exposed to during pre-training. Since the kind of contextually enriched contents reflected in the second two outputs from ChatGPT above reflect the way in which these kinds of sentences are commonly used by ordinary speakers, we should expect that what are commonly thought of as pragmatic inferences find their way into the system. It is because when keys and doors are mentioned, the most common relationship involves the keys being used to open the door that ChatGPT embodies the bridging inference in its response above. What this shows is that sensitivity to distributional properties across a large enough body of text will result in outputs which are sensitive to (at least some) pragmatic
+1pmc | 18
+5z6q | inferences, just as sensitivity to distributional properties results in a sensitivity to minimal content. The fact that LLM outputs often reflect pragmatically enhanced versions of the input strings they receive speaks against any claim that the distributional properties LLMs map are fixed by the literal meaning of words and sentences alone, but this need not be part of the current claim (that LLM outputs can be understood in terms of the minimal content they express).
+```
+
+OUTPUT:
+```

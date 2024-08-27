@@ -1,0 +1,79 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document. Your task is to faithfully reproduce the text for our text-to-speech engine so that it is easily read aloud.
+
+Note that the text might not start at the beginning and paragraphs may be split acrosss multiple textboxes. Textboxes may start or end in the middle of a word which is acceptable: do not combine text between textboxes and leave broken words at the start and end of a textbox unchanged.
+
+You will receive one textbox per-line in the format `id | Textbox content`. The output must be in the format `id | Clean content`.
+
+RULES:
+ • Remove inline citations and references e.g. "(Author, 2021)" or "(https://wikipedia.org/article.html)" or "[ECMOS 35b, 47, 49]".
+ • Spell out numbers, dates, and chemical formulas for the TTS engine e.g. "-2.5" -> "negative two point five" or "Jan. 2020" -> "January twenty twenty".
+ • Spell out LaTeX formulas for the TTS engine e.g. "<LATEX>p = 1</LATEX>" -> "P equals one".
+ • Rejoin hyphenated word fragments within the same textbox e.g. "synth -esize" -> "synthesize".
+ • Fix simple typos and OCR errors e.g. "O nce upon a 1ime." -> "Once upon a time.".
+ • Delete nonsequiter textboxes that interrupt the middle of a sentence if they obviously do not belong.
+
+Otherwise, the output should exactly match the input text:
+ • Do not combine text across lines or attempt to fix words broken across lines.
+ • Ensure each ID from the input is included in the output.
+ • Make as few changes as possible while respecting the above rules.
+
+EXAMPLE INPUT:
+```
+ccpt | stigate the effectiveness of psychedelics for ADHD symp- toms in adults.
+0fpw | 2. Materia1 and methods
+dqn8 | 2.1. Study design and participants
+cop0 | The study employed a naturalistic design, assessing the experiences of participants at bas-,
+lhkq | eline before they start, and at 2 and 4 weeks after initiation. The target population included adults with ADHD symptoms who had not been diag- nosed with ADHD before. To be included, participants needed to score on Conner's Adult ADHD Rating Scale (CAARS-S:SV). This cut-off was indicative of clinically elevated symptoms (Conners et al., 1999) (see section 2.3).
+82ju | 2.2. Study procedure
+y2qo | The online advertisement was placed on a website providing information about psychedelics (www.microdo sing.nl). Interested participants were redirected to information explaining the study rationale and procedure. The baseline survey took 20 min to complete. If the survey had not been completed after 24 h, a reminder was sent. Each of the surveys at the 2- and 4-week time points took about 15 min to complete. Par- ticipants were able to pause the surveys. Data collection occurred between Nov. 2020 and Jul. 2021. The study was approved by the Ethics Review Committee of Psy- chology and Neuroscience at Maastricht University (ERCPN- 215_05_11_2019_A1).
+1piq | 2.3. Measures
+7fqw | 2.3.1. Demographic information and history of substance use
+rhaz | At baseline, demographic information was collected. History of substance use assessed experience with psyche- delics (i.e., ayahuasca, DMT, 5-MeO-DMT, LSD, novel lysergamides (e.g., 1P-LSD, ALD-52), psilocybin, salvia divinorum, ibogaine, and mescaline) in both full (psychedelic) doses and microdoses.
+wak1 | 2.3.2. Psychiatric and physiological diagnoses
+wtfz | Participants were asked whether they had a current diagnosis of a disorder. These answer options were chosen because most of the listed diagnoses are often reported to co-occur with ADHD (Kooij et al., 2019), or because these diagnoses were reported to be common in people who microdose (Fadiman and Korb, 2019). We 
+3j2l | REVIEW ARTICLE Frontiers in Psychiatry | www.frontiersin.org
+03k3 | 2
+1k9e | constructed a variable Comorbidity alongside ADHD, differenti- ating respondents with and without a comorbid diagnosis alongside ADHD (<LATEX>p < . 0 0 1 =</LATEX> only ADHD or no ADHD diagnosis; <LATEX>p > . 0 1 =</LATEX> ADHD and at least one other diagnosis). We constructed a variable Medication use alongside microdosing, differentiating respondents who were and were not using conven- tiona1 ADHD medication alongside microdosing (<LATEX>0 =</LATEX> only microdosing; <LATEX>1 =</LATEX> conven-
+```
+
+EXAMPLE OUTPUT:
+```
+ccpt | stigate the effectiveness of psychedelics for ADHD symptoms in adults.
+0fpw | Two. Material and methods
+dqn8 | Two point one. Study design and participants
+cop0 | The study employed a naturalistic design, assessing the experiences of participants at bas-,
+lhkq | eline before they start, and at two and four weeks after initiation. The target population included adults with ADHD symptoms who had not been diagnosed with ADHD before. To be included, participants needed to score on Conner's Adult ADHD Rating Scale. This cut-off was indicative of clinically elevated symptoms (see section two point three).
+82ju | Two point two. Study procedure
+y2qo | The online advertisement was placed on a website providing information about psychedelics. Interested participants were redirected to information explaining the study rationale and procedure. The baseline survey took twenty minutes to complete. If the survey had not been completed after twenty-four hours, a reminder was sent. Each of the surveys at the two and four-week time points took about fifteen minutes to complete. Participants were able to pause the surveys. Data collection occurred between November twenty twenty and July twenty twenty-one. The study was approved by the Ethics Review Committee of Psychology and Neuroscience at Maastricht University.
+1piq | Two point three. Measures
+7fqw | Two point three point one. Demographic information and history of substance use
+rhaz | At baseline, demographic information was collected. History of substance use assessed experience with psychedelics (i.e., ayahuasca, DMT, five-MeO-DMT, LSD, novel lysergamides (e.g., one-P-LSD, ALD-fifty-two), psilocybin, salvia divinorum, ibogaine, and mescaline) in both full (psychedelic) doses and microdoses.
+wak1 | Two point three point two. Psychiatric and physiological diagnoses
+wtfz | Participants were asked whether they had a current diagnosis of a disorder. These answer options were chosen because most of the listed diagnoses are often reported to co-occur with ADHD, or because these diagnoses were reported to be common in people who microdose. We
+3j2l |
+03k3 |
+1k9e | constructed a variable Comorbidity alongside ADHD, differentiating respondents with and without a comorbid diagnosis alongside ADHD (P is less than point zero zero one equals only ADHD or no ADHD diagnosis; P is greater than point zero one equals ADHD and at least one other diagnosis). We constructed a variable Medication use alongside microdosing, differentiating respondents who were and were not using conventional ADHD medication alongside microdosing (zero equals only microdosing; one equals conven-
+```
+
+INPUT:
+```
+iat7 | At the most basic level, laws encourage healthy, safe, and socially beneficial behaviors and discourage unhealthy, dangerous, and socially deleterious ones by shaping incentives (rewards) and deterrents (punish- ments). Though the theory may be simple, the process is not. Regulators have myriad levers and tactics that they can use to influence behavior directly or by manipulating the environment, and each choice in a reg- ulatory system can and should be studied for its effectiveness, in both absolute terms and relative to less burdensome alternatives. Among the mechanisms are taxation and subsidies, changes in the information en- vironment, changes in the built environment, and signals sent by tort litigation (Gostin, Thompson, and Grad 2007).
+ywwr | With respect to laws imposing outright prohibitions on particular behaviors, many of the key research questions relate to mechanisms of implementation and enforcement: What penalties are applied to viola- tors of legal rules? What processes are used to detect violators? With what
+0i6j | Making the Case for Laws That Improve Health
+87cq | degree of certainty and swiftness will sanctions ensue from a violation? Sociolegal research drawing on disciplines such as psychology, criminol- ogy, and sociology has a great deal to contribute to mechanism studies in PHLR. The psychological literature has explored contingencies of reinforcement; criminologists have fleshed out the factors influencing deterrence; and sociology research has plumbed the normative effects of standard setting. Tom Tyler's influential work, for example, has shown the importance of experiences of procedural fairness to compliance with the law (Tyler 1990).
+0qs3 | A classic example of compliance research in public health law is the investigation of primary versus secondary enforcement of seatbelt laws. Primary enforcement laws permit police to pull over motorists for not wearing a seatbelt, while secondary enforcement laws permit police to issue a ticket for not wearing a seatbelt only when the motorist has been pulled over for another reason. Because secondary enforcement relies primarily on social norms to enforce seatbelt use, with the threat of a ticket serving a greatly subordinate role, studies comparing these ap- proaches to enforcement are essentially a test of the relative effectiveness of punishment versus social norms as a means of encouraging compliance (Dinh-Zarr et al. 2001). Among the most interesting findings of this PHLR is that the relative benefits of primary enforcement laws varied across population subgroups, with the greatest marginal benefit observed for those groups with lower rates of seatbelt use, including males, young people, African Americans, and Native Americans (Beck et al. 2007).
+z8f7 | These and other studies make clear that deterrence is a complex phe- nomenon. The deterrent effect of law often seems to be assumed, without an appreciation of the factors influencing whether a person's behavior is influenced by a fear of detection or punishment. The threat of fines may have an effect different from the threat of jail (Wagenaar et al. 2007). Deterrence may be weak or incomplete because people are ill informed about what the law requires, because they do not believe violation will result in a sanction, because they are insulated from the adverse effects of a sanction (e.g., by insurance coverage), or because the sanction is not strong enough to outweigh the perceived benefits of noncompliance with the law (Mello and Brennan 2002). Uncertainty about legal stan- dards can also have the opposite effect, leading to overcompliance in an attempt to avoid sanctions (Mello et al. 2006). Mechanism studies can examine all these phenomena. Survey methods, interviews, focus groups, and formal decision analysis can be used to deconstruct how people think
+7w7j | through the costs and benefits of different actions. Analysis of adminis- trative data on enforcement actions can shed light on the degree to which popular perceptions reflect what actually happens when a law is violated.
+51vd | Another variable of interest in mechanism studies that focus on com- pliance with legal rules is the perceived legitimacy of the body impos- ing the legal rule. Even people who are aware of the law may not trust "the system," or they may see strategies other than compliance as more useful to them in achieving their goals (Burris 1998). Studies of the perceived legitimacy of public health lawmakers and law enforcers may be particularly useful in understanding differences in compliance across population groups whose historical experience in the United States has led to different levels of trust in government.
+baj1 | Mechanism studies may also investigate how law shapes behavior in ways more subtle than outright prohibitions. How do regulatory tools such as taxes and subsidies, mandated disclosure or receipt of informa- tion, default rules, accreditation and certification, and delegations of authority to private institutions shape how individuals and organiza- tions behave? When are these alternatives more effective and desirable than traditional, command-and-control regulation using rigid rules and penalties? For many of these forms of regulation, understanding the cog- nitive biases and heuristics that affect individual decision making about risk is critical (Kahnemann, Slovic, and Tversky 1982), and empirical research can examine how these biases influence health outcomes.
+n1wo | PHLR takes a number of forms, each utilizing diverse methods (table 1). By illuminating the paths we have delineated in our logic model, these forms each play important roles in establishing how law is being deployed to promote population health, and how and to what extent it is achieving its intended purpose.
+5bq3 | Challenges Facing PHLR
+ezla | We have argued that PHLR is a distinct and important field of research but that it faces a set of challenges shared with social research of other kinds. These include increasing methodological rigor, ensuring adequate research funding, identifying data sources, and ensuring the impact of PHLR on policy. We describe how each of these challenges takes shape in PHLR and explain why we are optimistic that they can be met.
+rsbu | Increasing Methodological Rigor
+magd | PHLR is part of a recent "explosion in empirical work" in law (Pfaff 2009). Some investigators are concerned that legal scholars are producing empirical work faster than the field can create the mechanisms necessary to ensure its rigor (Pfaff 2009). The fact that much PHLR is published in peer-reviewed health journals helps avoid one of the major problems confronting empirical legal studies more generally: the rarity of peer and expert editorial review in law journals. The further development of PHLR as a distinct field within empirical legal and public health research will be instrumental in defining and maintaining high standards of scientific rigor.
+tb74 | One challenge is how to draw new investigators with the right exper- tise into the field. Perhaps to a greater extent than other areas of empirical legal research, PHLR must grapple with how to integrate individuals who are primarily practitioners into the field. Their involvement in PHLR can improve research in many ways: practitioners bring an inti- mate knowledge of what the cutting-edge public health problems are and of the practical realities of policymaking and implementation, and they constitute a pipeline for putting research into practice. However, they typically lack both significant training in research methods and experience conducting empirical research. Similarly, even methodolog- ically expert health researchers often lack any grounding in empirical legal scholarship, hampering their ability to conceptualize or measure legal influence on environments, behavior, or health outcomes.
+8l69 | The involvement of traditional legal scholars in PHLR raises similar challenges. Among the assets they bring to PHLR are a commitment to thinking deeply about the law's form, evolution, and function; the capac- ity for nuanced argument for or against particular legal approaches; and an appreciation of how social values and other normative considerations guide the law's path. Among the things they often lack are expertise in quantitative methods, an allegiance to the scientific method, and an inclination to think systematically about qualitative data collection and analysis.
+```
+
+OUTPUT:
+```

@@ -1,0 +1,175 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+d6bc | 28 E. Aron, The Highly Sensitive Person: How to Thrive When the World Overwhelms You (New York: Carol Publishing, 1996).
+z27p | 29. Such as Mikulincer and Shaver, Attachment in Adulthood (Second Edition); J. Cassidy and P. Shaver, Handbook of Attachment: Theory, Research, and Clinical Applications, Third Edition (New York: Guilford Press, 2016).
+7sdk | 3º Main and Solomon, "Discovery of a New, Insecure-Disorganized/Disoriented Attachment Pattern."
+r5ct | 31 A. Bartels and S. Zeki, "The Neural Basis of Romantic Love," NeuroReport: For Rapid Communication of Neuroscience Research 11, no. 17 (2000): 3829-3834; X. Xu, A. Aron, L. Brown, G. Cao, T. Feng, and X. Weng, "Reward and Motivation Sys- tems: A Brain Mapping Study of Early-Stage Intense Romantic Love in Chinese Par- ticipants," Human Brain Mapping 32 (2011): 249-257.
+t5nr | 32 B. A. Primack, A. Shensa, J. E. Sidani, E. O. Whaite, L. Y. Lin, D. Rosen, J. B. Colditz, A. Radovic, and E. Miller, "Social Media Use and Perceived Social Isola- tion Among Young Adults in the U.S.," American Journal of Preventive Medicine 53, no. 1 (2017): 1-8.
+xiwq | 33 J. Galtung, "Violence, Peace, and Peace Research," Journal of Peace Research 6,
+iivy | no. 3 (1969): 167-191.
+kn8m | 34. C. Cyr, E. M. Euser, M. J. Bakermans-Kranenburg, and M. H. Van Ijzendoorn, "Attachment Security and Disorganization in Mistreating and High-Risk Families: A Series of Meta-analyses," Development and Psychopathology 22, no. 1 (2010): 87- 108.
+vqoi | 35 N. Hazen, S. Allen, C. Christopher, T. Umemura, and D. Jacobvitz, "Very Exten- sive Nonmaternal Care Predicts Mother-Infant Attachment Disorganization: Con- vergent Evidence from Two Samples," Development and Psychopathology 27, no. 3 (2014): 1-13.
+n3q9 | 36 T. Fey, Bossypants (New York: Little, Brown, 2011).
+8jez | 37 B. Wray, "How Climate Change Affects Your Mental Health," TED Talk (2019), video,
+bhki | 7:54,
+q8rl | https://www.ted.com/talks/britt_wray_how_climate_change_affects_your_mental health? Linguageedbury, "Climate Trauma: Towards a New Taxonomy of Traumatology," Ecopsychology 11, no. 1 (2019): 1-8.
+gsah | 39. T. Hübl, "The Pocket Project," https://thomashuebl.com/about/pocket-project/.
+t5nl | 40 E. Perel, Mating in Captivity (New York, NY: HarperCollins, 2006).
+l5s6 | 41 M. Tafoya and B. Spitzberg, "The Dark Side of Infidelity: Its Nature, Prevalence, and Communicative Functions," in The Dark Side of Interpersonal Communication, eds. B. Spitzberg and W. Cupach (Routledge, 2009): 211-252; A. L. Vangelisti and M. Gerstenberger, "Communication and Marital Infidelity," in The State of Affairs: Explorations in Infidelity and Commitment, eds. J. Duncombe, K. Harrison, G. Allen, and D. Marsden (Mahwah, NJ: Lawrence Erlbaum, 2004).
+yjnd | 42 A. C. Moors, J. L. Matsick, and H. A. Schechinger, "Unique and Shared Rela- tionship Benefits of Consensually Nonmonogamous and Monogamous Relation- ships," European Psychologist 22, no. 1 (2017): 55-71.
+c7v3 | 43 M. Life, Spiritual Polyamory (Lincoln, NE: iUniverse, Inc., 2004), 87-95.
+iute | 44 M. L. Haupert, A. N. Gesselman, A. C. Moors, H. E. Fisher, and J. R. Garcia, "Prevalence of Experiences with Consensual Nonmonogamous Relationships:
+377g | Anti-Polyamorous Prejudice and Discrimination," 2017, https:// www.psychologytoday.com/us/blog/the-polyamorists-next-door/
+v79r | 201707/poly-biabia
+555y | 64 Sheff, "Polyphobia."
+7yeh | 65 B. Van der Kolk, "Cumulative Effects of Trauma," Collective Trauma Online Summit, 2019, https://thomashuebl.com/event/collective-trauma-online-summit. 66 S. Joseph, "Growth Following Adversity: Positive Psychological Perspectives on Posttraumatic Stress," Psihologijske Teme 18, no. 2 (2009): 335-344.
+hfsl | 67 R. G. Tedeschi and L. G. Calhoun, "Posttraumatic Growth: Conceptual Founda- tions and Empirical Evidence," Psychological Inquiry 15, no. 1 (2004): 1-18. 68 Bowlby, Attachment and Loss: Vol 1.
+kmer | 69 S. Johnson, "Intensive Course in Emotionally Focused Therapy with Sue John- son: Attachment-Based Interventions for Couples in Crisis," Lesson Two, https:// catalog.pesi.com/sales/bh 001234_eftintensive_011518_organic-78213
+5s1o | 70 Brown and Elliot, Attachment Disturbances in Adults.
+9mly | 71 J. Gottman, J. S. Gottman, D. C. Abrams, and R. C. Abrams, Eight Dates: Essential Conversations for a Lifetime of Love (New York: Workman Publishing Company, 2018).
+znoh | 72 Siegel, Mindsight.
+wjsb | 7.3 B. Brown, Men, Women, and Worthiness: The Experience of Shame and the Power of Being Enough (Audiobook; Boulder, CO: Sounds True, 2012).
+r5ov | 74 Brown and Elliot, Attachment Disturbances in Adults.
+gajg | 7.5 R. C. Schwartz, Internal Family Systems Therapy (The Guilford Family Therapy Se- ries) (New York: Guilford Press, 1995).
+3j8z | BIBLIOGRAPHY
+4dol | Ainsworth, M. D. "The Development of Infant-Mother Attachment." Review of Child Development Research, 3 (1973): 1-94.
+h72f | Ainsworth, M. D., M. C. Blehar, E. Waters, and S. Wall. Patterns of Attachment: A Psychological Study of the Strange Situation. Hillsdale, NJ: Erlbaum, 1978.
+v3n3 | Allan, R., and A. Westhaver. "Attachment Theory and Gay Male Relationships: A Scoping Review." Journal of GLBT Family Studies 14, no. 4 (2018): 295-316.
+t03d | Aron, E. The Highly Sensitive Person: How to Thrive When the World Overwhelms You. New York: Carol Publishing, 1996.
+2q4e | Bartels, A., and S. Zeki. "The Neural Basis of Romantic Love." NeuroReport: For Rapid Communication of Neuroscience Research 11, no. 17 (2000): 3829-3834.
+ktxm | Birnbaum, G. "Attachment and Sexual Mating: The Joint Operation of Separate Mo- tivational Systems." In Handbook of Attachment: Theory, Research, and Clinical Applications, 2nd Edition, edited by J. Cassidy and P. A. Shaver, 464-483. New York: Guilford Press, 2016.
+y7mc | Birnbaum, G. "Attachment Orientations, Sexual Functioning, and Relationship Satisfaction in a Community Sample of Women." Journal of Social and Personal Relationships 24, no. 1 (2007): 21-35-
+nafx | Birnbaum, G. E., H. Reis, M. Mikulincer, O. Gillath, and A. Orpaz. "When Sex Is More Than Just Sex: Attachment Orientations, Sexual Experience, and Relationship Quality." Journal of personality and social psychology 91, no. 5 (2006): 929-943-
+je6f | Bogaert, A., and S. Sadava. "Adult Attachment and Sexual Behavior." Personal Rela- tionships 9, no. 2 (2002): 191-204.
+ms51 | Bowlby, J. Attachment and Loss: Vol 1. Attachment. New York: Basic Books, 1969.
+v9sh | Bowlby, J. Attachment and Loss, Vol. 2. Separation: Anxiety and Anger. New York: Basic Books, 1973.
+rnor | Bricker, M. E., and S. G. Horne. "Gay Men in Long-Term Relationships: The Impact of Monogamy and Nonmonogamy on Relational Health." Journal of Couple at Rela- tionship Therapy 6, no. 4 (2007): 27-47
+3tz7 | Brown, B. Men, Women, and Worthiness: The Experience of Shame and the Power of Being Enough. Audiobook. Boulder, CO: Sounds True, 2012.
+e02w | Brown, D. P., and D. S. Elliot. Attachment Disturbances in Adults: Treatment for Comprehensive Repair. New York: W. W. Norton & Company, 2016.
+0ldf | Butzer, B., and L. Campbell. "Adult Attachment, Sexual Satisfaction, and Rela- tionship Satisfaction: A Study of Married Couples." Personal Relationships 15, no. 1 (2008): 141-154.
+4rgq | Campbell, L., J. A. Simpson, J. Boldry, and D. A. Kashy. "Perceptions of Conflict and Support in Romantic Relationships: The Role of Attachment Anxiety." Journal of Personality and Social Psychology 88, no. 3 (2005): 510-531.
+srag | Cassidy, J., and P. Shaver. Handbook of Attachment: Theory, Research, and Clinical Applications, Third Edition. New York: Guilford Press, 2016.
+vm1l | Chapman, G. D. The Five Languages of Apology: How to Experience Healing in All Your Relationships. Chicago: Northfield Publishing, 2006.
+2ulk | Chapman, G. D. The Five Love Languages: How to Express Heartfelt Commitment to Your Mate. Chicago: Northfield Publications, 1995.
+oc27 | Collins, N. L., and S. J. Read. "Adult Attachment, Working Models, and Rela- tionship Quality in Dating Couples." Journal of Personality and Social Psychology 58, no. 4 (1990): 644-663.
+xv2d | Conley, T. D., J. L. Matsick, A. C. Moors, and A. Ziegler, "Investigation of Consen- sually Nonmonogamous Relationships: Theories, Methods, and New Directions," Perspectives on Psychological Science 12, no. 2 (2017): 205-232.
+0yfu | Conley, T. D., A. C. Moors, J. L. Matsick, and A. Ziegler. "The Fewer the Merrier ?: Assessing Stigma Surrounding Consensually Nonmonogamous Romantic Rela- tionships." Analyses of Social Issues and Public Policy 13, no.1 (2012): 1-30.
+2icd | Cyr, C., E. M. Euser, M. J. Bakermans-Kranenburg, and M. H. Van Ijzendoorn, "At- tachment Security and Disorganization in Mistreating and High-Risk Families: A Series of Meta-analyses," Development and Psychopathology 22, no. 1 (2010): 87- 108.
+ln4r | Dispenza, J. Becoming Supernatural: How Common People Are Doing the
+1iz9 | Uncommon. Carlsbad, CA: Hay House, Inc., 2017.
+o5cc | Dugna, M. "The Nested Theory of Conflict." A Leadership Journal: Women in Lead- ership 1 (1996): 9-20.
+b430 | Early, J., and B. Weiss. Freedom from Your Inner Critic: A Self-Therapy Approach. Boulder, CO: Sounds True, 2013.
+5k15 | Easton, D., and J. W. Hardy. The Ethical Slut: A Practical Guide to Polyamory, Open Relationships & Other Adventures. Greenery Press, 1997.
+v24x | Fay, D. Becoming Safely Embodied: A Skills-Based Approach to Working with Trauma and Dissociation. Somerville, MA: Heart Full Life Publishing, 2007.
+26hh | Feeney, J. A. "Adult Romantic Attachment: Developments in the Study of Couple Relationships." In Handbook of Attachment: Theory, Research, and Clinical Appli- cations, 2nd Edition, edited by J. Cassidy and P. A. Shaver, 456-481. New York: Guilford Press, 2008.
+w533 | Fey, T. Bossypants. New York: Little, Brown, 2011.
+fj70 | Frei, J. R., and P. R. Shaver. "Respect in Close Relationships: Prototype Definition, Self-Report Assessment, and Initial Correlates." Personal Relationships 9, no. 2 (2002): 121-139.
+04yk | Galtung, J. "Violence, Peace, and Peace Research." Journal of Peace Research 6, no. 3 (1969): 167-191.
+5l8x | Gottman, J. The Science of Trust: Emotional Attunement for Couples. New York: Nor- ton & Co, 2011.
+h425 | Gottman, J., J. S. Gottman, D. C. Abrams, and R. C. Abrams. Eight Dates: Essential Conversations for a Lifetime of Love. New York: Workman Publishing Company, 2018.
+xfce | Hanson, R. Hardwiring Happiness: The New Brain Science of Contentment, Calm, and Confidence. New York: Harmony Books, 2014.
+trvq | Haupert, M. L., A. N. Gesselman, A. C. Moors, H. E. Fisher, and J. R. Garcia. "Prevalence of Experiences with Consensual Nonmonogamous Relationships: Findings from Two National Samples of Single Americans," Journal of Sex & Marital Therapy 43, no. 5 (2017): 424-440.
+ztx4 | Hazan, C., and P. Shaver. "Romantic Love Conceptualized as an Attachment Process." Journal of Personality and Social Psychology 52, no. 3 (1987): 511-524.
+d4i8 | Hazen, N., S. Allen, C. Christopher, T. Umemura, and D. Jacobvitz. "Very Extensive Nonmaternal Care Predicts Mother-Infant Attachment Disorganization: Conver- gent Evidence from Two Samples," Development and Psychopathology 27, no. 3 (2014): 1-13.
+qp9u | Heller, D. P. The Power of Attachment: How to Create Deep and Lasting Intimate Relationships. Boulder, CO: Sounds True, 2019.
+b6jo | Heller, D. P., and K. H. Payne. "Secure Attachment Parenting in the Digital Age." 2019. https://attachmentmastery.com/parenting.
+```
+
+OUTPUT:
+```

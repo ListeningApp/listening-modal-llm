@@ -1,0 +1,209 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+9bfz | For a better approximation, we can use
+lrwo | <LATEX>\ln N ! \approx \left( \ln N - 1 \right) N + \frac { 1 } { 2 } \ln 2 \pi N</LATEX> where the error goes to zero as <LATEX>N \rightarrow \infty .</LATEX> This gives a correction to the Sackur-Tetrode equation:
+vlfw | <LATEX>S _ { i } \approx k N \left( \ln \frac { V } { N \Lambda ^ { 3 } } + \frac { 5 } { 2 } \right) - \frac { 1 } { 2 } \ln 2 \pi N .</LATEX> Here if we multiply both <LATEX>V</LATEX> and <LATEX>N</LATEX> by a constant c, we don't just multiply the entropy by c: we also have to subtract <LATEX>\frac { 1 } { 2 } \ln 2 \pi c .</LATEX> So the entropy is not quite extensive but this effect is tiny when you've got a mole of gas.
+fg41 | 101
+d033 | THE ENTROPY OF AN IDEAL MONATOMIC GAS
+wtvl | In thermal equilibrium, an ideal gas of N indistinguishable classical particles in a 3-dimensional box of volume V has entropy given approximately by the Sackur-Tetrode equation:
+u2qd | EN (In MAS + NA3 h
+4kpx | 5
+2xnd | But the thermal wavelength A is
+8rp1 | A =
+0z93 | V2TmkT
+we3s | so we can rewrite this as
+vuhu | 3 2 KT + 3 1 2mm + 5
+q679 | S ~ KN In V N
+tkda | We've done it: we've figured out the entropy of a gas of N indistinguishable classical free particles in a 3-dimensional box of volume V. Above I've written it in two different ways. Let's mull over the meaning of each term in each formula.
+jbzr | The first formula says
+34rr | SZEN (M NAS+5).
+txr8 | Like the entropy of the classical harmonic oscillator and the classical free particle in a box, this breaks up into two parts, thanks to the formula
+jb8d | S = (E) - F T .
+gj4l | But it does so a bit subtly. The two parts are not what you might naively think! They are:
+x4ti | 1. The free energy part:
+sang | T F & kN (In 1 NA3 V +1).
+ocyy | 2. The expected energy part:
+3vef | (E)
+9zxr | T = KN.
+l47i | As usual, the free energy part of the entropy is k times the logarithm of the number of accessible states. The expected energy part of the entropy is &N times k by the equipartition theorem, since there are N particles each of whose energy depends on 3 momentum degrees of freedom.
+ml9u | 102
+0ml0 | The expected energy part of the entropy is small compared to the free energy part when V/N > A3: that is, when the volume available per particle greatly exceeds the cube of its thermal wavelength. This happens for a gas that is sufficiently warm and dilute, made of sufficiently massive particles. We will see that this is true for helium at standard temperature and pressure. It's even more true for the heavier monatomic gases: the noble gases like neon, argon, and krypton.
+3f5x | The surprise is the extra "+1" in the first part of the entropy-the free energy part. It's telling us that the logarithm of the number of accessible states, divided by the number of particles, is
+kh8s | ln NA3 + 1. V
+plxa | What's the physical origin of this mysterious extra nat?
+6wac | Mathematically it comes from Stirling's formula, which showed up when we switched from a gas of distinguishable particles to a gas of indistinguishable particles. It may seem odd that indistinguishability would increase the entropy by 1 nat per particle, but don't be confused: as we've seen, it greatly reduces it. For a gas of distinguishable particles the log of the number of accessible states, divided by the number of particles, is In(V/A3). When we switch to indistinguishable particles this drops to In(V/NA3)+1.
+vil5 | Here is a rough heuristic explanation of what's going on. For a single particle in a box of volume V, the number of accessible states is V/A3. In a gas of distinguishable free particles, each roams independently around the whole volume V. Thus, the log of the number of accessible states is In(V/A3) per particle.
+2s5u | For a gas of indistinguishable particles, the story changes. For starters, we can crudely pretend each particle is trapped in its own tiny box of volume V/N. After all, if it leaves this tiny box by trading places with another particle in another tiny box, nothing really changes. In this approximation, the log of the number of accessible states is In(V/NA3) per particle.
+k9cc | But it's not really true that each particle can only leave its tiny box by trading places with another. We can have more than one particle in the same tiny box-or none. That is, our gas can have density fluctuations. An exact treatment of the problem gives, not In(V/NA3) nats per particle, but
+6t52 | In (V/A3) - In N!
+08mw | Stirling's formula says this is approximately
+6iat | In(V/A3) - (In N-1) = In(V/NA3) +1.
+pony | This explains the mysterious extra nat. The extra nat of entropy per particle is due to density fluctuations!
+spym | As we've seen, even this is an oversimplification. A still better approximation, again coming from Stirling's formula, says
+rms6 | In (V/A3) - In N! ~ In(V/NA3) +1 - 2 In(2TN)/N.
+dwg7 | But as we saw in Puzzle 47, this further correction is negligible for a mole of gas. It only becomes interesting for microscopic systems.
+3o8c | Now let's look at our second formula for the entropy of a gas of N indistinguishable classical free particles:
+vm29 | S ~ KN (In + + , In kT + ; In 2Tm h2 + 3) .
+kwxl | 103
+kd8r | Not only is this harder to remember, it's generally less friendly to physical intuition. First of all, three of the terms involve the logarithm of dimensionful quantities. Thus, when we change units they change, not by rescaling in the usual way, but by addition or subtraction. Secondly, the important role of the thermal wavelength is concealed in this formula.
+z2jh | The main advantage of this formula is that it separates out three contributors to the entropy per particle:
+nvte | · The volume available per particle, V/N. The bigger this is, the more entropy the gas has per particle.
+994g | · The temperature, T. The bigger this is, the more entropy per particle.
+p39w | · The particle mass, m. The bigger this is, the more entropy per particle.
+g6k3 | The first two should be rather intuitive. But what about the third? We need to combine V/N and T with the particle mass m and some constants of nature to get a dimensionless quantity, which we can then take the logarithm of. This leads us straight to the thermal wavelength:
+xmvn | In v + , In kT + - In 3 2Tm h2
+v2zu | = ln NA3 V
+z2nh | Thus, my best explanation of why a gas of heavier particles has more entropy per particle is that they have a shorter thermal wavelength, so we can specify their position more accurately, and it takes more information to do so.
+yhx0 | 104
+mi09 | WHERE ARE WE NOW?
+15ri | The mystery: why does each molecule of hydrogen have ~ 23 bits of entropy at standard temperature and pressure?
+dfj2 | The goal: derive and understand the formula for the entropy of a classical ideal monatomic gas:
+e9bu | N (In + , InkT + y 2 3
+usfq | including the mysterious constant y:
+4jnl | 2mm ✓
+ows8 | Y = 21 2 +2
+qkak | The subgoal: compute the entropy of a single classical particle in a 1-dimensional box:
+39ur | S = k In L + - InkT + 1 12 +2) ✓
+nlm3 | The sub-subgoal: explain entropy from the ground up, and compute the entropy of a classical harmonic oscillator:
+muf5 | : k ( In Ka kT +1 ✓
+lqjf | how
+7z7b | Okay, now we know the entropy of a classical ideal monatomic gas! We even know what it means. Unfortunately we're trying to figure out the entropy of hydrogen, which is diatomic. But we can do helium, which is monatomic ... and then we'll do hydrogen.
+tv8z | 105
+wj6v | ENTROPY PER MOLE VERSUS BITS PER MOLECULE
+ax4d | A nat of unknown information is 1.380649 . 10-23 joules/kelvin of entropy: this is Boltzmann's constant.
+gtbn | There are 6.02214076 . 1023 molecules per mole: this is Avogadro's number.
+ui4d | Thus, one nat of unknown information per molecule corresponds to
+2h4x | 1.380649 . 10-23 x 6.02214076 . 1023 ~ 8.314463 joule/kelvin of entropy per mole.
+0s3f | A bit is In 2 ~ 0.69315 nats, so one bit of unknown information per molecule corresponds to about 0.69315 x 8.314463 ~ 5.763146
+1ajd | joule/kelvin of entropy per mole.
+qj5b | Here is a little fact we need now: one bit of Shannon entropy per molecule equals about 5.76 joules/kelvin of Gibbs entropy per mole. I apologize for the oppressively large number of decimal places above, but I want to compare our theoretical predictions of the entropy of helium and hydrogen to experimental results, and it's not clear yet how closely our answers will match experiment, so it's good to be prepared.
+15wh | By the way, the values of Boltzmann's constant and Avogadro's number here are exact, fixed by the definition of SI units. So there is no experimental uncertainty in any of the numbers on this page.
+ad3x | 106
+6zdx | THE ENTROPY OF HELIUM: THEORY
+lwg2 | The Sackur-Tetrode equation says that assuming helium is a classical ideal monatomic gas, its entropy is
+zsvp | <LATEX>S _ { i } \approx k N \left( \ln \frac { V } { N \Lambda ^ { 3 } } + \frac { 5 } { 2 } \right)</LATEX> which corresponds to
+ssmj | <LATEX>\ln \frac { V } { N \Lambda ^ { 3 } } + \frac { 5 } { 2 }</LATEX> nats of unknown information per atom. At standard temperature and pressure, this gives about 15.041 nats or
+nda1 | <LATEX>\frac { 1 5 . 0 4 1 } { \ln 2 } \approx 2 1 . 7 0 0</LATEX> bits of unknown information per atom.
+5mk0 | Now let's calculate the entropy of helium in its gaseous state. NIST has tabulated its entropy at standard temperature and pressure, specifically temperature <LATEX>T = 2 9 8 . 1 5</LATEX> <LATEX>\mathrm { K }</LATEX> and pressure <LATEX>P = 1 \mathrm { b a r } ,</LATEX> so that's what we'll try to calculate. An atom of helium has a mass of <LATEX>m = 6 . 6 4 6 4 7 7 \cdot 1 0 ^ { - 2 7 } \mathrm { k g } ,</LATEX> so at standard temperature its thermal wavelength is
+5bgd | <LATEX>\Lambda = \frac { h } { \sqrt { 2 \pi m k T } }</LATEX> <LATEX>\approx \frac { } { \sqrt { 2 \pi \times 6 . 6 4 6 4 7 7 \cdot 1 0 ^ { - 2 7 } \mathrm { k g } \times 1 . 3 8 0 6 4 9 \cdot 1 0 ^ { - 2 3 } \mathrm { J } / \mathrm { K } \times 2 9 8 . 1 5 \mathrm { K } } }</LATEX> <LATEX>\approx 5 . 0 5 3 7 2 1 \cdot 1 0 ^ { - 1 1 } \mathrm { m } .</LATEX> 6.62607 . 10-34 Js
+m3bl | For a mole of an ideal gas we have <LATEX>N = 6 . 0 2 2 1 4 0 7 6 \cdot 1 0 ^ { 2 3 }</LATEX> (this is Avogadro's number), and at standard temperature and pressure a mole of ideal gas has <LATEX>V \approx 0 . 0 2 4 7 8 9 6 \mathrm { m } ^ { 3 } :</LATEX> this is called its 'molar volume'. The molar volume of helium is actually slightly different from this, because helium is not an ideal gas: the atoms interact. But since we're doing a calculation assuming helium is a classical ideal gas, let's ignore that for now. We then get
+7ul5 | <LATEX>\frac { V } { N \Lambda ^ { 3 } } \approx \frac { 0 . 0 2 4 7 8 9 6 \mathrm { m } ^ { 3 } } { 6 . 0 2 2 1 4 0 7 6 \cdot 1 0 ^ { 2 3 } \times \left( 5 . 2 7 9 9 2 9 1 \cdot 1 0 ^ { - 1 1 } \mathrm { m } \right) ^ { 3 } } \approx 2 7 9 6 6 3 .</LATEX> We thus have
+1b57 | <LATEX>\ln \frac { V } { N \Lambda ^ { 3 } } \approx \ln 2 7 9 6 6 3 \approx 1 2 . 5 4 1 .</LATEX> As explained earlier, this means that the logarithm of the number of accessible states of each helium atom would be 12.541 if it were trapped in its own small box of volume <LATEX>V / N .</LATEX> But density fluctuations contribute 1 extra nat of entropy per atom. Thus, the
+rwom | 107
+w1qt | free energy part of the entropy per atom is 13.541 nats. On the other hand, the expected energy part of the entropy per atom is 2, coming from the atom's 3 momentum degrees of freedom. The total entropy per atom is thus
+emp6 | In A3 + 1 + ~ 1 NA3
+vm2i | 15.041
+u7au | nats.
+1ti5 | To impress our friends we can convert this to bits: we divide by ln 2 and get about
+vpp5 | 15.041
+y9yd | 0.69315 ~ 21.700
+rwaf | bits of unknown information per atom of helium.
+xbze | I've kept only 5 significant figures in the later stages of these calculations, since that's how precise the experimental data is. Next let's compare the final result to experiment!
+p2wh | 108
+uzhc | THE ENTROPY OF HELIUM: EXPERIMENT
+f2h2 | The entropy of helium at standard temperature and pressure has been measured to be 126.15 joules/kelvin per mole.
+8z32 | One bit of unknown information per atom corresponds to about 5.7631 joule/kelvin of entropy per mole.
+0yaq | Thus, each atom of helium at standard temperature and pressure carries about 126.15
+o21p | ~ 21.889
+0g5c | 5.7631
+ql4n | bits of unknown information.
+```
+
+OUTPUT:
+```

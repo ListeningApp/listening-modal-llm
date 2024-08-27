@@ -1,0 +1,214 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+eyg6 | 107
+00l8 | free energy part of the entropy per atom is 13.541 nats. On the other hand, the expected energy part of the entropy per atom is 2, coming from the atom's 3 momentum degrees of freedom. The total entropy per atom is thus
+ojx3 | In A3 + 1 + ~ 1 NA3
+7o0d | 15.041
+7atk | nats.
+opr3 | To impress our friends we can convert this to bits: we divide by ln 2 and get about
+rsan | 15.041
+3l5p | 0.69315 ~ 21.700
+keiw | bits of unknown information per atom of helium.
+h95r | I've kept only 5 significant figures in the later stages of these calculations, since that's how precise the experimental data is. Next let's compare the final result to experiment!
+8bxq | 108
+bzwy | THE ENTROPY OF HELIUM: EXPERIMENT
+icip | The entropy of helium at standard temperature and pressure has been measured to be 126.15 joules/kelvin per mole.
+x0k3 | One bit of unknown information per atom corresponds to about 5.7631 joule/kelvin of entropy per mole.
+wh96 | Thus, each atom of helium at standard temperature and pressure carries about 126.15
+2ukf | ~ 21.889
+jtpi | 5.7631
+ysej | bits of unknown information.
+mj7h | Experimentally, the entropy of helium at standard temperature and pressure is 126.15 joules/kelvin per mole. Converting this to bits per atom we get 21.889, very close to our theoretical result of 21.700, but about 0.9% higher.
+3avc | There are a couple of possible reasons for this slight discrepancy. First, while our theoretical calculation assumed that helium is an ideal gas of noninteracting point particles, this is not true. The helium atoms interact!
+j9bn | Second, our computation ignored quantum effects-except for using Planck's con- stant to determine the thermal wavelength. Even for an ideal gas, quantum effects become important when V/NA3 ceases to be large. This happens at high densities V/N, low temperatures T, or for particles of small mass m. Helium has a low mass as molecules of gas go-and our ultimate goal, hydrogen, is even worse.
+pnz1 | Now let's tackle the final summit: hydrogen. This is a diatomic gas, so it works differently.
+0jt4 | 109
+mk0a | THE IDEAL DIATOMIC GAS
+zn35 | In thermal equilibrium, a classical ideal diatomic gas of N indistinguishable molecules of mass m in a 3-dimensional box of volume V has expected energy
+rrn2 | 5 (E) = kNT
+foid | and free energy
+152h | F = - kT In N! A3N 1 VN
+jvjk | where A = h/V2zmkT is the thermal wavelength.
+s2v8 | Its entropy S is ((E) - F)/T, so EN IMA3 + 2) -
+m2uh | - kln N!
+erho | and using Stirling's formula In N! ~ (In N - 1) N we get S & kN EN (In MA3+3) NA3
+bpnq | It's easy to repeat our computation of entropy for a diatomic gas if we recall that the tumbling of the molecules add two degrees of freedom to the three for position, giving (E) = 2kNT. Tracking the effects of this change we see the entropy is higher than for a monatomic gas. To be precise, the entropy of a classical ideal diatomic gas is
+3xla | ~ EN (In MAS+2) . NA3
+fs5q | So, it has one more nat of Shannon entropy per molecule than an ideal monatomic gas! Let's see how this plays out for hydrogen.
+pse2 | 110
+rc6c | THE ENTROPY OF HYDROGEN: THEORY
+batl | Assuming hydrogen is a classical ideal diatomic gas, its entropy is
+cbqc | EN (In NAS +2) NA3
+h0lb | which corresponds to
+87w1 | ln NA3 V + 7
+7mw9 | nats of unknown information per molecule. At standard temperature and pressure, this gives 15.144 nats or
+c5q7 | ln 2 15.144
+nbs7 | ~21.848
+tiyt | bits of unknown information per molecule.
+tiha | A hydrogen molecule has m = 3.34706 . 10-27 kg, so at a temperature T = 298.15 K its thermal wavelength is
+816q | 6.62607 . 10-34 Js
+ir95 | ≈ 2TT X 3.34706 · 10-27 kg × 1.380649 · 10-23 J/K x 298.15 K
+0ypu | ~ 7.12156 . 10-11 m.
+1ic0 | For a mole of an ideal gas at standard temperature and pressure, N = 6.02214076 . 1023 and V ~ 0.0247896 m3, so
+rxkz | ~ 113971 NA3 V ≈ 6.02214076 . 1023 x (7.12156 . 10-11 m) 3 0.0247896 m3
+5va3 | We thus have
+iqdo | ln NA3 V ~ In 113971 ~ 11.644
+6rzq | Thanks to our previous work we know this means that that the logarithm of the number of accessible states of each molecule would be 11.644 if it were trapped in its own small box of volume V/N. There is also a correction to this simplified picture due to density fluctuations, which gives 1 extra nat of entropy. These add up to give the free energy contribution to the entropy per molecule: 12.644 nats. This is less than we got for helium. But the expected energy contribution to the entropy per molecule is larger: we again get 2 nats from the molecule's 3 momentum degrees of freedom,
+rjyh | 111
+64js | but now we get 1 extra nat due to its 2 extra tumbling degrees of freedom. The total number of nats of unknown information per hydrogen molecule is thus
+84do | <LATEX>\ln \frac { V } { N \Lambda ^ { 3 } } + 1 + \frac { 3 } { 2 } + 1 \approx 1 5 . 1 4 4 .</LATEX> Finally, the number of bits of unknown information per hydrogen molecule is
+n581 | <LATEX>\frac { 1 5 . 1 4 4 } { 0 . 6 9 3 1 5 } \approx 2 1 . 8 4 8 .</LATEX> This is slightly more than for helium, where the number was 21.700.
+xjjq | As a sanity check, let's do this calculation a different way. A hydrogen molecule is close to half the mass of a helium atom, so its thermal wavelength should be <LATEX>\sqrt { 2 }</LATEX> times as large. In our calculation we're treating <LATEX>V / N</LATEX> as the same for both gases, so hydrogen's <LATEX>V / N \Lambda ^ { 3 }</LATEX> should be <LATEX>2 ^ { - 3 / 2 }</LATEX> times as large as that for helium. Since ultimately we compute bits by taking a logarithm in base 2, this reduces its entropy per molecule by <LATEX>3 / 2</LATEX> bits. However, hydrogen's 2 tumbling degrees of freedom increase its entropy per molecule by 1 nat, or <LATEX>1 / \ln 2</LATEX> bits. We have
+ozp5 | <LATEX>- \frac { 3 } { 2 } + \frac { 1 } { \ln 2 } \approx - 1 . 5 + 1 . 4 4 3 \approx - 0 . 0 5 7 .</LATEX> This suggests that each hydrogen molecule should carry 0.057 fewer bits of unknown information than each helium atom. Why did our more careful calculation say hydrogen should have about
+df15 | <LATEX>2 1 . 8 4 8 - 2 1 . 7 0 0 \approx 0 . 1 4 8</LATEX> more bits of unknown information per molecule? What's the mistake?
+tuu3 | The slight discrepancy arises solely from the fact that a hydrogen molecule is not exactly half the mass of a helium atom! It's a bit heavier. It's actually more like 0.50358 times the mass of a helium. This makes its thermal wavelength a bit smaller than our estimate in the last paragraph, which boosts its entropy. It's nice that such subtleties, ultimately due to nuclear physics, are showing up here.
+4lo0 | By the way, all our calculations have been for the most common isotopes of hydrogen and helium: hydrogen whose nucleus consists of a single proton, and helium whose nucleus consists of two protons and two neutrons. Other isotopes have significantly different mass, and this changes the entropy values significantly.
+yskz | Puzzle 48. Helium has a lighter isotope called helium-3, whose nucleus is made of two protons and just one neutron. The mass of helium-3 is <LATEX>5 . 0 0 8 2 3 \times 1 0 ^ { - 2 7 } \mathrm { k g } .</LATEX> If we repeat our calculation of the entropy of helium at standard temperature and pressure, changing only this mass, what value do we get for the bits of entropy per atom of helium-3?
+1y6b | Puzzle 49. Hydrogen has a heavier isotope called deuterium, whose nucleus is made of one proton and one neutron. The mass of a hydrogen molecule made of two deuterium atoms is <LATEX>3 . 3 4 4 4 9 \times 1 0 ^ { - 2 7 } \mathrm { k g } .</LATEX> If we repeat our calculation of the entropy of hydrogen at standard temperature and pressure, changing only this mass, what do we get for the bits of entropy per molecule of this sort?
+ihhb | 112
+xvgt | THE ENTROPY OF HYDROGEN: EXPERIMENT
+k2yr | The entropy of hydrogen at standard temperature and pressure has been measured to be 130.68 joules/kelvin per mole.
+y5vm | One bit of unknown information per molecule corresponds to about 5.7631 joule/kelvin of entropy per mole.
+graj | Thus, each molecule of hydrogen at standard temperature and pressure has about 130.68 ~ 22.675 5.7631
+stgo | bits of unknown information.
+r4hn | Okay, let's compare our theoretical prediction to experiment.
+7nts | The experimental figure for the entropy of hydrogen at standard temperature and pressure is 130.68 joules/kelvin per mole, which translates into 22.675 bits per molecule. This is larger than our theoretical prediction of 21.848 bits per molecule by about 3.8%.
+68kv | That's not bad. We can say we solved our original problem fairly well. But the percentage error here is about 4 times worse than it was for calculation for helium. Why is it worse?
+0b1o | I haven't studied this, but I can imagine two reasons. First, remember that quantum effects kick in when V/NA3 ceases to be large. This quantity is a bit smaller for hydrogen than for helium. Remember, for helium it was 279663 at standard temperature and pressure, while for hydrogen it's 113971. But that's still very large, so I imagine quantum effects are still quite tiny.
+xogx | Second, hydrogen molecules are not chemically inert like helium atoms, and they're larger, and diatomic rather than monatomic. So I'd expect them to interact more, making the ideal gas approximation worse. This feels like a more plausible explanation for the 3.8% discrepancy.
+cusa | Puzzle 50. Do research to find more accurate calculations of the entropy of hydrogen gas. What are the main sources of error in the calculation we have done here?
+yrit | 113
+xwzi | WHERE DID WE GO?
+7rjv | The mystery: why does each molecule of hydrogen have ~ 23 bits of entropy at standard temperature and pressure? V
+daj4 | The goal: derive and understand the formula for the entropy of a classical ideal monatomic gas:
+dt0u | - WN (m ) + 3 Im + - In kT + Y
+iroe | including the mysterious constant y:
+m9bf | 2mm ✓
+44d4 | Y = 2 12 + 2
+5rgr | The subgoal: compute the entropy of a single classical particle in a 1-dimensional box:
+a1gl | S = k |In L + -InkT +-In 1 2
+vxin | + 2 In 2 11 + }) 2TTm ✓
+vj4s | The sub-subgoal: explain entropy from the ground up, and compute the entropy of a classical harmonic oscillator:
+x4c3 | S = k In . +1) how kT ✓
+jhyp | We're done! Or at least we reached our stated goal. But there is a lot more to say about entropy. In a way we've scarcely scratched the surface. For more on the mathematics of entropy, I recommend these books:
+1dwr | . Thomas A. Cover and Joy A. Thomas, Elements of Information Theory, Wiley- Interscience, New York, 2006.
+0acx | . Tom Leinster, Entropy and Diversity: the Axiomatic Approach, Cambridge U. Press, Cambridge, 2021. Also free on the arXiv.
+9ejb | For classical and quantum statistical mechanics, I recommend these:
+3dzn | . Frederick Reif, Fundamentals of Statistical and Thermal Physics, Waveland Press, Long Grove, Illinois, 2009.
+tnh4 | · Dirk Ter Haar, Elements of Statistical Mechanics, Elsevier, Amsterdam, 1995.
+cn2s | The second one has an intense focus on our friend the box of gas. And for the principle of maximum entropy, I again recommend this insightful and opinionated text:
+seh0 | . E. T. Jaynes, Probability Theory: the Logic of Science, Cambridge U. Press, Cambridge, 2003.
+l0vz | 114
+ko4g | THE FIRST LAW OF THERMODYNAMICS
+c25g | Suppose a system has some measure space X of states with functions called energy E : X -> R and volume V : X -> R.
+3i2y | Consider probability distributions on X maximizing the Gibbs entropy S subject to constraints on (E) and (V).
+qo5h | Then as we vary (E) and (V) we have d(E) = TdS - Pd(V)
+vg7d | where T is called temperature and P is called pressure.
+768z | I said we were done. But what kind of course on entropy doesn't cover the three laws of thermodynamics? I talked a bit about the Third Law, but I haven't even mentioned the other two yet.
+8ant | Here's why: this wasn't a course on thermodynamics. In 'classical thermodynamics' there's a tradition of taking concepts such as energy, work and heat as primitive, and treating the laws of thermodynamics as axioms. I've instead been explaining a bit of 'classical statistical mechanics', where we start with probability theory and attempt to derive classical thermodynamics. In this approach the laws of thermodynamics are not fundamental. They actually look a bit odd: they become results that hold under various conditions, so each one becomes a collection of theorems and conjectures.
+ub5e | I'll state versions of the three laws of thermodynamics in the language we've devel- oped here. But please be aware that my versions are idiosyncratic and will make some people raise their eyebrows. I'm afraid you'll have to go elsewhere, like Reif's book, to learn these laws in their traditional form!
+ec6h | We've been maximizing entropy subject to a constraint on the expected value of one quantity. What if we do two or more? Everything works the same way, but the fundamental relation between temperature, energy and entropy, d(E) = TdS, gets one extra term for each constraint. The resulting equation is a version of the 'First Law of Thermodynamics'.
+w6yy | I'll explain the case with one extra constraint. Suppose we've got a measure space X whose points are states of some system. Choose two functions on it. They could be anything, but let's call them energy and volume and write them as E: X -> R and V : X -> R. These terms are favored because thermodynamics arose in part from the study of steam engines, where you've got a cylinder of steam with some energy and some volume. For any probability distribution p: X -> [0, 0), we can write down a formula for its Shannon entropy
+3cxo | H = - | p(x) In p(x) dx
+zxlu | 115
+165g | and also the expected values
+```
+
+OUTPUT:
+```

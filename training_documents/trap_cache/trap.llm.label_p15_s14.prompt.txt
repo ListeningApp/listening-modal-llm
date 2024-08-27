@@ -1,0 +1,147 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+2e62 | https://doi.org/10.1017/S0043887116000095
+75y3 | 622
+s2g2 | WORLD POLITICS
+q1q2 | because elites enjoy greater power and nonelites have less recourse for checking that power.40 In economic versions of such models, elites cre- ate extractive institutions to ensure their rents, even if these institutions slow growth for the economy as a whole.41 Although oversimplified, these models are useful in highlighting the pivotal role of domestic elite participation in potential upgrading coalitions and the ways in which elite privileges can discourage such engagement.
+cb7r | One obstacle to such participation involves a form of entrenchment in which longer periods in MI status allow large firms and elite social groups to consolidate their positions in the economy and the polity.42 The domestic firms-mostly huge, conglomerated, family-owned busi- ness groups-that grew large in the late twentieth century were con- centrated in commodities (natural resources, basic metals, and other semiprocessed goods), regulated sectors (especially banking and utili- ties), natural oligopolies (such as cement and beer), and occasionally, low-tech manufacturing (having been boxed out of high-tech manufac- turing by MNCs). They were already very large and powerful coming into the twenty-first century.43 In contrast to business groups in countries that escaped the MI trap, these concentrated business groups have had little to gain from pushing for policies that would help their economies break out of the trap.44 They are entrenched in their own traditional business strategies and in politics and wield power to maintain institu- tions favorable to their existing businesses. 45
+68xu | Inequality also impedes upgrading policies and institutions through the more explicitly political mechanisms of clientelism and populism. Clientelism-exchanges of particularistic goods (patronage) between wealthy and poor or powerful and powerless-thrives under conditions of poverty and inequality.46 To the extent patronage runs through the public administration, it undermines bureaucratic capacity, encourages particularistic ties between state officials and private sector groups, and
+hd35 | Downloaded from https://www.cambridge.org/core. Seoul National University - Statistics Department, on 27 Nov 2019 at 01:38:53, subject to the Cambridge Core terms of use, available at https://www.cambridge.org/core/terms.
+2zpk | https://doi.org/10.1017/S0043887116000095
+epu7 | MIDDLE-INCOME TRAP
+7od1 | diverts resources to unproductive spending. The overall result is that clientelism undercuts programmatic politics and thereby displaces up- grading goals from partisan and electoral politics.47 The phenomenon does, of course, also exist in LI countries, but the political effects in MI countries are more debilitating, as they fragment politics and reduce the possibility that upgrading coalitions will emerge.
+0bqy | Inequality also makes politics more prone to populism, understood here in economic terms as some form of personalistic leadership that addresses broad but unorganized discontent by undertaking unsustain- able redistribution through mechanisms like price controls, consump- tion subsidies, inflation, and exchange rate overvaluation.48 Among large MI countries, such distortions have recently been especially marked in Argentina, Thailand, and Venezuela. Recent cases vary, but economic populism encourages short-term, ad hoc policy-making, antagonizes significant portions of business, and weakens rather than builds insti- tutions. Moreover, at some point economic populism ends badly-in recession and crisis, which siphon off resources from policy priorities that could have been used to escape the MI trap. Populism, although not inevitable in MI countries, is more likely to occur there because it draws crucial support from the urban informal sector that grew large in the transition to MI status.
+b780 | INFORMALITY
+ccmb | Following what is known as the "Lewis turning point," earlier devel- opers usually transited out of informality with the shift out of agri- culture; urban workers quickly became formal workers, whose rising wages stimulated investments in skills as the supply of surplus labor was exhausted.49 Historical estimates are hard to come by, but scattered evidence suggests informality was much less of a factor for earlier in- dustrializers as they transitioned to high income, in part because manu- facturing accounted for a larger share of the economy than it does in today's MI countries that are suffering premature deindustrialization.50 For European countries, the shadow economy was about 8 to 12 per-
+ma93 | Downloaded from https://www.cambridge.org/core. Seoul National University - Statistics Department, on 27 Nov 2019 at 01:38:53, subject to the Cambridge Core terms of use, available at https://www.cambridge.org/core/terms.
+c6hh | https://doi.org/10.1017/S0043887116000095
+y7ea | 624
+nav4 | cent in Germany in the late 1970s, 8 percent in Denmark in 1980, 3 to 6 percent in France in the late 1970s, 13 to 14 percent in Sweden in 1978, 10 to 27 percent in Spain in 1979-80, and 20 to 35 percent in Italy in 1979.51 The informal workforce in Korea was 7 percent in 1993.52
+gem8 | Most MI countries have been waiting a long time for Lewis's turning point and are instead characterized by a massive and relatively stable shift out of rural informality into urban informality, sometimes abetted by inflows of migrant labor (see Table 4).53 The shadow economies of large MI countries are nearly double those of high-income countries. For a different measure, informal employment is even higher-44 per- cent-for our large MI countries.54 Informal workers are a heteroge- neous lot, but the vast majority of them labor in precarious low-skill, low-wage, low-productivity employment.55
+e8nr | These high levels of informality are especially striking for having persisted despite growth and rising wages. In all nine large MI countries, the shadow economy actually increased from 1999 to 2007.56 Indeed, many of the sources economists identify as contributing to informal- ity-excessive labor-market regulation, outsourcing and contract work, weak enforcement capacity, and premature deindustrialization-are not moving in directions that would reduce informality in MI countries.57 Further, high levels of informality are correlated empirically with high levels of inequality,58 which as noted remain stubbornly high in large MI countries.
+k78w | The informal-formal distinction constitutes a crucial cleavage within
+g9du | Downloaded from https://www.cambridge.org/core. Seoul National University - Statistics Department, on 27 Nov 2019 at 01:38:53, subject to the Cambridge Core terms of use, available at https://www.cambridge.org/core/terms.
+f682 | https://doi.org/10.1017/S0043887116000095
+li1k | MIDDLE-INCOME TRAP
+pbea | the labor force that involves, among other things, divergent policy in- terests.59 Because, for example, formal sector workers have longer job tenure and benefit from on-the-job training for specific skills, they have an interest in greater subsidies for in-firm training. By contrast, infor- mal workers, who shift jobs every few years, would prefer investment in vocational schools offering general training (Section IV examines interests in education). Frank-Borge Wietzke also emphasizes differing interests in labor-market policy.60 Outsiders with insecure work con- tracts prefer employment generating "active" labor-market policies, for example, public employment centers, labor-market training, and sub- sidized employment. Insiders focus on the security of their contracts, worker protection, and lower public spending on employment policies. Although the interest cleavages between formal and informal are often attenuated by movements of workers between sectors over time, it is nonetheless rare to see organized coalitions that incorporate both insid- ers and outsiders.61
+ccpt | The electoral strategies of parties and politicians can deepen these labor- market cleavages and reinforce the divergence in preferences be- tween workers in the informal sector and workers in the formal sector. Some parties, for example, use segmented strategies by appealing to poor voters with clientelist, individual benefits, on the one hand, and to richer groups with programmatic appeals, on the other hand.62 In essence, this segmentation allows parties to ignore the programmatic interests of the poor. At a minimum, the strategy further fragments
+0fpw | Downloaded from https://www.cambridge.org/core. Seoul National University - Statistics Department, on 27 Nov 2019 at 01:38:53, subject to the Cambridge Core terms of use, available at https://www.cambridge.org/core/terms.
+dqn8 | https://doi.org/10.1017/S0043887116000095
+cop0 | insiders and outsiders and impedes broader coalition building.63 More- over, some politicians use forbearance (nonenforcement against in- formal practices such as squatting and street vending) as an electoral appeal, and those in the informal sector come to view these forbearance benefits as a significant part of their perceived "welfare" system.64 For- bearance is viewed by poor voters as a better indicator of the class sym- pathies of candidates than are promises of traditional welfare benefits (like education), and hence it further undermines the possibilities for constructing a programmatic upgrading coalition. The general point is that several different strategies can incorporate informal workers into electoral politics with promises of benefits not connected to upgrad- ing and in ways that divide formal and informal workers. Dani Rodrik paints a vivid picture of the political consequences of a large, enduring informal sector:
+lhkq | Politics looks very different when urban production is organized largely around informality, a diffuse set of small enterprises and petty services. Common inter- ests among the non-elite are harder to define, political organization faces greater obstacles, and personalistic or ethnic identities dominate over class solidarity. Elites do not face political actors that can claim to represent the non-elites and make binding commitments on their behalf. Moreover, elites may prefer-and have the ability-to divide and rule, pursuing populism and patronage politics, and playing one set of non-elites against another.65
+82ju | FOREIGN DIRECT INVESTMENT
+y2qo | Sustained, cohesive support from a broad segment of big business is likely a necessary condition for high-cost, long-term investment in up- grading institutions. However, business in most MI countries is struc- turally fractured along a dimension that fragments interests on key issues related to upgrading policies, such as education (Section IV). The cleavage-absent in all large earlier industrializers-is between foreign and domestic firms. The stock of FDI in large MI countries is not high when compared to the stocks in OECD countries today, but the more relevant comparison is between MI countries in the twenty-first century (34 percent of GDP) and HI countries in the twentieth century (4 percent of GDP for East Asia and 9 percent GDP for OECD) (see Table 5). The average percentages would have been even lower for HI countries
+1piq | Downloaded from https://www.cambridge.org/core. Seoul National University - Statistics Department, on 27 Nov 2019 at 01:38:53, subject to the Cambridge Core terms of use, available at https://www.cambridge.org/core/terms.
+7fqw | https://doi.org/10.1017/S0043887116000095
+rhaz | TABLE 5 FOREIGN DIRECT INVESTMENT (FDI) IN MI AND HI COUNTRIES (PERCENTAGE OF GDP)a
+wak1 | Excluding Hong Kong and Singapore.
+wtfz | in the twentieth century, when they were making the transition to HI. Moreover, MNCs are among the largest of big businesses in today's MI countries. In Latin America they usually account for a third to a half of the hundred largest firms.66 MNCs are especially dominant in the manu- facturing sectors of many MI countries, including in our two Southeast Asian cases, Malaysia and Thailand, where they account for thirty-four and thirty-one of the top fifty manufacturing firms, respectively.67 This typically translates into MNC dominance of manufactured exports and contrasts with the cases of the East Asian HI "graduates," where do- mestic firms account for the majority of manufacturing exports.68 At a minimum, this MNC dominance shuts the largest domestic firms out of manufacturing.
+qy1i | Of course, market-seeking MNCs might be amenable to joining up- grading coalitions, but these firms have technology and marketing ad- vantages derived from home markets that protect them from domestic competitors. Because of their market advantages, they can also afford to pay workers more and poach skilled workers elsewhere, thereby also creating a private solution to the skills problem (discussed in more de- tail in the next section). Efficiency-seeking MNCs operating in global production networks (GPNs) might have stronger interests in joining an upgrading coalition, but they also have other options: solving skills needs internally, relying on affiliated foreign suppliers, or simply mov- ing higher value-added production to a country that already has the desired skills and infrastructure.
+1k9e | On technology policy in particular, it is hard for foreign and do-
+5bjs | Downloaded from https://www.cambridge.org/core. Seoul National University - Statistics Department, on 27 Nov 2019 at 01:38:53, subject to the Cambridge Core terms of use, available at https://www.cambridge.org/core/terms.
+uodj | https://doi.org/10.1017/S0043887116000095
+k16v | WORLD POLITICS
+b2lm | mestic firms to find common ground, especially for long-term, costly investments in building up the institutional infrastructure needed for innovation. Although some domestic firms might favor such a push, foreign firms typically do not, as they do most of their R and D in their home countries.69 When MNCs do invest in R and D in developing coun- tries, as they do increasingly in India and China, it is often in the lower technology, more routinized elements of R and D. But MNCs invest very little in R and D of any kind in large MI countries and have little inter- est in paying for costly long-term upgrading for domestic innovation.70
+ti7f | In terms of collective action and political engagement, MNCs are pretty deficient, as Albert Hirschman first noted decades ago.71 For one, MNCs regularly operate through more direct ties to relevant agencies, such as boards of investment. MNCs also sometimes create separate as- sociations, such as the ubiquitous Amchams (American Chambers of Commerce), or split off separate associations in particular sectors (for example, mining in Chile or banking in Argentina).72 Moreover, some prominent associations exclude foreign firms. For example, in Mexico the exclusive CMHN (Mexican Council of Business Men, a council of the top forty or so business groups) had no MNC members, and in TUSIAD (Turkish Industry and Business Association), the main association for big business in Turkey, less than 10 percent of close to six hundred members were from MNCs.73 In turn, governments, when establishing councils to meet with business, often exclude foreign firms (for ex- ample, CDES [Economic and Social Development Council] in Brazil). Or MNCs opt not to participate in tripartite meetings, something that often occurs in Association of Southeast Asian Nations (ASEAN) coun- tries.74 In addition, MNCs usually have further incentives to disengage from politics because they want to maintain a low profile (and stay out of government crosshairs) and/or because expat managers may know little about how best to engage. In sum, even were they more interested, MNCs would make poor coalition partners.
+oksu | Downloaded from https://www.cambridge.org/core. Seoul National University - Statistics Department, on 27 Nov 2019 at 01:38:53, subject to the Cambridge Core terms of use, available at https://www.cambridge.org/core/terms.
+wtow | https://doi.org/10.1017/S0043887116000095
+```
+
+OUTPUT:
+```

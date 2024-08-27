@@ -1,0 +1,159 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+9d4o | G.W .: It's surprising to me, thinking about this very thing. More than ever I feel part of a musical continuum. I really feel the people who inspired and came before us. I was thinking about our song "Hashtag," which is at least partly about Guy Clark dying.
+cjq2 | D.R .: I think about John Hartford, and what it was like when we spent time with him when we first got to town. Thinking, I just want to live up to these people, and their contributions, and how they were as human beings when they were around the age I am now.
+5esx | G.W .: There was a particular and beautiful kind of reciprocity to it, too. Let's take Guy, for instance, or Hartford. I felt this joy from them. We were almost like their musical children. They could see their music moving forward in us, and they were so happy. They were so relieved. They were so grateful!
+m5ka | David, I remember reading an interview with you in Rolling Stone, where you were talking about how folk music picks up a little bit of the DNA of everybody who has ever performed it. And, because of that, playing those tunes, it feels
+byu8 | like there's a hundred people in the room-it makes a person feel less lonely. It's a pliable form, and you can always see the fingerprints.
+76b0 | G.W .: A pebble in the river that's just been rolled and tossed and turned.
+zxz6 | D.R .: But also, because it's folk music, you're allowed to take a piece of slate and knock half of it out and go, "Y'know, that rock's pretty nice as a triangle, too!" If people like your triangle-
+xnth | G.w .: They add! We've twisted every folk song that we sing.
+vafm | I wanted to come back to "Hashtag" for a moment. When I first saw the tracklist for "Woodland," I was really surprised to see a song with that title. Somehow, the world of Gillian Welch and David Rawlings felt incompatible, to me, with the very idea of a hashtag. I love this line, though it's quite dark: "You laughed and said the news would be bad / If I ever saw your name with a hashtag / Singers like you and I are only news when we die." That idea of reducing an entire life or an entire legacy to a hashtag. Brutal!
+2zmw | G.W .: I remember feeling really jarred because, like us, Guy was just not one of those people who engaged with modern technology.
+bf9k | D.R .: He was so committed to word and craft.
+otkr | G.w .: And so to get the news that way, and to know instantly, it was just, it was just, Oh . . . I gasped, and felt sick. And I knew. I remember how awful and darkly humorous that moment was. How strange.
+ibgs | D.R .: When I think about our relationship with art-getting a little older, having done this a little longer-I think about these gigs we did with him when we went to Texas for the first time. We were opening for him at a place called the Mucky Duck, a little club in Houston. We had played our set and we were watching Guy's set, and he got to the end of his show, left the stage, and got called back for
+colo | an encore. Came back, did an encore. He had put on such a beautiful show, and he had such a beautiful self-possessed way about him. There was such gravity when Guy stood onstage. He played this song, and then he walked off again, and the crowd just wasn't havin' it. They were not going to leave. And I can't remember what he played-"Let Him Roll"? I don't remember what the last song was, but he just waved them off. He said, "Go home!"
+d6r4 | G.W .: He just leaned out of the dressing room. He wouldn't even go back out. He kind of hung on the door trim, and leaned out: "Go home!"
+9mrz | D.R .: He knew his art better than they knew his art.
+pk06 | G.W .: He'd done it.
+7wn9 | D.R .: Yes. And he truly had.
+wcd0 | G.W .: The show was done!
+caos | D.R .: I learned something about understanding what you do, and also the value of not doing it. You're gonna do the best job you can, and when you have done it, stand firm. I thought, Wow, I don't know if I'll ever get to that place. We were young. It was long before our first record. It was the first we'd really seen of how musicians are on the road. I remember sitting in a Motel 6 in Guy's room. We had left the venue and we had taken this giant tinfoil pan of barbecue with us back to his room, and I just remember Guy and I standing there over the bed eating ribs and just laughing. I don't know what we were making, maybe a hundred dollars a night? Who knows. But he was willing to give of himself to us, to teach us. To tell us where the best pimento-cheese sandwich was.
+qrvy | G.W .: He'd tell us which exit between each town. He'd say, "Now, when you're going between Houston and Dallas, you're gonna wanna stop here. If you're going between Dallas and Austin, you're gonna wanna stop here."This is way before cell phones and G.P.S. You needed this information! You've got a Rand McNally at
+pn9j | that point. If we were in Texas, in kind of unknown territory, we would call Guy. I'd say, "Guy, we're down around San Antonio and we need dinner." And he'd say, "O.K." He'd think for a minute. "All right, there's a barbecue place . . . "
+1pmc | For each of you, do you have a clear sense of which version-performed or recorded-feels like the truest version of a song?
+5z6q | G.W .: I'm really happy with some songs that we caught very early. Something like "Elvis Presley Blues." We finished the song and recorded it the same night. Maybe we became more accomplished at performing it, but, in the recording, I hear that very short distance between the inspiration and the writing of it. I hear us still in our writers' brains. "I Dream a Highway"-same thing. The version on tape is the first time I sang it through. I can hear that in it. I'd never sung it stem to stern.
+yeoh | D.R .: When Gill is singing something for the very first time, there's more variation and melisma on even the simplest melodies. I want every bit of that. Because by the time she's sung it five times, they're gonna become more formalized. But the flip side of what you're saying is, sometimes being in front of people and feeling energy come back as you're singing something, you can take things to a place where they get emotionally re-amplified a little bit. Maybe it becomes a little bigger in a way that can be fun.
+b8hf | G.W .: Some songs just are more suited to the quiet, interior space of the studio. Some are more suited to have their more perfect performance happen in public. "Red Clay Halo," or something like that. We probably bested the studio recording any number of times.
+hntf | D.R .: This makes me think of one time we played this song that ended up being called "The Way It Will Be," but this was before it had a title. We were in a trailer at Bonnaroo for a radio thing. There were a couple of mikes and maybe twelve or fifteen people sitting in that trailer. We started it, and the guitars hit the note, and it just created a space in that room, and we sang our unison note, and it was just as
+99fo | Performing for just a dozen people sounds terrifying.
+y5r7 | D.R .: Especially when two of them are on their phones!
+lrry | G.w .: Back when I was trying to get a publishing deal, I was still walking into those offices with my guitar. I was not even playing tape. I'm walking in, uncasing my guitar, and sitting in a chair across the desk from a person. One person. That's how I got a publishing deal; that's how I got the record deal. That world is gone.
+hvhm | D.R .: On our first record, T Bone was still working on tape. It was analog recording, it was still connected to the great recordings of the late sixties and the seventies. In so many ways, we've had the opportunity to keep the parts of the old world that worked for us, but then also to move forward. I feel happy to have been in that position-to have seen it and lived it enough to know which parts can't be replaced.
+863b | I like the idea of music being a thing I make space for in my home-a thing I hold in my hands. How do you prefer to listen to records? This reminds me that I have to point out that "Time (The Revelator)" does not yet exist on vinyl. I'm wearing out my CD!
+fj24 | D.R .: I do listen to vinyl records a decent amount, at the house or at the studio. But I love listening to music in the car. CDs. I'll sometimes stream stuff on my phone. I'm looking forward to being on the road because, when you have a four-hour drive-
+uz3c | G.W .: Then we listen to way more music.
+d5bi | D.R .: You can't be doing anything else. And what else do I want to do? I want to hear new songs, and I want to hear music that I've loved for years, and see how it
+ba4l | hits me in a new moment.
+ffx8 | G.w .: Singing along with the Stanley Brothers, old Chet Baker. Honestly, that's how we honed our harmony singing.
+s6su | D.R .: "Time (The Revelator)" on vinyl is something I want to do. I started down that path right before the tornado. It's a very difficult record to cut, because it's almost sixty minutes long. And then you have to confront the question of, do you try and get it on one disk? There's a finite amount of physical space on a record, and the more music you put, the quieter it has to be. On that record, the vocal is very hot relative to the music; the vocal peaks are very hard. If you get them to where they're not crashing the vinyl, the music is quiet. I think that [Radiohead's] "OK Computer" is one of the greatest CDs ever made. They try to do these high- quality vinyl versions of it, and it sounds like mush, because it's too hard. It has too much dynamic range to really be captured right on vinyl. Maybe if you cut it at 45 r.p.m. Music does have a connection to the format it was made on. But yes, it's coming, and nothing will make me happier.
+y219 | This is going to sound sort of bonkers, because you each possess distinct voices and ranges and tones, but there are moments on the new one where I almost don't know who's singing. To what extent do you think these years of collaborating have sort of bent your voices toward each other? G.W .: Well, Dave has always been the better rock-and-roll singer. Always. I tend to think about microscopic things. I get very myopic, and if something's not working -I remember one time, he was, like, "Can you just put it on the beat? It'd have more impact if you just put it on the beat." I've never forgotten that. The rock- and-roll singer.
+06ht | D.R .: I mean, we've certainly heard each other sing for a long time. I've always thought Gill is a much stronger singer. I love the role of harmony singing so much. A lot of little tricks that I do in harmony singing are actually no good for lead singing. I was very conscious of not annunciating consonants or things at the
+v3r2 | end of words, or shaping my vowels so that they fit with what Gill was doing. But gradually, over time, I could hear what was good about what I was doing and what was bad. On "Howdy Howdy," it was most interesting if I sang the high part and she sang the lower part. That kind of blends us together. There's a lot of stuff that we admire and try to sing, like the Blue Sky Boys. The whole point to us was that they sounded like they had one mouth. They were so linked. So I think we spent a lot of years trying to just-
+nv42 | G.W .: Trying to literally make our vowels and move our mouths and modulate through the words exactly the same. It's so beautiful. That's one of the things I love about brother-team music. Something happens. It's almost like that tickle that happens in your ear when you hear a pennywhistle, or a bagpipe or something. There's a place in your ear that only gets tickled by that. With two voices, we call it buzz-when they buzz, when they really hook up. [Gasps.] It's just . . . oof!
+xags | D.R .: I remember singing with Emmylou Harris early on. I didn't realize how much of harmony singing is unconscious. I noticed about four things were happening, physiologically, without me knowing it, while I was trying to sing with her. It was like I was in a yoga pose I'd never been in, and I'm, like, How?
+jc47 | G.W .: [Laughs.] Never done this!
+ko3c | D.R .: That was a moment where I was, like, Wow, Gill and I have really matched what we're doing to each other.
+xek3 | G.w .: And it's true of the instruments as well. We've spent decades becoming the players we are, with each other. All you have to do is sit down with somebody else, and all of a sudden it's, like, Oh! Oh, all right, yeah!
+bbpr | D.R .: My guitar playing is entirely connected to what Gill's doing. It's one thing. I mean, I literally think of myself as the second-best guitar player in the room.
+5zyf | What Gill does is harder to do-to play with that kind of feel and nuance on a
+9own | rhythm guitar. You can copy what I'm doing, but what she does is almost impossible to teach. It's the combination that makes it special. It's the fact that we can try to play two guitars and create a texture that doesn't sound like two guitars.
+bqfb | Speaking of that, I wanted to ask you about the guitar sound at the very top of "The Bells and the Birds." It's incredibly transporting, mesmerizing, rhythmic. That's just the two guitars?
+wwdt | G.W .: Yeah. That's two guitars. [Laughs.]
+mn1r | D.R .: Well, it would've started with Gill coming up with a finger-style guitar part of reasonable complexity.
+5vqw | G.W .: Probably one of the more complex parts I play.
+meyw | D.R .: You were imagining trying to write something that felt a little bit like CSNY's "Guinevere."
+2e62 | G.w .: Something that floats. I wanted something that wasn't primitive, wasn't minimalistic.
+75y3 | D.R .: And you had the phrase "The Bells aAnd the Birds." I was thinking about old classical music, how they'd try to illustrate language with the instruments-I love that literalism. So I wanted there to be bell-ish sounds that went along with the title. I wanted to think about a part that would float above it. I just wanted to come up with a little part that would be chime-y and would drift and intertwine. That would have a landscape to it. We ended up recording it in a way where we used microphones between us to catch the sound already combined, as opposed to microphones closer to the guitars.
+s2g2 | G.w .: The music had actually combined in the air before the mike picked it up. So it has that organic swirling.
+```
+
+OUTPUT:
+```

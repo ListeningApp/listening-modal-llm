@@ -1,0 +1,141 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+d5bi | 2.5.3. Effect of insulin on motivation
+ba4l | The effect of insulin is not limited to food rewards. Glucagon-like peptide 1 (GLP1), which has an insulin-enhancing effect, modulates incentive motivation for both food and money (Hanssen et al., 2021). Of course, this effect is not solely attributable to insulin, since GLP1 has direct effects on DA neurons. Furthermore, food intake (elevating insulin levels among other factors) has been shown to reduce susceptibility to
+ffx8 | non-food rewards and choices in the delay discounting task related to fluctuating blood glucose levels (Wang et al., 2017; Xu et al., 2015).
+s6su | To conclude, human data provide clear evidence that central insulin modulates the activity and the connectivity of DA-pathways affecting reward behaviour.
+y219 | 3. Impaired insulin signalling and the dopaminergic circuitry
+06ht | Changes in diet are known to modulate both insulin and DA signal- ling in mesolimbic pathways. Chronic food restriction reduces circu- lating insulin levels and baseline DA levels in the mesolimbic circuitry leading to higher reward sensitivity and stronger DA release in response to refeeding (Carr and Weiner, 2022a; Heffner et al., 1980). In contrast, high fat diet (HFD)-induced obesity is associated with hyperinsulinemia but lower baseline and amphetamine-induced DA levels in the NAc compared to healthy normal weight controls (Geiger et al., 2009a). Interestingly, in diet-induced obesity (DIO) a chow meal is no longer able to induce a DA-response in the NAc, but a HFD meal is required to trigger this DA response (Geiger et al., 2009b). So while both food re- striction and obesity are associated with reduced baseline DA levels in the striatum, there is a bidirectional effect on insulin-dependent DA release (Stouffer et al., 2015). These observations have sparked atten- tion to the role of insulin in mediating these effects.
+v3r2 | Several rodent models have been leveraged to investigate the effects of changed insulin transmission on midbrain DA neurons and their pri- mary projection regions (Table 1). These models differ in their avail- ability of insulin, the induction of downstream insulin signalling pathways upon binding of insulin to its receptor, receptor availability and specificity of the intervention.
+nv42 | 3.1. The impact of insulin deficiency on DA signalling in rodents
+xags | Insulin deficiency and its impact on DA signalling are typically studied in a.) rodent models with damaged pancreatic beta cells due to the administration of beta cytotoxics such as streptozocin (STZ) (Fur- man, 2015) or alloxan, b.) hereditary models prone to type 1 diabetes (Li and Sun, 2010), or c.) rodents after prolonged fasting. Among these models, the STZ-model is most frequently used and involves repeated administration of low doses of streptozotocin resulting in partial damage to the pancreatic islets. This causes chronic inflammation, insulin defi- ciency and hyperglycaemia, which mimic the pathology of T1DM in humans. An alternative protocol is a single, high-dose administration of streptozotocin, which destroys beta cells completely and does not exhibit human T1D features such as pancreatic insulitis (Furman, 2021). However, all of these models except for prolonged fasting are generally associated with hyperglycaemia, which directly affects neuronal sig- nalling and insulin receptor sensitivity. Therefore, insulin replacement cannot fully restore function in these models (Bellush and Henley, 1990). Moreover, there is growing evidence, that the effect of the beta cytotoxics is not solely attributable to the destruction of ß-cells since a direct ICV application of small doses of alloxan and STZ induced changes in the brain DA signalling comparable to the peripheral administration (Salković et al., 1995).
+jc47 | Insulin receptor knockout models allow the direct investigation of insulin downstream signalling (Table 1). Beyond general IR knockout models, targeted knockdown of IR in neurons, astrocytes, or in TH- expressing or DAT-expressing neurons have been leveraged to unravel the action of insulin in the central nervous system and particularly the DA circuitry. Moreover, customized inactivation of IR has also been investigated by administering antibodies into specific brain locations.
+ko3c | Insulin resistance secondary to obesity and metabolic dysregulation is typically investigated after HFD, or in rodent strains genetically prone to obesity or diabetes mellitus type 2 such as the Goto-Kakizaki (GK) rat or the spontaneously diabetic Torii and the Wistar rats (Islam and Loots, 2009; Li and Sun, 2010). HFD has a clear impact on insulin signalling in DA pathways as evidenced by reduced phosphorylation of AKT in
+xek3 | Neuroscience and Biobehavioral Reviews 149 (2023) 105179
+bbpr | striatal and nigral brain slices (Speed et al., 2011). Nonetheless, it is essential to note that both HFD and obesity result in a number of metabolic and inflammatory changes that can additionally affect DA signalling. Furthermore, HFD regimes differ in their duration and composition (e.g. 50 % of daily kcal requirements from fat vs. 60 % from fat; saturated vs. unsaturated fat) leading to heterogeneous findings and making it challenging to attribute findings solely to insulin changes (Hryhorczuk et al., 2016).
+5zyf | 3.2. The impact of insulin resistance in the dopaminergic midbrain
+9own | 3.2.1. Insulin resistance changes TH-activity
+bqfb | In the VTA, both lack of insulin (due to STZ-induced destruction of pancreatic beta cells) as well as impaired IR signalling (due to knock-out or inhibition in TH-containing neurons) reduce the expression of TH mRNA indicating reduced DA synthesis (Figlewicz et al., 1996; Könner et al., 2011) (see Appendix, Tables S3-S4). Similarly, TH activity in terminal fields of DA neurons is suppressed in diabetic rodents after HFD (Chu et al., 1986; Glanville and Anderson, 1986; Kono and Takada, 1994) and genetic models of diabetes (Do Nascimento et al., 2011).
+wwdt | 3.2.2. Insulin resistance affects DA-turnover
+mn1r | Food restriction for 24-36 h leading to reduced insulin levels has been demonstrated to diminish DAT mRNA amounts in the VTA/SN, indicating decreased DA turnover (Patterson et al., 1998). Moreover, insulin fails to increase the firing frequency of DA neurons if the IR is inactivated (Könner et al., 2011) and neuronal IR-KO mice show increased levels of monoamine oxidase A and B (MAO A and B) leading to increased DA (and other monoamines) degradation in these areas (Kleinridders et al., 2015). In situations of transient (Labouèbe et al., 2013b; Liu et al., 2016) or prolonged hyperinsulinemia (Liu et al., 2013) insulin loses its ability to induce long-term depression (LTD) of excit- atory synapses onto VTA DA neurons (Labouèbe et al., 2013b; Liu et al., 2016). Notably, 7 days of HFD were sufficient to induce insulin resis- tance in the VTA as demonstrated by reduced AKT phosphorylation in the VTA upon intracerebroventricular injection of insulin (Mizoguchi et al., 2021).
+5vqw | Collectively, insulin deficiency and insulin resistance reduce DA synthesis, DA reuptake, depression of excitatory inputs on DA neurons, and the firing frequency of DA neurons in the VTA.
+meyw | 3.3. The impact of insulin resistance in the ventral striatum
+2e62 | 3.3.1. Insulin resistance changes evoked DA release
+75y3 | In the ventral striatum, impaired insulin signalling reduces DA release in response to stimuli (food, electrical or insulin) (see Appendix, Tables S3-S4); this effect is evident in neuron-specific IR knock-out (NIRKO) mice (Kleinridders et al., 2015) and HFD-induced insulin resistance (Chen et al., 2019a; Fordahl and Jones, 2017; Stouffer et al., 2015). However, it is important to note, that Fordahl et al. (2017) could not detect any change in evoked DA release in insulin-resistant rodents.
+s2g2 | 3.3.2. Insulin dysregulation impacts baseline DA levels
+q1q2 | Equally to evoked DA release, reports about baseline DA concen- trations in the NAc are heterogeneous: While Kleinridders et al. (2015) could not detect any differences in DA content (but only in DA release) between rodents with low insulin levels (prolonged fasting) and insulin resistance (HFD) compared to normal insulin sensitivity, Chen et al. (2019b) observed lower baseline DA levels in insulin resistance. As Oginsky et al. (2019) pointed out, a considerable source of heterogeneity in rodent studies might be caused by the various rodent strains and their susceptibility to weight gain, because intrinsic excitability of NAc core neurons differs between obesity-susceptible and -resistant rats. It is generally assumed that reduced excitatory synaptic transmission on MSNs (Oginsky and Ferrario, 2019) is a key mechanism by which insulin resistance abolishes the capability of insulin to increase DA release in the
+cb7r | ventral striatum (Stouffer et al., 2015). In line, the modulation of MSN activity was attenuated in NIRKO mice (Kleinridders et al., 2015) and DA release in the NAc is equally decreased if insulin signalling in NAc astrocytes is disrupted leading to reduced ATP exocytosis and purinergic signalling cascades in DA neurons (Cai et al., 2018a).
+68xu | 3.3.3. Insulin resistance reduces DA turnover
+hd35 | Insulin resistance reduces DAT expression, and DA reuptake via attenuated AKT signalling (Bellush et al., 1991; Cumming et al., 2015). Moreover, selective inhibition of the insulin receptor has been shown to attenuate DA reuptake (Fordahl and Jones, 2017). The observation that both lack of insulin due to prolonged starvation and prolonged hyper- insulinemia reduce dopamine reuptake indicates that hyperinsulinemia leads to a desensitization of the IR and impacts downstream signalling pathways, that control DAT expression (Bitar et al., 1987; Fukuhara et al., 2019; Kleinrok et al., 1983). This effect is time-dependent. While 2 weeks of HFD did not have an effect, 6 weeks of HFD reduced DAT levels in the synaptosomal membrane-associated fractions (Cone et al., 2013). Notably, the effects of insulin resistance are reversible. Eight weeks of aerobic exercise restored insulin AKT/GSK3-ß signalling, baseline DA levels, and DA release after food intake (Chen et al., 2019b).
+2zpk | Taken together, reduced insulin signalling/insulin resistance in the NAc reduces DA release and DA reuptake in DA axon terminals.
+epu7 | 3.4. Effect of insulin resistance on reward behaviour and food intake in rodents
+7od1 | To date, only a few studies have examined how compromised insulin signalling in the mesolimbic pathways affects reward behaviour and food intake (see Appendix, Tables S5 and S6).
+0bqy | 3.4.1. Insulin resistance modulated food intake behavior
+b780 | Selective inactivation of IR in VTA/SN DA neurons increases food intake, resulting in higher fat mass and body weight (Könner et al., 2011). In line, insulin depletion in STZ-treated mice and insulin resis- tance after HFD resulted in increased food approach behaviour (Liu et al., 2016; Speed et al., 2011). In fact, increased calorie intake after HFD was associated with impaired AKT signalling and reduced striatal DAT expression indicating an IR-dependent mechanism. In line with this, viral rescue of AKT signalling and striatal DA expression decreased calorie intake (Speed et al., 2011). However, there are also opposing findings. In congenital IR knockouts in DA neurons, there was no dif- ference in daily calorie intake, body weight or energy metabolism (Evans et al., 2018), suggesting that the alterations in food intake and body weight by IR signalling are not solely attributable to the DA system.
+ccmb | 3.4.2. Insulin resistance impacts the motivation to work for food
+ma93 | In line with increased food intake, the motivation to work for food increases with insulin resistance (see Fig. 3 for an overview of rodent tasks). Rats fed a high-fat diet for five weeks exhibited more lever presses in a progressive ratio task using sucrose reward, and ICV insulin was unable to suppress this effect (Figlewicz et al., 2006, 2008a, 2008b). Furthermore, obese insulin-resistant OLETF rats exhibited increased operant performance for sucrose reward (Hajnal et al., 2007). This is in contradiction, however, with evidence for reduced sucrose preference in insulin resistance (Cai et al., 2018b; Chen et al., 2019a). Moreover, McNeilly et al. (2016) demonstrated that 3-4 weeks of HFD, sufficient to induce insulin resistance, diminished the motivation to respond for su- crose pallets in Wistar rats. This deficit was ameliorated, but not totally reversed, by a dietary intervention (chow diet) that restored insulin sensitivity (McNeilly et al., 2016). However, it is significant to note that McNeilly et al. (2016) did not carry out a conventional progressive ratio task. They performed a delayed matching to place (DMTP) and a delay-non-matching to place operant task, that require cognitive flexi- bility and working memory, both of which are known to be impaired in
+c6hh | Neuroscience and Biobehavioral Reviews 149 (2023) 105179
+y7ea | obesity and insulin resistance without being related explicitly to DA-signalling.
+nav4 | 3.4.3. Insulin resistance has an impact on reward sensitivity
+gem8 | The effect of insulin on motivation and reward sensitivity goes beyond food intake. Insulin deficiency due to fasting increased reward sensitivity in an intracranial self-stimulation task. This effect was reversed by insulin (Carr et al., 2000) and leptin administration (Fulton et al., 2000). Equally, insulin deficiency due to STZ-application increased reward sensitivity, but only in the first (three) weeks (Carr et al., 2000). Afterward, this effect was abolished (Carr et al., 2000) or even turned to the opposite showing reduced reward sensitivity (Ho et al., 2012b). In this case, insulin application improved reward sensi- tivity. Equally HFD for 15-17 weeks reduced the attraction of male ro- dents to female urine, that is normally perceived as rewarding (Dutheil et al., 2016a) indicating that insulin resistance over a longer period of time leads to anhedonia - the loss of experiencing pleasure from usually rewarding activities.
+e8nr | 3.4.4. Insulin resistance leads to a depressive, anxious phenotype
+```
+
+OUTPUT:
+```

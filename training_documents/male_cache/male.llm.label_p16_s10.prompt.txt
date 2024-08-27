@@ -1,0 +1,156 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+82ju | 4.16
+y2qo | or TSPO) has been implicated as a possible regulator as well. From pregnenolone, the Leydig cell produces testosterone via metabolism through the 44 steroidogenic pathway shown in
+1piq | Figure 10 a and b. Testosterone is reduced in peripheral tissue by the enzyme 50 reductase to dihydrotestosterone (DHT).
+7fqw | In addition to androgens, the testis also synthesizes estradiol (via conversion of testosterone by the enzyme aromatase) and secretes significant amounts of estrogens. Estrogens may act intratesticularly to regulate testosterone production. This action may be mediated through estrogen receptors, which have been localized in Leydig cells.
+rhaz | a) Characteristics and Location: The Leydig cells are located between the tubules in the interstitial space close to the blood vessels and lymphatics. The cells are characterized by:
+wak1 | (1) lipid droplets
+wtfz | (2) mitochondria with tubular cristae
+qy1i | (3) a smooth endoplasmic reticulum.
+1k9e | (4) These cells express the receptors for LH, which stimulates steroidogenesis through a cAMP-mediated signal transduction pathway.
+5bjs | b) Hormone Production Androgens are secreted from the testes beginning during prenatal development. The Leydig cells are steroidogenically active between 8-18 weeks of gestation and later at puberty and subsequently. Androgens act at receptor sites in target tissues such as testes and penis, as well as male accessory organs, such as seminal vesicles and the prostate, to effectuate sexual reproduction. Testosterone maintains spermatogenesis and the function of the male accessory glands. Androgens regulate central nervous system functions to
+uodj | 4.18
+k16v | influence libido and sexual behavior. Androgens also stimulate metabolism and protein synthesis and influence muscle growth, as well as the additional secondary sex characteristics (male pattern body hair and balding, deepening of the voice, increased bone density, calcium retention, increased red blood cells, and increased body water due to increased renal absorption of water). The functions of the Leydig cells are regulated by:
+b2lm | (1) LH that stimulates testosterone biosynthesis
+ti7f | (2) Prolactin that induces the expression of the LH receptor
+oksu | 2) The Germ Cells: The germinal elements comprise a population of cells, which include a slowly dividing primitive stem cell population, the rapidly proliferating spermatogonia, spermatocytes undergoing meiosis and the metamorphosing spermatids.
+wtow | a) Mitosis in the Testis: The spermatogonia in the testis have the highest rate of proliferation in the body. They proliferate to ensure the relatively constant production of sperm by the testis.
+o22k | i) Spermatogonial stem cells were first postulated to exist based upon subtle morphological characteristics and the realization that in some instances after prolonged periods of secondary infertility, after exposure to gonadotoxins, rejuvenation of spermatogenesis might occur years later. The spermatogonial stem cells are largely quiescent but have the capacity to regenerate spermatogeonesis after a toxic insult. The cells are characterized by their ability to undergo self- renewal throughout the life of males. The cells reside in a niche or specialized microenvironment on the basal side of the blood-testis barrier. Regulation of self-renewal is under investigation, but growth factors such as GDNF and FGF are critical regulators of spermatogonial stem cell renewal. Spermatogonial stem cell transplantation techniques developed in the mid-1990s definitively showed the regenerative potential of these cells to restore spermatogenesis to an otherwise Sertoli cell-only testis. Interestingly, more recent studies in mouse models and in human spermatogenesis show that these cells are also pluripotent with the ability to form multi-potent embryonic stem cell-like lines that can differentiate into somatic cells.
+nwfz | ii) Type A spermatogonia: These are the least mature germ cells and are located directly along the basal lamina. The primitive spermatogonium is about 12 um in diameter, and on a hematoxylin and eosin stained slide, they appear to have a lighter halo around the nucleus. The cells are connected by small cytoplasmic bridges. There are two type A spermatogonia, type A pale and A dark. The A dark spermatogonia are the putative stem cells. Type B spermatogonia are more differentiated. Retinoic acid is usually metabolized by the testis from retinol in circulation. Retinoic acid acts directly on the spermatogonia to stimulate their entry into the meiotic pathway and differentiate into type B spermatogonia. Retinoic acid also acts on the Sertoli cells to regulate the cyclic functions of this cell in spermatogenesis. The clock appears to be set by retinoic acid but the germ cells can influence this cyclic activity of the Sertoli cell as well (O'Donnell, Stanton, & de Kretser, 2000).
+nvfy | b) In a routine pathological examination, the types of spermatogonia are not routinely assessed. Spermatogonia are the diploid spermatogenic cells located along the basal lamina of the
+mror | 4.19
+zlxc | basal compartment of the seminiferous epithelium. They are outside of the blood-testis barrier (below the tight junctions between adjacent Sertoli cells). A spermatogonial stem cell undergoes successive rounds of mitosis at puberty. This mitosis is very inefficient, and many cells undergo apoptosis. This stage is known as the proliferative stage of spermatogenesis. After exposure to toxic agents or radiation, the stem cells have the potential to repopulate the testis with spermatogenic cells and re-establish the spermatogenic process.
+k0bw | 3) Meiosis: involves the steps that follow the entry of the type B spermatogonia into the meiotic pathway. This is a process where the germ cells undergo a series of DNA replication resulting in a tetrapoid gamete, followed by meiotic recombination with double-strand breaks, crossing over and DNA repair followed by two successive reductive divisions to yield the haploid spermatid (O'Donnell et al., 2000).
+aq5a | a) Primary Spermatocytes: The type B spermatogonia are the progenitor cells that differentiate into the primary spermatocytes. The spermatocytes are large cells with twice the normal amount of DNA per cell and a 4C chromosome value. The spermatocytes are located in the adluminal compartment of the seminiferous epithelium (inside of the blood-testis barrier). The primary spermatocyte undergoes the first or reductional meiotic division to produce two secondary spermatocytes (2C DNA content). Prophase is divided into 4 stages-leptotene zygotene, pachytene, and diplotene. This is the longest stage, taking about 22 days in humans, so most spermatocytes seen in a section will be in this phase. The cells reach diakinesis (crossing over of genes of the chromosomes occurs). The cells then progress to metaphase, the chromosomes move to the poles at anaphase. The cells are the largest spermatogenic cells and are characterized by chromosomes in various stages of coiling.
+sc5y | i) First Meiotic Division 1. Leptotene: Each homologous chromosome is two sister chromatids (maternal and paternal) that attach to the inner membrane of the nuclear envelope.
+0yab | 2. Zygotene: Synapsis of the homologous chromosomes begins. A synaptonemal complex develops between homologous chromosomes.
+w95z | 3. Pachytene: Synapsis is complete when homologous chromosomes become entirely linked. Stretches of paternal and maternal DNA are coordinated in space and crossing over between non-sister chromatids starts (homologous recombination).
+0i1k | 4. Diplotene: The chromosomes appear double. Disjunction takes place when crossing over ends. Chromosomes remain attached at specific points (chiasmata).
+dqlg | 5. Diakinesis: Chromosomes detach from the nuclear membrane, shorten and become thicker. Synaptonemal complex disassembles, but a short piece remains in the chiasma region. A microtubule spindle begins to form.
+p6pq | ii) Secondary Spermatocytes are formed after completion of the first meiotic division. The secondary spermatocytes then undergo the second or equational division to form two spermatids with a haploid chromosome complement (1C DNA content). At the prophase these
+zse6 | 4.20
+p2n3 | cells are 46C (44+XY/X) with 4N of DNA. This division serves to reduce the number of chromosomes in half (22+X or 22+Y), and the DNA per cell is reduced from <LATEX>4 N</LATEX> to <LATEX>2 N .</LATEX> These cells are rarely identified in a section because they promptly undergo a second meiotic division to reduce the DNA in half again (2N to 1N) with 23 chromosomes forming haploid spermatids. There is no <LATEX>\mathbb{S}</LATEX> phase (DNA synthesis) between the first and second meiotic divisions.
+ohh7 | iii) Second Meiotic Division: After prolonged meiotic prophase, pairs of sister chromatids progress through metaphase, anaphase, and telophase and separate into daughter cells known as the secondary spermatocytes (2C DNA content).
+vbni | iv) Consequences of Meiosis
+dgcw | 1. Haploid chromosomal complement
+gvwz | 2. Homologous recombination or random mixing of the paternal and maternal chromosomes
+sk5m | 3. Crossing over increases genetic variation
+qws8 | b) Spermatids are the haploid germ cells within the seminiferous epithelium. This is the last phase of spermatogenesis. Spermiogenesis is the process of differentiation of the haploid spermatid into a mature spermatozoon. The process of spermiogenesis involves the differentiation of the spermatids. The spermatids are generated from the second meiotic division of the secondary spermatocytes. These cells are haploid with 1N DNA content. They are small in size (7-8 um in diameter), with areas of condensed chromatin and juxtaluminal location within the seminiferous epithelium. The three phases of spermiogenesis are:
+877u | i) Development of the Acrosome: The acrosomal sac or cap is required for fertilization and consists of a storage area for hydrolytic enzymes. The development of the acrosome progresses through a Golgi stage, cap phase, acrosomal phase, and maturation phase.
+rzhj | ii) Golgi Phase: The cytoplasm contains a prominent Golgi complex, as well as mitochondria, a pair of centrioles, free ribosomes, and smooth ER. A small periodic acid-Schiff (PAS)-positive granule forms in the Golgi complex near the nucleus. These granules come together to form an acrosomal granule within an acrosomal vesicle. The centrioles move near the cell surface and opposite from the acrosome.
+bfax | iii) Acrosomal Phase: The acrosomal vesicle spreads to cover the top half of the condensing nucleus to form the acrosome. This vesicle contains hydrolytic enzymes (hyaluronidase, neuraminidase, acid phosphatase, and a trypsin-like protease). These enzymes are needed by the mature sperm to transverse the cumulus complex and zona pellucida of the ova. The cell reverses orientation, and the acrosome is now juxtaposed to the basal region of the tubule. The nucleus undergoes extensive remodeling and condenses markedly. One of the centrioles differentiates to form the flagellum. The middle piece of the tail is a thickened region of the flagellum where sperm movement is generated. The mitochondria migrate along the developing axoneme.
+f2y8 | 4.21
+o7qm | iv) Development of the Flagellum: The flagellum consists of an axoneme (9+2 microtubule doublets in a concentric arrangement) surrounded by a fibrous sheath and keratin-containing dense outer fibers. Mitochondria are in the mid-piece of the tail and provide energy.
+d52l | v) The Maturation Phase: The spermatids continue to differentiate, condense, and elongate their nucleus; the residual cytoplasm is phagocytized by the Sertoli cell; and the spermatozoa are released into the lumen of the seminiferous tubule. The cytoplasmic bridges formed between the spermatogonia have been maintained and permit the exchange of information between cohorts of cells. Prior to spermiation, these bridges are lost with the residual cytoplasm that is extruded.
+qlbb | vi) Condensation of the Nucleus: The somatic chromatin histones are replaced by highly basic arginine and lysine rich protamines. The chromatin fibers associate and condense the nuclear material into a highly and tightly packaged structure. Transcriptional activity ceases (RNA synthesis).
+nhsg | vii) Final Steps of Spermiogenesis: The flagellum structure is key to future motility (9+2 microtubules surrounded by the outer dense fibers). The mitochondria align along the developing flagellum, and the manchette migrates caudally. The tail now has two segments: the mid piece (mitochondria are present) and the principal piece (tail is surrounded by the dense sheath). The residual body, excess cytoplasm extruded during spermiogenesis, is phagocytized by the Sertoli cell at the time of spermiation (release of the spermatozoa). At this time, nuclear condensation is complete, and histones are fully replaced by the protamines. The head of the sperm is covered by an intact acrosome, and these enzymes are released at the time of fertilization. The connecting piece links the head to the tail and contains the 2 centrioles. The distal centriole gives rise to the axoneme of the sperm tail. The mid-piece, principal piece, and end piece describe the tail.
+hy0l | 4) Spermatogenesis: Although the cell types were described above, the process of spermatogenesis will be the focus of the next section.
+4jmz | a) Spermatogenesis, the process by which a spermatogonial stem cell gives rise to a spermatozoon, can be divided into three distinct phases (Figure 11):
+b7cq | i) Spermatogonia proliferate to give rise to spermatocytes and simultaneously maintain their number by renewal.
+0b39 | ii) Spermatocytes prepare for and undergo the complex maturation divisions of meiosis that reduce the chromosome number of the germ cells by half.
+qecd | iii) Spermatids, the product of the maturation divisions, undergo a remarkable metamorphosis, called spermiogenesis, which leads to the production of spermatozoa.
+1o7p | 4.22
+cp13 | boo
+bgre | a) Proliferative Phase: Unlike the situation in the female, in which a full complement of oocytes is present in the ovary at birth, the production of generation after generation of meiotic spermatocytes in the male requires a means to replace the spermatogonia or stem cells.
+57lp | i) Several spermatogonial types have been described in man: Spermatogonial stem cells type Ad (dark) and type Ap (pale), and Type B spermatogonia. According to Clermont (1966), one member of a pair of type Ad spermatogonia divides to give rise to a pair of new type Ad cells, while the other member of the original pair of Ad divides to yield a pair of more differentiated type Ap spermatogonia. Thus, it is thought that the type Ad spermatogonia not only serve as a precursor for type Ap, but also eventually serve as the ancestor (i.e., stem cell) of a later generation of sperm.
+```
+
+OUTPUT:
+```

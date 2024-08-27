@@ -1,0 +1,35 @@
+## WHAT IS SPIRITUAL INTELLIGENCE?
+
+Summary
+
+This inquiry into spiritual intelligence suggests that it is one of several types of intelligence and that it can be developed relatively independently. Spiritual intelligence calls for multiple ways of knowing and for the integration of the inner life of mind and spirit with the outer life of work in the world. It can be cultivated through questing, inquiry, and practice. Spiritual experiences may also contribute to its development, depending on the context and means of integration. Spiritual maturity is expressed through wisdom and compassionate action in the world. Spiritual intelligence is necessary for discernment in making spiritual choices that contribute to psychological well-being and overall healthy human development.
+
+Spirituality exists in the hearts and minds of men and women everywhere, within religious traditions and independently of tradition. If, following theologian Paul Tillich, we define spirituality as the domain of ultimate concern, then everyone is spiritual because everyone has ultimate concerns. However, the term ultimate concern can be interpreted in many different ways. Some people do not consider themselves or their concerns to be spiritual.
+
+Spirituality, like emotion, has varying degrees of depth and expression. It may be conscious or unconscious, developed or undeveloped, healthy or pathological, naive or sophisticated, beneficial or dangerously distorted.
+
+Some current definitions of spirituality can be summarized as follows: (a) Spirituality involves the highest levels of any of the developmental lines, for example, cognitive, moral, emotional, and interpersonal; (b) spirituality is itself a separate developmental line; (c) spirituality is an attitude (such as openness to love) at any stage; and (d) spirituality involves peak experiences not stages. An integral perspective would presumably include all these different views, and others as well.
+
+Spirituality may also be described in terms of ultimate belonging or connection to the transcendental ground of being. Some people define spirituality in terms of relationship to God, to fellow humans, or to the earth. Others define it in terms of devotion and commitment to a particular faith or form of practice. To understand how spirituality can contribute to the good life, defined in humanistic terms as living authentically the full possibilities of being human, it seems necessary to differentiate healthy spirituality from beliefs and practices that may be detrimental to well-being. This leads to the challenge of defining and cultivating spiritual intelligence.
+
+Because there is little agreement about definitions of spirituality, discussions of spiritual intelligence need to be exploratory rather than definitive. By asking what is meant by spiritual intelligence, I hope to stimulate further discussion of this topic that I think merits further investigation.
+
+
+## MULTIPLE INTELLIGENCES
+
+Intelligence is sometimes defined as the ability to manage cognitive complexity. In current usage, the distinction between intelligence and reason has been largely lost. For example, as defined in Webster's Dictionary, intelligence includes the ability to understand, to apply knowledge, to use reason skillfully, and to manipulate one's environment. The view that intelligence comprises many different abilities is supported by current trends in neurology and cognitive psychology.
+
+Among researchers who have identified various types of intelligence, Howard Gardner's pioneering work at Harvard on
+
+
+## What Is Spiritual Intelligence?
+
+multiple intelligences has helped people understand that intelligence is multifaceted. His work is currently being applied in many schools across America. Gardner's research indicates that different kinds of intelligence develop relatively independently of each other, and proficiency in one area does not imply proficiency in another.
+
+For example, linguistic skill with words can be differentiated from logical mathematical skill with numbers and from the spatial intelligence that perceives spatial relationships. Excellence in one area does not necessarily tell us anything about abilities in another. In addition, Gardner discussed kinesthetic intelligence that enables a person to use the body in highly differentiated and skilled ways, such as dance or athletics; musical intelligence necessary for all different kinds of musical aptitude; intrapersonal intelligence that implies awareness of one's own thoughts and feelings; and interpersonal intelligence that enables us to relate to others empathically. He does not discuss spiritual intelligence as a separate line of development.
+
+Daniel Goleman's research on emotional intelligence, based primarily on intrapersonal and interpersonal intelligence, indicates that success in many areas of life depends on emotional skills as much as on cognitive capacities. Emotional intelligence includes self-awareness and self-control, as well as the ability to get along well with others. Getting along with others implies an ability to listen, to communicate, to accept feedback, and to empathize with different points of view.
+
+According to Goleman and others, different kinds of intelligence are associated with different areas of the brain. Although little research has been done to isolate areas of the brain associated with spirituality, numerous studies in meditation research indicate that significant physiological changes result from even limited practice. Studies that measure the effects of intensive, long-term practice point to significant psychological benefits in addition to deepening emotional and spiritual sensitivity.
+
+An interesting anecdote about Emmanuel Swedenborg, the eighteenth-century scientist who became a visionary mystic and founded the Swedenborgian church, says that when Swedenborg suffered a stroke that left him paralyzed on one side of his body, he lost his visionary capacity. This certainly suggests that a spiritual gift may be associated with specific areas of the brain. However, the fact that spiritual experiences have physiological cor-

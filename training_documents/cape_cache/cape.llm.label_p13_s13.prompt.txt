@@ -1,0 +1,196 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+1piq | The Special Committee consulted some key stakeholders in the University, including some members of Convocation and also relied on documents received from colleagues. Some of the stakeholders consulted included the Provost of the College of Health and Allied Sciences as well as the Dean, Vice-Dean and Faculty Officer of the School of Medical Sciences.
+7fqw | Documents consulted by the Committee included the University of Cape Coast Statutes (the current Statutes and its predecessors, i.e. 2012, 2003); Report of the Prof. Yankson's Committee on Grievances of UTAG UCC and other documents.
+rhaz | ISSUES RAISED DURING THE INTERACTIONS
+wak1 | It was admitted that some individuals and Departments are the cause of delay in processing of promotion documents. The Faculty Members of the School of Medical Sciences, however, raised the following concerns regarding delays in processing of their promotion documents:
+wtfz | 1. The time it takes to receive updates on assessment outcomes is too long; in some instances it has taken three to five years.
+qy1i | 2. There are ambiguities in communication to applicants regarding assessment results. An example of such communication is; "Two reports received to submit two new assessors", even when the names of assessors have been re-submitted countless times.
+1k9e | 3. There are unexplained delays and lack of clarity on some decisions taken on the promotion of some colleagues at the Appointments and Promotions Board.
+5bjs | 4. The requirement for acquisition of terminal degrees before some colleagues are considered for promotion to a higher rank is unfair and a demotivation to Clinicians in the School, particularly those with Fellowship qualifications who have contributed immensely to the University's achievements.
+uodj | 5. The terms of A&P's implementation of assessment outcomes are not clear or fair and mostly communication regarding such outcomes unnecessarily delays ..
+k16v | The Provost of the College of Health and Allied Sciences identified the following factors that cause the delay:
+b2lm | a) lack of cooperation from individuals when changes are suggested to be effected;
+ti7f | b) unavailability of some individuals to make correction to the promotion documents;
+oksu | c) some key administrators delay the processing of documents especially when they have to go on leave;
+wtow | d) difficulty in getting a response from possible assessors (abroad), especially in the case of promotion to professorial status, and at worse, from Ghana with regard to some disciplines;
+o22k | e) difficulty in understanding reports and requests from the Directorate of Human Resource due to brevity and inadequate clarity.
+nwfz | On the requirement that Clinicians should obtain Doctor of Philosophy (PhD) degrees to warrant promotion to higher ranks, the Provost responded that it should not be a problem considering that Fellowship qualifications are deemed in many jurisdictions, even within the country, as parallel to a PhD.
+nvfy | FINDINGS AND ISSUES FOR REDRESS
+mror | A. Breach of the Criteria for Appointments and Promotions of Senior Members
+zlxc | 1. Withholding the Promotion of Mr Kow-Kwegya Amissah Abraham
+k0bw | a) Mr Kow-Kwegya Amissah Abraham was appointed a Lecturer in the Department of Classics and Philosophy on 1st November 2015. With the requisite papers, he applied for promtion to the rank of Senior Lecturer and was promoted on the 1st August, 2020.
+aq5a | b) On 14th April 2022, he received a letter from the Vice-Chancellor withholding his promotion to the rank of Senior Lecturer effective 1st August 2020.
+sc5y | c) The basis for withholding his promotion, as given in the Vice-Chancellor's letter, was the report of the Special Council Committee on the interpretation of a recommendation of the 2016 Ad hoc Committee on Grievances of UTAG UCC.
+0yab | Convocation, therefore, requests answers to the following questions:
+w95z | a) Will his promotion be backdated to the point it was withheld when issues are resolved?
+0i1k | b) Was Mr. Kow-Kwegya Amissah Abraham informed of the decision of the Ad hoc Committee? If not, is it fair that he suffers at this time when he did not know the decision?
+dqlg | c) How many appointment and promotion criteria does the University of Cape Coast have?
+p6pq | d) Is an ad hoc committee report a promotion criteria or a substantive legislative instrument?
+zse6 | e) How many Senior Members has this been applied to?
+p2n3 | In our view, Mr Kow-Kwegya Amissah Abraham has been wrongfully dealt with considering that there are similar cases and examples.
+ohh7 | 2. The Case of Appointment of Prof. Emmanuel K. Abu
+vbni | a) Prof. Emmanuel K. Abu was appointed as a Tutor on 24th November, 2010. Prior to that, he had been a Senior Research Assistant at the then Department of Optometry from 1st September, 2009.
+dgcw | b) At the time of the appointment, he possessed a Doctor of Optometry (OD) Degree. He later obtained a PhD in 2016.
+gvwz | c) He was appointed as Tutor on 24th November, 2010. While paragraphs 1-3 of his appointment letter were about Tutorship, the 4th paragraph
+sk5m | ----
+qws8 | i) The promotion from Lecturer to Senior Lecturer was expected to be in accordance with paragraph 6.7.1, Schedule D of the 2012 Statutes which, inter alia, provides that candidate seeking promotion to the rank of Senior Lecturer must have engaged in university teaching, research and community as a Lecturer for at least four (4) years. Considering that Prof. Abu did not qualify and was not properly appointed as a Lecturer, the criterion was disregarded.
+877u | The findings from the foregoing are as follows:
+rzhj | i. Prof. Emmanuel K. Abu did not possess a Master of Philosophy Degree and two years teaching experience to be appointed as Lecturer in 2010.
+bfax | ii. The decision to convert Tutors to Assistant Lecturers clearly indicated that Tutors and Lecturers were not equivalent.
+f2y8 | iii. The salary enjoyed by Prof. Abu as a Lecturer had no basis and should not have been used to equate his position as Tutor to Lecturer. Indeed, if the two ranks were the same, he would have been appointed directly to the rank of Lecturer.
+o7qm | iv. The placement of Prof. Abu on the Lecturer's scale when he did not qualify to be there could have been done deliberately in our view; if it was in error, there were plenty of opportunities to correct this but it was not corrected.
+d52l | 3. The Case of Prof. Samuel Kyei
+qlbb | a) Prof. Samuel Kyei was appointed as Tutor on 18th October, 2011.
+nhsg | b) Apparently Prof. Kyei had enrolled in a Masters Programme (MPhil Pharmacology) at the Kwame Nkrumah University of Science and Technology (KNUST). His CV indicates that he completed the MPhil Pharmacology programme in 2012.
+hy0l | c) The Academic Board, at its First Regular Meeting (2015/2016) held on 27th October, 2015 approved the recommendation from the Appointments and Promotions Board to upgrade the Tutors in the Department of Optometry who possessed MPhil degrees to the rank of Assistant Lecturer.
+4jmz | d) Dr. Samuel Kyei's designation was upgraded to the rank of Assistant Lecturer in accordance with the decision of the Academic Board with effect from 26th February 2016.
+b7cq | e) Professor Kyei obtained a Doctor of Philosophy (PhD) in Optometry degree dated 14th April, 2016 from the University of Kwazulu-Natal, South Africa.
+0b39 | f) He was thereafter upgraded to the rank of Lecturer with effect from 1st April, 2016.
+qecd | g) Prof. Kyei was promoted to the rank of Senior Lecturer with effect from 1st February 2018, exactly two years after his elevation to the rank of Lecturer.
+1o7p | ---
+cp13 | -
+bgre | h) Prof. Kyei was again promoted to the rank of Associate Professor effective 151 February, 2021 through the accelerated mode according to documents available to Convocation.
+57lp | The findings from Prof. Kyei's case are as follows:
+ukth | i. If the progression was reckoned from Assistant Lecturer rank, it means Dr Kyei has progressed from that rank (Assistant Lecturer) to Associate Professor in approximately five (5) years instead of the minimum of eight (8) taking into consideration his accelerated promotion to the rank of Associate Professor.
+kpvt | ii. If the progression is reckoned from Lecturer, Prof. Kyei did not meet the minimum requirement of four years to warrant the promotion to the rank of Senior Lecturer.
+jie2 | iii. Prof. Kyei's upgrade to the rank of Lecturer predated the award of his PhD certificate.
+d0ik | Notwithstanding, convocation request answers to the following questions:
+0x0s | i. Did Prof. Kyei benefit from the accelerated promotion twice?
+4exe | ii. How many papers did he submit for his application for the promotion to the rank of Senior Lecturer?
+0myz | iii. What is the required number of papers for promotion from the rank of Lecturer to Senior Lecturer?
+xh3i | iv. Did the Appointments and Promotions Board and Council take the pain to scrutinize the document or was it a deliberate attempt to favour the applicants?
+syiw | V. Can it be concluded that the Directorate of Human Resource failed in discharge of its duty? Convocation needs answers.
+kg3t | B. Undue Delays, Abuse of Process and Unfair Treatment in Relation to Promotion of Some Senior Members
+lvae | 1. Dr. Kofi Adeladza Amegah
+o9sc | a) Dr. Amegah applied for accelerated promotion to the rank of Associate Professor on 6th of July 2020.
+121u | b) The then Dean of the School of Allied Health Sciences, Prof. Emmanuel Abu, constituted a Special Appointments and Promotions Committee to consider his application. On 21st July 2020, this Special A&P Committee wrote to Dr. Amegah to inform him that his application could not be approved because his career profile rendered him ineligible to apply. Dr. Amegah contested this decision and asked the Dean to forward his application to the College which he duly obliged.
+zh03 | c) The Appointments and Promotions Committee of the College of Health and Allied Sciences returned Dr. Amegah's application document to him with a letter dated 24th September 2020 indicating that he had not served the required number of years to be eligible for accelerated promotion to that rank. The Committee's decision was reached after the then Acting Provost, Prof. Emmanuel Abu, had written to DHR for interpretation on Dr. Amegah's previous application.
+1mvw | d) Dr Amegah, not satisfied with the decision, petitioned the Chairman of A&P on 13th January, 2021 but did not receive any feedback from the Vice-Chancellor. Later on 2nd December, 2021 (almost twelve months after the petition), the applicant sent a reminder to the Chairman of the Appointments and Promotions Board requesting to know the outcome of his petition.
+6d4s | e) While awaiting the petition's outcome, the applicant was due for regular promotion on 1st August 2021 and applied on 12th August 2021.
+mqah | f) However, the applicant was invited by two members of the Appointment and Promotions Board, Prof. J. N. Buah and Prof. Francis E. Amuquandoh, to advise him to withdraw the petition to pave the way for his regular application to be assessed. According to them, it was the wish of the Vice-Chancellor.
+xxr8 | g) Whilst the applicant was considering this advice by the two members of A&P Board, he was copied in a letter dated 6th December, 2021 written by the Provost of CoHAS to the Director of Human Resource withdrawing his regular application with the reason being that he is not prepared to let sleeping dogs lie with his petition.
+rl4j | h) On 9th December 2021, DHR, wrote to the Provost returning Dr. Amegah's regular application document to the College. The applicant received the letter after the Christmas break even though the letter was dated 9th December 2021.
+vz32 | i) Dr. Amegah withdrew the petition on 12th January 2022 on the advice of Professors Buah and Amanquandoh as directed by the Vice-Chancellor.
+ncb0 | j) On 27th January 2022, the Vice-Chancellor responded to Dr. Amegah's letter withdrawing the petition, indicating that a decision had already been taken on the application before his withdrawal letter was received. However, no such decision had been communicated to Dr Amegah.
+8mp0 | k) On the same 27th January 2022, the Vice-Chancellor communicated the Appointments and Promotions Board's.decision on his petition submitted on 13th January, 2021 as follows: -
+xjyk | i. The application from Assistant Lecturer to Senior Lecturer was, not due for regular promotion (sic) since you assumed duty as Assistant Lecturer on 12th June, 2012 and applied for promotion on 13th March, 2017.
+mt0f | ii. You were on full-time studies for two years and three months. This implies that you did two years and nine months as actual years of service out of six (6) years needed for regular promotion from Assistant Lecturer to Senior Lecturer.
+awab | iii. Since you served for two years, nine months, your promotion to the rank of Senior Lecturer could not have been a regular mode (sic), but accelerated mode.
+ixcc | iv. The Board did not withdraw the promotion or give post dated promotion since that would have meant change in effective date of promotion which will imply a refund of all salaries paid to you before the effective date of promotion to Senior Lecturer.
+8p6h | b. Prior to receipt of the letter dated 27th January 2022, Dr Amegah had been invited into a meeting with his Dean and HoD to have a discussion on his returned application. At the meeting, he was advised by the Dean to reapply without any letter to that effect from the A&P Board.
+pmgl | Convocation, therefore, requests answers to the following question concerning Dr Amegahs promotion:
+90no | i. How different is Dr. Amegah's accelerated promotion case from that of Prof Kyei?
+jt0y | ii. Is there anywhere in any minutes of A & P that Dr Amegah had accessed accelerated promotion before this time?
+qb7o | iii. Why did it take the Appointments and Promotions Board twelve months to respond to the petition seeking clarification of the status of the previous promotions (whether regular or accelerated)?
+oae5 | iv. Does the Provost of the College have the right to order the withdrawal of Dr.
+s0fl | -
+43ia | -
+3g2y | Amegah's regular application on the flimsy grounds that he was not prepared to let sleeping dogs lie with his petition?
+gc7v | V. Did the Provost consult members of the College A&P Committee before writing to withdraw Dr. Amegah's application?
+wqfv | vi. Based on the Provost's reason given for withdrawing his petition, is Dr Amegah not being punished for holding onto a petition he believes in and for which the A&P board has a statutory responsibility to determine?
+j30a | vii. What caused the over 1-month lag between the date DHR letter was written and when Dr Amegah received his copy? Was it a matter of someone in authority asking DHR to backdate the letter returning of his documents?
+7bdk | viii. Was it an A&P Board decision to return Dr. Amegah's regular promotion documents to him?
+fim0 | C. Wrongful and Capricious Interpretation and Illegal Application of a Committee's Recommendation to Override the University's Statutes and Promotion Criteria
+ojro | i. In 2016, some persons were appointed to the ranks of Lecturer and Senior Lecturers at the fledgling School of Medical Sciences in accordance with the 2012 Statutes of the University. Some of the persons appointed as Lecturers were later upgraded to the rank of Senior Lecturer.
+l6t9 | ii. In their appointment letters, no special criteria other than the promotion criteria would be applied to their next promotion. It was thus understood that promotion from the rank of Senior Lecturer to Associate Professor would require submission of seven papers, while promotion from Lecturer to Senior Lecturer would require submission of five refereed papers for assessment as was the normal requirements.
+```
+
+OUTPUT:
+```

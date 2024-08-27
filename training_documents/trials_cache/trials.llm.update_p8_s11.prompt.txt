@@ -1,0 +1,92 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document. Your task is to faithfully reproduce the text for our text-to-speech engine so that it is easily read aloud.
+
+Note that the text might not start at the beginning and paragraphs may be split acrosss multiple textboxes. Textboxes may start or end in the middle of a word which is acceptable: do not combine text between textboxes and leave broken words at the start and end of a textbox unchanged.
+
+You will receive one textbox per-line in the format `id | Textbox content`. The output must be in the format `id | Clean content`.
+
+RULES:
+ • Remove inline citations and references e.g. "(Author, 2021)" or "(https://wikipedia.org/article.html)" or "[ECMOS 35b, 47, 49]".
+ • Spell out numbers, dates, and chemical formulas for the TTS engine e.g. "-2.5" -> "negative two point five" or "Jan. 2020" -> "January twenty twenty".
+ • Spell out LaTeX formulas for the TTS engine e.g. "<LATEX>p = 1</LATEX>" -> "P equals one".
+ • Rejoin hyphenated word fragments within the same textbox e.g. "synth -esize" -> "synthesize".
+ • Fix simple typos and OCR errors e.g. "O nce upon a 1ime." -> "Once upon a time.".
+ • Delete nonsequiter textboxes that interrupt the middle of a sentence if they obviously do not belong.
+
+Otherwise, the output should exactly match the input text:
+ • Do not combine text across lines or attempt to fix words broken across lines.
+ • Ensure each ID from the input is included in the output.
+ • Make as few changes as possible while respecting the above rules.
+
+EXAMPLE INPUT:
+```
+ccpt | stigate the effectiveness of psychedelics for ADHD symp- toms in adults.
+0fpw | 2. Materia1 and methods
+dqn8 | 2.1. Study design and participants
+cop0 | The study employed a naturalistic design, assessing the experiences of participants at bas-,
+lhkq | eline before they start, and at 2 and 4 weeks after initiation. The target population included adults with ADHD symptoms who had not been diag- nosed with ADHD before. To be included, participants needed to score on Conner's Adult ADHD Rating Scale (CAARS-S:SV). This cut-off was indicative of clinically elevated symptoms (Conners et al., 1999) (see section 2.3).
+82ju | 2.2. Study procedure
+y2qo | The online advertisement was placed on a website providing information about psychedelics (www.microdo sing.nl). Interested participants were redirected to information explaining the study rationale and procedure. The baseline survey took 20 min to complete. If the survey had not been completed after 24 h, a reminder was sent. Each of the surveys at the 2- and 4-week time points took about 15 min to complete. Par- ticipants were able to pause the surveys. Data collection occurred between Nov. 2020 and Jul. 2021. The study was approved by the Ethics Review Committee of Psy- chology and Neuroscience at Maastricht University (ERCPN- 215_05_11_2019_A1).
+1piq | 2.3. Measures
+7fqw | 2.3.1. Demographic information and history of substance use
+rhaz | At baseline, demographic information was collected. History of substance use assessed experience with psyche- delics (i.e., ayahuasca, DMT, 5-MeO-DMT, LSD, novel lysergamides (e.g., 1P-LSD, ALD-52), psilocybin, salvia divinorum, ibogaine, and mescaline) in both full (psychedelic) doses and microdoses.
+wak1 | 2.3.2. Psychiatric and physiological diagnoses
+wtfz | Participants were asked whether they had a current diagnosis of a disorder. These answer options were chosen because most of the listed diagnoses are often reported to co-occur with ADHD (Kooij et al., 2019), or because these diagnoses were reported to be common in people who microdose (Fadiman and Korb, 2019). We 
+3j2l | REVIEW ARTICLE Frontiers in Psychiatry | www.frontiersin.org
+03k3 | 2
+1k9e | constructed a variable Comorbidity alongside ADHD, differenti- ating respondents with and without a comorbid diagnosis alongside ADHD (<LATEX>p < . 0 0 1 =</LATEX> only ADHD or no ADHD diagnosis; <LATEX>p > . 0 1 =</LATEX> ADHD and at least one other diagnosis). We constructed a variable Medication use alongside microdosing, differentiating respondents who were and were not using conven- tiona1 ADHD medication alongside microdosing (<LATEX>0 =</LATEX> only microdosing; <LATEX>1 =</LATEX> conven-
+```
+
+EXAMPLE OUTPUT:
+```
+ccpt | stigate the effectiveness of psychedelics for ADHD symptoms in adults.
+0fpw | Two. Material and methods
+dqn8 | Two point one. Study design and participants
+cop0 | The study employed a naturalistic design, assessing the experiences of participants at bas-,
+lhkq | eline before they start, and at two and four weeks after initiation. The target population included adults with ADHD symptoms who had not been diagnosed with ADHD before. To be included, participants needed to score on Conner's Adult ADHD Rating Scale. This cut-off was indicative of clinically elevated symptoms (see section two point three).
+82ju | Two point two. Study procedure
+y2qo | The online advertisement was placed on a website providing information about psychedelics. Interested participants were redirected to information explaining the study rationale and procedure. The baseline survey took twenty minutes to complete. If the survey had not been completed after twenty-four hours, a reminder was sent. Each of the surveys at the two and four-week time points took about fifteen minutes to complete. Participants were able to pause the surveys. Data collection occurred between November twenty twenty and July twenty twenty-one. The study was approved by the Ethics Review Committee of Psychology and Neuroscience at Maastricht University.
+1piq | Two point three. Measures
+7fqw | Two point three point one. Demographic information and history of substance use
+rhaz | At baseline, demographic information was collected. History of substance use assessed experience with psychedelics (i.e., ayahuasca, DMT, five-MeO-DMT, LSD, novel lysergamides (e.g., one-P-LSD, ALD-fifty-two), psilocybin, salvia divinorum, ibogaine, and mescaline) in both full (psychedelic) doses and microdoses.
+wak1 | Two point three point two. Psychiatric and physiological diagnoses
+wtfz | Participants were asked whether they had a current diagnosis of a disorder. These answer options were chosen because most of the listed diagnoses are often reported to co-occur with ADHD, or because these diagnoses were reported to be common in people who microdose. We
+3j2l |
+03k3 |
+1k9e | constructed a variable Comorbidity alongside ADHD, differentiating respondents with and without a comorbid diagnosis alongside ADHD (P is less than point zero zero one equals only ADHD or no ADHD diagnosis; P is greater than point zero one equals ADHD and at least one other diagnosis). We constructed a variable Medication use alongside microdosing, differentiating respondents who were and were not using conventional ADHD medication alongside microdosing (zero equals only microdosing; one equals conven-
+```
+
+INPUT:
+```
+baj1 | However, one additional factor that needs to be considered is the standard deviation of the outcome in each treatment group. In this section it is assumed that the standard deviation is the same for each treatment group although alternative formulae are available when this is clearly not the case. The standard deviation can be estimated from previous observational studies or in some cases a pilot study will be required. However, as when considering two percentages, it is advisable to calculate the required sample size for a number of different scenarios.
+n1wo | To distinguish between means and percentages ut1 and u2 will be used to refer to the anticipated means in the two treatment groups.
+5bq3 | As for the comparison of percentages, there are certain assumptions and decisions that need to be made. These are as follows:
+ezla | Į1 = anticipated mean response on the standard treatment
+rsbu | <LATEX>\mu _ { 2 } = \text { anticipated mean response on the alter }</LATEX> treatment
+magd | <LATEX>\sigma =</LATEX> standard deviation of response (assumed the same on both treatments)
+tb74 | <LATEX>\alpha = \mathrm { r i s k }</LATEX> of a type I error (significance level)
+8l69 | <LATEX>\beta = \text { risk of a type II error } \left( 1 - \beta = \text { power } \right)</LATEX> Once these values have been decided upon the required number per group can be calculated as follows:
+1jyv | <LATEX>n = f \left( \alpha , \beta \right) \times \frac { 2 \sigma ^ { 2 } } { \left( \mu _ { 1 } - \mu _ { 2 } \right) ^ { 2 } } \quad \text { in each group }</LATEX> Note that the actual values of <LATEX>\mu _ { 1 }</LATEX> and <LATEX>\mu _ { 2 }</LATEX> are less important than the treatment difference to be detected. Suppose <LATEX>8</LATEX> is the anticipated treatment difference then the above formula can be written as:
+olce | <LATEX>n = f \left( \alpha , \beta \right) \times \frac { 2 \sigma ^ { 2 } } { \delta ^ { 2 } } \quad \text { in \underline{each } \underline { \mathrm { g r o u p } } }</LATEX> 7.2 Example in kidney transplantation
+erx1 | The REPAIR trial was designed to assess the impact of remote ischaemic preconditioning (RIPC) using repeated inflations of a blood pressure cuff on kidney function in patients undergoing kidney transplantation. The outcome of interest is a glomerular filtration rate at 1 year.
+b3bt | The assumptions are as follows:
+0w8m | <LATEX>8 = 4 . 7 3 m l / m i n / 1 . 7 3 m ^ { 2 } \text { superiority with RIPC } \left( = \mu _ { 1 } - \mu _ { 2 } \text { equivalent to a } 1 0 9 6 \text { improrement } \right)</LATEX> o = 13.9 ml/min/1.73m2 from a previous study
+vcu3 | <LATEX>\alpha = 0 . 0 5</LATEX> <LATEX>\beta = 0 . 2 \text { i.e. power } = 0 . 8 \text { or } 8 0 \%</LATEX> The number required in each group is 2 2 2 <LATEX>7 . 8 5 \times \frac { 2 \times 1 3 . 9 ^ { 2 } } { 4 . 7 3 ^ { 2 } } = 1 3 6 .</LATEX> 272 in total.
+hjzj | To allow for losses to follow-up the trial requires approximately 320 patients.
+j79f | It has been seen already when estimating the sample size for comparing percentages that as the absolute difference to detect decreases then the number required increases. In addition, as the significance level decreases or as the power increases this also leads to an increase in the numbers required (by increasing f(a,B)). The same principles apply when comparing means as can be seen from the sample size formula.
+6tbv | The impact of the standard deviation (o) also needs to be considered when comparing means. As the standard deviation increases so the number required in each group also increases. For example, suppose that the standard deviation was estimated to be 14.9 instead of 13.9 in the example given previously.
+xb13 | The number required in each group becomes 2 2 2 <LATEX>7 . 8 5 \times \frac { 2 \times 1 4 . 9 ^ { 2 } } { 4 . 7 3 ^ { 2 } } = 1 5 6 .</LATEX> 312 in total.
+cxqi | Conversely, as the estimated standard deviation decreases so does the number of patients required. For example, suppose that the standard deviation was estimated to be 12.9%.
+qfmx | The number required in each group would be 2 2 2 <LATEX>7 . 8 5 \times \frac { 2 \times 1 2 . 9 ^ { 2 } } { 4 . 7 3 ^ { 2 } } = 1 1 7</LATEX> i.e. 234 in total.
+rut3 | 7.3 Potential of adjustment in the analysis on the sample size for comparing two means
+m3cp | It has already been stated that sample sizes are often disappointingly large even before making any adjustments. However, there is one scenario where it may be possible to reduce the required size if the primary outcome is a continuous measure which is also measured at baseline.
+mq4s | A detailed discussion is beyond the scope of this session and requires an understanding of an analysis technique call 'analysis of co-variance' (ANCOVA). Basically this method takes advantage of the fact that the outcome measure for individual patients is likely to be strongly correlated to the baseline value. For example, in the REPAIR trial an estimate of the glomerular filtration rate of the transplanted kidney from the living donor is available and is expected to be correlated to the kidney function at 1 year following transplantation. This information was used in the analysis of the data.
+95el | 8 Adjustments to sample size calculations
+a0a5 | In the calculations so far it has been assumed that full information is available on everyone (i.e. no losses to follow-up) and also that every patient receives the treatment they are allocated. In reality this is rarely achieved and some adjustments to the sample size needs to be made to account for this.
+gocl | In this section the implications of these two scenarios will briefly be considered including what adjustments can be made. Note that these adjustments make certain assumptions but provide useful guidance to the number required. In addition, the situation where more patients will be randomised to one group than the other will also be discussed.
+ob1z | 8.1 Losses to follow-up
+m4cb | If patients are lost to follow-up for some endpoint then this reduces the effective sample size. For example, if 2% of patients in the UK PACE trial were expected to be lost to follow-up for mortality then the effective sample size of 1926 would be reduced by 2% (although in the UK, the Office of National Statistics can notify the trial when a patient dies).
+m61y | Suppose the proportion expected to be lost to follow-up is 'Q' then, in order to adjust for this, the total sample size needs to be multiplied by
+```
+
+OUTPUT:
+```

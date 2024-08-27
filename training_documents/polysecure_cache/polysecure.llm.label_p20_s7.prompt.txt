@@ -1,0 +1,152 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+sk5m | Of course, there are differences between the parent-child attachment bond and the adult-adult attachment bond. As adults, even though we seek regular and con- sistent proximity to our partner, we can tolerate much longer periods of separation from our partners by employing mental representations of them to help give us an understanding of why we are apart (e.g., "I know my partner is at work," "My part- ner is away on a trip" or "I have this weekend with my kids and I'll see my partner
+qws8 | in a few days"). As adults, we are also better equipped than children to leverage positive fantasies about our partner; we can imagine what it will feel like when we're reunited, and we can access a bodily felt sense of their presence, which can offer reassurances of comfort and security when physically apart.
+877u | Two additional changes in adult attachment compared to parent-child attach- ment include mutual caregiving and sexuality.11 As children, caregiving is asym- metrical: a child under secure circumstances receives care from their attachment figures but does not provide it in return. But as adults, caretaking becomes more symmetrical and shared between partners. Sexuality also becomes an integrated part of the attachment and caregiving behavioral systems.
+rzhj | A child with a secure attachment style will likely grow up into an adult who feels worthy of love and seeks to create meaningful, healthy relationships with people who are physically and emotionally available. Securely functioning adults are com- fortable with intimacy, closeness, and their need or desire for others. They don't fear losing their sense of self or being engulfed by the relationship. For securely at- tached people, "dependency" is not a dirty word, but a fact of life that can be ex- perienced without losing or compromising the self.
+bfax | Conversely, securely functioning adults are also comfortable with their inde- pendence and personal autonomy. They may miss their partners when they're not together, but inside they feel fundamentally alright with themselves when they're alone. They also feel minimal fear of abandonment when temporarily separated from their partner. In other words, securely attached people experience relational object constancy, which is the ability to trust in and maintain an emotional bond with people even during physical or emotional separation.
+f2y8 | Object constancy is a developmental milestone where a child is able to under- stand that their attachment figure is a separate person. This person can love and be there for them, but they can leave the room and, even if they're temporarily out of sight, it doesn't mean they're completely gone. In adulthood, relational object con- stancy enables us to trust that our connections and bonds with people will endure even if we're apart. People with secure attachment are able to internalize their
+o7qm | partners' love, carrying it with them even when they're physically separate, emo- tionally disconnected or in conflict.
+d52l | Another important aspect of secure attachment is that, when distressed, a per- son can both emotionally regulate on their own, and can also co-regulate and re- ceive support from their partners. People functioning from a securely attached style are better able to take care of their own needs as well as ask their partners to help out. In my psychotherapy practice, I've noticed that more securely attached part- ners are often better able to set healthy boundaries. They truly say no when they mean no and yes when they mean yes. To me, this is the foundation of true con- sent.
+qlbb | Research has also shown that having a secure attachment style as an adult is correlated with higher levels of relationship satisfaction and balance,12 higher lev- els of empathy, respect and forgiveness for partners,13 and higher levels of sexual satisfaction when compared to people who are insecurely attached in their relationships.14 Additionally, having a secure base with a partner can increase sexploration, a term coined to describe "the degree to which a person co-constructs a sex-positive, supportive, and safe environment with their partner(s)."15 If you've been to one of my talks on attachment, you will have heard me say that secure at- tachment is the new sexyl
+nhsg | Statements that someone with a secure attachment style might make:
+hy0l | . I find it easy to make emotional connections with others.
+4jmz | . I enjoy being close with others.
+b7cq | . I am comfortable depending on others and having others depend on me.
+0b39 | . I don't often worry about being abandoned or about someone getting too close to me.
+qecd | . If I am in distress I can easily turn to my attachment figure for comfort and support.
+1o7p | . I am aware and accepting of my partners' strengths and shortcomings, and I treat them with love and respect.
+cp13 | . During conflict or disagreement, I am able to take responsibility for my part,
+bgre | apologize when needed, clear up misunderstandings, apply problem-solving strategies and forgive when needed.
+57lp | . I do well with the transition of going from being by myself to then being to- gether with a partner, and I also do well with the transition of going from being together to then being alone again.
+ukth | WHEN ATTACHMENT NEEDS ARE NOT MET
+kpvt | So far, I've described the optimal situations for attachment in childhood and then adulthood-but approximately half the time, this ideal is far from achieved, leading to the three different expressions of insecure attachment: avoidant, anxious and disorganized. In general, with these three different insecure styles, regardless of what specific insecure adaptations a child develops, they will go on to have diffi- culty with certain relational skills and personal capacities. A person with any of the insecure styles will usually struggle with regulating their own emotional states in healthy ways. They may deactivate, suppress or deny their emotions, or they may hyperactivate and inflame their emotions, and be easily taken over by emotional states.
+jie2 | We learn how to self-regulate through our connections with our attachment fig- ures. So, if our parents were unable to regulate their own emotions (whether from their current stress levels or their previous unresolved trauma), and therefore couldn't support us in regulating our own emotions, we lost a foundational de- velopmental experience. In the absence of the foundational neuropsychological experience of receiving soothing and emotional regulation from our parents, as adults we then have to learn these difficult developmental tasks on our own. We have to figure out how to identify and articulate our emotional states and then find ways to self-soothe as a healthy response instead of pulling away, shutting down or lashing out in emotional reactivity. We also need to learn how to healthily rely on others and to figure out when it's appropriate to seek support from them to help regulate our emotions.
+d0ik | Children who experienced an insecure attachment environment, regardless of
+0x0s | which style they adopted, can internalize the beliefs that to some degree the world is unsafe and people cannot truly be relied on. These children will also struggle with having a sturdy relational object constancy. Since relational object constancy is the ability to trust that your connection and bond with someone will persist be- yond an initial separation or conflict, as an adult, having a compromised relational object constancy can make it extremely difficult to get through the disap- pointments, uncertainties, healthy conflicts, and natural ebbs and flows that adult romantic relationships inevitably produce. Research also demonstrates that people with insecure attachment styles in adulthood struggle with relationship satisfaction. 16 They find it hard to trust their partners, forgive them and respond intentionally instead of reacting out of habit. They also face challenges when it comes to commitment, whether they tend to commit too soon or not commit at all.
+4exe | A Caveat to the Attachment Styles
+0myz | Before you read the next section, which describes the three different insecure styles, there are several important points that I'd like for you to keep in mind.
+xh3i | Attachment wounds can occur for many reasons, and it is imperative to emphasize that attachment ruptures are not always the fault of one's at- tachment figures. Attachment theory is not about parent blaming. Disrup- tions in attachment can occur for various reasons outside of the attach- ment figures' control: physical or mental illness, hospitalizations, acci- dents, the needs of other children or family members in the home, death, poverty, housing instability, war and other social factors. I give a more in- depth analysis of the different levels of potential attachment ruptures in Chapter Three.
+syiw | Attachment styles are not staticl If you experienced an insecurely attached childhood you can still go on to have healthy securely attached adult rela- tionships, experiencing what is called an earned secure attachment. Your at- tachment styles are survival adaptations to your environment and since
+kg3t | they were learned, they can also be unlearned. I will touch more on earned secure attachment in Part Three.
+lvae | Attachment styles are not rigid identities to take on. These different inse- cure styles are not how you relate all of the time and they are not the total- ity of who you are. I often hear people describe themselves as "I am an avoidant" or "I am anxiously attached," seeing themselves wholly through this one lens. We can also do this to our partners, labeling them and every- thing they do as a result of them "being an avoidant" or "being preoc- cupied," etc.
+o9sc | From a narrative therapy perspective, this would be a form of essentializing in which someone takes one part of their identity or experience and sees it as the entirety of who they are. To me, this also exposes the paradox of la- bels. Labeling ourselves or even receiving a diagnosis can be very helpful. It can give important clarity and definition to the struggles that we have been facing. Whether it be a personality type, a medical condition, a psy- chiatric diagnosis or an astrology chart, finding ourselves in a certain type can be refreshing. We may feel that our experience is no longer mysterious or just limited to us, but is actually understood, well-articulated and even shared with others. For some, reading about a certain attachment style can literally put their entire life and relationship history into context, liberating them from the idea that they are broken or helplessly doomed to never have relationship success. Instead, they can see themselves as a person who has wisely taken on a certain attachment adaptation and they can feel empowered to change that adaptation and choose a more secure path from which to move forward.
+121u | Conversely, labeling or receiving a diagnosis can also confine us into rigid categories that may restrict our sense of self or obscure the fullness of who we are. Labels can easily keep us stuck in the mindset of this is who I am, and so this is who I will continue to be. Instead of seeing ourselves as someone who struggles with anxiety, we see ourselves as anxiety itself.
+zh03 | Instead of seeing ourselves as someone who is battling depression, we see ourselves as depression itself. So, when reading about attachment styles, please identify with what feels useful, and please be mindful of rigidly iden- tifying yourself or others. We are more than the problems we face.
+1mvw | You might relate to more than one style. Some people see themselves in two, three or even all four of the styles. You might function from a more secure style most of the time, but then act out a particular insecure style while under stress, or you might experience different attachment styles de- pending on who you are relating to. Many of us have different attachment styles in relation to each of our parents, for example-we might have felt very secure with one parent, but insecure with another. The styles of our partners also have an impact on our own attachment expression. A partner with a dismissive attachment style might provoke more anxious/ preoccupied behaviors from us, or being with a more anxious partner might polarize us into being more dismissive. Our attachment styles can change from one relationship to the next and they can also change within a specific relationship with the same person.
+6d4s | Lastly, your attachment style is not an excuse for abusel I've heard people use their attachment style as an excuse for their actions, blaming their un- skilled or even harmful behaviors on the "fact" of them having a certain at- tachment style. Please don't do this! If you are acting out in harmful ways towards yourself, your partners or anyone you're in contact with, please take your traumas and wounds seriously and seek professional support. Cycles of violence, abuse or neglect can undoubtedly be broken when the right support is in place.
+mqah | INSECURE ATTACHMENT STYLES
+xxr8 | In this section, I will first present the three insecure styles in the typology in which they are commonly presented by other authors. However, some researchers and
+rl4j | theorists have moved away from using the traditional four-type attachment typol- ogy, proposing instead that attachment plays out over the two dimensions of at- tachment anxiety and attachment avoidance. This two-dimensional perspective can be a more precise way of understanding the different expressions of the secure and insecure attachment styles, which I will present after the three insecure styles.
+vz32 | The Avoidant/Dismissive Attachment Style
+ncb0 | Avoidant Attachment in Childhood
+8mp0 | The avoidant and anxious styles were first observed in children by Mary Ainsworth in 1978 through her Strange Situation Procedure.17 In these experiments, infants and young children were observed with their primary attachment figure (usually the mother) in a room filled with toys. Each child was at times alone with their parent in the room, then left alone with a stranger while the parent stepped out of the room for several minutes. Of particular interest were how much the child explored the room of toys, how much anxiety the child felt when left alone with the stranger and how the child responded to first being separated and then reunited with their parent. The child's response to separation and reunion became the primary way of assessing secure and insecure attachment.
+xjyk | Children with a secure attachment were observed as comfortable exploring the room of toys while their parents were present, at ease interacting with strangers when parents were present and then expressing healthy attachment distress when their parents left the room, followed by relief and comfort when their parents re- turned.
+mt0f | The children who were classified with the avoidant attachment pattern were ob- served as being distant from their caretakers, showing little to no distress upon separation, expressing little interest in the parents upon reunion, and even showing little preference for being with their parents versus the stranger. These children were less likely to explore the room of toys and often preferred to play by them- selves. Interestingly, the seemingly unaffected demeanor of these children, who were physically and emotionally distant from their caretakers, did not reflect their
+awab | internal state. Even though these children appeared "fine" on the outside, they were actually experiencing internal signs of elevated heart rate and physiological stress.
+ixcc | A child who had parents who were mostly unavailable, neglectful or absent adapted to their attachment environment by taking on a more avoidant style. Par- enting that is cold, distant, critical or highly focused on achievement or appearance can create an environment where the child learns that they are better off relying on themselves. When a child does not get enough of the positive attachment re- sponses that they need or they are outright rejected or criticized for having needs, they will adapt by shutting down and deactivating their attachment longings. A child in this scenario learns that, in order to survive, they need to inhibit their at- tachment bids for proximity or protection in order to prevent the pain and confu- sion of neglect or rejection. In this situation a child often learns to subsist on emo- tional crumbs, assuming that the best way to get their needs met by their parent is to act as if they don't have any. In adulthood, having a deactivated attachment sys- tem includes not only minimizing one's own bids for care and attention, but also having a diminished ability to pick up on and register attachment cues from others.
+8p6h | Some of the different factors that can contribute to a child adopting an avoidant attachment style are:18
+pmgl | . Isolation through too much time alone or not enough face-to-face time with parents.
+90no | . The absence of physical or emotional presence from caretakers.
+jt0y | . Too much emphasis on task-based presence. That is, where caregivers are only present when they are trying to educate or teach something to their child that is practical, academic or skills-based.
+qb7o | . Too little touch and affection, or what Diane Poole Heller calls "skin hunger."
+```
+
+OUTPUT:
+```

@@ -1,0 +1,152 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+pbea | Strengths of the Collaborating Mode
+ccpt | The collaborating mode reflects many of the core val- ues of occupational therapy. Specifically, the field places a strong emphasis on promoting client choice, freedom, and autonomy. Therapists who utilize the collaborating mode demonstrate these values by enabling clients to
+0fpw | Copyright 2020. F. A. Davis Company. All rights reserved.
+dqn8 | CASE EXAMPLE 4.3 The Collaborating Mode
+cop0 | I met Edward, a 17-year-old boy, when he was admitted to the adolescent psychiatric unit for aggression toward staff and peers at his residential placement. At this time his primary diagnoses were conduct disorder, bipolar disorder, and posttrau- matic stress disorder. Treatment was initiated with administration of the Adolescent Occupational Self-Assessment, an interview developed for this setting based on the Model of Human Occupation.
+lhkq | During his initial interview, Edward was coop- erative but made no eye contact and gave vague answers to the questions asked about his daily routine. He lacked insight into his aggressive be- haviors and took no personal responsibility for his actions. He perceived himself as being alone in the world and was anxious to move to independent living where he could come and go as he pleased. Edward had low self-esteem and a poorly defined sense of self. He was motivated to be successful in the role of worker, friend, boyfriend, family member, and student yet consistently experienced failure in all these roles. Edward also reported on the initial assessment interview that he was having some difficulty managing his affect and regulating his feelings.
+82ju | Edward had a strong interest in origami and experienced a sense of success and pleasure when engaged in this activity. It was the only activity that he wanted to do while on the unit. Because he would not engage in much of anything else, including interacting with his peers during group therapy, I decided not to try to coax him into doing things he disliked. I did not want to become locked in a power dilemma with him by insisting that he engage in therapy tasks or activities with his peers. Instead, I asked him if he would be interested in teaching his peers how to make some simple origami shapes. I asked him to think about it and made it clear that this was not a required
+y2qo | Chapter 4 Knowing Ourselves as Therapists 93
+1piq | assignment but felt that others might find this ac- tivity interesting. The next day I approached him in his room, and he stated that he wanted to teach this to others. I explained that we could co-lead an Interest Exploration group that meets every other Wednesday. I asked him what materials he needed, how much time he needed, and any other supports required. I wanted to empower him and encourage him to take a strong leadership role. We talked about how much time he needed to prepare and scheduled a time for us to meet and plan the group structure.
+7fqw | When the day came for group he was nervous about being in front of his peers, so we had a prac- tice session where he role-played with me about what might occur in his role as a leader. We talked about listening when peers had a question and to be patient if some people had difficulty. I helped him empathize with his peers who might not have done this before and needed more support. I also explained to him that I was there to support him and that I was learning as well. If he needed any help, he could just ask. He agreed that I could help let him know when to slow down his teaching or if people were having difficulty hearing his directions (he had a soft voice and sometimes mumbled his words).
+rhaz | During the group meeting, I watched as his face broke into a shy smile when peers would thank him for sharing his skills and told him how much fun they had. Edward, if only for a brief time, had experienced how it felt to be appreciated, respected, and even admired for his abilities. As we processed the group afterward, he shared that he had felt ner- vous at first but then became more comfortable and asked if we could co-lead another group. I felt that our therapeutic rapport had reached a new level in terms of Edward's willingness to trust me and to allow me to challenge him around developing a more defined sense of self.
+wak1 | -Stephanie McCammon
+wtfz | Copyright 2020. F. A. Davis Company. All rights reserved.
+qy1i | 94 Part 1 Theoretical Foundations and Guidelines for Practice
+1k9e | FIGURE 4.5 Collaborating mode. Clients frustrated by a loss of control may benefit from a therapist's shift into the collaborating mode.
+5bjs | choose activities, have opinions, and participate actively in evaluating the process of therapy and reflecting on their own performance. Use of the collaborating mode is likely to instill confidence in clients because it conveys the idea that the therapist views them as competent in their ability to direct their treatment, choose occupations, and gain greater control in determining the course of their own lives (Fig. 4.5).
+uodj | Cautions of the Collaborating Mode
+k16v | The cautions associated with a collaborative style are subtle and involve overreliance on this style or using it nonjudiciously across all types of therapy clients. The collaborating mode may not be received well by clients accustomed to viewing, and who prefer to view, service providers as authority figures or experts. Clients inclined to participate in social or cultural networks with hierar- chical role structures and a lack of available and trans- parent information about health care may not understand the therapy process well enough to know what is best for themselves or may not value independence as the ultimate goal of therapy. Such clients may be looking for structured instruction, advice, resources, and ongoing direction.
+b2lm | Therapists who overvalue the collaborating mode may misunderstand or misperceive less-engaged clients as being passive or even apathetic about their therapy, when these clients are merely behaving according to their own health literacy levels or within their own sociocul- tural norms. This misperception is likely to be associated with a lack of understanding of the client's narrative, a breakdown in trust, and a lower quality of communication between the client and the therapist. If the therapist does not identify and examine this discrepancy in preferred working styles at a conscious level, she or he may become disappointed in the client or emotionally disengaged.
+ti7f | In some cases, unrestrained or unstructured collabora- tion may result in diffusion of responsibility or uncertainty regarding who is responsible for which part of the therapy process. Occasionally, it causes confusion about roles in the therapeutic relationship. In addition to these cautions, therapists who overutilize the collaborating mode run the risk of overestimating their client's strengths and capac- ities, thereby minimizing the client's need for direction. There are times when clients need more directive therapy to feel a sense of psychological security and emotional stability. Asking clients to participate collaboratively be- fore they are ready, or without grading the collaboration, sometimes causes clients to feel confused, lost, insecure, or anxious about the therapy process.
+oksu | Empathizing Mode
+wtow | As noted in Chapter 1, there is a strong emphasis on empathy in contemporary discussions of occupational therapy. Use of the empathizing mode involves the actual enactment of empathetic communication toward the client during therapy. This enactment includes bear- ing witness to and fully understanding a client's physical, psychological, interpersonal, and emotional experience. This is accomplished through seeking to understand the client by:
+o22k | Expressing a general curiosity about the client's state of mind or experience through general questions (e.g., What is on your mind right now? Is there some- thing you do not like about this activity? How are you feeling? Where would you like to begin?). This process is referred to as gentle inquiry.
+nwfz | Cautiously asking deepening questions that allow the client to elaborate upon a current or past event
+nvfy | Copyright @ 2020. F. A. Davis Company. All rights reserved.
+mror | (e.g., Can you tell me more about that? When did it happen? What were you thinking at that time? Who was with you?).
+zlxc | Validating the client's experience and viewpoint, even if it is maladaptive or negative.
+k0bw | Summarizing one's understanding of the client's expe- rience and asking the client if the summarization accu- rately reflects that experience (i.e., making summary statements).
+aq5a | Therapists who utilize the empathizing mode put a sig- nificant amount of time and effort into striving to un- derstand a client's interpersonal needs and perspective as accurately as possible. They are able to notice and re- spond to the nuances in clients' affect and behavior, and they pay particular attention to clients' emotional experi- ences during therapy. Generally, they listen carefully, are watchful of what their clients communicate, and adjust their approach accordingly (Fig. 4.6).
+sc5y | To ensure that they see things from the perspective of the client, therapists utilizing the empathizing mode will periodically summarize what a client has said or make other nonverbal attempts to reflect their understanding of what the client is communicating. This strategy leads a client to either affirm the therapist's accuracy or reassert or reexplain his or her perspective. This process of careful listening and observing inevitably leads to a richer under- standing of what is being communicated. During occupa- tional therapy sessions that involve activity, empathizing
+0yab | Chapter 4 Knowing Ourselves as Therapists 95
+w95z | requires a brief period of intermission from the "doing" as- pects of therapy so that the therapist can process and con- vey an understanding of what a client has communicated.
+0i1k | Therapists utilizing the empathizing mode take the time to accept and validate clients' difficult problems and painful emotions. They do not rush to intervene, solve, or ameliorate them. Instead, they work slowly and cautiously, emphasizing an accurate reflection of the client's perspec- tive and relying on his or her continual striving toward understanding to resolve rifts, obstacles, and conflicts that occur during therapy.
+dqlg | Strengths of the Empathizing Mode
+p6pq | Empathy is vital to a functional and trusting therapeu- tic relationship (Kohut, 1984). Witnessing, validating, actively listening to, and understanding clients' experi- ences in the absence of judgment facilitates emotional healing and enables clients to organize their thinking independently and gain perspective on their difficulties. Empathizing with clients provides a model for them to learn to empathize with themselves and to self-reflect and gain insight into their emotional reactions and behaviors (Fig. 4.7).
+zse6 | In addition to these strengths, empathy is fundamental to the resolution of conflicts, rifts, and misunderstandings that occur during therapy. Because therapists who utilize the empathizing mode tend to be patient and understand- ing of negativity when it occurs, they are able to work more effectively with interpersonally challenging clients.
+p2n3 | FIGURE 4.6 Empathizing mode. Jane Melton pauses from the usual activities of therapy in an attempt to understand a client's perspective.
+ohh7 | Copyright 2020. F. A. Davis Company. All rights reserved.
+vbni | 96 Part 1 Theoretical Foundations and Guidelines for Practice
+dgcw | CASE EXAMPLE 4.4 The Empathizing Mode
+gvwz | Gretta is an 80-year-old woman who has had many life experiences, including an enduring and loving relationship with her husband. Four months before I met her, she experienced a severe stroke. Follow- ing her stroke and within weeks of beginning out- patient occupational therapy, her beloved husband died. Gretta had been depending on caretaking from her children and in-home attendants. She was referred to outpatient therapy to increase mobiliza- tion and participation in activities of daily living and independent activities of daily living.
+sk5m | Immediately, I recognized that Gretta was in a period of intense mourning. I could see that this woman was searching for a human connection. She wanted to grieve and talk about her loss. At that time she was less interested in pursuing occupational therapy goals that would address her functional limitations. I knew I would have to wait to begin work on activities of daily living and, instead, focus on what she wanted to talk about: her husband, what he meant to her, how difficult it was to live in his absence, her thoughts about not wanting to burden her children. . . . I was very conscious about when to
+qws8 | FIGURE 4.7 By sharing a laugh with her client, Anne Reuter reflects her client's value for humor and conveys that
+877u | talk and when not to talk. .. . I made sure she knew that I had heard what she said and that I understood all of the difficulties she was facing. . . . I also made sure she knew that her thoughts and feelings made sense to me and that I accepted them and honored their importance. For weeks we talked about her current situation, the limitations her stroke caused, how she reacted to it, and how her family reacted. In time, we worked together to create a family situ- ation that would make it easier for everyone to cope with the recent death. I was careful not to mention our discussions or disclose her private thoughts and feelings to her family members. A feeling of mutual trust developed between the two of us. We worked together to manage her stroke and her grieving. Therefore, we also made progress toward the original goals of the therapy.
+rzhj | Gretta taught me the importance of having empathy. For her, it was important that I showed an interest in her grieving and that she could tell a person outside her family about her problems and worries. Because Gretta allowed me to support her through empathy, we both saw the improvements in her emotional condition during therapy.
+bfax | Copyright 2020. F. A. Davis Company. All rights reserved.
+f2y8 | Empathizing tends to disarm clients who are reluctant, resistant, critical, or otherwise negativistic in therapy. When therapists utilize empathy, clients are likely to feel responded to, cared about, and respected. They are more likely to achieve open, honest communication with cli- ents. This typically increases trust and results in a more stable therapeutic relationship.
+o7qm | Cautions of the Empathizing Mode
+d52l | It would seem that a therapist could never empathize too much with clients. However, the empathizing mode is no different than the other modes in that its overuse or mis- use can cause difficulty. For some clients, overemphasis on the empathizing mode can place emotions too much in the foreground of therapy. Some clients may not be ready to see or hear their thoughts, behaviors, or emotions reflected back to them. Instead, they may feel more stable and comfortable focusing on activity and other practi- cal behavioral aspects of occupational therapy. Similarly, if a therapist relies too heavily on empathy, the pacing of treatment is slow, and some of the fundamental tasks of therapy may be delayed or left unaccomplished. For clients who are not yet ready to engage in occupational therapy, this slower pace may be necessary and appropri- ate. However, therapists who rely too heavily on the em- pathizing mode may project their own needs for empathy onto the client. Therefore, they may misread the client's actual level of need for empathy. Therapists who show their own emotional reactions to what the clients are say- ing or that probe too much for emotional expression from the client are perceived by some clients as overinvolved or psychologically intrusive. These clients may respond by recoiling from what they perceive as too much intimacy or emotional intensity.
+qlbb | Even when a client invites or appears comfortable with the empathizing mode, overutilizing it can overprotect clients. Listening and validating may occur at the expense of questioning or challenging clients to engage in occupa- tion when they are ready. Overreliance on empathy may encourage an inappropriate level of dependence in more vulnerable or isolated clients. In addition, there is a risk that some clients may become confused about the goals of therapy and about the role of the occupational thera- pist in his or her treatment. In the absence of appropriate boundaries (e.g., time limits, delineation of the limits of the professional relationship) some clients begin to per-
+```
+
+OUTPUT:
+```

@@ -1,0 +1,132 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+99fo | <LATEX>\left( \pm 0 . 0 2 \mathrm { S E } \right. ,</LATEX> <LATEX>\left. n = 2 1 \right) .</LATEX> Abundance and biomass of <LATEX>C .</LATEX> mastigophora stranded on Cable Beach
+y5r7 | The average wet weight of 168 C. mastigophora washed ashore on Cable Beach on 5 October 2012 (as predicted from mean bell diameter) was 268.4 g. The mean density (ind. per <LATEX>\mathrm { m } ^ { 2 } \pm 1</LATEX> standard error) of <LATEX>C .</LATEX> mastigophora washed ashore on Cable Beach on 8 October 2012 was <LATEX>2 . 6 5 \pm 0 . 6 4</LATEX> (range 0.6-5.4) for the six high-water transects and <LATEX>1 . 7 4 \pm 0 . 5 8</LATEX> (range 0.5-3.9) for the six low-water transects. The average was <LATEX>2 . 2 0 \pm 0 . 4 3</LATEX> ind. per <LATEX>m ^ { 2 }</LATEX> for all 12 transects along the whole beach. This was used as an estimate of density
+lrry | Springer
+hvhm | Fig. 6 Size (bell diameter)- Frequency plots of Crambione mastigophora sampled off Gantheaume Point 19 September 2012 and Cable Beach 8 October 2012
+863b | Fig. 7 Plot of bell diameter against whole wet weight for Crambione mastigophora sampled off Gantheaume Point 19 September 2012. Power curve fitted by least- square best fit
+fj24 | for the whole beach and corresponded to a wet weight of 590.6 ± 115.4 g per m2. Using a conservative estimate of beach width of 100 m (measured average was 115.5 m, see Materials and Methods section) along the
+uz3c | Springer
+d5bi | Hydrobiologia
+ba4l | 2.5 km of beach where the density data were collected, means that the area of beach surveyed was 250,000 m2. Accordingly it can be calculated that along this stretch of beach, 147.6 ± 28.9 tonnes of jellyfish was deposited
+ffx8 | Hydrobiologia
+s6su | by the tide. This is equivalent to 59.0 ± 11.5 tonnes per linear kilometre of beach. The survey by vehicle of the extent of the swarm south and north of Cable Beach revealed that the jellyfish were washed up in similar numbers between Gantheaume Point and Coconut Wells, a distance of 15 km (Fig. 1iii). If the density and size distribution of C. mastigophora along this section of coastline were similar to that measured on Cable Beach as suggested by the photographic record obtained in our survey, then this would equate to a biomass of 886 ± 173 tonnes (3.30 million ± 0.64 million jellyfish) being deposited along the coast on 8 October 2012. Strandings of similar scale were observed on a total of 16 days between 12 September and 17 October 2012 meaning a total of 52.8 million ± 10.3 million (14,172 ± 2,770 tonnes) jellyfish may have washed ashore during this time. The estimate is
+y219 | Fig. 8 Relative frequency of organisms recovered from arms of 14 Crambione mastigophora as a proportion of all items on arms. Percentages given after each prey type in the legend are the percentage of jellyfish that had captured that prey item
+06ht | conservative given on each of these 16 days that there were two tidal cycles each depositing jellyfish on the beach and there were smaller (but significant) numbers washed up on each of the other 57 days between 12 August and 23 October (see ESM Table 1).
+v3r2 | Diet and commensal organisms
+nv42 | The prey items recovered from the tentacles of 14 C. mastigophora are shown in Fig. 8. On average, 220 organisms were recovered from tentacles (±68 SE). The taxonomic composition included small copepods, copepod fragments and other crustaceans, bivalves, invertebrate eggs, phytoplankton and microzooplank- ton (Fig. 8). All medusae had invertebrate eggs, and the majority had bivalves, pteropods, amphipods and copepods (Fig. 8). Proportionately bivalves,
+xags | Springer
+jc47 | pteropods and invertebrate eggs dominated the prey captured (Fig. 8). There was no difference in organ- isms found in tentacles of medusae collected from Dampier Creek or Gantheaume Point (Permanova Pseudo-F = 079, P = 0.6). Two jellyfish from Gantheaume Point harboured small (2 cm) carangid fishes as associate/commensal organisms.
+ko3c | Discussion
+xek3 | Distribution and occurrence of swarms
+bbpr | This study found that significant jellyfish stranding events were associated with smaller than average tide range, with a time lag of 2 days. Using the same time lag, more than 90% of all strandings occurred when winds (as measured by satellite out over the oceans to the west of the beach) were blowing onshore, but this result was not statistically significant. Modelled cur- rents flowing onshore were associated with 63-68% of strandings depending on the time lag used. Combining these three factors in a logistic regression model failed to provide a better prediction of stranding events than tide range on its own (but see comment on use of circular data in methods section). The influence of tide alone on meso-scale physical processes affecting jellyfish distribution would explain why days with significant beach strandings were interspersed with days of absent or minimal stranding. However, we expect that some combination of influence of wind or currents acting to bring the jellyfish close to the shore and the small tides preventing significant advection away from the beach is taking place. Tides, winds and currents are known to influence distribution of jellyfish and cause them to concentrate or "swarm" near to the shore (Zavodnik, 1987; Graham et al., 2001). The time lags account for the period between when physical processes are enacted and when their consequences (jellyfish on beach) are observed. The use of time lags in wind data has previously been shown (Pontin et al., 2009) to be important in predicting jellyfish distribu- tion in Physalia (which have "sails"). Our study shows that the use of time lags in tide range may be a useful predictor of rhizostome jellyfish distribution, at least, in areas where large tide ranges exist, such as in the north-west of Australia (Short, 2011). Tidal influence has been shown to be the dominant onshore-offshore current transport mechanism in this region (Condie
+5zyf | Springer
+9own | Hydrobiologia
+bqfb | et al., 2006). The element of predictability of jellyfish strandings may provide beach management authorities to plan for and manage beach use and swimming activity when jellyfish swarms are brought close to shore by tides and onshore winds. This has previously been emphasised by Gershwin et al. (2014) who show how changes in wind patterns can be responsible for onshore transport of cubozoan jellyfish and can be used to predict when irukandji jellyfish stings are most likely to occur. Although our results show tide as a significant predictor of strandings, our results did not reveal wind or modelled current direction as significant predictors. It is possible that for the x2 analyses which relied on wind measurements from satellite made out to sea, we had an insufficient sample size to find an effect because the satellite did not provide any data during 23 of the 58 days over which the strandings occurred. For the logistic regression, we used wind measurements taken at a weather station on land to avoid missing values; however, these data are less relevant to where the jellyfish are located offshore before stranding, and thus, those winds will have less influence on the onshore transport of jellyfish. It is possible that direct measurements of wind and current related to jellyfish occurrence would yield better results than the satellite wind and modelled current data used here. Thus for the purposes of prediction and to be routinely applied, a method of more reliably obtaining current speed and direction and wind direction, from out over the ocean, west of the beach where the jellyfish are swarming, needs to be found. This could be in the form of moored weather stations and current metres. Another factor that could be important in confounding attempts to match stranding events to environmental conditions is that some scyphozoan jellyfish have been shown to exhibit swimming behaviour including prey searching and diel vertical migrations (Hays et al., 2011; Moriarty et al., 2012) which will influence the extent to which ocean conditions and currents will influence onshore directional movement of jellyfish. Moreover, recent novel research (Fossette et al., 2015) using jellyfish tagged with accelerometers has shown how jellyfish can actively orient themselves to swim with or against a tidal current and that this behaviour can act to both maintain swarms and avoid beach strandings.
+wwdt | The observations of Marsh & Slack-Smith (2010) and those from our study suggest that C. mastigophora can be seasonally abundant in tropical north-western Australia. However, the observed strandings may
+mn1r | Hydrobiologia
+5vqw | represent a small fraction of those that have occurred due to the remoteness and sparse human population <LATEX>\left( < 1 0 0 , 0 0 0 \right)</LATEX> in this region. The areas where it has been observed to be washed up in large numbers are popular tourist areas and strandings in more remote areas are unlikely to be recorded, especially given our observa- tions of rapid disintegration of stranded jellyfish and their subsequent removal by large tidal ranges in the region. Any link between interannual variability in the timing and scale of observed swarms in relation to ocean climate variability is not evident. The swarm in 2012 coincided with an increase in both water temperature and chlorophyll-a, but it is not possible to say the swarm event is related to either as these are likely to be seasonal events. The large swarms in Broome in the latter months of 2006 and 2012 were during or at the end of El Niño conditions; however, other large swarms observed further south in April 2000 and 2013 were during La Niña conditions; the swarm in April 2007 was during neutral or slight El Niño conditions and the 2010 swarm was neutral but right on the transition between the strong 2009 El Niño and 2010 La Niña conditions.
+meyw | Economic and ecological significance of C. mastigophora swarms
+2e62 | Large swarms, especially those that occur over protracted periods such as was the 2012 swarm, result in numerous stings on swimming beaches and also deter swimmers from beaches and from areas where tourism is of great economic importance (e.g., Cable Beach, Broome). Other significant impacts of the swarms have included blocking the water cooling intakes of the power station in Karratha in 1976 (Marsh & Slack-Smith, 2010) (see also ESM Table 1).
+75y3 | C. mastigophora is an edible jellyfish species, and a fishery has been established in Indonesia (Java south coast) based on export to Japan (Omori & Nakano, 2001; Kitamura & Omori, 2010). To avoid confusion, it is worth noting here, that Rumpet (1991) provides an excellent description of another sea-east Asian fishery for "red" jellyfish, but it is unlikely that this is <LATEX>C .</LATEX> mastigophora. Rumpet's (1991) report from the South China Sea (Sarawak, Malaysia) almost certainly refers to Rhopilema esculentum Kishinouye 1891 based on the description of fisheries for this species and Rhopilema hispidum (Vanhöffen 1888) (white) else- where in the South China Sea (Vietnam) by Nishikawa
+s2g2 | et al. (2008). The economic feasibility of a fishery for <LATEX>C .</LATEX> mastigophora has not been evaluated in Australia and maybe worthy of examination especially if swarms continue to have detrimental economic impacts.
+```
+
+OUTPUT:
+```

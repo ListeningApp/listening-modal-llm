@@ -1,0 +1,149 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+1pjs | The Atlantic
+o2kr | October 2024 Issue
+v6sk | THE MAN WHO WILL DO ANYTHING FOR TRUMP
+1wj6 | Why Kash Patel is exactly the kind of person who would serve in a second Trump administration
+936l | K ASH PATEL WAS dangerous. On this both Trump appointees and career officials could agree.
+06yq | A 40-year-old lawyer with little government experience, he joined the administration in 2019 and rose rapidly. Each new title set off new alarms.
+dpv6 | When Patel was installed as chief of staff to the acting secretary of defense just after the 2020 election, Mark Milley, the chairman of the Joint Chiefs of Staff, advised him not to break the law in order to keep President Donald Trump in power. "Life looks really shitty from behind bars," Milley reportedly told Patel. (Patel denies this.)
+8r5j | Explore the October 2024 Issue
+2taz | Check out more from this issue and find your next story to read.
+o3ya | When Trump entertained naming Patel deputy director of the FBI, Attorney General Bill Barr confronted the White House chief of staff and said, "Over my dead body."
+r5il | When, in the final weeks of the administration, Trump planned to name Patel deputy director of the CIA, Gina Haspel, the agency's head, threatened to resign. Trump
+5gui | Who was this man, and why did so many top officials fear him?
+82qc | It wasn't a question of ideology. He wasn't a zealot like Stephen Miller, trying to make the bureaucracy yield to his agenda. Rather, Patel appeared singularly focused on pleasing Trump. Even in an administration full of loyalists, Patel was exceptional in his devotion.
+ls7d | This was what seemed to disturb many of his colleagues the most: Patel was dangerous, several of them told me, not because of a certain plan he would be poised to carry out if given control of the CIA or FBI, but because he appeared to have no plan at all-his priorities today always subject to a mercurial president's wishes tomorrow. (Patel disputes this characterization.)
+tzt3 | What wouldn't a person like that do, if asked?
+t8vv | Most Americans had no idea Patel existed, yet rarely a day passed when administration leaders weren't reminded that he did. In a year and eight months, they had watched Patel leapfrog from the National Security Council, where he became senior counterterrorism director; to the Office of the Director of National Intelligence, where he was principal deputy to the acting director; to the Department of Defense, where his influence rivaled that of the acting secretary himself.
+qvnu | But in the officials' warnings about the various catastrophic ways the rise of an inexperienced lackey to the highest levels of government might end, all Patel seemed to detect was the panic of a "deep state" about to be exposed. Such officials understood, as Patel later wrote, that he "wouldn't sit quietly and accept their actions to stonewall direct orders from the president."
+kggw | Patel was ultimately denied a role at the pinnacle of the national-security establishment, but Trump has promised to learn from his mistakes. Should he return to the White House, there will be no Milleys, Haspels, or even Barrs to restrain him as he seeks revenge against his political enemies. Instead, there will be Patels-those whose true faith and allegiance belong not to a nation, but to one man.
+xrd1 | Kash Patel Will Do Anything for Trump - The Atlantic "Get ready, Kash," Trump said before a gala of young Republicans this past December. "Get ready."
+5746 | A CURSORY APPRAISAL of Patel's activities since the Trump administration might suggest that his days as a senior official in the United States government are behind him-that Patel, like countless others on the right, has learned the art of commodifying his association with the former president.
+7toz | There is, for example, merch: "the official K$h wine!" ($233.99 for six bottles) and the Fight With Kash Punisher Intarsia Reversible Scarf ($25), which Patel wore for his remarks at this year's Conservative Political Action Conference. There are TAKE A LAP RHINO tank tops ($35), JUSTICE FOR ALL #16PC tees (also $35), and Kash Krew Golf Polos ($50-$53).
+j346 | There are the books. Government Gangsters: The Deep State, the Truth, and the Battle for Our Democracy is Patel's account of his years fighting the "corrupt cabal" of federal officials trying to take down Trump. And in The Plot Against the King, a children's book, Patel tells the story of a wizard named Kash who sets out to save King Donald from the sinister machinations of Hillary Queenton and a "shifty knight." Head over to fightwithkash.com, and for a "special low offer" of $19.99, one can purchase playing cards ("the collector's item of the century") featuring the story's characters; the king card belongs to "Kash, the distinguished wizard and corruption combatant."
+v8uq | There is at least one song: Patel produced "Justice for All," a version of the national anthem sung by jailed January 6 defendants and played by Trump at his first 2024 campaign rally. Patel professes to make no money from the song or the merch-he says proceeds go to January 6 defendants and their families, or to the Kash Foundation. Few details are available about the charity, but according to Patel, it has funded meals for needy families and defamation lawsuits on behalf of Ric Grenell, Patel's friend and former boss at the Office of the Director of National Intelligence,
+x972 | Kash Patel Will Do Anything for Trump - The Atlantic and Daniel Bostic, a "Stop the Steal" activist. (Just as this article was going to press, most of the merch was removed from Patel's online shop.)
+cwrw | All the while, Patel churns out promotional content on Truth Social-for a conservative cellphone carrier ("Freedom in cell phones, switch today") and a Christian payment processor ("Why not just give your money to the enemy, or switch now")-and hawks pills that he says "reverse" the effects of COVID vaccines ("Mrna detox, reverse the vaxx n get healthy").
+4i0e | He has also worked as a national security adviser to Trump (bringing in more than $300,000 over the past two years from the former president's Save America PAC, according to campaign-finance records) and as a consultant for Trump Media & Technology Group, the owner of Truth Social ($130,000 last year, according to a Securities and Exchange Commission filing). In addition, Patel has spoken of work abroad, though public paper trails are hard to come by-he has claimed, for example, that he worked as a security consultant for Qatar during the 2022 FIFA World Cup, in Doha.
+h2l3 | Nevertheless, Patel has at times vented that he deserves more, according to two people I spoke with. "He complains about money all the time-like, he doesn't have any money, can't make any money, nobody will hire him," a longtime Trump adviser told me. "Anybody who was as big of a deal as he was in the past administration would come out and they'd be on the board of Raytheon and Boeing." (This person, like many of the nearly 40 Patel associates I spoke with for this story, requested anonymity for fear of retribution. Patel, who declined to be interviewed, denied this through a spokesperson.)
+dfzb | From the time Patel left the administration, he appeared committed to finding opportunities to reinforce his loyalty to Trump. In spring 2022, after the FBI opened a criminal investigation into Trump's handling of federal records at Mar-a-Lago, Patel insinuated himself into the story, telling Breitbart News that he witnessed Trump verbally declassify "whole sets of materials" before leaving the presidency. The claim ensured a starring role for Patel throughout the probe-ending with Patel testifying before a federal grand jury in exchange for a grant of limited immunity. More
+u6ty | crucially, Patel's assertion to Breitbart seemed to preview Trump's own approach to the case: In August, shortly after federal investigators executed a search on Mar-a-Lago, Trump's office claimed that, as president, he had a standing order that any materials moved from the Oval Office to Mar-a-Lago were considered declassified. It did not appear to bother Patel that numerous Trump officials flatly denied the existence of such an order.
+awvu | That October, the far-right personality Benny Johnson asked Patel on his podcast how he would respond if Trump offered him the job of FBI director in a second term. Patel leaned back, laughed, and waved off the question, but a minute later he decided to chime in after all. "Yes, to answer your question, of course," he said. "Who would turn that down?" Some in Trump's orbit acknowledge that Senate confirmation is unlikely for Patel-that if he were to lead an agency, it would probably be in an acting capacity. On a podcast in November 2023, Donald Trump Jr. floated the idea of installing Patel as an "interim" attorney general at the outset "just to send that shot across the bow of the swamp."
+on9b | "A lot of people say he's crazy," Trump once said of Patel, according to a longtime Trump adviser. "But sometimes you need a little crazy."
+a8ge | Such is the present dynamic of Kash Patel's life: marketing "Orange Man Bad" Punisher-skull license plates and dubious supplements while fielding questions about which major national-security or law-enforcement agency he might soon like to run. "Kash, I know you're probably going to be head of the CIA," Steve Bannon said on his podcast, War Room, this past December. "But do you believe that you can deliver the goods on this in pretty short order, the first couple of months, so we can get rolling on prosecutions?"
+h27a | Bannon was talking here about "receipts," the supposedly incriminating documents and emails that a second Trump administration would use to bring cases against deep- state dwellers and members of the press. Patel expressed no doubt about his capacity to deliver the goods. "We will go out and find the conspirators, not just in government but in the media," he said. "Yes, we're going to come after the people in the media who lied about American citizens, who helped Joe Biden rig presidential elections-we're going to come after you."
+pdjh | "A lot of people say he's crazy," Trump once said of Patel, according to the longtime adviser. "I think he's kind of crazy. But sometimes you need a little crazy."
+xmgs | I T WAS ONLY a matter of time before they found each other, is how Patel seemed to see it. Just a "couple of guys from Queens," he has said, trying to synonymize his brand with Trump's home borough, and the scrappy knuckle-crack caricature that comes with it. In Government Gangsters, Patel reminds readers of this piece of shared heritage four times.
+bd9h | Perhaps it makes sense, then, to go back to the beginning, to the affluent Nassau County village of Garden City, New York, where Kashyap Patel was actually born and raised. Just north of the Garden City Golf Club, one finds the charming corner-lot home to which he returned after school and football practice and hockey games and occasionally, yes, a father-son jaunt for butter chicken about an hour away in Queens. Just a guy from Garden City-it's true; it doesn't quite sing.
+m047 | Patel, who is of Gujarati ancestry, has said that his parents both grew up in East Africa; in the 1970s, his father, Pramod, fled the despotic regime of Idi Amin in Uganda. The young couple immigrated to the United States and settled on Long Island. Children soon followed. Their first chapter in America began in close quarters, according to Patel, with his family and Pramod's eight siblings all sharing the same home.
+gy8c | Before long, Patel writes in his book, his family gained access to the thrills of "milquetoast Americana"-New York Islanders hockey games, annual sojourns to Disney World. It was the Reagan era, and in 1988, Patel's parents registered to vote for the first time in the U.S., as Republicans. But their conservatism, according to Patel, was "dispositional"-they valued hard work, fairness, personal responsibility. American opportunity, meanwhile, arrived just as advertised: Pramod ultimately became CFO at a global distributor of aircraft bearings.
+y4mj | Patel was raised Hindu, the family going to temple together and praying in their shrine room at home. It's difficult to envision many neighbors joining them. Of the roughly 22,000 residents recorded in Garden City in the 1990 census, 96 percent were white. Four years later, when Patel began his freshman year at Garden City High School, he was one of only a handful of people of color in his class.
+vpgq | His senior-yearbook quote came from the Jewish theologian Abraham Joshua Heschel: "Racism is man's gravest threat-the maximum of hatred for a minimum reason."
+ousl | I N GARDEN CITY, Patel caddied for "very wealthy" and "important" New Yorkers at the local country club, some of them defense attorneys, he writes in Government Gangsters; as they played, he listened to their stories about the drama of court. "I could be a first-generation immigrant lawyer at a white shoe firm making a ton of money," Patel thought. After he graduated from the University of Richmond and then Pace University's law school, however, his dreams of Big Law and high retainers were complicated when, by his account, no firm would hire him.
+m4ju | On the advice of a friend, he sent an application to the Miami-Dade County public defender's office in Florida, considered one of the best state defender's offices in the country. Many of the people I spoke with for this story were quick to highlight his time as a public defender-how incongruous it seems in the context of the revenge- driven exploits that now appear to consume him. Public records show that Patel moved into a condo in a new building in Coral Gables, which his parents bought in the summer of 2005. "He just was a normal, good lawyer; did a good job, never stood out," recalled Bennett Brummer, who was the Miami-Dade elected public defender
+a0mb | for 32 years. Patel writes that, by this time, he was shifting "more and more to the right." But even if he struck his colleagues as a little more conservative than the norm, as Todd Michaels, who was an attorney in the Miami-Dade office, put it to me, he was not overtly partisan.
+ki8m | State court was well suited to Patel's strengths as an attorney, his former colleagues told me. He was personable and quick on his feet, and adept at "marketing" and "presenting" himself. After a few years, however, Patel moved to the federal public defender's office in Miami. There, the work was more complex, more writing- and research-intensive. Despite some successes, he developed a reputation for "style over substance," a former colleague said-one he seemed aware of but not terribly motivated to change. "He always was like, 'Look, I'm really good at trial skill. But all of this reading and writing and arguing about, like, the intricacies of the law-I'm not really interested,'" a second former colleague recalled. (Patel disputed this characterization, referring to a complex drug-trafficking case he'd handled.)
+km8w | "I'm not saying he wasn't capable of it," this person added. "But I think he always liked being the face."
+wzno | Patel seemed caught between a brewing resentment of elites and an abiding desire to be seen as one.
+xagm | Transcripts from Patel's cases reveal a lawyer comfortable before the bench, many of his presentations sharp and clever and peppered with flatteries for Your Honor. ("Judge, I think you hit it on the head last week.") They were also embroidered with performative modesties: "On my best day, I'm an average defense attorney"; "I'm not a mathematician, but ... "; "I'm not saying I'm a Spanish expert, Judge, but ... "; "I know I've been doing this by far the shortest time of any lawyer sitting here."
+```
+
+OUTPUT:
+```

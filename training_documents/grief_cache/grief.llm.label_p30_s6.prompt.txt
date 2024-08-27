@@ -1,0 +1,150 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+7um8 | Sense of Presence
+uow2 | This is the cognitive counterpart to the experience of yearning. The grieving person may think that the deceased is somehow still in the cur- rent area of time and space. This can be especially true during the time shortly after the death. In our study of bereaved children, 81% of the children felt watched by their dead parent 4 months after the death, and this experience continued for many of the children (66%) 2 years after the death. Some found this sense of presence comforting, while others did not and were scared by it (Worden, 1996).
+iat7 | Hallucinations
+ywwr | Hallucinations of both the visual type and the auditory type are included in this list of normal behaviors because hallucinations can be a frequent experience of the bereaved. They are usually transient illu- sory experiences, often occurring within a few weeks following the loss, and generally do not portend a more difficult or complicated mourn- ing experience. Although disconcerting to some, many others find these experiences comforting. With all the interest in mysticism and spiritual- ity, it is interesting to speculate whether these are really hallucinations or possibly some other kind of metaphysical phenomenon (Kersting, 2004).
+0i6j | 1 Attachment, Loss, and the Experience of Grief
+87cq | 27
+0qs3 | There is an obvious interface between thinking and feeling, and the current interest in cognitive psychology and cognitive therapy empha- sizes this. Aaron Beck and his colleagues (1979) at the University of Pennsylvania found that the experience of depression frequently is trig- gered by depressive thought patterns. In the bereaved, certain thoughts will pass through the mind such as "I can't live without her" or "I'll never find love again." These thoughts can then trigger very intense, but normal, feelings of sadness and / or anxiety.
+z8f7 | Behaviors
+7w7j | There are a number of specific behaviors frequently associated with normal grief reactions. These can range from sleep and appetite dis- turbances to absentmindedness and social withdrawal. The following behaviors are commonly reported after a loss and usually correct them- selves over time.
+51vd | Sleep Disturbances
+baj1 | It is not unusual for people who are in the early stages of loss to expe- rience sleep disturbances. These may include difficulty going to sleep or early morning awakening. Sleep disturbances sometimes require medical intervention, but in normal grief they usually correct them- selves. In the Harvard Child Bereavement Study, one-fifth of the chil- dren showed some sleep disturbance in the first 4 months after the death of one of their parents. Without any special intervention, this figure dropped to a level not significantly different from that of their nonbereaved matched counterparts 1 and 2 years following the death (Worden, 1996).
+n1wo | After Bill lost his wife suddenly, he would wake up at five o'clock each morning filled with intense sadness and review over and over the circumstances surrounding the death and how it might have been pre- vented, including what he might have done differently. This happened morning after morning and soon caused problems because he could not function well at work. After about 6 weeks, the disorder began to cor- rect itself, and eventually it disappeared. This is not an unusual experi- ence. However, if sleep disorder persists, it may indicate a more serious depressive disorder, which should be explored (Tanimukai et al., 2015). Sleep disorders can sometimes symbolize various fears, including the fear of dreaming, the fear of being in bed alone, and the fear of not awakening. After her husband died, one woman solved the problem posed by her fear of being alone in bed by taking her dog to bed with
+5bq3 | Grief Counseling and Grief Therapy
+ezla | her. The sound of the dog's breathing comforted her, and she continued to do this for almost a year until she was able to sleep alone.
+rsbu | Eating Disturbances
+magd | Bereaved animals exhibit eating disturbances, which are also very com- mon in human mourning situations. Although appetite disturbances can manifest themselves in terms of both overeating and undereating, undereating is the more frequently described grief behavior. Significant changes in weight may result from changes in eating patterns.
+tb74 | Distracted and Absentminded Behavior
+8l69 | The newly bereaved may find themselves acting in an absentminded way or doing things that may ultimately cause them inconvenience or harm. One client was concerned because on three separate occasions she had driven across the city in her car and, after completing her busi- ness, had forgotten that she had driven and returned home via public transportation. This behavior occurred following the death of a close friend and eventually corrected itself.
+1jyv | Social Withdrawal
+olce | It is not unusual for people who have sustained a loss to want to with- draw from other people. Again, this is usually a short-lived phenome- non and corrects itself. I saw one young woman shortly after the death of her mother. This single woman was a very sociable person who loved to go to parties. For several months following her mother's death, she declined all invitations because they seemed dissonant to the way she felt in the early experiences of her grief. This may seem obvious and appropriate to the reader, but this woman saw her withdrawal as abnor- mal. Some people withdraw from friends perceived as oversolicitous. "My friends tried so hard that I wanted to avoid them. How many times can you hear, 'I'm sorry?'" Social withdrawal can also include a loss of interest in the outside world, such as not reading newspapers or watch- ing television. Bereaved children who have lost a parent to death can also experience social withdrawal in the early months after the death (Silverman & Worden, 1993).
+erx1 | Dreams of the Deceased
+b3bt | It's very common to dream of the dead person, both normal kinds of dreams and distressing dreams or nightmares. Often these dreams serve a number of purposes and may give some diagnostic clues as to where the person is in the whole course of mourning (Cookson, 1990).
+0w8m | 1 Attachment, Loss, and the Experience of Grief
+vcu3 | For example, for several years after the death of her mother, Esther suffered from intense guilt over circumstances related to the death. This guilt was manifested in low self-esteem and personal recrimination and was associated with considerable anxiety. During one of her daily visits to her mother in the hospital, Esther had left the bedside for coffee and a bite of food. While she was out, her mother died.
+hjzj | Esther was filled with remorse, and although we used the usual reality-testing techniques in therapy, the guilt still persisted. While in therapy, she had a dream about her mother. In this dream, she saw her- self trying to assist her mother to walk down a slippery pathway so she would not fall. But her mother fell, and nothing Esther could do in the dream would save her. It was impossible. This dream was a signif- icant turning point in her therapy because she allowed herself to see that nothing she could have done would have kept her mother from dying. This important insight gave her permission to shed the guilt that she had been carrying for several years. Some ways to utilize dreams in grief counseling and grief therapy are presented in Chapter 6.
+j79f | Avoiding Reminders of the Deceased
+6tbv | Some people will avoid places or things that trigger painful feelings of grief. They might avoid the place where the deceased died, the cemetery, or objects that remind them of their lost loved one. One middle-aged woman came for grief counseling when her husband died after a series of coronary attacks, leaving her with two children. For a period of time she put all pictures of her husband away in the closet, along with other things that reminded her of him. This obviously was only a short-term solution, and as she moved toward a better adaptation of her grief, she was able to bring out the items that she wanted to live with and display his picture on the piano.
+xb13 | Quickly getting rid of all the things associated with the deceased- giving them away or disposing of them in any way possible even to the point of having a quick disposal of the body-can lead to a complicated grief reaction. This is usually not healthy behavior and is often indicative of a highly ambivalent relationship with the deceased. Ambivalent rela- tionships are one of the mediators of mourning described in Chapter 3.
+cxqi | Searching and Calling Out
+qfmx | Both Bowlby and Parkes have written much in their work about search- ing behavior. Calling out is related to this searching behavior. Frequently somebody may call out the name of the loved person: "John, John, John. Please come back to me!" When this is not done verbally, it can be going on subvocally.
+rut3 | Grief Counseling and Grief Therapy
+m3cp | Sighing
+mq4s | Sighing is a behavior frequently noted among the bereaved. It is a close correlate of the physical sensation of breathlessness. Colleagues at the Massachusetts General Hospital tested respiration in a small group of bereaved parents and found that their oxygen and carbon diox- ide levels were similar to those found in depressed patients (Jellinek, Goldenheim, & Jenike, 1985).
+95el | Restless Hyperactivity
+a0a5 | A number of widows in our Harvard studies of bereavement entered into restless hyperactivity following the deaths of their husbands. The woman mentioned previously whose husband left her with two teenage children could not stand to stay at home. She would get into her car and drive all over town trying to find some sense of relief from her restless- ness. Another widow could stay in the house during the day because she was busy, but at night she fled.
+gocl | Crying
+ob1z | There has been interesting speculation that tears may have potential healing value. Stress causes chemical imbalances in the body, and some researchers believe that tears remove toxic substances and help reestab- lish homeostasis. They hypothesize that the chemical content of tears caused by emotional stress is different from that of tears secreted as a function of eye irritation. Tests are being done to see what type of cat- echolamine (mood-altering chemicals produced by the brain) is pres- ent in tears of emotion (Frey, 1980). Tears do relieve emotional stress, but how they do this is still a question. Further research is needed on the deleterious effects, if any, of suppressed crying. Martin (2012), who has worked with individuals and families experiencing grief from trau- matic events, has written an interesting paper titled "Grief That Has No Vent in Tears Makes Other Organs Weep." This helps us to understand how highly traumatic experiences, emotionally and cognitively unpro- cessed, may become bodily expressed.
+m4cb | Visiting Places or Carrying Objects That Remind the Survivor of the Deceased
+m61y | This is the opposite of the behavior that people engage in to avoid reminders of the lost person. Often underlying this behavior is the fear of losing memories of the deceased. "For 2 weeks I carried his picture with me constantly for fear I would forget his face," one widow told me.
+u2ob | 1 Attachment, Loss, and the Experience of Grief
+2gnm | Treasuring Objects That Belonged to the Deceased
+emgw | One young woman went through her mother's closet shortly after her mother died and took many of her clothes home. They wore the same size, and although this might seem like an example of someone being thrifty, the fact was that the daughter did not feel comfortable unless she was wearing something that had belonged to her mother. She wore these clothes for several months. As her mourning progressed, she found it less and less necessary to wear clothing that had belonged to her mother. Finally, she gave most of it away to charity.
+xaqt | The reason for outlining these characteristics of normal grief in such detail is to show the wide variety of behaviors and experiences associ- ated with loss. Obviously, not all these behaviors will be experienced by one person. However, it is important for bereavement counselors to understand the wide range of behaviors covered under normal grief, so they do not pathologize behavior that should be recognized as normal. Having this understanding will also enable counselors to give reassur- ance to people who experience such behavior as disturbing, especially in the case of their first significant loss. However, if these experiences persist late in the bereavement process, they may be indicative of a more complicated grief (Demi & Miles, 1987).
+5rcb | GRIEF AND DEPRESSION
+524j | Many of the normal grief behaviors may seem like manifestations of depression. To shed some light on this, let's look at the debate about the similarities and differences between grief and depression.
+xd3m | Freud (1917/1957), in his early paper "Mourning and Melancholia," addressed this issue. He tried to point out that depression, or melancho- lia, as he called it, is a pathological form of grief and is very much like mourning (normal grief) except that it has a certain characteristic fea- ture of its own-namely, angry impulses toward the ambivalently loved person turned inward. It is true that grief looks very much like depres- sion, and it is also true that grieving may develop into a full-blown depression. Klerman (Kierman & Izen, 1977; Klerman & Weissman, 1986), who was a prominent depression researcher, believed that many depressions are precipitated by losses, either immediately following the loss or at some later time when the patient is reminded of the loss. Depression may also serve as a defense against mourning. If anger is directed against the self, it is deflected away from the deceased, and this keeps the survivor from dealing with ambivalent feelings toward the deceased (Dorpat, 1973).
+8qb6 | Grief Counseling and Grief Therapy
+wkbn | The main distinctions between grief and depression are these: In depression as well as grief, you may find the classic symptoms of sleep disturbance, appetite disturbance, and intense sadness; however, in a grief reaction, there is not the loss of self-esteem commonly found in most clinical depressions. That is, the people who have lost someone do not have less regard for themselves as a result of such a loss, or if they do, it tends to be for only a brief time. And if the survivors of the deceased experience guilt, it is usually guilt associated with some spe- cific aspect of the loss rather than a general overall sense of culpability. Even though grief and depression share similar objective and subjec- tive features, they do seem to be different conditions. Depression over- laps with bereavement but is not the same (Robinson & Fleming, 1989, 1992; Wakefield & Schmitz, 2013; Worden & Silverman, 1993; Zisook & Kendler, 2007). Freud believed that in grief, the world looks poor and empty, while in depression, the person feels poor and empty. These differences in cognitive style have been identified by Beck and associ- ates (1979) and other cognitive therapists who have suggested that the depressed have negative evaluations of themselves, the world, and the future. Although such negative evaluations can exist in the bereaved, they tend to be more transient.
+```
+
+OUTPUT:
+```

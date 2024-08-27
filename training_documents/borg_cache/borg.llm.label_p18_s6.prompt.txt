@@ -1,0 +1,122 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+yeoh | 18
+b8hf | inferences, just as sensitivity to distributional properties results in a sensitivity to minimal content. The fact that LLM outputs often reflect pragmatically enhanced versions of the input strings they receive speaks against any claim that the distributional properties LLMs map are fixed by the literal meaning of words and sentences alone, but this need not be part of the current claim (that LLM outputs can be understood in terms of the minimal content they express).
+hntf | So, should we claim that LLM outputs are meaningful because they possess type-level content arrived at through a kind of semantic deference (so that the expressions produced by LLMs count as meaningful simply because they are tokens of types of symbols that belong to a meaningful communicative system, put together in grammatically respectable ways)?20 I think the answer to this question is likely to depend on one's views on what is required for belonging to a linguistic practice, for some versions of A-style approaches re-import an appeal to current intentions at this juncture and any such move would place even this kind of derived content out of reach of an LLM. Take, for example, Kripke's theory of names (xxxx) which holds that the referent of a name is fixed by an initial act of 'baptism', where an agent who is in contact with an object introduces a linguistic label for it. A subsequent user of the name then refers to the object named by the original baptiser (even if the current user is not in contact with that object themselves) just in case the current speaker's use of the name belongs to a chain of past uses which can be traced back to the original baptism. Importantly, however, the current user needs to intend her utterance to belong to that chain of uses. Thus current speaker intentions do matter for fixing meaning for Kripke, even though they are not determinative of reference. If intentions are needed for semantic deference (in the way that the Kripkean model suggests) then type-level semantic content is not available for LLM outputs, since the system cannot intend its outputs to be part of a social practice.21 On the other hand, if a current token expression can be taken as belonging to a chain of uses regardless of whether the speaker intends this or not, I would suggest that LLM outputs can be held to express genuine, type-level content.
+99fo | Finally, however, two questions remain: should LLMs be said to grasp or understand the semantic content expressed by their outputs? And can an LLM be said to be asserting type-level
+y5r7 | semantic content (do LLMs 'mean what they say')? In answer to the first question, I think whether we take large language models to grasp semantic content will depend on what we say about the internal states of the systems and the stance we take on what is required to represent a given property. The inner states of LLMs are generated by the distributional properties of words alone, but, as Lake and Murphy note, these distributional properties track what seem to be genuinely semantic properties like inferential role and conceptual connections (in the same way that, in the thought experiment suggested in §2 certain mutations realise red-headedness, or as a system which tracks a certain arrangements of atoms might be held to be representing the property of fragility). Similarly, an advocate of the derived intentionality model of LLM outputs might hold that the intentional practices of speakers are embedded in the distributional facts of the massive training database to which LLMs are exposed in such a way that internal manipulations which turn on these kinds of statistical properties also, de facto, turn on genuine meaning properties. In this way, it might be possible to argue that vector weightings can be understood as representing meanings not merely distributions. However, as the discussion of naturalised theories of content at the close of $2.1 alluded to, the question of what it is for an internal state to represent one distal property over another is vexed and I think that currently the jury must remain out on whether LLMs engage in the kind of genuinely content-driven internal transitions which would be needed to warrant an attribution of grasp of semantic properties to the system.
+lrry | Finally, what about the illocutionary force of LLM outputs: do LLMs assert type-level semantic content? [cf. Cappelen and Dever 'whole hog'] I think that the answer to this question is 'no'. In line with many philosophical theories (such as Grice xxxx and Williamson xxXX), I think that truth has a key role to play in communication and assertion. But as already noted in §2, truth does not seem to get a grip in LLMs. This can be seen in the tendency of such systems to output plausible sounding falsehoods alongside truths and to go on to support any such claims by 'fabricating' evidence. This tendency reflects the fact that, as we might put it, the norm of LLM outputs is plausibility not truth. I think this means that, even though we should count LLM outputs as meaningful we should not count them as assertions. We should thus ensure that any of their outputs which make it into the public sphere are marked as such, indicating that a higher degree of vigilance would be needed before the semantic content is endorsed.
+hvhm | To summarise, then: the Sceptical worry that meaning requires an appropriate connection to the world can be met in three ways: by adopting an internalist approach to meaning, by embedding LLMs in robotic systems, or by adopting a type-level, deference model of semantic content. This latter approach, I suggest, in fact captures the way in which meaning
+863b | 20
+fj24 | attaches to the vast majority of human linguistic performances. By producing well-formed strings of token signs which belong to an extant system of human communication, both the sentences we utter and the sentences LLMs produce get to have semantic content (assuming entry to the linguistic practice is not intention-dependent).22 The main difference between us and the machines, then, as far as linguistic meaning is concerned, is that we unquestionably represent semantic properties qua semantic properties and we also (often) mean what we say.23
+uz3c | 4. Original intentionality
+d5bi | Searle (Mind language society 94) writes that "intrinsic Intentionality is observer-independent - I have a state of hunger regardless of what any observer thinks. Derived Intentionality is observer- dependent - it is only in relation to observers, users, and so on, that, for example, a sentence of French has the meaning it has". He then holds that it is human brains alone which are capable of giving rise to this kind of original intentionality. This idea of an observer-independent, inner mental life where a subject takes one thing to stand for another is of course far from uncontroversial. Dennett, for instance, famously argues that all intentionality is observer- dependent (coming about through the adoption of the Intentional Stance), while Boden 1988 objects that the idea of original intentionality is ineliminably mysterious, relying on a dualist approach to the mind that should be rejected. This paper is obviously not the place to try and resolve such absolutely fundamental questions about the human mind, but let's suppose that Searle is right here (at least about intrinsic intentionality, without the chauvinistic limitation to human brains), what would that mean for LLMs? First, to stand any chance of having original intentionality emerge in an artificial system it seems clear that it will need the kind of rich embedding in a non-linguistic environment envisaged in the Robot Reply (§2.2). It is too early to know exactly what LLMs will look like once successfully embedded in multi-modal systems, but at the very least we can conclude that as things stand LLMs are not candidates for intrinsic intentionality (or for consciousness). Secondly, intrinsic intentionality requires more than just contact with things beyond the text, it requires a subject of experience, so that worldly
+ba4l | 21
+ffx8 | interactions reflect the long-term goals and aims of a system. This in turn would result in a system which not only responds to the prompts it is given but which initiates (interesting) content-driven interaction on its own, displaying a kind of stability and consistency in its (linguistic and non-linguistic) actions that we might take to be reflective of having a point of view or character. Whether or not suitably extended LLMs could come to display this kind of behaviour is unclear, but I suggest that we should be wary in advance about whether it is behaviour we want to bring about. For a system which was able to interact with its environment (including its human environment) in this point-of-view driven way would surely be a system which was in the running for moral consideration. Rich embedding in an environment, the pursuit of long-term goals and the making of consistent judgements are not, I've suggested here, things which we should require of a system prior to treating its outputs as genuinely meaningful, though they are the kinds of capacities required prior to the attribution of properties like understanding and consciousness.
+s6su | 5. Conclusion
+y219 | First, I think that LLM outputs are deserving of attributions of semantic content since they comprise well-formed sentences of meaningful human languages. As such they express type-level content, through a process of semantic deference and derived intentionality. Second, whether we take large language models to grasp the semantic content their outputs express will depend on what we say about the representational properties of the internal states of the system and the properties that are relevant for how the system manipulates those internal states. If all that matters for internal transitions turns out to be the distributional properties of expressions, then I think we should refrain from saying that LLMs represent semantic properties or have any level of understanding of meaning (the surprising fact will then be that a system which lacks any kind of linguistic understanding can behave as if it has linguistic understanding). On the other hand, there may be (teleological or other) accounts of content under which the internal states of LLMs can be understood as representing not merely distributional properties but also the semantic properties which give rise to the distributional facts. If such an approach proves successful, then we might want to claim that LLM outputs are meaningful and that LLMs themselves treat them as meaningful.
+06ht | 22
+v3r2 | Whether the internal states of an LLM can be understood as performing content-driven (rather than merely statistics-driven) computations remains extremely controversial (see Hattiangadi xxxx for a sceptical view) but whatever stance we take on this question, I think, thirdly, that we should deny that LLMs are in the business of asserting the content which attaches to the expressions they produce. LLMs do not aim at the truth in the way that would be required for them to count as genuine conversational partners or as asserting or making claims. Fourth and finally, Sceptics are right to think that LLMs lack original or intrinsic intentionality. They are not agents and they are not conscious. This doesn't, I've argued, stop them from meaning things but it may mean that it makes no sense to talk of them as understanding or (contra Turing) thinking (at least if thinking is held to involve original intentionality). Yet this is something we should be glad of, for the cost of the alternative would be a radical overhaul of our relationship with artificial systems.
+nv42 | 23
+xags | References
+jc47 | 24
+```
+
+OUTPUT:
+```

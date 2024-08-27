@@ -1,0 +1,77 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document. Your task is to faithfully reproduce the text for our text-to-speech engine so that it is easily read aloud.
+
+Note that the text might not start at the beginning and paragraphs may be split acrosss multiple textboxes. Textboxes may start or end in the middle of a word which is acceptable: do not combine text between textboxes and leave broken words at the start and end of a textbox unchanged.
+
+You will receive one textbox per-line in the format `id | Textbox content`. The output must be in the format `id | Clean content`.
+
+RULES:
+ • Remove inline citations and references e.g. "(Author, 2021)" or "(https://wikipedia.org/article.html)" or "[ECMOS 35b, 47, 49]".
+ • Spell out numbers, dates, and chemical formulas for the TTS engine e.g. "-2.5" -> "negative two point five" or "Jan. 2020" -> "January twenty twenty".
+ • Spell out LaTeX formulas for the TTS engine e.g. "<LATEX>p = 1</LATEX>" -> "P equals one".
+ • Rejoin hyphenated word fragments within the same textbox e.g. "synth -esize" -> "synthesize".
+ • Fix simple typos and OCR errors e.g. "O nce upon a 1ime." -> "Once upon a time.".
+ • Delete nonsequiter textboxes that interrupt the middle of a sentence if they obviously do not belong.
+
+Otherwise, the output should exactly match the input text:
+ • Do not combine text across lines or attempt to fix words broken across lines.
+ • Ensure each ID from the input is included in the output.
+ • Make as few changes as possible while respecting the above rules.
+
+EXAMPLE INPUT:
+```
+ccpt | stigate the effectiveness of psychedelics for ADHD symp- toms in adults.
+0fpw | 2. Materia1 and methods
+dqn8 | 2.1. Study design and participants
+cop0 | The study employed a naturalistic design, assessing the experiences of participants at bas-,
+lhkq | eline before they start, and at 2 and 4 weeks after initiation. The target population included adults with ADHD symptoms who had not been diag- nosed with ADHD before. To be included, participants needed to score on Conner's Adult ADHD Rating Scale (CAARS-S:SV). This cut-off was indicative of clinically elevated symptoms (Conners et al., 1999) (see section 2.3).
+82ju | 2.2. Study procedure
+y2qo | The online advertisement was placed on a website providing information about psychedelics (www.microdo sing.nl). Interested participants were redirected to information explaining the study rationale and procedure. The baseline survey took 20 min to complete. If the survey had not been completed after 24 h, a reminder was sent. Each of the surveys at the 2- and 4-week time points took about 15 min to complete. Par- ticipants were able to pause the surveys. Data collection occurred between Nov. 2020 and Jul. 2021. The study was approved by the Ethics Review Committee of Psy- chology and Neuroscience at Maastricht University (ERCPN- 215_05_11_2019_A1).
+1piq | 2.3. Measures
+7fqw | 2.3.1. Demographic information and history of substance use
+rhaz | At baseline, demographic information was collected. History of substance use assessed experience with psyche- delics (i.e., ayahuasca, DMT, 5-MeO-DMT, LSD, novel lysergamides (e.g., 1P-LSD, ALD-52), psilocybin, salvia divinorum, ibogaine, and mescaline) in both full (psychedelic) doses and microdoses.
+wak1 | 2.3.2. Psychiatric and physiological diagnoses
+wtfz | Participants were asked whether they had a current diagnosis of a disorder. These answer options were chosen because most of the listed diagnoses are often reported to co-occur with ADHD (Kooij et al., 2019), or because these diagnoses were reported to be common in people who microdose (Fadiman and Korb, 2019). We 
+3j2l | REVIEW ARTICLE Frontiers in Psychiatry | www.frontiersin.org
+03k3 | 2
+1k9e | constructed a variable Comorbidity alongside ADHD, differenti- ating respondents with and without a comorbid diagnosis alongside ADHD (<LATEX>p < . 0 0 1 =</LATEX> only ADHD or no ADHD diagnosis; <LATEX>p > . 0 1 =</LATEX> ADHD and at least one other diagnosis). We constructed a variable Medication use alongside microdosing, differentiating respondents who were and were not using conven- tiona1 ADHD medication alongside microdosing (<LATEX>0 =</LATEX> only microdosing; <LATEX>1 =</LATEX> conven-
+```
+
+EXAMPLE OUTPUT:
+```
+ccpt | stigate the effectiveness of psychedelics for ADHD symptoms in adults.
+0fpw | Two. Material and methods
+dqn8 | Two point one. Study design and participants
+cop0 | The study employed a naturalistic design, assessing the experiences of participants at bas-,
+lhkq | eline before they start, and at two and four weeks after initiation. The target population included adults with ADHD symptoms who had not been diagnosed with ADHD before. To be included, participants needed to score on Conner's Adult ADHD Rating Scale. This cut-off was indicative of clinically elevated symptoms (see section two point three).
+82ju | Two point two. Study procedure
+y2qo | The online advertisement was placed on a website providing information about psychedelics. Interested participants were redirected to information explaining the study rationale and procedure. The baseline survey took twenty minutes to complete. If the survey had not been completed after twenty-four hours, a reminder was sent. Each of the surveys at the two and four-week time points took about fifteen minutes to complete. Participants were able to pause the surveys. Data collection occurred between November twenty twenty and July twenty twenty-one. The study was approved by the Ethics Review Committee of Psychology and Neuroscience at Maastricht University.
+1piq | Two point three. Measures
+7fqw | Two point three point one. Demographic information and history of substance use
+rhaz | At baseline, demographic information was collected. History of substance use assessed experience with psychedelics (i.e., ayahuasca, DMT, five-MeO-DMT, LSD, novel lysergamides (e.g., one-P-LSD, ALD-fifty-two), psilocybin, salvia divinorum, ibogaine, and mescaline) in both full (psychedelic) doses and microdoses.
+wak1 | Two point three point two. Psychiatric and physiological diagnoses
+wtfz | Participants were asked whether they had a current diagnosis of a disorder. These answer options were chosen because most of the listed diagnoses are often reported to co-occur with ADHD, or because these diagnoses were reported to be common in people who microdose. We
+3j2l |
+03k3 |
+1k9e | constructed a variable Comorbidity alongside ADHD, differentiating respondents with and without a comorbid diagnosis alongside ADHD (P is less than point zero zero one equals only ADHD or no ADHD diagnosis; P is greater than point zero one equals ADHD and at least one other diagnosis). We constructed a variable Medication use alongside microdosing, differentiating respondents who were and were not using conventional ADHD medication alongside microdosing (zero equals only microdosing; one equals conven-
+```
+
+INPUT:
+```
+ti7f | represented in a system and this is a controversial question. An analogy might be helpful here: say I set up a system to identify and track mutations in the melanocortin 1 receptor, a gene located on chromosome 16. Let's suppose that these mutations are entirely (rather than merely largely) responsible for the phenotypic trait of red hair. So a system which tracks these genetic mutations will, in effect, track people with red hair. It might be argued that such a system does not actually represent red-headedness or carry information about red-heads, since it simply tracks a property that correlates with or causes this observed trait, without recruiting the higher-level property in any of its internal transformations. On the other hand, since having red hair is (in the current thought experiment) nothing over and above having these genetic mutations, an alternative stance would be that by tracking the mutations the system de facto ends up representing information about red-headedness. Analogously, a Believer will want to claim that, from an internalist point of view, tracking statistical distributions turns out not merely to track a proxy for semantic properties but in fact succeeds in representing those properties as such, since distributional properties tacitly contain information about inferential and conceptual roles.
+oksu | For philosophers, this kind of debate will call to mind protracted discussions (between Drestske, Millikan, Papineau, Fodor and many others) about the possibility of a naturalised account of content. Contributors to this debate tend not to adopt an internalist approach to content, instead grounding meaning in the relationship between a sign and some worldly state of affairs, but still the question of how we settle exactly what distal property an internal state represents remains the same. (Just as Dretske xxxx worried about whether the internal state of a frog represents flies or moving black dots, so this debate about LLMs asks whether an internal state of an artificial system represents conceptual or inferential relations or only statistical facts.) Thus we might think that the same tools used in naturalised externalist frameworks will be available to the Believer here; for instance, spelling out representation in terms of asymmetric causal dependence (so that an internal state of an LLM could be held to represent inferential/conceptual relations not merely distributive properties since the distributional properties are caused by the inferential properties of a sign but not vice versa; see Fodor XXXX) or its proper function within a system (as in the kind of teleological approach advocated by Millikan xxxx). Of course, these questions remain vexed and I can't hope to settle them here. Yet I think it suffices for present purposes to note that if the demand for an externalist semantics is rejected, LLMs will at least be in the running as systems which directly target and represent semantic properties through targeting and representing distributional properties.
+wtow | 2.2 LLMs and Robots
+o22k | An alternative response to the Sceptic's demand for better integration with the non-textual environment would be to accept that LLMs fail on external aspects at the moment, but hold that this is a contingent gap which will be filled by future iterations of artificial systems. This kind of move is of course familiar from the 'Robot Reply' Searle considers to his Chinese Room argument: according to this response, what is needed to get meaning into a Chinese Room is the addition of supplementary systems that integrate the Room into its non-linguistic environment (Crane 1991: 127). For instance, a perceptual system could be added, allowing the person in the room to connect incoming symbols with external objects. Artificial limbs or prostheses could be added, so that the person in the room could manipulate their environment as part of their response to incoming linguistic prompts, perhaps together with some form of locomotion, so that the system as a whole could explore its environment. In short, then, the Chinese Room could be embedded within a robot.
+nwfz | This philosophical call for embedding a linguistic system in a multimodal structure has been answered by some engineers, as Lake & Murphy 2023: 412 note:
+nvfy | AI researchers are certainly working on various forms of multimodal learning. A recent flurry of work has focused on integrating vision and language, leading to creative combinations of computer vision and NLP models.
+mror | A recent multi-author paper (Butlin et al 2023) pursues this idea, looking in detail at three such wider systems: PaLM-E (Driess et al. 2023), described as an "embodied multimodal language model"; a "virtual rodent" trained by reinforcement learning (Merel et al. 2019); and AdA, a large Transformer-based, RL-trained "adaptive agent" (DeepMind Adaptive Agents Team 2023). While it is early days for this research, some of the results have been impressive, with systems able to recognise and label complex situations that go beyond the specific examples contained in the system's training data (see Lake & Murphy for further discussion). Furthermore, some of these models show "emergent visual-language alignment", where the decoder attends to the relevant part of an image when producing a word (e.g. analysing the umbrella part of an image when producing the word "umbrella" in a caption).
+zlxc | Although this is an extremely fast-moving area and the above projects are exciting, it is clear that the Robot Response cedes the current ground to the Sceptic: if we opt for an externalist view of semantic content and pair this with a requirement that an individual language
+k0bw | user must themselves realise the required word-world relations, then LLMs currently fall short.8 A different move, however, would be to argue that there is no need to embed an LLM within an artificial multi-modal system, for they already have access to a proxy which allows them to forge the necessary connections with the world: although an LLM lacks a direct ability to interact with the non-linguistic world, it does connect via humans. As [Sparks p.53] contend:
+aq5a | language is a powerful interface, allowing GPT-4 to perform tasks that require understanding the environment, the task, the actions, and the feedback, and adapting accordingly. While it cannot actually see or perform actions, it can do so via a surrogate (e.g., a human).
+sc5y | This brings us to the third response that Believers might make to the Sceptic's demand for appropriate word-world relations, which appeals to the role that humans play in the lifespan of LLMs.
+0yab | 2.3 Derived Intentionality
+w95z | Computers are built and used by people, thus a common response to Searle's challenge has been to appeal to the meaning that programmers or users assign to the symbols manipulated by artificial systems: when a calculator outputs the symbol "4" in response to the input "2+2", this output means four because of the intentions of the person who designed or built the calculator and/or because of what the users of the calculator take the sign to mean. This is to appeal to what Searle termed 'derived intentionality': the symbols of an artificial system inherit meaning from their connection to human thinkers and their practices.
+0i1k | The appeal to derived intentionality takes on a special force, however, with respect to LLMs, for the signs manipulated by these systems just are the signs of ordinary natural languages that we, human speakers, manipulate in order to convey information to one another. These symbols are connected with human communicative systems both through the database of human-generated text that the system is exposed to during pre-training and through the interaction with speakers once the system is in use. Furthermore, these natural language signs are manipulated by LLMs in ways that look promising from the point of view of meaning. If we were faced with an artificial system which took English words as input but produced as output some kind of word salad - a rag-bag collection of English terms spewed out by a purely random mechanism, say - the idea that the signs produced in the output retained the meaning they would
+```
+
+OUTPUT:
+```

@@ -1,0 +1,76 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document. Your task is to faithfully reproduce the text for our text-to-speech engine so that it is easily read aloud.
+
+Note that the text might not start at the beginning and paragraphs may be split acrosss multiple textboxes. Textboxes may start or end in the middle of a word which is acceptable: do not combine text between textboxes and leave broken words at the start and end of a textbox unchanged.
+
+You will receive one textbox per-line in the format `id | Textbox content`. The output must be in the format `id | Clean content`.
+
+RULES:
+ • Remove inline citations and references e.g. "(Author, 2021)" or "(https://wikipedia.org/article.html)" or "[ECMOS 35b, 47, 49]".
+ • Spell out numbers, dates, and chemical formulas for the TTS engine e.g. "-2.5" -> "negative two point five" or "Jan. 2020" -> "January twenty twenty".
+ • Spell out LaTeX formulas for the TTS engine e.g. "<LATEX>p = 1</LATEX>" -> "P equals one".
+ • Rejoin hyphenated word fragments within the same textbox e.g. "synth -esize" -> "synthesize".
+ • Fix simple typos and OCR errors e.g. "O nce upon a 1ime." -> "Once upon a time.".
+ • Delete nonsequiter textboxes that interrupt the middle of a sentence if they obviously do not belong.
+
+Otherwise, the output should exactly match the input text:
+ • Do not combine text across lines or attempt to fix words broken across lines.
+ • Ensure each ID from the input is included in the output.
+ • Make as few changes as possible while respecting the above rules.
+
+EXAMPLE INPUT:
+```
+ccpt | stigate the effectiveness of psychedelics for ADHD symp- toms in adults.
+0fpw | 2. Materia1 and methods
+dqn8 | 2.1. Study design and participants
+cop0 | The study employed a naturalistic design, assessing the experiences of participants at bas-,
+lhkq | eline before they start, and at 2 and 4 weeks after initiation. The target population included adults with ADHD symptoms who had not been diag- nosed with ADHD before. To be included, participants needed to score on Conner's Adult ADHD Rating Scale (CAARS-S:SV). This cut-off was indicative of clinically elevated symptoms (Conners et al., 1999) (see section 2.3).
+82ju | 2.2. Study procedure
+y2qo | The online advertisement was placed on a website providing information about psychedelics (www.microdo sing.nl). Interested participants were redirected to information explaining the study rationale and procedure. The baseline survey took 20 min to complete. If the survey had not been completed after 24 h, a reminder was sent. Each of the surveys at the 2- and 4-week time points took about 15 min to complete. Par- ticipants were able to pause the surveys. Data collection occurred between Nov. 2020 and Jul. 2021. The study was approved by the Ethics Review Committee of Psy- chology and Neuroscience at Maastricht University (ERCPN- 215_05_11_2019_A1).
+1piq | 2.3. Measures
+7fqw | 2.3.1. Demographic information and history of substance use
+rhaz | At baseline, demographic information was collected. History of substance use assessed experience with psyche- delics (i.e., ayahuasca, DMT, 5-MeO-DMT, LSD, novel lysergamides (e.g., 1P-LSD, ALD-52), psilocybin, salvia divinorum, ibogaine, and mescaline) in both full (psychedelic) doses and microdoses.
+wak1 | 2.3.2. Psychiatric and physiological diagnoses
+wtfz | Participants were asked whether they had a current diagnosis of a disorder. These answer options were chosen because most of the listed diagnoses are often reported to co-occur with ADHD (Kooij et al., 2019), or because these diagnoses were reported to be common in people who microdose (Fadiman and Korb, 2019). We 
+3j2l | REVIEW ARTICLE Frontiers in Psychiatry | www.frontiersin.org
+03k3 | 2
+1k9e | constructed a variable Comorbidity alongside ADHD, differenti- ating respondents with and without a comorbid diagnosis alongside ADHD (<LATEX>p < . 0 0 1 =</LATEX> only ADHD or no ADHD diagnosis; <LATEX>p > . 0 1 =</LATEX> ADHD and at least one other diagnosis). We constructed a variable Medication use alongside microdosing, differentiating respondents who were and were not using conven- tiona1 ADHD medication alongside microdosing (<LATEX>0 =</LATEX> only microdosing; <LATEX>1 =</LATEX> conven-
+```
+
+EXAMPLE OUTPUT:
+```
+ccpt | stigate the effectiveness of psychedelics for ADHD symptoms in adults.
+0fpw | Two. Material and methods
+dqn8 | Two point one. Study design and participants
+cop0 | The study employed a naturalistic design, assessing the experiences of participants at bas-,
+lhkq | eline before they start, and at two and four weeks after initiation. The target population included adults with ADHD symptoms who had not been diagnosed with ADHD before. To be included, participants needed to score on Conner's Adult ADHD Rating Scale. This cut-off was indicative of clinically elevated symptoms (see section two point three).
+82ju | Two point two. Study procedure
+y2qo | The online advertisement was placed on a website providing information about psychedelics. Interested participants were redirected to information explaining the study rationale and procedure. The baseline survey took twenty minutes to complete. If the survey had not been completed after twenty-four hours, a reminder was sent. Each of the surveys at the two and four-week time points took about fifteen minutes to complete. Participants were able to pause the surveys. Data collection occurred between November twenty twenty and July twenty twenty-one. The study was approved by the Ethics Review Committee of Psychology and Neuroscience at Maastricht University.
+1piq | Two point three. Measures
+7fqw | Two point three point one. Demographic information and history of substance use
+rhaz | At baseline, demographic information was collected. History of substance use assessed experience with psychedelics (i.e., ayahuasca, DMT, five-MeO-DMT, LSD, novel lysergamides (e.g., one-P-LSD, ALD-fifty-two), psilocybin, salvia divinorum, ibogaine, and mescaline) in both full (psychedelic) doses and microdoses.
+wak1 | Two point three point two. Psychiatric and physiological diagnoses
+wtfz | Participants were asked whether they had a current diagnosis of a disorder. These answer options were chosen because most of the listed diagnoses are often reported to co-occur with ADHD, or because these diagnoses were reported to be common in people who microdose. We
+3j2l |
+03k3 |
+1k9e | constructed a variable Comorbidity alongside ADHD, differentiating respondents with and without a comorbid diagnosis alongside ADHD (P is less than point zero zero one equals only ADHD or no ADHD diagnosis; P is greater than point zero one equals ADHD and at least one other diagnosis). We constructed a variable Medication use alongside microdosing, differentiating respondents who were and were not using conventional ADHD medication alongside microdosing (zero equals only microdosing; one equals conven-
+```
+
+INPUT:
+```
+d52l | Indirect human agency has been a driver of species range expansion since the Neolithic Age, in which substantial human modifications of natural environments, through deforestation, onset of agriculture, and anthropogenic changes of the fire cycle are first recorded. Indeed, humans already affected the environment earlier-that is, when hunter-gatherers through their use of fire for hunting stimulated the growth of certain fire-adapted plants that profoundly changed ecosystems or because of the extinction of the megafauna (Alroy 2001). With the onset of agricul- ture, anthropogenic landscape modifications became a more widespread phenomenon. Around 1500 CE, however, agri- culture was still largely confined to a few parts of the world (figure 1; Chini et al. 2014). From the late eighteenth century onward, the beginning of the industrial revolution led to an exponential increase of human population size, agricultural industrial activities and the release of pollutants and fertil- izers into the environment, a trend that became particularly pronounced after World War II-the Great Acceleration (Steffen et al. 2007).
+qlbb | Together, the intensifying anthropogenic changes of the environment since the mid-twentieth century have resulted in the current human domination of most Earth's system processes and in widespread substantial modifications of ecosystem properties, such as nutrient and energy stocks and flows, habitat destruction, and in the accumulation of pol- lutants, man-made substances (e.g., plastic) and structures (e.g., buildings; Vitousek 1997). Concomitantly, humans have become the prime force for redistributing species across the globe, either by direct (transport of propagules) or strong indirect agency (human-made corridors connecting previously separated regions) that have resulted in biologi- cal invasions (Elton 1958, Richardson et al. 2000, Blackburn et al. 2011, Essl et al. 2018), or by causing environmental change that has resulted in species latitudinal and altitudinal range reductions as well as expansion.
+nhsg | Do we need a distinct classification for species expanding their ranges as a consequence of environmental change?
+hy0l | Range expansion in response to human-induced environ- mental changes have become a frequent phenomenon and are likely to continue becoming even more prominent in the future. Because of the profound implications this phenome- non has for biogeography, ecology, policy and management, range expansion involving species that track the changing environmental conditions according to their niche, without specific human assistance, require further elucidation.
+4jmz | Forum
+b7cq | Figure 1. The temporal changes of the composition and size of regional species pools over time from early human history to the present, and with projections of likely future trends into the future (shown with broken lines). Shown are important reference dates or events, and the resulting changes in biogeographically defined regional species pools. The absolute size of regional species pools changes naturally over time because of local extinction, natural immigration and evolution (speciation; not shown in the present figure). The size of regional species pools also changes over time as a result of human activities-that is, because of the regional extinction of native species, and because of the introduction of alien species, and the spread of range-expanding species responding to human-induced environmental change (i.e., neonative species). Note that x- and y-axes are not to scale, nor are the relative sizes of different species groups. The timing of some important events (e.g., the regional appearance of humans, the Agricultural Revolution) differs between regions, and, therefore, no absolute dates are given for these events. Note that we show the approach that uses the onset of the Anthropocene as temporal threshold; if this is relaxed, range-expanding species from earlier times can also be neonative.
+0b39 | First, the processes involved in the range expansion of such species differ considerably from those underlying bio- logical invasions because of the absence of human agency (other than human-induced environmental change), the lack of anthropogenic propagule pressure, and the typically intracontinental pattern of relatively short- to medium- distance spread adjacent to the historical native range (Caplat et al. 2013, but see, e.g., Viana et al. 2016 for inter- continental seed dispersal with migrating birds).
+qecd | Second, range-expanding species responding to human-induced environmental changes are becoming an increasingly important challenge for conservation and
+1o7p | environmental management in many parts of the world. For instance, should such range expansion be facilitated by increasing permeability or connectivity of landscapes (e.g., green infrastructure; EEA 2011) to allow the spread of species to new regions that are presumed to have become climatically suitable? What are the likely impacts of range expansion on resident biota, how can these be anticipated, and do the range expanders need to be managed, and if so, how? Which properties of species and the environment, and which types of environmental change affect the likelihood that a particular species will track the changing environmen- tal conditions? In some cases, facilitating range expansion
+cp13 | (by creating dispersal corridors) may be crucial for ensuring species survival under rapid environmental change.
+bgre | Characteristic features of range-expanding taxa responding to human-induced environmental change
+57lp | For a taxon to qualify as range expanding due to human- induced environmental change, we suggest that it has to fulfill the following criteria: Its range has expanded beyond the historic native range, the range expansion has been facil- itated by human-induced environmental change, the range expansion is not due to direct human agency (e.g., introduc- tion of propagules), the population status of recent occur- rences (i.e., being permanent or ephemeral) outside the historic native reference range, and-optionally-the range expansion has occurred within a timeframe that points to anthropogenic environmental change. We will discuss each of these features in detail and we propose a term for such species (neonative) below.
+ukth | Applying the above-mentioned criteria in practice will often be difficult because of a lack of data (e.g., when did a species expand its range; what are the causal factors under- lying the expansion?). Therefore, using expert knowledge and developing practical guidelines and thresholds will be essential for ensuring the usefulness and robustness of assessments of range-expanding taxa. We provide some recommendations on thresholds as a basis for future discus- sions to reach a widely accepted consensus.
+```
+
+OUTPUT:
+```

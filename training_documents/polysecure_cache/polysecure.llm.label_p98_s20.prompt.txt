@@ -1,0 +1,153 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+nc42 | . Practice mindfulness or breath-based exercises that help you tune into your body, heart and mind.
+tbfm | . Try self-compassion meditations.
+ok18 | · Experiment with journaling.
+pgqe | · Try self-hypnosis techniques.
+qo9m | . Learn self-empathy practices that help you to identify your feelings and needs and give yourself what you need as best you can.
+e7zz | · Figure out what different kinds of sensory input, such as sights, smells, sounds, touches or tastes, are calming or irritating to you and have certain smells or types of music available for when you are needing some self- support.
+lhzk | . Develop a relationship with your inner nurturer and, if needed, work with a practitioner to support you in this process.
+wdpw | R: RITUALS AND ROUTINES FOR A SECURE SELF
+twiq | Any secure relationship with yourself will include the rituals and routines that sup- port you in your self-care and sanity. If we refer back to early childhood, it is easy to see how children thrive when there is enough structure and predictable routine for the different needs of their bodies and the various transitions within a day. As adults, this does not change. There are natural rhythms to our cycles of sleeping, eating, resting and having sex that suffer when ignored. Both men and women have hormonal cycles that fluctuate, impacting our mood, mental acuity, how sensitive we feel and how short or long our fuse for anger and frustration will be. Secure at- tachment with self includes knowing your inner rhythms (biological, emotional and mental) and figuring out what routines and daily rituals best support you to be in alignment with your own needs and pacing.
+cchx | Larger, more intentional or ceremonial rituals also play an important part in your relationship with yourself. Rituals and rites of passage that are intended to ini- tiate us into higher aspects of self or mature us into adulthood are all but lost in our Western culture, and the few that remain (confirmation of faith, the bar/bat mitzvah, marriage, the sweet sixteen or quinceañera, high school or college gradu- ation) have been co-opted and commercialized so as to divest them of their
+2vma | traditional purpose, which was a literal change of consciousness for which the peo- ple involved had been physically, mentally and emotionally prepared, leaving only a vestigial symbolic importance. The loss of the impact of such culturally approved rites of passage means that the millennia-old practice of having a ritual-based ma- trix in place to assist us with adjusting to life events (and the accompanying change of consciousness required to accommodate those events) is often no longer available to us.
+z4aw | The traditional ashrama system in Hinduism, for example, specifies that after having been a student and a householder and fulfilling one's earthly responsi- bilities in the culture, a person should undergo the ritual of sannyasa (renunciation of worldly affairs) and shift consciousness towards preparation for giving up their body at the time of death. Without such a custom, we are often left to deal with the anxiety and stress of end-of-life issues without a supportive community or a clearly understood cultural context that contributes to our psychic security.
+mo0p | The modern "psychedelic renaissance"-when Westerners travel to South and Central America and partake in ayahuasca rituals for the purposes of healing and self-discovery-also underscores the lack of such important rituals in our own cul- tural milieu, while simultaneously demonstrating how far people will go to restore the much-needed self-awareness such rituals potentially provide. When examining the apparent emptiness of much sacramental or ritual activity in the West and its lack of ability in modern times to alter the consciousness of the person undergoing it, many philosophers (Carl Jung and Terence Mckenna, among others) have noted that over time, sacraments have become merely symbolic. Fortunately, nothing stops us from revitalizing older rituals or even creating new ones to assist us with living successfully and happily in the world we inhabit.
+tyxr | When focusing on establishing a more secure relationship with yourself, one of the most influential routines we can implement is what I refer to as self-alignment practices. When we start to clear away the debris of our insecure attachment styles, we reveal a secure self that can be cultivated and aligned with. Many of us already have a sense of the parts of us that we might refer to as our better self or higher
+txaa | self, or what I refer to as my secure self or aligned self (this is the part of me that is aligned with my better skills, values, visions and morals). When we actively engage in practices that bring these parts of us to the forefront, we are rewiring ourselves to resonate more easily with a self that is more peaceful, joyful, loving and accept- ing. If we give fuel to a negative self in the form of constant or obsessive mental reinforcement of that version of ourselves, then we strengthen that construct. But it also stands to reason that the opposite is true. If we live in alignment with our most secure, loving and happy self and practice living through the lens of the qual- ities about us that are remarkable, then we stabilize that construct until that is who we will eventually become.
+qz8s | Questions to Consider
+y7de | . What routines and rituals do you have that support you in your well-being and self-care?
+rukn | . What routines and rituals do you need to add into your day or week that would even better support you in your well-being and self-care?
+5tu7 | . Are there larger rituals or rites of passage that you would like to experience?
+vqgg | . What practices do you already do that align you with your better or secure self?
+sbs5 | . What practices could you take on to align yourself with the secure you?
+n413 | Things to Try and to Experiment With
+mvxd | . If you could design your ideal day or week based on your natural rhythms of sleeping, eating, resting, connecting or having sex, what would that look like? Experiment with adjusting some of your day or week to better accommodate these preferences.
+gyzb | Imagine your ideal day or week that includes self-care activities and rituals that support you in secure functioning with yourself. Start to add some of these routines to your daily or weekly activities, even if you start with some- thing as small as five minutes a day.
+rrp1 | . Plan larger rituals or rites of passage that you think might assist you in your
+8b70 | journey. A quick internet search may give you some ideas. There are also a variety of group ritualistic practices available in many places, ranging from silent retreats to group shamanic drumming. Find one you think would be helpful and experiment.
+nivt | . Check out Dr. Daniel P. Brown's Ideal Parent Figure exercise, which can sup- port you in rewiring your past and feeling more secure in the present.74
+8925 | . Give definition to your secure self. What does this part of you look like? How does this part of you behave? What values and principles guide this part of you? Explore different techniques and practices to support you in aligning with your more secure self.
+y2tz | T: TURNING TOWARDS YOURSELF AFTER INNER CONFLICT AND DOING TRIGGER MANAGEMENT
+p769 | In the previous chapter, the T in HEART was about turning towards each other after conflict, focusing on how we repair with our partners when there have been discon- nections, fights or misunderstandings. Repairing with ourselves is also essential. How we treat ourselves when we have made a mistake, when there is an internal battle between different parts of ourselves or when we have fallen short of our own standards, ethics or expectations, is imperative in building a strong inner secure foundation. In the section on expressed delight with yourself, I have already spoken about the importance of working with one's inner critic, which is equally relevant here as well. When your inner critic is beating you up, bullying you or injecting self- doubt into your consciousness, knowing how to work with this part of you and re- claim your power from it is enormously helpful. Left unchecked, our inner critic can further feed cycles of attachment anxiety and avoidance that can be destructive and paralyzing.
+jhwn | One important aspect in working with your inner critic and being able to reduce the impact of its harsh ways is learning how to translate its message. When we en- gage in dialogue with this part of us and inquire into why it is so persistent, more times than not, we find that it is trying to protect us-from harm, from looking
+o1y4 | bad, from being disliked or from failing in some way. Stated more positively, this part of us is usually trying to keep us safe and to assure us that we are getting some form of love, acceptance or social inclusion. The irony here is that even though its intention is positive, its methods of self-scolding, shoulding or shaming are seriously counterproductive to the cause. However, when we are able to iden- tify the positive and protective intention that our inner critic has for us, we can gain the power to translate its intention.
+3rdp | Let's look at an example. When I hear my inner critic say that bringing up that I'm hurt by something to my partner is petty of me and that I'm being overly sensi- tive or needy, I can get curious about what this part of me is trying to do. In this case, my inner critic is trying to keep me from getting further hurt based on the fear that if I reveal myself, I won't be cared for and listened to in the way I need and I will ultimately lose the relationship for having needs (yes, this is a history of ne- glect speaking). At that moment, if I am mindful of it, I can first give myself what I need, which is acknowledgment and acceptance of what I'm feeling and some self- care. I am able to translate the inner critic and then be my own safe haven through some self-connection and soothing. This then allows me to approach my partner from a position of advocating for my needs, rather than from the voice of the inner critic.
+2n4o | Dick Schwartz, the developer of the Internal Family Systems Model, makes an important distinction that in relationships we can speak for our parts, but should be careful not to speak from them.75 When I speak directly from my inner critic, I am likely to be blaming my partner or myself, which pushes us further apart. If I am able to speak for the part of me that has been hurt, more possibility opens up for both of us to be understood and get our needs met. Initially, doing the work of translating our inner critic takes diligence. The inner critic is usually a persistent old habit that is well-established in the neural networks of our brains, so expecting change overnight is not realistic. But identifying the inner critic's larger intention, not believing what it says and translating its voice over and over again eventually pays off and is well worth the effort.
+31ya | Managing triggers is another important component of creating secure attach- ment with yourself. Triggers are events that happen in the present that activate painful or traumatic experiences from our past that have some resemblance to what's happening in the present moment. When this happens, it's extremely diffi- cult to tease apart what we are reacting to in this moment that is real and legitimate and what past stuff is coloring our interpretation and reactivity.
+7nda | Millions of years of evolution have wired into us a stress response that is meant to keep us alive in life-threatening situations. When we feel threatened, our primitive reptilian brain and our emotional mammalian brain systems fire up to ei- ther fight and defend ourselves, flee and quickly escape, freeze and play dead, or appease and submit. This has been a very necessary system to help us first detect if our environment is safe or dangerous and then to instantaneously react accord- ingly. But, interestingly, our brains can't distinguish between a physical threat to our life and an emotional or mental threat to our ego, identity or worldview. So, when we think we've made a mistake, when someone challenges our worldview or when we presume that someone is going to judge or reject us, we can get triggered into a fight/flight/freeze/appease response. In today's world, it's not a ferocious animal that poses a threat, but your partner on the couch texting with someone else or your date being 20 minutes late. But your body can respond in the same way as if your life were threatened.
+4pv9 | Our bodies were not designed for the daily stressors of modern life or to be triggered on a regular basis, so it's important to our mental and physical health that we learn to manage triggers. I've come to see trigger management as a basic life skill that we all need for the health and success of any relationship-whether with a family member, friend, co-worker, parent or romantic partner. Then I started to work with nonmonogamous people and I transitioned to being polyamorous myself, and understanding our triggers and knowing how to defuse our reactivity became even more relevant. In nonmonogamy, we need more skills around our triggers because as the number of people increases, the constellation of intimate relationships complexifies. For many, this relational complexity can be very
+7w0x | beautiful and rich-it can feed those of us who want deeper community and tribe-but it can also bring many more opportunities for our triggers to get acti- vated with each different lover, metamour, and family member or friend of your partners that comes along.
+pehk | In nonmonogamy, we can also get completely blind-sided with triggers that we didn't even know we had-triggers that never would have shown up within the con- text of monogamy. That said, my experience has taught me that our triggers can be a gift. Of course, it never feels like a gift in the moment of being triggered, but if we can approach our triggers with curiosity and learn to shift into being responsive in- stead of acting from knee-jerk reactivity, our triggers become an amazing oppor- tunity to strengthen and deepen our relationship with ourselves and with our part- ners. Just as how we want to speak for our parts instead of from them, we also want to learn how to respond to our triggers instead of reacting from them. Under- standing and inquiring into your triggers can be a powerful way to heal past pain and transform outdated beliefs or stories that you might still be stuck in. Working with your triggers can free you up to live your life and conduct your relationships based on your preferred expressions of self-living from love, connection and choice instead of automatic reactions.
+h7hi | Questions to Consider
+z8wk | . How do you treat yourself when you make a mistake or fall short of your own standards and expectations?
+3fxr | . How do you respond to yourself when you have an inner conflict?
+1rwa | . How would you like to treat yourself differently?
+40h8 | · What would become possible for you if you did this?
+9w49 | . How frequently are you getting triggered and how does this impact you?
+kgl8 | · What could you do to better manage your triggers, both preventively and dur- ing an actual trigger?
+kq4g | Things to Try and to Experiment With
+qjp8 | . When your inner critic arises, try engaging in dialogue with it instead of just
+pc64 | believing it. Ask what it wants for you and if it is trying to protect you in any way. You can do this verbally, internally or in writing. Keep engaging with it until you get to a positive intention that it is holding for you. Once you have this positive intention, you can then experiment with translating the inner crit- ic any time it arises again.
+mbrx | . Seek support through books, programs, training or with a professional to work with your inner critic and to manage your triggers.
+pcd0 | No matter how triggered, anxious or out of control you feel, it's important to know that you can change your arousal system and calm yourself. Mindful deep belly breathing (even for just 60 seconds) is an effective way to de- crease heightened arousal and return your body to a state of homeostasis.
+```
+
+OUTPUT:
+```

@@ -1,0 +1,134 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+a8ge | The relations of democracy and knowledge are up for materialized refiguring at every level of the onion of doing technoscience, not just after all the serious epistemological action is over. I believe that last statement is a fact; I know it is my hope and commitment. This position is not relativism; it is a principled refusal of the stacked deck that forces choice between loaded dualities such as realism and relativism.
+h27a | TAKE A WALK ON THE WILY SIDE . . .
+pdjh | When my students read Haraway, they are often struck by the density of descriptions that span centuries and cultures, corporations and identities, without ever being nonspecific. Her stories of the bomb, gene, brain, mouse, vampire, and the like are not generic stories of mice, for instance, but of OncoMouse™ and even of particular OncoMice™ at specific labs. Students complain sometimes
+xmgs | 15481360, 2014, 2, Downloaded from https://anthrosource.onlinelibrary.wiley.com/doi/10.14506/ca29.2.09 by University Of Oslo, Wiley Online Library on [25/08/2023]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+bd9h | about the too much information that inhabit them, and worry that the stories are biased. They often voice as criticism what Haraway (1997, 68) takes as a principle of research: "Stories and facts do not naturally keep a respectable distance; indeed, they promiscuously cohabit the same very material places." The actual liveliness, the wiliness of nature and culture as natureculture is what I wish to point to and respond with. But often this does not convince them. Instead I have found that the best way to get my students to appreciate Haraway's necessary work is to give them an assignment. I call it the "Implosion Project," after her most pro- ductive methodological image. Implosion is a concept whose first dictionary def- inition is "a violent collapse inward," as when a star collapses on its own gravity to form a black hole. Analogously, world histories are not just found inside objects, and objects do not "point" to them; in important ways each object is made of imploded histories: "Any interesting being in technoscience, like a text- book, molecule, equation, mouse, pipette, bomb, fungus, technician, agitator, or scientist can-and often should be teased open to show the sticky economic, technical, political, organic, historical, mythic, and textual threads that make up its tissues" (Haraway 1997, 68).
+m047 | Haraway's lists are always important constructions. Here, facts, media, things, people are equally all implosions, all material-semiotic actors, all unpack- able, all full of different threads that "can-and often should" be teased out. The list of threads-"economic, technical, political, organic, historical, mythic, and textual"-appears in more or less similar forms, with economic, labor, episte- mological, and other dimensions appearing. Haraway (1997, 68) also defines implosion as a force bringing multiple dimensions together, connecting them, and as "a claim for heterogeneous and continual construction through historically lo- cated practice, where the actors are not all human." So the first part of the assignment is to see how many dimensions of a particular object one knows about, to explore the vastly different stories that one can tell about it.
+gy8c | The multiple dimensions that make up objects also make up ourselves, as well as our categories. Telling the stories of an object therefore begins unpacking our own clichés, our certainties, our affects. Writes Haraway (1997, 68): "The point is simple: the technical, textual, organic, historical, formal, mythic, eco- nomic, and political dimensions of entities, actions, and worlds implode in the gravity well of technoscience or perhaps of any world massive enough to bend our attention, warp our certainties, and sustain our lives."
+y4mj | Following connections is thus the only way to proceed, no matter how worrisome the result. The physics here is serious: the world itself is warped and
+vpgq | 350
+ousl | 15481360, 2014, 2, Downloaded from https://anthrosource.onlinelibrary.wiley.com/doi/10.14506/ca29.2.09 by University Of Oslo, Wiley Online Library on [25/08/2023]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+m4ju | the straight lines we see between categories may be twisted, but those twists must be carefully followed. Only in this manner can we confront the histories and the intolerable not just in objects but in ourselves, in our identities as partial, in our senses, our worries, and our common sense. As does Deleuze, though in an implosive, grounded register, Haraway seeks other ways of thinking, writing, and doing politics. "We do not seek partiality for its own sake, but for the sake of the connections and unexpected openings situated knowledges make possible" (Haraway 1988, 196).
+a0mb | The Implosion Project is designed to guide one through the arduous home- work required to write an implosion with awareness and commitment. It consists of a series of questions, organized by dimensions to explore the tissues of an object. Following these is a set of analytic twists, each one turning the implosion on oneself, one's common sense, and on the world. The project originated while I was a teaching assistant for Haraway's "Science and Politics" class at the Uni- versity of California, Santa Cruz. I came to see that it helped generate more interesting projects, ones that mattered to the writer, and at the same time helped explicate some aspects of Haraway's unique style and power. I have continued to experiment with it and assign it in almost all my classes. I will explain how after I outline the process.
+ki8m | IMPLOSION PROJECT: The Assignment
+km8w | Implosion Projects are attempts to teach and learn about the embeddedness of objects, facts, actions, and people in the world and the world in them. The emphasis is on details and nonobvious connections, as well as on the many di- mensions with which we can analyze them: labor, professional, material, tech- nological, political, economic, symbolic, textual, bodily, historical, educational.
+wzno | Pick an artifact, a fact, a process as "it." Make sure it is as specific as possible (not just fluoxetine, but one of those colored, branded Prozac pills that is in your medicine cabinet; not just the fact that a monkey can use sign language, but the materialized, stated claim in a 1999 journal article). How can it be conceptualized? What is it to different groups of people and individuals? How is it situated in the world and how is the world situated in it? Following is a hastily put-together, quite incomplete, yet apparently excessive list of possibly relevant aspects of any artifact (whether it be a social movement, a name, a grouping, a set of actions, or a process in the form of a thing, a grain of rice, a mouse, a mouse pad, an ad about a mouse, you, a fact of life, a book, a statistic, an event, a story . . . ).
+xagm | 15481360, 2014, 2, Downloaded from https://anthrosource.onlinelibrary.wiley.com/doi/10.14506/ca29.2.09 by University Of Oslo, Wiley Online Library on [25/08/2023]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+iwn5 | With your specific artifact, fact, object, or process in front of you, brain- storm: Go through the list slowly and try to answer each question as best you can. Diagram or make a chart if you need to. It may seem hard to know where to put different answers, as the questions are indiscrete. "Potent categories col- lapse into each other. Analytically and provisionally we may want to move what counts as the political to the background and to foreground elements called tech- nical, formal, or quantitative, or to highlight the textual and semiotic while muting the economic or mythic" (Haraway 1997, 68).
+uooz | Note your form of certainty as well: whether you feel you know the answer in detail, have a good idea about it, a guess, or no idea. Take your time. It may take more than one session. Don't do any extra research at this point. Type it in so you can add more later. If there are more dimensions that strike you as needing inclusions, add them and iterate questions for them as well.
+pxbq | These questions are only hints, but remember that almost any answer pro- vides a cluster of new artifacts (try not to go more than three levels down). The object of this project is to explore the real complexity of specificity and situat- edness. These words only mean something in the context of specific knowledges and matter, and in contests over what matters. In these contexts they allow us to get at the world in an effective and affective way; they help show us how the world matters and how it might be otherwise. Following this is a set of analytic twists, each one turning the implosion on oneself, <LATEX>\mathrm { o n e } ^ { \prime } s</LATEX> common sense, and on the world.
+jfsr | How Is the World in "It" and How Is <LATEX>{ } ^ { 6 6 } I t ^ { 9 }</LATEX> in the World?
+u15r | Labor dimensions: How was it produced and who is involved in its production? Are there stages in its production? Where has it traveled to and from? What are the histories of its productions? Who maintains these pro- cesses of production? Where are they maintained? How is it used and how is using it seen as labor, or not? What forms of labor and work incorporate it or make use of it? Is it used up? If not, how is it passed on, transferred, communicated? What routes do these processes take? What kinds of actors (human and nonhuman) are involved, and what kinds are excluded?
+lq35 | Professional/Epistemological dimensions: How is knowledge of the process and its production demarcated and professionalized? What kinds of knowledge count in talking about it? What kind of professionals are involved in making expert decisions regarding its development, production, and dis-
+3g9w | 15481360, 2014, 2, Downloaded from https://anthrosource.onlinelibrary.wiley.com/doi/10.14506/ca29.2.09 by University Of Oslo, Wiley Online Library on [25/08/2023]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+d09o | semination? How are each of these stages funded? In projecting its future use? What kinds of controversies of this knowledge are happening? Who is involved? In what kinds of institutions do they work? How is it articulated by medical, legal, governmental, religious, psychological, engineering, mili- tary, economic, academic, new age, and educational professionals? What are the political-economic histories of this?
+ylhz | Material dimensions: What materials are involved in its production and maintenance? Where have these materials come from? How are they dis- posed of? What hazards are considered among these materials? What are the labor dimensions of these material productions? What are the global, economic, and political dimensions of their use? What are the histories, sciences, and political dimensions of these materials? How do these help constitute it?
+a3td | Technological dimensions: What kinds of technologies and machines enable it to be produced and maintained? What technologies are joined with it? Who has access to these machines and technologies? What are their histories? What sorts of information technologies are involved? What are the political, economic, bodily, labor, and historical dimensions of these technologies? How do they help constitute
+ex5k | <LATEX>\mathrm { i t } ?</LATEX> Context and situatedness: Where does it appear in the world? How does it appear and next to what or in what? What activities or ways of life enable one to come across <LATEX>i t ?</LATEX> What kinds of audiences is it addressed to? Who is excluded in these addresses? When can it appear? What is the rhythm of its appearance? How does this matter?
+9d4o | Political dimensions: What kinds of local, national, and international bodies claim jurisdiction over it? What bodies play a part in approving it (e.g., lobbyists, patents, corporate sponsorship, etc.)? What are the histories of regulations concerning it? How do these regulations help constitute it? How is it understood in terms of political positions in the world? How can we articulate the ways it is understood with political discourses? How is it hegemonic-in what ways can we see it as marshaling our consent to dom- inant orders? What kinds of legislation affect it? How do political consid- erations make use of it? What are the political positions as seen through the lens of this artifact (they often vary by artifact and moment)? How does this matter?
+cjq2 | 15481360, 2014, 2, Downloaded from https://anthrosource.onlinelibrary.wiley.com/doi/10.14506/ca29.2.09 by University Of Oslo, Wiley Online Library on [25/08/2023]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+5esx | Economic dimensions: The process as commodity: how is it marketed, purchased, consumed? Where and by whom? How is it involved in a world marketplace? What kinds of capital, debt, credit, and labor relations are involved in producing, marketing, and circulating it? Who sells it? How are costs calculated? How are risks calculated? By whom and when? What are the histories and materialities of those relations? Who is involved at each stage and how are differences in power situated? How do these help con- stitute
+m5ka | <LATEX>i t ?</LATEX> Textual dimensions: What texts are involved in it? What texts refer to it? What kinds of texts? Who produces them and who reads them? Where and in what organizations and institutions are the texts produced and read? What are the histories of these texts and how are they funded? What kinds of textual associations can be made? How does this matter?
+byu8 | Bodily/ organic dimensions: How are bodies related to it? What forms of attention, affect, emotion, and cognition are involved? Are there partic- ular ways in which we think of ourselves that also involve or sustain this process? What kinds of bodies, including nonhumans, and bodily relations are involved in producing it? What kinds make use of it? How are <LATEX>t h e _ { S e }</LATEX> bodies and relations gendered? Are there racial, gendered, differently abled, or other group identifications that help construct these bodies? What ways of life are involved? What are the histories of all these relations? How do these help constitute it?
+```
+
+OUTPUT:
+```

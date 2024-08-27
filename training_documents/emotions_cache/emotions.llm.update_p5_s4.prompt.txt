@@ -1,0 +1,75 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document. Your task is to faithfully reproduce the text for our text-to-speech engine so that it is easily read aloud.
+
+Note that the text might not start at the beginning and paragraphs may be split acrosss multiple textboxes. Textboxes may start or end in the middle of a word which is acceptable: do not combine text between textboxes and leave broken words at the start and end of a textbox unchanged.
+
+You will receive one textbox per-line in the format `id | Textbox content`. The output must be in the format `id | Clean content`.
+
+RULES:
+ • Remove inline citations and references e.g. "(Author, 2021)" or "(https://wikipedia.org/article.html)" or "[ECMOS 35b, 47, 49]".
+ • Spell out numbers, dates, and chemical formulas for the TTS engine e.g. "-2.5" -> "negative two point five" or "Jan. 2020" -> "January twenty twenty".
+ • Spell out LaTeX formulas for the TTS engine e.g. "<LATEX>p = 1</LATEX>" -> "P equals one".
+ • Rejoin hyphenated word fragments within the same textbox e.g. "synth -esize" -> "synthesize".
+ • Fix simple typos and OCR errors e.g. "O nce upon a 1ime." -> "Once upon a time.".
+ • Delete nonsequiter textboxes that interrupt the middle of a sentence if they obviously do not belong.
+
+Otherwise, the output should exactly match the input text:
+ • Do not combine text across lines or attempt to fix words broken across lines.
+ • Ensure each ID from the input is included in the output.
+ • Make as few changes as possible while respecting the above rules.
+
+EXAMPLE INPUT:
+```
+ccpt | stigate the effectiveness of psychedelics for ADHD symp- toms in adults.
+0fpw | 2. Materia1 and methods
+dqn8 | 2.1. Study design and participants
+cop0 | The study employed a naturalistic design, assessing the experiences of participants at bas-,
+lhkq | eline before they start, and at 2 and 4 weeks after initiation. The target population included adults with ADHD symptoms who had not been diag- nosed with ADHD before. To be included, participants needed to score on Conner's Adult ADHD Rating Scale (CAARS-S:SV). This cut-off was indicative of clinically elevated symptoms (Conners et al., 1999) (see section 2.3).
+82ju | 2.2. Study procedure
+y2qo | The online advertisement was placed on a website providing information about psychedelics (www.microdo sing.nl). Interested participants were redirected to information explaining the study rationale and procedure. The baseline survey took 20 min to complete. If the survey had not been completed after 24 h, a reminder was sent. Each of the surveys at the 2- and 4-week time points took about 15 min to complete. Par- ticipants were able to pause the surveys. Data collection occurred between Nov. 2020 and Jul. 2021. The study was approved by the Ethics Review Committee of Psy- chology and Neuroscience at Maastricht University (ERCPN- 215_05_11_2019_A1).
+1piq | 2.3. Measures
+7fqw | 2.3.1. Demographic information and history of substance use
+rhaz | At baseline, demographic information was collected. History of substance use assessed experience with psyche- delics (i.e., ayahuasca, DMT, 5-MeO-DMT, LSD, novel lysergamides (e.g., 1P-LSD, ALD-52), psilocybin, salvia divinorum, ibogaine, and mescaline) in both full (psychedelic) doses and microdoses.
+wak1 | 2.3.2. Psychiatric and physiological diagnoses
+wtfz | Participants were asked whether they had a current diagnosis of a disorder. These answer options were chosen because most of the listed diagnoses are often reported to co-occur with ADHD (Kooij et al., 2019), or because these diagnoses were reported to be common in people who microdose (Fadiman and Korb, 2019). We 
+3j2l | REVIEW ARTICLE Frontiers in Psychiatry | www.frontiersin.org
+03k3 | 2
+1k9e | constructed a variable Comorbidity alongside ADHD, differenti- ating respondents with and without a comorbid diagnosis alongside ADHD (<LATEX>p < . 0 0 1 =</LATEX> only ADHD or no ADHD diagnosis; <LATEX>p > . 0 1 =</LATEX> ADHD and at least one other diagnosis). We constructed a variable Medication use alongside microdosing, differentiating respondents who were and were not using conven- tiona1 ADHD medication alongside microdosing (<LATEX>0 =</LATEX> only microdosing; <LATEX>1 =</LATEX> conven-
+```
+
+EXAMPLE OUTPUT:
+```
+ccpt | stigate the effectiveness of psychedelics for ADHD symptoms in adults.
+0fpw | Two. Material and methods
+dqn8 | Two point one. Study design and participants
+cop0 | The study employed a naturalistic design, assessing the experiences of participants at bas-,
+lhkq | eline before they start, and at two and four weeks after initiation. The target population included adults with ADHD symptoms who had not been diagnosed with ADHD before. To be included, participants needed to score on Conner's Adult ADHD Rating Scale. This cut-off was indicative of clinically elevated symptoms (see section two point three).
+82ju | Two point two. Study procedure
+y2qo | The online advertisement was placed on a website providing information about psychedelics. Interested participants were redirected to information explaining the study rationale and procedure. The baseline survey took twenty minutes to complete. If the survey had not been completed after twenty-four hours, a reminder was sent. Each of the surveys at the two and four-week time points took about fifteen minutes to complete. Participants were able to pause the surveys. Data collection occurred between November twenty twenty and July twenty twenty-one. The study was approved by the Ethics Review Committee of Psychology and Neuroscience at Maastricht University.
+1piq | Two point three. Measures
+7fqw | Two point three point one. Demographic information and history of substance use
+rhaz | At baseline, demographic information was collected. History of substance use assessed experience with psychedelics (i.e., ayahuasca, DMT, five-MeO-DMT, LSD, novel lysergamides (e.g., one-P-LSD, ALD-fifty-two), psilocybin, salvia divinorum, ibogaine, and mescaline) in both full (psychedelic) doses and microdoses.
+wak1 | Two point three point two. Psychiatric and physiological diagnoses
+wtfz | Participants were asked whether they had a current diagnosis of a disorder. These answer options were chosen because most of the listed diagnoses are often reported to co-occur with ADHD, or because these diagnoses were reported to be common in people who microdose. We
+3j2l |
+03k3 |
+1k9e | constructed a variable Comorbidity alongside ADHD, differentiating respondents with and without a comorbid diagnosis alongside ADHD (P is less than point zero zero one equals only ADHD or no ADHD diagnosis; P is greater than point zero one equals ADHD and at least one other diagnosis). We constructed a variable Medication use alongside microdosing, differentiating respondents who were and were not using conventional ADHD medication alongside microdosing (zero equals only microdosing; one equals conven-
+```
+
+INPUT:
+```
+jkp9 | One limitation of Carrera and Oceja's (2007) study is that retrospective, recall-based measures tend to be less accurate than those collected in real time as the emotional episode unfolds (i.e., online measures; see Kahneman, 1999; Robinson & Clore, 2002), in part because people can have trouble remembering their expe- riences of emotion (e.g., Thomas & Diener, 1990). Thus, stronger tests of the vacillation hypothesis require online continuous mea- sures of happiness and sadness. Studies 1a and 1b provided two such tests.
+z8tt | Study 1a: The Button Press Measures
+9g22 | J. T. Larsen et al. (2004) developed online continuous measures of positivity and negativity by asking subjects to press one com- puter mouse button whenever they felt good during a computerized gambling task and another button whenever they felt bad. Subjects were also instructed to press both buttons if they felt both good and bad and neither button if they felt neither good nor bad. The gambles included several disappointing wins, which J. T. Larsen et al. defined as good outcomes that could have turned out even better (e.g., smaller-than-expected raises; Kahneman, 1992; Ortony, Clore, & Collins, 1988). Subjects spent more time simultaneously pressing both buttons after receiving disappointing wins than after receiving outright wins, which indicates that disappointing wins can elicit simultaneously mixed emotions. These data do not speak to whether people can experience simultaneously mixed emotions of happiness and sadness, however, because J. T. Larsen et al. measured positivity and negativity in general, rather than happi- ness and sadness in particular. In Study 1a we provided a strong test of the vacillation hypothesis by asking subjects to indicate whether they felt happy and sad with the button press measures as they watched a clip from Life Is Beautiful.
+41fx | Method. Subjects were 47 Texas Tech undergraduates (21 women; 45%). In this and all studies, they received partial course credit for participating.
+7um8 | Subjects completed the study individually and watched the bittersweet clip <LATEX>\left( n = 2 2 \right)</LATEX> or the control clip <LATEX>\left( n = 2 5 \right) b y \quad r a n d o m</LATEX> assignment. After providing the foreign language comprehension cover story, the experimenter asked subjects to hold the mouse in both hands, to press the left button with their left thumb whenever they felt happy, and to press the right button with their right thumb whenever they felt sad.1 The experimenter also mentioned that they should not press any buttons if they felt neither happy nor sad and that they should press both buttons if they felt both happy and sad at the same time. Throughout the clip, the experimenter ob- served subjects on a video monitor. If subjects removed one of their thumbs from the mouse button for more than 30 s, the experimenter asked them over an intercom to keep both thumbs on the buttons. (Data from one subject were discarded because she ignored several such requests.) The computer recorded all changes in the state of the mouse buttons. Offline, we determined whether each button was or was not being pressed every 100 ms.
+uow2 | After subjects completed a film comprehension test, the exper- imenter conducted a funnel debriefing to determine whether sub-
+iat7 | jects suspected that we were interested in mixed emotions. After explaining that psychology studies are designed to answer ques- tions about how people think, feel, or behave, the experimenter asked subjects what they thought we were interested in. The experimenter then asked about why we might be interested in their emotions and why we asked them to report their happiness and sadness separately and continuously. The experimenter then told subjects that we were interested only in one thing and asked what that one thing might be. Finally, the experimenter told subjects that we were interested in something about their emotions and asked what that one thing might be. No subjects suspected that we were interested in mixed emotions.
+ywwr | The experimenter also asked subjects whether they thought they were allowed to press both buttons at the same time. Data from three subjects (6%) who had watched the control clip were re- moved because they did not think they were allowed to do so. None of these subjects ever pressed both buttons, so excluding them worked against the hypothesis that people who watched the control clip would report less mixed emotions. In all, data from four of 47 (9%) subjects were excluded.
+0i6j | Results and discussion. The proportion of subjects who reported happiness and who reported sadness at each moment of each clip is shown in Figure 3. People who watched the control clip often reported happiness during the first 11 min and rarely reported sadness. During the final 8 min, they rarely reported happiness and often reported sadness. People who watched the bittersweet clip often reported happiness during the first 3 min and rarely reported sadness. In addition, they often reported happiness at several points during the remaining 17 min even though they often reported sadness throughout that portion as well.
+87cq | To further examine how evocative the clips were, we computed how much time each subject pressed each button (see Table 1).2 We submitted these data to a 2 (clip: control, bittersweet) × 2 (emotion: happiness, sadness) mixed-model analysis of variance, where clip was a between-subjects variable.3 The analysis of variance revealed a main effect of clip, such that subjects reported more emotion during the bittersweet clip <LATEX>\left( M = 1 0 . 5 7 \right.</LATEX> min, <LATEX>S D =</LATEX> 5.27) than during the control clip
+0qs3 | Control Clip
+z8f7 | <LATEX>\left. 4 1 \right) = 6 . 6 0 ,</LATEX> <LATEX>\eta _ { 0 } ^ { 2 } = . 1 4 ,</LATEX> <LATEX>p = . 0 1 . 4</LATEX> The main effect of clip was qualified by a <LATEX>\mathrm { C l i p } \times \mathrm { E m o }</LATEX> interaction, <LATEX>F \left( 1 , 4 1 \right) = 1 6 . 7 0 ,</LATEX> <LATEX>\eta _ { p } ^ { 2 } = . 2 9 ,</LATEX> <LATEX>p < . 0 0 1 .</LATEX> Follow-up t tests indicated that the bittersweet clip elicited more sadness than the control clip, <LATEX>t \left( 4 1 \right) = 4 . 0 8 ,</LATEX> <LATEX>d = 1 . 2 5 ,</LATEX> <LATEX>p < . 0 0 1 ,</LATEX> but no more happiness,
+```
+
+OUTPUT:
+```

@@ -1,0 +1,76 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document. Your task is to faithfully reproduce the text for our text-to-speech engine so that it is easily read aloud.
+
+Note that the text might not start at the beginning and paragraphs may be split acrosss multiple textboxes. Textboxes may start or end in the middle of a word which is acceptable: do not combine text between textboxes and leave broken words at the start and end of a textbox unchanged.
+
+You will receive one textbox per-line in the format `id | Textbox content`. The output must be in the format `id | Clean content`.
+
+RULES:
+ • Remove inline citations and references e.g. "(Author, 2021)" or "(https://wikipedia.org/article.html)" or "[ECMOS 35b, 47, 49]".
+ • Spell out numbers, dates, and chemical formulas for the TTS engine e.g. "-2.5" -> "negative two point five" or "Jan. 2020" -> "January twenty twenty".
+ • Spell out LaTeX formulas for the TTS engine e.g. "<LATEX>p = 1</LATEX>" -> "P equals one".
+ • Rejoin hyphenated word fragments within the same textbox e.g. "synth -esize" -> "synthesize".
+ • Fix simple typos and OCR errors e.g. "O nce upon a 1ime." -> "Once upon a time.".
+ • Delete nonsequiter textboxes that interrupt the middle of a sentence if they obviously do not belong.
+
+Otherwise, the output should exactly match the input text:
+ • Do not combine text across lines or attempt to fix words broken across lines.
+ • Ensure each ID from the input is included in the output.
+ • Make as few changes as possible while respecting the above rules.
+
+EXAMPLE INPUT:
+```
+ccpt | stigate the effectiveness of psychedelics for ADHD symp- toms in adults.
+0fpw | 2. Materia1 and methods
+dqn8 | 2.1. Study design and participants
+cop0 | The study employed a naturalistic design, assessing the experiences of participants at bas-,
+lhkq | eline before they start, and at 2 and 4 weeks after initiation. The target population included adults with ADHD symptoms who had not been diag- nosed with ADHD before. To be included, participants needed to score on Conner's Adult ADHD Rating Scale (CAARS-S:SV). This cut-off was indicative of clinically elevated symptoms (Conners et al., 1999) (see section 2.3).
+82ju | 2.2. Study procedure
+y2qo | The online advertisement was placed on a website providing information about psychedelics (www.microdo sing.nl). Interested participants were redirected to information explaining the study rationale and procedure. The baseline survey took 20 min to complete. If the survey had not been completed after 24 h, a reminder was sent. Each of the surveys at the 2- and 4-week time points took about 15 min to complete. Par- ticipants were able to pause the surveys. Data collection occurred between Nov. 2020 and Jul. 2021. The study was approved by the Ethics Review Committee of Psy- chology and Neuroscience at Maastricht University (ERCPN- 215_05_11_2019_A1).
+1piq | 2.3. Measures
+7fqw | 2.3.1. Demographic information and history of substance use
+rhaz | At baseline, demographic information was collected. History of substance use assessed experience with psyche- delics (i.e., ayahuasca, DMT, 5-MeO-DMT, LSD, novel lysergamides (e.g., 1P-LSD, ALD-52), psilocybin, salvia divinorum, ibogaine, and mescaline) in both full (psychedelic) doses and microdoses.
+wak1 | 2.3.2. Psychiatric and physiological diagnoses
+wtfz | Participants were asked whether they had a current diagnosis of a disorder. These answer options were chosen because most of the listed diagnoses are often reported to co-occur with ADHD (Kooij et al., 2019), or because these diagnoses were reported to be common in people who microdose (Fadiman and Korb, 2019). We 
+3j2l | REVIEW ARTICLE Frontiers in Psychiatry | www.frontiersin.org
+03k3 | 2
+1k9e | constructed a variable Comorbidity alongside ADHD, differenti- ating respondents with and without a comorbid diagnosis alongside ADHD (<LATEX>p < . 0 0 1 =</LATEX> only ADHD or no ADHD diagnosis; <LATEX>p > . 0 1 =</LATEX> ADHD and at least one other diagnosis). We constructed a variable Medication use alongside microdosing, differentiating respondents who were and were not using conven- tiona1 ADHD medication alongside microdosing (<LATEX>0 =</LATEX> only microdosing; <LATEX>1 =</LATEX> conven-
+```
+
+EXAMPLE OUTPUT:
+```
+ccpt | stigate the effectiveness of psychedelics for ADHD symptoms in adults.
+0fpw | Two. Material and methods
+dqn8 | Two point one. Study design and participants
+cop0 | The study employed a naturalistic design, assessing the experiences of participants at bas-,
+lhkq | eline before they start, and at two and four weeks after initiation. The target population included adults with ADHD symptoms who had not been diagnosed with ADHD before. To be included, participants needed to score on Conner's Adult ADHD Rating Scale. This cut-off was indicative of clinically elevated symptoms (see section two point three).
+82ju | Two point two. Study procedure
+y2qo | The online advertisement was placed on a website providing information about psychedelics. Interested participants were redirected to information explaining the study rationale and procedure. The baseline survey took twenty minutes to complete. If the survey had not been completed after twenty-four hours, a reminder was sent. Each of the surveys at the two and four-week time points took about fifteen minutes to complete. Participants were able to pause the surveys. Data collection occurred between November twenty twenty and July twenty twenty-one. The study was approved by the Ethics Review Committee of Psychology and Neuroscience at Maastricht University.
+1piq | Two point three. Measures
+7fqw | Two point three point one. Demographic information and history of substance use
+rhaz | At baseline, demographic information was collected. History of substance use assessed experience with psychedelics (i.e., ayahuasca, DMT, five-MeO-DMT, LSD, novel lysergamides (e.g., one-P-LSD, ALD-fifty-two), psilocybin, salvia divinorum, ibogaine, and mescaline) in both full (psychedelic) doses and microdoses.
+wak1 | Two point three point two. Psychiatric and physiological diagnoses
+wtfz | Participants were asked whether they had a current diagnosis of a disorder. These answer options were chosen because most of the listed diagnoses are often reported to co-occur with ADHD, or because these diagnoses were reported to be common in people who microdose. We
+3j2l |
+03k3 |
+1k9e | constructed a variable Comorbidity alongside ADHD, differentiating respondents with and without a comorbid diagnosis alongside ADHD (P is less than point zero zero one equals only ADHD or no ADHD diagnosis; P is greater than point zero one equals ADHD and at least one other diagnosis). We constructed a variable Medication use alongside microdosing, differentiating respondents who were and were not using conventional ADHD medication alongside microdosing (zero equals only microdosing; one equals conven-
+```
+
+INPUT:
+```
+1mvw | For example, secondly, Ian Smith argues in favour of the view that a species has an 'intrinsic good' that 'consist in its abilities to flourish', based on a Hennigian species concept that sees species as 'historical individuals', which, in turn, gives us reasons to preserve species on Smith's account because, amongst other things, '[a species'] flourishing is a species' organisms continuing to repro- duce successfully (that is, the organisms producing fertile offspring) and the species remaining safe from extinction' (2016, 14). Smith takes it for granted that 'species taxa are real' (2016, 3-4) but subspecies are not. Therefore, only species are of intrinsic value. Critics have seen this presumption, in turn, as a failure to properly consider subspecies and higher categories in taxonomy (Burbrink et al., 2022).
+6d4s | Finally, Ronald Sandler understands species as 'groups of bio- logically related organisms that are distinguished from other organ- isms by virtue of their shared form of life' (Sandler, 2012, 6, italics in original). What distinguishes organisms in this way, according to Sandler, are, for example, their ways to acquire energy (what they
+mqah | eat), how they move (and whether they move at all), how they reproduce and so on. Because Sandler argues against objective values being applicable to species (understood in this way), he points out that species can be still valuable in other ways. For example, some species are subjectively (finally/non-instrumentally) valuable (i.e. valuable because people actually value them) in two ways: firstly, in the form of 'preference value' as the 'value that something has because people have a preference for it' (2012, 23). That value is also sometimes called 'existence value', which accord- ing to Espen Stabell (2019, 180) 'can be understood to involve self- regarding as well as other-regarding and nonanthropocentric preferences'. Secondly, species can also have 'integral value' as the 'value that something possesses when it is valued in a way that flows from one's worldview of core value commitments' according to Sandler (2012, 24).
+xxr8 | This last account of the value of species neither relies on species having objective value (like Rolston), nor on species having inter- ests akin to living beings (like Johnson), nor on the premise that species are being able to flourish (like Smith), and thus, it relies on less premises that might be controversial. However, in contrast to those other accounts its scope is much narrower because it concedes that only some anthropogenic species extinctions are lamentable by involving the loss of such value and only if this value is actually held by some humans.
+rl4j | Resulting from harm to nonhuman individuals
+vz32 | Non-anthropocentric individualist accounts within environmental ethics - that is sentientist (i.e. all sentient beings are morally considerable; Singer, 1975) or biocentric (i.e. all living beings are morally considerable; Taylor, 1986/2011) accounts - are only indirectly concerned with extinctions. What primarily matters to such positions is either the harm, impediment to well-being or injustice that is borne by individual nonhuman beings, and thus, the relevant harm involved in extinctions is not found on the species level (Nussbaum, 2011). Yet, it is often argued - for different reasons - that these two levels of analysis are closely related (Agar, 2001; Regan, 2004; Taylor, 2011; Korsgaard, 2018a; Donoso, 2019; Baard, 2022). For example, according to animal rights theorist Tom Regan the preservation of the biotic community follows from showing 'proper respect for the rights of the individuals' (Regan, 1983/2004, 363) that are part of that community.
+ncb0 | As an example of emphasising the current anthropogenic mass extinction within an individualist framework, Anna Wienhues (2020) argues in favour of a biocentric theory of interspecies justice. Within this account, anthropogenic extinctions function as indica- tors of potential previous distributive injustices to nonhuman beings, due to the unjust deprivation of habitat that can ultimately lead to species extinctions. Within this context, extinctions are not injustices in themselves, but an outcome of interspecies injustice - metaphorically speaking she argues that 'each anthropogenic extinction is a memorial for past injustices' (2020, 157, italics in original).
+8mp0 | A commonality of all of these individualist accounts is that they are only indirectly concerned with extinctions and cannot explain why an extinction is in itself morally lamentable (Benton, 1993). Moreover, such accounts usually cannot morally distinguish between saving a specimen that belongs to a near-extinct species and one that does not belong to such a species (Sober, 1986/1995; Baard, 2022). If ethical relevance is placed solely on individual entities rather than species, then the extinction status of the species
+xjyk | the entity belongs to does not necessarily count ethically, which could be more of a problem for some individualist accounts (e .- g. Singer, 1975; Cochrane, 2012; see Korsgaard, 2018b), than for individualist accounts that allow for a degree of value pluralism (as opposed to everything of moral relevance being reducible to, e.g., individual well-being) and/or that allow for a degree of ethical pluralism (e.g. Wienhues, 2020).
+mt0f | An alternative solution is presented by individualist accounts that conceptualise the individual's interests as extending to 'all other organisms that are relatives' in terms of its species (under- stood following Mayr's biological species concept) (Agar, 2001, 150). Based on Nicholas Agar's (2001) account, that consequently allows for an individualist argument that proposes that individuals that are part of endangered species and therefore rare are more valuable than their plentiful counterparts. According to Agar that follows because the value of an individual is not 'a function only of its own goals. Its demise affects the other-directed and other- requiring goals of its conspecifics, depending on how plentiful its species is' (Agar, 2001, 150), which includes, for example, the ability of individuals to mate and successfully reproduce.
+awab | Yet, non-individualist accounts consider a theoretical focus on the individual to be a weakness. As Johnson puts it, '[a]n ethic that deals adequately with the issues of extinction must not only avoid being anthropocentric, it must avoid being atomistic' (1991, 170, italics in original). That might make one favour again one of the earlier introduced values of species accounts, but an account like Johnson's faces in turn a range of difficulties in its own as already indicated above.
+ixcc | Leading to the loss of valuable biological variety
+8p6h | Besides accounts that consider the loss of parts of biodiversity to be problematic because of the moral relevance of species or nonhuman individuals, other perspectives consider species extinctions to be problematic due to the involved loss of biological variety. While biodiversity loss does not necessarily follow from species extinc- tions and vice versa, they are clearly conceptually related and practically implicated in each other. Problematising the loss of (bio)diversity, in turn, is a notable topic in the context of species extinctions because it has been institutionalised on an international level via the Convention of Biological Diversity (established in 1993).
+```
+
+OUTPUT:
+```

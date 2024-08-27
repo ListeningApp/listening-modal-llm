@@ -1,0 +1,254 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+o5l0 | Say X is a set where each point i has an 'energy' E; E R. Its partition function is
+c1wq | Z = De-BEi iEX
+gr2b | where B E R is the coolness.
+jkky | The partition function counts the points of X-but it counts points with large energy less, since they're less likely to be 'occupied'.
+7vxr | If ( = 1/kT, points with energy E; >> kT count for very little.
+qzyn | But as T -> +oo, all points get fully counted and Z -> | X|. In physics we call Z the number of accessible states.
+rcl1 | Say we have a system with some countable set of states X. In thermal equilibrium at temperature T, the probability that the system is in its ith state is proportional to exp(-BE;), where E; is the energy of that state and ß is the coolness. Thus, physicists say the partition function
+9qpf | Z = Le-BEi iEX
+y5cx | is the number of accessible states: roughly, the number of states the system can easily be in at temperature T, where ß = 1/kT.
+hexk | This is a funny thing to say, because being 'accessible' is not a yes-or-no matter. A more precise statement is that the partition function counts states weighted by their accessibility exp(-ßE;). States whose energy is low compared to kT are highly acces- sible, or probable, because exp(-BE;) is close to 1 if E; < kT. States of high energy are more inaccessible, or improbable, since exp(-BE;) is close to 0 if E; >> kT.
+c05v | Calling the partition function the 'number of accessible states' emphasizes how it generalizes the cardinality | X| of an ordinary set X, meaning its number of points. Let's make this precise! Let's call a set X with a function E: X -> R an energetic set. I will write it merely as X, so you need to remember it comes with an energy function. I will call its partition function Z(X):
+1ytq | Z(X)=Le-BEi iEX
+tkax | If X is finite we don't have to worry about the convergence of this sum. My main message is this:
+6mpz | The partition function Z (X) does for energetic sets what the cardinality | X | does for sets.
+bi1x | For example, just like the cardinality, the partition function adds when you take disjoint unions, and multiplies when you take products! Let's see why.
+bnve | 71
+7gvc | Puzzle 35. The disjoint union X + X' of energetic sets E : X -> R and E' : X' -> R is again an energetic set: for points in X we use the energy function E, while for points in X' we use the function E'. Show that the partition function obeys the law Z(X+X')= Z(X) + Z(X'), at least for finite energetic sets.
+jf19 | Puzzle 36. The cartesian product X x X' of energetic sets E : X -> R and E' : X' -> R is again an energetic set: define the energy of (x, x') € X x X' to be E(x) + E(x'). This is how it really works in physics. Show that the partition function obeys the law Z(XXX')=Z(X) Z(X'), at least for finite energetic sets.
+6hx6 | Puzzle 37. Show that if X is a finite energetic set, its partition function Z(X) ap- proaches its cardinality | X | as T -> +00.
+xcql | The key virtue of cardinality is that two sets are isomorphic that is, there exists a one-to-one and onto function between them-if and only if they have the same car- dinality. This generalizes to energetic sets if we use the partition function instead of the cardinality! Let's say two energetic sets with energy functions E: X -> R and E' : X' -> R are isomorphic if there is a one-to-one and onto f : X -> X' which is compatible with their energy functions, meaning
+xcxb | E'(f(x)) = E(x)
+ci51 | for all x E X.
+jaj7 | Puzzle 38. Show that two finite energetic sets are isomorphic if and only if they have the same partition function. (Hint: the key is to show that the functions exp(-E/kT) for various energies E E R are linearly independent. As a step toward this, show that a finite linear combination
+uc0w | can only be zero if ci = 0 for the smallest energy Ej.) i Ci exp(-E;/kT)
+494y | If you're into category theory, here are some ways to go further. If you're not, please skip to the next page.
+5whs | Puzzle 39. Make up a category of energetic sets, where morphism are maps that are compatible with their energy functions. Prove that it is a category.
+kigc | Puzzle 40. Show the disjoint union of energetic sets is the coproduct in this category. Puzzle 41. Show that what I called the cartesian product of energetic sets is not the product in this category.
+k5st | Puzzle 42. Show that what I called the 'cartesian product' of energetic sets gives a symmetric monoidal structure on the category of energetic sets. So we should really write it as a tensor product X & X', not X x X'.
+d8e8 | Puzzle 43. Show this tensor product distributes over coproducts: X ® (Y + Z) ~ XØY+XOZ.
+gb7b | We can go even further and define not only a partition function for energetic sets, but also an expected energy, free energy, and entropy, using the formulas we've seen earlier. These obey a bunch of rules like this:
+jxu0 | Puzzle 44. Define the entropy of an energetic set by
+l1bb | S(X)=k-InZ(X) +BInZ(X))
+i3e0 | Show that
+78dj | S(X®Y)=S(X)+S(Y).
+c1pj | 72
+6v9y | ENTROPY COMES IN TWO PARTS
+deen | The entropy of a system in thermal equilibrium is always the sum of two parts:
+27bo | 1. The free energy part:
+72k6 | − F T = k ln Z
+emhp | This is Boltzmann's constant times the logarithm of the number of accessible states.
+tcgw | 2. The expected energy part:
+4d8s | (E) T
+1cmq | This equals InkT if the system has n degrees of freedom and its energy is a positive definite quadratic form.
+u8s6 | Before we dive into examples, it's good to think one last time about the entropy of a system in thermal equilibrium. We've seen that this entropy is always the sum of two parts, which we could call the free energy part -F/T and the expected energy part (E)/T. But there are various ways to think about this. One is simply that it follows from F = (E) - TS: the free energy is the expected energy minus the useless energy. But here is another way to think about it.
+86m5 | In his early work, Boltzmann said the entropy of a system is k times the logarithm of the number of states it can occupy. This is true if all these states are equally probable. But typically some states are more probable than others. We could try to address this by replacing the number of states with the number of accessible states
+lzzv | Z = Le-BEi iEX
+623p | Here we count states weighted by their accessibility exp(-BE;). If we try to follow Boltzmann's prescription with this adjustment we get k ln Z = F/T. This is the free energy part of the entropy.
+50lp | In many situations this is close to the true entropy. But this clearly can't be all there is to it. After all, suppose we add the same constant c to the energy of each state. Then the probability of each state in thermal equilibrium is unchanged, so the entropy must stay the same! But the accessibility of each state gets multiplied by exp(-ßc), so we have to subtract kfc from the free energy part of the entropy. There must be some compensating term-and this is the expected energy part of the entropy, (E)/T. When we add c to the energy of each state, this goes up by c/T = kBc.
+i4nn | Thus, in thermal equilibrium we can think of entropy as k times the log of the number of accessible states, 'corrected' so that the result doesn't change when we add a constant to the energy of every state.
+nuk3 | 73
+y2cn | THE POWER OF THE PARTITION FUNCTION
+hgm4 | A classical harmonic oscillator with mass m and spring constant k has energy
+nc42 | p, q) = 12 + Kg 2m
+tbfm | Kg2
+ok18 | Its partition function is
+pgqe | dp dq h
+qo9m | Z(ß) = .00 00 e-BE(p,q)
+e7zz | where ß is coolness and h is Planck's constant.
+lhzk | From this we can find its expected energy and free energy in thermal equilibrium:
+wdpw | F = - 1Inz
+twiq | (E) = - In Z dß
+cchx | and then its entropy:
+2vma | S = (E) - F T where T is temperature: $ = 1/kT where k is Boltzmann's constant.
+z4aw | To test the power of the partition function, let's use it to figure out the entropy of a classical harmonic oscillator. Here's the game plan. First we'll compute the partition function by doing the integral in bright red. Then we'll use it to compute the oscillator's expected energy and free energy. Then we'll subtract those and divide by temperature to get the entropy.
+mo0p | In fact, we've already worked out the answer to this problem:
+tyxr | = k (Im (HT) +1). S
+txaa | Our earlier approach led to some cool insights. But it was 'tricky', not systematic. The partition function method is systematic, so it's good for harder problems. It will also give new insight into that pesky +1.
+qz8s | When we compute the entropy using a partition function, all the pain is concentrated at one point: computing the partition function! So let's get that over with.
+y7de | 74
+rukn | HARMONIC OSCILLATOR: PARTITION FUNCTION
+5tu7 | A classical harmonic oscillator has energy E(p, q) = p2 + kg2 and frequency w = K /m, so its partition function is
+vqgg | Vm = Jm' } = VR
+sbs5 | e-Br2 /2 rdr de
+n413 | (switching to polar)
+mvxd | (u = r2/2)
+gyzb | = 1 1
+rrp1 | how B
+8b70 | Z(()=
+nivt | Bhw
+8925 | For the harmonic oscillator, the partition function is the integral of a Gaussian in two variables. A change of variables makes the Gaussian 'round', and then we use polar coordinates to do the integral.
+y2tz | The physicist Kelvin is said to have written
+p769 | ∞ e dx = VT
+jhwn | on the blackboard and said "A mathematician is one to whom that is as obvious as that twice two makes four is to you." I find that rather obnoxious, but when I heard the story as a kid, I made damn sure I knew how to do this integral. The usual trick is to compute the square of this integral using polar coordinates.
+o1y4 | Now we're seeing something interesting. The harmonic oscillator, whose energy depends quadratically on two degrees of freedom, is physically more important than a system whose energy depends quadratically on just one degree of freedom. And when 3 = h = w =1, the partition function of the harmonic oscillator is
+3rdp | e .00 dx dy = | |e-+212 rdr do = 2T ~du = 2T, − 2
+2n4o | which is more fundamental than the integral Kelvin wrote down.
+31ya | 75
+7nda | HARMONIC OSCILLATOR: EXPECTED ENERGY
+4pv9 | A classical harmonic oscillator has partition function
+7w0x | Z = Bhu Bhw
+pehk | so its expected energy in thermal equilibrium is
+h7hi | (E) = _ 2 Inz = dß
+z8wk | (E) = kT
+3fxr | just as the equipartition theorem says it must be!
+1rwa | Once we know the partition function of the classical harmonic oscillator, it's easy to compute its expected energy: just use
+40h8 | (E) = __ In Z
+9w49 | and get
+kgl8 | (E) = - da dß In Bhw 1
+kq4g | β 1
+qjp8 | We can also figure this out using the equipartition theorem. Remember, the equiparti- tion theorem applies to a classical system whose energy is quadratic. If it has n degrees of freedom, then at temperature T it has
+pc64 | (E) = KT.
+mbrx | Our harmonic oscillator has n = 2, so we get (E) = kT. Good, this matches the partition function approach!
+pcd0 | 76
+txkp | HARMONIC OSCILLATOR: FREE ENERGY
+mxqe | A classical harmonic oscillator has partition function
+y9ob | Z(()=
+twm6 | so its free energy in thermal equilibrium is
+8qsp | F = - In Z = - In B 1 Bhw 1
+yck2 | F = - kT In
+hthe | how
+otjm | The partition function lets us do more! It lets us compute the free energy, too, using
+q0fv | F = m Z
+v9vo | Unlike the expected energy, the free energy involves Planck's constant:
+rwty | F = - kT In
+ki97 | Note kT and hw both have units of energy, so kT/hw is dimensionless, which is good because we're taking its logarithm. Also note that the free energy is negative at high temperatures! That may seem weird, but it turns out to be good when we compute the entropy.
+099j | 77
+m7zf | HARMONIC OSCILLATOR: ENTROPY
+2ghw | In thermal equilibrium at temperature T, a classical harmonic oscillator has
+hnfy | kT how so its entropy is
+w6d9 | expected energy (E) = kT and free energy F = - kT In
+lbm8 | kT how
+krjy | -
+n7dw | kT + kT ln T
+9nt1 | S = (E) - F T
+fr45 | kT
+s2ty | + 1
+3cdb | how
+6hsm | To compute the entropy of a classical harmonic oscillator, we just use
+om5d | S : (E) - F T .
+0svq | We get the answer we got before, of course:
+1too | S= k ln (In (I) +1).
+pti9 | But now we can finally understand the puzzling extra +1.
+4mtx | As we've seen, the entropy of any system in thermal equilibrium consists of two parts:
+rgxy | 1. The free energy part, -F/T. For the classical harmonic oscillator this is
+vsq9 | 2. The expected energy part, (E)/T. For the classical harmonic oscillator this is
+d5a1 | (E) T
+qtb8 | k.
+g395 | The free energy part of the entropy is always k times the logarithm of the number of accessible states. For the classical harmonic oscillator, the expected energy part of the entropy must equal k by the equipartition theorem, since the oscillator's energy depends on 2 degrees of freedom. This is small compared to the free energy part when hw < kT: that is, when quantum effects are small compared to thermal effects.
+wfvy | 78
+7yfb | PARTICLE IN A BOX: PARTITION FUNCTION
+3mmm | The energy of a classical free particle of mass m in a 1-dimensional box depends only on its momentum p:
+742r | 2,9) = 22 2m p2
+9u58 | Its position q is trapped in the interval [0, L].
+vv8b | Its partition function is therefore
+te37 | Z(B) = 11º e-BE(P,q) -00 dp dq h
+uk6d | h 1-00 L 100 6 1° e-Bp2/2m dp =
+2b11 | 2Trm
+2xg3 | β
+i3w4 | Now let's turn to our ultimate goal: computing the entropy of a box of gas. As a warmup, let's figure out the entropy of a single particle in a box. In fact, let's start with a a free classical particle in a one-dimensional box: that is, in some interval [0, L].
+ta7u | The first step is to compute its partition function. As you can see, this is easy enough. But the whole idea raises some questions. Some people get freaked out by the concept of entropy for a single particle I guess because it involves probability theory for a single particle, and they think probability only applies to large numbers of things.
+qqu2 | I sometimes ask these people "how large counts as large?" In fact the foundations of probability theory are just as mysterious for large numbers of things as for just one thing. What do probabilities really mean? We could argue about this all day: Bayesian versus. frequentist interpretations of probability, etc. I said a tiny bit about this before, and I won't say more now.
+lpgr | Large numbers of things tend to make large deviations less likely. For example the chance of having all the gas atoms in a box all on the left side is less if you have 1000 atoms than if you have just 2. This makes us worry less about using averages and probability.
+```
+
+OUTPUT:
+```

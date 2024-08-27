@@ -1,0 +1,148 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+1pjs | See https://pubs.acs.org/sharingguidelines for options on how to legitimately share published articles.
+o2kr | Downloaded via UNIV OF SAO PAULO on February 24, 2020 at 17:15:22 (UTC).
+v6sk | analytical chemistry
+1wj6 | All-Solid-State Reference Electrode with Heterogeneous Membrane
+936l | ABSTRACT: Novel reference electrodes with a solid contact coated by a heterogeneous polymer membrane are described. The electrodes are obtained AgBr E using Ag nanoparticles, AgBr, KBr suspended in tetrahydrofuran solution of PVC KBr -157 ±2 mV and DOS and deposited on Ag substrate, or another substrate covered with Ag, by Agnao drop casting. After a short period of soaking in a KBr solution, stable and PVC DOS pX, pOx reproducible formal potentials of -157 ± 2 mV (vs Ag/AgCl/3 M KCl) were THF 1 Ag or Ag covered observed, and the solid-contact reference electrodes were ready to use. It is shown substrate that the described reference electrodes are relatively insensitive to the changes in the sample matrix, the concentrations of ions, the pH and the redox potential. These electrodes can also be fabricated in miniaturized form, and thus used to produce miniaturized multielectrode probes.
+06yq | The application of a conducting polymer as a solid contact (SC) for ion-selective electrodes (ISEs) with polymeric (e.g., PVC) membranes has opened a new avenue in potentiometry.""2 Different all-solid-state indicator and refer- ence electrodes have since then been reported, and interest in solid contact ion-selective electrodes (SC-ISEs) is a mainstream of potentiometry today.3-6 Solid contact reference electrodes (SC-REF), owing to their high metrological demands and distinctively different design techniques, occupy a know-how niche of their own.7
+dpv6 | A significant technical challenge is in selecting the materials and procedures that would be compatible in production for both SC-ISEs and SC-REFs. In the case of all-solid-state PVC electrodes, obviously advantageous would be the application of the same material, for example, conducting polymer and PVC.6,8,9 Some benefits can be gained by using organic salts and ionic liquids dispersed in PCV or inorganic salts in inert polymer binders.10 So far, the electrochemical mechanism of all-solid-state reference electrodes is not sufficiently elucidated, which prompts the researcher to use trial-error methods. A general electrochemical rationale points to a condition of the equitransferent liquid junctions.17 However, in the case SC- REF, one has the asymmetric junction between the solid contact and solution, and applicability of the equitransferent condition is challenged. To understand the mechanism of SC- REF, the concept of pseudoreference electrode.8,18 and a "stable-in-a matrix" diffusion potential19 can be useful, but it appears that a more comprehensive interpretation is needed. At the moment though, further developments primarily depend on the practical purpose, the scope of applications and technical inventiveness.
+8r5j | For both theoretical and practical reasons, the most popular reference electrodes are silver chloride electrode systems (e.g., Ag/AgCl/KCI) used in different configurations.7,16,20-25 An inventive approach was the introduction of a composite membrane made of polyvinyl acetate containing a very large loading of KCI (1:1 w/w KCI/PVA).10,11 Very recently,
+2taz | ACS Publications @ 2016 American Chemical Society
+o3ya | pubs.acs.org/ac
+r5il | polypropylene (PP) has been successfully used as the binding polymer for the same purpose with the advantage of production by injection molding.10 In this report, we show that a composite based on poly(vinyl chloride) (PVC) membrane containing nanoparticles of Ag, AgBr, KBr, and potassium bromoargentates allows the design of a solid-contact reference electrode.26 In general, even the conventional Ag/AgBr electrodes are rarely used25 and, to our knowledge, the system reported has never been explicitly described.
+5gui | Our technical note sees an avenue for a new class of the reference electrodes with heterogeneous membranes. We show that, by conventional drop casting, it is possible to obtain all- solid-state reference electrodes coupled with excellent analytical properties.
+82qc | EXPERIMENTAL SECTION
+ls7d | Reagents. Bis(2-ethylhexyl) sebacate (DOS), tetrabutylam- monium tetrabutylborate (QB), and poly(vinyl chloride) high molecular weight (PVC) were purchased from Fluka (Buchs, Switzerland). Silver nanowires of diameter 175 nm x L 20-50 um as 0.5% suspension in isopropanol obtained from Sigma- Aldrich (Steinheim, Germany) were used as received. Tetrahydrofuran (THF) purchased from Sigma-Aldrich was distilled before use.
+tzt3 | The other compounds used were obtained as p.a. form POCh, Poland and Merck, Germany and used as received. The gases were obtained from Linde Gas, Poland.
+t8vv | Water redistilled from quartz was used to prepare the solutions. All solutions with concentrations lower than 0.01 mol dm-3 were prepared just before use.
+qvnu | Preparation of Reference Electrode Cocktails. Silver bromide was precipitated from 3 M silver nitrate with the 3 M potassium bromide solution. Precipitated salt was filtered
+kggw | Analytical Chemistry
+xrd1 | (without washing) and dried at 100 ℃. Potassium bromide p.a. was dried at 300 ℃ and ground to a fine powder. Next, silver bromide and potassium bromide were mixed in molar ratio 1:5, and the mixture was thoroughly ground again and exposed to light to allow for photochemical decomposition of AgBr. The presence of metallic silver nanoparticles was proved by XPS and AgBr KBr by XRD analysis. Bis(2-ethylhexyl)-sebacate (DOS) and poly(vinyl chloride) (PVC) of total mass 3.3 g and 35-50 weight% of PVC were dissolved in 25 mL of freshly distilled THF.
+5746 | Three types of THE solutions containing bromide salts (cocktails) were used.
+7toz | The first contained 0.336 g of AgBr/KBr in 1.5 mL of the solution. This cocktail (owing to the small amount of Ag nanoparticles produced during the photochemical reaction) is depicted and referred to below as "REF-Br-photo".
+j346 | In the second cocktail type, the metallic silver content was increased. To prepare this cocktail, 1 mL of silver nanowire suspension in 2-propanol was evaporated to obtain the volume of less than 0.05 mL. Next, 0.336 g of freshly dried and thoroughly ground mixture of AgBr/KBr and 1.5 mL of the PVC/DOS solution were added. The reference membranes prepared from such a cocktail are called "REF-Br-nano".
+v8uq | The third type of reference cocktail contained an additional amount of metallic silver formed during the redox reaction of AgBr with reducing agent, for example, QB. To prepare this cocktail, QB was added to the solution containing the AgBr/ KBr suspension. The amount of QB introduced to 1.5 mL of suspension containing 0.336 g AgBr/KBr was varied from 1 to 25 mg. After QB addition, the cocktail color changed from light yellow to dark brown owing to the formation of metallic Ag, as proved by XPS. The reference membranes prepared from such cocktails are called "REF-Br-QB".
+x972 | Regarding the major components, the typical composition of the above three membranes used in our studies was (in % w/ w): 15.2 (AgBr), 47.8 (KBr), 23.1 (DOS), and 13.9 (PVC).
+cwrw | Preparation of the Reference Electrodes. Before membrane casting, each cocktail was vigorously mixed and a cloudy mixture of 100-200 uL was deposited on the silver substrate as well as on the glassy carbon (GC) or the gold substrate covered with Ag and (for comparison) on the pure GC or Au. The electrodeposition of a silver layer on the GC or Au substrates was done in 0.05 M AgNO3 solution using an Autolab PGSTAT-100 Analyzer (Ecco Chemie, Nederlands) in the three-electrode electrochemical cell. The silver chloride electrode Ag/AgCl/satd KCI with a bridge filled with the 1 M KNO3 solution was used as the reference electrode. A Pt sheet with an area of about 2 cm2 was used as an auxiliary electrode. The deposition potential was adjusted to a current density of 1.5-3 mA/cm2 and a typical deposition time was 1000 s.
+4i0e | Prior to Ag electrodeposition, the GC or Au electrodes were polished with 0.3 um aluminum oxide and subsequently sonicated (for at least 5 min) in water, 0.1 M KOH in ethanol, bidistilled water, 5% nitric acid, and finally rinsed with bidistilled water and dried. These substrates with a deposited silver layer are denoted in the text as GC/Ag or Au/Ag. Before the reference membrane casting, the surfaces of the Ag, GC/Ag, or Au/Ag were rinsed with methanol and THF. The reference cocktails were allowed to dry for at least 24 h, and after that the quality of the dry REF-Br membranes was inspected using an optical microscope to check for possible faults (namely, adhesion to the substrate, compactness of the membrane layer, the presence of cracks, and uncovered substrate areas),
+h2l3 | and to select the membranes without faults for further experiments.
+dfzb | Apparatus. The potentiometric measurements were performed using a homemade 16-channel setup. The input impedance was greater than 1013 Ohms and the input current was lower than 20 fA for each of the 16 inputs as well as for the reference electrode input. The multichannel potential-meter was coupled with a personal computer equipped with a 16-bit resolution data acquisition card PCI DAS 6014 (Computer Boards; U.S.) and custom-made software. In typical conditions, the potential resolution was better than 0.02 mV.
+u6ty | In the potentiometric measurements the double junction REF251 (Metrohm; Switzerland) reference electrodes were used. All the experiments were performed at room temperature (22-24 ℃). Stirring up to 500 rpm did not significantly affect the readouts.
+awvu | RESULTS AND DISCUSSION
+on9b | 1. The rate of standard potential stabilization and its repeatability. Freshly prepared electrodes with dry REF-Br membranes were immersed in 2 M KBr and their potential changes were recorded. The shortest soaking time (usually several tens of seconds) was needed for electrodes with REF- Br-nano membranes. A longer soaking (several hundreds of seconds) was required for the electrodes with REF-Br-photo membranes, while the longest was for the electrodes with REF- Br-QB membranes. The short-time behavior of the electrodes is similar for the metallic silver and the substrates with a deposited silver layer on nonsilver electronically conducting substrates, for example, glassy carbon, as shown in Figure 1.
+a8ge | Figure 1. Potential changes of the five electrodes with REF-Br-photo reference membranes (measured vs Ag/AgCl/3 M KCl electrode) recorded from the moment when freshly prepared and dry electrodes were dipped in 2 M KBr solution. The membranes tested were deposited on three Ag substrates (red, violet and green lines) and two GC substrates covered with silver (blue and navy blue lines).
+h27a | The results show the convergence of the short-time potentials, for the five electrodes used, to less than 3 mV after a few minutes of soaking. The mean potential after 20 min is -157.63 ± 1.09 mV. (More data can be found in Supporting Information, Table S-1.)
+pdjh | 2. Long-Term Potential Stability of the Electrodes with REF-Br Reference Membranes. For several hundreds of all the types of REF-Br membranes studied, the stable and reproducible potential readouts collected are all located in a rather narrow potential range to the mean potential -157 ± 10 mV. No systematic lifetime experiments were undertaken. However, for the same subtypes of electrodes, typically in a series of 5-16 electrodes, the potentials were reproducible within ±2 mV during continuous measurement for 10 days in 2
+xmgs | 1069
+bd9h | Analytical Chemistry
+m047 | Br
+gy8c | Figure 2. EDAX spectra taken for REF-Br photo membrane on the membrane separated from the Ag substrate. The spectra were recorded for the side remaining in contact with the solution (left side) and for the other side of the membrane in contact with Ag substrate (right side).
+y4mj | M KBr (Figure S-1). These were the electrodes with the reference membranes deposited on Ag substrate embedded in a PVC body. This design facilitates the adhesion of PVC membrane to the PVC body which is advantageous to the electrodes' lifetime.
+vpgq | 3. Substrate Influence on the Standard Potential Value and Its Stability. Excellent potential reproducibility and long-term potential stability were observed for all REF-Br membranes deposited on silver substrate or with GC or Au substrate covered with the silver layer. The membrane was unattached from the substrate and the presence of silver, potassium, and bromide was analyzed by SEM/EDAX on both sides of the membrane, Figure 2.
+ousl | The largest amount of silver and bromide were determined on the side of the membrane in contact with Ag substrate, whereas for the other side, mainly bromide and potassium signals were detected.
+m4ju | If the reference membranes were placed directly on GC or Au substrate, unpredictable and unstable potential values were recorded (see Table S-2).
+a0mb | 4. EIS Spectra for Electrodes with REF-Br Membranes Deposited on Silver or Nonsilver Substrate. The influence of the Ag phase was inspected by electrochemical impedance (EIS).
+ki8m | A striking difference in the impedance spectra for electrodes with reference membranes deposited on Ag substrate or nonsilver substrate was observed. Namely, the difference is manifested by a disappearance of a low-frequency branch for the membranes deposited on Ag substrate which is present if the substrate is a nonsilver one. The EIS results indicate a slower electrochemical process rate in the membrane without dispersed Ag. The appearance of Warburg type behavior at lower frequencies can be attributed to a slower ion-transport in the membrane. It can be hypothesized that dispersed silver facilitates the overall electrochemical process.
+km8w | The EIS spectra illustrating this effect, recorded for electrodes with REF-Br-photo membranes deposited on a bare GC substrate and for the GC substrate covered with Ag are presented in Figure S-2.
+wzno | 5. Mechanism of the Br-REF Response. Undoubtedly, the fact that the metallic silver, both as the layer on the substrate and in the form of dispersed nanosilver in the membrane, significantly contribute to stabilizing the potential of the REF-Br systems is of general importance to solid contact
+```
+
+OUTPUT:
+```

@@ -1,0 +1,159 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+2zpk | Corey that I would at least come up with a list of things that we could do to cultivate a secure attachment that didn't require us to live together, be exclusive or even be each other's primary partner. That list led into a talk, which has since led to this book. Thank you, Corey! Thank you, clients!
+epu7 | Many nonmonogamous people have secure, loving, healthy relationships with multiple partners, and this book is my attempt at lifting the lens of monogamy from attachment research so that we can apply all this wonderful knowledge about human connection and bonding to a nonmonogamous context. As far as my edi- tors and I know, this is the first book to explicitly translate the principles of attach- ment theory to nonmonogamous relationships.
+7od1 | Part One covers an overview of attachment theory and trauma. In Chapter One, I offer a general description of attachment theory and how different childhood ex- periences relate to the four different attachment styles that people can develop. Chapter Two explores some aspects of attachment that are less commonly dis- cussed in the mainstream attachment literature. Here we take a look at the different dimensions of attachment anxiety and attachment avoidance as a more precise way to understand the four different attachment styles. I also reframe the attachment styles based on their strengths and desires (not just their dysfunctions), high- lighting how insecure attachment styles can also be expressions of the healthy drives for autonomy and connection. I also discuss the importance of the rela- tionship between attachment styles, boundaries and the giving and receiving of love. In Chapter Three, I present the nested model of attachment and trauma, which I developed to further expand the ways in which we conceive of and discuss attachment and trauma. Attachment and trauma occur over multiple levels or dimensions of our human experience, and here I explore these different levels and how they relate to attachment and trauma.
+0bqy | Part Two looks at the interaction of nonmonogamy and attachment. In Chapter Four, I explain the different reasons why people engage in nonmonogamy and de- scribe the different types of nonmonogamy based on where people identify their level of sexual exclusivity or non-sexual exclusivity intersecting with how
+b780 | emotionally exclusive or emotionally non-exclusive they are. Chapter Five reviews what the current attachment research says about nonmonogamy, and I share my critique of attachment theory from a nonmonogamous perspective. In Chapter Six, I present the observations and insights into nonmonogamy and attachment that I've gained from my therapeutic and coaching practice. At the end of this chapter I apply the nested model of attachment and trauma to illustrate some of the specific and unique ways that people who practice nonmonogamy experience attachment ruptures and trauma at each of the different levels.
+ccmb | Part Three switches modes into a more practical look at what you and your partners can do to cultivate secure attachment in attachment-based polyamorous relationships. Chapter Seven asks you to get clear about whether or not you are on board for attachment-based relationships and then covers what being a safe haven and secure base might look like for you and your partners. Chapters Eight and Nine guide you through the HEARTS of being polysecure-this acronym articulates six specific things you can do to cultivate secure attachment in your multiple relation- ships. Chapter Eight focuses on the HEART in HEARTS, looking at how you can en- hance your attachment security within and among your relationships, and Chapter Nine focuses on having secure attachment with yourself, an imperative and often overlooked aspect of attachment that I find crucial for nonmonogamy. The book closes with Chapter Ten, where I answer some frequently asked questions and offer my parting words. It is my hope that this book will offer a broader alternative per- spective on the application of attachment theory and that as more and more people move forward into the frontiers of nonmonogamy, these mostly uncharted terri- tories will be traversed ethically, lovingly, skillfully and, of course, securely.
+ma93 | Part One
+c6hh | The first section of this book provides an overview of attachment theory, the four secure and insecure attachment styles, the different dimensions of attachment, and the nested model of attachment and trauma. The descriptions of the different at- tachment styles used in this book have been adapted from and inspired by the work of Diane Poole Heller, Daniel Siegel, Lisa Firestone, Daniel P. Brown, Mario Mikulincer and Phillip R. Shaver.
+y7ea | O
+nav4 | CHAPTER ONE AN OVERVIEW OF ATTACHMENT THEORY
+gem8 | HEALTHY ATTACHMENT IS A DEEP BOND and an enduring emotional closeness that connects people to one another across space and time.3 As human infants, we are born into this world with an attachment system that wires us to expect connection with others. The creator of attachment theory, John Bowlby, called this innate expectation the attachment behavioral system and explained that it is one of several behavioral systems that humans evolved to ensure our survival. As infants, we can't yet meet any of our own needs. So, in order to survive, we have to bond and attach to caretakers who can provide us with food and shelter, as well as meeting our biological and psychological needs for emotional attunement, warm respon- siveness and calming physical touch. Popular parenting culture often calls this "skin time," and it's known to be a crucial part of early childhood development.
+e8nr | When an infant feels fear, distress or discomfort, their attachment system is activated. This prompts them to quickly turn towards their caretakers or use prox- imity-seek-ing behaviors such as crying, reaching for, calling out or, later, crawling and following their attachment figure. All these behaviors are attempts to restore feelings of safety, and in many cases to restore actual safety, too. If the child re- ceives the support, reassurance and comfort they need from their caretaker, their nervous system then returns to a state of calm homeostasis. Infants and children who can't yet fully regulate their own emotional states depend on their caretakers to co-regulate for them. Being close with another human helps children to feel calm. Further, being connected to and soothed by their caretakers over time teach- es them how to self-soothe and regulate their own emotional states. As children, we want to know that our attachment figures are nearby and accessible. We need to know that they will provide us with a safe haven to turn to when we need them, which then gives us a secure base from which we can explore our environment. Bowlby called this the exploratory behavioral system. When our attachment needs are being met, this system enables us to feel comfortable and free to explore
+k78w | ourselves, others and the world around us.
+g9du | John Bowlby and Mary Ainsworth's research shows that children develop at- tachment styles that are more secure or more insecure, depending on how well their parents are able to be a connected and responsive safe haven for them. If their caretakers are able to meet most of their needs enough of the time, children usually have a secure attachment. But if they experience their parents as incon- sistent, inaccessible, unresponsive or even threatening and dangerous, they adapt by developing more insecure attachment styles. If our attachment figures were ab- sent or scary to us as children, we didn't develop our ability to freely explore and to learn about the world and about our own abilities. When this happens, we develop insecure strategies for engaging with others-we may become more vigilant and anxious or more avoidant and dismissive.
+f682 | Mikulincer and Shaver created a model of attachment-system functioning and dynamics,4 which I've adapted into a flowchart showing how the different attach- ment experiences arise. First, if a child experiences a threat-whether perceived or actual, physical or emotional-they will try to find protection by seeking closeness to an attachment figure. If their attachment figure is available and responsive, and meets their needs, the child feels safe and can go back to playing or exploring. But if their attachment figure is unresponsive or inaccessible, and the child is left with- out a safe haven to turn to, they may adapt by either deactivating (turning down) or hyperactivating (turning up) their attachment needs.
+li1k | As children, when we feel afraid, threatened or in need, and seeking closeness with our parents is not a viable option because they're not available or because turning towards them doesn't make things better, we learn to rely more on our- selves. We become more self-reliant and we minimize our attachment needs. When we deactivate our attachment system, we suppress our attachment-based long- ings-not because we don't still want closeness and connection, but in order to adapt and survive. If we experience discomfort or danger and closeness to a parent is still somewhat of a viable option, we might learn that we can get their attention by intensifying our attachment cries. If our caretakers did not respond to our initial
+pbea | bids, but ramping up our demands and hyperactivating our attachment system did get their attention in some form, we then learn that this is an effective strategy. Later in this chapter, we'll talk about how these strategies-deactivating, hyperac- tivating, or vacillating between the two-relate to the three different insecure at- tachment styles.
+ccpt | Threat
+0fpw | Activation of attachment system (proximity-seeking)
+dqn8 | Is
+cop0 | Yes
+lhkq | attachment figure available, responsive, attuned?
+82ju | Relief and felt security
+y2qo | Resuming play and/or normal activities
+1piq | No
+7fqw | Increased insecurity and distress
+rhaz | No
+wak1 | Deactivating Strategy
+wtfz | Minimizing threats and attachment cues
+qy1i | Is proximity-seeking an option?
+1k9e | Yes
+5bjs | Hyperactivating Strategy
+uodj | Amplifying threats and attachment cues
+k16v | FIGURE 1.1 An adaptation of Mikulincer and Shaver's model of attachment-system
+b2lm | activation and functioning in adulthood.5
+ti7f | Caregiver behaviors that could lead a child to take on a deactivating attachment strategy include:
+oksu | . Neglecting or abusing the child.
+wtow | . Being emotionally cold or rejecting the child.
+o22k | . Giving the child hostile, angry or threatening responses.
+nwfz | · Discouraging a child's expression of vulnerability.
+nvfy | . Encouraging (whether explicitly or implicitly) the child to be more self-reliant and independent.
+mror | Caregiver behaviors that can incite hyperactivating attachment strategies include:
+zlxc | . Being unreliable, unpredictable or intrusive, where interactions are some- times gratifying and connected, but at other times mis-attuned and discon- nected .
+k0bw | · Punishing or criticizing a child for their independence or curiosity.
+aq5a | . Conveying messages that the child is not enough, or is incapable, stupid or failing in some way.
+sc5y | . Taking on a helicopter style of parenting, which might include excessive praise but also excessive control, protectiveness or perfectionism.
+0yab | . Experiences of abuse or traumas that occur when the child is separated from their primary attachment figure, which can reinforce the notion that it's dan- gerous to be apart from them.
+w95z | Both of these strategies can also occur simultaneously, meaning a child may expe- rience both hyperactivation and deactivation, or may vacillate between the two sur- vival strategies. We'll discuss this more in the section about fearful-avoidant at- tachment.
+0i1k | SECURE ATTACHMENT: WHEN ATTACHMENT NEEDS ARE MET IN CHILDHOOD
+dqlg | Children who have a secure attachment style have generally experienced a family environment that's mostly warm and supportive. Their parents or caretakers are available, accessible and responsive to their needs, enough of the time. Not neces- sarily all of the time but enough of the time, when the child has an attachment need, they reach out to their attachment figure and that attachment figure moves towards them in an emotionally attuned way that calms the child's nervous system.6 This in turn teaches the child that allowing themselves to feel their needs and communi- cating those needs to others is an effective strategy. A caretaker being present, safe, protective, playful, emotionally attuned and responsive is of paramount importance to a child developing a secure attachment style.
+p6pq | Early positive attachment experiences have a huge impact on healthy brain development and emotional regulation.Z When the attachment figure is able to emotionally resonate with the child, the child feels supported and learns to regulate their own positive and negative emotional arousal. This helps to lower stress hor- mones and increase oxytocin (the bonding hormone). By co-regulating with a care- taker, the child learns to understand and process facial and social cues, they learn empathy and they develop an increased ability to cope with stress. When children experience secure interactions with the adults in their lives and function from a se- cure attachment style, they also tend to have better self-esteem, be more resilient to trauma, have strong social skills, concentrate better, enjoy play and have solid overall emotional health. Through these nourishing experiences, a child develops a sense of safety and trust. They take in the messages that the world is a friendly place and that they can ask for what they want because the people in their lives care and are willing to help.
+zse6 | Secure Attachment as an Adult
+p2n3 | Early childhood attachment experiences become the blueprint for the kinds of con- nections we go on to expect and seek in our adult romantic relationships. The interactions we experienced with our caretakers create internal working models of how we see ourselves-both positively and negatively-and set our positive or negative expectations about how attuned and available our partners will be to us in
+ohh7 | times of need.§ People with a secure attachment style experience a healthy sense of self and see themselves and their partners in a positive light. Their interpersonal experiences are deeply informed by their knowledge that they can ask for what they need and people will typically listen and willingly respond. It's empowering to know that our actions are effective. As children, if we reach out with our body and use our voice to get the help or connection we need to mitigate our distress, and if our parents usually meet these attachment bids, we learn that we matter and are worthy of love. This builds the foundation for healthy self-esteem and a sense of compe- tence in the world. As adults, this helps us be more flexible when our partners can't meet our needs. We're better able to weather hearing no, to wait for our needs to be met at a later time or to seek an alternative means of having our attachment needs met without shaking the foundation of our relationship.
+vbni | Bowlby viewed attachment as relevant "from the cradle to the grave." He said that adult romantic relationships function as reciprocal attachment bonds, where each partner serves as an attachment figure for the other. Bowlby conceived of the parent-child attachment relationship as having four essential features: proximity maintenance, separation distress, safe haven and secure base. We can see many paral- lels between the parent-child attachment relationship and the adult-adult attach- ment relationship. For instance, adults seek physical contact with each other, en- gage in dreamy eye-gazing, and even use baby talk or cooing sounds to nurture and encourage bonding. We feel separation distress when apart, and we turn towards our romantic partners as a safe haven in times of need. We also see them as a se- cure base from which to explore the world and our sexuality, and we feel able to share important discoveries with them.10
+dgcw | Of course, there are differences between the parent-child attachment bond and the adult-adult attachment bond. As adults, even though we seek regular and con- sistent proximity to our partner, we can tolerate much longer periods of separation from our partners by employing mental representations of them to help give us an understanding of why we are apart (e.g., "I know my partner is at work," "My part- ner is away on a trip" or "I have this weekend with my kids and I'll see my partner
+gvwz | in a few days"). As adults, we are also better equipped than children to leverage positive fantasies about our partner; we can imagine what it will feel like when we're reunited, and we can access a bodily felt sense of their presence, which can offer reassurances of comfort and security when physically apart.
+```
+
+OUTPUT:
+```

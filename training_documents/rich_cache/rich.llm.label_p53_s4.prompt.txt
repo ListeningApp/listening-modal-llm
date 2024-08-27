@@ -1,0 +1,171 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+dib4 | No matter whether you are a physician, a teacher, or a clergyman, if you can give increase of life to others and make them sensible of that fact, they will be attracted to you, and you will get rich. The physician who holds the vision of himself as a great and successful healer, and who works toward the complete realization of that vision with faith and purpose, as described in former chapters, will come into such close touch with the source of life that he will be phenomenally successful; patients will come to him in throngs.
+yvqj | No one has a greater opportunity to carry into effect the teaching of this book than the practitio- ner of medicine. It does not matter to which of the various schools he may belong, for the principle of healing is common to all of them and may be reached by all alike. The "advancing man" in medicine, who holds to a clear mental image of himself as successful, and who obeys the laws of faith, purpose, and gratitude, will cure every curable case he undertakes.
+vz2f | In the field of religion, the world cries out for the clergyman who can teach his hearers the true science of abundant life. He who masters the details of the science of getting rich, together with the allied sciences of being well, of being great, and of winning love, and who teaches these details from the pulpit, will never lack for a congregation. This is a gospel that the world needs; it will give increase of life, and people will hear it gladly and give liberal support to the person who brings it to them.
+wyu0 | What is now needed is a demonstration of the science of life from the pulpit. We want preachers who can not only tell us how, but who in their own persons will show us how. We need the preacher who will himself be rich, healthy, great, and beloved, to teach us how to attain to these things, and when he comes he will find a numerous and loyal following.
+s8xw | The same is true of the teacher who can inspire the children with the faith and purpose of the advancing life. He will never be "out of a job." And any teacher who has this faith and purpose can give it to his pupils. He cannot help giving it to them if it is part of his own life and practice.
+afv1 | What is true of the teacher, preacher, and physician is true of the lawyer, dentist, real estate agent, insurance agent - of everybody.
+fwf1 | The combined mental and personal action I have described is infallible; it cannot fail. Every man and woman who follows these instructions steadily, perseveringly, and to the letter, will get rich. The law of the increase of life is as mathematically certain in its operation as the law of gravity. Getting rich is an exact science.
+3wck | The wage-earner will find this as true of his case as of any of the others mentioned. Do not feel that you have no chance to get rich because you are working where there is no visible opportunity for advancement, where wages are small and the cost of living high. Form your clear mental vision of what you want, and begin to act with faith and purpose.
+jq2u | www.scienceofgettingrich.net
+9zf9 | The Science of Getting Rich
+clwo | Do all the work you can do, every day, and do each piece of work in a perfectly successful manner. Put the power of success and the purpose to get rich into everything that you do.
+aki1 | But do not do this merely with the idea of currying favor with your employer, in the hope that he, or those above you, will see your good work and advance you. It is not likely that they will do so.
+vf5h | The person who is merely a "good" worker, filling his place to the very best of his ability and satisfied with that, is valuable to his employer, and it is not to the employer's interest to promote him. He is worth more where he is.
+l51p | To secure advancement, something more is necessary than to be too large for your place.
+s9zz | The person who is certain to advance is the one who is too big for his place, who has a clear concept of what he wants to be, who knows that he can become what he wants to be, and who is determined to BE what he wants to be.
+x97k | Do not try to more than fill your present place with a view to pleasing your employer. Do it with the idea of advancing yourself. Hold the faith and purpose of increase during work hours, after work hours, and before work hours. Hold it in such a way that every person who comes in contact with you, whether foreman, fellow worker, or social acquaintance, will feel the power of purpose radiating from you - so that everyone will get the sense of advancement and increase from you. People will be at- tracted to you, and if there is no possibility for advancement in your present job, you will very soon see an opportunity to take another job.
+qwix | There is a power which never fails to present opportunity to the advancing personality who is moving in obedience to law. God cannot help helping you if you act in a certain way. He must do so in order to help himself.
+6lnq | There is nothing in your circumstances or in the industrial situation that can keep you down. If you cannot get rich working for the steel trust, you can get rich on a ten-acre farm. And if you begin to move in the certain way, you will certainly escape from the "clutches" of the steel trust and get on to the farm or wherever else you wish to be.
+nxb1 | If a few thousands of its employees would enter upon the certain way, the steel trust would soon be in a bad plight. It would have to give its workers more opportunity or go out of business. Nobody has to work for a trust. The trusts can keep people in so called hopeless conditions only so long as there are people who are ignorant of the science of getting rich or too intellectually slothful to practice it.
+kwpw | Begin this way of thinking and acting, and your faith and purpose will make you quick to see any opportunity to better your condition. Such opportunities will speedily come, for the supreme power, working in all and working for you, will bring them before you.
+usfa | Do not wait for an opportunity to be all that you want to be. When an opportunity to be more than you are now is presented and you feel impelled toward it, take it. It will be the first step toward a greater opportunity.
+dnjr | There is no such thing possible in this universe as a lack of opportunities for the person who is living the advancing life.
+qser | It is inherent in the constitution of the cosmos that all things shall be for him and work together for his good, and he must certainly get rich if he acts and thinks in the certain way. So let wage-earning men and women study this book with great care and enter with confidence upon the course of action it prescribes. It will not fail.
+8gam | www.scienceofgettingrich.net
+z4db | CHAPTER 16
+lw7l | Some Cautions and Concluding Observations
+2exi | MANY PEOPLE WILL SCOFF AT THE IDEA that there is an exact science of getting rich. Holding the impression that the supply of wealth is limited, they will insist that social and governmental institutions must be changed before even any considerable number of people can acquire a competence.
+16py | But this is not true.
+m4ov | It is true that existing governments keep the masses in poverty, but this is because the masses do not think and act in the certain way.
+9uqd | If the masses begin to move forward as suggested in this book, neither governments nor industrial systems can check them; all systems must be modified to accommodate the forward movement.
+8szx | If the people have the advancing mind, have the faith that they can become rich, and move for- ward with the fixed purpose to become rich, nothing can possibly keep them in poverty.
+iwdc | Individuals may enter upon the certain way at any time and under any government and make themselves rich. And when any considerable number of individuals do so under any government, they will cause the system to be so modified as to open the way for others.
+4vks | The more people who get rich on the competitive plane, the worse for others. The more who get rich on the creative plane, the better for others.
+uyaf | The economic salvation of the masses can only be accomplished by getting a large number of people to practice the scientific method set down in this book and become rich. These will show others the way and inspire them with a desire for real life, with the faith that it can be attained, and with the purpose to attain it.
+d1qh | For the present, however, it is enough to know that neither the government under which you live nor the capitalistic or competitive system of industry can keep you from getting rich. When you enter upon the creative plane of thought you will rise above all these things and become a citizen of another kingdom.
+nyqt | But remember that your thought must be held upon the creative plane. You are never for an instant to be betrayed into regarding the supply as limited or into acting on the moral level of competition.
+7odd | Whenever you do fall into old ways of thought, correct yourself instantly. For when you are in the competitive mind, you have lost the cooperation of the supreme mind.
+0le2 | Do not spend any time in planning as to how you will meet possible emergencies in the future, except as the necessary policies may affect your actions today. You are concerned with doing today's work in a perfectly successful manner and not with emergencies which may arise tomorrow. You can attend to them as they come.
+5dw0 | Do not concern yourself with questions as to how you shall surmount obstacles which may loom upon your business horizon unless you can see plainly that your course must be altered today in order to avoid them.
+i4yq | www.scienceofgettingrich.net 45
+fj3g | The Science of Getting Rich
+zuua | No matter how tremendous an obstruction may appear at a distance, you will find that if you go on in the certain way it will disappear as you approach it, or that a way over, under, through, or around it will appear.
+elwn | No possible combination of circumstances can defeat a man or woman who is proceeding to get rich along strictly scientific lines. No man or woman who obeys the law can fail to get rich, any more than one can multiply two by two and fail to get four.
+jnqv | Give no anxious thought to possible disasters, obstacles, panics, or unfavorable combinations of circumstances. There is time enough to meet such things when they present themselves before you in the immediate present, and you will find that every difficulty carries with it the wherewithal for its overcoming.
+unp3 | Guard your speech. Never speak of yourself, your affairs, or of anything else in a discouraged or discouraging way.
+v8vk | Never admit the possibility of failure or speak in a way that infers failure as a possibility.
+sr40 | Never speak of the times as being hard or of business conditions as being doubtful. Times may be hard and business doubtful for those who are on the competitive plane, but they can never be so for you. You can create what you want, and you are above fear.
+5zjj | When others are having hard times and poor business, you will find your greatest opportunities.
+f56l | Train yourself to think of and to look upon the world as a something which is becoming, which is growing, and to regard seeming evil as being only that which is undeveloped. Always speak in terms of advancement. To do otherwise is to deny your faith, and to deny your faith is to lose it.
+ar2z | Never allow yourself to feel disappointed. You may expect to have a certain thing at a certain time and not get it at that time, and this will appear to you like failure. But if you hold to your faith you will find that the failure is only apparent.
+yad0 | Go on in the certain way, and if you do not receive that thing, you will receive something so much better that you will see that the seeming failure was really a great success.
+3g38 | A student of this science had set his mind on making a certain business combination which seemed to him at the time to be very desirable, and he worked for some weeks to bring it about. When the crucial time came, the thing failed in a perfectly inexplicable way. It was as if some unseen influence had been working secretly against him. But he was not disappointed. On the contrary, he thanked God that his desire had been overruled, and went steadily on with a grateful mind. In a few weeks an opportunity so much better came his way that he would not have made the first deal on any account, and he saw that a mind which knew more than he knew had prevented him from losing the greater good by entangling himself with the lesser.
+vtbo | That is the way every seeming failure will work out for you, if you keep your faith, hold to your purpose, have gratitude, and do - every day - all that can be done that day, doing each separate act in a successful manner.
+q8pa | When you make a failure, it is because you have not asked for enough. Keep on, and a larger thing then you were seeking will certainly come to you. Remember this.
+uc9x | You will not fail because you lack the necessary talent to do what you wish to do. If you go on as I have directed, you will develop all the talent that is necessary to the doing of your work.
+zy7o | It is not within the scope of this book to deal with the science of cultivating talent, but it is as certain and simple as the process of getting rich.
+kcar | www.scienceofgettingrich.net
+00aw | CHAPTER 16: Some Cautions and Concluding Observations
+351p | However, do not hesitate or waver for fear that when you come to any certain place you will fail for lack of ability. Keep right on, and when you come to that place, the ability will be furnished to you. The same source of ability which enabled the untaught Lincoln to do the greatest work in government ever accomplished by a single man is open to you. You may draw upon all the mind there is for wisdom to use in meeting the responsibilities which are laid upon you. Go on in full faith.
+zzcb | Study this book. Make it your constant companion until you have mastered all the ideas contained in it. While you are getting firmly established in this faith, you will do well to give up most recreations and pleasure and to stay away from places where ideas conflicting with these are advanced in lectures or sermons. Do not read pessimistic or conflicting literature or get into arguments upon the matter.
+mxnx | Spend most of your leisure time in contemplating your vision, in cultivating gratitude, and in reading this book. It contains all you need to know of the science of getting rich, and you will find all the essentials summed up in the following chapter.
+11k8 | www.scienceofgettingrich.net 47
+twwy | CHAPTER 17
+fyp8 | A Summary of The Science of Getting Rich
+z994 | THERE IS A THINKING STUFF FROM WHICH ALL THINGS ARE MADE, and which, in its original state, permeates, penetrates, and fills the interspaces of the universe.
+vvqn | A thought in this substance produces the thing that is imaged by the thought.
+p6xg | A person can form things in his thought, and by impressing his thought upon formless substance can cause the thing he thinks about to be created.
+bppc | In order to do this, a person must pass from the competitive to the creative mind. Otherwise he cannot be in harmony with formless intelligence, which is always creative and never competitive in spirit.
+ilnw | A person may come into full harmony with the formless substance by entertaining a lively and sincere gratitude for the blessings it bestows upon him. Gratitude unifies the mind of man with the intelligence of substance, so that man's thoughts are received by the formless. A person can remain upon the creative plane only by uniting himself with the formless intelligence through a deep and continuous feeling of gratitude.
+```
+
+OUTPUT:
+```

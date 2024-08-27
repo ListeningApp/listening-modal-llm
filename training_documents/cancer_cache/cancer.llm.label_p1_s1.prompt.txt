@@ -1,0 +1,141 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+1pjs | International Journal of Molecular Sciences
+o2kr | Review
+v6sk | Cancer 3D Models for Metallodrug Preclinical Testing
+1wj6 | i
+936l | Int. J. Mol. Sci. 2023, 24, 11915. https://doi.org/10.3390/ijms241511915
+06yq | MDPI
+dpv6 | Abstract: Despite being standard tools in research, the application of cellular and animal models in drug development is hindered by several limitations, such as limited translational significance, animal ethics, and inter-species physiological differences. In this regard, 3D cellular models can be presented as a step forward in biomedical research, allowing for mimicking tissue complexity more accurately than traditional 2D models, while also contributing to reducing the use of animal models. In cancer research, 3D models have the potential to replicate the tumor microenvironment, which is a key modulator of cancer cell behavior and drug response. These features make cancer 3D models prime tools for the preclinical study of anti-tumoral drugs, especially considering that there is still a need to develop effective anti-cancer drugs with high selectivity, minimal toxicity, and reduced side effects. Metallodrugs, especially transition-metal-based complexes, have been extensively studied for their therapeutic potential in cancer therapy due to their distinctive properties; however, despite the benefits of 3D models, their application in metallodrug testing is currently limited. Thus, this article reviews some of the most common types of 3D models in cancer research, as well as the application of 3D models in metallodrug preclinical studies.
+8r5j | Keywords: cancer; 3D models; metallodrugs; precision medicine
+2taz | 1. Introduction
+o3ya | Animals as models of human anatomy, physiology, and disease pathology have been a key tool for scholars for millennia, allowing for an understanding of the human body and disease without risking human lives [1]. Even though animal models are fundamental tools in modern biomedical research for proving scientific significance, their use is being reduced and, when possible, replaced as a result of animal ethics. An ethical framework has been implemented to reduce animal usage as well as the suffering caused while doing research. Additionally, projects involving animal models must be evaluated in order to determine if the costs outweigh the benefits [2]. Besides the ethical concerns, scientific issues also need to be considered, particularly in the biological evaluation of novel drugs, as the genetic differences between animal models, namely mice, and humans, may lead to results without strongly supported translational significance [3-5].
+r5il | Therefore, in vitro models such as two-dimensional (2D) cell cultures, arose in the 20th century as possible alternatives for the biological studies of normal gene function, disease states, therapeutic strategies, etc. [6]. Due to their simplicity and affordability, 2D monolayer cultures are considered extremely appealing for laboratory use [7]. However, these cultures lack the three-dimensionality of tissues and organs, leading to alternate tissue architecture, cell differentiation, cellular communication, and biochemical signaling in comparison with what is found in vivo [5,8]. Nonetheless, these models are still useful for a variety of cell growth and functional studies and for the production of biological therapeutics [7,9].
+5gui | https://www.mdpi.com/journal/ijms
+82qc | Int. J. Mol. Sci. 2023, 24, 11915
+ls7d | Three-dimensional (3D) models can be presented as a step further in biomedical re- search, allowing for a higher throughput and mimicking of human characteristics than animal models, while maintaining more accurate tissue signaling than 2D models [4,5]. These cell models are capable of better simulating tissue complexity, namely cell morphol- ogy, cell differentiation, gene expression, interactions between the cells and the extracellular matrix (ECM), concentration gradients, tissue stiffness, and drug response [10-12]. Fur- thermore, 3D culture models may also allow for a reduction in animal models used while still recapitulating the in vivo microenvironment, which is missing in more simple in vitro models [13]. These more advanced culture systems can be applied to several areas of fundamental and translational research, for instance, stem cell biology, toxicology, and developmental biology.
+tzt3 | 2. 3D Models in Cancer Research
+t8vv | Cancer occurs when cells accumulate genetic errors, proliferating out of control and possibly spreading to other areas of the body, forming metastasis [14]. Regarding data from 2020, it is estimated that there were around 19.3 million new cases of cancer worldwide and that nearly 10 million people died from cancer, making it the second leading cause of death around the globe [15]. Besides the major impact that cancer has on people's lives, it also represents a notorious economic impact on the whole of society. In 2020, it is estimated that the United States of America spent around 194 billion Euros on cancer care [16]. Additionally, in Europe (27 countries of the European Union, Iceland, Norway, Switzerland, and the United Kingdom), the overall cost of cancer was 199 billion Euros in 2018 [17]. Cancer prevention, diagnosis, and treatment are one of the 21st century's most important public health concerns, as demonstrated, for instance, by the EU's "Europe's Beating Cancer Plan", launched in 2021 [18], and the USA's "Cancer Moonshot", launched in 2016 [19], which aim to address, among others, a better understanding of cancer biology and the development of better therapies and diagnostic methods.
+qvnu | Cancer cells exist in a complex cellular environment, the tumor microenvironment, which is a key modulator of cancer cell behavior [20,21]. Tumors are not only composed of cancer cells, which possess several genetic mutations that affect proper cellular functioning, but also of other cells that are present or recruited to the tumor's microenvironment, such as fibroblasts, immune cells, and endothelial cells. Moreover, the tumor's microenvironment is also composed of non-cellular components, including growth factors, ECM, cytokines, and chemokines, which act as modulators of cancer development [22,23]. The molecular com- munication established between the aberrant and normal cells, as well as the interactions with the ECM, modulates the overall tumorigenicity [24-26]. Because of these interactions, several molecules that affect crucial cellular events, such as proliferation, angiogenesis, migration, and tissue remodeling, among others, are released, creating an environment that favors cancer progression [27]. Furthermore, transmembrane cell adhesion molecules sense and transmit information regarding ECM alterations, activating signaling pathways and regulating cancer cell behavior [28].
+kggw | The complexity of the tumor's microenvironment and the interactions established with cancer cells are the main reasons 2D models fail to accurately replicate the in vivo tissue [29]. Even though 2D monolayer cell cultures have allowed for breakthrough discoveries in fundamental cancer biology, these are grown in simple and unrealistic conditions, where the cells are attached to rigid surfaces and lack three-dimensionality [30,31]. The cells grown in a 2D culture become deformed in the out-of-plane axis and are not mechanically or physically restrained, which may lead to cell behavior changes [32]. The application of these models in anti-cancer drug development hinders the efficiency of the process, leading to erroneous results [33]. This happens because drug optimization is based on conditions not found in vivo, considering that 2D models are unable to accurately mimic the microenvironment of the tumor [34,35]. Using these simple models for drug screening results in numerous drugs that do not reach the market and, consequently, pharmaceutical companies' investment losses [36].
+xrd1 | Int. J. Mol. Sci. 2023, 24, 11915
+5746 | Considering the 3D models' capacity to more accurately replicate the tumor microen- vironment, the interest in applying these for drug development has increased over the year [37,38]. Moreover, the introduction of 3D models in drug development may also allow for a reduction in animal models, addressing some ethical concerns [13]. However, these should not be seen as the only correct tool for cancer research, but as a support approach to be used alongside 2D models before in vivo testing in animal models [39,40].
+7toz | 3. Types of 3D Models in Cancer Research
+j346 | When applying a 3D model to cancer research, one must consider that each system presents its advantages and limitations, as none are capable of mimicking integrally the in vivo tissue [5,11]. Overall, the 3D models may be divided into several major categories: spheroid-based, microengineering-based, and scaffold-based categories, and organoids and tumoroids. A graphical summary of each 3D model can be found in Figure 1, while Table 1 presents the main advantages, disadvantages, and complexity (evaluated from low to high) of each cancer 3D model. Besides these types of cellular 3D models, explant-based 3D models have also been applied to cancer research. Precision-cut tissue slices (PTCS) are a type of 3D tissue explant derived from human or animal organs. Notwithstanding their ability to closely mimic in vivo conditions, explant-based models such as PTCS still present ethical questions regarding the use of animal models [41,42]. Thus, we will not explore the details of this type of cell model more deeply in the present review.
+v8uq | Figure 1. Types of 3D models used in cancer research. Spheroid-based models promote the formation of spheroids through the self-assembly of tumor cells using several methodologies, such as medium agitation or culture in nonadherent conditions. Microengineering-based models implement micro- and nanotechnologies to obtain systems that allow for precisely controlling important variables. Scaffold-based models rely on biomaterials to produce a structure that mimics the in vivo ECM, which is used to support cancer cell growth and proliferation. Organoids and tumoroids are in vitro self-assembling aggregates derived from stem cells and patient biopsies, respectively, allowing for obtaining models with more than one cell type.
+x972 | Int. J. Mol. Sci. 2023, 24, 11915
+cwrw | 3.1. Spheroid-Based Models
+4i0e | Multicellular tumor spheroids (MCTS) are 3D models that resemble micrometastases or microregions of a tumor, comprising peripheral proliferating cells, deep non-proliferating cells, and, in some cases, a necrotic core, obtained through the self-assembly of tumoral cells [43-45]. Additionally, the geometry of spheroids allows for studying different sub- populations of cancer cells in relation to their microenvironment [45]. In comparison with 2D monolayer models, spheroids are able to better recapitulate in vivo aspects, such as microenvironment interactions, tissue architecture, gene expression, hypoxic regions, and metabolism [46-49]. As a result of their similarities with in vivo tumors, MCTS have been extensively used in research, in particular for the evaluation of different therapeutic strategies [47,50,51].
+h2l3 | Despite their several advantages, spheroids also present some limitations, such as imaging difficulties using fluorescence microscopy due to the spheroid thickness and light- scattering phenomenon. This makes high-resolution images of intact spheroids, particularly from their interior, difficult to obtain [52,53]. This could be addressed by cutting the spheroids into thin slices; however, it may damage the spheroid structure and result in the introduction of artifacts during computational analysis [12,52]. Alternatively, optical sectioning microscopes, such as confocal laser scanning microscopy (CLSM), multiphoton microscopy (MPM), and light-sheet fluorescence microscopy (LSFM), can be used to image the deeper regions of intact spheroids [54,55].
+dfzb | Several methods for the efficient growth and manipulation of spheroids derived from rodent and human cancers have been established [56-58]. The four principal approaches for spheroid production are suspension cultures, hanging drop plates, liquid overlay technique, and low adhesion plates.
+u6ty | 3.1.1. Suspension Cultures
+awvu | In suspension-based or agitation-based approaches, a cell suspension is maintained in motion through stirring or rotation. As the suspended cells are constantly moving, they do not attach to the container walls, but instead develop cell-cell interactions, forming spheroids [59]. This type of culture can be performed in spinner flask bioreactors or rotational culture systems [60,61].
+on9b | Spinner flasks are a simple way of producing spheroids in higher quantities, depending on the size of the bioreactor [62]. Moreover, spinner flasks allow for the control of culture properties, such as culture duration, while constant agitation promotes the transport of nutrients and waste products [59,63]. However, using spinner flasks involves a constant cell motion, resulting in a shear force that may have a negative impact on cellular physiology, as well as a larger volume of culture medium, making this technique more expensive than other methods [64,65]. Rotational systems present several similarities with spinner flasks, both in terms of their advantages and disadvantages [59]. However, contrary to the spinner flask, rotational systems present the advantage of having low shear forces, as in this method, both the container and its content are rotating [61]. These two techniques have advantages such as easy maneuvering, affordability, and the ability to scale-up production. However, heterogeneous spheroids regarding size and morphology are limitations that need to be considered, as the manual selection of spheroids may be necessary for drug screening [59].
+a8ge | 3.1.2. Hanging Drop
+h27a | Hanging drop plates benefit from the fact that when no surface is available for cell adhesion, cells self-aggregate into spheroids. This is possible using a traditional tissue culture petri dish, where the lid is used to place small droplets, in which the spheroids form [66]. Alternatively, specialized plates with bottomless, open wells that allow for the formation of a small media droplet, can also be used [11]. Kelm et al. described a protocol using hanging drop plates that allows MCTS growth from a variety of cell lines, including some that are not frequently obtained with other methods. The spheroids produced present
+pdjh | Int. J. Mol. Sci. 2023, 24, 11915
+xmgs | reproducibility, rapid generation, and homogenous size distribution, qualities that are essential for drug screening assays [58]. This last feature in particular is crucial, ensuring that the spheroids can be used immediately without the need to select the appropriate spheroids [67]. Furthermore, with these types of plates, it is possible to use the spheroids in an automated drug-screening platform, which may be relevant to the pharmaceutical industry [58]. However, due to plate incompatibility with microscopes and uncentered spheroids in the well plates, hanging drop plates can be difficult to image [68]. Moreover, media exchange is a difficult process in traditional plates, whereas specialized open-top plates are costly and difficult to adapt to the experimental requirements [59].
+bd9h | Table 1. Cancer 3D models in metallodrug preclinical testing: a summary of the advantages, disad- vantages, and complexity (from low to high) of each 3D model, and examples from the literature of the application of these 3D models in this context.
+m047 | 3.1.3. Liquid Overlay Technique and Low Adhesion Plates
+gy8c | In the liquid overlay technique, cells are cultured on a nonadherent surface and centrifuged to induce spheroid formation [48,79]. Nevertheless, it is necessary to take
+y4mj | Int. J. Mol. Sci. 2023, 24, 11915
+```
+
+OUTPUT:
+```

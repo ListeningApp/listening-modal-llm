@@ -1,0 +1,169 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+1o7p | Anger
+cp13 | Anger is frequently experienced after a loss. It can be one of the most confusing feelings for the survivor and as such is at the root of many problems in the grieving process (Cerney & Buskirk, 1991). A woman whose husband died of cancer said to me, "How can I be angry? He didn't want to die." The truth is that she was angry at him for dying and leaving her. If the anger is not adequately acknowledged, it can lead to complicated mourning.
+bgre | This anger comes from two sources: from a sense of frustration that there was nothing one could do to prevent the death, and from a kind of regressive experience that occurs after the loss of someone close. You may have had this type of regressive experience when you were a very young child on a shopping trip with your mother. You were in a department store and suddenly you looked up to find that she had disappeared. You
+57lp | 1 Attachment, Loss, and the Experience of Grief
+ukth | felt panic and anxiety until your mother returned, whereupon, rather than express a loving reaction, you hauled off and hit her. This behavior, which Bowlby sees as part of our genetic heritage, symbolizes the mes- sage "Don't leave me again!"
+kpvt | In the loss of any important person there is a tendency to regress, to feel helpless, to feel unable to exist without the person, and then to experience the anger that goes along with these feelings of anxiety. The anger that the bereaved person experiences needs to be identified and appropriately targeted toward the deceased in order to make a healthy adaptation.
+jie2 | One of the riskiest maladaptations of anger is the posture of turn- ing the anger inward against the self. In a severe case of retroflected anger, the person may be down on him- or herself and could develop severe depression or suicidal behavior. A more psychodynamic inter- pretation of this retroflected anger response was given by Melanie Klein (1940), who suggests that the triumph over the dead causes the bereaved person to turn his or her anger against him- or herself or direct it out- ward toward others nearby.
+d0ik | Blame
+0x0s | Anger is often handled in other less effective ways, one of which is dis- placement, or directing it toward some other person and often blaming him or her for the death (Drenovsky, 1994). The line of reasoning is that if someone can be blamed, then that person is responsible and, hence, the loss could have been prevented. People may blame the physician, the funeral director, family members, an insensitive friend, and fre- quently God. "I feel cheated but am confused not knowing who cheated me. God showed me something so precious and takes it away. Is this fair?" queried one widow (Exline, Park, Smyth, & Carey, 2011).
+4exe | Field and Bonanno (2001) observed two types of blame in their research. One involved blaming the deceased, the second blaming them- selves. Those who blamed the deceased experienced more anger and other symptoms in the early months after the death and had fewer continuing bonds. Those who blamed themselves experienced more grief symptoms of all kinds and had difficulty accepting the reality of the loss. They tended to keep the deceased's possessions and to hold onto guilt that kept them connected to the deceased, rather than holding onto memo- ries as a way of continuing attachments.
+0myz | Guilt and Self-Reproach
+xh3i | Self-blame, shame, and guilt are common experiences of the bereaved and can affect grief outcomes (Duncan & Cacciatore, 2015). Guilt and
+syiw | Grief Counseling and Grief Therapy
+kg3t | self-reproach-over not being kind enough, over not taking the person to the hospital sooner, and the like-are frequently seen in survivors. Usually the guilt is manifested over something that happened or some- thing that was neglected around the time of the death, something that may have prevented the loss (Li, Stroebe, Chan, & Chow, 2014). Most often the guilt is irrational and mitigates through reality testing. There is, of course, the possibility of real guilt, where the person has indeed done something to cause the death. In these cases, interventions other than reality testing would be called for.
+lvae | Anxiety
+o9sc | Anxiety in the survivor can range from a light sense of insecurity to a strong panic attack, and the more intense and persistent the anxiety, the more it suggests an abnormal grief reaction (Onrust & Cuijpers, 2006). Anxiety comes primarily from two sources. The first source is attachment-related anxiety. This is the fear the survivor will not be able to take care of him- or herself and frequently comment "I won't be able to survive without him (or her)" (Meier, Carr, Currier, & Neimeyer, 2013). Second, anxiety relates to a heightened sense of personal death aware- ness-the awareness of one's own mortality increased by the death of a loved one (Worden, 1976). Carried to extremes, this anxiety can develop into a full-blown phobia. The well-known author C. S. Lewis (1961) knew this anxiety and said after losing his wife: "No one ever told me that grief felt so like fear. I am not afraid, but the sensation is like being afraid. The same fluttering in the stomach, the same restlessness, the yawning. I keep on swallowing" (p. 38).
+121u | Loneliness
+zh03 | Loneliness is a feeling frequently expressed by survivors, particularly those who have lost a spouse and who were used to a close day-to-day relationship. Even though very lonely, many widows will not go out because they feel safer in their homes. "I feel so all alone now," said one widow who had been married for 52 years. "It's been like the world has ended," she told me 10 months after her husband's death. W. Stroebe, Stroebe, Abakoumkin, and Schut (1996) distinguish between emotional loneliness and social loneliness. Social support can help with social loneli- ness but does not militate against emotional loneliness due to a broken attachment. The latter can only be remedied by the integration of another attachment (M. Stroebe, Schut, & Stroebe, 2005). Sometimes the need to be touched is a correlate of loneliness. This is especially true in cases of conjugal bereavement and often among the elderly (Van Baarsen, Van Duijn, Smit, Snijders, & Knipscheer, 2001).
+1mvw | 1 Attachment, Loss, and the Experience of Grief
+6d4s | Fatigue
+mqah | Lindemann's patients reported fatigue, and we see this frequently in survivors. It may sometimes be experienced as apathy or listlessness. This high level of fatigue can be both surprising and distressing to the person who is usually very active. "I can't get out of bed in the morn- ing," said one widow. "I am neglecting the house because I am tired all the time." Fatigue is usually self-limiting. If not, it may be a clinical sign of depression.
+xxr8 | Helplessness
+rl4j | One factor that makes the event of death so stressful is the sense of help- lessness it can engender. This close correlate of anxiety is frequently present in the early stage of a loss. Widows in particular often feel extremely helpless. A young widow left with a 7-week-old child said, "My family came and lived with me for the first 5 months. I was afraid I would freak out and not be able to care for my child." Helplessness is associated with Locus of Control (internal versus external). Those with more external locus of control feel at the mercy of circumstances and less able to exert a sense of control and self-efficacy (Rubinstein, 2004).
+vz32 | Shock
+ncb0 | Shock occurs most often in the case of a sudden death. Someone picks up the telephone and learns that a loved one or friend is dead. Even when the death is expected and follows a progressive deteriorating ill- ness, when the phone call finally comes, it can still cause the survivor to experience shock and disbelief.
+8mp0 | Yearning
+xjyk | Yearning for the lost person is what the British call pining. Parkes (2001; Parkes & Prigerson, 2010) has noted that pining is a common experi- ence of survivors, particularly among the widows he studied. Yearning is a normal response to loss. When it diminishes, it may be a sign that mourning is coming to an end. When it does not come to an end, it may be a clinical sign indicating complicated mourning (W. Stroebe, Abakoumkin, & Stroebe, 2010). See Chapter 5 for a discussion of pro- longed grief as one of the complications of mourning, and the place of yearning in its diagnosis (Robinaugh et al., 2016).
+mt0f | Emancipation
+awab | Emancipation can be a positive feeling after a death. I worked with a young woman whose father was a real potentate, a heavy-handed,
+ixcc | 24
+8p6h | Grief Counseling and Grief Therapy
+pmgl | unbending dictator over her existence. After his sudden death from a heart attack, she went through the normal grief feelings, but she also expressed a feeling of emancipation because she no longer had to live under his tyranny. At first, she was uncomfortable with this feeling, but later she was able to accept it as the normal response to her changed status.
+90no | Relief
+jt0y | Many people feel relief after the death of a loved one, particularly if the loved one suffered a lengthy or particularly painful illness. "The know- ing that his suffering, both physical and mental, is over helps me cope," said one elderly widow. This can also occur when the death involves a person with whom the mourner has had a particularly difficult and often lifelong relationship. Sometimes relief is the reaction following a completed suicide after a long series of suicide attempts. However, a sense of guilt often accompanies this sense of relief.
+qb7o | Numbness
+oae5 | It's also important to mention that some people report a lack of feel- ings. After a loss, they feel numb. Again, this numbness is often expe- rienced early in the grieving process, usually right after the person learns of the death. It probably occurs because there are so many feel- ings to deal with, that to allow them all into consciousness would be overwhelming, so the person experiences numbness as a protection from this flood of feelings. Commenting on numbness, Parkes and Weiss (1983) have said, "We found no evidence that it is an unhealthy reaction. Blocking of sensation as a defense against what would oth- erwise be overwhelming pain would seem to be extremely 'normal'" (p. 55).
+s0fl | As you review this list, remember that each of these items listed represents normal grief feelings and there is nothing pathological about any one of them. However, feelings that exist for abnormally long peri- ods of time and at excessive intensity may portend a complicated grief reaction. This is discussed in Chapter 5.
+43ia | Physical Sensations
+3g2y | One of the interesting things about Lindemann's paper is that he describes not only the emotions that people experienced, but also the physical sensations associated with their acute grief reactions. These sensations are often overlooked, but they play a significant role in the
+gc7v | 1 Attachment, Loss, and the Experience of Grief
+wqfv | grieving process. The following is a list of the most commonly reported sensations experienced by the people we see for grief counseling:
+j30a | 1. Hollowness in the stomach
+7bdk | 2. Tightness in the chest
+fim0 | 3. Tightness in the throat
+ojro | 4. Oversensitivity to noise
+l6t9 | 5. A sense of depersonalization: "I walk down the street and nothing seems real, including me."
+1ujy | 6. Breathlessness, feeling short of breath
+qzor | 7. Weakness in the muscles
+a0by | 8. Lack of energy
+u1ky | 9. Dry mouth
+htm9 | Many times, these physical sensations are of concern to the survi- vor, and he or she may come to the physician for a checkup. If so, physi- cians need to inquire about deaths and losses as part of their diagnostic evaluation.
+8hul | Cognitions
+87vz | There are many different thought patterns that mark the experience of grief. Certain thoughts are common in the early stages of grieving and usually disappear after a short time. But sometimes thoughts persist and trigger feelings that can lead to depression or anxiety.
+ym66 | Disbelief
+l0a3 | "It didn't happen. There must be some mistake. I can't believe it hap- pened. I don't want to believe it happened." These are often the first thoughts to occur after hearing of a death, especially if the death was sudden. One young widow said to me, "I keep waiting for someone to wake me and tell me I'm dreaming." Another said, "The passing of my husband came as a shock although he had been sick for some time. You are never quite ready for it."
+u8nw | Confusion
+l2v9 | Many newly bereaved people say their thinking is very confused, they can't seem to order their thoughts, they have difficulty concentrating, or they forget things. I once went out for a social evening in Boston and took a cab home. I told the driver where I wanted to go and sat back while he proceeded down the road. A little later he asked me again
+afbe | Grief Counseling and Grief Therapy
+78r8 | where I wanted to go. I thought maybe he was a new driver and did not know the city, but he commented to me that he had a lot on his mind. A little later he asked again and then apologized and said that he was feeling very confused. This happened several more times, and finally I decided it would not hurt to ask him what was on his mind. He told me that his son had been killed the week before in a traffic accident.
+320g | Preoccupation
+tp8g | Preoccupations can be obsessive thoughts about the deceased. These often include obsessive thoughts about how to recover the lost per- son. Sometimes preoccupation takes the form of intrusive thoughts or images of the deceased suffering or dying. In our Harvard Child Bereavement Study, surviving parents with the highest levels of intru- sive thoughts were those who unexpectedly lost a spouse with whom they had a highly conflicted relationship (Worden, 1996). Rumination is another form of preoccupation. People engaging in ruminative coping think persistently and repetitively about how bad they feel and about the circumstances that precipitated their feelings (Eisma et al., 2015; Nolen-Hoeksema, 2001).
+gxfd | Sense of Presence
+s2v1 | This is the cognitive counterpart to the experience of yearning. The grieving person may think that the deceased is somehow still in the cur- rent area of time and space. This can be especially true during the time shortly after the death. In our study of bereaved children, 81% of the children felt watched by their dead parent 4 months after the death, and this experience continued for many of the children (66%) 2 years after the death. Some found this sense of presence comforting, while others did not and were scared by it (Worden, 1996).
+jkp9 | Hallucinations
+z8tt | Hallucinations of both the visual type and the auditory type are included in this list of normal behaviors because hallucinations can be a frequent experience of the bereaved. They are usually transient illu- sory experiences, often occurring within a few weeks following the loss, and generally do not portend a more difficult or complicated mourn- ing experience. Although disconcerting to some, many others find these experiences comforting. With all the interest in mysticism and spiritual- ity, it is interesting to speculate whether these are really hallucinations or possibly some other kind of metaphysical phenomenon (Kersting, 2004).
+9g22 | 1 Attachment, Loss, and the Experience of Grief
+41fx | 27
+```
+
+OUTPUT:
+```

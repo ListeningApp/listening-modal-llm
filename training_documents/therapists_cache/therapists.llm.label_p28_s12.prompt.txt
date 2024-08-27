@@ -1,0 +1,183 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+me84 | -Carmen-Gloria de las Heras
+o56m | This ability to integrate and see an increasing number of parallels between one's therapeutic style and one's in- terpersonal style outside of therapy, combined with the ability to draw on a wide repertoire of interpersonal be- haviors as appropriate for any given interaction, may be associated with decreased feelings of burnout and frustra- tion. Having a therapeutic style that feels consistent with one's day-to-day personality is referred to as an integrated use of self.
+slz6 | Copyright 2020. F. A. Davis Company. All rights reserved.
+90k5 | 108 Part 1 Theoretical Foundations and Guidelines for Practice
+9m8s | Assessing Mode Use
+893y | To date, nine assessments of mode use based on the IRM have been developed. One of these assessments is featured in this chapter: The Self-Assessment of Modes, Version III. The Self-Assessment of Modes, Version III, consists of nine different clinical scenarios, each portraying a client or caregiver facing a dilemma. Four possible therapeutic responses (i.e., modes) are presented beneath each clinical scenario. Respondents are required to rank-order the re- sponses from one to four based upon the degree to which they agree with the given response. The additional IRM assessments, most of which have been validated or are in the process of being validated, are available at the IRM website: http://irm.ahslabs.uic.edu/.
+favz | Exercises for Learning and Reflection
+7szx | 1. Please complete Exercises 4.1 to 4.3. Reflect upon your responses.
+hx9e | 2. Provide a description of each of the six modes.
+ywn2 | 3. Why is it important to clearly differentiate between each of the six modes when communicating with a client?
+a63r | 4. Define the three types of suboptimal mode use. Why is it important to differentiate mode use and suboptimal mode use?
+dqvj | Exercise 4.1
+r17u | Self-Assessment of Modes Questionnaire, Version III
+3c47 | This assessment is designed to allow you to identify whether you have a dominant way or central set of ways of responding to various interpersonal events that arise in therapy. Please do not think too hard about the responses and respond as if you were facing the situations described in real-time practice. All responses represent plausible therapeutic actions, and there are no incorrect responses.
+g345 | For every scenario, please rank-order each of the four response options accord- ing to the extent to which you would view the option as being consistent with your predominant (i.e., usual) way of interacting. Please rank the general idea or feeling you have about the response, even if the way that the example is worded is not identical to what you would actually say. Your numeric rankings should adhere to the following scale:
+svhz | 1 = highly consistent with how I would usually respond
+oaen | 2 = very consistent with how I would usually respond
+5u67 | 3 = moderately consistent with how I would usually respond
+dvms | Taylor, Renee R. The ghettonarRelationship! cousintra tricity browse around d usually company, 2020. ProQuest Ebook Central, http://ebookcentral.proquest.com/lib/ubc/detail.action?docID=6915779. Created from ubc on 2023-09-07 04:49:15.
+qrd3 | SUMMARY
+rxrg | The "cautions" section under each of the interpersonal modes reveals one of the hidden secrets of therapeutic use of self-that no therapist is perfect. There is no way to escape the caveats and downsides that go along with any therapeutic mode or set of modes. Additionally, no one is immune from communicating the modes suboptimally from time to time. One key to the intentional use of self is to familiarize oneself with the caveats to each of the modes that are part of one's therapeutic style. The more you develop an ability to draw on as many modes as neces- sary and appropriate for a given client, the more likely you are to avoid overutilizing one style at the expense of using a more appropriate or more indicated style for that client.
+tf43 | Copyright @ 2020. F. A. Davis Company. All rights reserved.
+fcco | Chapter 4 Knowing Ourselves as Therapists 109
+8uji | Please note that you may only assign a number once; please do not assign the same number to more than one response option. It is recognized that your actual response may depend on information that is not available in the case description. The point of this questionnaire is not to ascertain a correct response but to ascertain the one that is most representative of your interpersonal style. Please do not dwell on the options for too long. Instead, choose the response that would be the easiest, most natural, or most typical for you in each situation.
+df3e | Please see the following example, where, in this case, option "d" is the response most consistent with the respondent's usual way of interacting:
+53eu | A marathon runner is looking for a relief station to rehydrate but cannot find one. The runner is trying to decide whether to continue running or to rest in order to avoid a state of complete exhaustion. Walking alongside the runner, you are able to have a con- versation. Please rank-order the following possible responses.
+a5u1 | a. __ 3_Assume a clear leadership role by providing the runner with information, struc- ture, guidance, or constructive feedback (e.g., educate the runner on the poten- tial consequences of continuing to run without hydration).
+ry7u | b. __ 2_ Ask questions or engage in a discussion that leads the runner to think about alternative ways of approaching the situation (e.g., assist the runner in weighing the pros and cons of continuing to run without hydration).
+5mda | c. _ 4_ Give the runner total and complete control over the situation (e.g., ask the run- ner what he or she feels is the best thing to do in this moment).
+i4li | d. 1_Normalize the runner's experience or connect the runner with social or physical resources that will enable him or her to have an equal chance of finishing (e.g., let the runner know that dehydration is common among marathoners; if desired, gather information for the runner about the location of the next relief station).
+r8sm | 1. You are working with a 92-year-old retired steelworker who has always performed his own handiwork around the house. He is receiving postsurgical therapy for a shoulder in- jury that he endured after a fall from a stepstool while changing a light bulb in his home. When the client is not in the room, his family members tell you that this is not the first accident that he has had doing handiwork. They add that, recently, he has become more accident-prone while completing tasks that should be done by hired workers. The cli- ent's family is concerned about his safety. They feel that he does not listen to them when they ask him to call a hired worker instead of performing household duties on his own. The family reports that the client is otherwise safe when not engaging in household tasks. Please rank-order each response to the family according to the following scale:
+cuin | 1 = highly consistent with how I would usually respond
+n1i7 | 2 = very consistent with how I would usually respond
+0r5m | 3 = moderately consistent with how I would usually respond
+ne2o | 4 = slightly or not at all consistent with how I would usually respond
+sqxn | Copyright @ 2020. F. A. Davis Company. All rights reserved.
+6pmo | 110 Part 1 Theoretical Foundations and Guidelines for Practice
+195r | a. Assume a clear leadership role by providing the family with information, struc- ture, guidance, or constructive feedback (e.g., provide the family with informa- tion on the type of safety recommendations that you will discuss with the client and reassure them that these recommendations will be included in the client's next session).
+kqmi | b. Give the family total and complete control over the situation (e.g., ask the family what they think they will need from you to better ensure the client's safety at home).
+g8rd | c. Witness, listen to, and show full acceptance of the client's thoughts, feelings, or behavior (e.g., summarize what you have just learned and make a statement that validates their concerns about the client's safety).
+nns9 | d. Ask questions or engage in a discussion that leads the family to think about alternative ways of approaching the situation (e.g., assist the family in weighing the pros and cons of a range of ways that a convincing message about safety might be best communicated to the client).
+9uwy | 2. You are working with a 42-year-old engineer specializing in geomechanics. Work has always been one of the most gratifying things in his life. He is receiving occupational therapy following a spinal cord injury. Because of the injury, the client now requires a special form of powered mobility that traverses different types of terrain in order to complete fieldwork assignments. However, neither his employer nor his insurance company is willing to cover the cost of the equipment, arguing that the powered mobil- ity that he currently uses should be adequate. The client tells you that this specialized power mobility is vital to his ability to complete his work. He adds that his current chair frequently gets stuck, limiting his timeliness, efficiency, and overall productivity. Please rank-order each response according to the following scale:
+srly | 1 = highly consistent with how I would usually respond
+dl6i | 2 = very consistent with how I would usually respond
+89ub | 3 = moderately consistent with how I would usually respond
+dhle | 4 = slightly or not at all consistent with how I would usually respond
+2nib | a. Witness, listen to, and show full acceptance of the client's thoughts, feelings, or behavior (e.g., summarize what you have just learned and make a statement that validates the client's experience).
+naev | b. Normalize the client's experience or connect him with social or physical resources that will enable him to have equal access and opportunities (e.g., inform the client that the desired chair represents a reasonable accommodation and connect him with a well-known disability rights organization for assistance).
+7h0h | Copyright 2020. F. A. Davis Company. All rights reserved.
+a64c | Chapter 4 Knowing Ourselves as Therapists 111
+gi7n | d. Ask questions or engage in a discussion that leads the client to think about alternative ways of approaching the situation (e.g., create a list of options for actions that might be taken to address this situation and analyze the viability of each option with the client).
+3pn1 | 3. You are working with a 74-year-old homemaker and accountant from a rural commu- nity. She has invested her entire life in raising a family while simultaneously operating a successful part-time tax-assistance business from home. Until now, she has been in perfect health and has never experienced any injuries or impairments. Newly referred for rehabilitation and having successfully accomplished all of the activities thus far, she is clearly frustrated and demoralized over the difficulty that she is having making a toilet transfer. After two transfer attempts, she tells you that she knows she cannot do it, and that she is going to end up in a nursing home. She is concerned that she won't be able to return to her home, where she has lived for 30 years. Most individuals with her level of impairment are eventually able to return to independent living and are able to make the transfer. Please rank-order each response according to the following scale:
+wjuz | 1 = highly consistent with how I would usually respond
+3yxv | 2 = very consistent with how I would usually respond
+d8zj | 3 = moderately consistent with how I would usually respond
+ywxn | 4 = slightly or not at all consistent with how I would usually respond
+uxhs | a Assume a clear leadership role by providing the client with information, struc- ture, guidance, or constructive feedback (e.g., tell her that learning a transfer requires practice and review the steps that you have already taught her thus far).
+ed6e | b. Normalize the client's experience or connect her with social or physical re- sources that will enable her to have equal access and opportunities (e.g., tell the client that her frustration is normal and that most clients on the unit feel this way when they are first learning the transfer).
+6qqm | c. Witness, listen to, and show full acceptance of the client's thoughts, feelings, or behavior (e.g., ask the client to tell you more about her frustration to get a bet- ter understanding of her concerns).
+onum | d Provide the client with hope or positive feedback and generally show a positive attitude or emotions (e.g., tell her that you know that she will eventually learn to make the transfer because you have noticed her strength and success with equally difficult tasks).
+3iir | 4. You are working with a studious and well liked 13-year-old client with cerebral palsy you have worked with for the past 2 years. She tells you she is feeling hurt and betrayed by something she overheard one of her friends say to another peer at school today in reference to her disability. Because of the presence of many bullies and a lack of appropriate disciplinary oversight, her school is a socially tough environment for many students. Though she is quite gregarious and popular with most of her peers, this is not the first time that she has been hurt by jokes and disparaging comments by peers and
+7a0a | Copyright 2020. F. A. Davis Company. All rights reserved.
+o1qp | 112 Part 1 Theoretical Foundations and Guidelines for Practice
+jrik | others in public through the years. Please rank-order each response according to the following scale:
+xv78 | 1 = highly consistent with how I would usually respond
+sdks | 2 = very consistent with how I would usually respond
+y8fb | 3 = moderately consistent with how I would usually respond
+521q | 4 = slightly or not at all consistent with how I would usually respond
+yogo | a. Normalize the client's experience or connect her with social or physical re- sources that will enable her to have equal access and opportunities (e.g., tell the client about a peer network of other students with disabilities who have also en- dured bullying and are proud of their identities and of what they have achieved; offer to connect her to other students living in her area).
+2285 | b. Give the client total and complete control over the situation (e.g., ask the client what she thinks would be most helpful to her at this time).
+ys0g | C. Provide the client with hope or positive feedback and generally show a positive attitude or emotions (e.g., remind the client that she is one of the more popular students in her class; also remind her of all the positive things you know that her other friends say about her on a regular basis).
+7zvp | d. Witness, listen to, and show full acceptance of the client's thoughts, feelings, or behavior (e.g., tell her that she has a right to feel betrayed and ask her to tell you more about the people and circumstances involved).
+ww6u | 5. You are working with a 26-year-old, recently divorced truck driver who is recovering from internal injuries and multiple abrasions and fractures to his left hand, arm, and leg. His injuries occurred during a post-divorce party with friends that involved drinking and riding jet skis. In the middle of an uncomfortable icing treatment on his hand, he tells you that none of his friends have visited him in the hospital and that he feels very anxious about how dependent he has become on the hospital staff. He is worried about losing his job, being alone, and how he will get by once he returns to his home. Please rank-order each response according to the following scale:
+hpi6 | 1 = highly consistent with how I would usually respond
+4uhb | 2 = very consistent with how I would usually respond
+epyi | 3 = moderately consistent with how I would usually respond
+y51p | 4 = slightly or not at all consistent with how I would usually respond
+x95m | a. Provide the client with hope, positive feedback, and generally show a positive attitude or emotions (e.g., point out the client's strengths, highlighting all of his good progress thus far; remind him that as his functioning improves, he will begin to build increasing confidence about returning home and eventually get- ting back to work).
+yfum | Copyright 2020. F. A. Davis Company. All rights reserved.
+ppx4 | Chapter 4 Knowing Ourselves as Therapists 113
+qf11 | b. Assume a clear leadership role by providing the client with information, struc- ture, guidance, or constructive feedback (e.g., educate the client about the course of rehabilitation, emphasizing that he will not be discharged from the hospital to outpatient and work rehabilitation until he feels confident about his abilities and is assessed by the treatment team to be ready and safe for such).
+```
+
+OUTPUT:
+```

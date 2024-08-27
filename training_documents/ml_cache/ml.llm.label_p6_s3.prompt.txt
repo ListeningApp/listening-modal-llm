@@ -1,0 +1,166 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+bqfb | 3.4. Computation and storage cost
+wwdt | The use of ML for multi-omics analysis comes with computational and data storage cost (Herrmann et al., 2020). Most ML algorithms require high computation power and large volumes of storage capacity to save the logs, results and analysis. In recent years, ML models can be deployed on dedicated graphics processing units (Schmidhuber, 2015) and cloud computing platforms (Armbrust et al., 2010) such as Amazon EC2 ("Amazon EC2,", 2021), Microsoft Azure ("Cloud Computing Ser- vices | Microsoft Azure,", 2021a) and Google Cloud Platform ("Cloud Computing Services,", 2021b). The related costs should be considered well in advance before planning an ML-based multi-omics workflow.
+mn1r | 3.5. What algorithm works best for what conditions?
+5vqw | The commonly used ML algorithms have different attributes (Table 4) and therefore it is crucial to choose an appropriate algorithm for the multi-omics analysis. In the literature, many reviews cover the key strengths and weaknesses of different ML algorithms using single omics (Amancio et al., 2014; López Pineda et al., 2015; Sakr et al., 2017; Uddin et al., 2019) and multi-omics (Ma et al., 2016; Francescatto et al., 2018; Xu et al., 2019a; Sathyanarayanan et al., 2020) datasets. Most of them use a systematic workflow that involves simultaneous performance evaluation of different algorithms using a common dataset. Since each multi-omics dataset is unique, using a similar workflow could allow the selection of the best-suited algorithm. Later, in Section 6 a recommen- dation flowchart is proposed which can help the inter-disciplinary user to choose from available methods.
+meyw | Recently, various artificial intelligence-driven automated ML plat- forms and tools (Feurer et al., 2015; Olson et al., 2018; Waring et al., 2020) have also emerged which can be utilised to exhaustively search for the best ML model and corresponding parameter tuning, however, they are computationally expensive.
+2e62 | Biotechnology Advances 49 (2021) 107739
+75y3 | 3.6. Translating ML: bench to bedside
+s2g2 | Various ML-based multi-omics publications have emerged in the past 5 years (see Fig. 1) and some use performance metrics such as decision curve (Vickers and Elkin, 2006) and calibration (Dankers et al., 2019) analytics to evaluate their diagnostic utility. Still, only very few have been translated into clinical practice, for example, Idx (diabetic reti- nopathy detection), FerriSmart (measure liver iron concentration) and SubtleMR (image processing software for radiology) (Benjamens et al., 2020; Hamamoto et al., 2020).
+q1q2 | One of the key issues which hinder the clinical deployment of ML methods is transparency and explainability (Black box medicine and transparency, 2020). A transparent and explainable ML algorithm seems essential to building trust for clinical decision making (Gunning et al., 2019). Recently, the U.S. Food and Drug Administration (FDA) has is- sued the "Artificial Intelligence/Machine Learning (AI/ML)-Based Software as a Medical Device Action Plan" to ensure deployment of ML-based products is safe for patients to better assist the health care providers (Health, 2021). A recent in-depth analysis by Muehlematter showed most of the FDA approved and "Conformité Européenne" marked ML products are in the field of radiology. It also highlighted the key dif- ferences between U.S. and European policy implications around the approval of AI/ML-based devices (Muehlematter et al., 2021).
+cb7r | All the above challenges directly impact the use of ML for multi- omics analysis. However, there are few other challenges related to multi-omics studies which are not ML related such as study design (Haas et al., 2017), multi-site sample collection & management (Pinu et al., 2019), multi-site data sharing and governance (Saulnier et al., 2019), visualisation (Mougin et al., 2018), ethical standards (Lévesque et al., 2018), and finally making the research reproducible (Conesa and Beck, 2019) and translational (Schumacher et al., 2014). A broader checklist of criteria is investigated by McShane while focussing on various aspects ranging from specimen requirements, predictive model development to clinical trial designing and related regulatory approvals (McShane et al., 2013b; McShane et al., 2013a).
+68xu | 4. Data integration methods for multi-omics
+hd35 | In recent years, various new data integration methods have been introduced from the modern developments in mathematical, statistical and computational sciences. For the benefit of the readers, Table 5 in- cludes a summary of a few reviews which cover the breadth of multi- omics integration for generic as well as specialised domains such as oncology (Buescher and Driggers, 2016; Nicora et al., 2020) and toxi- cology (Canzler et al., 2020). Most of these reviews have strived to introduce different categorical terminologies (for example: "early', 'late' and 'intermediate' in (Gligorijević and Pržulj, 2015) or 'bottom-up' and 'top-down' in (Yu and Zeng, 2018)) which enable them to group the integration methods based on different factors/parameters.
+2zpk | As mentioned earlier, this section adopts the categorical terminol- ogies from Ritchie (Ritchie et al., 2015) and builds upon it to summarise a complete spectrum of recent integration methods. It concisely covers them giving a clear perspective to a new interdisciplinary user. The various integration methods are classed as either 'concatenation-', 'model-' or 'transformation'-based and described below in detail.
+epu7 | 4.1. Concatenation-based integration methods
+7od1 | Concatenation-based integration methods consider developing a model using a joint data matrix which is formed by combining multiple omics datasets. Fig. 2 shows the stages of concatenation-based integration. Stage 1 includes the raw data from three individual omics (e.g. genomics, proteomics, and metabolomics) along with the corresponding pheno- typic information. Commonly, concatenation-based integration does not require any pre-processing and hence does not have a Stage 2. In Stage 3, the data from the individual omics is concatenated to form a single large
+0bqy | Table 5 Summary table of few reviews in multi-omics integration
+b780 | P.S. Reel et al.
+ccmb | Biotechnology Advances 49 (2021) 107739
+ma93 | (continued on next page)
+c6hh | Application domain
+y7ea | focussed on ML)
+nav4 | Generic (more
+gem8 | Plant systems
+e8nr | Toxicological
+k78w | Oncology
+g9du | research
+f682 | biology.
+li1k | Generic
+pbea | covered
+ccpt | Table 5 (continued)
+0fpw | Year of
+dqn8 | review
+cop0 | 2020
+lhkq | 2020
+82ju | 2020
+y2qo | 2020
+1piq | 2020
+7fqw | Biotechnology Advances 49 (2021) 107739
+rhaz | matrix of multi-omics data. Finally, in Stage 4 the joint matrix is used for supervised or unsupervised analysis. The main advantage of using concatenation-based methods is the simplicity of employing ML for analysing continuous or categorical data, once the concatenation of all individual omics is completed. These methods use all the concatenated features equally and can select the most discriminating features for a given phenotype.
+wak1 | The different concatenation-based integration methods can be further classed as:
+wtfz | 4.1.1. Supervised learning concatenation-based methods
+qy1i | Different concatenation-based supervised learning methods have been used for phenotypic prediction. In scenarios where the number of features in the joint matrix are higher, different feature selection methods described in Section 3 can be employed during concatenation (Sorzano et al., 2014).
+1k9e | The concatenated multi-omics data (in the form of a joint matrix) is provided as input to different classical ML methods such as DT (decision tree) (Quinlan, 1993), NB (naive Bayes) (Domingos and Pazzani, 1997), ANN (artificial neural networks) (Bishop, 1995), SVM (support vector machine) (Vapnik, 1995), KNN (k-nearest neighbors) (Altman, 1992), RF (random forest) (Breiman, 2001) and K-Star (Cleary and Trigg, 1995) in the literature (Kim and Tagkopoulos, 2018; Lin and Lane, 2017; Auslander et al., 2016; Acharjee et al., 2016; Zhang et al., 2018; Ding et al., 2018; Wang et al., 2020). For example, a joint matrix of multi- omics features (which included gene expression, copy number varia- tion and mutation) was used with classical RF and SVM to predict anti- cancer drug response (Stetson et al., 2014).
+5bjs | Similarly, multivariate LASSO models (Zou, 2006; Nicolai and Peter, 2010; Mankoo et al., 2011) have been investigated. Also, Boosted trees (Elith et al., 2008) and SVR (support vector regression) (Awad and Khanna, 2015) have been investigated for finding the longitudinal pre- dictors of glycaemic health (Prelot et al., 2018).
+uodj | Other than classical ML algorithms, deep neural networks (Tang et al., 2019) have also been widely used to analyse concatenated multi- omics data. They have been studied to identify robust survival sub- groups of liver cancer using RNA, miRNA and methylation data (Chaudhary et al., 2017).
+k16v | 4.1.2. Unsupervised learning concatenation-based methods
+b2lm | Various concatenation-based unsupervised methods have been used for clustering and association analysis. Different matrix factorisation- based methods have evolved in recent years. Joint NMF (non-negative matrix factorisation) (Zhang et al., 2012) was proposed to integrate multi-omics data with non-negative values. It involved decomposing the joint matrix into loadings and factors, bringing the different omics into a common basis matrix. Joint NMF is computationally slow and needs large memory allocation.
+ti7f | Similarly, Shen (Shen et al., 2009) proposed iCluster framework which used principles similar to NMF but allows integration of datasets having negative values. They showed the functioning of the framework by using copy number, mRNA expression and methylation data to conduct a cancer subtype discovery in glioblastoma. This framework was also employed for a landmark study that used genomic and tran- scriptomic data from 2,000 breast tumours and discovered novel sub- groups amongst them (Curtis et al., 2012).
+oksu | Later, the iCluster+ framework by Mo (Mo et al., 2013), offered a significant enhancement over iCluster framework. The iCluster+ framework can discover patterns and combine a range of omics having binary, categorical and continuous values and was demonstrated by combining genomic data from the colorectal cancer datasets.
+wtow | Another adaptation of NMF was evaluated as JIVE (Joint and Indi- vidual Variation Explained) which captures joint variation across inte- grating data types and structural variation of each data type along with the residual noise (Lock et al., 2013). It was used to investigate gene expression and miRNA data on brain tumour samples. The sparsity
+o22k | Fig. 2. Workflow pipelines for different types of integration methods for multi-omics analysis.
+nwfz | problem in JIVE was improved by JBF (Joint Bayes Factor) (Ray et al., 2014). JBF used joint factor analysis to evaluate the feature space and converted it into shared and datatype-specific components.
+nvfy | The MoCluster proposed by Meng (Meng et al., 2016a), used multi- block multivariate analysis for highlighting the patterns across different input omics data and then finds the joint clusters amongst them. MoCluster was validated by integrating proteomic and tran- scriptomic data and shows a noticeably higher clustering accuracy and lower computation cost in comparison to both Cluster and iCluster+.
+mror | Fridley (Fridley et al., 2012) has studied the genomic effects due to the gemcitabine drug using high-throughput data from mRNA expres- sion and SNPs. They integrated these two datasets into one large input matrix and developed a Bayesian pathway analysis that uses a stochastic search variable selection. Their proposed that the Bayesian integrative model offers better performance in detecting the genomic effects in comparison to using conventional single-omics analysis. Similarly, Zhu (Zhu et al., 2012) has also explored BN (Bayesian network) to
+zlxc | Biotechnology Advances 49 (2021) 107739
+k0bw | understand cell regulation in yeast using metabolomics and tran- scriptomics data.
+aq5a | Also, LRAcluster (Wu et al., 2015) was developed to integrate high- dimensional multi-omics data and find low-dimensional manifold to identify molecular subtypes of cancer.
+sc5y | Recently, iClusterBayes was introduced by Mo (Mo et al., 2018), which is a fully Bayesian latent variable model. It overcomes the limi- tations of iCluster+, in terms of statistical inference and computational speed. iClusterBayes includes a binary indicator prior for selection of variable and generalises for binary data and count data. Also, Argelaguet (Argelaguet et al., 2018) have developed MOFA (Multi-Omics Factor Analysis) which disentangles the heterogeneity shared across different omics to discover the principal source of variability. It can integrate partially overlapping datasets.
+0yab | 4.2. Model-based integration methods
+w95z | Model-based integration methods create multiple intermediate models for the different omics data and then build a final model from various intermediate models (Fig. 2). Stage 1 sets up the raw data from the three individual omics along with the corresponding phenotypic information. In Stage 2, individual models are developed for each of the omics which are later integrated into a joint model in Stage 3. Finally, in Stage 4 the joint model is analysed. The major advantage of model-based integra- tion methods is that they can be used for merging models based on different omic types, where each model is developed from a different patient group having the same disease information (He et al., 2016; Ritchie et al., 2015).
+0i1k | Model-based integration approaches facilitate the understanding of interactions amongst different omics for a certain phenotype (for example, survival in pancreatic cancer). The final multi-dimensional joint model in Stage 4 can be built using an ML algorithm (such as neural networks) which uses the most relevant variables from each omics models (from Stage 3). This approach allows the analysis of the improvement in the predictive power for individual models and also finds the best discriminating features.
+dqlg | The different model-based integration methods can be further classed as follows.
+p6pq | 4.2.1. Supervised learning model-based methods
+zse6 | Model-based supervised learning methods include a variety of frame- works for developing a model, such as majority-based voting (Draghici and Potter, 2003), hierarchical classifiers (Bavafaye Haghighi et al., 2019) and ensemble-based approaches (such as XGBoost (Ma et al., 2020b) and KNN (Shen and Chou, 2006)).
+```
+
+OUTPUT:
+```

@@ -1,0 +1,148 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+82ju | Cambridge Prisms: Extinction
+y2qo | plurality of arguments and perspectives underlying and supporting the need to pursue expansive biological conservation policies. Which conservation strategies and practices should be pursued (and which should not), in turn, remains an additional matter of debate, the subject of the ethics of conservation that supplements the ethics of extinction.
+1piq | Lastly, there are two remarkable aspects to the literature surveyed. Firstly, most arguments pertaining to the wrongness or badness of species extinctions are not primarily concerned with 'species' as such. Rather, the matter of moral concern, such as the locus or source of value, is often located somewhere else: in the nonhuman individuals involved, in people's relationship to particular species or landscapes, in biodiversity including vari- ability within species and between ecosystems and so on, which reflects that there is more of moral relevance to the ethics of extinction than merely the numerical loss of species and their respective intrinsic or instrumental value. Views on the moral wrongness of anthropogenic extinctions result also, amongst other things, from underlying premises of what constitutes an appropriate human-nature relationship, which is why the current anthropogenic mass extinction event is of significant moral con- cern.
+7fqw | Secondly, considering how marginal de-extinction technologies still are as a (potential) practice of biodiversity conservation, it is noticeable how much interest the environmental ethics literature has shown on this topic. However, more important than the inter- related questions of whether species can and should be 'resurrected' is the uptake of a second set of broader related questions. These questions concern the morally permissible (or impermissible) uses of biotechnology for conservation purposes under conditions of climate change when conventional conservation practices such as habitat preservation and even more proactive approaches such as assisted migration reach their limits of effectiveness. As this is a growing area of interdisciplinary debate, we believe that providing critical analysis of these questions in the intersection between environmental ethics and the ethics of technology will be a signifi- cant area of environmental philosophical contribution during the upcoming years.
+rhaz | Open peer review. To view the open peer review materials for this article, please visit http://doi.org/10.1017/ext.2023.21.
+wak1 | Acknowledgements. The authors would like to thank Timo Vuorisalo and three anonymous reviewers for their helpful comments on a previous draft of this manuscript.
+wtfz | Author contribution. A.W. is the lead author. P.B., A.D. and M.O. have all contributed in equal amounts to the writing and revising of this review.
+qy1i | Financial support. The writing of this review was supported for AW by the Forschungskredit of the University of Zurich, grant no. FK-21-081, and AW has also received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no. 948964, project 'Dynamic Territory'). For PB, this article has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no. 948964, project 'Dynamic Territory'). AD's work was supported by the Fondecyt Project No. 11160170 and the ANID Millennium Science Initiative - ICS2019_025.
+1k9e | Competing interest. The authors declare none.
+5bjs | Social media summary. This review provides an overview of the ethics of extinctions drawing on the environmental ethics literature. It thereby gives special attention to the possible philosophical grounds for Michael Soulé's
+uodj | assertion that the untimely 'extinction of populations and species is bad'. After providing an explanation of the disciplinary perspective taken, the concept of extinction and its history within that literature are introduced. Then, different reasons for why anthropogenic extinctions might be morally problematic are presented based on (1) the loss of species' value, (2) harm to nonhuman individuals, (3) the loss of valuable biological variety and (4) duties to future generations. Subsequently, (5) cases where anthropogenic extinc- tions might be justified are considered. Regarding how to respond to extinc- tions, a selection of topics is addressed concerning (1) risks and (2) de-extinction. Finally, the review introduces other viewpoints from the 'extinction studies' literature.
+k16v | References
+b2lm | Buchanan B, Bastian M and Chrulew M (2018) Introduction: Field philosophy and other experiments. Parallax 24(4), 383-391.
+ti7f | Burbrink FT, Crother BI, Murray CM, Smith BT, Ruane S, Myers EA and Pyron RA (2022) Empirical and philosophical problems with the subspecies rank. Ecology and Evolution 12(7): 1-17. https://doi.org/10.1002/ece3.9069 Burch-Brown J and Archer A (2017) In defence of biodiversity. Biology and Philosophy 32(6), 969-997. https://doi.org/10.1007/s10539-017-9587-x.
+oksu | Cafaro P (2015) Three ways to think about the sixth mass extinction. Biological Conservation 192, 387-393.
+wtow | Anna Wienhues et al.
+o22k | valuing. Environmental Values 30(6), 669-693. https://doi.org/10.3197/ 096327120X15973379803726.
+nwfz | Despret <LATEX>\mathrm { v }</LATEX> (2017) Afterword. It is an entire world that has disappeared. Translated by Chrulew M. In Chrulew M, Rose DB and van Dooren T (eds), Extinction Studies. Stories of Time, Death and Generations. New York: Columbia University Press, pp. 217-222.
+nvfy | Hällfors MH, et al. (2014) Coming to terms with the concept of moving species threatened by climate change - A systematic review of the terminology and
+mror | Cambridge Prisms: Extinction
+zlxc | definition. PLOS One 9, e102979. https://doi.org/10.1371/journal.pone. 0102979.
+k0bw | Hanski I and Ovaskainen O (2002) Extinction debt at extinction threshold. Conservation Biology 16, 666-673.
+aq5a | Hansson SO (2013) The Ethics of Risk: Ethical Analysis in an Uncertain World. New York: Palgrave Macmillan.
+sc5y | Haraway D (2008) When Species Meet. Minneapolis, MN: University of Min- nesota Press.
+0yab | Lenman J (2002) On becoming extinct. Pacific Philosophical Quarterly 83, 253-269.
+w95z | Leopold A (1949/1989) A Sand County Almanac. Oxford: Oxford University Press.
+0i1k | Lestel D, Bussolini J and Chrulew M (2014) The phenomenology of animal life. Environmental Humanities 5, 125-148.
+dqlg | Lo YS (2001) The land ethic and Callicott's ethical system (1980-2001): An overview and critique. Inquiry 44(3), 331-358. https://doi.org/10.1080/ 002017401316922444.
+p6pq | Lo YS (2006) Making and finding values in nature: From a human point of view. Inquiry 49(2), 123-47.
+zse6 | Nolt J (2021) Long-term non-anthropocentric ethics. In Gardiner SM (ed.), The Oxford Handbook of Intergenerational Ethics. Oxford: Oxford University Press. https://doi.org/10.1093/oxfordhb/9780190881931.013.14.
+p2n3 | Norton BG (1982) Environmental ethics and the rights of future generations. Environmental Ethics 4(4): 319-337.
+ohh7 | Norton BG (1987) Why Preserve Natural Variety? Princeton, NJ: Princeton University Press.
+vbni | Patrão Neves M and Druml C (2017) Ethical implications of fighting malaria with CRISPR/Cas9. BMJ Global Health 2(3), e000396.
+dgcw | Anna Wienhues et al.
+gvwz | Pepper A (2019) Adapting to climate change: What we owe to other animals. Journal of Applied Philosophy 36(4), 592-607. https://doi.org/10.1111/ japp.12337.
+sk5m | Peterson M and Sandin P (2013) The last man argument revisited. The Journal of Value Inquiry 47(1-2), 121-133. https://doi.org/10.1007/s10790-013-9369-x. Powell R (2011) On the nature of species and the moral significance of their extinction. In Beauchamp TL and Frey RG (eds), The Oxford Handbook of Animal Ethics. Oxford: Oxford University Press.
+qws8 | Sandler RL (2010) The value of species and the ethical foundations of assisted colonization. Conservation Biology 24, 424-431.
+877u | Cambridge Prisms: Extinction
+rzhj | Sandler RL (2012) The Ethics of Species: An Introduction. Cambridge: Cam- bridge University Press.
+bfax | Sandler RL (2017) De-extinction: Costs, benefits and ethics. Nature Ecology & Evolution 1(4), 0105. https://doi.org/10.1038/s41559-017-0105.
+f2y8 | Tanswell FS (2022) The concept of extinction: Epistemology, responsibility, and precaution. Ethics, Policy & Environment 1-22. https://doi.org/10.1080/ 21550085.2022.2133937.
+o7qm | Taylor P (1986/2011). Respect for Nature: A Theory of Environmental Ethics. 25th Anniversary Edition. Princeton, NJ: Princeton University Press.
+d52l | Theriault N, Leduc T, Mitchell A, Rubis JM and Jacobs Gaehowako
+qlbb | <LATEX>N \left( 2 0 2 0 \right)</LATEX> Living protocols: Remaking worlds in the face of extinction. Social & Cultural Geography 21(7), 893-908.
+nhsg | Wilson EO (1986) BioDiversity. Washington, DC: National Academy Press. Winston ML (1999) Nature Wars. People Vs. Pests. Cambridge, MA: Harvard University Press.
+hy0l | World Health Organization (2017) Ethical issues associated with vector-borne diseases. In Report of a WHO Scoping Meeting, Geneva, 23-24 February. Geneva: World Health Organization.
+```
+
+OUTPUT:
+```

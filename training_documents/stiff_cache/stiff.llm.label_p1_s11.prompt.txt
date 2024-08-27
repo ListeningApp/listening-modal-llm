@@ -1,0 +1,149 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+```
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+```
+
+EXAMPLE OUTPUT:
+```
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+```
+
+INPUT:
+```
+1pjs | Downloaded from ascelibrary.org by Massachusetts Institute of Technology (MIT) on 05/23/23. Copyright ASCE. For personal use only; all rights reserved.
+o2kr | STIFFNESS NONLINEARITY OF THREE SANDS
+v6sk | ABSTRACT: This paper presents the results of 254 drained triaxial compression tests. The results are analyzed with the aim of obtaining a phenomenological description of secant Young's modulus variation according to different test conditions. Using empirical fitting equations, the influences of different factors such as axial strain, vertical consolidation stress, consolidation stress ratio, and stress history on the secant Young's modulus under axisymmetric (triaxial) loading conditions at small and intermediate axial strains are singled out and presented. The main purpose of this paper is to identify the factors affecting the nonlinear secant stiffness of sand and to quantify their relevance at different levels of strain.
+1wj6 | INTRODUCTION
+936l | Stiffness reduction with increasing strain and shear stress levels has been widely recognized in geotechnical engineering for the last half century. Moreover, more recently [e.g., Tat- suoka (1988)] the improvement achieved in the reliable mea- surement of soil behavior at small <LATEX>\left( \varepsilon \cong 1 0 ^ { - 5 } \right)</LATEX> and intermediate strains <LATEX>\left( 1 0 ^ { - 5 } < 8 \leq 5 \times 1 0 ^ { - 3 } \right)</LATEX> in the laboratory has highlighted the degree of nonlinearity exhibited by soil stiffness, empha- sizing the paramount importance of this phenomenon for pre- dicting the displacement of geotechnical constructions.
+06yq | Based on the above, this paper is aimed at the purely phe- nomenological description of the secant Young's modulus <LATEX>\left( E _ { \mathrm { s e c } } \right)</LATEX> nonlinearity at small and intermediate strains, as inferred from a large number of drained triaxial compression tests per- formed on three sands.
+dpv6 | All the triaxial tests were performed on specimens prepared by means of an air pluvial deposition subjected thereafter to both isotropic and anisotropic consolidation. Both the local axial strain and the local radial strain were measured in many tests. The results obtained have been analyzed with the aim of quantifying the relevance of the different factors that influence the <LATEX>E _ { \sec }</LATEX> nonlinearity at small and intermediate strains of the three test sands.
+8r5j | EXPERIMENTAL DATA
+2taz | Test Sands
+o3ya | The soils used were Toyoura, Quiou, and Ticino sands. Toy- oura sand has been widely used for laboratory stress-strain tests in Japan. Ticino sand has been used for Calibration Chamber and laboratory stress-strain tests in Italy since 1976. More recently, Quiou sand (a French sand) has also been used in Italian Calibration Chamber and stress-strain laboratory tests. Toyoura sand is a subangular, uniform, fine quartz sand that does not contain fines. Quiou sand is a subangular, well- graded, coarse to medium carbonate sand containing about 2% of fines. Quiou sand is a crushable material containing 73% in weight of shell fragments (Fioravante et al. 1994b). Ticino sand is a medium to coarse, uniform, predominantly silica sand that does not contain fines (Bellotti et al. 1996). The main physical properties of these sands are shown in Table 1.
+r5il | JOURNAL OF GEOTECHNICAL AND GEOENVIRONMENTAL ENGINEERING / OCTOBER 2000 / 929
+5gui | J. Geotech. Geoenviron. Eng., 2000, 126(10): 929-938
+82qc | Sample Preparation
+ls7d | Specimens with 70 mm in diameter and 140 mm in height were reconstituted by dry pluvial deposition method. Only for some tests on Ticino sand were smaller samples tested (i.e., 40 and 60 mm in diameter). The ratio of height to diameter <LATEX>H / D</LATEX> of all specimens is two.
+tzt3 | Toyoura sand specimens were reconstituted to a void ratio after consolidation <LATEX>e ,</LATEX> ranging from 0.65 to 0.89 (i.e., <LATEX>D _ { r } = 2 5</LATEX> to 90%). For Quiou sand specimens, the <LATEX>e _ { c }</LATEX> ranged between 0.79 and 1.04 (i.e., <LATEX>D _ { r } = 5 5</LATEX> to 105%), while for Ticino sand specimens the <LATEX>e _ { e }</LATEX> ranged between 0.58 and 0.88 (i.e., <LATEX>D _ { r } = 1 5</LATEX> to 100%).
+t8vv | All the relevant information concerning the triaxial tests per- formed is given in Table 2.
+qvnu | Triaxial Tests
+kggw | Apparatus
+xrd1 | The triaxial testing systems used for the tests, developed at ISMES (Istituto Sperimentale Modelli e Strutture, Italy) and the Technical University of Turin, are computer-controlled tri- axial cells with internal tie rods. A load cell to measure the axial load without any piston friction is located inside the pres- sure chamber. In the triaxial apparatus developed at the Tech- nical University of Turin, the loading ram is virtually friction- less. The axial strain was measured locally using high resolution submergible LVDTs, and externally. The details of the test apparatuses were described by Fioravante et al. (1994b), Jamiolkowski et al. (1994b), and Lo Presti et al. (1994).
+5746 | Twenty-six tests on Toyoura sand and eight tests on Quiou sand were performed at the Technical University of Turin, while all the tests on the Ticino sand (184) and other tests on the Quiou sand (36) were performed at ISMES (Table 2). The axial strain was only measured externally for the majority of the Ticino sand tests.
+7toz | Test Procedures
+j346 | Two sets of drained triaxial compression tests were per- formed at constant axial strain rate and lateral pressure with confining stress ranging between 50 and 800 kPa. The first set
+v8uq | TABLE 1. Physical Properties of Tested Sands
+x972 | Downloaded from ascelibrary.org by Massachusetts Institute of Technology (MIT) on 05/23/23. Copyright ASCE. For personal use only; all rights reserved.
+cwrw | TABLE 2. List of Test Conditions
+4i0e | FIG. 1. Secant Young's Modulus versus Axial Strain of Toyoura Sand
+h2l3 | was performed on isotropic normally consolidated (NC) and overconsolidated (OC) specimens. The second set was per- formed on K0 (the condition of zero radial strain) NC and OC specimens. The K0 condition was obtained by adjusting the cell pressure as the axial stress increased in order to prevent radial displacement. The radial deformation was measured lo- cally using two proximity transducers placed horizontally on the specimen. The adopted overconsolidation ratio (OCR = vmax/o ) ranged between 1.2 and 8. After the consolidation stage, a rest period of 1 to 2 h was adopted before starting the shearing phase.
+dfzb | The shearing stage of triaxial tests was carried out in drained conditions, under a strain-controlled frame, at a constant rate
+u6ty | 930 / JOURNAL OF GEOTECHNICAL AND GEOENVIRONMENTAL ENGINEERING / OCTOBER 2000
+awvu | J. Geotech. Geoenviron. Eng., 2000, 126(10): 929-938
+on9b | of axial strain (about 0.01%/min). The radial pressure was kept constant.
+a8ge | The consolidation stress ratio, OCR, and effective vertical stress at the end of consolidation are also shown in Table 2.
+h27a | Test Results
+pdjh | Typical results of the triaxial compression tests on Toyoura and Quiou sands are shown in Figs. 1 and 2. These figures show the secant Young's modulus Esec versus the axial strain, plotted in logarithmic scale, for four compression loading tests with almost the same void ratio (Toyoura sand: 0.77-0.80; Quiou sand: 0.87-0.89) and the effective vertical consolida-
+xmgs | <LATEX>O C R = 3</LATEX> Downloaded from ascelibrary.org by Massachusetts Institute of Technology (MIT) on 05/23/23. Copyright ASCE. For personal use only; all rights reserved.
+bd9h | FIG. 2. Secant Young's Modulus versus Axial Strain of Quiou Sand
+m047 | tion stress (100 kPa) but subject to different consolidation stress ratios <LATEX>\left( K _ { c } = 1 \right.</LATEX> and <LATEX>\left. K _ { c } = K _ { 0 } \right)</LATEX> and histories <LATEX>\left( 1 \leq \mathrm { O C R } \leq \right.</LATEX> 3). In order to eliminate the effect of the difference of density on test results in these figures, the secant Young's modulus was normalized by dividing it by the following void ratio func- tions: Toyoura sand <LATEX>F \left( e \right) = \left( 2 . 1 7 - e \right) ^ { 2 } / \left( 1 + e \right)</LATEX> (Iwasaki et al. 1978), while for Quiou sand <LATEX>F \left( e \right) = \left( 3 . 8 2 - e \right) ^ { 2 } / \left( 1 + e \right)</LATEX> (Fior- avante et al. 1994a).
+gy8c | In spite of a certain scatter observed at very small strain (&a <LATEX>\left. \leq 5 \times 1 0 ^ { - 5 } \right) ,</LATEX> it can be seen that the small strain secant Young's modulus <LATEX>E _ { c }</LATEX> of Toyoura sand is virtually the same for the four tests <LATEX>\left[ E _ { 0 } / F \left( e \right) \approx 2 5 0 \mathrm { M P a } \right. ,</LATEX> that is, it does not depend on the <LATEX>K e ,</LATEX> the horizontal stress <LATEX>\sigma _ { b } ^ { \prime } ,</LATEX> or the OCR, being only a function of the axial consolidation stress. On the other hand, in the case of Quiou sand, the small strain secant Young's modulus of the OC specimens <LATEX>\left[ E _ { 0 } / F \left( e \right) \approx 6 0 \right.</LATEX> to 70 MPa] is higher than that of the NC specimens <LATEX>\left[ E _ { 0 } / F \left( e \right) \approx 4 0 \right.</LATEX> to 50 MPa]. In other words, for a clean sand, such as Toyoura sand, the <LATEX>E _ { c }</LATEX> value is a function of the effective axial stress and is quite independent of the radial effective stress and the stress history, as already shown by Flora et al. (1994), Kohata et al. (1994), and Lo Presti et al. (1995). In the case of sand con- taining crushable material, such as Quiou sand, although <LATEX>E _ { 0 }</LATEX> does not depend on the <LATEX>K _ { c }</LATEX> or the <LATEX>\sigma _ { h } ^ { \prime } ,</LATEX> it instead depends on the stress history (Lo Presti et al. 1995).
+y4mj | On the other hand, at intermediate strain, it can be seen that the reduction of <LATEX>E _ { \mathrm { s c } }</LATEX> in NC specimens occurs for <LATEX>\mathcal{E} _ { a }</LATEX> larger than 0.001%. It can be also seen that the reduction of <LATEX>E _ { \mathrm { s e c } }</LATEX> in NC Quiou sand is much more pronounced than that observed for NC Toyoura sand; for example, <LATEX>E _ { \sec } / E _ { 0 }</LATEX> at <LATEX>\varepsilon _ { a } = 0 . 0 1 \%</LATEX> is about 0.55 in the NC Toyoura specimen and is about 0.45 in the NC Quiou specimen. In the case of <LATEX>\mathrm { O C }</LATEX> specimens, the sudden reduction of <LATEX>E _ { \sec }</LATEX> occurs for strain levels larger than about 0.05% for both sands. This experimental fact indicates that the amount of plastic deformation decreased for axial strain by as much as 0.05%, as a consequence of the mechanical overcon- solidation. It is said that the linear threshold strain increases according to the overconsolidation history, as reported by Jar- dine et al. (1984) and Tatsuoka and Kohata (1994).
+vpgq | STIFFNESS NONLINEARITY
+ousl | Empirical Fitting Equation
+m4ju | In order to evaluate the effects of the confining pressure, the stress ratio at consolidation, and the overconsolidation his-
+a0mb | JOURNAL OF GEOTECHNICAL AND GEOENVIRONMENTAL ENGINEERING / OCTOBER 2000 / 931
+ki8m | J. Geotech. Geoenviron. Eng., 2000, 126(10): 929-938
+km8w | tory on the secant Young's modulus <LATEX>E _ { s e c }</LATEX> under small and in- termediate strain levels, an empirical study was performed on a large number of triaxial compression test results on Toyoura, Quiou, and Ticino sands.
+wzno | It has generally been recognized that the shear modulus of sand can be expressed by means of an empirical equation as a function of the void ratio, the confining pressure, and strain levels (Hardin and Richart 1963; Iwasaki and Tatsuoka 1977; Jamiolkowski et al. 1994a). For example, Iwasaki and Tat- suoka indicated that the shear modulus of clean sands obtained from resonant column and cyclic torsional tests can be ex- pressed by
+xagm | <LATEX>G _ { c q } = K \left( \gamma \right) F \left( e \right) p ^ { \prime n \left( \gamma \right) }</LATEX> (1)
+```
+
+OUTPUT:
+```
