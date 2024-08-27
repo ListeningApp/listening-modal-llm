@@ -5,27 +5,27 @@ from pathlib import Path
 import modal
 from fastapi.responses import StreamingResponse
 
-from .common import app, vllm_image, Colors, MINUTES, VOLUME_CONFIG
+from .common import MINUTES, VOLUME_CONFIG, Colors, app, vllm_image
 
-INFERENCE_GPU_CONFIG = os.environ.get("INFERENCE_GPU_CONFIG", "a10g:2")
-if len(INFERENCE_GPU_CONFIG.split(":")) <= 1:
-    N_INFERENCE_GPUS = int(os.environ.get("N_INFERENCE_GPUS", 2))
-    INFERENCE_GPU_CONFIG = f"{INFERENCE_GPU_CONFIG}:{N_INFERENCE_GPUS}"
+INFERENCE_GPU_CONFIG = os.environ.get('INFERENCE_GPU_CONFIG', 'a10g:2')
+if len(INFERENCE_GPU_CONFIG.split(':')) <= 1:
+    N_INFERENCE_GPUS = int(os.environ.get('N_INFERENCE_GPUS', 2))
+    INFERENCE_GPU_CONFIG = f'{INFERENCE_GPU_CONFIG}:{N_INFERENCE_GPUS}'
 else:
-    N_INFERENCE_GPUS = int(INFERENCE_GPU_CONFIG.split(":")[-1])
+    N_INFERENCE_GPUS = int(INFERENCE_GPU_CONFIG.split(':')[-1])
 
 
 with vllm_image.imports():
+    import yaml
     from vllm.engine.arg_utils import AsyncEngineArgs
     from vllm.engine.async_llm_engine import AsyncLLMEngine
     from vllm.sampling_params import SamplingParams
     from vllm.utils import random_uuid
-    import yaml
 
 
 def get_model_path_from_run(path: Path) -> Path:
-    with (path / "config.yml").open() as f:
-        return path / yaml.safe_load(f.read())["output_dir"] / "merged"
+    with (path / 'config.yml').open() as f:
+        return path / yaml.safe_load(f.read())['output_dir'] / 'merged'  # type: ignore [no-any-return]
 
 
 @app.cls(
@@ -36,7 +36,7 @@ def get_model_path_from_run(path: Path) -> Path:
     container_idle_timeout=15 * MINUTES,
 )
 class Inference:
-    def __init__(self, run_name: str = "", run_dir: str = "/runs") -> None:
+    def __init__(self, run_name: str = '', run_dir: str = '/runs') -> None:
         self.run_name = run_name
         self.run_dir = run_dir
 
@@ -57,9 +57,9 @@ class Inference:
         print(
             Colors.GREEN,
             Colors.BOLD,
-            f"🧠: Initializing vLLM engine for model at {model_path}",
+            f'🧠: Initializing vLLM engine for model at {model_path}',
             Colors.END,
-            sep="",
+            sep='',
         )
 
         engine_args = AsyncEngineArgs(
@@ -87,10 +87,7 @@ class Inference:
         t0 = time.time()
         index, tokens = 0, 0
         async for request_output in results_generator:
-            if (
-                request_output.outputs[0].text
-                and "\ufffd" == request_output.outputs[0].text[-1]
-            ):
+            if request_output.outputs[0].text and '\ufffd' == request_output.outputs[0].text[-1]:
                 continue
             yield request_output.outputs[0].text[index:]
             index = len(request_output.outputs[0].text)
@@ -103,9 +100,9 @@ class Inference:
         print(
             Colors.GREEN,
             Colors.BOLD,
-            f"🧠: Effective throughput of {throughput:.2f} tok/s",
+            f'🧠: Effective throughput of {throughput:.2f} tok/s',
             Colors.END,
-            sep="",
+            sep='',
         )
 
     @modal.method()
@@ -116,11 +113,11 @@ class Inference:
     @modal.method()
     async def non_streaming(self, input: str):
         output = [text async for text in self._stream(input)]
-        return "".join(output)
+        return ''.join(output)
 
     @modal.web_endpoint()
     async def web(self, input: str):
-        return StreamingResponse(self._stream(input), media_type="text/event-stream")
+        return StreamingResponse(self._stream(input), media_type='text/event-stream')
 
     @modal.exit()
     def stop_engine(self):
@@ -134,16 +131,12 @@ class Inference:
 
 
 @app.local_entrypoint()
-def inference_main(run_name: str = "", prompt: str = ""):
+def inference_main(run_name: str = '', prompt: str = ''):
     if not prompt:
-        prompt = input(
-            "Enter a prompt (including the prompt template, e.g. [INST] ... [/INST]):\n"
-        )
-    print(
-        Colors.GREEN, Colors.BOLD, f"🧠: Querying model {run_name}", Colors.END, sep=""
-    )
-    response = ""
+        prompt = input('Enter a prompt (including the prompt template, e.g. [INST] ... [/INST]):\n')
+    print(Colors.GREEN, Colors.BOLD, f'🧠: Querying model {run_name}', Colors.END, sep='')
+    response = ''
     for chunk in Inference(run_name).completion.remote_gen(prompt):
         response += chunk  # not streaming to avoid mixing with server logs
-    print(Colors.BLUE, f"👤: {prompt}", Colors.END, sep="")
-    print(Colors.GRAY, f"🤖: {response}", Colors.END, sep="")
+    print(Colors.BLUE, f'👤: {prompt}', Colors.END, sep='')
+    print(Colors.GRAY, f'🤖: {response}', Colors.END, sep='')
