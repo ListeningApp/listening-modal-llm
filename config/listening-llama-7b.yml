@@ -1,0 +1,66 @@
+# Config for training a fine-tuned Llama 7b model. See https://modal.com/docs/examples/llm-finetuning#config.
+# Adapted from https://github.com/modal-labs/llm-finetuning/blob/main/config/codellama.yml
+base_model: codellama/CodeLlama-7b-Instruct-hf
+
+load_in_8bit: false
+strict: false
+
+# Use OpenAI format (copied from https://github.com/fozziethebeat/axolotl/blob/main/examples/llama-3/instruct-lora-8b.yml)
+chat_template: llama3
+datasets:
+    - path: data.jsonl
+      type: chat_template
+      chat_template: llama3
+      field_messages: messages
+      message_field_role: role
+      message_field_content: content
+      roles:
+          system:
+              - system
+          user:
+              - user
+          assistant:
+              - assistant
+
+dataset_prepared_path: last_run_prepared
+val_set_size: 0.05 # Use 5% of the training data for validation.
+output_dir: ./lora-out
+
+sequence_len: 4096
+sample_packing: false
+eval_sample_packing: false
+pad_to_sequence_len: false
+
+adapter: lora
+lora_r: 16 # A higher rank means more capacity for adaptation but also requires more computational resources.
+lora_alpha: 32 # alpha = 2 x rank is a good starting point.
+lora_dropout: 0.05 # Randomly drop 5% of trained adaptations to prevent overfitting.
+lora_target_linear: true # target all linear layers
+lora_modules_to_save: # required when adding new tokens to LLaMA/Mistral
+    - embed_tokens
+    - lm_head
+
+gradient_accumulation_steps: 1
+micro_batch_size: 16 # Number of samples contained in each training batch.
+num_epochs: 4 # An "epoch" is a complete pass through the entire training dataset. Multiple passes improve learning at the risk of overfitting.
+optimizer: adamw_torch
+lr_scheduler: cosine
+learning_rate: 0.0001 # A lower learning rate generally results in more stable and precise learning, but it might require more epochs to converge.
+
+train_on_inputs: false
+group_by_length: false
+bf16: auto
+fp16: false
+tf32: false
+
+gradient_checkpointing: true
+auto_resume_from_checkpoints: true
+local_rank:
+logging_steps: 1
+xformers_attention:
+flash_attention: true
+
+warmup_steps: 10
+eval_steps: 0.05
+deepspeed: /workspace/axolotl/deepspeed_configs/zero3_bf16.json
+weight_decay: 0.0
