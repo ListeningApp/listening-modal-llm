@@ -184,7 +184,7 @@ GPU_CONFIG=a100-80gb:4 modal run --detach src.train --config=... --data=...
 You can find the results of all your runs via the CLI with
 
 ```bash
-modal volume ls example-runs-vol
+modal volume ls listening-llm-finetuned
 ```
 
 or view them in your [Modal dashboard](https://modal.com/storage).
@@ -192,8 +192,8 @@ or view them in your [Modal dashboard](https://modal.com/storage).
 You can browse the artifacts created by your training run with the following command, which is also printed out at the end of your training run in the logs:
 
 ```bash
-modal volume ls example-runs-vol <run id>
-# example: modal volume ls example-runs-vol axo-2024-04-13-19-13-05-0fb0
+modal volume ls listening-llm-finetuned <run id>
+# example: modal volume ls listening-llm-finetuned axo-2024-04-13-19-13-05-0fb0
 ```
 
 By default, the Modal `axolotl` trainer automatically merges the LoRA adapter weights into the base model weights.
@@ -201,9 +201,9 @@ By default, the Modal `axolotl` trainer automatically merges the LoRA adapter we
 The directory for a finished run will look like something this:
 
 ```
-$ modal volume ls example-runs-vol axo-2024-04-13-19-13-05-0fb0/
+$ modal volume ls listening-llm-finetuned axo-2024-04-13-19-13-05-0fb0/
 
-Directory listing of 'axo-2024-04-13-19-13-05-0fb0/' in 'example-runs-vol'
+Directory listing of 'axo-2024-04-13-19-13-05-0fb0/' in 'listening-llm-finetuned'
 ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━┓
 ┃ filename                                       ┃ type ┃ created/modified          ┃ size    ┃
 ┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━┩
