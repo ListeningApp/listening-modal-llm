@@ -1,0 +1,195 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+
+EXAMPLE OUTPUT:
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+
+
+
+
+emhp | [89 ]
+tcgw | www.it-ebooks.info
+4d8s | Type conversions
+1cmq | We will begin with type conversions because you cannot create properly functioning calculated fields without having the fields in the right format. For instance, aggregations work on numeric fields, string functions work on strings, and date functions work on dates. Tableau Public automatically identifies the type of field based on its contents, but this may not meet your needs to aggregate or create calculations. Publicly available data sources, such as the ones available at http://public.tableau.com/s/resources, often have issues with either the format or the quality of the data. This will make it necessary for you to convert fields into different types, and it is quite likely that you will need to strip bad data and identify replacement values as well.
+u8s6 | If you are familiar with relational database management, you are probably aware that there are many different field types, some of which are used to govern the field length within a database. Tableau Public focuses on the three primary field types, namely; string, which can be anything; numeric fields, which include integers and float fields; and datetime fields; which include the DATETIME, DATE, and TIME field formats.
+86m5 | You can convert a field to another type by creating a calculated field and wrapping it in the appropriate function. In case fields are of the same parent form or are interchangeable, you can right-click on the field name, select Change Data Type, and then choose the appropriate type. If you do need to change the format manually, you can use the following functions:
+lzzv | . DATE: This converts the strings that you specify (whether you enter them yourself or they are predefined) into date fields, which can then be used to drill through hierarchies.
+623p | · DATETIME: This converts a field or string into a datetime field, which is a date plus a timestamp.
+50lp | · FLOAT: This converts integers into decimal numbers. This function works only on numeric formats.
+i4nn | . INT: This takes the whole number of a numeric expression by rounding up to the nearest whole number.
+nuk3 | . MAKEDATE: This formats an entry for a year, month, and day into the MM/DD/YYYY format as a proper date. It also accepts fields for the datepart variables.
+y2cn | [90 ]
+hgm4 | www.it-ebooks.info
+nc42 | Chapter 5
+tbfm | . MAKEDATETIME and MAKETIME: These functions accept proper dateparts, just like MAKEDATE, to convert variable or hard-coded sequences into the appropriate field types.
+ok18 | · STR: This turns a sequence of characters, numbers, letters, or special characters into strings.
+pgqe | The string functions
+qo9m | The string fields are often the richest in data source as they include other fields with free text, but they can also have the lowest data quality. The string functions in Tableau Public empower you to perform splice, trim, find, replace, match, reformat, and concatenate functions.
+e7zz | We will use several of these functions to clean up the floods data source, which was assembled manually and has several data quality issues.
+lhzk | The following are some of the most useful functions that we will use:
+wdpw | . CONTAINS: This has a Boolean output. It tests whether a field contains the specified string.
+twiq | . FIND: This finds the place where a string of characters is located within a field.
+cchx | . LEFT, MID, and RIGHT: These often work in conjunction with FIND and LEN when extracting fixed or variable strings of characters from a field.
+2vma | . LEN: This produces the length of a field.
+z4aw | . MIN and MAX: These are commonly used on numeric fields. They produce the numerically minimum or maximum values in sequences respectively.
+mo0p | . The REGEX expressions: These features were introduced in Tableau Public 9.0. They extract, match, and replace variable strings within fields and are similar to the LIKE function in ANSI SQL.
+tyxr | . REPLACE: This replaces a sequence with a specified value.
+txaa | . TRIM, LTRIM, and RTRIM: These trim leading or lagging spaces from a string.
+qz8s | . UPPER and LOWER: These are commonly used to normalize the contents of a field.
+y7de | [ 91 ]
+rukn | www.it-ebooks.info
+5tu7 | 1
+vqgg | notes. The Tableau Public does not have the PROPER function that both ANSI SQL and Microsoft Excel use to impose proper capitalization on inconsistently capitalized fields.
+sbs5 | In the next few examples, as shown in the following screenshot, we will use the TRIM and REGEX functions to repair the quality of the most varied misspellings of several countries. It looks like many of the values in the Country Name source field have spaces on either side of the primary value, which is not great and it's something that we need to fix:
+n413 | This is helpful. We now have fewer unique entries for country names than before, but bad characters are still present in the data-set.
+mvxd | There are two options for the replacement of characters in a string, namely REPLACE and REGEXP_REPLACE:
+gyzb | • REPLACE: This requires you to enter the string to be searched, the exact pattern to be replaced, and the replacement value. The advantage of using REPLACE is that it is easy to learn and execute. The disadvantage is that Tableau Public can search and replace only one string at a time.
+rrp1 | • REGEXP_REPLACE: This is a robust function, and while it takes practice to master it, this is widely used in different programming languages. It is a type of regular expression. Among the technical users of Tableau Public, the introduction of regular expressions in 9.x was highly anticipated because the search pattern allows a high degree of variability. You can enter a specific letter, number, or special character as the pattern that you need to search, or you can tell Tableau Public to find letters, numbers, or a variety of special characters. You can also ask Tableau Public to find a combination of these.
+8b70 | [92 ]
+nivt | www.it-ebooks.info
+8925 | Chapter 5
+y2tz | Regular expressions are efficient, and they require less hard-coding than the REPLACE function. This means that you will need to modify them less as your data set changes. This is important with data sets that you (or other people) are compiling because humans inevitably introduce errors. Anyone can fat-finger a country name when they're entering data.
+p769 | The regular expression that we entered includes the string to search (Country source), the pattern to search, which is entered in quotation marks, and the replacement, which is blank, as shown in the following screenshot:
+jhwn | The pattern that we entered, which is also called a token, has several parts. This is shown in the following screenshot:
+o1y4 | Everything within the quotation marks is a token. Working from the outside, the plus sign asks Tableau Public to match any of the expressions inside the brackets. Within the brackets, there are two expressions that need to be found, namely a period and a letter d. These expressions are very different from each other; the period is a literal, which means that we want Tableau Public to find all the periods. The d is a variable, and it means that we want Tableau Public to find numbers.
+3rdp | The two expressions, namely the period and the d variable, are preceded by a backslash. This is an escape. The concept of escapes is beyond the scope of this book. However, it is critical to master them if you want to learn how to structure data because they tell programming applications where to break apart long strings of variable characters, such as URLs. In this case, they ask Tableau Public to look for exactly the expression that we have entered.
+2n4o | [93]
+31ya | www.it-ebooks.info
+7nda | If you would like to master the advanced string functions of Tableau Public, which are portable to other programming languages and are a good investment of time in case you're planning on producing advanced analytics or would like to build a career in data science, check out Mark Jackson's (http://www.twitter.com/ ugamarkj) blog post at http://ugamarkj.blogspot.com/2015/01/tableau-90- and-regular-expressions . html and Joshua Milligan's (http://www.twitter. com/vizpainter) post at http://vizpainter.com/my-favorite-tableau-9-0- feature/. Mark and Joshua are both Tableau Zen Masters. It's a coincidence that the search pattern in our example matches that of Mark's. In line with full disclosure, Joshua Milligan is one of the reviewers of this book and an author who has worked with Packt Publishing on a book on Tableau as well.
+4pv9 | The aggregate functions
+7w0x | Aggregation functions in Tableau Public are performed typically on numeric fields. In this section, we will show you how to use the default aggregations on visualizations as well as how to use them in calculated fields.
+pehk | The following are the aggregate functions that are available for you to apply on a field are also available in the calculated field dialog box. Tableau Public has arranged them in order from the greatest to the least commonly used functions for the visualization as follows:
+h7hi | . SUM: This adds up the values within a partition
+z8wk | . Average: This sums the measure and divides it by the number of dimension members in the partition
+3fxr | . Median: This provides the measure value that's halfway between the greatest and least values
+1rwa | . COUNT and COUNTD: These count the number of dimension members and the number of distinct dimension members respectively; they are typically performed on dimensions rather than measures
+40h8 | . Minimum and Maximum: These take the least and greatest values in the partition respectively
+9w49 | . Percentile: This provides the numeric value at which a percentage of the partition that you specify falls beneath (we'll use this for several examples)
+kgl8 | . Standard Deviation: This is the square root of the variance for a data set, and it is the unit of measurement of distance from the mean within a data set; it is commonly represented by the Greek letter, sigma
+kq4g | [94]
+qjp8 | www.it-ebooks.info
+pc64 | Chapter 5
+mbrx | . Variance: This is the average distance from the mean value, and it's used to measure the distribution of a data set
+pcd0 | The variance and standard deviation are two of the basic measurements in statistics. Advanced statistics in Tableau Public are beyond the scope of this book, but if you understand the concepts, you will find that there are several capabilities within Tableau Public that provide rich statistical functionality.
+txkp | The most basic aggregation is a sum, and it's the default for numeric fields in Tableau. The second and third most basic aggregations are counts and averages. When you add a measure to a visualization, Tableau Public automatically sums it. In the following example, which uses the data on global floods that we referenced earlier, we do the following three things to create a map:
+mxqe | 1. Double-click on Country in the Dimensions pane to create a symbol map.
+y9ob | 2. Double-click on SUM(Affected sq km) in the Measures pane to change the map into a filled map.
+twm6 | 3. Right-click on the Context menu for the color legend. Change it to a reversed orange-blue diverging color spectrum so that the higher numbers represent greater flood damage, as shown in the following screenshot:
+8qsp | [ 95 ]
+yck2 | www.it-ebooks.info
+hthe | Note that on the Marks card, Affected sq km is summed. Therefore, you see the total area affected for each country in the whole data set. There is a major flaw with this method of aggregation, it is not normalized. It would be more useful to have a rate, such as the average area affected per flood, or to add context by creating an aggregation that tells you the percentage of the total area that was affected. For instance, we know that in Pakistan, there were catastrophic floods in 2010, and China traditionally also has had severe floods. However, these countries are in blue, which seemingly indicates that their floods were less severe.
+otjm | Let's start changing aggregations, and thus add context and reduce the likelihood that someone will misinterpret our visualization, by changing the Measure function to an Average function. The easiest way to do this is by performing the following steps:
+q0fv | · Click on your aggregation context menu.
+v9vo | · Click on Measure(SUM).
+rwty | · Click on Average.
+ki97 | Changing this measure to an Average will average the square kilometers of all of the rows related to each country. This means that if there were three floods in the US and they affected 1 million, 2 million, and 3 million square kilometers respectively, then the average would be 2 million.
+099j | /
+m7zf | If you would like to set the default aggregation for a field, you can right-click on it in the Measures pane, click on Default Properties, select Aggregation, and select the appropriate aggregation for your needs.
+2ghw | The result is a visualization that shows much more appropriate context. From this, we can gauge the average severity in terms of the total area affected by each flood in every country. In the next chapter, we will rank the countries, which adds even more context and relates them to each other for the user.
+hnfy | We added the number of records as well as the sum of the affected square miles to the tooltip so that when you roll over a country, you see the total number of floods, the total area affected, and the average area affected by each flood, as shown in the following screenshot. Using a tooltip is a great way of adding context, which is the art of relating two data points to each other and to the consumer:
+w6d9 | [96 ]
+lbm8 | www.it-ebooks.info
+krjy | Chapter 5
+n7dw | The logic functions
+9nt1 | Logic functions enable you to tell Tableau Public what to do when certain conditions are met. They are also known as conditional statements. The format is commonly referred to as IF THEN ELSE. You, as a programmer, ask Tableau to test whether a row of data meets a certain condition. If it does meet the condition, then there is an output, which can be another field, a discrete number, or a string. If the condition is not met, then you want a different output.
+fr45 | There are several logic functions in Tableau. Some of these functions are sub- functions or parts of others. We will focus on the following major functions:
+s2ty | . IF, followed by THEN, ELSE-IF, or ELSE: This tests whether a condition is met and show the result if it is met as well as other conditions that need to be tested and results that need to be produced in case none of the conditions are met.
+3cdb | . The IIF statement: This tests for a minimum of one condition and then provides the results when the condition is or is not met. It follows the same format as that of IF in Microsoft Excel.
+6hsm | . The IFNULL function: This identifies what Tableau Public should do in case a value is null. This is particularly useful for aggregations of dirty data sets, which are very common.
+om5d | [97 ]
+0svq | www.it-ebooks.info
+1too | . The CASE statement: This tells Tableau Public what to do when a parameter or a string field has a very specific value. Unlike the CASE statements in ANSI SQL, Tableau Public does not accept aggregations in these.
+pti9 | . AND, OR, and NOT: These link or negate conditions that need to be met.
+4mtx | . END: This is critically important, as it terminates the loops of the IF and CASE statements. Tableau Public will tell you in case you need to add it and have not done so.
+rgxy | The IF statements are very useful. You can use them to group members and set thresholds, among many other uses. The condition that needs to be met can be a variety of things. In the first example, we will create a new measure in a transformation of the World Bank indicator data that we have extracted and transformed, and it's called population and land data.
+vsq9 | We will create a new measure that gives us the total land area of a country. We want to use this measure to determine the percentage of each country's area that was flooded, but this measure does not exist in the Floods data, but it does exist in the Population and Land Data. Later in this chapter, we will blend the data sources to create a calculated field that uses it in the denominator.
+d5a1 | The Population and Land Data does not have a metric called total area. The way the data source is structured, the measures are in rows and not columns, with a field representing the corresponding metric value, as shown in the following screenshot. We need to create a calculated field that states that if Indicator Name is Land area (sq. km), then we want the Indicator Value to appear as follows:
+qtb8 | [98 ]
+g395 | www.it-ebooks.info
+wfvy | Chapter 5

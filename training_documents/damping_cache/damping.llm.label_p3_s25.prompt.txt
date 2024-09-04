@@ -1,0 +1,133 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+
+EXAMPLE OUTPUT:
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+
+
+
+
+pn9j | We take the limit of the previous equation when <LATEX>n</LATEX> tends to +00. In order to pass to the limit, we bound each term of the above formulation. For example, for the last term we have
+1pmc | <LATEX>| \int _ { - 1 } ^ { 1 } \int _ { \Omega } m _ { n } \left( s , x \right) \times \partial _ { i } \partial _ { t } m _ { n } \left( s , x \right) \cdot \partial _ { i } \Psi \left( x \right) \rho \left( s \right) d x d s |</LATEX> <LATEX>\leq \int _ { - 1 } ^ { 1 } \int _ { \Omega } | m _ { n } \left( s , x \right) \times \partial _ { i } \partial _ { t } m _ { n } \left( s , x \right) | | \partial _ { i } \Psi \left( x \right) |</LATEX> <LATEX>\cdot | \rho \left( s \right) | d x d s \leq \int _ { - 1 } ^ { 1 } \int _ { \Omega } | m _ { n } \left( s , x \right)</LATEX> <LATEX>\times \partial _ { i } \partial _ { t } m _ { n } \left( s , x \right) | | \partial _ { i } \Psi \left( x \right) | d x d s</LATEX> <LATEX>\leq \left( \int _ { - 1 } ^ { 1 } \int _ { \Omega } | m _ { n } \left( s , x \right) \times \partial _ { i } \partial _ { t } m _ { n } \left( s , x \right) | ^ { 2 } d x d s \right) ^ { 1 / 2 }</LATEX> <LATEX>\left( \int _ { - 1 } ^ { 1 } \int _ { \Omega } | \partial _ { i } \Psi \left( x \right) | ^ { 2 } d x d s \right) ^ { 1 / 2 }</LATEX> <LATEX>\leq \left( \int _ { - 1 } ^ { 1 } \int _ { \Omega } | \partial _ { i } \partial _ { t } m _ { n } \left( s , x \right) | ^ { 2 } d x d s \right) ^ { 1 / 2 }</LATEX> <LATEX>\left( \int _ { - 1 } ^ { 1 } \int _ { \Omega } | \partial _ { i } \Psi \left( x \right) | ^ { 2 } d x d s \right) ^ { 1 / 2 }</LATEX> <LATEX>\leq \sqrt { 2 } \left( \int _ { t _ { n } - 1 } ^ { t _ { n } + 1 } \int _ { \Omega } | \partial _ { i } \partial _ { t } M \left( s , x \right) | ^ { 2 } d x d s \right) ^ { 1 / 2 }</LATEX> <LATEX>\cdot \left( \int _ { \Omega } | \partial _ { i } \Psi \left( x \right) | ^ { 2 } d x \right) ^ { 1 / 2 } .</LATEX> (19)
+5z6q | Since <LATEX>\mathrm { V } \partial _ { t } M</LATEX> belongs to <LATEX>\mathbb{L} ^ { 2 } \left( \mathbb{R} ^ { + } \times \Omega \right) ,</LATEX> this last term tends to zero as n goes to <LATEX>+ \infty .</LATEX> In the same way we pass to the limit in the other terms to obtain
+yeoh | <LATEX>\int _ { - 1 } ^ { 1 } \rho \left( s \right) d s \int _ { \Omega } m \left( x \right) \times \partial _ { i } m \left( x \right) \cdot \partial _ { i } \Psi \left( x \right) d x = 0 ,</LATEX> (20)
+b8hf | which implies
+hntf | <LATEX>\int _ { \Omega } m \left( x \right) \times \partial _ { i } m \left( x \right) \cdot \partial _ { i } \Psi \left( x \right) d x = 0 ,</LATEX> (21)
+99fo | for all
+y5r7 | <LATEX>\Psi \in \mathscr{D} \left( \bar { \Omega } \right) .</LATEX> We proved the following.
+lrry | Theorem 5. If <LATEX>M</LATEX> is a weak solution of (1), then each point m in <LATEX>\omega \left( M \right)</LATEX> is a weak solution of the steady state system
+hvhm | <LATEX>m \in \left[ k \right] ^ { 1 } \left( \Omega \right) ; \quad | m | = 1 , \text { almost everywhere }</LATEX> <LATEX>m \times \Delta m = 0 \quad i n \Omega</LATEX> (22)
+863b | which should be understood in the weak sense (21).
+fj24 | Remark 6. The solutions of (22) are known as harmonic maps to the unit sphere, which turn up in several equations in physics, such as Ginzburg-Landau equation, and were extensively investigated mathematically in the past decades due to their importance both in mathematics and in many applied fields; see, for example, [15, 16]. For the links between harmonic maps and the solutions of the LLG equation we refer to the book [17, Chapter 4]. Some results on the dynamic version of (22) can be found in [18].
+uz3c | 3. Limiting Process for High and Small Nonlocal Damping
+d5bi | We first analyze the limiting process when <LATEX>\zeta</LATEX> goes to <LATEX>+ \infty .</LATEX> We denote by <LATEX>M ^ { \zeta }</LATEX> a global weak solution of LLG equation (1) associated with <LATEX>\zeta</LATEX> and the initial data <LATEX>M _ { 0 }</LATEX> and satisfying the energy inequality (7). We have the estimates.
+ba4l | Lemma 7. There exists <LATEX>C > 0</LATEX> independent of <LATEX>\zeta</LATEX> such that the sequence <LATEX>M ^ { \zeta }</LATEX> satisfies the estimates
+ffx8 | <LATEX>| M ^ { \zeta } \left( t , x \right) | ^ { 2 } = 1 \text { almost everywhere } ,</LATEX> <LATEX>| \nabla M ^ { \zeta } | _ { L ^ { \infty } \left( \mathbb{R} ^ { + } ; L ^ { 2 } \left( \Omega \right) \right) } \leq C ,</LATEX> <LATEX>| \nabla \partial _ { t } M ^ { \zeta } | _ { L ^ { 2 } \left( \mathbb{R} ^ { + } ; L ^ { 2 } \left( \Omega \right) \right) } \leq C \zeta ^ { - 1 } ,</LATEX> <LATEX>| \partial _ { t } M ^ { \zeta } | _ { L ^ { 2 } \left( \mathbb{R} ^ { + } ; L ^ { 2 } \left( \Omega \right) \right) } \leq C .</LATEX> (23)
+s6su | We also have the following.
+y219 | Lemma 8. The sequence <LATEX>M ^ { \zeta }</LATEX> is compact in
+06ht | <LATEX>L _ { \mathrm { l o c } } ^ { 2 } \left( \mathbb{R} ^ { + } ; L ^ { 2 } \left( \Omega \right) \right) .</LATEX> Lemmas 7 and 8 imply the following convergence results.
+v3r2 | Journal of Applied Mathematics
+nv42 | Lemma 9. There exists a subsequence still denoted by <LATEX>m ^ { \zeta }</LATEX> such that
+xags | (24)
+jc47 | <LATEX>M ^ { \zeta } \rightharpoonup M \mathrm { w e a k l y } - \star \quad \mathrm { i n } L ^ { \infty } \left( \mathbb{R} ^ { + } ; \mathbb{H} ^ { 1 } \left( \Omega \right) \right) . ,</LATEX> <LATEX>\partial _ { t } M ^ { \zeta } \rightharpoonup \partial _ { t } M \text { weakly } \text { in } L ^ { 2 } \left( \mathbb{R} ^ { + } ; \mathbb{H} ^ { - 1 } \left( \Omega \right) \right) ,</LATEX> <LATEX>\nabla M ^ { \zeta } \rightharpoonup \nabla M w e a k l y \quad \mathrm { i n } L ^ { 2 } \left( \mathbb{R} ^ { + } ; \mathbb{L} ^ { 2 } \left( \Omega \right) \right) ,</LATEX> <LATEX>\nabla \partial _ { t } M ^ { \zeta } \longrightarrow 0 \mathrm { s t r o n g l y } \quad \mathrm { i n } L _ { \mathrm { l o c } } ^ { 2 } \left( \mathbb{R} ^ { + } ; \mathbb{L} ^ { 2 } \left( \Omega \right) \right) ,</LATEX> <LATEX>\partial _ { t } M ^ { \zeta } \longrightarrow 0 \mathrm { s t r o n g l y } \quad \mathrm { i n } L _ { \mathrm { l o c } } ^ { 2 } \left( \mathbb{R} ^ { + } ; \mathbb{L} ^ { 2 } \left( \Omega \right) \right) ,</LATEX> <LATEX>M ^ { \zeta } \longrightarrow M s t r o n g l y \quad i n L _ { l o c } ^ { 2 } \left( \mathbb{R} ^ { + } ; \underline { l } ^ { 2 } \left( \Omega \right) \right) .</LATEX> Moreover, <LATEX>M</LATEX> satisfies the saturation condition <LATEX>| M | =</LATEX> 1.
+ko3c | The above convergences allow one to conclude.
+xek3 | Theorem 10. Let M be the limit of a subsequence of <LATEX>M ^ { \zeta }</LATEX> as <LATEX>\zeta</LATEX> goes to +00. Then, the domain <LATEX>\Omega</LATEX> is uniformly magnetized.
+bbpr | Remark 11. The result of Theorem 10 is of interest. In fact, the added term in the effective field can act as a control for magnetization switching.
+5zyf | Our aim now is to pass to the limit as <LATEX>\zeta</LATEX> goes to zero in (1). We denote by <LATEX>M ^ { \zeta }</LATEX> a global weak solution of LLG equation (1) associated with <LATEX>\zeta</LATEX> and the initial data <LATEX>M _ { 0 }</LATEX> and satisfying the energy inequality (7). The bound on <LATEX>\sqrt { \zeta } \nabla \partial _ { t } M ^ { \zeta }</LATEX> in <LATEX>L ^ { 2 } \left( 0 , \widetilde { T } ; L ^ { 2 } \left( \Omega \right) \right)</LATEX> (see (7)) allows one to get the following.
+9own | Theorem 12. Let <LATEX>M</LATEX> be the limit of a subsequence of <LATEX>M ^ { \zeta } .</LATEX> Then, <LATEX>M</LATEX> satisfies
+bqfb | <LATEX>\partial _ { t } M - \alpha M \times \partial _ { t } M = - \left( 1 + \alpha ^ { 2 } \right) M \times \left( D \Delta M \right)</LATEX> <LATEX>\mathbb{R} ^ { + } \times \Omega</LATEX> <LATEX>M \left( 0 \right) = M _ { 0 } \quad i n \Omega ,</LATEX> <LATEX>M \times D \partial _ { n } M = 0 \quad \text { on } \partial \Omega .</LATEX> in
+wwdt | (25)
+mn1r | Moreover, <LATEX>M</LATEX> satisfies the saturation condition <LATEX>| M \left( t , x \right) | = 1</LATEX> almost everywhere.
+5vqw | Remark 13. From (25), we can say that, for lower values of <LATEX>\zeta ,</LATEX> the magnetic nonlocal damping vanishes and the classical switching continues for ever. In other words, the magnetization precesses several times around the effective field direction before it reaches equilibrium.
+meyw | 4. Concluding Remarks
+2e62 | In this paper, we have considered nonlocal damping in magnetization dynamics. The model consists of a generalized LLG equation that contains a term characterizing nonlocal damping expressed in terms of <LATEX>\Delta \partial _ { t } M</LATEX> in the effective field. The long time behaviour of the solutions is characterized and the sensitivity of the model to nonlocal damping parameter
+75y3 | Journal of Applied Mathematics
+s2g2 | { is discussed. The results obtained can be applied without difficulty to the case of effective field with anisotropy and demagnetizing fields. Note that the model considered in this paper neglects the additional damping due to transversal spin currents whose form is 0;M x 0;0,M. In this case the LLG equation takes the following form (see Nembach et al. [1]):
+q1q2 | 0}M -&M ×0}M =- (1+x2)M
+cb7r | x (DAM + (ΔΟ, Μ) + ζ0;Μ (26) × 0;O.M.

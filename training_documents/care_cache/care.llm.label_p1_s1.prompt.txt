@@ -1,0 +1,148 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+
+EXAMPLE OUTPUT:
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+
+
+
+
+1pjs | Psychiatry Research 283 (2020) 112376
+o2kr | Contents lists available at ScienceDirect
+v6sk | Psychiatry Research
+1wj6 | ELSEVIER
+936l | journal homepage: www.elsevier.com/locate/psychres
+06yq | Review article
+dpv6 | Implementation science: What is it and why should I care?
+8r5j | ABSTRACT
+2taz | ARTICLE INFO
+o3ya | Centuries of experience make it clear that establishing the effectiveness of a clinical innovation is not sufficient to guarantee its uptake into routine use. The relatively new field of implementation science has developed to enhance the uptake of evidence-based practices and thereby increase their public health impact.
+r5il | Implementation science shares many characteristics, and the rigorous approach, of clinical research. However, it is distinct in that it attends to factors in addition to the effectiveness of the clinical innovation itself, to include identifying and addressing barriers and facilitators to the uptake of evidence-based clinical innova- tions.
+5gui | This article reviews the definition, history, and scope of implementation science, and places the field within the broader enterprise of biomedical research. It also provides an overview of this Special Issue of Psychiatry Research, which introduces the principles and methods of implementation science to mental health researchers.
+82qc | 1. Why worry about implementation?
+ls7d | The title of this article poses two questions. Let us answer the second question first, beginning with a story:
+tzt3 | It was, by all estimations, a successful research effort. We had mounted a randomized, controlled clinical trial across eleven sites in the US Department of Veterans Affairs (USVA), testing an organization of care called the Collaborative Chronic Care Model (CCM) for bipolar disorder versus treatment as usual (Bauer et al., 2006a). Over three years of follow-up, the CCM showed significant positive impact on weeks in mood episode, mental health quality of life, social role function, and satisfac- tion with care-all at no increased cost to the healthcare system (Bauer et al., 2006b). In parallel, a two-year, four-site randomized controlled clinical trial of the bipolar CCM in the Group Health Co- operative of Puget Sound (now Kaiser Permanente), showed very similar outcomes at minimal cost, compared to treatment as usual (Simon et al., 2006). Both studies were published in the same year in mainstream psychiatric journals that are read and respected by mental health re- searchers, clinicians, and administrators. The CCM for bipolar disorders began to be endorsed by national clinical practice guidelines in the USVA and in Canada (Yatham et al., 2006), and the bipolar CCM was listed on the US Substance Abuse and Mental Health Services Administration's prestigious National Registry of Evidence-Based Programs and Practices.
+t8vv | A worthwhile innovation in care? It was a no-brainer: improved outcome at little to no cost.
+qvnu | And yet, within a year of the end of the studies, none of the 15 sites had incorporated the CCM into their usual work flow. The clinicians who had participated in the CCM went back to their usual duties, and the in- dividuals with bipolar disorder went back to receiving their usual form of care. For all practical purposes, bipolar CCMs ceased to exist at these sites. Perhaps ironically, the only vestige of the CCM that remained one year after the study was that a group of patients at one of the sites continued to meet on their own to hold self-management skills groups (www.lifegoalscc.com), which were part of the CCM intervention.
+kggw | Everything went right. What went wrong?
+xrd1 | The experience in the story is not unique, as many clinical trialists have discovered. Succinctly put: Establishing effectiveness of an in- novation does not guarantee its uptake into routine usage. Classic stu- dies indicate that it takes 17-20 years to get clinical innovations into practice; moreover, fewer than 50% of clinical innovations ever make it into general usage (Mosteller, 1981; Balas and Boren, 2000; Grant et al., 2003; Morris et al., 2011). Chalmers and Glasziou (2009) estimate that 80% of medical research dollars do not make a public health impact for various reasons. If only half of clinical innovations ever make it to general use, society's return on investment for each medical research
+5746 | M.S. Bauer and J. Kirchner
+7toz | dollar is diminished even further. Funders are beginning to take note (Health Economics Research Group, 2008; Selby and Slutsky, 2014; Ginsburg and Phillips, 2018).
+j346 | Perhaps this lack of uptake of clinical innovations (among which we consider interventions, assessment and treatment technologies, and new organizations of care) is because the rapid pace of modern bio- medical research has outstripped society's absorptive capacity. On the contrary: the problem is centuries old. For instance, the first observa- tion that citrus cures scurvy in the British Navy occurred in 1601, with the first randomized controlled trial of citrus to treat scurvy conducted in 1747. Yet the British Navy did not adopt routine use of citrus to prevent scurvy until 1795, and the British merchant marine not until 1865 (Mosteller, 1981).
+v8uq | Additional instances of the lag between evidence and widespread usage are provided by Colditz and Emmons (2018). They contrast the slow uptake of the smallpox vaccine, penicillin, and insulin to the much more rapid uptake of anti-retroviral treatments for HIV/AIDS, making the point that contextual factors, not treatment effectiveness, play a dominating role in whether and how quickly a clinical innovation will become widely used. Similarly, Ferlie and coworkers studied non- adoption of eight hospital-based or primary care-based innovations in the UK. Their analysis demonstrated that, while strength of evidence contributed to the adoption of some clinical innovations, a more com- prehensive explanation for non-adoption needed to also include con- textual issues, such as the professional disciplines of the intended re- cipients. (Ferlie et al., 2005)
+x972 | Thus, the problem of non-uptake of effective clinical innovations is longstanding and persistent-and likely the rule rather than the ex- ception. Moreover, the clues to this problem lie beyond simply the clinical innovation itself, and include contextual and factors related to use or non-use of the clinical innovation.
+cwrw | 2. Implementation challenges in the biomedical research enterprise
+4i0e | The process of biomedical research can be conceptualized as a pi- peline from concept development to public health impact (Curran et al., 2012) (Fig. 1). Those of us who came into research several decades ago worked from a simplistic model which assumed that developing evi- dence that a clinical innovation was efficacious was sufficient to gen- erate public health impact (Fig. 1, upper panel).
+h2l3 | In the late 1990s researchers became aware of the need for studies, particularly clinical trials, which moved out of the rarified environment of the academic medical center into venues more typical of those in which the clinical innovation would be used. Thus, the focus of clinical research broadened beyond solely internal validity (which prioritizes isolating treatment effects from all extraneous influences in order to determine whether an innovation has an impact), to also include con- siderations of external validity (which prioritizes the relevance and transferability of innovation effects from highly controlled experi- mental conditions into conditions under which the eventual end-user of the innovation typically works).
+dfzb | Accordingly, a variety of types of clinical trials that prioritize ex- ternal validity developed under the general concept of "practice-based research" (Westfall et al., 2007). Such trial designs are based on a variety of overlapping concepts-e.g., effectiveness studies, practical clinical trials, pragmatic clinical trials, comparative effectiveness trials, large simple clinical trials-but all have in common prioritizing eva- luation of clinical innovations in environments in which the innovation will potentially be used. The biomedical research pipeline can thus be amended (Fig. 1, middle panel) to illustrate an "efficacy-effectiveness" continuum (Wells, 1999; Bauer et al., 2001), in which trials differ based on whether they seek primarily to favor study efficacy (internal va- lidity, i.e., isolating and maximizing potential treatment impact) versus effectiveness (external validity, i.e., generalizability to the practice settings in which the clinical innovation will be used).
+u6ty | Psychiatry Research 283 (2020) 112376
+awvu | Upper Panel:
+on9b | However, as the story above illustrates, even concerted effort at the effectiveness end of the trial design spectrum is not enough to guar- antee routine usage of a clinical innovation. Moreover, education and monitoring are not sufficient to change provider behavior, as indicated
+a8ge | M.S. Bauer and J. Kirchner
+h27a | by a meta-analysis by the Cochrane Collaboration which showed that audit and feedback only increased target provider behaviors by 4.3% (0.5-16%) (Ivers et al., 2012). Thus, simply using traditional clinical trials approaches and pushing them further into real-world conditions is not sufficient to guarantee public health impact. Factors contributing to the non-adoption of evidence-based clinical innovations must be ad- dressed directly through promising methods and strategies that can be subjected to rigorous investigation in the emerging field of im- plementation science.
+pdjh | 3. What is implementation science?
+xmgs | 3.1. Some history
+bd9h | While researchers, clinicians, and healthcare leaders have been at least partially and intermittently aware of the problem of non-adoption of evidence-based clinical innovations, the area began to coalesce as a sustained field of study with the publication of Everett Rogers' Diffusion of Innovations (1962). Drawing on examples from agriculture and in- dustry as well as health, Rogers conceptualized the spread, or diffusion, of innovations as a social process with multiple determinants well be- yond the evidence supporting the innovation itself. Concurrently, others also called attention to contextual aspects of innovation adoption or non-adoption, including the field of knowledge utilization, which addresses the tenuous link of evidence to policy decisions; and the field of technology transfer, which investigates reasons that knowledge and technology do not flow freely even within single organizations (Dearing et al., 2018). These areas of study, and others, have provided a collective foundation upon which the field of implementation science emerged.
+m047 | 3.2. Defining implementation science
+gy8c | Implementation science has been defined in several ways that are consistent with the definition put forward in the inaugural issue of the journal, Implementation Science: " ... the scientific study of methods to promote the systematic uptake of research findings and other evidence- based practice into routine practice and, hence, to improve the quality and effectiveness of health services." (Eccles and Mittman, 2006). Hence the goal of implementation science is not to establish the health impact of a clinical innovation, but rather to identify the factors that affect its uptake into routine use (Fig. 1, lower panel).
+y4mj | As outlined above, ample experience indicates that factors which affect the uptake of a clinical innovation differ from those factors that determine whether an innovation works. The crux of implementation science is thus two-fold (Fig. 2):
+vpgq | Psychiatry Research 283 (2020) 112376
+ousl | . Identify uptake barriers and facilitators across multiple levels of context (individuals in treatment, providers, organization, and other stakeholder groups), and
+m4ju | . Develop and apply implementation strategies that overcome these barriers and enhance the facilitators to increase the uptake of evi- dence-based clinical innovations.
+a0mb | In its focus on changing individual and social unit behavior, im- plementation science is close kin to the wide spectrum of fields ranging, for example, from health behavior change (Prestwich et al., 2017) to organizational psychology (Spector, 2016).
+ki8m | 4. How implementation science differs from clinical Research, quality Improvement, and dissemination
+km8w | 4.1. Clinical research versus implementation research
+wzno | Perhaps the major difference between clinical research and im- plementation research is that the latter actively engages with the con- text into which a clinical innovation is introduced, rather than con- trolling (efficacy studies) or simply tolerating (effectiveness studies) that context. Consider a hypothetical trial of intranasal ketamine for depression (Andrade, 2015) (see Table 1).
+xagm | Implementation trial designs differ from efficacy and effectiveness clinical trials at a fundamental level, that of the hypothesis. While clinical trials focus on contrasting the health effects of an innovation with a comparison group, implementation trials focus on testing stra- tegies to increase uptake and sustainability of the innovation, in this example intranasal ketamine. Efficacy and effectiveness trials seek to evaluate a clinical innovation-i.e., a clinical treatment, test, organi- zation of care, or other initiative to be introduced into a healthcare venue. In contrast, implementation trials seek to evaluate a strategy for increasing uptake of the evidence-based innovation into routine prac- tice-typically an integrated set, bundle, or package of implementation innovations to enhance the usage of the clinical innovation. (Curran et al., 2012; and see Kirchner, this issue)
+iwn5 | While the subject population and setting in an implementation trial may resemble those used in effectiveness trials, alternatively the unit of observation in implementation trials may also be providers or clinics or even entire organizations-depending on the focus of the im- plementation effort. Further, as the population becomes more hetero- geneous in moving from efficacy to effectiveness designs, outcome measures must become briefer and simpler in order to minimize re- spondent burden and retain protocol subjects who are less research- tolerant; this is true in implementation trials as well. As one moves from left to right in Table 1, intervention clinicians become progressively less highly specialized and skill development efforts more closely resemble training that would typically be feasible under general conditions; measurement of fidelity to the intervention varies similarly.
+uooz | Consideration of the context for the research also differs sub- stantively across the efficacy-effectiveness-implementation spectrum. Efficacy trials value conducting a trial that is invariant from beginning to end. This entails sometimes extraordinary efforts at training clin- icians and tracking subjects, so that the research team's efforts amount at times to "crypto-case management" (i.e., aggressive subject engage- ment and follow-up outreach) to ensure close follow-up and minimal data loss-which is not a problem since the focus of the trial is solely on testing the intervention under optimal conditions. However, since ef- fectiveness studies are more concerned with performance of an effica- cious intervention in real-world settings, careful attention is paid to limiting the amount of research-funded effort that is incorporated into the protocol, often "firewalling" research effort with carefully and ex- plicitly defined parameters (Bauer et al., 2001). Further, for im- plementation trials, trying to optimize the natural context in which uptake is being measured is a threat to validity of the trial. Thus, re- searcher involvement at the sites is drastically circumscribed, with
+pxbq | M.S. Bauer and J. Kirchner
+jfsr | Table 1 Comparison of efficacy, effectiveness, and implementation trial characteristics: The example of intranasal ketamine for major depression.
+u15r | a See Section 4.1 for details.
+lq35 | some implementation trials even limiting research support to training endogenous clinicians and utilizing remote, "light-touch" outcome as- sessments for patient and provider subjects (see also Smith, this issue).

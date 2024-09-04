@@ -1,0 +1,254 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+
+EXAMPLE OUTPUT:
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+
+
+
+
+1pjs | ARKANA
+o2kr | IDRIES SHAH LEARNING HOW TO LEARN
+v6sk | PSYCHOLOGY AND SPIRITUALITY IN THE SUFI WAY - by the author of THE WAY OF THE SUFI
+1wj6 | This project represents a work of LOVE.
+936l | All texts so far gathered, as well as all future gatherings aim at exposing interested students to occult information. Future releases will include submissions from users like YOU.
+06yq | For some of us, the time has come to mobilize. If you have an interest in assisting in this process - we all have strengths to bring to the table.
+dpv6 | email : occult.digital.mobilization@gmail.com
+8r5j | Complacency serves the old gods.
+2taz | Take warning from the misfortunes of others, so that others need not have to take warning from your own.
+o3ya | When the camel of our efforts sinks into the mud, what matter whether the destination is near or far?
+r5il | - Ustad Khalilullah Khalili,
+5gui | The world has no being but an allegory:
+82qc | From end to end its state is but a farce and play
+ls7d | - Shabistari, Secret Garden 13th Century
+tzt3 | - Saadi, Rose Garden 13th Century
+t8vv | Quatrains, 1975
+qvnu | Contents
+kggw | Introduction by Doris Lessing
+xrd1 | 'Beginning to Begin'
+5746 | REAL AND IMAGINED
+7toz | STUDY
+j346 | Sufis and their Imitators
+v8uq | Attaining Knowledge
+x972 | Secrets and the Sufis
+cwrw | When to have Meetings
+4i0e | The Ceiling
+h2l3 | 41
+dfzb | Conflicting Texts
+u6ty | 46
+awvu | Self-Deception
+on9b | Journeys to the East
+a8ge | What a Sufi Teacher Looks Like
+h27a | 53
+pdjh | Books and Beyond Books
+xmgs | 63
+bd9h | Secrecy
+m047 | 67
+gy8c | 'You Can't Teach by Correspondence'
+y4mj | Background to 'Humility'
+vpgq | How Serious is the Student?
+ousl | Social and Psychological Elements in Sufi Study 79
+m4ju | ON ATTENTION Characteristics of Attention and Observation 85
+a0mb | Operation of the Attention Factor - Motivation of Transactions - Attention under Personal Control - Excess and Deprivation of Attention - Study of People and Ideas apart from their Attention Value - Identification ofUnderlying Factors - Raising the Emotional Pitch - Fossil Indicators
+ki8m | SUFI STUDY THEMES 91
+km8w | Assumptions Behind Actions - Exercising Power through Kind- ness - Copying Virtue - Finding a Teacher - What is gained from Repetition - Robes and Apparatus of the Sufi - Why you are asked to Help - Laziness
+wzno | THINGS OF THE WORLD
+xagm | An Eastern Sage and the Newspapers
+iwn5 | 95
+uooz | 97
+pxbq | Basis for People's Interest
+jfsr | Thinking in Terms of Supply-and-Demand
+u15r | The Effect of Tales and Narratives
+lq35 | Stories of the Miraculous
+3g9w | Continuous versus Effective Activity
+d09o | 109
+ylhz | Capacity comes before Opinion
+a3td | Sanctified Greed
+ex5k | Psychic Idiots
+9d4o | When Criticism can Stop
+cjq2 | Information and Experience
+5esx | The Teaching is a Matter of Conduct
+m5ka | Knowing one's own Sincerity
+byu8 | The Would-Be and Should-Be people
+76b0 | 123
+zxz6 | Satisfactions and Purpose of Ritual
+xnth | Real and Ostensible Self-Improvement
+vafm | 128
+2zmw | Roles of Teacher and Student
+bf9k | 5 ACTION AND MEANING
+otkr | Real and Relative Generosity
+ibgs | 135
+colo | Why do Sufis Excel?
+d6r4 | 138
+9mrz | Being a 'Guru'
+pk06 | 140
+7wn9 | Systems
+wcd0 | The Vehicle and the Objective
+caos | Concern and Campaign
+qrvy | 143
+pn9j | 145
+1pmc | Use, Misuse and Disuse of forms of Study Potentiality and Function 147 Conditioning and Education 149 The Search for an Honest Man 151 How can one method be as good as another? 153
+5z6q | TWENTY-THREE STUDY POINTS 157
+yeoh | A Viable Unit - Being Supported - Being Physically present - Intensely Standardised - Organisations and Greed - Generosity as a Greed - What you do for Yourself - Graduating to a Higher Morality - Concluding that we are Worthless - That which attracts you about us ..
+b8hf | . - Giving and Withholding - and External Assessment - Standing between you and Knowledge - Direct Contact with a Source of Knowledge - Latent Knowledge - Provoking Capacity - Systematic Study - Con- sistency and System - Illumination and Information - Habit of Judging - Higher-Level Work - Games and Annoyance - Aspirations and Acquisition - Opinion and Fact
+hntf | OVERALL STUDY
+99fo | Learning and Non-Learning 165
+y5r7 | Some Characteristics of Sufi Literature 168
+lrry | Impartiality as a Point of View
+hvhm | Characteristics and Purposes ofa Sufi Group
+863b | 175
+fj24 | Prerequisites for a Student of Sufism 177 In Step is out of Step 180
+uz3c | 182
+d5bi | 'Dye your Prayer-Rug with Wine'
+ba4l | The Master-Dyer 184 Method, System and Conditioning 187 Western Culture 189
+ffx8 | The Western Tradition 191 How does the Sufi Teach? 194 Idiot's Wisdom? 197 Attacking Fires 200 A Bridge and its Use 202
+s6su | 203
+y219 | Deterioration of Studies
+06ht | Community and Human Growth
+v3r2 | The Value of Question and Answer Sessions
+nv42 | Dedication, Service, Sincerity
+xags | 212
+jc47 | Sufis and Scholars
+ko3c | An Enterprise is measured by Intention, not by Appearance
+xek3 | 221
+bbpr | Sufi Organisations
+5zyf | 223
+9own | SUFI STUDIES
+bqfb | 227
+wwdt | Coming Together
+mn1r | Concealment of Shortcomings
+5vqw | 230
+meyw | Saints and Heroes
+2e62 | 231
+75y3 | The Levels of Service
+s2g2 | 233
+q1q2 | 235
+cb7r | Ritual and Practice
+68xu | To be Present
+hd35 | The Way to Sufism
+2zpk | The Giving of Charity
+epu7 | The Number of Readings ofa Book
+7od1 | Decline in Religious Influence
+0bqy | Why can't we have a British Karakul Lamb?
+b780 | 257
+ccmb | Teaching Methods and Prerequisites
+ma93 | Sorrow in 'Spiritual Enterprises'
+c6hh | Shock-Teaching
+y7ea | 266
+nav4 | Emotional Expectations
+gem8 | Jumping to Conclusions
+e8nr | The Rosary and the Robe
+k78w | Random Exercises
+g9du | On the Lines ofa School
+f682 | Conduct-Teaching
+li1k | The Curriculum ofa School
+pbea | Knowing all About Someone
+ccpt | Remarks upon the Matter of the Dervish Path
+0fpw | Meetings, Groups, Classes
+dqn8 | Internal Dimensions
+cop0 | 298
+lhkq | Explanation
+82ju | 300
+y2qo | Introduction
+1piq | It was as recently as 1964 that Idries Shah's The Sufis appeared. It was evident that with this new classic on the subject, there had emerged the Exemplar who from time to time comes forward to offer the Sufi Way in new forms that fit modern needs. For Sufism is not the study of the past, or the worship of medieval saints; it is always, has ever been, evolutionary in spirit and action. The great Sufi classics of the Middle East, for instance, were once abrasively original, with new insights and information that shocked the hidebound.
+7fqw | Idries Shah has offered us many books, as many-faceted as Sufism has to be, from the re-issue of these classics, to jokes from the Nasrudin corpus, to printed university lectures, to traditional stories retold in fresh and sharpened language. Learning How to Learn, and others that Shah is writing now, in a modern format, pioneer where we, in our time, face the biggest challenges: human nature itself, how to understand our behaviour and our organisations and our cultures. Shah significantly calls anthropology and psychology the infant sciences; for he holds that we have hardly begun to use these tools.
+rhaz | It is now a commonplace that in the higher reaches of physics the same language and concepts as in traditional mysticism are used; but this common ground, this frontier, extends to include the new original thinking in psychology, anthropology, the religions, esotericism. Shah would like to aid this confluence. Specifically, he is offering the Sufic viewpoint, and - more than that - making available a stock of knowledge, of information. In our lifetime we shall see - are already beginning to see - our scientists, usually the younger ones, because of their greater flexibility, approaching Shah with the question: What do you have in your possession, as part of your tradition, that we modern researchers may use, that we may have overlooked or perhaps don't even suspect exists? I have seen this happen: a simple question opening up a new field.
+wak1 | Is it not worth our while to consider how it can have come about that what amounts to a treasure house of information, the results of centuries of research and skilled practice, can have existed so long without us being able to concede that it might be there? I am not talking about 'the secrets of the East', conceived of as something
+wtfz | between Shamanism and tea-table spiritualism - what Shah dismissed as 'spills, thrills and chills'. There have always been travellers to the mystic East. 'Tell me, Master, what is the Secret?' 'Oh, you want a Secret, dear child, is that it? Well, stand on your head for a week, and chant this mantra . . . ' But those of us who have tried to approach Sufism through what is offered to us in the West seem nearly always to have gone through something like that, and had to outgrow it: it is how we have been conditioned to think. What we find in the East is not the glamorous and the mystic but an approach to humanity, both as individuals and as an organic unity, that goes far beyond our own sciences, in conception and achievement - in sophistication.
+qy1i | How has this come about?
+1k9e | For one thing, perhaps the culture we inhabit is not the advanced, open-minded culture we believe it is. Outsiders, who have always been valuable in providing insights into societies, although they are always resisted at first, judge us differently.
+5bjs | We are judged as being fettered, and in many ways. We easily talk now of Western arrogance; we begin to know we are insular. But it is a slow business, for we have to contend, in the case of the Middle East and Central Asia, with the implanted results of hundreds of years of suspicion of the dreaded Saracen. This has had, still has, stultifying effects on our culture, from ignorance and bigotry about Islam, to something like this: that the symbols for the planets in astrology - Mars, Venus, Mercury and the rest - are no more than Arabic letters, easily recognisable as such to those who know Arabic. Yet we ascribe to them amazing origins. A tiny example, even an absurd one, of an enormous unmapped area. But why is it not being researched?
+uodj | We may go on murmuring about Western complacency, but it is another thing actually to face it. Shah instances our belief that we in the West pioneered certain psychological ideas. But the 'discoveries' of Freud and Jung are to be found in Al Ghazzali and Ibn El Arabi, who died in the twelfth century, and in other great thinkers of the time. (Jung acknowledged his debt to the East. Is it not remarkable that his disciples are not curious about what else there might be?) Al Ghazzali wrote extensively about conditioning: then, as now, Sufi teachers were concerned about freeing people from social and religious indoctrina- tions. What happened to all that expertise? It was used. It became the property of doctors of the mind, of the soul, of the body; it has been built on, developed .. . But we, in the West, have been cut off from it - are still cut off from it, and will be until we are prepared to think hard about our own mental sets.
+k16v | Another instance: we tell ourselves about our infinitely various and rich language. But the fact is that English is impoverished; it lacks words and concepts we need. Any writer who has tried to describe certain processes and experiences has come up against it: the absence of words. There are ways around it - analogy is one - but the problem remains. A handful of pitiful and worn terms - unconscious, soul, spirit, collective unconscious, super-mind, ego, super-ego, id, para- normal, ESP, super-nature - and suddenly, very soon, you've run into the sand. You cannot use these words for fresh experiences, new ideas, because each is loaded with unwanted associations. But other languages are not so barren; their words are not so overloaded. No, this is not an essay in disparagement of English, or in admiration of other tongues, for the sake of it, but a plea for recognition: if there is a desperate and urgent need for something, that need may be met. I hope so. Meanwhile, it is hard going. I am not a linguist, to put it mildly, but my tiniest acquaintance with Persian, for example, shows our own dreadful deprivation. But that is the language of a culture where certain kinds of spirituality were in active operation for hundreds of years. (The appearance of a manic bigot like Khomeini doesn't take that away.) Friends who study 'primitive' cultures and know the language of American Indians, or certain. African societies, say that these, too, are well supplied with concepts that we lack. Our language is probably the best of tools for technical processes, as long as technical processes are still conceived of as being restricted to the mechanical, but when they impinge on the frontiers of the mind . ..
+b2lm | And there is another, Himalayan block, which we scarcely consider. It is that for 2,000 years the West has been under a most terrible tyranny, the Christian religion. (I am aware that at this point, readers are sighing, thinking vaguely, 'How very nineteenth century.') But it was, historically speaking, an extremely short time ago. I have met people who came into conflict with the churches, when all they wanted was to opt out of certainties and dogma into agnosticism. Wives and husbands left them, they lost jobs, were socially ostracised, were cast off from families - and went to the colonies. There I met them, as a child. Now the churches have a benevolent, harmless aspect, half social agency, half genial bully; they cajole people into thinking that they really have to be born again, or belong to something or other. But for 2,000 years we were kept in a mental straitjacket, and even the most limited rebellion was horribly punished. Luther's was limited. He said, I insist on the right to talk with God directly, without the mediation of the church. He did not say, For many thousands of years
+ti7f | there have been people in this world who have had the techniques, the information, to enable those with sufficient preparation to make use of these tools, to achieve states of mind, or of spirit, that the churches know nothing about. (But at this point I have to make it clear that Sufism respects all religions, saying that the Truth is at the core of each. It is the tyrant, benevolent or wicked, who has to be exposed.) What I would like to know is this: how is it that, underrandina that our culture has had two millennia of a certain kind of indoctrination, we, our scientists, are not researching the effects on our mental processes? For these effects are there; once you begin thinking on these lines, they are very evident. It is as if the ban, the ukase, the no of the churches into thinking about, for instance, what Jesus and his associates were really thinking (for the Sufis claim Jesus as one of the real Teachers of mankind, whose message has been obliterated by institutions) had been absorbed into the very stuff of our minds, making it impossible for us to look in certain directions.
+oksu | And this no can operate in the minds of scientists as strongly as in anyone's.
+wtow | What I am sketchily, inadequately, outlining here is a whole series of blocks and impediments that amount to a mental prison. Well, the Sufis say we live in such a prison, and it is their concern to give us the equipment to free ourselves. We are all conditioned, as we now claim so easily and trippingly; but perhaps being able to say that it is not enough to enable us to see how.
+o22k | If we want to approach the Sufis, their ways of looking at life, at some point it is necessary to swallow the unpalatable fact that they think of us as backward, barbarian, ill-equipped, ill-informed, and primitive, with closed minds in areas where it is vital to our futures that we open them.
+nwfz | Meanwhile, Shah most patiently answers the questions he has been asked, waiting and hoping for questions that are more educated, more sophisticated, based on better information and self-understanding.

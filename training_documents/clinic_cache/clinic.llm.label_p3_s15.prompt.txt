@@ -1,0 +1,215 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+
+EXAMPLE OUTPUT:
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+
+
+
+
+zxz6 | 2.6 | Data analyses
+xnth | The data were used to assess the prevalence of achieving the aforemen- tioned endpoints at the subject-level and, when possible, tooth level. Although 'stable periodontitis' defines a case at the subject-level, the com- posite measures defining the endpoint <LATEX>\left( P P D \leq 4 m m \right.</LATEX> and <LATEX>P P D = 4 \quad m m</LATEX> + BoP) were used at the tooth level to identify the teeth responsible for not meeting the endpoint. The number of diseased teeth per patient, as per WWC 2017, was calculated using the total number of 'unstable' teeth divided by the total number of (i) subjects and (ii) 'unstable' subjects.
+vafm | Incidence of tooth loss within a minimum duration of 5 years of SPC was recorded at the subject- and tooth-level in relation to the various endpoints. The number of teeth lost per patient per SPC year was calcu- lated using the total number of teeth lost divided by the total number of subjects with tooth loss data divided by the weighted average SPC years.
+2zmw | Authors of journal articles were contacted if any queries arose from the data. Where data were unavailable for a subject, the corre- sponding subject was eliminated from the analyses.
+bf9k | Meta-analyses were performed using 'RStudio' application and R core software to determine the association between the incidence of tooth loss during SPC, as a summary risk ratio, and the unsuccessful achievement of various endpoints. Studies answering FQ-2 with zero subjects or teeth within one of the arms (successful or unsuccessful in meeting endpoints) were not included in the meta-analyses, as two arms were required for the calculation of relative risk (RR). The zero count was inflated to 0.5 to avoid computational errors for studies where no events (tooth loss) were observed in one or both arms. Sub- analyses of studies following conventional APT, as per EFP's S3 treat- ment guideline, or those reporting periodontitis-related tooth loss were performed to explore possible causes of heterogeneity among study results. RRs, their ratios and the corresponding 95% confidence intervals (CIs) were calculated as effect sizes. With treatment outcome affected by subject-, tooth- and treatment-related factors, a random effects model was deemed appropriate to calculate the average distri- bution of mean effects, based on clinical and statistical reasoning (Papageorgiou, 2014). The Paule-Mandel method was chosen to
+otkr | TABLE 1 Study characteristics of included studies.
+ibgs | Periodontology Journal of Clinical
+colo | WILEY
+d6r4 | Diagnostic method employed in study N/A
+9mrz | (2020)b b. 68 c. 68
+pk06 | Author, year of publication Funding
+7wn9 | Baumer et al. 4,5
+wcd0 | Aimetti et al. 1 (2020)a,b
+caos | Barbe et al.
+qrvy | (2020)a,b
+pn9j | 1600051 x, 0, Downloaded from https://onlinelibrary.wiley.com/doi/10.1111/jcpe.13835 by National Health And Medical Research Council, Wiley Online Library on [21/08/2023]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+1pmc | RATTU ET AL.
+5z6q | WWC 2017- smokers: 23 Stages III or IV; Grade B within 2 weeks Test: Diode laser therapy followed by a second round of laser treatment and NSPT of PPD ≥4 mm after 1 week. Third round of laser treatment of persistent N/A Examiner NSPT if calibration 4 patients- correlation coefficient for PPD of 0.851 (95% confidence interval, CI
+yeoh | Ciurescu et al. N/A (2021)ª
+b8hf | Collins et al. 5
+hntf | (2022)a,b
+99fo | answering FQ-2 (years) [0.811; 0.884]; <LATEX>\left. p < . 0 0 1 \right) .</LATEX> UNC 15-mm periodontal probe (Hu-Friedy) BoP assessed dichotomously
+y5r7 | Diagnostic method employed in study
+lrry | 9.68 years N/A
+hvhm | Duration of SPC for studies/ subjects
+863b | tablet x3/day for 7 days)
+fj24 | TABLE 1 (Continued)
+uz3c | Cortellini et al. 3 (2020)a,b
+d5bi | 1600051 x, 0, Downloaded from https://onlinelibrary.wiley.com/doi/10.1111/jcpe.13835 by National Health And Medical Research Council, Wiley Online Library on [21/08/2023]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+ba4l | Periodontology Journal of Clinical
+ffx8 | WILEY
+s6su | (Continues)
+y219 | <LATEX>\left( P P D = 4 \quad m m \right.</LATEX> <LATEX>+ B o P ;</LATEX> <LATEX>P P D \geq 5 m m</LATEX> Examiners were calibrated in pre-clinical programmes
+06ht | intervals <LATEX>\left( n = 5 \right)</LATEX> <LATEX>1 0 . 1 0 . 5</LATEX> N/A
+v3r2 | <LATEX>1 0 \left( 0 . 5 \right)</LATEX> N/A
+nv42 | Jiao et al. 2, 5
+xags | Graetz et al. 4,5
+jc47 | De Wet et al. 5
+ko3c | (2018)a,b
+xek3 | (2020)a,b
+bbpr | (2017)ª
+5zyf | TABLE 1 (Continued)
+9own | Periodontology Journal of Clinical
+bqfb | WILEY-
+wwdt | Diagnostic method employed in study Examiners were calibrated in pre-clinical programmes
+mn1r | Duration of SPC for studies/ subjects answering FQ-2 (years) ≥5 · 3-month intervals
+5vqw | Nibali et al. 1
+meyw | (2017)ª,b
+2e62 | (2018)ª
+75y3 | Jiao et al.
+s2g2 | UNC-15 periodontal probe
+q1q2 | <LATEX>n = 5 8</LATEX> Nibali et al. 1
+cb7r | (2020)b
+68xu | UNC-15 periodontal probe
+hd35 | Saydzai et al.
+2zpk | Saleh et al. (2021)b
+epu7 | 1600051 x, 0, Downloaded from https://onlinelibrary.wiley.com/doi/10.1111/jcpe. 13835 by National Health And Medical Research Council, Wiley Online Library on [21/08/2023]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+7od1 | BoP-bleeding on probing
+0bqy | Types of APT answering carried out SPC regime FQ-2 (years) ≥1 SPC visit/year ≥7 Examiners were calibrated
+b780 | Diagnostic method employed in study
+ccmb | Duration of SPC for studies/ subjects
+ma93 | TABLE 1 (Continued)
+c6hh | Codes 1-None;
+y7ea | Author, year of publication Funding
+nav4 | Sonnenschein 4, 5 et al. (2017)b
+gem8 | Abbreviations: GDP, general dental practitioner; N/A, not applicable; PPD, probing pocket depth; SPC, supportive periodontal care; UNC, University of North Carolina; WWC, World Workshop Classification. aFull site-level data inclusive of BoP was available. bFollows conventional active periodontal therapy (APT).
+e8nr | 1600051 x, 0, Downloaded from https://onlinelibrary.wiley.com/doi/10.1111/jcpe. 13835 by National Health And Medical Research Council, Wiley Online Library on [21/08/2023]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+k78w | Journal of Clinical
+g9du | 7
+f682 | -WILEY
+li1k | Periodontology
+pbea | WILEY Journal of Clinical Periodontology
+ccpt | calculate the mean effect (Langan et al., 2017). Knapp-Hartung adjustments were used to calculate the CI around the pooled effect (Knapp & Hartung, 2003).
+0fpw | The extent and impact of inter-study heterogeneity was assessed by inspecting the forest plots and by calculating the <LATEX>\tau ^ { 2 }</LATEX> (absolute het- erogeneity) and the I 2 statistics (relative heterogeneity), respectively. <LATEX>1 ^ { 2 }</LATEX> defined the proportion of total variability in the result explained by heterogeneity, and not chance, and we considered arbitrarily <LATEX>1 ^ { 2 } > 7 5 \%</LATEX> to represent considerable heterogeneity (Higgins et al., 2003).
+dqn8 | Meta-analytical positive predictive values (PPV; a subject/tooth not meeting an endpoint and experiencing tooth loss) and negative predictive values (NPV; a subject/tooth meeting the endpoint and not experiencing tooth loss) were estimated at the subject and tooth level using pooled sensitivity and specificity for tooth loss across studies. For the meta-analytical pooling of the sensitivity and specificity, the bivariate approach was used as an improvement and extension of the traditional summary receiver operating characteristic (sROC) approach (Reitsma et al., 2005; Rutter & Gatsonis, 2001) and the mada function in R (Doebler & Holling, 2015).
+cop0 | RESULTS
+lhkq | 3
+82ju | |
+y2qo | 3.1 Study selection |
+1piq | The initial search generated 1682 articles from all databases com- bined, 9 from manual search and 1 via editorial contact (Figure 1).
+7fqw | FIGURE 1 Flowchart detailing screening process. APT, active periodontal therapy; SPC, supportive periodontal care.
+rhaz | 1600051 x, 0, Downloaded from https://onlinelibrary.wiley.com/doi/10.1111/jcpe.13835 by National Health And Medical Research Council, Wiley Online Library on [21/08/2023]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+wak1 | Following screening of titles and abstracts, 230 articles qualified for full-text screening (Supplemental Material S2). The Cohen's kappa value for inter-reviewer agreement was 0.93 at first stage of screen- ing and 0.92 at the second stage. Corresponding authors of the 62 articles considered potentially suitable for inclusion were con- tacted for confirmation that all requested data were available. IPD were available for nine studies (Barbe et al., 2020; Ciurescu et al., 2021; Collins et al., 2022; Cortellini et al., 2020; De Wet et al., 2018; Nibali et al., 2017, 2020; Saleh et al., 2021; Saydzai et al., 2022) and summaries of the requested data were made avail- able via completed contingency tables for a further six studies (Aimetti et al., 2020; Baumer et al., 2020; Graetz et al., 2020; Jiao et al., 2017, 2018; Sonnenschein et al., 2017). There were no impor- tant issues in checking IPD integrity.
+wtfz | 3.1.1 Focused question 1 |
+qy1i | A total of 15 studies (Aimetti et al., 2020; Barbe et al., 2020; Baumer et al., 2020; Ciurescu et al., 2021; Collins et al., 2022; Cortellini et al., 2020; De Wet et al., 2018; Graetz et al., 2020; Jiao et al., 2017, 2018; Nibali et al., 2017; Nibali et al., 2020; Saleh et al., 2021; Saydzai et al., 2022; Sonnenschein et al., 2017) were included in the qualita- tive and quantitative analyses (Tables 1 and 2). They included 3 RCTs (both test and control groups were considered in the analyses), 10 cohort (1 prospective and 9 retrospective) and 2 cross-sectional studies.
+1k9e | RATTU ET AL.
+5bjs | TABLE 2 Prevalence of reaching different endpoints at the start of supportive periodontal care at the subject and tooth level.
+uodj | Abbreviations: EFP, European Federation of Periodontology; N/A, not applicable; PPD, probing pocket depth; WWC, World Workshop Classification. ªFrom all studies, 12,563 subjects and 314,963 teeth have complete site-level data. bIn studies following conventional active periodontal therapy (APT), 732 subjects and 17,185 teeth have complete site-level data.
+k16v | The publication year ranged from 2017 to 2022. Eleven studies were undertaken in Europe, two in China and one each in the Dominican Republic and United States. Eight studies were based in
+b2lm | 1600051 x, 0, Downloaded from https://onlinelibrary.wiley.com/doi/10.1111/jcpe.13835 by National Health And Medical Research Council, Wiley Online Library on [21/08/2023]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+ti7f | Journal of Clinical Periodontology
+oksu | WILEY
+wtow | university hospitals and seven studies in private practice. A total of 12,884 subjects were included. Of these, 12,563 subjects from 11 studies had complete site-level data (inclusive of BoP). Three
+o22k | 1600051 x, 0, Downloaded from https://onlinelibrary.wiley.com/doi/10.1111/jcpe. 13835 by National Health And Medical Research Council, Wiley Online Library on [21/08/2023]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+nwfz | Journal of Clinical
+nvfy | 10
+mror | WILEY
+zlxc | Periodontology
+k0bw | 8.22 (4.34-15.56) 9.38 (3.53-24.90)
+aq5a | 1.70 (1.13-2.58) 2.08 (0.99-4.39)
+sc5y | Note: Bold was used for figures that showed statistically significant associations. Abbreviations: APT, active periodontal therapy; CI, confidence interval; EFP, European Federation of Periodontology; N/A, not applicable; PPD, probing pocket depth; RR, relative risk; SPC, supportive periodontal care; WWC, World Workshop Classification. *Statistically significant association.
+0yab | PPD < 6 mm
+w95z | 18,779 18,376
+0i1k | 18,779
+dqlg | .0007*
+p6pq | .0523
+zse6 | 12.8
+p2n3 | 68.0 29.3
+ohh7 | 0.68
+vbni | 99.6 98.0
+dgcw | 728
+gvwz | 749
+sk5m | 0.51 1.41
+qws8 | 5.1
+877u | 86
+rzhj | 74
+bfax | TABLE 3 Statistical analyses of different endpoints in relation to tooth loss (TL) at the subject and tooth level.
+f2y8 | level
+o7qm | Tooth- level
+d52l | TABLE 4 Incidence of tooth loss (TL) related to different endpoints within a minimum duration of 5-years supportive periodontal care (SPC) (subject-level).

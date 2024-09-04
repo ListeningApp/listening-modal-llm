@@ -1,0 +1,133 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+
+EXAMPLE OUTPUT:
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+
+
+
+
+1pjs | Can United States Healthcare Become Environmentally Sustainable? Towards Green Healthcare Reform
+o2kr | 'n 2014, the United States health care industry
+v6sk | produced an estimated 480 million metric tons of carbon dioxide (CO2); nearly 8% of the country's total emissions.1 Carbon dioxide emissions contribute to climate change, climate-change related health haz- ards, and international suffering.2 At the same time, caring for those affected by climate change health hazards produces more carbon emissions. This cycli- cal response to climate change health hazards is self- defeating. The importance of sustainability in health care - as a business reliant on fossil fuels for transpor- tation, lighting and energy, streams of resources, and operational functioning - is slowly being accepted in both the US3 and abroad.4 Yet, current efforts to green health care are incomplete since they focus on health care structures. The treatments provided in the course of the therapeutic relationship is the essence of health care - not the buildings that contain the practice.5 Notably, hospital care and physician/clinical service sectors contribute the most CO2 within the US medi- cal industry, with structures/ equipment and pharma- ceuticals at third and fourth, respectively.6
+1wj6 | In recognition of the need for comprehensive green health care reform, this article will first postulate rea- sons for a lack of environmental sustainability in US health care. Many of these reasons are on the national level where the physician-patient relationship remains a less frequently discussed pathway towards green health care reform. As such, this article will, second, identify current green health care initiatives in the United States in which patients and physicians par- ticipate. In many cases, other health care profession- als participate in green initiatives, but this article will focus on physicians or doctors in order to narrow the scope of inquiry. Third, the rationale for participa- tion in green initiatives will be explained. Fourth, the article will propose that, based on the environmental values of patients and physicians, health care insur- ance plans, which may be private or governmentally- run, and health care insurance companies can be petitioned for green health care reform. Health care insurance plans and health care insurance companies are largely absent from participation in sustainability initiatives; hence they must be involved to close the loop of sustainable health care delivery.
+936l | I. Lack of Sustainability in US Health Care
+06yq | Reducing the carbon impact of global health care has been written about,7 lobbied for,8 and, in some cases,
+dpv6 | Cristina Richie, Ph.D., is a Fellow at the Institute for Advanced Studies in the Humanities at the University of Edinburgh and a Lecturer in Philosophy and Ethics of Technology at Delft University of Technology.
+8r5j | implemented.9 This reifies both the support for sus- tainable health care and the possibility for enacting it. However, health care in the United States is not environmentally sustainable for several reasons. First, there is not national consensus on the importance of sustainability in domestic policy. Historically, US citizens and companies have fallen on both pro-envi- ronment and anti-environment sides of, for instance, permitting fracking in Michigan,10 building the Alaska oil pipeline,11 passing the Environmental Protection Act,12 and supporting the Endangered Species Act.13 More recent opportunities for the United States to join with other international political leaders in the fight against climate change have been disappoint- ing. With the US withdrawing from the Paris Climate Agreement in 2019,14 and obstinately refusing to move towards clean and sustainable energy,15 actions which may move the US towards sustainability do not enjoy national consensus which would lead to a green over- haul of every sector - health care included.
+2taz | Second, and similarly, the priority of health care in the United States varies widely.16 While health care reform is consistently named as a top voting issue,17 the push and pull over the Affordable Care Act, with lingering attempts to "repeal and replace," highlight the conflicting views of US citizens towards health care for all.18 As private19 or employer-sponsored20 health insurance has been the norm in the United States, and with a strong dislike of the "Welfare state," US citizens tend to reject measures which would put individual taxes towards national health care. Given these fragmentations, a functionally coherent health care system has been impossible in the United States, let alone an infrastructure of sustainable health care. If the nation cannot move towards environmentally sound health care policies, then health care systems would need to reform themselves.
+o3ya | Yet, third, many health care and hospital systems fail to initiate or maintain sustainability initiatives. Complex individual and group factors ranging from diffusion of responsibility, to paralysis about the enor- mity of the environmental problem,21 to the "bystander effect" - whereby an individual believes that someone else will address the situation - stymie environmen- tal action22 and derail attempts at greening health systems. While there are a variety of sustainability initiatives which hospitals in the United States may participate in, including collaboration with organi- zations such as Practice GreenHealth,23 Health Care Without Harm,24 or the now-retired Healthier Hos- pitals Initiative,25 to implementation of sustainability measures in individual facilities - such as recycling - these are voluntary and do not address health care delivery. Current sustainability models that focus on
+r5il | 644
+5gui | the structural aspects of health care are limited in their efficacy as they can only "green" buildings or medical infrastructures and rarely examine the carbon of the practice of medicine itself.26 This is equivalent to mak- ing an automobile plant solar-powered, but continu- ing to manufacture cars that run on fossil fuels.
+82qc | Fourth, the environmental movement has failed to offer health care an effective paradigm for sustainabil- ity. The mantra "reduce, reuse, recycle" is insensible to medical consumers and health care providers in their day-to-day work, which relies on quick-use disposable instruments. Health care is not a highly visible carbon polluter, even though it has significant carbon emis- sions. An image of a destroyed rainforest has gravi- tas; a dead fur seal invokes pity. Less persuasive is the environmental destruction associated with the poly- pharmacy of an elderly woman or a young man in a long-term care facility. Similarly, environmental activ- ists have focused on issues with a clearly identifiable aggressor and victim, such as hunters of the endan- gered grey wolves or nuclear power plants dumping toxic waste in urban areas. But, unlike other environ- mental transgressions, every person is culpable for the carbon emissions of health care. This is a matter of degree, not kind. Although there is not equitable use of - or access to - health care in the US, facilities stand ready to use, emitting carbon and contributing to the national health care carbon footprint. Individu- als protect themselves from the scrutiny of environ- mental ethics by normalizing high-carbon health care use.27 Unlike private transportation, for instance, which can be exchanged for more sustainable options, alternatives to resource intensive medical treatments are not highly visible. Of course, all health care is optional, many medical procedures have limited clinical benefit, or are futile28 which means carbon is wasted without meeting health goals.29 Moreover, pre- ventative care, such as avoiding alcohol and tobacco, eating within guidelines, and getting enough exercise reduces illness30 and therefore saves health care car- bon which is incurred from treating preventable dis- eases and conditions.
+ls7d | Finally, the invocation of biomedical ethics to sup- port sustainable health care is met with resistance under the erroneous belief that health care ought not be accountable for resource use, since unlimited medical treatments are an inviolable right.31 Pub- lic discussions about health care prioritization often devolve into panic over allocation and triage.32 Both anger and fear emerge when ICUs, elective surgeries, life-extending treatments, and experimental therapies are discussed for cost containment. This quickly turns to rhetoric about death panels.33 Many of the themes which mark the resistance to conversations about
+tzt3 | health care resource allocation redouble when sus- tainability is invoked. To posit carbon containment as a rationale for health care delivery reduction is a steep fight indeed.
+t8vv | Despite the lack of a sustainable health care indus- try in the United States, there are opportunities for green health care reform. In absence of national policy, patients, physicians, and health care plans are essen- tial - yet often overlooked - components in moving towards green health care reform.
+qvnu | II. Participation in Green Health Care Initiatives
+kggw | A green initiative promotes environmental sustain- ability, with "sustainability" used in the traditional sense of the word, in reference to the 1987 Bruntland Commission report, which defined "sustainable devel-
+xrd1 | Despite the lack of a sustainable health care industry in the United States, there are opportunities for green health care reform. In absence of national policy, patients, physicians, and health care plans are essential - yet often overlooked - components in moving towards green health care reform.
+5746 | opment" as "meet(ing) the needs of the present with- out compromising the ability of future generations to meet their own needs."34 Although there are critiques of both the possibility and legitimacy of the term, 35 "sustainability" remains a key concept in environmen- tal and biomedical ethics.
+7toz | It should be noted that sustainability does not imply a constant level of resource use or carbon emissions if that level is toxic, harmful, or unjust. In rural Ghana, a sustainable health care system may need to increase, expand, and accelerate medical access. In the United States, a sustainable health care system will need to reduce carbon emissions and minimize resource use. Sustainable health care can be achieved through poli- cies, laws, or initiatives.
+j346 | "Green" initiatives may be identified by either their ideological intention to make health care more sustainable or by their functional outcome in actual reduction of health care resources.36 In environmental ethics, as with many social movements including civil rights, feminism, and LGBT liberation, there are phil- osophical debates as to the preferability of ideological ethics which promote a value, versus functional ethics that produce the desired result, often through law. The former attempts to transform morality by appealing to the intrinsic rightness of the action. The latter is less
+v8uq | Richie
+x972 | concerned with the motivation because the outcome benefits the cause.37
+cwrw | In sustainable health care, an "ideological green ini- tiative" may have the intention of carbon reduction, but in actuality may be impotent to reduce the emissions of health care because it is poorly-designed, or unsus- tainable once implemented, or because of positive net emissions. For instance, sending out medical sharps for sterilization may reduce the use of syringes, but the processing and shipping impact may result in more environmental waste. Of course, many ideological green initiatives actually do reduce carbon emissions.38
+4i0e | On the other hand, "functionally green initiatives" will save resources and reduce carbon emissions of health care, but may have no environmental commit- ment attached to them.39 For instance, a health care system that purchases the most economical plastic-
+h2l3 | ware may incidentally find that these are also the least resource intensive. Moreover, a functionally green initiative may be unethical. Barriers to care because of medical deserts are certainly "green" in that fewer people will use health care resources in a particular area, but they are morally problematic. Of course, a functionally green initiative might have a very strong environmental commitment behind it.
+dfzb | This article recognizes the overlap between ideolog- ical and functionally green initiatives and will high- light both in order to provide the widest base of out- lets towards sustainability. The distinction between ideological and functionally green initiatives ought to be employed in any discussions of green health care reform. Without a shared understanding of how the term "green" is being used, the potential or actual effi- cacy of the initiative will be difficult to evaluate.
+u6ty | Having thus defined sustainability and the param- eters of green initiatives, this section will examine patient and doctor participation of green initiatives in the United States. Patients participate in green initiatives through education, carbon awareness, and ecotherapy. Physicians participate in green initiatives through activism, green health centers, green teams, continuing education, and green prescriptions. These are representative, but not comprehensive, initiatives.
+awvu | A. Patients
+on9b | Many people are adapting to climate change through concerted efforts to be more sustainable. Just as res- taurant patrons are encouraged to ask where their food comes from, opening a dialogue about climate change is on the agenda of doctor's visits.40 Becom- ing educated about sustainability in health practices may help patients be more active in their health care.41 Green education gives patients a valuable tool for advocating sustainability in other areas of medicine. For instance, if a patient knows that sterilization and reuse of instruments reduces resource use at the oph- thalmologist, they can then be empowered to ask for sterilized instead of disposable tools at their next pri- mary care check-up. Making this request is a reflec- tion of autonomous decision-making and informed consent.
+a8ge | 2. CARBON AWARENESS
+h27a | Carbon emissions and resource use are familiar terms in the lexicon of environmentally aware citizens and thus environmentally aware patients. As patients educate themselves about sustainable practices, they may use carbon calculations to determine the car- bon impact and alternatives, of medical treatments.42 Increasingly, studies are published on the carbon emissions of individual medical procedures. Data is available on cataract operations,43 heart bypass opera- tions,44 conventional hemodialysis,45 caesarian sec- tions and vaginal childbirth,46 reproduction,47 hys- terectomies,48 Critical Care Unit stays,49 randomized controlled trials,50 and a variety of dental51 and men- tal health52 services. Carbon calculations are a valu- able tool in determining the environmental effects of health care, while also meeting the desires that many patients have to understand the impact of their health choices on the environment. Although patients might not always opt for lower carbon procedures, just as they may not choose sustainable transportation, they may balance their medical consumption with being intentionally more sustainable in other areas of life, like diet or family planning.53
+pdjh | 3. ECOTHERAPY
+xmgs | In addition to carbon awareness in traditional health care, patients may seek unconventional ecotherapy. Ecotherapy is not necessarily sustainable, but it has environmental resonance.54 Ecotherapy may encom- pass "prescriptions for nature"55 such as walks in a for- est, going outside more,56 attending a nature retreat, or participating in other forms of open-air recreation.57 While the medicalization of nature is problematic, as it may lead to instrumentalization, many patients find
+bd9h | 646
+m047 | medical legitimacy through the word "therapy" and retain use of the term. To be sure, patients may still utilize traditional medicine and may not be concerned with reducing their impact on the environment. In fact, if ecotherapy is used as a conjunctive to tradi- tional medicine it can require more total resources. This inconsistency is part and parcel of health care; even as some patients try to be healthier in one area of life, such as not smoking, they may flout health care wisdom in other areas, like physical activity.
+gy8c | B. Physicians

@@ -1,0 +1,26 @@
+{
+  "id": "chatcmpl-A3UD9cdlPRdWOEXnPqE4YkZaF3gvk",
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "logprobs": null,
+      "message": {
+        "content": "7w7j | Operator parallelism is a solution to train large models by partitioning the operators of a layer among multiple workers, but it may suffer from high communication volume as discussed in Section One. Hybrid approaches, which combine operator parallelism with data parallelism, suffer from the similar problem to the pure operator parallelism.\n51vd | To reduce the communication volume of operator parallelism, pipeline parallelism is intensively studied. The key idea is to partition the model in a layer-wise way and treat each worker and the layers on it, as a pipeline stage. The mini-batch is partitioned into multiple micro-batches, that are pipelined across the stages to increase the resources utilization. Recent work also shows improved performance when combining pipeline parallelism with data parallelism. However, to efficiently pipeline deep neural network training is challenging because of One: a training step contains one forward pass followed by one backward pass, Two: the gradient computation in the backward pass rely on the intermediate results of the forward pass, and Three: to achieve good convergence accuracy the mini-batch size is usually not very large.\nbaj1 | Bubbles in the pipeline. For better convergence quality, synchronous approaches synchronize the gradients and flush the pipeline\nn1wo | at the end of each training iteration, as shown in Figure Two. Therefore, synchronous approaches lead to pipeline bubbles. To utilize the pipeline, GPipe injects N micro-batches into the pipeline concurrently; DAPPLE uses the One-Forward-One-Backward schedule with periodic flushes. Both GPipe and DAPPLE incur two times (D minus one) bubbles (D minus one bubbles in the forward passes and D minus one bubbles in the backward passes). In contrast, Chimera (this work) incurs D minus two bubbles (D divided by two minus one bubbles in the forward passes and D divided by two minus one bubbles in the backward passes), which is about fifty percent reduction compared with DAPPLE and GPipe. We define the bubble ratio as the bubble overhead divided by the overall runtime of the pipeline. In practice, the workload of a backward pass is about two times of a forward pass, which leads to D divided by two minus one bubbles in the middle of the pipeline for Chimera (bubble ratio equals D minus two divided by three N divided by two plus D minus two), as shown in Figure Two. We will discuss how to remove the middle bubbles in Section Three point five (bubble ratio equals D minus two divided by two N plus D minus two).\n5bq3 | GEMS is a memory-efficient pipeline approach which schedules micro-batches among two model replicas. Since GEMS is mainly designed for small B and has at most two active micro-batches at\nezla | the same time, its bubble ratio is much higher than the other approaches and cannot be alleviated by a larger N. Asynchronous approaches do not have periodic pipeline flushes, so they do not have bubble problem but with stale weights.\nrsbu | Memory consumption. Memory overhead mainly comes from two aspects: the weight parameters and the activations (the intermediate results of the forward pass required in the backward pass to compute gradients). For GPipe and DAPPLE, each worker maintains the weights of one pipeline stage. For GEMS and Chimera with the default setting, each worker maintains the weights of two pipeline stages since there are two pipelines in two directions. PipeDream updates the model after each backward pass on a micro-batch (N equals one); therefore, to ensure weight version consistency between forward and backward passes, it requires to stash up to D versions of weights on a worker, which has the same memory cost as pure data parallelism. By using gradient accumulation (N greater than or equal to D), PipeDream-2BW reduces the number of weight versions to be stashed to two.",
+        "role": "assistant",
+        "function_call": null,
+        "tool_calls": null,
+        "refusal": null
+      }
+    }
+  ],
+  "created": 1725394479,
+  "model": "gpt-4o-2024-05-13",
+  "object": "chat.completion",
+  "system_fingerprint": "fp_fde2829a40",
+  "usage": {
+    "completion_tokens": 774,
+    "prompt_tokens": 2560,
+    "total_tokens": 3334
+  }
+}

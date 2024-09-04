@@ -1,0 +1,98 @@
+## DEVELOPMENT AS FREEDOM
+
+Development can be seen, it is argued here, as a process of expanding the real freedoms that people enjoy. Focusing on human freedoms contrasts with narrower views of development, such as identifying development with the growth of gross national product, or with the rise in personal incomes, or with industrialization, or with technological advance, or with social modernization. Growth of GNP or of individual incomes can, of course, be very important as means to expanding the freedoms enjoyed by the members of the society. But freedoms depend also on other determinants, such as social and economic arrangements (for example, facilities for education and health care) as well as political and civil rights (for example, the liberty to participate in public discussion and scrutiny). Similarly, industrialization or technological progress or social modernization can substantially contribute to expanding human freedom, but freedom depends on other influences as well. If freedom is what development advances, then there is a major argument for concentrating on that overarching objective, rather than on some particular means, or some specially chosen list of instruments. Viewing development in terms of expanding substantive freedoms directs attention to the ends that make development important, rather than merely to some of the means that, inter alia, play a prominent part in the process.
+
+Development requires the removal of major sources of unfreedom: poverty as well as tyranny, poor economic opportunities as well as systematic social deprivation, neglect of public facilities as well as intolerance or overactivity of repressive states. Despite unprecedented increases in overall opulence, the contemporary world denies
+
+
+## DEVELOPMENT AS FREEDOM
+
+elementary freedoms to vast numbers-perhaps even the majority-of people. Sometimes the lack of substantive freedoms relates directly to economic poverty, which robs people of the freedom to satisfy hunger, or to achieve sufficient nutrition, or to obtain remedies for treatable illnesses, or the opportunity to be adequately clothed or sheltered, or to enjoy clean water or sanitary facilities. In other cases, the unfreedom links closely to the lack of public facilities and social care, such as the absence of epidemiological programs, or of organized arrangements for health care or educational facilities, or of effective institutions for the maintenance of local peace and order. In still other cases, the violation of freedom results directly from a denial of political and civil liberties by authoritarian regimes and from imposed restrictions on the freedom to participate in the social, political and economic life of the community.
+
+
+## EFFECTIVENESS AND INTERCONNECTIONS
+
+Freedom is central to the process of development for two distinct reasons.
+
+One. The evaluative reason: assessment of progress has to be done primarily in terms of whether the freedoms that people have are enhanced;
+
+Two. The effectiveness reason: achievement of development is thoroughly dependent on the free agency of people.
+
+I have already signaled the first motivation: the evaluative reason for concentrating on freedom. In pursuing the second, that of effectiveness, we have to look at the relevant empirical connections, in particular at the mutually reinforcing connections between freedoms of different kinds. It is because of these interconnections, which are explored in some detail in this book, that free and sustainable agency emerges as a major engine of development. Not only is free agency itself a "constitutive" part of development, it also contributes to the strengthening of free agencies of other kinds. The empirical connections that are extensively explored in this study link the two aspects of the idea of "development as freedom."
+
+The relation between individual freedom and the achievement of social development goes well beyond the constitutive connection-
+
+
+## Introduction
+
+important as it is. What people can positively achieve is influenced by economic opportunities, political liberties, social powers, and the enabling conditions of good health, basic education, and the encouragement and cultivation of initiatives. The institutional arrangements for these opportunities are also influenced by the exercise of people's freedoms, through the liberty to participate in social choice and in the making of public decisions that impel the progress of these opportunities. These interconnections are also investigated here.
+
+
+## SOME ILLUSTRATIONS: POLITICAL FREEDOM AND QUALITY OF LIFE
+
+The difference that is made by seeing freedom as the principal ends of development can be illustrated with a few simple examples. Even though the full reach of this perspective can only emerge from a much more extensive analysis (attempted in the chapters to follow), the radical nature of the idea of "development as freedom" can easily be illustrated with some elementary examples.
+
+First, in the context of the narrower views of development in terms of GNP growth or industrialization, it is often asked whether certain political or social freedoms, such as the liberty of political participation and dissent, or opportunities to receive basic education, are or are not "conducive to development." In the light of the more foundational view of development as freedom, this way of posing the question tends to miss the important understanding that these substantive freedoms (that is, the liberty of political participation or the opportunity to receive basic education or health care) are among the constituent components of development. Their relevance for development does not have to be freshly established through their indirect contribution to the growth of GNP or to the promotion of industrialization. As it happens, these freedoms and rights are also very effective in contributing to economic progress; this connection will receive extensive attention in this book. But while the causal relation is indeed significant, the vindication of freedoms and rights provided by this causal linkage is over and above the directly constitutive role of these freedoms in development.
+
+A second illustration relates to the dissonance between income per head (even after correction for price variations) and the freedom of individuals to live long and live well. For example, the citizens of
+
+
+## DEVELOPMENT AS FREEDOM
+
+Gabon or South Africa or Namibia or Brazil may be much richer in terms of per capita GNP than the citizens of Sri Lanka or China or the state of Kerala in India, but the latter have very substantially higher life expectancies than do the former.
+
+To take a different type of example, the point is often made that African Americans in the United States are relatively poor compared with American whites, though much richer than people in the third world. It is, however, important to recognize that African Americans have an absolutely lower chance of reaching mature ages than do people of many third world societies, such as China, or Sri Lanka, or parts of India (with different arrangements of health care, education, and community relations). If development analysis is relevant even for richer countries (it is argued in this work that this is indeed so), the presence of such intergroup contrasts within the richer countries can be seen to be an important aspect of the understanding of development and underdevelopment.
+
+
+## TRANSACTIONS, MARKETS AND ECONOMIC UNFREEDOM
+
+A third illustration relates to the role of markets as part of the process of development. The ability of the market mechanism to contribute to high economic growth and to overall economic progress has been widely-and rightly-acknowledged in the contemporary development literature. But it would be a mistake to understand the place of the market mechanism only in derivative terms. As Adam Smith noted, freedom of exchange and transaction is itself part and parcel of the basic liberties that people have reason to value.
+
+To be generically against markets would be almost as odd as being generically against conversations between people (even though some conversations are clearly foul and cause problems for others-or even for the conversationalists themselves). The freedom to exchange words, or goods, or gifts does not need defensive justification in terms of their favorable but distant effects; they are part of the way human beings in society live and interact with each other (unless stopped by regulation or fiat). The contribution of the market mechanism to economic growth is, of course, important, but this comes only after the direct significance of the freedom to interchange-words, goods, gifts-has been acknowledged.
+
+
+## Introduction
+
+As it happens, the rejection of the freedom to participate in the labor market is one of the ways of keeping people in bondage and captivity, and the battle against the unfreedom of bound labor is important in many third world countries today for some of the same reasons the American Civil War was momentous. The freedom to enter markets can itself be a significant contribution to development, quite aside from whatever the market mechanism may or may not do to promote economic growth or industrialization. In fact, the praise of capitalism by Karl Marx (not a great admirer of capitalism in general) and his characterization (in Das Kapital) of the American Civil War as "the one great event of contemporary history" related directly to the importance of the freedom of labor contract as opposed to slavery and the enforced exclusion from the labor market. As will be discussed, the crucial challenges of development in many developing countries today include the need for the freeing of labor from explicit or implicit bondage that denies access to the open labor market. Similarly, the denial of access to product markets is often among the deprivations from which many small cultivators and struggling producers suffer under traditional arrangements and restrictions. The freedom to participate in economic interchange has a basic role in social living.
+
+To point to this often neglected consideration is not to deny the importance of judging the market mechanism comprehensively in terms of all its roles and effects, including those in generating economic growth and, under many circumstances, even economic equity. We must also examine, on the other side, the persistence of deprivations among segments of the community that happen to remain excluded from the benefits of the market-oriented society, and the general judgments, including criticisms, that people may have of lifestyles and values associated with the culture of markets. In seeing development as freedom, the arguments on different sides have to be appropriately considered and assessed. It is hard to think that any process of substantial development can do without very extensive use of markets, but that does not preclude the role of social support, public regulation, or statecraft when they can enrich-rather than impoverish-human lives. The approach used here provides a broader and more inclusive perspective on markets than is frequently invoked in either defending or chastising the market mechanism.
+
+
+## DEVELOPMENT AS FREEDOM
+
+I end this list of illustrations with another that draws directly on a personal recollection from my own childhood. I was playing one afternoon-I must have been around ten or so-in the garden in our family home in the city of Dhaka, now the capital of Bangladesh, when a man came through the gate screaming pitifully and bleeding profusely; he had been knifed in the back. Those were the days of communal riots (with Hindus and Muslims killing each other), which preceded the independence and partitioning of India and Pakistan. The knifed man, called Kader Mia, was a Muslim daily laborer who had come for work in a neighboring house-for a tiny reward-and had been knifed on the street by some communal thugs in our largely Hindu area. As I gave him water while also crying for help from adults in the house, and moments later, as he was rushed to the hospital by my father, Kader Mia went on telling us that his wife had told him not to go into a hostile area in such troubled times. But Kader Mia had to go out in search of work and a bit of earning because his family had nothing to eat. The penalty of his economic unfreedom turned out to be death, which occurred later on in the hospital.
+
+The experience was devastating for me. It made me reflect, later on, on the terrible burden of narrowly defined identities, including those firmly based on communities and groups (I shall have occasion to discuss that issue in this book). But more immediately, it also pointed to the remarkable fact that economic unfreedom, in the form of extreme poverty, can make a person a helpless prey in the violation of other kinds of freedom. Kader Mia need not have come to a hostile area in search of a little income in those terrible times had his family been able to survive without it. Economic unfreedom can breed social unfreedom, just as social or political unfreedom can also foster economic unfreedom.
+
+
+## ORGANIZATIONS AND VALUES
+
+Many other examples can be given to illustrate the pivotal difference that is made by pursuing a view of development as an integrated process of expansion of substantive freedoms that connect with one another. It is this view that is presented, scrutinized and utilized in this book to investigate the development process in inclusive terms that integrate economic, social and political considerations.
+
+
+## Introduction
+
+A broad approach of this kind permits simultaneous appreciation of the vital roles, in the process of development, of many different institutions, including markets and market-related organizations, governments and local authorities, political parties and other civic institutions, educational arrangements and opportunities of open dialogue and debate (including the role of the media and other means of communication).
+
+Such an approach also allows us to acknowledge the role of social values and prevailing mores, which can influence the freedoms that people enjoy and have reason to treasure. Shared norms can influence social features such as gender equity, the nature of child care, family size and fertility patterns, the treatment of the environment and many other arrangements and outcomes. Prevailing values and social mores also affect the presence or absence of corruption, and the role of trust in economic or social or political relationships. The exercise of freedom is mediated by values, but the values in turn are influenced by public discussions and social interactions, which are themselves influenced by participatory freedoms. Each of these connections deserves careful scrutiny.
+
+The fact that the freedom of economic transactions tends to be typically a great engine of economic growth has been widely acknowledged, even though forceful detractors remain. It is important not only to give the markets their due, but also to appreciate the role of other economic, social, and political freedoms in enhancing and enriching the lives that people are able to lead. This has a clear bearing even on such controversial matters as the so-called population problem. The role of freedom in moderating excessively high fertility rates is a subject on which contrary views have been held for a long time. While that great eighteenth-century French rationalist Condorcet expected that fertility rates would come down with "the progress of reason," so that greater security, more education and more freedom of reflected decisions would restrain population growth, his contemporary Thomas Robert Malthus differed radically with this position. Indeed, Malthus argued that "there is no reason whatever to suppose that anything beside the difficulty of procuring in adequate plenty the necessaries of life should either indispose this greater number of persons to marry early, or disable them from rearing in health the largest families." The comparative merits of the two different positions-relying respectively on reasoned freedom and economic compulsion-will be investigated later on in this study (the balance of evidence, I shall argue, is certainly more on Condorcet's side). But it is especially important to recognize that this particular controversy is just one example of the debate between profreedom and antifreedom approaches to development that has gone on for many centuries. That debate is still very active in many different forms.
+
+
+## INSTITUTIONS AND INSTRUMENTAL FREEDOMS
+
+Five distinct types of freedom, seen in an "instrumental" perspective, are particularly investigated in the empirical studies that follow. These include political freedoms, economic facilities, social opportunities, transparency guarantees and protective security. Each of these distinct types of rights and opportunities helps to advance the general capability of a person. They may also serve to complement each other. Public policy to foster human capabilities and substantive freedoms in general can work through the promotion of these distinct but interrelated instrumental freedoms. In the chapters that follow, each of these different types of freedom-and the institutions involved-will be explored, and their interconnections discussed. There will be an opportunity also to investigate their respective roles in the promotion of overall freedoms of people to lead the kind of lives they have reason to value. In the view of "development as freedom," the instrumental freedoms link with each other and with the ends of enhancement of human freedom in general.
+
+While development analysis must, on the one hand, be concerned with objectives and aims that make these instrumental freedoms consequentially important, it must also take note of the empirical linkages that tie the distinct types of freedom together, strengthening their joint importance. Indeed, these connections are central to a fuller understanding of the instrumental role of freedom.
+
+
+## A CONCLUDING REMARK
+
+Freedoms are not only the primary ends of development, they are also among its principal means. In addition to acknowledging, foundationally, the evaluative importance of freedom, we also have to
+
+
+## Introduction
+
+understand the remarkable empirical connection that links freedoms of different kinds with one another. Political freedoms (in the form of free speech and elections) help to promote economic security. Social opportunities (in the form of education and health facilities) facilitate economic participation. Economic facilities (in the form of opportunities for participation in trade and production) can help to generate personal abundance as well as public resources for social facilities. Freedoms of different kinds can strengthen one another.
+
+These empirical connections reinforce the valuational priorities. In terms of the medieval distinction between "the patient" and "the agent," this freedom-centered understanding of economics and of the process of development is very much an agent-oriented view. With adequate social opportunities, individuals can effectively shape their own destiny and help each other. They need not be seen primarily as passive recipients of the benefits of cunning development programs. There is indeed a strong rationale for recognizing the positive role of free and sustainable agency-and even of constructive impatience.

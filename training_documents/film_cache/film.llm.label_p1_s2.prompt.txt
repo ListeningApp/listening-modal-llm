@@ -1,0 +1,141 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+
+EXAMPLE OUTPUT:
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+
+
+
+
+1pjs | Chapter Title: Feminist Film Theory: An Introduction
+o2kr | Book Title: Studying Feminist Film Theory Book Author(s): TERRI MURRAY Published by: Liverpool University Press. (2019) Stable URL: https://www.jstor.org/stable/j.ctv13842p4.3
+v6sk | Liverpool University Press is collaborating with JSTOR to digitize, preserve and extend access to Studying Feminist Film Theory
+1wj6 | JSTOR
+936l | This content downloaded from 128.32.10.230 on Tue, 05 Sep 2023 05:45:07 +00:00 All use subject to https://about.jstor.org/terms
+06yq | STUDYING FEMINIST FILM THEORY
+dpv6 | Chapter 1 Feminist Film Theory: An Introduction
+8r5j | This book is aimed at helping media and film studies teachers introduce the basics of feminist film theory. No prior knowledge of feminist theory is required, but it is expected that readers will be familiar with the basic language of film form. The intended readers are secondary school and university undergraduate teachers and students of film and media studies. Areas of emphasis include spectatorship, narrative and ideology. Many illustrative case studies are used to offer students an opportunity to consider the connotations of visual and aural elements of film, narrative conflicts and oppositions, the implications of spectator 'positioning' and viewer identification, and an ideological critical approach to film.
+2taz | The book begins with 'potted versions' of the contributions of two influential authors whose seminal texts have fostered new understanding of gender representation in the visual media - John Berger and Laura Mulvey. The theoretical material will be illustrated with reference to case studies. Explanations of key terminology are included. Each chapter begins with key definitions and explanations of the concepts to be studied, including some historical background, where relevant. A list of practice questions is provided at the end of the book and these could be used for essays or tests.
+o3ya | Cinematic entertainment is often understood as being neutral with respect to values. As studio boss Sam Goldwyn famously said, 'If you want to send a message, call Western Union.' Many students (and teachers) may feel that cinematic entertainment is generic with respect to gender and values. The trouble with this view is that it prevents us from questioning cinematic practices themselves, under the presumption that any sexist problems lie not in specific institutional practices, but in the uses we make of them, or in the way viewers interpret them. It is rare to find discussions of cinema institutions that pay serious attention to the ideological framework underlying them. But viewers can only interpret or use what is there in the first place.
+r5il | In the 1980s and '90s media scholarship interrogated why some kinds of media representations persist and others are absent. It asked how corporate-owned media created markets and shaped its products, thus contributing to how consumers perceive gender, race or class. Media scholarship attended to the ideologies of media forms. By contrast, the more recent paradigm shift in neoliberal academia has been towards viewing media consumption patterns as indicative of the consumer's intrinsic interests. The belief that consumers are ultra-resilient, unimpregnable and completely free and active in their viewing choices has supplanted the focus on the industrial supply side of the relationship.
+5gui | Limiting the focus of film studies to formal codes and techniques for producing them directs our attention to means and away from an evaluation of ends. I realise that some might see gendered film studies as a controversial attempt to change
+82qc | 7
+ls7d | This content downloaded from 128.32.10.230 on Tue, 05 Sep 2023 05:45:07 +00:00 All use subject to https://about.jstor.org/terms
+tzt3 | STUDYING FILMS
+t8vv | an industry that already exists and works very well. Perhaps some pedagogues would prefer film and media studies to be evaluated within their own spheres, acknowledging their economically-proven potential to contribute to public entertainment. Arguments about ends may not seem relevant, but such criticism begs the question because it presupposes that a decontextualised evaluation of cinema is an adequate one. When we attempt to analyse cinematic meanings 'in their own sphere' what we are doing is tacitly and uncritically sanctioning the values' status quo. This seems to fall short of the pedagogue's traditional role of encouraging questioning and critical reflection. Those who control the questions control the answers, and educators should not preclude attempts to frame the issues in alternative and enlightening ways.
+qvnu | A culture is more than its institutions, laws or religious beliefs. It consists in the unspoken assumptions and values of its members. Despite claims to objectivity and value neutrality, the Hollywood film industry has an identifiable 'language' with customs, codes and conventions that have developed over time. Many of these conventions developed historically in the absence, or partial absence, of women as creators. Over time, the cultural habits, norms and values produced through this industry have contributed to fostering a culture of opposition to women's equal participation. Media products come from a culture and reflect its moral norms and values. On the other hand, media products also speak to that culture, either reinforcing and legitimising its norms and customs, or subverting and interrogating them. Movies have the potential to spark the audience's imagination, to arouse or sway its emotions, or to provoke new thoughts and ways of seeing the world.
+kggw | Film-makers who attempt to increase women's participation (both in the production process and within media products) might be seen as aspiring to reform the cultural institutions. These efforts range from understanding subtle gender biases in hiring practices, for example, to restructuring the conventional language and codes through which films communicate. This is not to suggest that there is an intrinsic 'male' way of seeing because of some biological perceptual difference in all people of the male sex, or vice versa. The point is not to reify the male way of doing cinema (i.e. proclaim a natural or biological cause for it). This would imply that there is an intrinsically masculine way of 'seeing' or 'representing' the world. Rather it is to interrogate how we arrived at so many assumptions about 'masculinity' or 'femininity' in the first place and to point to a certain bias that any human being has in seeing the world through the prism of their own experiences and their own culture.
+xrd1 | If cinema (and television) have been complicit in constructing gender stereotypes, then we can begin to ask by what particular mechanisms it has succeeded in doing SO.
+5746 | 8
+7toz | This content downloaded from 128.32.10.230 on Tue, 05 Sep 2023 05:45:07 +00:00 All use subject to https://about.jstor.org/terms
+j346 | STUDYING FEMINIST FILM THEORY
+v8uq | Pluralists generally do not attend to the ways in which huge multi-national conglomerates control the flow of ideas. They focus instead on the consumer and the audience, emphasising the ability of the consumer to select media products according to their own gratifications and needs. They stress the active role of audiences and reject the idea that audiences might be passively manipulated by media messages. Postmodernists argue that there is a wide proliferation of media products not exclusively under the control of the major conglomerates. They argue that there has been a dissemination of power and ideas due to improved access to technology by ordinary citizens.
+x972 | However, much evidence supports the (not outlandish) theory that what people are taught by their cultural institutions has enormous effects on the way they see the world. There is now a consensus that exposure to media violence is a risk factor for actual violent behaviour. In 2005, the Lancet published a comprehensive review of the literature on media violence to date. The weight of evidence from dozens of studies supported the view that exposure to media violence leads to aggression, desensitisation towards violence and lack of sympathy for victims of violence, particularly in children. The United States surgeon general, the National Institute of Mental Health and multiple professional organisations - incuding the American Medical Association, the American Psychiatric Association and the American Psychological Association - all consider media violence exposure a risk factor for actual violence.
+cwrw | The remote Himalayan nation of Bhutan makes an interesting case study. Bhutanese life, which is steeped in Himalayan Buddhism, was transformed dramatically when television was introduced for the first time to this nation in June 1999. A cable service provided 46 channels of round-the-clock entertainment. By April 2002 Bhutan began to see for the first time a crime wave including burglaries and violence, broken families, school dropouts, and other youth crimes like shoplifting. Many Bhutanese citizens began writing in to the national newspaper, Kuensel, complaining that TV is very bad for the country and attributed these social changes to television.
+4i0e | Despite the evidence, current media scholarship has almost completely absolved the film industry of any role in shaping culture. Discontent with the simplicity of the 'hypodermic' model of media effects, a cluster of academics in the mid-'90s ditched media effects altogether and instead of pointing out particular flaws in the theory, opted for a wholesale rejection of the model. This effectively put an end to theoretical analysis of how media representations (e.g. of human sexuality, masculinity, femininity, race or age) work within a global economic system that often serves to define the nature of the content produced. Consequently, media studies academics now start from the premise that media texts are 'polysemic' (open to multiple meanings). As such, there is literally no 'thing' to study. But as professor Gail Dines has pointed out, this is like saying there is no such thing as a
+h2l3 | 9
+dfzb | This content downloaded from 128.32.10.230 on Tue, 05 Sep 2023 05:45:07 +00:00 All use subject to https://about.jstor.org/terms
+u6ty | STUDYING FILMS
+awvu | car industry because there are lots of different types of cars on the road.
+on9b | Media scholars seem to have substituted biological determinism in place of cultural determinism, thus conceptually transforming cultural products into 'unmediateď' reflections of 'intrinsic' human nature. This has fed into the common belief that the film industry is totally democratic and therefore its products are an objective reflection of what human beings are like.
+a8ge | But if you feed kids on a steady diet of sugar, advertise sweets all over the place to encourage them to buy more, distribute free samples, open candy stores on every corner, and then claim that kids 'naturally' prefer sweets to healthy nutritious food, you're insulting my intelligence. And just as the huge variety of sweets all contain very generous helpings of sugar and artificial ingredients and very little nutritional value, likewise the many varieties of films in the world (particularly those produced by Hollywood) seem to stick faithfully to remarkably common leitmotifs and conventions.
+h27a | American graphic novelist Alison Bechdel's famous test (unsurprisingly known as 'The Bechdel Test' or the 'Mo Movie Test') first appeared in her 1985 comic 'Dykes to Watch Out For' under the title 'The Rule'. This test provides a very simple means of measuring whether females are meaningfully represented in a film. It sets a very low bar, because to 'pass' the test, a film needs only to meet three very minimal criteria:
+pdjh | 1. It must have at least two (named) female characters
+xmgs | 2. Who talk to one another
+bd9h | 3. About something other than a man.
+m047 | The test does not even require that the women in the film are non-stereotypical characters. They could talk about doing laundry or recipes. The test only measures whether women are meaningfully present in a film at all; it does not require that the film is feminist or that it in any way presents women positively. The only requirement is that there are women in the film who have some kind of an interior life independent of men. It is astonishing how many major Hollywood films do not pass the test, including many Oscar-nominated films.
+gy8c | But things are almost as bad when females are represented in films, since the ways in which they are depicted do not go very far towards suggesting that they have interior lives or minds. Almost a quarter of all female characters in family films are undressed or partially nude, compared to 4% of male characters.1
+y4mj | In their analysis of 200 top grossing films of 2014 and 2015, The Geena Davis Institute on Gender in Media found that in 2014 only 11% of them featured a female lead and in 2015 only 17% of the top grossing films had a female lead. Male characters were twice as likely to speak as female characters in the top grossing
+vpgq | 10
+ousl | This content downloaded from 128.32.10.230 on Tue, 05 Sep 2023 05:45:07 +00:00 All use subject to https://about.jstor.org/terms
+m4ju | STUDYING FEMINIST FILM THEORY
+a0mb | films. Overall, male characters spoke 31.8% of the time in films compared to 14.5% of the time for female characters. On average, the top 100 grossing non- animated films of 2015 earned $90,660,000 each. Films with female leads made considerably more on average than films with male leads: $89,941,176 for female leads compared to $75,738,095 for male leads. Films led by women grossed 15.8% more on average than films led by men. Even though women played leading roles in action blockbusters such as Star Wars: The Force Awakens (Daisy Ridley), The Hunger Games Series: Mockingjay Part 2 (Jennifer Lawrence), and The Divergent Series: Insurgent (Shailene Woodley), overall, male characters appeared and spoke on screen three times more often than female characters in action films.
+ki8m | The sheer scale of the film industry has important cultural implications. The entertainment industries constitute our hegemonic culture and our norms of acceptable behaviour. The hegemonic Marxist approach to cinema suggests that media industries operate within a structure that reinforces the dominant ideology. Cinema has grown into a major industry with sophisticated marketing, technologies and global distribution networks, as well as cross-media promotion and production available to conglomerates such as Disney. Like other major industries that generate potentially harmful social impacts, the film industry creates a discourse that nurtures public confidence in its products and practices. The role of the media scholar is to interrogate the presuppositions latent in this discourse, and to unpack the relationships of power implicit in it.
+km8w | Most film studies and media studies students are familiar with the formal codes of film language - editing, framing, camera movement, lighting, sound, etc. These formal aspects of cinema work together to make meaning in ways that are familiar, or conventional, to media consumers. Consequently, it makes sense to speak of the cinema as having its own 'language'. Paradoxically, media and film studies courses involve a process of helping students to recognise (and talk about) the codes and conventions that they already know. Most students know how to 'read' the conventional codes from which a cinematic text is constructed, which is why they can enjoy these texts prior to studying them. In similar fashion, most English- speaking children can understand and tell stories in English long before they have ever heard of a preposition, a pronoun, an epithet or a metaphor. To study film form without engaging in critical analysis of its messages and values is analogous to studying English grammar without ever studying English literature. The former is about understanding the structure of the language, the latter is about the various uses to which this language is deployed within social or political contexts.
+wzno | No dichotomy between form and content need be presupposed. It is common to conceive of form as a container and content as something more substantial contained within it. This distinction is questionable, however, when we consider how the formal components work together as a 'meaning system' to create the whole pattern that is perceived. Subject matter and abstract ideas are an integral part

@@ -1,0 +1,139 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+
+EXAMPLE OUTPUT:
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+
+
+
+
+d5bi | Article
+ba4l | <LATEX>4 - \left( 1 4 - c h / 0 \right.</LATEX> 4-((4-Chlorophenyl)ethynyl)-5-iodo-1-(4-methoxyphenyl)-1H- 1,2,3-triazole (90). This compound was prepared in accordance with <LATEX>t h e \quad g e n e r a l \quad p r o c e d u r e \quad f r o m \quad 1 - a z i d o - 4 - m e t h o x y b e n z e n e \quad 8 h</LATEX> (36.5 mg, 0.244 a <LATEX>\left[ C u I \left( P P h _ { 3 } \right) _ { 3 } \right] \left( 1 1 . 9 m g , 5 m o l \% \right) , \text { and } 2 , 0</LATEX> chromatography (eluent: hexane/acetone 65%; 71% conversion 1-iodo(buta-1,3-diyne) 7a): mp <LATEX>1 6 2 - 1 6 3 ^ { \circ } C</LATEX> 1H NMR (CDC13, 400.13 MHz, 8) 7.56-7.51 (m, 2H),
+ffx8 | 1933
+s6su | The Journal of Organic Chemistry
+y219 | 7.49-7.43 (m, 2H), 7.38-7.33 (m, 2H), 7.08-7.01 (m, 2H, Ar), 3.90 (s, 3H, OCH3); 13C{1H} NMR (CDC13, 100.6 MHz, 8) 161.1 (q), 138.5 (q), 135.3 (q), 133.2 (t), 129.6 (q), 129.0 (t), 127.4 (t), 120.8 (q), 114.7 (t), 94.1 (q), 85.9 (q), 79.5 (q), 55.8 (p); IR <LATEX>\left( \mathrm { c m } ^ { - 1 } \right) \nu</LATEX> 2231 <LATEX>\left( \mathrm { C } \equiv \mathrm { C } \right)</LATEX> HRMS ESI [M + H]+ calcd for C17H12CIIN3O+ 435.9708, found 435.9700.
+06ht | 1-Benzyl-5-((4-methoxyphenyl)ethynyl)-4-(phenylethynyl)-1H- 1,2,3-triazole (13a). This compound was prepared in accordance with the general procedure from 5-iodo-1H-1,2,3-triazole 9b (19.3 mg, 0.050 mmol) and 1-ethynyl-4-methoxybenzene 12a <LATEX>\left( 1 3 . 2 \quad m g , \right.</LATEX> 0.100 mmol, 2 equiv) with a reaction time of 16 h. The crude was purified by chromatography (eluent: hexane/EtOAc = 5:1) to afford a beige solid (15 1H NMR MHz, 8) 7.58-7.56 (m, <LATEX>\left. 2 H \right) , 7 . 4 8 - 7 . 4 2</LATEX> (m, 2H),
+v3r2 | Article
+nv42 | <LATEX>7 . 3 8 - 7 . 3 3 \left( m , \right.</LATEX> 8H), 6.94-6.88 (m, 2H), 5.62 (s, 2H, CH2), 3.85 (s, 3H, OCH3); 13C{1H} NMR (CDC13, 100.6 MHz, 8) 161.0 (q), 134.5 (q), 133.8 (q), 133.5 (t), 131.9 (t), 129.1 (t), 129.0 (t), 128.8 (t), 128.5 (t), 128.3 (t), 124.2 (q), 122.5 (q), 114.5 (t), 113.2 (q), 103.8 (q), 95.3 (q), 78.5 (q), 72.6 (q), 55.55 (p), 53.4 (s); IR (cm-1) v 2217 (C= C); HRMS ESI [M + H]+ calcd for <LATEX>C _ { 2 6 } H _ { 2 0 } N _ { 3 } O ^ { + }</LATEX> 390.1601, found 390.1605.
+xags | <LATEX>\begin{array}{} { \text { DOL: } 1 0 . 1 0 2 1 / 2 \text { cs } 5 0 \text { c- } 8 b 0 2 9 1 6 } \\ { \text { Drg. Ghem. } 2 0 1 9 , 8 4 , 1 9 2 5 - 1 9 4 0 } \end{array}</LATEX> 1934
+jc47 | The Journal of Organic Chemistry
+ko3c | 2242 (C=C); HRMS ESI <LATEX>\left[ M + N a \right] ^ { + }</LATEX> calcd for <LATEX>C _ { 2 0 } H _ { 2 3 } N _ { 3 } O _ { 5 } N a ^ { + }</LATEX> 408.1530, found 408.1531.
+xek3 | 4-(1-Benzyl-4-((4-(dimethylamino)phenyl)ethynyl)-1H-1,2,3-tria- zol-5-yl)benzonitrile (15b). This compound was prepared in accordance with the general procedure from 5-iodo-1H-1,2,3-triazole
+bbpr | Article
+5zyf | 9d (60.0 mg, 0.140 mmol) and (4-cyanophenyl)boronic acid 14b (41.2 mg, 0.280 mmol) with a reaction time of 20 h. The crude product was purified by column chromatography (eluent: hexane/ acetone = 3:1) to afford a yellow pale solid (41 mg, 72% yield): 1H NMR (CDC13, 400.13 MHz, 8) 7.74-7.68 (m, 2H), 7.57-7.53 (m, 2H), 7.33-7.27 (m, 5H), 7.08-7.05 (m, 2H), 6.63-6.57 (m, 2H), 5.58 (s, 2H, CH2), 2.98 (s, 6H, N(CH3)2); 13C{1 H} NMR (CDCl3, 100.6 MHz, 8) 136.8 (q), 134.8 (q), 133.0 (t), 132.7 (t), 131.8 (q), 131.1 (q), 129.9 (t), 129.2 (t), 128.7 (t), 127.1 (t), 118.2 (q), 113.5 (q), 111.8 (t), 108.5 (q), 95.7 (q), 76.4 (q), <LATEX>5 2 . 9 \left( s \right) , 4 0 . 2 \left( p \right) ; I R</LATEX> <LATEX>\left( c m ^ { - 1 } \right) \nu 2 2 2 3</LATEX> (C=C, C=N); HRMS ESI <LATEX>C _ { 2 6 } H _ { 2 1 } N _ { 5 } N</LATEX> 426.1689, found 426.1689. grown from the solution in chloroform by <LATEX>\begin{array}{} \text { ingle crystals of } 1 \text { Sb were } \\ \text { the vapor exchange with } \end{array}</LATEX> hexane. Crystallographic data (excluding structure factors) for structures reported in this work have been deposited with <LATEX>\begin{array}{} \text { the } \\ \text { the } \end{array}</LATEX> Cambridge Crystallographic Data Centre as supplementary publica- tion no. CCDC 1869737 (Figure S3).
+9own | 1935
+bqfb | The Journal of Organic Chemistry
+wwdt | ASSOCIATED CONTENT
+mn1r | S Supporting Information
+5vqw | The Supporting Information is available free of charge on the ACS Publications website at DOI: 10.1021/acs.joc.8b02916.
+meyw | Conditions optimization for the Sonogashira coupling, copies of 1H, 13C{'H}, and DEPT NMR spectra, and X- ray details for compounds 13d and 15a,b (PDF) Crystal data for 15b (CIF) Crystal data for 13d (CIF) Crystal data for 15a (CIF)
+2e62 | AUTHOR INFORMATION
+75y3 | Corresponding Author
+s2g2 | *E-mail: i.balova@spbu.ru.
+q1q2 | ORCID
+cb7r | Anastasia I. Govdi: 0000-0001-6403-8241 Natalia A. Danilkina: 0000-0002-1693-0056
+68xu | Irina A. Balova: 0000-0002-8593-4755
+hd35 | Notes
+2zpk | The authors declare no competing financial interest.
+epu7 | . ACKNOWLEDGMENTS
+7od1 | This study was supported by Saint Petersburg State University (SPbU) (12.40.515.2017) and by RFBR (18-33-01213). The research was carried out by using the equipment of the SPbU Resource Centres: Magnetic Resonance Research Centre, Chemical Analysis and Materials Research Centre, Centre for X-ray Diffraction Studies, Chemistry Educational Centre. High-resolution mass spectra of compound 7e was recorded in Section of Structural Studies, N. D. Zelinsky Institute of Organic Chemistry RAS. We are grateful to Dr. Vladimir Mikhailov (SPbU) for the synthesis of the CuCl(IPr) catalyst.
+0bqy | REFERENCES
+b780 | Article
+ccmb | (10) Huo, J .; Hu, H .; Zhang, M .; Hu, X .; Chen, M .; Chen, D .; Liu, J .; Xiao, G .; Wang, Y .; Wen, Z. A Mini Review of the Synthesis of Poly-1,2,3-Triazole-Based Functional Materials. RSC Adv. 2017, 7, 2281-2287.
+ma93 | (28) Jewett, J. C .; Bertozzi, C. R. Cu-Free Click Cycloaddition Reactions in Chemical Biology. Chem. Soc. Rev. 2010, 39, 1272-1279. (29) Dommerholt, J .; Rutjes, F. P. J. T .; van Delft, F. L. Strain- Promoted 1,3-Dipolar Cycloaddition of Cycloalkynes and Organic Azides. Top. Curr. Chem. 2016, 374, 16.
+c6hh | (30) Agard, N. J .; Prescher, J. A .; Bertozzi, C. R. A Strain-Promoted [3 + 2] Azide - Alkyne Cycloaddition for Covalent Modification of Biomolecules in Living Systems. J. Am. Chem. Soc. 2004, 126, 15046- 15047.
+y7ea | The Journal of Organic Chemistry
+nav4 | (31) Jalani, H .; Karagöz, A .; Tsogoeva, S. Synthesis of Substituted 1,2,3-Triazoles via Metal-Free Click Cycloaddition Reactions and Alternative Cyclization Methods. Synthesis 2017, 49, 29-41.
+gem8 | (32) Ramachary, D. B .; Ramakumar, K .; Narayana, V. V. Amino Acid-Catalyzed Cascade [3 + 2]-Cycloaddition/Hydrolysis Reactions Based on the Push-Pull Dienamine Platform: Synthesis of Highly Functionalized NH-1,2,3-Triazoles. Chem. - Eur. J. 2008, 14, 9143- 9147.
+e8nr | (47) Chung, R .; Vo, A .; Fokin, V. V .; Hein, J. E. Catalyst Activation, Chemoselectivity, and Reaction Rate Controlled by the Counterion in the Cu (I)-Catalyzed Cycloaddition between Azide and Terminal or 1-Iodoalkynes. ACS Catal. 2018, 8, 7889-7897.
+k78w | (48) Luu, T .; McDonald, R .; Tykwinski, R. R. Regioselective Trapping of Terminal Di-, Tri-, and Tetraynes with Benzyl Azide. Org. Lett. 2006, 8, 6035-6038.
+g9du | (64) Dinér, P .; Andersson, T .; Kjellén, J .; Elbing, K .; Hohmann, S .; Grøtli, M. Short Cut to 1,2,3-Triazole-Based P38 MAP Kinase Inhibitorsvia [3 + 2]-Cycloaddition Chemistry. New J. Chem. 2009, 33, 1010-1016.
+f682 | (65) Morris, J. C .; Chiche, J .; Grellier, C .; Lopez, M .; Bornaghi, L. F .; Maresca, A .; Supuran, C. T .; Pouyssegur, J .; Poulsen, S. Targeting Hypoxic Tumor Cell Viability with Carbohydrate-Based Carbonic Anhydrase IX and XII Inhibitors. J. Med. Chem. 2011, 54, 6905-6918.
+li1k | 1937
+pbea | The Journal of Organic Chemistry

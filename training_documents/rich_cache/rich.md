@@ -1,6 +1,9 @@
 ## THE SCIENCE OF GETTING RICH R THE SCIENCE OF GETTING RICH Wallace D. Wattles
 
-Introduction
+Mission Statement: To inspire, encourage, and exemplify abundance thinking and a strong sense of self-worth for people of goodwill everywhere.
+
+
+## Introduction
 
 ABOUT EIGHTEEN MONTHS AGO, a man I'd never met sent me a book I'd never heard of by a man who'd been dead nearly ninety years.
 
@@ -22,22 +25,19 @@ Now, right off the bat author Wallace D. Wattles says that instead of questionin
 
 By the time I finished the book I understood why he had included that warning. You see, some of what you'll read or hear will most likely challenge some of your previous thinking. That seems to be the case for most people. But keep on, and you'll soon see how Mr. Wattles beautifully builds each chapter on what he presents in the preceding ones. I think you'll find yourself saying - as I and many others have - "Oh, now I see why he said that. Now I see how it all fits together."
 
-I believe, also, that you'll find it absolutely refreshing to know that to get rich by the method outlined here, it is essential that you embrace and practice what we all know as the Golden Rule ... that the daily practice of gratitude is one of the conduits by which your wealth will come to you ... and that
+I believe, also, that you'll find it absolutely refreshing to know that to get rich by the method outlined here, it is essential that you embrace and practice what we all know as the Golden Rule ... that the daily practice of gratitude is one of the conduits by which your wealth will come to you ... and that by accomplishing your financial dreams through this method, everyone with whom you come into contact will also have more.
 
-
-## The Science of Getting Rich
-
-by accomplishing your financial dreams through this method, everyone with whom you come into contact will also have more.
-
-A far cry from the dog-eat-dog, claw your way to the top, anything for a buck mentality so many believe to be the only way to wealth.
+A far cry from the dog eat dog, claw your way to the top, anything for a buck mentality so many believe to be the only way to wealth.
 
 Pay close attention to the message of this book with an open mind. Get a free copy of the entire printed version (what you're reading now) at The Science of Getting Rich Network website and read it. Print it out and give it to your friends. Distribute it on your own website if you like. Join the Network and get the free weekly ezine to share in the insights and amazing experiences of others. Focus constantly on your own personal vision and share that vision with other like-minded people who are doing the same.
 
-I've lightly edited the ninety-year-old manuscript to accommodate modern readers. Unfortunately, though, there is as yet no graceful way in English to avoid completely the use of the masculine gender to represent all people, especially in working with such an old book.
+You WILL see results!
 
-Luckily for us women, we have vast experience in reading ourselves back in - just as we have learned to dance backward! Where it does not interfere with the gracefulness of the writing, I have changed man to person, men to people, and mankind to humankind.
+You already have within you everything you need to turn your dreams into reality. You are a person of infinite worth and unique possibility. Even if you don't think of yourself as a creative person, and even if you've failed before, and even if you think you've tried everything, open your mind to this book.
 
-To Mr. Wattles' credit, although writing just after the turn of the twentieth century, he makes it clear that The Science of Getting Rich applies equally to men and women alike.
+You've probably heard the saying, "When the student is ready, the teacher appears." That has certainly held true for me and many, many others, and perhaps you're ready, too - right now. If you're not yet where you want to be in terms of income and your own personal success, the problem may not be what you're doing so much as how you're doing it. And that begins with how you think.
+
+If you want to change your life, you may just need to change your mind!
 
 
 ## Preface
@@ -68,9 +68,6 @@ The person who owns all he wants for the living of all the life he is capable of
 There is nothing wrong in wanting to get rich. The desire for riches is really the desire for a richer, fuller, and more abundant life - and that desire is praiseworthy. The person who does not desire to live more abundantly is abnormal, and so the person who does not desire to have money enough to buy all he wants is abnormal.
 
 There are three motives for which we live: We live for the body, we live for the mind, we live for the soul. No one of these is better or holier than the other; all are alike desirable, and no one of the three - body, mind, or soul - can live fully if either of the others is cut short of full life and expression. It is not right or noble to live only for the soul and deny mind or body, and it is wrong to live for the intellect and deny body or soul.
-
-
-## The Science of Getting Rich
 
 We are all acquainted with the loathsome consequences of living for the body and denying both mind and soul, and we see that real life means the complete expression of all that a person can give forth through body, mind, and soul. Whatever he can say, no one can be really happy or satisfied unless his body is living fully in its every function, and unless the same is true of his mind and his soul. Wherever there is unexpressed possibility or function not performed, there is unsatisfied desire. Desire is possibility seeking expression or function seeking performance.
 
@@ -115,6 +112,9 @@ From all these things, we must come to the conclusion that getting rich is the r
 
 If getting rich is the result of doing things in a certain way, and if like causes always produce like effects, then any man or woman who can do things in that way can become rich, and the whole matter is brought within the domain of exact science.
 
+
+## The Science of Getting Rich
+
 The question arises here as to whether this certain way may not be so difficult that only a few may follow it. As we have seen, this cannot be true (as far as natural ability is concerned). Talented people get rich, and blockheads get rich; intellectually brilliant people get rich, and very stupid people get rich; physically strong people get rich, and weak and sickly people get rich.
 
 Some degree of ability to think and understand is, of course, essential, but insofar as natural ability is concerned, any man or woman who has sense enough to read and understand these words can certainly get rich.
@@ -142,11 +142,11 @@ And you can do so by beginning in your present business and in your present loca
 
 Is Opportunity Monopolized?
 
-NO ONE IS KEPT POOR BECAUSE OTHER PEOPLE HAVE MONOPOLIZED THE WEALTH and have put a fence around it. You may be shut off from engaging in business in certain lines, but there are other channels open to you.
+No one is kept poor because other people have monopolized the wealth and have put a fence around it. You may be shut off from engaging in business in certain lines, but there are other channels open to you.
 
 At different periods the tide of opportunity sets in different directions, according to the needs of the whole and the particular stage of social evolution which has been reached. There is abundance of opportunity for the person who will go with the tide, instead of trying to swim against it.
 
-So workers, either as individuals or as a class, are not deprived of opportunity. The workers are not being "kept down" by their masters; they are not being "ground" by the trusts and big business. As a class, they are where they are because they do not do things in a certain way.
+So workers, either as individuals or as a class, are not deprived of opportunity. The workers are not being kept down by their masters; they are not being ground by the trusts and big business. As a class, they are where they are because they do not do things in a certain way.
 
 The working class may become the master class whenever they will begin to do things in a certain way. The law of wealth is the same for them as it is for all others. This they must learn, and they will remain where they are as long as they continue to do as they do. The individual worker, however, is not held down by an entire class's ignorance of these laws; he can follow the tide of opportunity to riches, and this book will tell him how.
 
@@ -156,7 +156,7 @@ The visible supply is practically inexhaustible, and the invisible supply really
 
 Everything you see on earth is made from one original substance, out of which all things proceed. New forms are constantly being made, and older ones are dissolving, but all are shapes assumed by one thing.
 
-There is no limit to the supply of formless stuff, or original substance. The universe is made out of it, but it was not all used in making the universe. The spaces in, through, and between the forms of the visible universe are permeated and filled with the original substance, with the formless stuff - with the raw material of all things. Ten thousand times as much as has been made might still be made, and even then we should not have exhausted the supply of universal raw material.
+There is no limit to the supply of formless stuff, or original substance. The universe is made out of it, but it was not all used in making the universe. The spaces in, through, and between the forms of the visible universe are permeated and filled with the original substance, with the formless stuff—with the raw material of all things. Ten thousand times as much as has been made might still be made, and even then we should not have exhausted the supply of universal raw material.
 
 No one, therefore, is poor because nature is poor or because there is not enough to go around.
 
@@ -182,9 +182,9 @@ You are not kept poor by lack in the supply of riches. It is a fact which I shal
 
 The First Principle in The Science of Getting Rich
 
-Thought is the only power which can produce tangible riches from the formless substance. The stuff from which all things are made is a substance which thinks, and a thought of form in this substance produces the form.
+THOUGHT IS THE ONLY POWER WHICH CAN PRODUCE TANGIBLE RICHES from the formless substance. The stuff from which all things are made is a substance which thinks, and a thought of form in this substance produces the form.
 
-Original substance moves according to its thoughts; every form and process you see in nature is the visible expression of a thought in original substance. As the formless stuff thinks of a form, it takes that form; as it thinks of a motion, it makes that motion. That is the way all things were created. We live in a thought world, which is part of a thought universe. The thought of a moving universe extended throughout formless substance, and the thinking stuff - moving according to that thought - took the form of systems of planets, and maintains that form. Thinking substance takes the form of its thought, and moves according to the thought.
+Original substance moves according to its thoughts; every form and process you see in nature is the visible expression of a thought in original substance. As the formless stuff thinks of a form, it takes that form; as it thinks of a motion, it makes that motion. That is the way all things were created. We live in a thought world, which is part of a thought universe. The thought of a moving universe extended throughout formless substance, and the thinking stuff—moving according to that thought—took the form of systems of planets, and maintains that form. Thinking substance takes the form of its thought, and moves according to the thought.
 
 Holding the idea of a circling system of suns and worlds, it takes the form of these bodies, and moves them as it thinks. Thinking the form of a slow-growing oak tree, it moves accordingly, and produces the tree, though centuries may be required to do the work. In creating, the formless seems to move according to the lines of motion it has established. In other words, the thought of an oak tree does not cause the instant formation of a full-grown tree, but it does start in motion the forces which will produce the tree, along established lines of growth.
 
@@ -329,7 +329,7 @@ You are to become a creator, not a competitor. You are going to get what you wan
 I am aware that there are those who get a vast amount of money by proceeding in direct opposition to the statements in the paragraph above, and may add a word of explanation here. Individuals of that type who become very rich do so sometimes purely by their extraordinary ability on the plane of competition, and sometimes they unconsciously relate themselves to substance in its great purposes and movements for the general upbuilding through industrial evolution. Rockefeller, Carnegie, Morgan, et al., have been the unconscious agents of the supreme in the necessary work of systematizing and organizing productive industry, and in the end their work will contribute immensely toward increased life
 
 
-## CHAPTER FIVE: Increasing Life
+## CHAPTER Five: Increasing Life
 
 for all. But their day is nearly over. They have organized production and will soon be succeeded by the agents of the multitude, who will organize the machinery of distribution.
 
@@ -354,11 +354,11 @@ A thought, in this substance produces the thing that is imaged by the thought.
 A person can form things in his thought, and, by impressing his thought upon formless substance, can cause the thing he thinks about to be created.
 
 
-## Chapter six
+## CHAPTER Six
 
 How Riches Come To You
 
-When I say that you do not have to drive sharp bargains, I do not mean that you do not have to drive any bargains at all or that you are above the necessity for having any dealings with your fellow men. I mean that you will not need to deal with them unfairly. You do not have to get something for nothing, but can give to every person more than you take from him.
+WHEN I SAY THAT YOU DO NOT HAVE TO DRIVE SHARP BARGAINS, I do not mean that you do not have to drive any bargains at all or that you are above the necessity for having any dealings with your fellow men. I mean that you will not need to deal with them unfairly. You do not have to get something for nothing, but can give to every person more than you take from him.
 
 You cannot give everyone more in cash market value than you take from him, but you can give him more in use value than the cash value of the thing you take from him. The paper, ink, and other material in this book may not be worth the money you pay for it, but if the ideas suggested by it bring you thousands of dollars, you have not been wronged by those who sold it to you. They have given you a great use value for a small cash value.
 
@@ -397,7 +397,7 @@ Original substance wants to live all that is possible in you, and wants you to h
 
 If you fix upon your consciousness the fact that your desire for the possession of riches is one with the desire of the supreme power for more complete expression, your faith becomes invincible.
 
-Once I saw a little boy sitting at a piano, vainly trying to bring harmony out of the keys. I saw that he was grieved and provoked by his inability to play real music. I asked him the cause of his vexation, and he answered, "I can feel the music in me, but I can't make my hands go right." The music in him was the urge of original substance, containing all the possibilities of all life. All that there is of music was seeking expression through the child.
+Once I saw a little boy sitting at a piano, vainly trying to bring harmony out of the keys. I saw that he was grieved and provoked by his inability to play real music. I asked him the cause of his vexation, and he answered, "I can feel the music in me, but I can't make my hands go right." The music in him was the URGE of original substance, containing all the possibilities of all life. All that there is of music was seeking expression through the child.
 
 God, the one substance, is trying to live and do and enjoy things through humanity. He is saying "I want hands to build wonderful structures, to play divine harmonies, to paint glorious pictures. I want feet to run my errands, eyes to see my beauties, tongues to tell mighty truths and to sing marvelous songs," and so on.
 
@@ -468,16 +468,16 @@ To permit your mind to dwell upon the inferior is to become inferior and to surr
 
 The grateful mind is constantly fixed upon the best. Therefore it tends to become the best. It takes the form or character of the best, and will receive the best.
 
-Also, faith is born of gratitude. The grateful mind continually expects good things, and expectation becomes faith. The reaction of gratitude upon one's own mind produces faith, and every outgoing wave of grateful thanksgiving increases faith. The person who has no feeling of gratitude cannot long retain a living faith, and without a living faith you cannot get rich by the creative method, as we shall see in the following chapters.
+Also, faith is born of gratitude. The grateful mind continually expects good things, and expectation becomes faith. The reaction of gratitude upon one's own mind produces faith, and every outgoing wave of grateful thanksgiving increases faith. The person who has no feeling of gratitude cannot long retain a living faith, and without a living faith, you cannot get rich by the creative method, as we shall see in the following chapters.
 
 It is necessary, then, to cultivate the habit of being grateful for every good thing that comes to you and to give thanks continuously. And because all things have contributed to your advancement, you should include all things in your gratitude.
 
-Do not waste a lot of time thinking or talking about the shortcomings or wrong actions of those in power. Their organization of the world has created your opportunity; all you get really comes to you because of them. Do not rage against corrupt politicians. If it were not for politicians we should fall into anarchy and your opportunity would be greatly lessened.
+Do not waste a lot of time thinking or talking about the shortcomings or wrong actions of those in power. Their organization of the world has created your opportunity; all you get really comes to you because of them. Do not rage against corrupt politicians. If it were not for politicians, we should fall into anarchy and your opportunity would be greatly lessened.
 
 God has worked a long time and very patiently to bring us up to where we are in industry and government, and he is going right on with his work. There is not the least doubt that he will do away with plutocrats, trust magnates, captains of industry, and politicians as soon as they can be spared, but in the meantime, they are all very necessary. Remember that they are all helping to arrange the lines of transmission along which your riches will come to you, and be grateful. This will bring you into harmonious relations with the good in everything, and the good in everything will move toward you.
 
 
-## CHAPTER EIGHT
+## Chapter eight
 
 Thinking in The Certain Way
 
@@ -485,7 +485,7 @@ TURN BACK TO CHAPTER SIX AND READ AGAIN the story of the man who formed a mental
 
 You must have it before you can give it, and many people fail to impress thinking substance because they have themselves only a vague and misty concept of the things they want to do, to have, or to become.
 
-It is not enough that you should have a general desire for wealth "to do good with." Everybody has that desire.
+It is not enough that you should have a general desire for wealth to do good with. Everybody has that desire.
 
 It is not enough that you should have a wish to travel, see things, live more, etc. Everybody has those desires also. If you were going to send a wireless message to a friend, you would not send the letters of the alphabet in their order and let him construct the message for himself, nor would you take words at random from the dictionary. You would send a coherent sentence, one which meant something.
 
@@ -495,7 +495,7 @@ Go over your desires just as the man I have described went over his house. See j
 
 That clear mental picture you must have continually in mind. As the sailor has in mind the port toward which he is sailing the ship, you must keep your face toward it all the time. You must no more lose sight of it than the helmsman loses sight of the compass.
 
-It is not necessary to take exercises in concentration, nor to set apart special times for prayer and affirmation, nor to "go into the silence," nor to do occult stunts of any kind. Some of these things are well enough, but all you need is to know what you want and to want it badly enough so that it will stay in your thoughts.
+It is not necessary to take exercises in concentration, nor to set apart special times for prayer and affirmation, nor to go into the silence, nor to do occult stunts of any kind. Some of these things are well enough, but all you need is to know what you want and to want it badly enough so that it will stay in your thoughts.
 
 Spend as much of your leisure time as you can in contemplating your picture. But no one needs to take exercises to concentrate his mind on a thing which he really wants. It is the things you do not really care about which require effort to fix your attention upon them.
 
@@ -512,23 +512,21 @@ Something more is necessary, however, than merely to see the picture clearly. If
 
 Behind your clear vision must be the purpose to realize it, to bring it out in tangible expression.
 
-And behind this purpose must be an invincible and unwavering FAITH that the thing is already yours, that it is "at hand" and you have only to take possession of it.
+And behind this purpose must be an invincible and unwavering faith that the thing is already yours, that it is at hand and you have only to take possession of it.
 
 Live in the new house, mentally, until it takes form around you physically. In the mental realm, enter at once into full enjoyment of the things you want.
 
-"Whatsoever things ye ask for when ye pray, believe that ye receive them, and ye shall have them," said Jesus.
+Whatsoever things ye ask for when ye pray, believe that ye receive them, and ye shall have them, said Jesus.
 
 See the things you want as if they were actually around you all the time. See yourself as owning and using them. Make use of them in imagination just as you will use them when they are your tangible possessions. Dwell upon your mental picture until it is clear and distinct, and then take the mental attitude of ownership toward everything in that picture. Take possession of it, in mind, in the full faith that it is actually yours. Hold to this mental ownership. Do not waiver for an instant in the faith that it is real.
 
-And remember what was said in a proceeding chapter about gratitude: Be as thankful for it all the time as you expect to be when it has taken form. The person who can sincerely thank God for the things which as yet he owns only in imagination has real faith. He will get rich. He will cause the creation of whatever he wants.
+And remember what was said in a preceding chapter about gratitude: Be as thankful for it all the time as you expect to be when it has taken form. The person who can sincerely thank God for the things which as yet he owns only in imagination has real faith. He will get rich. He will cause the creation of whatever he wants.
 
 You do not need to pray repeatedly for things you want. It is not necessary to tell God about it every day.
 
-Your part is to intelligently formulate your desire for the things which make for a larger life and to get these desire arranged into a coherent whole, and then to impress this whole desire upon the formless substance, which has the power and the will to bring you what you want.
+Your part is to intelligently formulate your desire for the things which make for a larger life and to get these desires arranged into a coherent whole, and then to impress this whole desire upon the formless substance, which has the power and the will to bring you what you want.
 
-You do not make this impression by repeating strings of words; you make it by holding the vision with unshakable PURPOSE to attain it and with steadfast FAITH that you do attain it.
-
-Keep yourself focused and thinking in the certain way with the weekly e-mail newsletter available FREE.
+You do not make this impression by repeating strings of words; you make it by holding the vision with unshakable purpose to attain it and with steadfast faith that you do attain it.
 
 The answer to prayer is not according to your faith while you are talking, but according to your faith while you are working.
 
@@ -536,27 +534,29 @@ You cannot impress the mind of God by having a special Sabbath day set apart to 
 
 Oral prayer is well enough, and has its effect, especially upon yourself, in clarifying your vision and strengthening your faith, but it is not your oral petitions which get you what you want. In order to get rich you do not need a "sweet hour of prayer;" you need to "pray without ceasing." And by prayer I mean holding steadily to your vision, with the purpose to cause its creation into solid form, and the faith that you are doing so.
 
+"Believe that ye receive them."
 
-## CHAPTER Eight: Thinking in The Certain Way
+
+## Chapter Eight: Thinking in The Certain Way
 
 Once you have clearly formed your vision, the whole matter turns on receiving. When you have formed it, it is well to make an oral statement, addressing the supreme in gratitude. Then, from that moment on you must, in mind, receive what you ask for.
 
 Live in the new house, wear the fine clothes, ride in the automobile, go on the journey, and confidently plan for greater journeys. Think and speak of all the things you have asked for in terms of actual present ownership. Imagine an environment and a financial condition exactly as you want them, and live all the time in that mental environment and financial condition until they take physical shape.
 
-Mind, however, that you do not do this as a mere dreamer and castle builder. Hold to the FAITH that the imaginary is being realized and to your PURPOSE to realize it. Remember that it is faith and purpose in the use of the imagination which make the difference between the scientist and the dreamer.
+Mind, however, that you do not do this as a mere dreamer and castle builder. Hold to the faith that the imaginary is being realized and to your purpose to realize it. Remember that it is faith and purpose in the use of the imagination which make the difference between the scientist and the dreamer.
 
 And having learned this fact, it is here that you must learn the proper use of the will.
 
 
-## CHAPTER Nine
+## Chapter Nine
 
 How To Use The Will
 
-TO SET ABOUT GETTING RICH IN A SCIENTIFIC WAY, you do not try to apply your will power to anything outside of yourself.
+To set about getting rich in a scientific way, you do not try to apply your will power to anything outside of yourself.
 
 You have no right to do so, anyway. It is wrong to apply your will to other men and women in order to get them to do what you wish done.
 
-It is as flagrantly wrong to coerce people by mental power as it is to coerce them by physical power. If compelling people by physical force to do things for you reduces them to slavery, compelling them by mental means accomplishes exactly the same thing; the only difference is in methods. If taking things from people by physical force is robbery, them taking things by mental force is robbery also. There is no difference in principle.
+It is as flagrantly wrong to coerce people by mental power as it is to coerce them by physical power. If compelling people by physical force to do things for you reduces them to slavery, compelling them by mental means accomplishes exactly the same thing; the only difference is in methods. If taking things from people by physical force is robbery, then taking things by mental force is robbery also. There is no difference in principle.
 
 You have no right to use your will power upon another person, even "for his own good," for you do not know what is for his good. The science of getting rich does not require you to apply power or force to any other person, in any way whatsoever. There is not the slightest necessity for doing so. Indeed, any attempt to use your will upon others will only tend to defeat your purpose.
 
@@ -576,7 +576,7 @@ Do not try to project your will, or your thoughts, or your mind out into space t
 
 Use your mind to form a mental image of what you want and to hold that vision with faith and purpose. And use your will to keep your mind working in the right way.
 
-The more steady and continuous your faith and purpose, the more rapidly you will get rich because you will make only POSITIVE impressions upon substance, and you will not neutralize or offset them by negative impressions.
+The more steady and continuous your faith and purpose, the more rapidly you will get rich because you will make only positive impressions upon substance, and you will not neutralize or offset them by negative impressions.
 
 The picture of your desires, held with faith and purpose, is taken up by the formless, and permeates it to great distances - throughout the universe, for all we know.
 
@@ -601,11 +601,15 @@ Do not talk about poverty, do not investigate it, or concern yourself with it. N
 
 What concerns you is the cure.
 
+Do some of these bold statements challenge or confuse you? Get the insights and thoughts of other like-minded people in the online discussion group.
+
 Do not spend your time in so-called charitable work or charity movements; most charity only tends to perpetuate the wretchedness it aims to eradicate. I do not say that you should be hard-hearted or unkind and refuse to hear the cry of need, but you must not try to eradicate poverty in any of the conventional ways. Put poverty behind you, and put all that pertains to it behind you, and "make good."
+
+Get rich. That is the best way you can help the poor.
 
 And you cannot hold the mental image which is to make you rich if you fill your mind with pictures of poverty and all its attendant ills. Do not read books or papers which give circumstantial accounts of the wretchedness of the tenement dwellers, of the horrors of child labor, and so on. Do not read anything which fills your mind with gloomy images of want and suffering.
 
-You cannot help the poor in the least by knowing about these things, and the wide-spread knowledge of them does not tend at all to do away with poverty.
+You cannot help the poor in the least by knowing about these things, and the widespread knowledge of them does not tend at all to do away with poverty.
 
 What tends to do away with poverty is not the getting of pictures of poverty into your mind, but getting pictures of wealth, abundance, and possibility into the minds of the poor.
 
@@ -621,14 +625,14 @@ People must be taught to become rich by creation, not by competition.
 
 Every person who becomes rich by competition knocks down the ladder by which he rises, and keeps others down, but every person who gets rich by creation opens a way for thousands to follow - and inspires them to do so.
 
-You are not showing hardness of heart or an unfeeling disposition when you refuse to pity poverty, see poverty, read about poverty, or think or talk about it, or to listen to those who do talk about it. Use your will power to keep your mind off the subject of poverty and to keep it fixed with faith and purpose on the vision of what you want and are creating.
+You are not showing hardness of heart or an unfeeling disposition when you refuse to pity poverty, see poverty, read about poverty, or think or talk about it, or to listen to those who do talk about it. Use your will power to keep your mind OFF the subject of poverty and to keep it fixed with faith and purpose ON the vision of what you want and are creating.
 
 
-## Chapter Ten
+## CHAPTER Ten
 
 Further Use of The Will
 
-You cannot retain a true and clear vision of wealth if you are constantly turning your attention to opposing pictures, whether they be external or imaginary.
+YOU CANNOT RETAIN A TRUE AND CLEAR VISION OF WEALTH if you are constantly turning your attention to opposing pictures, whether they be external or imaginary.
 
 Do not tell of your past troubles of a financial nature, if you have had them. Do not think of them at all. Do not tell of the poverty of your parents or the hardships of your early life. To do any of these things is to mentally class yourself with the poor for the time being, and it will certainly check the movement of things in your direction. Put poverty and all things that pertain to poverty completely behind you.
 
@@ -681,16 +685,16 @@ A thought in this substance produces the thing that is imaged by the thought.
 
 A person can form things in his thought, and, by impressing his thought upon formless substance, can cause the thing he thinks about to be created.
 
-In order to do this, a person must pass from the competitive to the creative mind; he must form a clear mental picture of the things he wants, and hold this picture in his thoughts with the fixed PURPOSE to get what he wants, and the unwavering FAITH that he does get what he wants, closing his mind against all that may tend to shake his purpose, dim his vision, or quench his faith.
+In order to do this, a person must pass from the competitive to the creative mind; he must form a clear mental picture of the things he wants, and hold this picture in his thoughts with the fixed purpose to get what he wants, and the unwavering faith that he does get what he wants, closing his mind against all that may tend to shake his purpose, dim his vision, or quench his faith.
 
 And in addition to all this, we shall now see that he must live and act in a certain way.
 
 
-## CHAPTER TWO
+## Chapter two
 
 Acting in The Certain Way
 
-THOUGHT IS THE CREATIVE POWER or the impelling force which causes the creative power to act. Thinking in a certain way will bring riches to you, but you must not rely upon thought alone, paying no attention to personal action. That is the rock upon which many otherwise scientific thinkers meet shipwreck - the failure to connect thought with personal action.
+Thought is the creative power or the impelling force which causes the creative power to act. Thinking in a certain way will bring riches to you, but you must not rely upon thought alone, paying no attention to personal action. That is the rock upon which many otherwise scientific thinkers meet shipwreck - the failure to connect thought with personal action.
 
 We have not yet reached the stage of development, even supposing such a stage to be possible, in which a person can create directly from formless substance without nature's processes or the work of human hands. A person must not only think, but his personal action must supplement his thought.
 
@@ -801,7 +805,7 @@ There is, however, a limitation or qualification of the above that you must take
 
 You are not to overwork, nor to rush blindly into your business in the effort to do the greatest possible number of things in the shortest possible time.
 
-You are not to try to do tomorrow's work today, nor to do a week's work in a day. It is really not the number of things you do, but the efficiency of each separate action that counts.
+You are not to try to do tomorrow's work today, nor to do a week's work in a day. It is really not the number of things you do, but the EFFICIENCY of each separate action that counts.
 
 
 ## The Science of Getting Rich
@@ -824,7 +828,7 @@ Power is at your service, and to make each act efficient you have only to put po
 
 Every action is either strong or weak, and when every action is strong, you are acting in the certain way which will make you rich.
 
-Every act can be made strong and efficient by holding your vision while you are doing it and putting the whole power of your faith and purpose into it.
+Every act can be made strong and efficient by holding your vision while you are doing it and putting the whole power of your FAITH and PURPOSE into it.
 
 It is at this point that the people who separate mental power from personal action fail. They use the power of mind in one place and at one time, and they act in another way in another place and at another time. So their acts are not successful in themselves; too many of them are inefficient. But if ALL power goes into every act, no matter how commonplace, every act will be a success in itself. And since it is the nature of things that every success opens the way to other successes, your progress toward what you want and the progress of what you want toward you, will become increasingly rapid.
 
@@ -849,11 +853,11 @@ A person can form things in his thought, and, by impressing his thought upon for
 In order to do this, a person must pass from the competitive to the creative mind. He must form a clear mental picture of the things he wants, and must do - with faith and purpose - all that can be done each day, doing each separate thing in an efficient manner.
 
 
-## Chapter Thirteen
+## CHAPTER THIRTEEN
 
 Getting Into The Right Business
 
-Success, in any particular business, depends for one thing upon your possessing, in a well-developed state, the faculties required in that business.
+SUCCESS, IN ANY PARTICULAR BUSINESS, depends for one thing upon your possessing, in a well-developed state, the faculties required in that business.
 
 Without good musical faculty no one can succeed as a teacher of music. Without well-developed mechanical faculties no one can achieve great success in any of the mechanical trades. Without tact and the commercial faculties no one can succeed in mercantile pursuits. But to possess in a well-developed state the faculties required in your particular vocation does not insure getting rich. There are musicians who have remarkable talent, and who yet remain poor. There are blacksmiths, carpenters, and so on who have excellent mechanical ability, but who do not get rich. And there are merchants with good faculties for dealing with people who nevertheless fail.
 
@@ -861,11 +865,11 @@ The different faculties are tools. It is essential to have good tools, but it is
 
 The various faculties of your mind are the tools with which you must do the work which is to make you rich. So it will be easier for you to succeed if you get into a business for which you are well equipped with mental tools.
 
-Generally speaking, you will do best in that business which will use your strongest faculties - the one for which you are naturally "best fitted." But there are limitations to this statement also. No one should regard his vocation as being irrevocably fixed by the tendencies with which he was born.
+Generally speaking, you will do best in that business which will use your strongest faculties—the one for which you are naturally "best fitted." But there are limitations to this statement also. No one should regard his vocation as being irrevocably fixed by the tendencies with which he was born.
 
-You can get rich in ANY business, for if you have not the right talent, you can develop that talent. It merely means that you will have to make your tools as you go along, instead of confining yourself to the use of those with which you were born. It will be EASIER for you to succeed in a vocation for which you already have the talents in a well-developed state;, but you CAN succeed in any vocation, for you can develop any rudimentary talent, and there is no talent of which you have not at least the rudiment.
+You can get rich in any business, for if you have not the right talent, you can develop that talent. It merely means that you will have to make your tools as you go along, instead of confining yourself to the use of those with which you were born. It will be easier for you to succeed in a vocation for which you already have the talents in a well-developed state, but you can succeed in any vocation, for you can develop any rudimentary talent, and there is no talent of which you have not at least the rudiment.
 
-You will get rich most easily in terms of effort, if you do that for which you are best fitted, but you will get rich most satisfactorily if you do that which you WANT to do.
+You will get rich most easily in terms of effort, if you do that for which you are best fitted, but you will get rich most satisfactorily if you do that which you want to do.
 
 Doing what you want to do is life, and there is no real satisfaction in living if we are compelled to be forever doing something which we do not like to do and can never do what we want to do. And it is certain that you can do what you want to do. The desire to do it is proof that you have within you the power which can do it.
 
@@ -904,16 +908,16 @@ Do all that you can do in a perfect manner every day, but do it without haste, w
 
 Remember that in the moment you begin to hurry you cease to be a creator and become a competitor. You drop back upon the old plane again.
 
-Whenever you find yourself hurrying, call a halt. Fix your attention on the mental image of the thing you want and begin to give thanks that you are getting it. The exercise of GRATITUDE will never fail to strengthen your faith and renew your purpose.
+Whenever you find yourself hurrying, call a halt. Fix your attention on the mental image of the thing you want and begin to give thanks that you are getting it. The exercise of gratitude will never fail to strengthen your faith and renew your purpose.
 
 
-## CHAPTER FOURTEEN
+## CHAPTER Fourteen
 
 The Impression of Increase
 
 WHETHER YOU CHANGE YOUR VOCATION OR NOT, your actions for the present must be those pertaining to the business in which you are now engaged.
 
-You can get into the business you want by making constructive use of the business you are already established in - by doing your daily work in the certain way.
+You can get into the business you want by making constructive use of the business you are already established in—by doing your daily work in the certain way.
 
 And insofar as your business consists in dealing with other people, whether personally or by letter, the key thought of all your efforts must be to convey to their minds the impression of increase.
 
@@ -939,6 +943,9 @@ Convey the impression of advancement with everything you do, so that all people 
 
 You can convey this impression by holding the unshakable faith that you, yourself, are in the way of increase and by letting this faith inspire, fill, and permeate every action.
 
+
+## The Science of Getting Rich
+
 Do everything that you do in the firm conviction that you are an advancing personality and that you are giving advancement to everybody.
 
 Feel that you are getting rich, and that in so doing you are making others rich and conferring benefits on all.
@@ -951,7 +958,7 @@ You must so impress others that they will feel that in associating with you they
 
 Take an honest pride in doing this and let everybody know it, and you will have no lack of customers. People will go where they are given increase, and the supreme, which desires increase in all and which knows all, will move toward you men and women who have never heard of you. Your business will increase rapidly, and you will be surprised at the unexpected benefits which will come to you. You will be able from day to day to make larger combinations, secure greater advantages, and to go on into a more congenial vocation if you desire to do so.
 
-But doing all this, you must never lose sight of your vision of what you want or your faith and purpose to get what you want.
+But doing thing all this, you must never lose sight of your vision of what you want or your faith and purpose to get what you want.
 
 Let me here give you another word of caution in regard to motives: Beware of the insidious temptation to seek for power over other people.
 
@@ -970,7 +977,7 @@ Beware of the competitive mind! No better statement of the principle of creative
 
 The Advancing Personality
 
-What I have said in the last chapter applies as well to the professional person and the wage earner as to the person who is engaged in selling or any other form of business.
+WHAT I HAVE SAID IN THE LAST CHAPTER APPLIES as well to the professional person and the wage-earner as to the person who is engaged in selling or any other form of business.
 
 No matter whether you are a physician, a teacher, or a clergyman, if you can give increase of life to others and make them sensible of that fact, they will be attracted to you, and you will get rich. The physician who holds the vision of himself as a great and successful healer, and who works toward the complete realization of that vision with faith and purpose, as described in former chapters, will come into such close touch with the source of life that he will be phenomenally successful; patients will come to him in throngs.
 
@@ -999,7 +1006,7 @@ The person who is merely a "good" worker, filling his place to the very best of 
 
 To secure advancement, something more is necessary than to be too large for your place.
 
-The person who is certain to advance is the one who is too big for his place, who has a clear concept of what he wants to be, who knows that he can become what he wants to be, and who is determined to BE what he wants to be.
+The person who is certain to advance is the one who is too big for his place, who has a clear concept of what he wants to be, who knows that he can become what he wants to be, and who is determined to be what he wants to be.
 
 Do not try to more than fill your present place with a view to pleasing your employer. Do it with the idea of advancing yourself. Hold the faith and purpose of increase during work hours, after work hours, and before work hours. Hold it in such a way that every person who comes in contact with you, whether foreman, fellow worker, or social acquaintance, will feel the power of purpose radiating from you - so that everyone will get the sense of advancement and increase from you. People will be attracted to you, and if there is no possibility for advancement in your present job, you will very soon see an opportunity to take another job.
 
@@ -1018,9 +1025,11 @@ There is no such thing possible in this universe as a lack of opportunities for 
 It is inherent in the constitution of the cosmos that all things shall be for him and work together for his good, and he must certainly get rich if he acts and thinks in the certain way. So let wage-earning men and women study this book with great care and enter with confidence upon the course of action it prescribes. It will not fail.
 
 
-## Some Cautions and Concluding Observations
+## Chapter sixteen
 
-MANY PEOPLE WILL SCOFF AT THE IDEA that there is an exact science of getting rich. Holding the impression that the supply of wealth is limited, they will insist that social and governmental institutions must be changed before even any considerable number of people can acquire a competence.
+Some Cautions and Concluding Observations
+
+Many people will scoff at the idea that there is an exact science of getting rich. Holding the impression that the supply of wealth is limited, they will insist that social and governmental institutions must be changed before even any considerable number of people can acquire a competence.
 
 But this is not true.
 
@@ -1073,14 +1082,14 @@ A student of this science had set his mind on making a certain business combinat
 
 That is the way every seeming failure will work out for you, if you keep your faith, hold to your purpose, have gratitude, and do - every day - all that can be done that day, doing each separate act in a successful manner.
 
-When you make a failure, it is because you have not asked for enough. Keep on, and a larger thing than you were seeking will certainly come to you. Remember this.
+When you make a failure, it is because you have not asked for enough. Keep on, and a larger thing then you were seeking will certainly come to you. Remember this.
 
 You will not fail because you lack the necessary talent to do what you wish to do. If you go on as I have directed, you will develop all the talent that is necessary to the doing of your work.
 
 It is not within the scope of this book to deal with the science of cultivating talent, but it is as certain and simple as the process of getting rich.
 
 
-## Chapter sixteen: Some Cautions and Concluding Observations
+## CHAPTER SIXTEEN: Some Cautions and Concluding Observations
 
 However, do not hesitate or waver for fear that when you come to any certain place you will fail for lack of ability. Keep right on, and when you come to that place, the ability will be furnished to you. The same source of ability which enabled the untaught Lincoln to do the greatest work in government ever accomplished by a single man is open to you. You may draw upon all the mind there is for wisdom to use in meeting the responsibilities which are laid upon you. Go on in full faith.
 
@@ -1089,11 +1098,11 @@ Study this book. Make it your constant companion until you have mastered all the
 Spend most of your leisure time in contemplating your vision, in cultivating gratitude, and in reading this book. It contains all you need to know of the science of getting rich, and you will find all the essentials summed up in the following chapter.
 
 
-## Chapter seventeen
+## CHAPTER SEVENTEEN
 
 A Summary of The Science of Getting Rich
 
-There is a thinking stuff from which all things are made, and which, in its original state, permeates, penetrates, and fills the interspaces of the universe.
+THERE IS A THINKING STUFF FROM WHICH ALL THINGS ARE MADE, and which, in its original state, permeates, penetrates, and fills the interspaces of the universe.
 
 A thought in this substance produces the thing that is imaged by the thought.
 
@@ -1110,16 +1119,3 @@ The creative energy works through the established channels of natural growth, an
 In order to receive his own when it is ready to come to him, a person must be in action in a way that causes him to more than fill his present place. He must keep in mind the purpose to get rich through realization of his mental image. And he must do, every day, all that can be done that day, taking care to do each act in a successful manner. He must give to every person a use value in excess of the cash value he receives, so that each transaction makes for more life, and he must hold the advancing thought so that the impression of increase will be communicated to all with whom he comes into contact.
 
 The men and women who practice the foregoing instructions will certainly get rich, and the riches they receive will be in exact proportion to the definiteness of their vision, the fixity of their purpose, the steadiness of their faith, and the depth of their gratitude.
-
-
-## SCIENCE GETTING RICH
-
-One set, as described above AUD1-A SPECIAL! Buy 2, Get a third set FREE! AUD1-SP
-
-WA residents, please add 8% sales tax
-
-Shipping & handling ($4 in US; $5 US to Canada)
-
-TOTAL AMOUNT ENCLOSED
-
-Make payable and mail to:

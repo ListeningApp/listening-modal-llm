@@ -1,0 +1,166 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+
+EXAMPLE OUTPUT:
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+
+
+
+
+1pjs | KPMG
+o2kr | The future of higher education in a disruptive world
+v6sk | Contents
+1wj6 | Executive summary
+936l | The Golden Age of universities in the developed world is passing and life is becoming tougher. Rising costs are no longer matched by a willingness of governments and students to pay for them. And yet the traditional operating model of a university cannot produce sufficient productivity gains to cover the gap.
+06yq | Even before the pandemic, the relentless rise in costs was going to bring matters to a head. The broad support for universities that has been a feature since the 1960s is faltering and real increases in per-student funding are unlikely in many jurisdictions.
+dpv6 | In addition, universities are being buffeted by other forces. Technological change and a new world of work are generating calls for new types of post-secondary education. Demographic change will likely mean smaller domestic cohorts of students in most liberal democracies. Climate change is leading to expectations that public bodies will be carbon neutral in their operations. Competition from non-traditional entrants investing in large scale digital delivery threatens a portion of their markets. The Age of the Customer has arrived and students have higher expectations about the experience and what it will lead to.
+8r5j | Traditional universities are approaching a crossroads. They must decide whether to transform themselves into new kinds of entities, optimize their existing operations in a search for further efficiencies and increased capability, do nothing in the hope that if no rescue appears they will have time to decide what to do later, or do nothing in the belief that they are invulnerable.
+2taz | This report analyzes the current state of higher education in a disruptive world and suggests four building blocks for a way forward, in terms of strategy, capabilities, operating model and technology. The result will be a 'connected university' able to keep delivering the extraordinary benefits that higher education can deliver for its communities.
+o3ya | Professor Stephen Parker AO Global Lead, Education and Skills KPMG International
+r5il | The future of higher education in a disruptive world
+5gui | Introduction
+82qc | The quality of personalized student learning will be key to institutional success. 17
+ls7d | 2
+tzt3 | The future of higher education in a disruptive world
+t8vv | The Golden Age of universities enjoyed in the developed world since the mid- twentieth century is passing. Good times are giving way to tough times. Success will be harder to come by.
+qvnu | This was already the case in 2019, but 2020 saw the black swan event of the pandemic, with the closure of international borders and the lockdown of domestic economies.
+kggw | For many universities, the future arrived ahead of schedule, abruptly and without invitation.
+xrd1 | Universities have been caught up in the post-COVID-19 trends affecting society but they have also experienced a world of pain uniquely their own, starting in Australia, where the new academic year was about to begin when borders were closed in February 2020. By the end of the year, many OECD members will have seen clearly what international education has really meant to their economy.
+5746 | Bail-out packages for universities which were initially assumed to be coming, didn't arrive early, on the scale expected, or in some cases at all. Society, it turns out, had higher priorities.
+7toz | Large numbers of lectures were put online, quickly, by scholars who had previously vowed never to have anything to do with it. Large numbers of adjuncts or sessional teachers were laid off, and faculty members were left with ... the students!
+j346 | The business and operating models of many universities were exposed as critically reliant on the good times continuing.
+v8uq | Real and painful as all this has been, most of the consequences of the pandemic were at least evident as emerging trends. Little of what follows in this report changes as a result of it; only the timing and urgency. The future has just arrived inconveniently early.
+x972 | As with all discussions of the future, one makes educated judgments based on trends and the experience of sectors which were exposed earlier to the same drivers of change. In this, universities are lucky. The transformations many industries and organizations have gone through can be examined, and better practice adopted. Much of what follows in this report about the future state of universities is based on and adapted from hard evidence about what has worked elsewhere. Of all the claims and predictions that follow, perhaps the one most-confidently made is that higher education will move from relative uniformity to great diversity.
+cwrw | Different types of providers and forms of provision will proliferate. Physically, we will see a mix of actual campuses, augmented campuses (where mixed reality and the analogue world fuse) and virtual learning environments. Educationally, we will see much more experimentation with content and delivery.
+4i0e | And of all the forces impelling this diversity, the most powerful will be the search to meet the needs of individual students. The quality of personalized student learning will be key to institutional success.
+h2l3 | This report is part of a wider project on KPMG Connected Enterprise for Higher Education, a framework for university transformation in the interests of stakeholders.
+dfzb | Much of the hard work of this transformation will be behind the scenes, invisible even. Transformation is not only about the curriculum, learning delivery, student support and research. It is about the back office, the operating model, the technology and, fundamentally, the sum of capabilities that reside in the organization: to be flexible, agile, deliberate and led by insights from the evidence.
+u6ty | No one is guaranteed of success, but those institutions that have high levels of these capabilities will be far better equipped to survive disruption and, in turn, create it. And to be blunt, they will likely be more efficient, cost less to run and have more resources for their core purposes of learning and discovery.
+awvu | The focus of this report is higher education, and for practical purposes that means universities, which at this point in our history are by far the dominant providers. 'Higher education' itself is defined differently around the world, with some systems including within it quite practical, training institutions.
+on9b | Broadly, we are focusing on those institutions that deliver bachelor degrees and above, whether or not they also conduct research. However, much of what follows will still be relevant to vocational education in jurisdictions where that is clearly separated out as a sector.
+a8ge | The focus is also on the institution rather than the system, but post-secondary systems around the world will need to be reimagined as well. The good news is that leading, transformed member institutions of those systems will have the most influence on the redesign.
+h27a | Universities are at or approaching a crossroads: Do they transform? Optimize? Do nothing and hope there is time to react? Or simply do nothing because they are invulnerable? This report, and the framework it introduces, is intended as a guide to the choice of roads to take.
+pdjh | Transformation is not only about the curriculum, learning delivery, student support and research. It is about the back office, the operating model, the technology and, fundamentally, the sum of capabilities that reside in the organization.
+xmgs | The future of higher education in a disruptive world
+bd9h | End of a golden age for universities
+m047 | The combination of human capital theory, equality of opportunity, the emergence of an export industry and the need for research combined to create a Golden Age of expansion and esteem. "
+gy8c | The future of higher education in a disruptive world
+y4mj | Higher education since the Second World War has been an extraordinary growth story, moving from an elite system to a mass- or high-participation system in most jurisdictions. On average globally, one in three young people now enter higher education and more than three in four do so in Europe and North America.1 This expansion has contributed greatly to life-enrichment, nation-building, social well- being and technological progress.
+vpgq | Higher education growth has far outpaced other forms of growth. Higher education grew by a factor of 6.12 between 1970 and 2013, while population multiplied by 1.93 and real GDP by 3.63.2 The growth was advocated and justified on various grounds, all of which commanded popular support. 'Human capital theory' gave it an economic justification, showing that spending on higher education was actually an investment in economic growth. Equality of opportunity gave it a social justification. It is hard to argue against the idea of equality of opportunity or its close cousin, meritocracy.
+ousl | Then, the growing middle classes - in populous jurisdictions possessing large numbers of 18 to 24-year-olds and rising GDP but insufficient domestic provision, started sending their children overseas for fee-paying university education. From 1990 onwards, Australia, Canada, the UK and the US in particular benefited to such an extent that international education was seen as an export sector in its own right. In Australia, it is the country's third-largest form of export and, in the State of Victoria, it is the largest.3
+m4ju | In turn, international rankings arrived to inform choice and add the overlay of a prestige market, spurring competition and investment in reputation. By and large over this period there has also been social consensus that research in universities should be publicly funded because, left on its own, the market will likely fail to supply the fundamental or pure research on which the development of technology relies and through which much wealth is generated.
+a0mb | So, the combination of human capital theory, equality of opportunity, the emergence of an export industry and the need for research combined to create a Golden Age of expansion and esteem.
+ki8m | That period is now drawing to a close as a new set of factors have come together.
+km8w | Attainment rates of bachelor degrees in the young population are reaching 50 percent in some jurisdictions.4 One consequence is a degree's decreasing earnings premium; even a negative premium in some instances. In the UK, it is estimated that one-fifth of degrees are not worth the money in terms of future earnings; these students would have been financially better off if they had not gone to university.5 In a 2020 survey on attitudes to higher education conducted in 11 jurisdictions revealed that 61 percent of respondents said a degree is less valuable than 10 years ago.6 In the UK, only 44 percent thought that the benefits of going to university outweighed the expense, although the 11-country average was 56 percent.7
+wzno | A perceived decreasing return on education is coinciding with rising tuition fees and spiraling student debt. In many jurisdictions, tuition fees have risen well above the rate of inflation. University administration has been relatively inefficient, driving up costs. There has been in some places a student amenities 'arms race' to provide the most-inviting campus experience. And the drive for international rankings, based largely on research performance and reputation, has made tuition fees an irresistible source of funds for research. As many university presidents know, if there is an insatiable appetite for funds on this planet, it is in research!
+xagm | Student debt in the US tripled between 2001 and 20168,9 and has begun to undermine the equality of opportunity argument. Poorer students cannot pay fees up front, nor can they get on in the world because they are repaying their tuition debt. 10
+iwn5 | This takes us to a fundamental economic problem which confronts higher education. Along with some other personal services sectors, in particular healthcare and legal services. Usually known as Baumol Cost Disease,11 universities need to pay salaries to attract and retain sufficient talent, but they are running out of productivity gains under their current operating model. Many have reached the point where having more students in a class, reducing the number of small groups and limiting subject choice are meeting consumer resistance.
+uooz | An OECD report in June 2020 showed that in 13 selected countries and territories, expenditure per student doubled in higher education after allowing for inflation between 1995 and 2015.12 This is total expenditure, irrespective of the mix between government and student funding. Some of it may be attributable to administrative bloat and amenities arms races. Some might also be due to more demanding or less academically ready students. But most of it is simply to pay salary costs.
+pxbq | The problem lies in the inability to scale up under the current, largely face-to-face, model of higher education and the organizational culture that surrounds it.
+jfsr | This is not, in theory, a problem if society is willing to pay for it all and productivity is rising in other parts of their economy to create the wealth. However, the gloss has come off universities and there is unwillingness by anyone to pay any more than they do now.
+u15r | The problem lies in the inability to scale up under the current, largely face-to- face, model of higher education and the organizational culture that surrounds it.
+lq35 | 5
+3g9w | The future of higher education in a disruptive world
+d09o | The gloss has come off with employers. As economic change has sped up, industry has increasingly called for job-ready graduates rather than have to train them in-house; and the expectations of graduates by employers are being disappointed. Many employers say they are looking primarily for things that universities do not directly teach, such as social skills, emotional intelligence, teamwork, communication and time management.
+ylhz | The gloss has come off with governments. Aging populations and the politics of healthcare are a powerful competitor for public funds, and votes. Cuts in public funding for universities have been experienced in many jurisdictions, partly offset by rises in student fees which have compounded the graduate debt problem.
+a3td | And the gloss has come off amongst some of those who have ardently supported higher education as a force for good and value for money. If it is so good for equity, why is income and wealth inequality rising?13 If students are paying all this money, why do they mainly see adjunct teachers, and not tenured faculty members?
+ex5k | Parents want their children to go to university, but they can't afford a plumber because skills training and apprenticeships have been displaced by higher education expansion. Has post- secondary education become unbalanced between higher and vocational forms of it? In a possible sign of the times, the UK government in July 2020 said it was dropping the previous government's target of 50 percent of young people going to university.14
+9d4o | The Baumol Cost Disease problem has been catching up with universities, but those who pay for them are less and less willing to pay more. Universities have been running out of road and we are going past the equilibrium point, where human aspiration and economic reality balance each other.
+cjq2 | But there are other, more-disruptive forces in play which suggest a bleaker future for traditional institutions that do not transform.
+5esx | The digital revolution is bringing new entrant competitors, particularly in the form of more affordable online education. Depending on the region of the world, e-learning is expected to enjoy a compound annual growth rate of 7.5 to 10.5 percent between 2018 and 2024.15 Many traditional universities are organizationally unable, or culturally unwilling, to participate in this and some competitors are becoming stronger and stronger.
+m5ka | The future of higher education in a disruptive world
+byu8 | The future of higher education in a disruptive world
+76b0 | Disruption is under way
+zxz6 | The ability to transform will be the critical one for all education institutions to cultivate, so they can shape and respond to a changing world of education.
+xnth | Potential support ratio by age (ratio of population by age per population 65+)
+vafm | Illustration data source: UN World Population Prospects 201919
+2zmw | The future of higher education in a disruptive world
+bf9k | The story of universities in the previous section required generalization. Some jurisdictions will continue to support higher education more than others. Some institutions in those jurisdictions will be more successful than others because of hard work, inheritance, location or good fortune.
+otkr | There are, however, some major drivers of global change affecting us all and from which no institution could be completely immune. The fourth industrial revolution, a fusion of exponential technologies where silicon and carbon meet, 16 will prove to be as profound as the previous revolutions driven by steam, electricity and computing.
+ibgs | Each of the earlier revolutions was accompanied by changes in the mode of education and the institutions that provided it. The school classroom, the worker's institute, the civic, technological and research university, can all be matched with the economic and social needs of their times. There is no reason to expect that the new revolution will be different, but we are at the early stages of thinking about the corresponding changes needed in education. In the view of this report's author, the ability to transform will be the critical one for all education institutions to cultivate, so they can shape and respond to a changing world of education.

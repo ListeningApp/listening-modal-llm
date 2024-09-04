@@ -1,0 +1,124 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+
+EXAMPLE OUTPUT:
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+
+
+
+
+c6hh | Note that we use the same model partition method as the default setting in PipeDream-2BW, namely evenly partitioning the basic layers among the workers. Other model partition methods trying to balance the weights among the workers may help to reduce the peak memory consumption of PipeDream-2BW, but this is outside the scope of this paper. Generally, Chimera is on-par with PipeDream-2BW (the latest asynchronous approach) in terms of training throughput, but more convergence-friendly since there is no stale weights in Chimera.
+y7ea | Figure 16: Weak scaling for Bert-48 on the cluster with 32 V100 GPUs. As P scales from 16 to 32, B scales from 128 to 256, except for PipeDream whose B scales from 16 to 32. The max sequence length is set to 512.
+nav4 | We also conduct the evaluation on the cluster with 4x8=32 V100 GPUs connected by NVLink (intra-node) and Infiniband (inter- node). Experimental results for Bert-48 are shown in Figure 16. On 32 V100 GPUs, Chimera improves the throughput by 1.10x- 2.39x and 1.05x-1.89x over the synchronous and asynchronous pipeline approaches, respectively, which demonstrates that the same conclusions hold on newer machines.
+gem8 | 4.3 Scale to Large Mini-Batches on a Given Number of Machines
+e8nr | In this section, we evaluate the training throughput when there are a large number of micro-batches available for each worker within a training iteration (i.e., N >> D), in which case the bubble problem of all synchronous approaches is alleviated.
+k78w | Figure 17: Scale to large mini-batch size for Bert-48 on 32 GPU nodes of Piz Daint. D=8 for PipeDream, and D=4 for the others.
+g9du | Figure 18: Scale to large mini-batch size for GPT-2 on 512 GPU nodes of Piz Daint. DAPPLE and PipeDream-2BW switch from D=16 to D=8 when B >= 1,024, D=8 for the others.
+f682 | Figure 17 presents the throughput of Bert-48 on 32 GPU nodes when scaling to large mini-batches. Different from the other ap- proaches, PipeDream updates the model after training on each micro-batch, and therefore its B stops scaling after reaching the memory limit. Consistently, we search the parameter space and present the best performance for each baseline. For example, to achieve the best performance, DAPPLE and GPipe switch from B=4 to B=8 when B>=1,024 for higher computational efficiency, in which case the bubble problem is less important. PipeDream-2BW also uses D=4, and the B increase from 16 to 32 when B >= 1024. Recall that in Section 3.5 we discuss three methods for scaling Chimera to large mini-batches. Forward doubling (with B=8) and backward halving (with B=4) aim at solving the intermediate bubbles problem. However, the former suffers from recomputation overhead while the latter suffers from lower computational efficiency. Direct con- catenation (with B=8) achieves the best performance among these
+li1k | three methods on Bert-48, which can be explained by the fact that the intermediate bubbles caused by the uneven workloads between forward and backward passes can be utilized to accommodate the ptp communication between pipeline stages. For B <= 2,048 where bubbles still matter, we observe significant improvement of Chimera (direct) over all the synchronous approaches. Overall, for B>=1,024, Chimera (direct) is very close to PipeDream-2BW (asynchronous using stale weights), and achieves on average 1.13x, 2.07x, and 1.06x speedup over GPipe (suffering from recomputation), GEMS (suffering from high bubble ratio), and DAPPLE, respectively.
+pbea | Figure 18 presents the throughput of GPT-2 on 512 GPU nodes when scaling to large mini-batches. For GPT-2, Chimera (D=8) with forward doubling outperforms direct concatenation, since activa- tion recomputation is required in both methods but the former removes intermediate bubbles. Note that GPipe outperforms DAP- PLE when scaling to large mini-batches in GPT-2, this is because both approaches require recomputation but the pipeline scheduling of GPipe is more regular and better to overlap the p2p communi- cation. Benefiting from the sophisticated (less bubbles and more communication overlap as discussed in Section 3.5) pipeline sched- uling of Chimera with forward doubling, our approach outperforms all the baselines, and achieves on average 1.13x, 1.18x, 2.60x, and 1.34x speedup over PipeDream-2BW, GPipe, GEMS, and DAPPLE, respectively. These results demonstrate that Chimera with forward doubling efficiently scales to large mini-batches for the large models where activation recomputation is commonly required.
+ccpt | 4.4 Chimera with More than Two Pipelines
+0fpw | Figure 19: The throughput of Chimera with more pipelines for a 32-layer GPT-2 with B=64 on 64 GPU nodes of Piz Daint.
+dqn8 | Figure 19 presents the throughput of Chimera with more than two pipelines (i.e., model replicas) combined together on a 32-layer GPT-2 model. For the case of one pipeline, we use 1F1B scheduling with pipeline flushing. With D=32, four pipelines achieve the best performance because it hits the sweet spot of the trade-off between less bubbles and higher allreduce overhead. However, as the pipeline stages get coarser by decreasing D to 16, four pipelines performs worse then two pipelines because of the increasing of allreduce over- head. Two pipelines (the default setting of Chimera) usually achieve the highest performance among all the configurations. We expect that Chimera with more than two pipelines would further improve the performance on future deep models with deeper pipeline and higher computation density on each stage.
+cop0 | 5 CONCLUSION
+lhkq | Chimera brings new insights for efficiently pipelining large neu- ral networks training at scale. Compared with the state-of-the-art pipeline approaches, Chimera achieves the best balance among pipeline efficiency, memory cost, and convergence friendliness. Em- pirical results for large language models training on up to 2,048 GPU nodes show that Chimera significantly improves the training throughput over the counterparts. We foresee that our approach will be one of the major solutions for massively scaling deep learning training. To reduce the communication cost of gradient synchro- nization by exploiting sparsification [22, 47] and quantization [1] in deep learning training is our next step.
+82ju | ACKNOWLEDGMENTS
+y2qo | REFERENCES
+1piq | [17] William Fedus, Barret Zoph, and Noam Shazeer. 2021. Switch Transformers: Scaling to Trillion Parameter Models with Simple and Efficient Sparsity. arXiv preprint arXiv:2101.03961 (2021).
+7fqw | [39] Deepak Narayanan, Amar Phanishayee, Kaiyu Shi, Xie Chen, and Matei Za- haria. 2020. Memory-efficient pipeline-parallel DNN training. arXiv preprint
+rhaz | A APPENDIX: ARTIFACT DESCRIPTION/ARTIFACT EVALUATION
+wak1 | A.1 SUMMARY OF THE EXPERIMENTS REPORTED
+wtfz | We evaluated Chimera on the CSCS Piz Daint supercomputer. Each Cray XC50 compute node contains a 12-core Intel Xeon E5-2690 CPU with 64 GB RAM, and one NVIDIA Tesla P100 with 16 GB memory. The compute nodes are connected by Cray Aries inter- connect in a Dragonfly topology. We used GLOO in PyTorch as the distributed backend. We utilized the GPU for acceleration in all the experiments, as described in the paper. The source code of Chimera is as follows:
+qy1i | Artifact name: Chimera
+1k9e | Persistent ID: https://github.com/Shigangli/Chimera
+5bjs | A.2 BASELINE EXPERIMENTAL SETUP, AND MODIFICATIONS MADE FOR THE PAPER
+uodj | Relevant hardware details: CSCS Piz Daint supercomputer. Each Cray XC50 compute node contains a 12-core Intel Xeon E5-2690 CPU and one NVIDIA Tesla P100 GPU. The filesystem is Lustre.
+k16v | Operating systems and versions: SUSE SLES 11.3 Compilers and versions: gcc 9.3.0
+b2lm | Applications and versions: Bert, GPT-2 Libraries and versions: PyTorch 1.6 Key algorithms: stochastic gradient descent Input datasets and versions: Wikipedia dataset, WikiText-2 dataset URL to output from scripts that gathers execution environment information.
+ti7f | https://www.dropbox.com/s/md1jlcn3sm5bl9x/environment.txt? dl=0

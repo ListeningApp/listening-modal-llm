@@ -1,0 +1,141 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+
+EXAMPLE OUTPUT:
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+
+
+
+
+y7ea | This example illustrates how covariates can help us to exert stricter experimental control by taking account of confounding variables to give us a 'purer' measure of effect of the experimental manipulation. Looking back at the group means from Table 13.1, you might think that the significant F-statistic reflects a difference between the control group and the two experimental groups - because the 15-and 30-minute groups have very similar means (4.88 and 4.85) whereas the control group mean is much lower at 3.22. However, we can't use these group means to interpret the effect because they have not been adjusted for the effect of the covariate. These original means tell us nothing about the group differences reflected by the significant F. Output 13.7 gives the adjusted values of the group means (which we calculated in Section 13.3), and we use these values for interpretation (this is why we selected Display Means for in Section 13.5.6). From these adjusted means you can see that happiness increased across
+nav4 | the three doses. Output 13.7
+gem8 | Output 13.8 shows the parameter estimates selected in the Options dialog box and their bootstrapped confidence intervals and p-values (bottom table). These estimates result from Dose being coded using two dummy coding variables. The dummy variables are coded with the last category (the category coded with the highest value in the data editor, in this case the 30-minute group) as the reference category. This reference category (labelled Dose=3 in the output) is coded with a 0 for both dummy variables (see Section 12.2 for a reminder of how dummy coding works). Dose=2, therefore, represents the difference between the group coded as 2 (15 minutes) and the reference category (30 minutes), and <LATEX>\mathrm { D o s e } = 1</LATEX> represents the difference between the group coded as 1 (control) and the reference category (30 minutes). The b-values represent the differences between the adjusted means in Output 13.7 and the significances of the <LATEX>t</LATEX> t-tests tell us whether these adjusted group means differ significantly. The <LATEX>b</LATEX> for <LATEX>\mathrm { D o s e } = 1</LATEX> in Output 13.8 is the difference between the adjusted means for the control group and the 30-minute group, <LATEX>2 . 9 2 6 \quad - \quad 5 . 1 5 1 = - \quad 2 . 2 2 5 ,</LATEX> and the <LATEX>b</LATEX> for <LATEX>D o s e = 2</LATEX> is the difference between the adjusted means for the 15-minute group and the 30-minute group,
+e8nr | <LATEX>4 . 7 1 2 \quad - \quad 5 . 1 5 1 = - \quad 0 . 4 3 9 .</LATEX> The degrees of freedom for the t-test of the b-values are <LATEX>N \quad - \quad k \quad - \quad 1</LATEX> (see Section 9.2.5), in which <LATEX>N</LATEX> is the total sample size (in this case 30) and <LATEX>k</LATEX> is the number of predictors (in this case 3, the two dummy variables and the covariate). For these data, <LATEX>d f = 3 0 \quad - \quad 3 \quad - \quad 1 = 2 6 .</LATEX> Based on the bootstrapped significance and confidence intervals (remember you'll get different values than me because of how bootstrapping works), we could conclude that the 30-minute group differs significantly from the control group, <LATEX>p = 0 . 0 2 1</LATEX> (Dose=1 in the table), but not from the 15-minute group, <LATEX>p = 0 . 5 5 8 ,</LATEX> <LATEX>\left( D o s e = 2 \right.</LATEX> in the table).
+k78w | The final thing to note is the value of <LATEX>b</LATEX> for the covariate (0.416), which is the same as in Output 13.2 (when we ran the analysis through the regression menu). This value tells us that if love of puppies increases by one unit, then the person's happiness should increase by just under half a unit (although there is nothing to suggest a causal link between the two); because the coefficient is positive we
+g9du | know that as love of puppies increases so does happiness. A negative coefficient would mean the opposite: as one increases, the other decreases.
+f682 | Output 13.9 repeats the parameter estimates from Output 13.8 but with standard errors, p-values and confidence intervals robust to heteroscedasticity (the HC4 estimates that we asked for). We can interpret the effects for Dose in the same way as for the regular and Bootstrap <LATEX>p</LATEX> p-values and confidence intervals. For the effect of puppy love, the HC4 robust confidence interval and <LATEX>p</LATEX> p-value supports the conclusion from the non-robust model: the <LATEX>p</LATEX> p-value is 0.038, which is less than 0.05, and the confidence interval does not contain zero (0.025, 0.807). However, the bootstrap confidence interval (Output 13.8) contradicts this conclusion because it contains zero <LATEX>\left( - 0 . 0 2 3 , 0 . 6 9 8 \right)</LATEX> and has a <LATEX>p = 0 . 0 5 2</LATEX> (again, we're reminded of how daft it is to have a threshold that yields such opposing conclusions from such small differences in a value).
+li1k | Output 13.8
+pbea | Parameter Estimates
+ccpt | Parameter Estimates with Robust Standard Errors
+0fpw | Output 13.10 Contrast Results (K Matrix)
+dqn8 | 13.6.3 Contrasts
+cop0 | Output 13.10 shows the result of the contrast analysis specified in Figure 13.6 and compares level 2 (15 minutes) against level 1 (control) as a first comparison, and level 3 (30 minutes) against level 1 (control) as a second comparison. The group differences are displayed: a difference value, standard error, significance value and 95% confidence interval. These results show that both the 15-minute group (contrast 1, <LATEX>\left. p = 0 . 0 4 5 \right)</LATEX> and 30-minute group (contrast 2, <LATEX>\left. p = 0 . 0 1 0 \right)</LATEX> had significantly different happiness compared to the control group (note that contrast 2 is identical to the parameter for Dose=1 in the previous section). Output 13.11 shows the results of the Sidak corrected post hoc comparisons that were requested in Section 13.5.6. The bottom table shows the bootstrapped significance and confidence intervals for these tests and because these will be robust we'll interpret this table (again, remember your values will differ because of how bootstrapping works). There is a significant difference between the control group and both the 15- <LATEX>\left( p = 0 . 0 0 3 \right)</LATEX> and 30-minute <LATEX>\left( p = 0 . 0 2 1 \right)</LATEX> groups. The 30-and 15-minute groups did not significantly differ <LATEX>\left( p = 0 . 5 5 8 \right) .</LATEX> It is interesting that the significant difference between the 15-minute and control groups when bootstrapped <LATEX>\left( p = 0 . 0 0 3 \right)</LATEX> is not present for the normal post hoc tests <LATEX>\left( p = 0 . 1 3 0 \right) .</LATEX> This anomaly could reflect properties of the data that have biased
+lhkq | the non-robust version of the post hoc test.
+82ju | 13.6.4 Interpreting the covariate
+y2qo | I've already mentioned that the parameter estimates (Output 13.8) tell us how to interpret the covariate: the sign of the b-value tells us the direction of the relationship between the covariate and outcome variable. For these data the b- value was positive, indicating that as the love of puppies increases, so does the participant's happiness. Another way to discover the same thing is to draw a scatterplot of the covariate against the outcome.
+1piq | Muris, P., et al. (2008). Child Psychiatry and Human Development, 39(4), 469-480.
+7fqw | Anxious people tend to interpret ambiguous information in a negative way. For example, being highly anxious myself, if I overheard a student saying 'Andy Field's lectures are really different,' I would assume that 'different' meant rubbish, but it could also mean 'refreshing' or 'innovative'. Muris, Huijding, Mayer, and Hameetman (2008) addressed how these interpretational biases develop in children. Children imagined that they were astronauts who had discovered a new planet. They were given scenarios about their time on the planet (e.g., 'On the street, you encounter a spaceman. He has a toy handgun and he fires at you ... ') and the child had to decide whether a positive ('You laugh: it is a water pistol and the weather is fine anyway') or negative ('Oops, this hurts! The pistol produces a red beam which burns your skin!') outcome occurred. After each response the child was told whether their choice was correct. Half of the children were always told that the negative interpretation was correct, and the reminder were told that the positive interpretation was correct.
+rhaz | Over 30 scenarios children were trained to interpret their experiences on the planet as negative or positive. Muris et al. then measured interpretational biases in everyday life to see whether the training had created a bias to interpret things negatively. In doing so, they could ascertain whether children might learn interpretational biases through feedback (e.g., from parents).
+wak1 | The data from this study are in the file Muris et al (2008).sav. The independent variable is Training (positive or negative) and the outcome is the child's interpretational bias score
+wtfz | (Interpretational_Bias) - a high score reflects a tendency to interpret situations negatively. It is important to adjust for the Age
+qy1i | and Gender of the child and also their natural anxiety level (which they measured with a standard questionnaire of child anxiety called the SCARED) because these things affect interpretational biases also. Labcoat Leni wants you to fit a model to see whether Training significantly affected children's Interpretational_Bias using Age, Gender and SCARED as covariates. What can you conclude? Answers are on the companion website (or look at pages 475-476 in the original article).
+1k9e | 13.7 Testing the assumption of homogeneity of
+5bjs | IIII
+uodj | regression slopes
+k16v | Remember that the assumption of homogeneity of regression slopes means that the relationship between the covariate and outcome variable (in this case Puppy_love and Happiness) should be similar at different levels of the predictor variable (in this case in the three Dose groups). Figure 13.3 shows that the relationship between Puppy_love and Happiness looks comparable in the 15-minute and control groups, but seems different in the 30-minute group. To test the assumption of homogeneity of regression slopes we need to refit the model but customize it to include the interaction between the covariate and categorical predictor. Access the main dialog box as before and place the variables in the same boxes as before (the finished dialog box should look like
+b2lm | Figure 13.5). To customize the model, click Model ... to access the dialog box in Figure 13.9 and select Custom. The variables specified in the main dialog box are listed on the left-hand side. We need a model that includes the interaction between the covariate and grouping variable. To test this interaction term it's important to also include the main effects otherwise variance in the outcome (happiness) may be attributed to the interaction term that would otherwise be attributed to the main effects. To begin with, then, select Dose and
+ti7f | Puppy_love (you can select both simultaneously by holding down Ctrl, or Cmd on a Mac), change the drop-down menu to Main effects , and click
+oksu | to transfer the main effects of Dose and Puppy_love to the box labelled Model. Next specify the interaction term by selecting Dose and
+wtow | Puppy_love simultaneously (as just described), change the drop-down menu to
+o22k | Interaction and click to transfer the interaction of Dose and Puppy_love to the box labelled Model. The finished dialog box should look like
+nwfz | Continue
+nvfy | Figure 13.9. Click
+mror | to return to the main dialog box and
+zlxc | OK
+k0bw | to run the analysis.
+aq5a | Output 13.11 shows the main summary table for the model including the interaction term. The effects of the dose of puppy therapy and love of puppies are still significant, but so is the covariate by outcome interaction (Dose x
+sc5y | Puppy_love), implying that the assumption of homogeneity of regression slopes is not realistic (p = 0.028). Although this finding is not surprising given the pattern of relationships shown in Figure 13.3, it raises concerns about the main analysis.
+0yab | Figure 13.9 Model dialog box for GLM univariate
+w95z | · When the linear model is used to compare several means adjusted for the effect of one or more other variables (called covariates) it can be referred to as analysis of covariance (ANCOVA).
+0i1k | · Before the analysis check that the covariate(s) are independent
+dqlg | of any independent variables by seeing whether those independent variables predict the covariate (i.e., the covariate should not differ across groups).
+p6pq | · In the table labelled Tests of Between-Subjects Effects, assuming you're using an alpha of 0.05, look to see if the value in the column labelled Sig. is below 0.05 for both the covariate and the independent variable. If it is for the covariate then this variable has a significant relationship to the outcome variable; if it is for the independent variable then the means (adjusted for the effect of the covariate) are significantly different across categories of this variable.
+zse6 | · If you have generated specific hypotheses before the experiment use planned contrasts; if not, use post hoc tests.
+p2n3 | · For parameters and post hoc tests, look at the columns labelled Sig. to discover if your comparisons are significant (they will be if the significance value is less than 0.05). Use bootstrapping to get robust versions of these tests.
+ohh7 | . In addition to the assumptions in Chapter 6, test for homogeneity of regression slopes by customizing the model to look at the independent variable × covariate interaction.

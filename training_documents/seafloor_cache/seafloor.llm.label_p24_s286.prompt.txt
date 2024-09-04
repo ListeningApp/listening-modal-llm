@@ -1,0 +1,195 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+
+EXAMPLE OUTPUT:
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+
+
+
+
+xh3i | Method abbreviations refer to laboratory methods used by ActLabs: 1G = aqua regia Hg cold vapor flow injection technique, CS = total sulfur by IR, FUS = fusion, TD = total digestion; ICP = inductively coupled plasma, INAA = instrumental neutron activation analysis, MS = mass spectrometry Mineral abbreviations: B-A = basaltic-andesite, Cham = chamosite, Corr = corrensite, I/S = illite/smectite, Mnt = montmorillonite, Non = nontronite, Pl = plagiolcase, Py = pyrite
+syiw | 1In the original data, several analyses of Cu and Zn that were over limits were reanalyzed with a different method; averages shown here include both the TD-ICP and 4 acid ICP-OES data
+kg3t | 881
+lvae | MINERALIZATION AND ALTERATION OF THE TINAKULA SMS DEPOSIT
+o9sc | Fig. 14. Box plots of selected whole-rock immobile and mobile elements associated with each alteration assemblage (full data in Anderson, 2018). Top of each box represents the 75th percentile, bottom is the 25th percentile, central line represents median, bars show range of data, and outliers are indicated by stars (*). Abbreviation: Mnt = montmorillonite; others as in Figure 11.
+121u | the enrichment factor (EF). The reconstructed composition (RC) of the altered sample was calculated for each element by multiplying its concentration in the altered sample (nor- malized to 100% volatile free) by the EF. Finally, the mass change for each element in the sample was calculated by sub- tracting the precursor concentration of that element in the least altered sample from the RC. The largest mass changes are associated with moderate to intense alteration, generally increasing with depth (App. Figs. A26, A27). Mass changes for each assemblage are outlined below (Fig. 17; Table 5):
+zh03 | 2. Nontronite + corrensite alteration is associated with Si, Ca, and Na losses, Mg gains, no losses of Al or Fe (either con- served or gained), and no change in K.
+1mvw | 3. Illite/smectite + pyrite alteration is associated with losses in Si, Mg, Na, and Ca and gains in both Fe (due to pyrite) and K.
+6d4s | 4. Illite/smectite + chamosite alteration is associated with Si and Na losses, K gains, and variable gains and losses in Fe and Mg (Mg losses where illite/smectite is more abundant than chamosite; Fe losses where illite/smectite and cham- osite are equally abundant).
+mqah | 5. Chamosite + corrensite alteration is associated with Si and Na losses, Mg gains, Fe gains when chamosite is more abundant than corrensite and Fe losses when corrensite is more abundant, K gains when minor illite/smectite is
+xxr8 | 1. Montmorillonite/nontronite alteration is associated with Si and Na losses in smectite-rich samples, Ca loss in all samples, no gains in Al or Fe (either conserved or lost), and no change in K.
+rl4j | 882
+vz32 | A
+ncb0 | Fig. 15. Ternary plots of whole-rock geochemistry distinguishing alteration types. (A) MgO-Na2O-K2O distinguishing chlo- rite + smectite from illite alteration. (B) Al2O3-MgO-Na2O+K2O distinguishing chlorite from illite alteration (modified from MacDonald et al., 1996). General trends associated with increasing depth are shown. Abbreviations: B-A = basaltic andesite, Mnt = montmorillonite; others as in Figure 11.
+8mp0 | 883
+xjyk | Fig. 16. Chondrite-normalized REE plots of different alteration assemblages compared to least altered basalts/andesites (Anderson, 2018). (A) Least altered basalt/andesite samples. (B) Nontronite/montmorillonite-altered samples with REE depletion and flat profiles. (C) Nontronite + corrensite-altered samples with REE depletion and flat profiles. (D) Illite/smec- tite + pyrite-altered samples with LREE enrichment in some samples and downward-sloping REE profiles. (E) Illite/smec- tite + chamosite-altered samples with moderate LREE enrichment in some samples and flat to downward-sloping profiles. (F) Chamosite + corrensite-altered samples with slight LREE enrichment in most samples and slightly downward sloping profiles. All alteration types are associated with pronounced positive Eu anomalies. Chondrite data from Boynton (1984).
+mt0f | Notes: G = gain, L = loss, 0 = no change
+awab | MINERALIZATION AND ALTERATION OF THE TINAKULA SMS DEPOSIT
+ixcc | present, and no changes in K where no illite/smectite is present.
+8p6h | Mass dilution effects caused by anhydrite and pyrite precip- itation were partially mitigated through handpicking of indi- vidual altered clasts, avoiding veins and cement/infill. Despite this procedure, not all of these materials could be omitted, thus contributing CaO, Fe2O3, and S and accounting for some apparent loss of SiO2. The main difference between the low- temperature alteration stage (dominated by illite/smectite + pyrite) and the higher-temperature alteration stage (domi- nated by chamosite + corrensite) is the mass change of MgO (higher in chamosite) and K2O (higher in illite/smectite), typi- cal of VMS-style alteration in permeable volcaniclastic rocks (e.g., Shikazono et al., 1995; Franklin et al., 2005).
+pmgl | Conditions of Alteration and Mineralization
+90no | The high permeability of the volcanic substrate at Tinakula has had a large impact on the composition, size, and morphology
+jt0y | Fig. 18. Transmitted-light in plane-polarized light (TL-PPL) photomicrographs of fluid inclusions from samples from drill hole TKAD001. (A) Single primary fluid inclusion (red circle) in tabular anhydrite next to secondary inclusions formed as a result of crack healing (sample P004_E_g03). (B) Two primary fluid inclusions in anhydrite with a vapor phase (red circle; sample P003_A_g01). (C) A large primary inclusion in barite (red circle; sample P004_R_g01). (D) Large primary inclusion within sphalerite (sample P005_P_g03). (E) Row of secondary fluid inclusions in sphalerite with negative crystal shapes (sample MA13-090_I_g01). (F) Sphalerite crystal containing numerous secondary fluid inclusions, including large one within red circle (sample P005_G_g01). Fluid inclusion groups are outlined in Appendix Table A4.
+qb7o | 885
+oae5 | of the seafloor mineralization and subseafloor alteration. The conditions of alteration and mineralization have been con- strained in this study by fluid inclusion microthermometry, stable isotope data, and dating of the hydrothermal barite.
+s0fl | Fluid inclusion microthermometry
+43ia | Fluid inclusions were investigated in five samples of hydro- thermally altered volcaniclastic rocks recovered in drill hole TKAD001 between 14.8 and 19.3 m b.s.f. Details of the petrography and microthermometry are provided in Appen- dix Table A4. Fluid inclusions occur in three distinct para- genetic stages: early anhydrite in veins and rimming altered volcanic clasts, sphalerite at the margins of the early anhydrite veins in the deepest samples (MA13-090 and P005), and later infills of anhydrite and barite.
+3g2y | Primary and secondary inclusions in large (up to 1.4 mm), tabular anhydrite crystals are generally 10 to 20 um, reach- ing maximum diameters of 60 um (Fig. 18A). All inclusions
+gc7v | 886
+wqfv | are liquid dominated with 1 to 10 vol % vapor (Fig. 18B).
+j30a | <LATEX>\delta ^ { 1 8 } \mathrm { O } _ { \mathrm { w a t e r } }</LATEX> Fractionation factors after (1) Sheppard and Gilg (1996), (2) Savin and Lee (1988), and (3) Buatier et al. (1995); initial and calculated for equilibrium temperature of 240℃; hydrogen <LATEX>\delta \mathrm { D } _ { \mathrm { w a t e r } }</LATEX> <LATEX>\left( \alpha = 0 . 9 5 4 \right)</LATEX> fractionation factor for chlorite-water after Marumo et al. (1980)
+7bdk | Large crystals of barite (up to 1 mm), after anhydrite, con- tain mostly secondary inclusions, between 4 and 40 um in size and with a maximum of 10 vol % vapor (Fig. 18C). The inclusions in sphalerite (after anhydrite) include both pri-
+fim0 | -11.3
+ojro | -9.8
+l6t9 | -18.7
+1ujy | -14.1
+qzor | -15.1
+a0by | -10.5
+u1ky | -23.1
+htm9 | mary liquid-vapor inclusions up to 50 um in diameter with
+8hul | 5 to 30 vol % vapor (Fig. 18E) and groups of smaller sec-
+87vz | ondary inclusions (<10 um) distributed along healed cracks (Fig. 18F). Two inclusions in sphalerite contained a dark solid
+ym66 | Table 6. Oxygen and Hydrogen Isotope Measurements and Calculated Temperatures of Formation of Clay Minerals from Footwall of Tinakula Deposit and Initial Oxygen and Hydrogen Isotope Values for Hydrothermal Fluid Calculated at 240℃
+l0a3 | phase (3-5 vol %) with a tabular habit, likely a sulfide mineral.
+u8nw | Estimated trapping temperatures of primary fluid inclu-
+l2v9 | sions in anhydrite reach 295℃ with salinities close to that of
+afbe | seawater (2.8-3.8 wt % NaCl equiv). Inclusions in barite have
+78r8 | slightly lower trapping temperatures (median 218℃) with a
+320g | bimodal distribution from 202° to 220℃ and 256° to 266℃
+tp8g | (Fig. 19A) and salinities from 2.8 to 3.4 wt % NaCl equiv (Fig.
+gxfd | 19B). However, it is known that barite can stretch during
+s2v1 | heating (e.g., Ulrich and Bodnar, 1988), so these homogeniza-
+jkp9 | tion temperatures may be biased toward higher values. Trap-
+z8tt | ping temperatures of primary fluid inclusions in sphalerite are up to 298℃ (Fig. 19C) with salinities of 2.6 to 4.5 wt % NaCl
+9g22 | equiv (Fig. 19D).
+41fx | The highest inclusion trapping temperatures are only ~10°
+7um8 | to 20℃ lower than the minimum temperature of boiling for Tinakula fluids (308°-311℃ at 1,070-1,204 m water depth; Fig. 20), and the highest salinities clearly exceed that of seawa- ter. Although coexisting vapor-rich and brine fluid inclusions
+uow2 | associated with boiling were not encountered in the investi-
+iat7 | gated minerals, elevated salinities in several inclusions likely
+ywwr | reflect mixing between a brine (derived from boiling) and
+0i6j | seawater. This strongly suggests that the highest-temperature
+87cq | fluids have boiled at depth and cooled by mixing on ascent to
+0qs3 | the seafloor. Cooling of deep fluids from a higher temperature
+z8f7 | at depth (e.g., 350℃ for typical end-member hydrothermal
+7w7j | fluids) would have resulted in the deposition of most of the Cu-rich sulfides below the seafloor, which could account for the predominance of Zn-rich sulfide in the chimneys (e.g., Hannington et al., 2005).
+51vd | Oxygen and hydrogen isotopes in clay minerals
+baj1 | Clean separates of monomineralic nontronite (n = 2), cham-
+n1wo | <LATEX>F</LATEX> TKAD007 POO22 11.2-11.3 Chamosite
+5bq3 | osite (n = 9), corrensite (n = 2), and rectorite (n = 1) were
+ezla | analyzed for oxygen and hydrogen isotopes, spanning sample
+rsbu | depths of 2.8 to 22.5 m b.s.f. (Table 6; Fig. 19E, F). Values of
+magd | 818OV-SMOW range from 12.3 to 12.5%% for nontronite, 2.2 to
+tb74 | 8.3%% for chamosite, 9.6 to 11.1%% for corrensite, and 5.9%o
+8l69 | E TKAD003 POO12 11.1-11.2
+1jyv | E TKAD003 POO14 16.4-16.5
+olce | <LATEX>\mathrm { F }</LATEX> TKAD007 POO23 22.4-22.5
+erx1 | C TKAD032 MA13_075
+b3bt | A TKAD015 <LATEX>\begin{array}{} { \text { MAl: } 0 5 7 } \\ { \text { MA13 } - 0 5 3 } \end{array}</LATEX> 7.2-7.3
+0w8m | <LATEX>B</LATEX> TKAD025 MA13_039 5.5-5.6
+vcu3 | for one sample of rectorite. The large range and high 8180
+hjzj | B TKAD026 <LATEX>\begin{array}{} \text { MAI3 } \_ 0 6 7 \\ \text { MAI3 } \_ 6 6 7 \end{array}</LATEX> 2.9-3
+j79f | values reflect substantial shifts relative to those of hydro-
+6tbv | thermally modified seawater (e.g., Huston, 1999). Tem-
+xb13 | peratures were calculated following Savin and Lee (1988)
+cxqi | assuming 818O of the hydrothermal fluid is close to that of
+qfmx | <LATEX>\delta \mathrm { D } _ { \text { water initial } }</LATEX> Site Drill hole Sample
+rut3 | typical mid-ocean ridge hydrothermal vent fluids (8180 =
+m3cp | 1.3%%; Shanks et al., 1995; Jean-Baptiste et al., 1997). The
+mq4s | calculated temperatures range from 124° to 251℃, with
+95el | an error of ±10% (Fig. 19F), showing a systematic increase
+a0a5 | <LATEX>\left. { } ^ { \prime } { } ^ { \circ } \mathrm { C } \right)</LATEX> <LATEX>\left( \% \mathrm { V - S M O W } \right)</LATEX> A TKAD001
+gocl | A TKAD027
+ob1z | B TKAD025
+m4cb | B TKAD026
+m61y | B TKAD012
+u2ob | <LATEX>\mathrm { B }</LATEX> TKAD012
+2gnm | from nontronite (136°-138℃), to chamosite (124°-205℃),
+emgw | corrensite (207°-227℃), and rectorite (256℃), with the
+xaqt | highest temperatures close to trapping temperatures of fluid inclusions in the anhydrite and sphalerite. The 818O value of the hydrothermal fluid in equilibrium with the analyzed
+5rcb | 887

@@ -1,0 +1,127 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+
+EXAMPLE OUTPUT:
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+
+
+
+
+1pjs | Chapter Title: MAPS, SPELLERS, AND THE SEMIOTICS OF NATIONALISM IN THE EARLY REPUBLIC
+o2kr | Book Title: The Geographic Revolution in Early America Book Subtitle: Maps, Literacy, and National Identity Book Author(s): Martin Brückner Published by: University of North Carolina Press, Omohundro Institute of Early American History and Culture. (2006) Stable URL: https://www.jstor.org/stable/10.5149/9780807838976_bruckner.8
+v6sk | University of North Carolina Press, Omohundro Institute of Early American History and Culture are collaborating with JSTOR to digitize, preserve and extend access to The Geographic Revolution in Early America
+1wj6 | JSTOR
+936l | This content downloaded from 154.59.124.74 on Thu, 17 Aug 2023 21:53:33 +00:00 All use subject to https://about.jstor.org/terms
+06yq | chapter three MAPS, SPELLERS, AND THE SEMIOTICS OF NATIONALISM IN THE EARLY REPUBLIC
+dpv6 | After the Revolutionary war, it was a bitter irony for Anglo-Americans, eager to sever all representational ties with the for- mer imperial power, that their discussions about Independence and self- government were by necessity conducted in the very language of the for- mer oppressor. While some of the founders debated whether Hebrew or German should become the Republic's first language, diplomats at the Paris peace conference found it easy to imagine a future in which "the thirteen United States wou'd form the greatest Empire in the World" but also anticipated that such an American empire "from a similarity of Lan- guage, Manners and Religion . . . woul'd be English." The new American citizens also recognized English as the dominant language and lingua franca connecting the larger community of polyglot peoples living within the new national borders. However, the linguistic proximity to imperial England and its legacy of institutions, political practices, and concepts of national culture raised the question whether English, or for that matter any language, was truly capable of representing the new Republic and the meaning of independent citizenship.1
+8r5j | If we turn to the political arena during the first decade after Indepen- dence, Federalists and Antifederalists alike frequently expressed concern about how their reliance on the medium of language obstructed the defi- nition of government. The Federalist James Madison questioned the effi- cacy of the spoken and written word for negotiating federal and state interests. Discussing the "arduous . .. task of marking the proper line of partition between the authority of the general and that of the State govern-
+2taz | This content downloaded from 154.59.124.74 on Thu, 17 Aug 2023 21:53:33 +00:00 All use subject to https://about.jstor.org/terms
+o3ya | ments," he despairs that the use of "words" and "language" fails to convey "complex objects" (such as the idea of a federal union) via "human fac- ulties" to a self-interested people. He writes in Federalist No. 37:
+r5il | The medium through which the conceptions of men are conveyed to each other adds a fresh embarrassment. The use of words is to express ideas. Perspicuity, therefore, requires not only that the ideas should be distinctly formed, but that they should be expressed by words distinctly and exclusively appropriate to them. But no language is so copious as to supply words and phrases for every complex idea, or so correct as not to include many equivocally denoting different ideas.
+5gui | Antifederalists seemingly shared Madison's sense of a linguistic crisis. "And where is the man," asked the voice of Denatus in the Virginia Inde- pendent Chronicle, "who can see through the constitution to its effects? The constitution of a wise and free people, ought to be as evident to simple reason, as the letters of our alphabet."2
+82qc | Self-consciously inhabiting a logocentric world that revolved around the English language and its alphabetic writing code, both sides were flustered by the fact that the Constitution as a verbal construct lacked transparency and immediate recognition. For Madison, the new Repub- lic's constitutional process was inherently threatened because its founda- tional document was "rendered dim and doubtful by the cloudy medium through which it is communicated." Similarly, those who opposed the idea of federal union feared that the Constitution's "dim" words ("Who can see through the constitution?") would become precisely the tool by which a central government would obfuscate the practices of power.3
+ls7d | For the union to work at all, both the Federalist and Antifederalist voices asserted that the Constitution would have to display its meaning as did the spelling book or picture primer, the most basic of literacy tools. For its meaning to be evident to simple reason, the Antifederalists pro-
+tzt3 | This content downloaded from 154.59.124.74 on Thu, 17 Aug 2023 21:53:33 +00:00 All use subject to https://about.jstor.org/terms
+t8vv | posed the symbolic order of the letter alphabet. If we consider the Federal- ists' invocation of visual perception in relation to the medium of the word, their implied solution to ambiguous language invoked the picture peda- gogy of the eighteenth-century alphabet lesson. For Federalist and Anti- federalist alike, then, in the ideal world of post-Revolutionary communi- cation the Constitution would operate like a picture primer, displaying its subject matter like an alphabet lesson in which words become meaning- ful through the visual representation of objects. Such a pictorial language would disperse the fear of linguistic opacity and make the Constitution "evident to simple reason," that is, accessible at once to the literate and illiterate American. To expand on the idea of a constitutional primer even further, the two political factions hoped to discover in the Constitution a language teaching a lesson similar to that of the alphabet primer: instead of reading "A stands for apple," ideally the Constitution would convey the meaning of a "free and wise people" so that "A stands for American."
+qvnu | The perceived linguistic crisis was resolved at least temporarily by the framers' shared culture of geographical literacy. When the time came to ratify the nation's founding document, the signers of the Constitution ceremoniously bypassed both the alphabet and the vexing ambiguity underlying the English language. As Robert A. Ferguson has pointed out: "The signers of the Constitution appear neither in alphabetical order, nor by presumed importance or seniority, nor in haphazard fashion. They are grouped, instead, by state with the states themselves appearing in geo- graphical order from north to south, starting with New Hampshire in the north and working in sequence through Georgia in the extreme south." "The United States thus appear," he continues, "on the page in familiar map form-the perfect icon in answer to Madison's fears about indistinct objects, imperfect perception, and faulty language." Neither the alpha- betically constructed word nor the collaboratively composed text of the Constitution, but the implied form of the national map thus capped at once the political debate over the Republic's new Constitution and the pervasive sense of language crisis that emerged from this debate.4
+kggw | The national map had become so integral to the early national linguis- tic consciousness that even the country's fundamental documents were innately structured by the diction and grammar of the national map.
+xrd1 | This content downloaded from 154.59.124.74 on Thu, 17 Aug 2023 21:53:33 +00:00 All use subject to https://about.jstor.org/terms
+5746 | Thus, early on, the map entered into the national linguistic reform move- ment, and the textuality of the national map informed primers and ele- mentary lessons in print literacy in the early Republic. Many Americans self-consciously turned to the material form and rhetoric of the national map in order to negotiate and reconcile the competing interests laid bare by the Federalist crisis. Through geographical literacy, the new citizens adopted the national map as a proleptic text that enabled American politi- cians to ratify the Constitution and became a popular language by which ordinary citizens learned to imagine the contested idea of national unity.5
+7toz | Prompted by the Revolutionary momentum, educational, linguistic, and political theorists did their best to redesign the English language. Sev- eral authors sought to revise the most basic element of language, the alphabet. Devising a national alphabet, James Ewing and Abner Kneeland expanded the number of letters from twenty-six to thirty-three; in an effort to provide a proper transcript of American speech habits they designed new symbols that represented these distinctive sounds. Thomas Embree went so far as to substitute syllabic letter combinations with numbers, such as "2 aw, 3 ah, . . . 8 ezhay, 9 eng." At their extreme, linguistic reform efforts went beyond the building of lexicons, pronunciation, and orthog- raphy; William Thornton suggested the gradual revision of the alphabetic code itself. Making his case for a whole new script, he exhorted the Ameri- can audience, "You have corrected the dangerous doctrines of European powers, correct now the languages you have imported," which he then transcribed into print type as "Iu hav korektid 1 deendjra doktrinz ov Iuropiian pourz."6
+j346 | This content downloaded from 154.59.124.74 on Thu, 17 Aug 2023 21:53:33 +00:00 All use subject to https://about.jstor.org/terms
+v8uq | More moderate linguists such as John Witherspoon, the teacher of James Madison, deplored the lack of federal English. He encouraged the incorporation of "Americanisms," advising his students to compile new dictionaries. The most prominent compiler and reformer of the English language was Noah Webster, who initially began his reform efforts by concentrating on the received standards of English pronunciation. Using the linguistic theory that written words follow the ear, he demanded that common schools adopt a new orthography in which alphabetic letters functioned like modern phonetic signs. To illustrate his argument, for example, he wrote, "There iz no alternativ."7
+x972 | In Webster's 1783 primer, A Grammatical Institute of the English Lan- guage, his first successful publication in a series of spelling books, the alphabet lesson combined the pedagogic elements of reading and elocu- tion manuals. Its directions maintained that "a child be taught, first the Roman letters, both small and great-then the Italics-then the sounds of the vowels." The various spelling exercises depended on a pronouncing- form method, which meant that students learned to cipher and spell the written word through the imitation of the stresses, breaks, and pauses that marked the word's spoken performance. Moreover, because these lessons in pronunciation required students to stand up as a group, the early national spelling exercises resembled a choral performance. Each of Webster's spelling lessons entailed a graduated theatrical element: stu- dents recited numerous tables that progressed from syllabic fragments
+cwrw | This content downloaded from 154.59.124.74 on Thu, 17 Aug 2023 21:53:33 +00:00 All use subject to https://about.jstor.org/terms
+4i0e | (table 1: "ba, be, bi, bo . . . "), to monosyllabic words, to the polysyllabic (table 2: "bag, big, bog . . . "; table 6: "ab so lute, ab sti nence . . . "), until they finally rehearsed short didactic narratives (table 42: "The Story of Tommy and Harry").8
+h2l3 | In order to give the American language its own "sound" (and make it at the same time the basis of a new language), Webster focused on the oral component of the elementary spelling lessons and marshaled most of his pedagogic efforts toward introducing a national "standard of pronuncia- tion." "Such a standard," Webster claimed, "universally used in schools, would in time, demolish those odious distinctions of provincial dialects, which are the objects of reciprocal ridicule in the United States." Webster, a staunch Federalist and ardent proponent of the union, hoped to miti- gate political tensions by erasing local linguistic differences. Indeed, the expressed hope of the Grammatical Institute was that standardized pro- nunciation, not so much alphabetic orthography, would mediate among a regionally and socially differentiated people. If Americans would only adopt his reformed speller, Webster believed, "all persons, of every rank, would speak with some degree of precision and uniformity. Such a unifor- mity in these states is very desirable; it would remove prejudice, and con- ciliate mutual affection and respect."9
+dfzb | This content downloaded from 154.59.124.74 on Thu, 17 Aug 2023 21:53:33 +00:00 All use subject to https://about.jstor.org/terms
+u6ty | By concentrating on pronunciation rather than orthography, Webster sidestepped the fact that he was still using the English language to cre- ate the proposed American variant. He acknowledged that English was a fickle instrument for creating a national community. He predicted that, even if there were an American English language, the new citizen "will claim a right to pronounce most agreably to his own fancy, and the lan- guage will be exposed to perpetual fluctuation." Webster's reform plan seemed already defeated, for he must negotiate the inherent flexibility underlying all languages, the fact that linguistic forms do not always fol- low rules but evolve constantly and are shaped by individual oral applica- tions, local habits, and social settings.10
+awvu | Webster resolved this dilemma by turning to the discourse of geogra- phy, in particular the spelling of place-names. He assured his readers that a geographical lexicon could overcome local differences. Commenting in the Grammatical Institute, Webster writes that "the advantage of pub- lishing, in a work of this kind, the names of the United States, the coun- ties in each, etc. will not be disputed by any American." Thus, while the opacity surrounding the English language was fueling the regionally moti- vated debates over the proper wording of the Republic's basic document, Webster imagined that the "undisputed" pronunciation of geographical words could provide a sense of clarity and a practical code when imagin- ing a unified community.11
+on9b | The assertion that the consensual pronunciation of geographic place- names was the nation's neutral linguistic ground provided Webster with a formula through which he simultaneously decolonized and nationalized his speller. Webster's self-assigned challenge was to displace the British schoolbook A New Guide to the English Language, by Thomas Dilworth, a speller that had dominated the classrooms and homes of British Ameri-
+a8ge | This content downloaded from 154.59.124.74 on Thu, 17 Aug 2023 21:53:33 +00:00 All use subject to https://about.jstor.org/terms

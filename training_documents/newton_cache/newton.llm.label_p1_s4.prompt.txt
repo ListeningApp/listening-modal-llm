@@ -1,0 +1,125 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+
+EXAMPLE OUTPUT:
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+
+
+
+
+1pjs | arXiv:2405.12401v1 [math.OC] 20 May 2024
+o2kr | Inexact Newton-type Methods for Optimisation with Nonnegativity Constraints
+v6sk | Abstract
+1wj6 | We consider solving large scale nonconvex opti- misation problems with nonnegativity constraints. Such problems arise frequently in machine learn- ing, such as nonnegative least-squares, nonneg- ative matrix factorisation, as well as problems with sparsity-inducing regularisation. In such set- tings, first-order methods, despite their simplic- ity, can be prohibitively slow on ill-conditioned problems or become trapped near saddle regions, while most second-order alternatives involve non- trivially challenging subproblems. The two- metric projection framework, initially proposed by Bertsekas (1982), alleviates these issues and achieves the best of both worlds by combining projected gradient steps at the boundary of the feasible region with Newton steps in the interior in such a way that feasibility can be maintained by simple projection onto the nonnegative orthant. We develop extensions of the two-metric projec- tion framework, which by inexactly solving the subproblems as well as employing non-positive curvature directions, are suitable for large scale and nonconvex settings. We obtain state-of-the- art convergence rates for various classes of non- convex problems and demonstrate competitive practical performance on a variety of problems.
+936l | 1. Introduction
+06yq | We consider high-dimensional problems of the form
+dpv6 | xERd min f(x), subject to x≥ 0, (1)
+8r5j | where d >> 1 and f : Rd -> R is twice continuously dif- ferentiable and possibly nonconvex function. Despite the simplicity of its formulation, such problems arise in many
+2taz | applications in science, engineering, and machine learning (ML). Typical examples in ML include nonnegative formula- tions of least-squares and matrix factorisation (Lee & Seung, 1999; 2000; Gillis, 2020). Additionally, problems involv- ing sparsity inducing regularisation such as l1 norm, which are typically non-smooth, can be reformulated into a differ- entiable objective with nonnegativity constraints (Schmidt et al., 2007).
+o3ya | Many methods have been developed to solve (1). First-order methods (Lan, 2020), such as projected gradient descent, can be very simple to implement and as such are popular in ML. However, they come with well-known deficiencies, including relatively-slow convergence on ill-conditioned problems, sensitivity to hyper-parameter settings such as learning rate, and difficulty in escaping flat regions and sad- dle points. On the other hand, general purpose second-order algorithms, e.g., projected Newton method (Schmidt et al., 2011; Lee et al., 2014) and interior point methods (Nocedal & Wright, 2006), alleviate some of these issues such as susceptibility to ill-conditioning and/or stagnation near flat regions. However, due to not leveraging the simplicity of the constraint, this advantages come at the cost of introducing highly non-trivial and challenging subproblems.
+r5il | By exploiting the structure of the constraint in (1), Bertsekas (1982) proposed the two-metric projection framework as a natural and simple adaptation of the classical Newton's method for unconstrained problems. By judicious modifica- tion of the Hessian matrix, this framework can be effectively seen as projecting Newton's step onto the nonnegative or- thant. This allows for the best of both worlds, blending the efficiency of classical Newton's method with the simplicity of projected gradient descent. Indeed, similar to the classi- cal Newton's method, the subproblem amounts to solving a linear system, while like projected gradient-descent, the projection step is straightforward.
+5gui | Contribution. In this paper, we design, theoretically anal- yse, and empirically evaluate novel two-metric projection type algorithms (Algorithms 1 and 2) with desirable com- plexity guarantees for solving large scale and nonconvex optimisation problems with nonnegativity constraints (1). Both Algorithms 1 and 2 are Hessian-free in that the sub- problems are solved inexactly using the minimum residual (MINRES) method (Paige & Saunders, 1975) and only re-
+82qc | Inexact Newton-type Methods for Optimisation with Nonnegativity Constraints
+ls7d | quire Hessian-vector product evaluations. To achieve ap- proximate first-order optimality (see Definition 2.1), we leverage the theoretical properties of MINRES, as recently established in (Liu & Roosta, 2022a), e.g., nonnegative cur- vature detection and monotonicity properties, and we show the following:
+tzt3 | (I) Under minimal assumptions, Algorithm 1 achieves global iteration complexity that matches those of first-order alternatives (Theorem 3.3).
+t8vv | (II) Under stronger assumptions, Algorithm 2 enjoys a global iteration complexity guarantee with an improved rate that matches the state of the art for second-order methods (Theorem 3.8).
+qvnu | (III) Both variants obtain competitive oracle complexities, i.e., the total number of gradient and Hessian-vector product evaluations (Corollaries D.2 and D.3).
+kggw | (IV) Our approach enjoys fast local convergence guarantees (Theorem 3.13 and Corollary 3.14).
+xrd1 | (V) Our approach exhibit highly competitive empirical per- formance on several machine learning problems (Section 4).
+5746 | To our knowledge, the complexity guarantees outlined in this paper are the first to be established for two-metric pro- jection type algorithms in nonconvex settings.
+7toz | Notation. Vectors and matrices are denoted, respectively, by bold lowercase and uppercase letters. Denote the non- negative orthant by <LATEX>\mathbb{R} _ { + } ^ { d } .</LATEX> The open ball of radius <LATEX>r</LATEX> around <LATEX>x</LATEX> is denoted by <LATEX>B \left( \mathrm { x } , r \right) \triangleq \left\{ \mathrm { z } \in \mathbb{R} ^ { d } | \| \mathrm { z } - \mathrm { x } \| < r \right\} .</LATEX> The inequalities,"≥" and <LATEX>\leq ^ { , 5 } ,</LATEX> are often applied element- wise. Big-O complexity is denoted by <LATEX>\mathcal{O}</LATEX> with hidden log- arithmic factors indicated by <LATEX>\widetilde { \mathcal{C} } .</LATEX> Denote components of vectors by superscript and iteration counters as subscripts, e.g., <LATEX>\mathrm { x } _ { k } ^ { \imath }</LATEX> is <LATEX>i ^ { \mathrm { t h } }</LATEX> component of the <LATEX>k ^ { \mathrm { t h } }</LATEX> iterate of <LATEX>x .</LATEX> As a natural extension, a set of indices in the superscript de- notes the subvector corresponding to those components, e.g., letting <LATEX>\left[ d \right] = \left\{ 1 , \ldots , d \right\} ,</LATEX> if <LATEX>\mathcal{I} \subseteq \left[ d \right]</LATEX> and <LATEX>\mathrm { v } \in \mathbb{R} ^ { d }</LATEX> then <LATEX>\mathrm { v } ^ { \mathcal{I} } = \left( \mathrm { v } ^ { i } \mid i \in \mathcal{I} \right) \in \mathbb{R} ^ { | \mathcal{I} | } .</LATEX> Let <LATEX>\mathrm { g } \left( \mathrm { x } \right) = \nabla f \left( \mathrm { x } \right)</LATEX> and <LATEX>\mathrm { H } \left( \mathrm { x } \right) = \nabla ^ { 2 } f \left( \mathrm { x } \right)</LATEX> denote the gradient and Hessian of <LATEX>f ,</LATEX> respectively. Denote the dk-active and &k-inactive sets, respectively, by
+j346 | <LATEX>\mathcal{A} \left( \mathrm { x } _ { k } , \delta _ { k } \right) = \left\{ i \in \left[ d \right] | 0 \leq \mathrm { x } _ { k } ^ { i } \leq \delta _ { k } \right\} ,</LATEX> (2a)
+v8uq | <LATEX>\mathcal{I} \left( \mathrm { x } _ { k } , \delta _ { k } \right) = \left\{ i \in \left[ d \right] \mid \mathrm { x } _ { k } ^ { i } > \delta _ { k } \right\} .</LATEX> (2b)
+x972 | When the context is clear, we suppress the dependence on <LATEX>\mathrm { X } _ { k }</LATEX> and <LATEX>\delta _ { k } ,</LATEX> e.g., <LATEX>\mathrm { g } _ { k }</LATEX> and <LATEX>\mathrm { H } _ { k }</LATEX> for <LATEX>\mathrm { g } \left( \mathrm { x } _ { k } \right)</LATEX> and <LATEX>\mathrm { H } \left( \mathrm { x } _ { k } \right)</LATEX> and <LATEX>\mathrm { x } _ { k } ^ { \mathcal{I} }</LATEX> or <LATEX>\mathrm { x } _ { k } ^ { \mathcal{I} _ { k } }</LATEX> instead of <LATEX>\mathrm { x } _ { k } ^ { \mathcal{I} \left( \mathrm { x } _ { k } , \delta _ { k } \right) }</LATEX> . We also denote
+cwrw | <LATEX>\mathrm { H } _ { k } ^ { \mathcal{I} } = \left\{ \left( \mathrm { H } _ { k } \right) _ { i j } | i , j \in \right.</LATEX> <LATEX>\left. \mathcal{I} \left( \mathrm { x } _ { k } , \delta _ { k } \right) \right\} .</LATEX> 2. Background and Related Work
+4i0e | We now briefly review related works for solving (1) and some essential background necessary for our presentation.
+h2l3 | First-order Methods. The projected gradient method (Lan, 2020) is among the simplest techniques for solving optimi- sation problems involving convex constraints. Indeed, the projected gradient iteration for minimisation over a convex set <LATEX>\Omega</LATEX> is simply given by <LATEX>\mathrm { x } _ { k + 1 } = \mathcal{P} _ { \Omega } \left( \mathrm { x } _ { k } - \alpha _ { k } \mathrm { g } _ { k } \right)</LATEX> where <LATEX>\mathcal{P} _ { \Omega } : \mathbb{R} ^ { d } \rightarrow \mathbb{R} ^ { d }</LATEX> is the orthogonal projection onto <LATEX>\Omega</LATEX> defined by <LATEX>\mathcal{P} _ { \Omega } \left( \mathrm { x } \right) = \arg \min _ { \mathrm { z } \in \Omega } \| \mathrm { z } - \mathrm { x } \| .</LATEX> When <LATEX>\alpha _ { k }</LATEX> is chosen appropriately, e.g., via line search, the projected gradient method is known to converge under essentially the same conditions and at the same rate as the unconstrained vari- ant (Bertsekas, 1999; Beck, 2017). Many variations of this method have also been considered, e.g., spectral projected gradient (Birgin et al., 2014), proximal gradient (Parikh & Boyd, 2014; Beck, 2017), and accelerated proximal gradient (Nesterov, 2013; Beck & Teboulle, 2009) with its extensions to non-convex settings (Lin et al., 2020; Li et al., 2017).
+dfzb | Of course, the effectiveness of the projected gradient method relies heavily on the computational cost associated with computing <LATEX>\mathcal{P} _ { \Omega } \left( \mathrm { x } \right) .</LATEX> While this can be challenging for general convex sets, in the case of <LATEX>\Omega = \mathbb{R} _ { + } ^ { d } ,</LATEX> it is simply given by <LATEX>\left[ \mathcal{P} \left( \mathrm { x } \right) \right] ^ { i } = \mathrm { x } ^ { i } ,</LATEX> if <LATEX>\mathrm { x } ^ { i } > 0 ,</LATEX> and <LATEX>\left[ \mathcal{P} \left( \mathrm { x } \right) \right] ^ { i } = 0 ,</LATEX> otherwise. Note that, for notational simplicity, we omit the dependence of <LATEX>\mathcal{P}</LATEX> on <LATEX>\Omega</LATEX> in our context. Nonetheless, while the projected gradient method is a simple choice for solving (1), it shares the common drawbacks of first-order methods alluded to earlier, e.g., susceptibility to ill-conditioning.
+u6ty | Second-order Methods. By incorporating Hessian infor- mation, second-order methods hold the promise to alleviate many of the well-known deficiencies of first-order alterna- tives, e.g., they are typically better suited to ill-conditioned problems (Xu et al., 2020b). For constrained problems, generic projected (quasi) Newton methods involve iterations of the form <LATEX>\mathrm { x } _ { k + 1 } = \mathrm { x } _ { k } + \alpha _ { k } \mathrm { p } _ { k }</LATEX> where
+awvu | <LATEX>\mathrm { p } _ { k } = \arg \min _ { \mathrm { x } \in \Omega } \langle \mathrm { g } _ { k } , \mathrm { p } \rangle + \langle \mathrm { p } , \mathrm { B } _ { k } \mathrm { p } \rangle / 2 ,</LATEX> (3)

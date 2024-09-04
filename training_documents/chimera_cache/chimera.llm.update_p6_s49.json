@@ -1,0 +1,26 @@
+{
+  "id": "chatcmpl-A3UD8bMa04CoDiFgvUn4oWbmuhZ0n",
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "logprobs": null,
+      "message": {
+        "content": "oksu | To select the best configuration of W and D, we build a performance model to predict the runtime of a single training iteration (represented by T) for each available configuration. For the compu-\nwtow | we measure the runtime of the forward pass on a F sub t. The runtime of backward pass (represented as\no22k | two times of the forward pass if no activation recomputation is used, and three times otherwise. We define the critical path as a series of pipeline stages with dependency that determine the overall computation overhead of a single training iteration. An example of critical path is shown in Figure six. Let C sub f and C sub b denote the number of forward passes and backward passes on the critical path of the pipeline, respectively. For the example shown in Figure six, C sub f equals six, C sub b equals ten. The total computation overhead is\nnwfz | F sub t C sub f plus B sub t C sub b. To model the communication overhead, we assume bidirectional and direct point-to-point communication between the compute nodes, and use the classic Latency-Bandwidth d t h alpha minus beta. The cost of sending a message of size L is alpha plus beta I, alpha (latency) and beta (the transfer time per word) can be measured using micro benchmarks. As discussed in Section three point two, Chimera has two types of communication: p two p communication (Comm sub p two p) between stages and allreduce (Comm sub allreduce) for gradient synchronization. Comm sub p two p can be simply modelled by the alpha minus beta cost model. The total p two p communication cost is (C sub f plus C sub b) Comm sub p two p. Note that Comm sub P two p can be partially overlapped by the intermediate bubbles if there are any, but to simplify the model we do not consider that effect.\nnvfy | For Comm allreduce, we assume its implementation makes use of Rabenseifner's algorithm, whose cost is\nmror | equals two (log base two r) alpha plus two (r minus one) beta L divided by r where L is the size of gradients to be synchronized and r is the number of stage replicas. Note that Rabenseifner's algorithm reaches the lower bound on the bandwidth term for host-based allreduce, and therefore works best for large models. We model the effect of communication overlapping (discussed in Section three point two) for Comm allreduce. Figure six shows an example of the free regions (i.e., exceeding which will increase the total runtime) utilized in Chimera to overlap the gradient synchronization. Note that there are two stage replicas on each worker. Regions (a) and (b) can be utilized to overlap the gradient synchronization for the first stage replica (the one with a larger stage ID), and region (c) can be utilized to overlap the gradient synchronization for both stage replicas. Let Comm sub un-overlapped (i) represent the portion of Comm sub allreduce which can not be overlapped by the free regions on worker i, and then the max of Comm sub un-overlapped (i) among the D workers contributes to the total runtime.\nzlxc | Overall, the runtime of a single training iteration is modelled as\nk0bw | T equals (F sub t plus Comm sub p two p) C sub f plus (B sub t plus Comm sub p two p) C sub b plus max of (Comm sub un-overlapped (i) for i in [zero, D minus one]). (one)\naq5a | We use this model to select the best configuration of W and D.\nsc5y | Three point five. Scale to More Micro-Batches\n0yab | For a large B hat, there may be more than D micro-batches in a training iteration for each worker (i.e., N greater than D), especially when the compute resources are limited. To scale to a large B hat, we first choose the\nw95z | B D and schedule these D micro-batches using bidirectional pipelines as a basic scheduling unit, and scale to a large B hat by concatenating K (K equals N divided by D and N equals B hat divided by W divided by B) basic units together. Figure seven (a) presents an example with N equal two D micro-batches in a training iteration for",
+        "role": "assistant",
+        "function_call": null,
+        "tool_calls": null,
+        "refusal": null
+      }
+    }
+  ],
+  "created": 1725394478,
+  "model": "gpt-4o-2024-05-13",
+  "object": "chat.completion",
+  "system_fingerprint": "fp_fde2829a40",
+  "usage": {
+    "completion_tokens": 899,
+    "prompt_tokens": 3247,
+    "total_tokens": 4146
+  }
+}

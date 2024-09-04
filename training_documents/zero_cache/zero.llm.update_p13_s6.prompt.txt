@@ -1,0 +1,140 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document. Your task is to faithfully reproduce the text for our text-to-speech engine so that it is easily read aloud.
+
+Note that the text might not start at the beginning and paragraphs may be split acrosss multiple textboxes. Textboxes may start or end in the middle of a word which is acceptable: do not combine text between textboxes and leave broken words at the start and end of a textbox unchanged.
+
+You will receive one textbox per-line in the format `id | Textbox content`. The output must be in the format `id | Clean content`.
+
+RULES:
+ • Remove inline citations and references e.g. "(Author, 2021)" or "(https://wikipedia.org/article.html)" or "[ECMOS 35b, 47, 49]".
+ • Spell out numbers, dates, and chemical formulas for the TTS engine e.g. "-2.5" -> "negative two point five" or "Jan. 2020" -> "January twenty twenty".
+ • Spell out LaTeX formulas for the TTS engine e.g. "<LATEX>p = 1</LATEX>" -> "P equals one".
+ • Rejoin hyphenated word fragments within the same textbox e.g. "synth -esize" -> "synthesize".
+ • Fix simple typos and OCR errors e.g. "O nce upon a 1ime." -> "Once upon a time.".
+ • Delete nonsequiter textboxes that interrupt the middle of a sentence if they obviously do not belong.
+
+Otherwise, the output should exactly match the input text:
+ • Do not combine text across lines or attempt to fix words broken across lines.
+ • Ensure each ID from the input is included in the output.
+ • Make as few changes as possible while respecting the above rules.
+
+EXAMPLE INPUT:
+ccpt | stigate the effectiveness of psychedelics for ADHD symp- toms in adults.
+0fpw | 2. Materia1 and methods
+dqn8 | 2.1. Study design and participants
+cop0 | The study employed a naturalistic design, assessing the experiences of participants at bas-,
+lhkq | eline before they start, and at 2 and 4 weeks after initiation. The target population included adults with ADHD symptoms who had not been diag- nosed with ADHD before. To be included, participants needed to score on Conner's Adult ADHD Rating Scale (CAARS-S:SV). This cut-off was indicative of clinically elevated symptoms (Conners et al., 1999) (see section 2.3).
+82ju | 2.2. Study procedure
+y2qo | The online advertisement was placed on a website providing information about psychedelics (www.microdo sing.nl). Interested participants were redirected to information explaining the study rationale and procedure. The baseline survey took 20 min to complete. If the survey had not been completed after 24 h, a reminder was sent. Each of the surveys at the 2- and 4-week time points took about 15 min to complete. Par- ticipants were able to pause the surveys. Data collection occurred between Nov. 2020 and Jul. 2021. The study was approved by the Ethics Review Committee of Psy- chology and Neuroscience at Maastricht University (ERCPN- 215_05_11_2019_A1).
+1piq | 2.3. Measures
+7fqw | 2.3.1. Demographic information and history of substance use
+rhaz | At baseline, demographic information was collected. History of substance use assessed experience with psyche- delics (i.e., ayahuasca, DMT, 5-MeO-DMT, LSD, novel lysergamides (e.g., 1P-LSD, ALD-52), psilocybin, salvia divinorum, ibogaine, and mescaline) in both full (psychedelic) doses and microdoses.
+wak1 | 2.3.2. Psychiatric and physiological diagnoses
+wtfz | Participants were asked whether they had a current diagnosis of a disorder. These answer options were chosen because most of the listed diagnoses are often reported to co-occur with ADHD (Kooij et al., 2019), or because these diagnoses were reported to be common in people who microdose (Fadiman and Korb, 2019). We 
+3j2l | REVIEW ARTICLE Frontiers in Psychiatry | www.frontiersin.org
+03k3 | 2
+1k9e | constructed a variable Comorbidity alongside ADHD, differenti- ating respondents with and without a comorbid diagnosis alongside ADHD (<LATEX>p < . 0 0 1 =</LATEX> only ADHD or no ADHD diagnosis; <LATEX>p > . 0 1 =</LATEX> ADHD and at least one other diagnosis). We constructed a variable Medication use alongside microdosing, differentiating respondents who were and were not using conven- tiona1 ADHD medication alongside microdosing (<LATEX>0 =</LATEX> only microdosing; <LATEX>1 =</LATEX> conven-
+
+EXAMPLE OUTPUT:
+ccpt | stigate the effectiveness of psychedelics for ADHD symptoms in adults.
+0fpw | Two. Material and methods
+dqn8 | Two point one. Study design and participants
+cop0 | The study employed a naturalistic design, assessing the experiences of participants at bas-,
+lhkq | eline before they start, and at two and four weeks after initiation. The target population included adults with ADHD symptoms who had not been diagnosed with ADHD before. To be included, participants needed to score on Conner's Adult ADHD Rating Scale. This cut-off was indicative of clinically elevated symptoms (see section two point three).
+82ju | Two point two. Study procedure
+y2qo | The online advertisement was placed on a website providing information about psychedelics. Interested participants were redirected to information explaining the study rationale and procedure. The baseline survey took twenty minutes to complete. If the survey had not been completed after twenty-four hours, a reminder was sent. Each of the surveys at the two and four-week time points took about fifteen minutes to complete. Participants were able to pause the surveys. Data collection occurred between November twenty twenty and July twenty twenty-one. The study was approved by the Ethics Review Committee of Psychology and Neuroscience at Maastricht University.
+1piq | Two point three. Measures
+7fqw | Two point three point one. Demographic information and history of substance use
+rhaz | At baseline, demographic information was collected. History of substance use assessed experience with psychedelics (i.e., ayahuasca, DMT, five-MeO-DMT, LSD, novel lysergamides (e.g., one-P-LSD, ALD-fifty-two), psilocybin, salvia divinorum, ibogaine, and mescaline) in both full (psychedelic) doses and microdoses.
+wak1 | Two point three point two. Psychiatric and physiological diagnoses
+wtfz | Participants were asked whether they had a current diagnosis of a disorder. These answer options were chosen because most of the listed diagnoses are often reported to co-occur with ADHD, or because these diagnoses were reported to be common in people who microdose. We
+3j2l | REVIEW ARTICLE Frontiers in Psychiatry: www.frontiersin.org
+03k3 | Two
+1k9e | constructed a variable Comorbidity alongside ADHD, differentiating respondents with and without a comorbid diagnosis alongside ADHD (P is less than point zero zero one equals only ADHD or no ADHD diagnosis; P is greater than point zero one equals ADHD and at least one other diagnosis). We constructed a variable Medication use alongside microdosing, differentiating respondents who were and were not using conventional ADHD medication alongside microdosing (zero equals only microdosing; one equals conven-
+
+
+
+
+1ocm | Mid-Level Grounding Instead of grounding the LLM generation to low-level actions by using downstream data from a specific environment, we focus on high-level to mid-level grounding such that we evaluate raw knowledge of LLMs as closely and broadly as possible. Hence, we only consider the most prominent challenge in mid-level grounding that the generated plans must satisfy all common-sense constraints (characterized by executability metric). As a result, we assume there is a low-level controller that can execute these mid-level actions (such as "grab cup"), and we do not investigate the usefulness of LLMs for low-level sensorimotor behavior grounding. To perform sensorimotor grounding, such as navigation and interaction mask prediction, domain-specific data and fine-tuning are likely required.
+527v | Ignorant of Environment Context We do not incorporate observation context or feedback into our models. To some extent, we approach LLMs in the same way as how VirtualHome asks human annotators to write action plans for a given human activity by imagination, in which case humans similarly do not observe environment context. Similar to human-written plans, we assume the plans generated by LMs only refer to one instance of each object class. As a result, successful plan generation for tasks like "stack two plates on the right side of a cup" is not possible.
+lrri | Evaluation Protocol We measure quality of plans by a combination of executability and correctness instead of one straightforward metric. To the best of our knowledge, there isn't a known way to computationally assess the semantic correctness of the plans due to the tasks' open-ended and multi-modal nature. Prior work also adopt similar combination of metrics [38]. We report two metrics individually to shine light on the deficiencies of existing LLMs which we hope could provide insights for future works. To provide a holistic view, we report results by combining two metrics in Section 5.2.
+5cl9 | We believe addressing each of these shortcoming will lead to exciting future directions. We also hope these findings can inspire future investigations into using pre-trained LMs for goal-driven decision-making problems and grounding the learned knowledge in embodied environments.
+u7a3 | For each evaluated method, we perform grid search over the following hyperparameters:
+w409 | For methods that use fixed example across evaluated tasks, we search over the following three randomly chosen examples:
+m04y | Human evaluations are conducted on Amazon Mechanical Turk. For each method, we generate action plans for all 88 high-level tasks. To account for the expressivity of the VirtualHome environment [38], we include action plans written by human experts from the VirtualHome dataset as references in our human evaluations. The evaluations are conducted in the form of questionnaires containing all action plans whose order is randomly shuffled and whose corresponding methods are unknown to the annotators. Human annotators are required to answer all the questions in the questionnaire. For each question, the annotators need to answer either "Yes" or "No" indicating if they believe the action plan completes the task. For each method, we report correctness percentage averaged across 10 participated human annotators and all 88 tasks. We further report the standard error of the mean across human annotators. Screenshot can be found in Figure 6.
+23jk | The evaluated tasks are part of the ActivityPrograms dataset collected by Puig et al. [38]. Some of the task names may contain misspelling(s).
+oa63 | 1. Apply lotion
+e3lv | 2. Arrange folders
+rqv6 | 3. Breakfast
+oa48 | 4. Browse internet
+3fp1 | 5. Brush teeth
+557x | 6. Change clothes
+ep8e | 7. Change sheets and pil- low cases
+7mv3 | 8. Collect napkin rings
+der6 | 9. Complete surveys on amazon turk
+8xg2 | 10. Compute
+njvp | 11. Decorate it
+s8b5 | 12. Do homework
+p450 | 13. Do work
+rsvo | 14. Draft home
+z4m8 | 15. Draw picture
+ukf0 | 16. Dry soap bottles
+k38m | 17. Dust
+nkj9 | 18. Eat cereal
+35a8 | 19. Eat cheese 20. Eat snacks and drink tea
+337o | 21. Empty dishwasher and fill dishwasher
+cuth | 22. Entertain
+09z2 | 23. Feed me
+13fv | 24. Find dictionary
+v5pj | 25. Fix snack
+trab | 26. Get glass of milk
+grxs | 27. Give milk to cat
+u9dn | 28. Go to sleep
+t25w | 29. Grab things
+x62u | 30. Hand washing
+aoc8 | 31. Hang keys
+3mdu | 32. Hang pictures
+m04v | 33. Iron shirt
+3aip | 34. Keep cats inside while door is open
+q3gu | 35. Keep cats out of room
+txab | 36. Leave home
+dov0 | 37. Listen to music
+xd5o | 38. Look at mirror
+3gny | 39. Look at painting
+ws73 | 40. Make bed
+vyos | 41. Make popcorn
+w4hq | 42. Organize closet
+ghbe | 43. Organize pantry
+1lkf | 44. Paint ceiling
+uobn | 45. Pay bills
+3194 | 46. Pick up toys
+r22o | 47. Play musical chairs
+nupw | 48. Prepare pot of boiling water
+37xs | 49. Push all chairs in
+hoi0 | 50. Push in desk chair
+tffb | 51. Put alarm clock in bed- room
+ewwt | 52. Put away groceries
+2tj1 | 53. Put away toys
+nbhq | 54. Put clothes away
+w251 | 55. Put mail in mail orga- nizer
+1vgx | 56. Put on your shoes
+yjnk | 57. Put out flowers
+9zmh | 58. Put up decoration
+mi3g | 59. Read
+ntjg | 60. Read newspaper
+86at | 61. Read on sofa
+bpd2 | 62. Read to child
+hkd8 | 63. Read yourself to sleep
+sptg | 64. Receive credit card
+2k40 | 65. Restock
+krk7 | 66. Scrubbing living room tile floor is once week activity for me
+4tyc | 67. Style hair
+2mjl | 68. Switch on lamp
+6d9q | 69. Take jacket off
+wsc1 | 70. Take shoes off
+or3l | 71. Tale off shoes
+fbyc | 72. Throw away paper
+vceo | 73. Try yourself off
+kd78 | 74. Turn off TV
+896u | 75. Turn on TV with re- mote
+o0si | 76. Turn on radio
+1fx8 | 77. Type up document

@@ -1,27 +1,26 @@
-## GRIEF COUNSELING and GRIEF THERAPY FIFTH EDITION
+## GRIEF COUNSELING and GRIEF THERAPY FIFTH EDITION A Handbook for the Mental Health Practitioner
 
-A Handbook for the Mental Health Practitioner
-
-
-## PREFACE
+PREFACE
 
 The idea for this book came out of a series of workshops that I presented at the University of Chicago for mental health professionals who spent two days of continuing education time exploring their own loss history as well as learning a model-the task model-for understanding grief, bereavement, and the process of mourning. These workshops began in nineteen seventy-six; they were offered twice a year for groups of one hundred and were oversubscribed each year. Over time we offered such workshops in other parts of the United States. The first edition of the book was published in nineteen eighty-two and contained much of the material presented at these grief workshops,
 
 The title of the book came out of a lecture that I presented at the University of Florida, Gainesville. I was invited to present the annual Arthur G. Peterson lecture for a large group of mental health professionals. I titled my lecture "Grief Counseling & Grief Therapy." This was the first time that I had made such a distinction, but it made sense to me and its usefulness has persisted over the years. Grief counseling refers to the interventions counselors make with people recent to a death loss to help facilitate them with the various tasks of mourning. These are people with no apparent bereavement complications. Grief therapy, on the other hand, refers to those techniques and interventions that a professional makes with persons experiencing one of the complications to the mourning process that keeps grief from progressing to an adequate adaptation for the mourner. Often there are conflicts of separation with the deceased that need to be addressed. This requires more skill, understanding, and training than doing grief counseling, which can often be facilitated by a skilled friend or family member.
 
-Do we really need grief counselors? I had asked this question in the first edition of this book thirty-five years ago and said that I don't believe that we need to establish a new profession of grief counselors. I still believe this. We do not necessarily need a whole new profession of bereavement counselors. We do need more thought, sensitivity, and activity concerning this issue on the part of the existing professional groups, that is, clergy, funeral directors, family therapists, nurses, social workers, and physicians. To this, skills in working with grief and loss remain core essential tools for professionals who are not necessarily specialist counselors. I agree with this. What I want to do in this book is address those of you in these traditional professions who are already in a position to extend care to the bereaved and have the knowledge and skills required to do effective intervention and, in some cases, preventive mental health work.
+Do we really need grief counselors? I had asked this question in the first edition of this book thirty-five years ago and said that I don't believe that we need to establish a new profession of grief counselors. I still believe this. D. M. Reilly, a social worker, says, "We do not necessarily need a whole new profession of... bereavement counselors. We do need more thought, sensitivity, and activity concerning this issue on the part of the existing professional groups, that is, clergy, funeral directors, family therapists, nurses, social workers, and physicians." To this, Lloyd adds, "Skills in working with grief and loss remain core essential tools for professionals who are not necessarily specialist counselors." I agree with this. What I want to do in this book is address those of you in these traditional professions who are already in a position to extend care to the bereaved and have the knowledge and skills required to do effective intervention and, in some cases, preventive mental health work.
 
 In this fifth edition of Grief Counseling and Grief Therapy, new information is presented throughout the book. Previous information is updated when possible. The world has changed since nineteen eighty-two when the first edition of this book was published. There are more traumatic events, drills for school shootings, and faraway events that may cause a child's current trauma. There is also the emergence of social media and online resources, all easily accessible by smartphones at any time. Bereavement research and services have tried to keep up with these changes. In the following pages I have tried to present what is current for your consideration so that you, as a mental health professional, can be most effective in your interventions with bereaved children, adults, and families.
 
 
-## INTRODUCTION
+## REFERENCES
+
+INTRODUCTION
 
 Over the thirty-five years since the first edition of this book was written, there have been a number of new concepts introduced into the field of grief, loss, and bereavement. Before we get into the content of this current edition, I would like to highlight some that I believe are worth noting. Many of these appeared during the past twenty years, and some of these I discuss in more detail in the book. Although tempted to put these into the top ten in order of importance, I will merely list them. They are all important.
 
 
 ## SOCIAL MEDIA AND ONLINE RESOURCES
 
-One emerging trend is the use of social media and other online resources to help people who are grieving. These cyber mourning resources can be used as ways to remember the deceased, as ways to conduct intervention for the bereaved, and as a way to do further research on bereavement and the mourning process. Let me outline several ways that social media and online resources are currently being used.
+One emerging trend is the use of social media and other online resources to help people who are grieving. These cyber mourning resources can be used (a) as ways to remember the deceased, (b) as ways to conduct intervention for the bereaved, and (c) as a way to do further research on bereavement and the mourning process. Let me outline several ways that social media and online resources are currently being used.
 
 One. Online memorials. Families, friends, and others can go online and post thoughts about the deceased and send condolences to the family and friends of the deceased. These memorial pages are often set up by the funeral director who served the family or by non-funeral-related groups such as Open to Hope or nonprofit organizations such as Heal
 
@@ -31,7 +30,7 @@ Two. Internet-based intervention. Websites have been set up to offer online trea
 
 Three. Internet bereavement support groups. These can be found online, and are set up to address special types of losses such as suicide deaths, while others are established to help those with a general variety of bereavement losses. These groups are led, or at least monitored, by professionals who are able to admit or reject people from participation. Outcome measures can be used pre- and postgroup to measure change due to participation in the group.
 
-Four. Peer-support web pages. Such self-help pages are set up after natural disasters (floods, hurricanes, earthquakes), mass shootings, and other catastrophes, allowing those interacting with the site to express feelings and questions, and to generally feel a part of a community grappling with these events. These sites offer no personalized professional feedback. However, they can be particularly effective for helping the person who cannot find help elsewhere.
+Four. Peer-support web pages. Such self-help pages are set up after natural disasters, floods, hurricanes, earthquakes, mass shootings, and other catastrophes, allowing those interacting with the site to express feelings and questions, and to generally feel a part of a community grappling with these events. These sites offer no personalized professional feedback. However, they can be particularly effective for helping the person who cannot find help elsewhere.
 
 
 ## Introduction
@@ -47,14 +46,14 @@ For more information on Internet resources for cyber mourning, I would refer you
 
 For years, most of those working with complicated mourning and grief therapy have used terms like chronic grief, delayed grief, and absent grief to delineate the diagnosis of those with complicated bereavement or complicated mourning. In fact, some of these concepts were defined by consensus when Beverly Raphael and Warwick Middleton conducted a survey to determine which terms were the most frequently used by leading therapists in the field. Although there was a surprising degree of consensus, the problem is that complicated grief is a Z code in the Diagnostic and Statistical Manual of Mental Disorders, and Z code diagnoses do not qualify for third-party payment through insurance carriers. Another problem has been the lack of precise definitions of these terms, which makes rigorous research of them difficult. The easiest solution has been to conduct research using well-defined pathological entities like depression, anxiety, and somatization, for which there are good standardized measures. Although these clinical entities may be part of the mourner's experience, they clearly are not measures of grief. There were a few measures of grief like the Texas Revised Grief Inventory and the Hogan Grief Reaction Checklist, but most were normed on a clinical population.
 
-Beginning with the work of Holly Prigerson, Kathryn Shear, and Mardi Horowitz in the nineteen nineties, there has been a twenty-year-plus attempt to come up with a diagnosis of complicated grief that would be acceptable to go into the DSM-five, which was released in twenty thirteen. Such a diagnosis would make insurance money available for the treatment of patients with this diagnosis and would make research funds available for further investigation on this clinical entity. Details on this diagnosis, its development, and its current status can be found in Chapter Five.
+Beginning with the work of Holly Prigerson, Kathryn Shear, and Mardi Horowitz in the nineteen nineties, there has been a twenty-year-plus attempt to come up with a diagnosis of complicated grief that would be acceptable to go into the DSM-Five, which was released in twenty thirteen. Such a diagnosis would make insurance money available for the treatment of patients with this diagnosis and would make research funds available for further investigation on this clinical entity. Details on this diagnosis, its development, and its current status can be found in Chapter Five.
 
 
 ## DISENFRANCHISED GRIEF
 
 This term, coined by Ken Doka and further developed by Attig, has been an important addition to the field. Although Doka's first volume came out in nineteen eighty-nine, he updated the concept in a second volume that came out in two thousand two. Disenfranchised grief refers to losses in the mourner's life of relationships that are not socially sanctioned. A classic example would be the death of someone with whom the mourner is having an affair. If this affair is not widely known, the mourner will not be invited to participate in the funeral rituals and may not receive the social support that many people find helpful after a death. Alternate lifestyles may not be socially sanctioned, and the friend or lover may be ostracized by the family of the deceased. There are numerous other examples of disenfranchised grief, and there are suggestions in this book for re-enfranchising some of these losses to aid the mourner in adapting to the loss.
 
-Aaron Lazare, an early colleague at Massachusetts General Hospital, talked about two kinds of loss that are directly related to this concept of disenfranchised grief. Socially negated losses are those losses that society treats as nonlosses. An example of this would be pregnancy loss, either spontaneous or induced. The second kind of loss related to disenfranchised grief would be socially unspeakable losses. These are specific losses about which the mourner has a difficult time talking. Common examples would be death by suicide and death by AIDS. Both of these losses carry some stigma in the broader society. One intervention that can be helpful to those experiencing these types of losses is assisting them in talking about them and exploring their thoughts and feelings about the death. Re-enfranchising suggestions for these types of losses can be found in Chapter seven of this volume.
+Aaron Lazare, an early colleague at Massachusetts General Hospital, talked about two kinds of loss that are directly related to this concept of disenfranchised grief. Socially negated losses are those losses that society treats as nonlosses. An example of this would be pregnancy loss, either spontaneous or induced. The second kind of loss related to disenfranchised grief would be socially unspeakable losses. These are specific losses about which the mourner has a difficult time talking. Common examples would be death by suicide and death by AIDS. Both of these losses carry some stigma in the broader society. One intervention that can be helpful to those experiencing these types of losses is assisting them in talking about them and exploring their thoughts and feelings about the death. Re-enfranchising suggestions for these types of losses can be found in Chapter Seven of this volume.
 
 
 ## Introduction
@@ -63,29 +62,29 @@ CONTINUING BONDS
 
 Attachments to the deceased that are maintained rather than relinquished have been called continuing bonds. This is not an entirely new concept. Shuchter and Zisook noted that widows in their seminal conjugal bereavement studies in San Diego maintained a sense of their loved ones' presence for several years after the death. In the Harvard Child Bereavement Study, Silverman, Nickman, and Worden observed ongoing connections with the deceased parent among a large number of these bereaved school-age children. For most it was a positive experience; for some it was not. The book by Klass, Silverman, and Nickman titled Continuing Bonds: New Understandings of Grief pulled together information from our study and several others to promote the notion that some people stay connected with the deceased rather than emotionally withdrawing, as was the notion previously promoted by Freud.
 
-This new concept was not embraced by all and questions soon arose as to whether continuing bonds can be adaptive for some and maladaptive for others. Are continuing bonds actually associated with a healthy ongoing life? A lot of this controversy is based on the lack of good research evidence for the efficacy of continuing bonds. As more research is done, some of these questions will be resolved. Essentially, the questions center around four main issues: (a) What types of bonds are the most helpful in the adaptation to loss? These would include objects from the deceased (linking and transitional objects, keepsakes), a sense of the deceased's presence, talking to the deceased, introjecting the deceased's beliefs and values, taking on characteristics of the deceased, and the like. (b) For whom are continuing bonds helpful, and for whom are they not? This necessitates the identification of subgroups of mourners; the concept should not be applied to everyone. One promising approach to this is to look at the mourner's attachment style in relationship to the deceased. In the case of anxious attachments that can lead to chronic grief, holding onto the deceased may not be adaptive. Some mourners need to relinquish and move on. (c) In what time frame are continuing bonds the most adaptive and when are they less adaptive-closer to the loss, farther from the loss? (d) What is the impact of religious and cultural differences on maintaining healthy bonds? This would include beliefs and rituals that promote a connection and memorialization of the deceased cross-culturally in various societies. More on bonds can be found in Chapter two.
+This new concept was not embraced by all and questions soon arose as to whether continuing bonds can be adaptive for some and maladaptive for others. Are continuing bonds actually associated with a healthy ongoing life? A lot of this controversy is based on the lack of good research evidence for the efficacy of continuing bonds. As more research is done, some of these questions will be resolved. Essentially, the questions center around four main issues: What types of bonds are the most helpful in the adaptation to loss? These would include objects from the deceased (linking and transitional objects, keepsakes), a sense of the deceased's presence, talking to the deceased, introjecting the deceased's beliefs and values, taking on characteristics of the deceased, and the like. For whom are continuing bonds helpful, and for whom are they not? This necessitates the identification of subgroups of mourners; the concept should not be applied to everyone. One promising approach to this is to look at the mourner's attachment style in relationship to the deceased. In the case of anxious attachments that can lead to chronic grief, holding onto the deceased may not be adaptive. Some mourners need to relinquish and move on. In what time frame are continuing bonds the most adaptive and when are they less adaptive-closer to the loss, farther from the loss? What is the impact of religious and cultural differences on maintaining healthy bonds? This would include beliefs and rituals that promote a connection and memorialization of the deceased cross-culturally in various societies. More on bonds can be found in Chapter Two.
 
 
 ## Grief Counseling and Grief Therapy
 
 MEANING MAKING
 
-Meaning reconstruction and meaning making, concepts introduced and promoted by psychologist Robert Neimeyer, have been an important emphasis in the field over the past twenty years. He sees meaning reconstruction as the central process faced by bereaved individuals. This reconstruction is primarily accomplished through the use of narratives or life stories. When unanticipated or incongruous events such as the death of a loved one occur, a person needs to redefine the self and relearn ways to engage with the world without the deceased. The person cannot return to a preloss level of functioning but learns how to develop a meaningful life without the deceased loved one. This is central to my third task of mourning, in which the mourner must learn to adjust to a world without the deceased. Death can challenge one's assumptions about the world and one's personal identity. Bereaved individuals have serious questions such as: "What will my life look like now?" "What did the deceased's life mean?" "How can I feel safe in a world such as this?" and "Who am I now that this death has occurred?"
+Meaning reconstruction and meaning making, concepts introduced and promoted by psychologist Robert Neimeyer, have been an important emphasis in the field over the past twenty years. He sees meaning reconstruction as the central process faced by bereaved individuals. This reconstruction is primarily accomplished through the use of narratives or life stories. When unanticipated or incongruous events such as the death of a loved one occur, a person needs to redefine the self and relearn ways to engage with the world without the deceased. The person cannot return to a pre-loss level of functioning but learns how to develop a meaningful life without the deceased loved one. This is central to my third task of mourning, in which the mourner must learn to adjust to a world without the deceased. Death can challenge one's assumptions about the world (spiritual adjustments) and one's personal identity (internal adjustments). Bereaved individuals have serious questions such as: "What will my life look like now?" "What did the deceased's life mean?" "How can I feel safe in a world such as this?" and "Who am I now that this death has occurred?".
 
-I think it is important to note, however, that some deaths do not challenge personal meaning making in any fundamental way. Davis conducted research on two different bereaved populations and found that twenty percent to thirty percent of the bereaved individuals appeared to function well without engaging in the process of meaning making. Of those who searched for meaning, fewer than half of the individuals found it even over a year after the death. Those who did find meaning, however, were better adjusted than those who searched and didn't find it. But, interestingly, for some, the quest to understand continued even after meaning was found.
+I think it is important to note, however, that some deaths do not challenge personal meaning making in any fundamental way. Davis, Wortman, Lehman, and Silver conducted research on two different bereaved populations and found that twenty percent to thirty percent of the bereaved individuals appeared to function well without engaging in the process of meaning making. Of those who searched for meaning, fewer than half of the individuals found it even over a year after the death. Those who did find meaning, however, were better adjusted than those who searched and did not find it. But, interestingly, for some, the quest to understand continued even after meaning was found.
 
-Neimeyer, commenting on the Davis research, makes note that the majority in the studies were struggling with meaning making and these should be helped with this process. But, he cautions the counselor about initiating this process if it does not occur spontaneously. He concludes his comments with an important distinction: meaning making is a process, not an outcome or achievement. The meanings associated with death loss are constantly revised. We see this clearly in our work with bereaved children, who, as they age and pass through new developmental stages, ask: "What would my parent be like now?" and "What would our relationship be like now that I am graduating college, getting married, etc.?" More on meaning making as a task of mourning can be found in Chapter two.
+Neimeyer, commenting on the Davis research, makes note that the majority in the studies were struggling with meaning making and these should be helped with this process. But, he cautions the counselor about initiating this process if it does not occur spontaneously. He concludes his comments with an important distinction: meaning making is a process, not an outcome or achievement. The meanings associated with death loss are constantly revised. We see this clearly in our work with bereaved children, who, as they age and pass through new developmental stages, ask: "What would my parent be like now?" and "What would our relationship be like now that I am graduating college, getting married, etc.?". More on meaning making as a task of mourning can be found in Chapter Two.
 
 
 ## Introduction
 
 RESILIENCE
 
-When Phyllis Silverman and I studied one hundred and twenty-five parentally bereaved children over a two-year period after the death, we noted that children fell into one of three groups. The first was the group of children (approximately twenty percent) who were not doing well during the two years after the death. Since our research grant came from the National Institute of Mental Health for a study intended to identify bereaved children at-risk and prevent problem outcomes, this group became a major focus of our study. Could we identify at-risk children early after the loss so that early intervention might be offered to prevent later negative sequelae from the death? However, we also noticed a second smaller group of children who seemed to be doing very well, and we identified them as resilient children. Their academic performance, social life, communication about the deceased, self-worth, sense of control, and healthy identification with the deceased parent were all on the high side. The third and largest group was the group making do during the first two years of bereavement.
+When Phyllis Silverman and I studied one hundred twenty-five parentally bereaved children over a two-year period after the death, we noted that children fell into one of three groups. The first was the group of children (approximately twenty percent) who were not doing well during the two years after the death. Since our research grant came from the National Institute of Mental Health for a study intended to identify bereaved children at-risk and prevent problem outcomes, this group became a major focus of our study. Could we identify at-risk children early after the loss so that early intervention might be offered to prevent later negative sequelae from the death? However, we also noticed a second smaller group of children who seemed to be doing very well, and we identified them as resilient children. Their academic performance, social life, communication about the deceased, self-worth, sense of control, and healthy identification with the deceased parent were all on the high side. The third and largest group was the group making do during the first two years of bereavement.
 
 Thanks to the work of George Bonanno, we have begun to look at resilient bereaved individuals. These are people who adapt well to the loss and are not in need of either counseling or therapy. I think this focus is overdue.
 
-In Arizona, Irwin Sandler, Sharlene Wolchik, and Tim Ayers have added to our thinking on resilience. Like me, they prefer the term adaptation to recovery. Those mourners who make a good or effective adaptation to the loss have made a resilient adaptation. Sandler's group has identified both risk and protective factors in their study of parentally bereaved children and their families that lead to a good (resilient) or a less good adaptation to the loss. By focusing on positive as well as negative outcomes, a resilient approach goes beyond the narrower focus of pathological outcomes. It is interesting that the risk and protective factors found in Arizona families are similar to those Silverman and I found in the Boston study. Multiple factors at both the individual and social environmental levels are at work here, so Sandler's group calls their theory a contextual framework on adaptation. Individuals are seen as nested within families, which are in turn nesting within communities and cultures. This fairly new research and thinking on resilience in bereavement holds promise for our understanding of grief and loss. More on this can be found in Chapter Three.
+In Arizona, Irwin Sandler, Sharlene Wolchik, and Tim Ayers have added to our thinking on resilience. Like me, they prefer the term adaptation to recovery. Those mourners who make a good or effective adaptation to the loss have made a resilient adaptation. Sandler's group has identified both risk and protective factors in their study of parentally bereaved children and their families that lead to a good (resilient) or a less good adaptation to the loss. By focusing on positive as well as negative outcomes, a resilient approach goes beyond the narrower focus of pathological outcomes. It is interesting that the risk and protective factors found in Arizona families are similar to those Silverman and I found in the Boston study. Multiple factors at both the individual and social environmental levels are at work here, so Sandler's group calls their theory a contextual framework on adaptation. Individuals are seen as nested within families, which are in turn nesting within communities and cultures. This fairly new research and thinking on resilience in bereavement holds promise for our understanding of grief and loss. More on this can be found in Chapter three.
 
 
 ## Grief Counseling and Grief Therapy
@@ -96,12 +95,12 @@ Like depression and grief, trauma and grief share many of the same behavioral fe
 
 Two questions emerge in any discussion of traumatic bereavement. First, which is the most important in defining traumatic bereavement-the circumstances of the death or the reaction of the mourner? Second, in the treatment of traumatic bereavement, which symptoms should be addressed first-the trauma symptoms or the grief symptoms? Traumatic stress interferes with grief over loss; grief interferes with trauma mastery. Many believe that the trauma symptoms must be dealt with first before the grief can be addressed.
 
-There have always been people who have been exposed to violent deaths, but the number of violent events seems to have increased during the past fifteen years. The recent rash of mass shootings and multiple terrorist activities around the world, including September eleven, two thousand one, illustrate the pervasiveness of violence in our society. Such violent events will continue to expose more people to both trauma and bereavement. We need more research on grief and trauma, including research on which interventions are most effective. We also need to educate the media that interventions done in the days following a school shooting are not grief counseling but rather crisis
+There have always been people who have been exposed to violent deaths, but the number of violent events seems to have increased during the past fifteen years. The recent rash of mass shootings and multiple terrorist activities around the world, including September eleventh, two thousand one, illustrate the pervasiveness of violence in our society. Such violent events will continue to expose more people to both trauma and bereavement. We need more research on grief and trauma, including research on which interventions are most effective. We also need to educate the media that interventions done in the days following a school shooting are not grief counseling but rather crisis
 
 
 ## Introduction
 
-intervention, and there are major differences between the two in goals and techniques. More on this can be found in Chapter Three.
+intervention, and there are major differences between the two in goals and techniques. More on this can be found in Chapter three.
 
 
 ## SOME CONCLUDING THOUGHTS
@@ -117,11 +116,11 @@ Affirmation of the uniqueness of grief is not a new emphasis in the field of ber
 
 ## Grief Counseling and Grief Therapy
 
-the response to bereavement and that not everybody went through these phases in the same way or at the same speed"
+the response to bereavement and that not everybody went through these phases in the same way or at the same speed."
 
-An interesting affirmation of the uniqueness and subjective quality of grief comes from an fMRI study of grief by Gundel, O'Connor, Littrell, Fort, and Lane. After investigating the grief experience in the brains of eight women, they concluded that grief is mediated by a distributed neural network that subserves a number of neural processes affecting various parts of the brain and its functions, including affect processing, mentalizing, memory retrieval, visual imagery, and autonomic regulation. This neural network may account for the unique, subjective quality of grief, and this finding provides new leads in our quest to understand the health consequences of grief and the neurobiology of attachment.
+An interesting affirmation of the uniqueness and subjective quality of grief comes from an fM R I study of grief by Gundel, O'Connor, Littrell, Fort, and Lane. After investigating the grief experience in the brains of eight women, they concluded that grief is mediated by a distributed neural network that subserves a number of neural processes affecting various parts of the brain and its functions, including affect processing, mentalizing, memory retrieval, visual imagery, and autonomic regulation. This neural network may account for the unique, subjective quality of grief, and this finding provides new leads in our quest to understand the health consequences of grief and the neurobiology of attachment.
 
-I believe that the mediators of mourning outlined in detail in Chapter Three hold the key to understanding individual differences in the mourning experience-the adaptation to loss from death.
+I believe that the mediators of mourning outlined in detail in Chapter three hold the key to understanding individual differences in the mourning experience-the adaptation to loss from death.
 
 
 ## Introduction Grief Counseling and Grief Therapy
@@ -129,28 +128,33 @@ I believe that the mediators of mourning outlined in detail in Chapter Three hol
 Introduction
 
 
-## One. Attachment, Loss, and The Experience of Grief
+## One ATTACHMENT, LOSS, AND THE EXPERIENCE OF GRIEF
 
-Attachment Theory
+ATTACHMENT THEORY
 
 Before one can fully comprehend the impact of a loss and the human behavior associated with it, one must have some understanding of the meaning of attachment. There is considerable writing in the psychological and psychiatric literature as to the nature of attachments-what they are and how they develop. One of the key figures and primary thinkers in this area is the late British psychiatrist John Bowlby. He devoted much of his professional career to the area of attachment and loss and wrote several substantial volumes as well as a number of articles on the subject.
 
 Bowlby's attachment theory provides a way for us to conceptualize the tendency in human beings to create strong affectional bonds with others and a way to understand the strong emotional reaction that occurs when those bonds are threatened or broken. To develop his theories, Bowlby casts his net wide and includes data from ethology, control theory, cognitive psychology, neurophysiology, and developmental biology. He takes exception to those who believe that attachment bonds between individuals develop only in order to have certain biological drives met, such as the drive for food or the drive for sex. Citing Lorenz's work with animals and Harlow's work with young monkeys, Bowlby points to the fact that attachment occurs in the absence of the reinforcement of these biogenic needs.
 
-Bowlby's thesis is that these attachments come from a need for security and safety; they develop early in life, are usually directed toward a few specific individuals, and tend to endure throughout a large part of the life cycle. Forming attachments with significant others is considered normal behavior not only for the child but for the adult as well. Bowlby argues that attachment behavior has survival value, citing the occurrence of this behavior in the young of almost all species of mammals. But he sees attachment behavior as distinct from feeding and sexual behavior.
+Bowlby's thesis is that these attachments come from a need for security and safety; they develop early in life, are usually directed toward a few specific individuals, and tend to endure throughout a large part of the life cycle. Forming attachments with significant others
+
+
+## Grief Counseling and Grief Therapy
+
+is considered normal behavior not only for the child but for the adult as well. Bowlby argues that attachment behavior has survival value, citing the occurrence of this behavior in the young of almost all species of mammals. But he sees attachment behavior as distinct from feeding and sexual behavior.
 
 Attachment behavior is best illustrated by the young animal and the young child, who, as they grow, leave the primary attachment figure for increasingly long periods of time to search an ever-widening radius of their environment. But they always return to the attachment figure for support and safety. When the attachment figure disappears or is threatened, the response is one of intense anxiety and strong emotional protest. Bowlby suggests that the child's parents provide the secure base of operation from which to explore. This relationship determines the child's capacity to make affectional bonds later in life. This is similar to Erikson's concept of basic trust; through good parenting, the individual sees himself as both able to help himself and worthy of being helped should difficulties arise. Obvious pathological aberrations can develop in this pattern. Inadequate parenting can lead people either to form anxious attachments or to form very tenuous attachments, if any at all. Various attachment styles can be found in Chapter Three.
 
-If the goal of attachment behavior is to maintain an affectional bond, situations that endanger this bond give rise to certain very specific reactions. The greater the potential for loss, the more intense and the more varied these reactions are. "In such circumstances, all the most powerful forms of attachment behavior become activated-clinging, crying, and perhaps angry coercion....When these actions are successful, the bond is restored; the activities cease and the states of stress and distress are alleviated. If the danger is not removed, withdrawal, apathy, and despair then ensue."
+If the goal of attachment behavior is to maintain an affectional bond, situations that endanger this bond give rise to certain very specific reactions. The greater the potential for loss, the more intense and the more varied these reactions are. "In such circumstances, all the most powerful forms of attachment behavior become activated-clinging, crying, and perhaps angry coercion .... When these actions are successful, the bond is restored; the activities cease and the states of stress and distress are alleviated" (Bowlby, p. four hundred twenty-nine). If the danger is not removed, withdrawal, apathy, and despair then ensue.
 
 Animals demonstrate this behavior as well as humans. In The Expression of Emotions in Man and Animals, written during the latter part of the nineteenth century, Darwin described the ways in which sorrow is expressed by animals as well as by children and adult human beings. Ethologist Lorenz has described this grief-like behavior in the separation of a greylag goose from its mate:
 
-The first response to the disappearance of the partner consists in the anxious attempt to find him again. The goose moves about restlessly by day and night, flying great distances and visiting places where the partner might be found, uttering all the time the penetrating trisyllable long-distance call....The searching expeditions are extended farther and farther and quite often the searcher itself
+The first response to the disappearance of the partner consists in the anxious attempt to find him again. The goose moves about restlessly by day and night, flying great distances and visiting places where the partner might be found, uttering all the time the penetrating trisyllable long-distance call .... The searching expeditions are extended farther and farther and quite often the searcher itself
 
 
-## One. Attachment, Loss, and the Experience of Grief
+## One Attachment, Loss, and the Experience of Grief
 
-gets lost, or succumbs to an accident....All the objective observable characteristics of the goose's behavior on losing its mate are roughly identical with human grief.
+gets lost, or succumbs to an accident .... All the objective observable characteristics of the goose's behavior on losing its mate are roughly identical with human grief.
 
 There are many other examples of grieving in the animal world. Several years ago, there was an interesting account about dolphins in the Montreal zoo. After one of the dolphins died, its mate refused to eat, and the zookeepers had the difficult, if not impossible, task of keeping the surviving dolphin alive. By not eating, the dolphin was exhibiting manifestations of grief and depression akin to human loss behavior.
 
@@ -161,9 +165,11 @@ Because of the many examples in the animal world, Bowlby concludes that there ar
 There is evidence that all humans grieve a loss to one degree or another. Anthropologists who have studied other societies, their cultures, and their reactions to the loss of loved ones report that whatever the society studied, in whatever part of the world, there is an almost universal attempt to regain the lost loved object and/or there is the belief in an afterlife where one can rejoin the loved one. In preliterate societies, however, bereavement pathology seems to be less common than it is in more civilized societies.
 
 
-## Is Grief a Disease?
+## Grief Counseling and Grief Therapy
 
-George Engel raised this interesting question in a thought-provoking essay published in Psychosomatic Medicine. Engel's thesis is that the loss of a loved one is psychologically traumatic to the same extent that being severely wounded or burned is physiologically traumatic. He argues that grief represents a departure from the state of health and well-being, and just as healing is necessary in the physiological realm in order to bring the body back into homeostatic balance, a period of time is likewise needed to return the mourner to a similar state of psychological equilibrium. Therefore, Engel sees the process of mourning as similar to the process of healing. As with healing, full function, or nearly full function, can be restored, but there are also incidents of impaired function and inadequate healing. Just as the terms healthy and pathological apply to the various courses in the physiological healing process, Engel argues that these same terms may be applied to the courses taken by the mourning process. He sees mourning as a course that takes time until restoration of function can take place. How much functional impairment occurs is a matter of degree. Rather than using terms like restoration and recovery, I prefer to use the term adaptation: some people make a better adaptation to the loss while others make a less good adaptation. In Chapter five, we look at complicated mourning, where individuals are making a less than adequate adaptation to the loss.
+IS GRIEF A DISEASE?
+
+George Engel nineteen sixty-one raised this interesting question in a thought-provoking essay published in Psychosomatic Medicine. Engel's thesis is that the loss of a loved one is psychologically traumatic to the same extent that being severely wounded or burned is physiologically traumatic. He argues that grief represents a departure from the state of health and well-being, and just as healing is necessary in the physiological realm in order to bring the body back into homeostatic balance, a period of time is likewise needed to return the mourner to a similar state of psychological equilibrium. Therefore, Engel sees the process of mourning as similar to the process of healing. As with healing, full function, or nearly full function, can be restored, but there are also incidents of impaired function and inadequate healing. Just as the terms healthy and pathological apply to the various courses in the physiological healing process, Engel argues that these same terms may be applied to the courses taken by the mourning process. He sees mourning as a course that takes time until restoration of function can take place. How much functional impairment occurs is a matter of degree. Rather than using terms like restoration and recovery, I prefer to use the term adaptation: some people make a better adaptation to the loss while others make a less good adaptation. In Chapter five, we look at complicated mourning, where individuals are making a less than adequate adaptation to the loss.
 
 Before we look at the characteristics of normal grief, it would be useful to look at three terms that are often used interchangeably: grief, mourning, and bereavement. For purposes of common understanding, in this book I am using the term grief to indicate the experience of one who has lost a loved one to death. It is comprised of thoughts, feelings, behaviors, and physiological changes that vary in pattern and intensity over time. The term grief can be applied to other losses, but in this book, it primarily addresses losses due to death. Mourning is the term applied to the process that one goes through in adapting to the death of the person. The finality and consequences of the loss are understood and assimilated into the life of the mourner. Bereavement defines the loss to which the person is trying to adapt and the experience of having lost someone close.
 
@@ -175,11 +181,11 @@ Normal grief, also referred to as uncomplicated grief, encompasses a broad range
 
 ## One Attachment, Loss, and the Experience of Grief
 
-changes that are common after a loss. One of the earliest attempts to look at normal grief reactions in any systematic way was done by Erich Lindemann when he was chief of psychiatry at the Massachusetts General Hospital.
+changes that are common after a loss. One of the earliest attempts to look at normal grief reactions in any systematic way was done by Erich Lindemann nineteen forty-four when he was chief of psychiatry at the Massachusetts General Hospital.
 
 In the Boston area, there are two Catholic colleges well known for their football rivalry. Back in the fall of nineteen forty-two, they met for one of their traditional Saturday encounters. Holy Cross beat Boston College, and after the game many people went to Cocoanut Grove, a local nightclub, to celebrate. During the revelries, a busboy lit a match while trying to change a lightbulb and accidentally set a decorative palm tree on fire. Almost immediately, the whole nightclub, which was packed beyond its legal capacity, was engulfed in flames. Nearly five hundred people lost their lives in that tragedy.
 
-Afterward, Lindemann and his colleagues worked with the family members who had lost loved ones in that tragedy, and from these data and others he wrote his classic paper "Symptomatology and Management of Acute Grief". From his observations of one hundred one recently bereaved patients he discovered similar patterns, which he described as the pathognomonic characteristics of normal or acute grief:
+Afterward, Lindemann and his colleagues worked with the family members who had lost loved ones in that tragedy, and from these data and others he wrote his classic paper "Symptomatology and Management of Acute Grief" nineteen forty-four. From his observations of one hundred one recently bereaved patients he discovered similar patterns, which he described as the pathognomonic characteristics of normal or acute grief:
 
 One. Somatic or bodily distress of some type
 
@@ -193,9 +199,12 @@ Five. The inability to function as one had before the loss
 
 In addition to these five, he described a sixth characteristic exhibited by many patients: they appeared to develop traits of the deceased in their own behavior.
 
-There are many limitations to Lindemann's study. Some of these have been outlined by Parkes, who points out that Lindemann does not present figures to show the relative frequency of the syndromes described. Lindemann also neglects to mention how many interviews he had with the patients, and how much time had passed between the interviews and the date of the loss. Nevertheless, this remains an important and much cited study.
+There are many limitations to Lindemann's study. Some of these have been outlined by Parkes, who points out that Lindemann does not present figures to show the relative frequency of the syndromes described. Lindemann also neglects to mention how many interviews he had with the patients, and how much time had passed between the interviews and the date of the loss. Nevertheless, this remains an important and much-cited study.
 
 I am using the word normal in both a clinical and a statistical sense. Clinical defines what the clinician calls normal mourning behavior, while statistical refers to the frequency with which such behavior is found among a randomized bereaved population. The more frequent the behavior, the more it is defined as normal.
+
+
+## Grief Counseling and Grief Therapy
 
 What is of particular interest to me is that the bereaved we see today at the Massachusetts General Hospital exhibit behaviors very similar to those described by Lindemann more than seventy years ago. In a large number of people undergoing an acute grief reaction, we find some or most of the following phenomena. Because the list of normal grief behaviors is so extensive and varied, I have placed them under four general categories: feelings, physical sensations, cognitions, and behaviors. Anyone counseling the bereaved needs to be familiar with the broad range of behaviors that falls under the description of normal grief.
 
@@ -220,7 +229,7 @@ felt panic and anxiety until your mother returned, whereupon, rather than expres
 
 In the loss of any important person there is a tendency to regress, to feel helpless, to feel unable to exist without the person, and then to experience the anger that goes along with these feelings of anxiety. The anger that the bereaved person experiences needs to be identified and appropriately targeted toward the deceased in order to make a healthy adaptation.
 
-One of the riskiest maladaptations of anger is the posture of turning the anger inward against the self. In a severe case of retroflected anger, the person may be down on him- or herself and could develop severe depression or suicidal behavior. A more psychodynamic interpretation of this retroflected anger response was given by Melanie Klein, who suggests that the triumph over the dead causes the bereaved person to turn his or her anger against him- or herself or direct it outward toward others nearby.
+One of the riskiest maladaptations of anger is the posture of turning the anger inward against the self. In a severe case of retroflected anger, the person may be down on him or herself and could develop severe depression or suicidal behavior. A more psychodynamic interpretation of this retroflected anger response was given by Melanie Klein, who suggests that the triumph over the dead causes the bereaved person to turn his or her anger against him or herself or direct it outward toward others nearby.
 
 
 ## Blame
@@ -242,7 +251,7 @@ self-reproach-over not being kind enough, over not taking the person to the hosp
 
 ## Anxiety
 
-Anxiety in the survivor can range from a light sense of insecurity to a strong panic attack, and the more intense and persistent the anxiety, the more it suggests an abnormal grief reaction. Anxiety comes primarily from two sources. The first source is attachment-related anxiety. This is the fear the survivor will not be able to take care of him- or herself and frequently comment "I won't be able to survive without him or her." Second, anxiety relates to a heightened sense of personal death awareness-the awareness of one's own mortality increased by the death of a loved one. Carried to extremes, this anxiety can develop into a full-blown phobia. The well-known author C. S. Lewis knew this anxiety and said after losing his wife: "No one ever told me that grief felt so like fear. I am not afraid, but the sensation is like being afraid. The same fluttering in the stomach, the same restlessness, the yawning. I keep on swallowing."
+Anxiety in the survivor can range from a light sense of insecurity to a strong panic attack, and the more intense and persistent the anxiety, the more it suggests an abnormal grief reaction. Anxiety comes primarily from two sources. The first source is attachment-related anxiety. This is the fear the survivor will not be able to take care of him or herself and frequently comment "I won't be able to survive without him or her". Second, anxiety relates to a heightened sense of personal death awareness-the awareness of one's own mortality increased by the death of a loved one. Carried to extremes, this anxiety can develop into a full-blown phobia. The well-known author C. S. Lewis knew this anxiety and said after losing his wife: "No one ever told me that grief felt so like fear. I am not afraid, but the sensation is like being afraid. The same fluttering in the stomach, the same restlessness, the yawning. I keep on swallowing."
 
 
 ## Loneliness
@@ -259,7 +268,7 @@ Lindemann's patients reported fatigue, and we see this frequently in survivors. 
 
 ## Helplessness
 
-One factor that makes the event of death so stressful is the sense of helplessness it can engender. This close correlate of anxiety is frequently present in the early stage of a loss. Widows in particular often feel extremely helpless. A young widow left with a seven-week-old child said, "My family came and lived with me for the first five months. I was afraid I would freak out and not be able to care for my child." Helplessness is associated with Locus of Control (internal versus external). Those with more external locus of control feel at the mercy of circumstances and less able to exert a sense of control and self-efficacy.
+One factor that makes the event of death so stressful is the sense of helplessness it can engender. This close correlate of anxiety is frequently present in the early stage of a loss. Widows in particular often feel extremely helpless. A young widow left with a seven-week-old child said, "My family came and lived with me for the first five months. I was afraid I would freak out and not be able to care for my child." Helplessness is associated with Locus of Control. Those with more external locus of control feel at the mercy of circumstances and less able to exert a sense of control and self-efficacy.
 
 
 ## Shock
@@ -276,7 +285,10 @@ Yearning for the lost person is what the British call pining. Parkes has noted t
 
 Emancipation can be a positive feeling after a death. I worked with a young woman whose father was a real potentate, a heavy-handed,
 
-Grief Counseling and Grief Therapy unbending dictator over her existence. After his sudden death from a heart attack, she went through the normal grief feelings, but she also expressed a feeling of emancipation because she no longer had to live under his tyranny. At first, she was uncomfortable with this feeling, but later she was able to accept it as the normal response to her changed status.
+
+## Grief Counseling and Grief Therapy
+
+unbending dictator over her existence. After his sudden death from a heart attack, she went through the normal grief feelings, but she also expressed a feeling of emancipation because she no longer had to live under his tyranny. At first, she was uncomfortable with this feeling, but later she was able to accept it as the normal response to her changed status.
 
 
 ## Relief
@@ -286,7 +298,7 @@ Many people feel relief after the death of a loved one, particularly if the love
 
 ## Numbness
 
-It's also important to mention that some people report a lack of feelings. After a loss, they feel numb. Again, this numbness is often experienced early in the grieving process, usually right after the person learns of the death. It probably occurs because there are so many feelings to deal with, that to allow them all into consciousness would be overwhelming, so the person experiences numbness as a protection from this flood of feelings. Commenting on numbness, Parkes and Weiss have said, "We found no evidence that it is an unhealthy reaction. Blocking of sensation as a defense against what would otherwise be overwhelming pain would seem to be extremely 'normal'".
+It's also important to mention that some people report a lack of feelings. After a loss, they feel numb. Again, this numbness is often experienced early in the grieving process, usually right after the person learns of the death. It probably occurs because there are so many feelings to deal with, that to allow them all into consciousness would be overwhelming, so the person experiences numbness as a protection from this flood of feelings. Commenting on numbness, Parkes and Weiss have said, "We found no evidence that it is an unhealthy reaction. Blocking of sensation as a defense against what would otherwise be overwhelming pain would seem to be extremely 'normal.'"
 
 As you review this list, remember that each of these items listed represents normal grief feelings and there is nothing pathological about any one of them. However, feelings that exist for abnormally long periods of time and at excessive intensity may portend a complicated grief reaction. This is discussed in Chapter five.
 
@@ -296,32 +308,9 @@ As you review this list, remember that each of these items listed represents nor
 One of the interesting things about Lindemann's paper is that he describes not only the emotions that people experienced, but also the physical sensations associated with their acute grief reactions. These sensations are often overlooked, but they play a significant role in the
 
 
-## Attachment, Loss, and the Experience of Grief
+## One Attachment, Loss, and the Experience of Grief
 
 grieving process. The following is a list of the most commonly reported sensations experienced by the people we see for grief counseling:
-
-
-## Hollowness in the stomach
-
-Tightness in the chest
-
-
-## Tightness in the throat
-
-Oversensitivity to noise
-
-
-## A sense of depersonalization: "I walk down the street and nothing seems real, including me."
-
-Breathlessness, feeling short of breath
-
-
-## Weakness in the muscles
-
-Lack of energy
-
-
-## Dry mouth
 
 Many times, these physical sensations are of concern to the survivor, and he or she may come to the physician for a checkup. If so, physicians need to inquire about deaths and losses as part of their diagnostic evaluation.
 
@@ -361,7 +350,7 @@ This is the cognitive counterpart to the experience of yearning. The grieving pe
 Hallucinations of both the visual type and the auditory type are included in this list of normal behaviors because hallucinations can be a frequent experience of the bereaved. They are usually transient illusory experiences, often occurring within a few weeks following the loss, and generally do not portend a more difficult or complicated mourning experience. Although disconcerting to some, many others find these experiences comforting. With all the interest in mysticism and spirituality, it is interesting to speculate whether these are really hallucinations or possibly some other kind of metaphysical phenomenon.
 
 
-## One, Attachment, Loss, and the Experience of Grief
+## One. Attachment, Loss, and the Experience of Grief
 
 There is an obvious interface between thinking and feeling, and the current interest in cognitive psychology and cognitive therapy emphasizes this. Aaron Beck and his colleagues at the University of Pennsylvania found that the experience of depression frequently is triggered by depressive thought patterns. In the bereaved, certain thoughts will pass through the mind such as "I can't live without her" or "I'll never find love again." These thoughts can then trigger very intense, but normal, feelings of sadness and or anxiety.
 
@@ -402,16 +391,19 @@ It is not unusual for people who have sustained a loss to want to withdraw from 
 
 It's very common to dream of the dead person, both normal kinds of dreams and distressing dreams or nightmares. Often these dreams serve a number of purposes and may give some diagnostic clues as to where the person is in the whole course of mourning.
 
+
+## One. Attachment, Loss, and the Experience of Grief
+
 For example, for several years after the death of her mother, Esther suffered from intense guilt over circumstances related to the death. This guilt was manifested in low self-esteem and personal recrimination and was associated with considerable anxiety. During one of her daily visits to her mother in the hospital, Esther had left the bedside for coffee and a bite of food. While she was out, her mother died.
 
-Esther was filled with remorse, and although we used the usual reality-testing techniques in therapy, the guilt still persisted. While in therapy, she had a dream about her mother. In this dream, she saw herself trying to assist her mother to walk down a slippery pathway so she would not fall. But her mother fell, and nothing Esther could do in the dream would save her. It was impossible. This dream was a significant turning point in her therapy because she allowed herself to see that nothing she could have done would have kept her mother from dying. This important insight gave her permission to shed the guilt that she had been carrying for several years. Some ways to utilize dreams in grief counseling and grief therapy are presented in Chapter Six.
+Esther was filled with remorse, and although we used the usual reality-testing techniques in therapy, the guilt still persisted. While in therapy, she had a dream about her mother. In this dream, she saw herself trying to assist her mother to walk down a slippery pathway so she would not fall. But her mother fell, and nothing Esther could do in the dream would save her. It was impossible. This dream was a significant turning point in her therapy because she allowed herself to see that nothing she could have done would have kept her mother from dying. This important insight gave her permission to shed the guilt that she had been carrying for several years. Some ways to utilize dreams in grief counseling and grief therapy are presented in Chapter six.
 
 
 ## Avoiding Reminders of the Deceased
 
 Some people will avoid places or things that trigger painful feelings of grief. They might avoid the place where the deceased died, the cemetery, or objects that remind them of their lost loved one. One middle-aged woman came for grief counseling when her husband died after a series of coronary attacks, leaving her with two children. For a period of time she put all pictures of her husband away in the closet, along with other things that reminded her of him. This obviously was only a short-term solution, and as she moved toward a better adaptation of her grief, she was able to bring out the items that she wanted to live with and display his picture on the piano.
 
-Quickly getting rid of all the things associated with the deceased- giving them away or disposing of them in any way possible even to the point of having a quick disposal of the body-can lead to a complicated grief reaction. This is usually not healthy behavior and is often indicative of a highly ambivalent relationship with the deceased. Ambivalent relationships are one of the mediators of mourning described in Chapter three.
+Quickly getting rid of all the things associated with the deceased, giving them away or disposing of them in any way possible even to the point of having a quick disposal of the body, can lead to a complicated grief reaction. This is usually not healthy behavior and is often indicative of a highly ambivalent relationship with the deceased. Ambivalent relationships are one of the mediators of mourning described in Chapter Three.
 
 
 ## Searching and Calling Out
@@ -433,7 +425,7 @@ A number of widows in our Harvard studies of bereavement entered into restless h
 
 ## Crying
 
-There has been interesting speculation that tears may have potential healing value. Stress causes chemical imbalances in the body, and some researchers believe that tears remove toxic substances and help reestablish homeostasis. They hypothesize that the chemical content of tears caused by emotional stress is different from that of tears secreted as a function of eye irritation. Tests are being done to see what type of catecholamine, mood-altering chemicals produced by the brain, is present in tears of emotion. Tears do relieve emotional stress, but how they do this is still a question. Further research is needed on the deleterious effects, if any, of suppressed crying.
+There has been interesting speculation that tears may have potential healing value. Stress causes chemical imbalances in the body, and some researchers believe that tears remove toxic substances and help reestablish homeostasis. They hypothesize that the chemical content of tears caused by emotional stress is different from that of tears secreted as a function of eye irritation. Tests are being done to see what type of catecholamine is present in tears of emotion. Tears do relieve emotional stress, but how they do this is still a question. Further research is needed on the deleterious effects, if any, of suppressed crying. Martin, who has worked with individuals and families experiencing grief from traumatic events, has written an interesting paper titled "Grief That Has No Vent in Tears Makes Other Organs Weep." This helps us to understand how highly traumatic experiences, emotionally and cognitively unprocessed, may become bodily expressed.
 
 
 ## Visiting Places or Carrying Objects That Remind the Survivor of the Deceased
@@ -441,38 +433,37 @@ There has been interesting speculation that tears may have potential healing val
 This is the opposite of the behavior that people engage in to avoid reminders of the lost person. Often underlying this behavior is the fear of losing memories of the deceased. "For two weeks I carried his picture with me constantly for fear I would forget his face," one widow told me.
 
 
-## Treasuring Objects That Belonged to the Deceased
+## One. Attachment, Loss, and the Experience of Grief
+
+Treasuring Objects That Belonged to the Deceased
 
 One young woman went through her mother's closet shortly after her mother died and took many of her clothes home. They wore the same size, and although this might seem like an example of someone being thrifty, the fact was that the daughter did not feel comfortable unless she was wearing something that had belonged to her mother. She wore these clothes for several months. As her mourning progressed, she found it less and less necessary to wear clothing that had belonged to her mother. Finally, she gave most of it away to charity.
 
 The reason for outlining these characteristics of normal grief in such detail is to show the wide variety of behaviors and experiences associated with loss. Obviously, not all these behaviors will be experienced by one person. However, it is important for bereavement counselors to understand the wide range of behaviors covered under normal grief, so they do not pathologize behavior that should be recognized as normal. Having this understanding will also enable counselors to give reassurance to people who experience such behavior as disturbing, especially in the case of their first significant loss. However, if these experiences persist late in the bereavement process, they may be indicative of a more complicated grief.
 
 
-## GRIEF AND DEPRESSION
+## Grief and Depression
 
 Many of the normal grief behaviors may seem like manifestations of depression. To shed some light on this, let's look at the debate about the similarities and differences between grief and depression.
 
-Freud, in his early paper "Mourning and Melancholia," addressed this issue. He tried to point out that depression, or melancholia, as he called it, is a pathological form of grief and is very much like mourning (normal grief) except that it has a certain characteristic feature of its own-namely, angry impulses toward the ambivalently loved person turned inward. It is true that grief looks very much like depression, and it is also true that grieving may develop into a full-blown depression. Klerman, who was a prominent depression researcher, believed that many depressions are precipitated by losses, either immediately following the loss or at some later time when the patient is reminded of the loss. Depression may also serve as a defense against mourning. If anger is directed against the self, it is deflected away from the deceased, and this keeps the survivor from dealing with ambivalent feelings toward the deceased.
+Freud, in his early paper "Mourning and Melancholia," addressed this issue. He tried to point out that depression, or melancholia, as he called it, is a pathological form of grief and is very much like mourning except that it has a certain characteristic feature of its own, namely, angry impulses toward the ambivalently loved person turned inward. It is true that grief looks very much like depression, and it is also true that grieving may develop into a full-blown depression. Klerman, who was a prominent depression researcher, believed that many depressions are precipitated by losses, either immediately following the loss or at some later time when the patient is reminded of the loss. Depression may also serve as a defense against mourning. If anger is directed against the self, it is deflected away from the deceased, and this keeps the survivor from dealing with ambivalent feelings toward the deceased.
 
 
 ## Grief Counseling and Grief Therapy
 
 The main distinctions between grief and depression are these: In depression as well as grief, you may find the classic symptoms of sleep disturbance, appetite disturbance, and intense sadness; however, in a grief reaction, there is not the loss of self-esteem commonly found in most clinical depressions. That is, the people who have lost someone do not have less regard for themselves as a result of such a loss, or if they do, it tends to be for only a brief time. And if the survivors of the deceased experience guilt, it is usually guilt associated with some specific aspect of the loss rather than a general overall sense of culpability. Even though grief and depression share similar objective and subjective features, they do seem to be different conditions. Depression overlaps with bereavement but is not the same. Freud believed that in grief, the world looks poor and empty, while in depression, the person feels poor and empty. These differences in cognitive style have been identified by Beck and associates and other cognitive therapists who have suggested that the depressed have negative evaluations of themselves, the world, and the future. Although such negative evaluations can exist in the bereaved, they tend to be more transient.
 
-However, there are some bereaved individuals who do develop major depressive episodes following a loss. The recent Diagnostic and Statistical Manual, fifth edition, allows for this distinction. Zisook and colleagues, who were influential in the dropping of the previous two-month bereavement exclusion where depression could not be diagnosed in the bereaved until two months after the death, argue that, "the preponderance of data suggests that bereavement-related depression is not different from major depressive episodes that present in any other context; it is equally genetically influenced, most likely to occur in individuals with past personal and family histories of major depressive episodes, has similar personality characteristics and patterns of comorbidity, is as likely to be chronic and/or recurrent, and responds to antidepressant medications." If a major depressive episode develops during bereavement, this should be considered a type of complicated mourning-exaggerated grief.
+However, there are some bereaved individuals who do develop major depressive episodes following a loss. The recent Diagnostic and Statistical Manual, fifth edition, allows for this distinction. Zisook and colleagues, who were influential in the dropping of the previous two-month bereavement exclusion where depression could not be diagnosed in the bereaved until two months after the death, argue that, "the preponderance of data suggests that bereavement-related depression is not different from major depressive episodes that present in any other context; it is equally genetically influenced, most likely to occur in individuals with past personal and family histories of major depressive episodes, has similar personality characteristics and patterns of comorbidity, is as likely to be chronic and or recurrent, and responds to antidepressant medications." If a major depressive episode develops during bereavement, this should be considered a type of complicated mourning-exaggerated grief.
 
-At Yale, Jacobs, Hansen, Berkman, Kasi, and Ostfeld have been interested in depression within the context of bereavement. According to them, "Although the majority of depressions of bereavement are transient and require no professional attention, there is growing appreciation that some depressions, especially those that persist throughout the first year
-
-
-## Attachment, Loss, and the Experience of Grief
-
-of bereavement, are clinically significant." They have used antidepressant medication to treat patients whose depression persisted late into the course of bereavement and did not resolve spontaneously or respond to interpersonal interventions. These were usually people who had a history of depression or some other mental health disorder. They found improvement in sleep disorders and appetite disturbance as well as an improvement in mood and cognition. This response suggests a biological dimension to the depression.
+At Yale, Jacobs, Hansen, Berkman, Kasi, and Ostfeld, Jacobs et al., and Jacobs, Nelson, and Zisook have been interested in depression within the context of bereavement. According to them, "Although the majority of depressions of bereavement are transient and require no professional attention, there is growing appreciation that some depressions, especially those that persist throughout the first year
 
 
-## A section in the DSM-5 advises that:
+## of bereavement, are clinically significant." They have used antidepressant medication to treat patients whose depression persisted late into the course of bereavement and did not resolve spontaneously or respond to interpersonal interventions. These were usually people who had a history of depression or some other mental health disorder. They found improvement in sleep disorders and appetite disturbance as well as an improvement in mood and cognition. This response suggests a biological dimension to the depression.
 
-Responses to a significant loss may include the feeling of intense sadness, rumination about the loss, insomnia, poor appetite and weight loss which may resemble a depressive episode. Although such symptoms may be understandable or considered appropriate to the loss, the presence of a major depressive episode in addition to the normal response to a significant loss should also be carefully considered. This decision inevitably requires the exercise of clinical judgement based on the individual's history and the cultural norms for the expression of distress in the context of loss.
+of bereavement, are clinically significant" (1987, p. 501). They have used antidepressant medication to treat patients whose depression persisted late into the course of bereavement and did not resolve spontaneously or respond to interpersonal interventions. These were usually people who had a history of depression or some other mental health disorder. They found improvement in sleep disorders and appetite disturbance as well as an improvement in mood and cognition. This response sug- gests a biological dimension to the depression.
 
-One of the functions of the counselor who has contact with people during the time of acute grief is to assess which patients might be undergoing a major depression by using current standard diagnostic criteria from the DSM-5. Patients so identified can then be given additional help such as a medical evaluation and possibly the use of antidepressant medications. Once depression begins to lift through medication, then the focus of treatment changes to the underlying conflicts of the attachment. These conflicts cannot be addressed through medications alone.
+A section in the DSM-five advises that:
+
+One of the functions of the counselor who has contact with people during the time of acute grief is to assess which patients might be undergoing a major depression by using current standard diagnostic criteria from the DSM-five. Patients so identified can then be given additional help such as a medical evaluation and possibly the use of antidepressant medications. Once depression begins to lift through medication, then the focus of treatment changes to the underlying conflicts of the attachment. These conflicts cannot be addressed through medications alone.
 
 If grief is defined as one's experiences after a loss, then mourning is the process one goes through leading to an adaptation to the loss. In the next two chapters, we look at the mourning process in detail.

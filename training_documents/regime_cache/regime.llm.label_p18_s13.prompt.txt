@@ -1,0 +1,114 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+
+EXAMPLE OUTPUT:
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+
+
+
+
+qfmx | Equation (2.45) leads to <LATEX>\sigma _ { R , \eta } ^ { 2 } - \sigma _ { R , 0 } ^ { 2 } - \eta \widetilde { \sigma } _ { R , 0 } ^ { 2 } = \eta ^ { 2 } \widetilde { \mathcal{R} } _ { \eta } ,</LATEX> with
+rut3 | <LATEX>\widetilde { \sigma } _ { R , 0 } ^ { 2 } = 2 \int _ { \mathcal{X} } R \left( \widehat { R } _ { 0 } \mathfrak{f} _ { 1 } + \Pi _ { 0 } \widetilde { R } \right) \psi _ { 0 } .</LATEX> In view of Lemma 2.2 and Assumption 2, the remainder (2.46) is uniformly bounded for <LATEX>\eta \in \left[ - \eta _ { * } , \eta _ { * } \right] .</LATEX> This proves that (2.42) holds. 0
+m3cp | We conclude this section with a technical result used in the proof of Proposi- tion 2.4.
+mq4s | LEMMA 2.5. Suppose that Assumptions 1 through 4 hold true. Fix <LATEX>\eta _ { * } > 0</LATEX> and <LATEX>\varphi \in</LATEX> <LATEX>\mathscr{S} .</LATEX> Denote by <LATEX>m \geqslant 1</LATEX> an integer such that <LATEX>\varphi \in B _ { m } ^ { \infty } .</LATEX> Consider for any <LATEX>n \in \mathbb{R}</LATEX> the unique solution <LATEX>\phi _ { \eta } \in \Pi _ { \eta } B _ { m } ^ { \infty }</LATEX> of the Poisson equation <LATEX>- \mathcal{L} _ { \eta } \phi _ { \eta } = \Pi _ { \eta } \varphi ,</LATEX> and define <LATEX>\widetilde { \phi } =</LATEX> <LATEX>- \mathcal{L} _ { 0 } ^ { - 1 } \Pi _ { 0 } \widetilde { \mathcal{L} } _ { \mathrm { p h y s } } \phi _ { 0 } \in \mathscr{S} .</LATEX> Then, there exists <LATEX>n \geqslant 1</LATEX> and <LATEX>K \in \mathbb{R} _ { + } ,</LATEX> such that
+95el | <LATEX>\forall | \eta | \leqslant \eta _ { * } , \quad \| \Pi _ { \eta } \left( \phi _ { \eta } - \phi _ { 0 } - \eta \widetilde { \phi } \right) \| _ { B _ { \mathrm { s } } ^ { \infty } } \leqslant K \eta ^ { 2 } .</LATEX> Proof. Since <LATEX>\mathcal{L} _ { \eta } = \mathcal{L} _ { 0 } + \eta \widetilde { \mathcal{L} } _ { \mathrm { p h y } } ,</LATEX> a simple computation shows that
+a0a5 | EXTENDING LINEAR RESPONSE WITH SYNTHETIC FORCINGS
+gocl | 19
+ob1z | In view of Lemma 2.2, and since <LATEX>\mathfrak{f} _ { 1 }</LATEX> has average 0 with respect to
+m4cb | <LATEX>\psi _ { 0 } ,</LATEX> <LATEX>\left( \Pi _ { \eta } - \Pi _ { 0 } \right) \varphi = - \eta \int _ { \mathcal{X} } \varphi \mathfrak{f} _ { 1 } \psi _ { 0 } - \eta ^ { 2 } \mathscr{R} _ { \eta , \varphi , 2 } = - \eta \int _ { \mathcal{X} } \left( \Pi _ { 0 } \varphi \right) \mathfrak{f} _ { 1 } \psi _ { 0 } - \eta ^ { 2 } \mathscr{R} _ { \eta , \varphi , 2 }</LATEX> <LATEX>= \eta \int _ { \mathcal{X} } \widetilde { \mathcal{L} } _ { \mathrm { p h y s } } \mathcal{L} _ { 0 } ^ { - 1 } \Pi _ { 0 } \varphi \psi _ { 0 } - \eta ^ { 2 } \mathscr{R} _ { \eta , \varphi , 2 } = - \eta \int _ { \mathcal{X} } \left( \widetilde { \mathcal{L} } _ { \mathrm { p h y s } } \phi _ { 0 } \right) \psi _ { 0 } - \eta ^ { 2 } \mathscr{R} _ { \eta , \varphi , 2 }</LATEX> <LATEX>= - \eta \left( 1 - \Pi _ { 0 } \right) \widetilde { \mathcal{L} } _ { \mathrm { p h y s } } \phi _ { 0 } - \eta ^ { 2 } \mathscr{R} _ { \eta , \varphi , 2 }</LATEX> Therefore, <LATEX>- \mathcal{L} _ { \eta } \left( \phi _ { \eta } - \phi _ { 0 } - \eta \widetilde { \phi } \right) = \eta ^ { 2 } \widetilde { \mathcal{L} } _ { \mathrm { p h y s } } \widetilde { \phi } - \eta ^ { 2 } \mathscr{R} _ { \eta , \varphi , 2 } = \eta ^ { 2 } \Pi _ { \eta } \widetilde { \mathcal{L} } _ { \mathrm { p h y s } } \widetilde { \phi } ,</LATEX> because the right-hand side is <LATEX>\eta ^ { 2 } \widetilde { \mathcal{L} } _ { \mathrm { p h y s } } \widetilde { \phi } \mathrm { u p }</LATEX> to a constant term, and has to be in the image of <LATEX>\mathcal{L} _ { \eta } .</LATEX> It is clear that <LATEX>\widetilde { \mathcal{L} } _ { \mathrm { p h y s } } \widetilde { \phi } \in \mathscr{S} ,</LATEX> as <LATEX>\widetilde { \phi } \in \mathscr{S}</LATEX> and <LATEX>\widetilde { \mathcal{L} } _ { \mathrm { p h y s } }</LATEX> stabilizes <LATEX>\mathscr{S}</LATEX> by Assumption 4. Thus, there exists <LATEX>n \geqslant 1</LATEX> such that <LATEX>\widetilde { \mathcal{L} } _ { \mathrm { p h y s } } \widetilde { \phi } \in B _ { n } ^ { \infty }</LATEX> . Using the definition of the operator norm,
+m61y | <LATEX>\| \Pi _ { \eta } \left( \phi _ { \eta } - \phi _ { 0 } - \eta \widetilde { \phi } \right) \| _ { B _ { \eta } ^ { \infty } } = \eta ^ { 2 } \| \mathcal{L} _ { \eta } ^ { - 1 } \left( \Pi _ { \eta } \widetilde { \mathcal{L} } _ { \mathrm { p h y s } } \widetilde { \phi } \right) \| _ { B _ { \gamma } ^ { \infty } }</LATEX> <LATEX>\leqslant \eta ^ { 2 } \| \mathcal{L} _ { \eta } ^ { - 1 } \| _ { \mathcal{B} \left( \Pi _ { \eta } B _ { n } ^ { \infty } \right) } \| \Pi _ { \eta } \left( \widetilde { \mathcal{L} } _ { \mathrm { p h y s } } \widetilde { \phi } \right) \| _ { B _ { \infty } ^ { \infty } } ,</LATEX> where <LATEX>\| \mathcal{L} _ { \eta } ^ { - 1 } \| _ { \mathcal{B} \left( \Pi _ { \eta } B _ { \eta } ^ { \infty } \right) }</LATEX> is uniformly bounded in view of (2.6), as is <LATEX>\| \Pi _ { \eta } \left( \widetilde { \mathcal{L} } _ { \mathrm { p h y s } } \widetilde { \phi } \right) \| _ { B _ { n } ^ { \infty } }</LATEX> by 0 (2.5). This gives the desired result.
+u2ob | Bounds on the finite-time bias. For completeness, we also state result on the finite-time bias of the estimator, which essentially says that this bias <LATEX>1 / \left( \eta t \right) .</LATEX> For technical reasons, this estimate however has to be formulated in a more cumber- some way. Nevertheless, bounds on the statistical error given in Proposition 2.4 are more important in practice, which is why we did not try to improve the bounds below.
+2gnm | LEMMA 2.6. Consider the same setting as Proposition 2.4, and assume that <LATEX>\Sigma =</LATEX> <LATEX>\sigma \sigma ^ { T } \in \mathscr{S}</LATEX> . Then, for any <LATEX>k \geqslant 1</LATEX> and any <LATEX>\eta _ { * } > 0 ,</LATEX> there exist <LATEX>\mathcal{C} _ { k }</LATEX> and <LATEX>\mathcal{M} _ { k }</LATEX> (which depend and <LATEX>\left. R \right)</LATEX> such that
+emgw | (2.47)
+xaqt | <LATEX>\forall | \eta | \leqslant \eta _ { * } , \quad \forall t > 0 , \quad | \mathbb{E} \left( \widehat { \Phi } _ { \eta , t } \right) - \widehat { \rho } _ { 1 , \eta } | \leqslant \frac { \mathcal{C} _ { k } } { \eta t } + \mathcal{M} _ { k } \eta ^ { k } .</LATEX> Proof. This result would be easy to prove if <LATEX>\widehat { R } _ { \eta } \in \mathscr{S} ,</LATEX> where <LATEX>\widehat { R } _ { \eta }</LATEX> is the unique solu- tion to the Poisson equation <LATEX>- \mathcal{L} _ { \eta } \widehat { R } _ { \eta } = \Pi _ { \eta } R</LATEX> discussed in the proof of Proposition 2.4. However, there is no result that ensures that this property holds, so we turn to an alternative proof where we approximate <LATEX>\widehat { R } _ { \eta }</LATEX> with high precision by <LATEX>\widehat { R } _ { \eta , k } \in \mathscr{S}</LATEX> . More precisely, we introduce <LATEX>\widehat { R } _ { \eta , k } = Q _ { \eta , k + 1 } \Pi _ { \eta } R ,</LATEX> where <LATEX>Q _ { n , k }</LATEX> is the pseudo-inverse operator defined in (2.29), so that <LATEX>\widehat { R } _ { \eta , k } \in \mathscr{S} .</LATEX> Since <LATEX>\widehat { R } _ { \eta , k } \in C ^ { \infty } \left( \mathcal{X} \right) ,</LATEX> we use Itô's formula to write
+5rcb | (2.48)
+524j | <LATEX>d \widehat { R } _ { \eta , k } \left( X _ { t } ^ { \eta } \right) = \mathcal{L} _ { \eta } \widehat { R } _ { \eta , k } \left( X _ { t } ^ { \eta } \right) d t + \nabla \widehat { R } _ { \eta , k } \left( X _ { t } ^ { \eta } \right) ^ { T } \Sigma \left( X _ { t } ^ { \eta } \right) d W _ { t } .</LATEX> The martingale term in (2.48) is square integrable since, in view of (2.7) and the <LATEX>\mathrm { f a c t }</LATEX> that E, <LATEX>\widehat { R } _ { \eta , k } \in \mathscr{S}</LATEX> (so that | <LATEX>\left. | \Sigma \nabla \widehat { R } _ { \eta , k } | ^ { 2 } \in \mathscr{S} \right) ,</LATEX> there exists <LATEX>\ell \in \mathbb{N}</LATEX> such that
+xd3m | 20
+8qb6 | is uniformly bounded for <LATEX>| \eta | \leqslant \eta _ { * } .</LATEX> Next, we write
+wkbn | (2.49)

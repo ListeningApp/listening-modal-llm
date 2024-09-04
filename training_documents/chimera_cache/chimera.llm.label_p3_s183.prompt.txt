@@ -1,0 +1,126 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+
+EXAMPLE OUTPUT:
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+
+
+
+
+m4ju | GEMS [28] is a memory-efficient pipeline approach which sched- ules micro-batches among two model replicas. Since GEMS is mainly designed for small B and has at most two active micro-batches at
+a0mb | Figure 3: Model replicas and bidirectional pipelines scheduling of Chimera.
+ki8m | the same time, its bubble ratio is much higher than the other ap- proaches and cannot be alleviated by a larger N. Asynchronous approaches (such as PipeDream [38] and PipeDream-2BW [39]) do not have periodic pipeline flushes, so they do not have bubble problem but with stale weights.
+km8w | Memory consumption. Memory overhead mainly comes from two aspects: the weight parameters and the activations (the inter- mediate results of the forward pass required in the backward pass to compute gradients). For GPipe and DAPPLE, each worker maintains the weights of one pipeline stage. For GEMS and Chimera (with the default setting), each worker maintains the weights of two pipeline stages since there are two pipelines in two directions. PipeDream updates the model after each backward pass on a micro-batch (N=1); therefore, to ensure weight version consistency between forward and backward passes, it requires to stash up to D versions of weights on a worker, which has the same memory cost as pure data paral- lelism. By using gradient accumulation (N>=D), PipeDream-2BW reduces the number of weight versions to be stashed to 2.
+wzno | GEMS injects only one micro-batch at the beginning of the pipeline, and thus the activations of the forward pass on one micro- batch are stored. However, this leads to low pipeline efficiency as discussed previously. Since GPipe injects N micro-batches (N >= D to fully utilize the pipeline) into the pipeline concurrently, the ac- tivitions memory consumption is proportional to N, which does not scale well to large mini-batches. Using the classic (or a variant of) 1F1B [38, 39] schedule, PipeDream, PipeDream-2BW, DAPPLE, and Chimera inject up to D micro-batches at the beginning of the pipeline, which scale well to large mini-batches. By counting the number of injected micro-batches on each worker of Chimera in Figure 2, we can observe that Chimera has an extra benefit of a more balanced activations memory consumption among the workers (see Table 2 for the general analysis) than PipeDream, PipeDream-2BW, and DAPPLE, and therefore a better memory resources utilization. Note that the activations memory consumption can be reduced using the technique of activation recomputation [11], but this is at a cost of about 1/3 more computation overhead [16, 39].
+xagm | ZeRO [44, 46] removes the memory redundancies by partitioning the three model states (i.e., optimizer states, gradients, and param- eters) across data-parallel processes, with a modest increasement to the communication volume. Note that our pipeline approach is orthogonal to ZeRO. To further reduce the memory consumption of our pipeline approach is an interesting future work.
+iwn5 | Convergence friendliness. By periodic pipeline flushes, synchro- nous approaches ensure that the same version of weights is used across all stages and all micro-batches in a training iteration, with- out introducing staleness. From the algorithmic perspective, syn- chronous approaches are equivalent to the standard and well-proved mini-batch SGD, and therefore, guarantee convergence.
+uooz | To remove pipeline flushes, asynchronous approaches either aggressively lead to weight versions mismatch between forward and backward passes (such as AMPNet [19] and PipeMare [57]), or conservatively introduce staleness to the weights while ensur- ing weight versions consistency (such as PipeDream-2BW and PipeDream). Although they empirically show promising conver- gence results, the generality is lack of proof. More recent work [4, 34, 36, 37, 52] observes that asynchronous training algorithms may result in lower convergence performance.
+pxbq | For the model accuracy, all the synchronous pipeline approaches (such as Chimera, DAPPLE, GPipe and GEMS) are guaranteed to achieve the same accuracy as the standard mini-batch SGD algo- rithm. For the asynchronous approaches (such as PipeDream-2BW and PipeDream), it is not safe to achieve the ideal accuracy as the standard algorithm because of the introduced weight staleness, and the convergence quality may exhibit variance on different neural networks and tasks.
+jfsr | Overall, Chimera achieves the best balance of all aspects, as presented in Table 2. We will discuss the implementation details of Chimera in the following section.
+u15r | THE SCHEME OF CHIMERA 3
+lq35 | 3.1 Bidirectional Pipelines
+3g9w | We consider large-scale models with repetitive structures (i.e., the same block repeated multiple times), such as Bert [13] and GPT- 2/3 [7, 43], which can be partitioned into balanced stages with an equal number of blocks. The feature of repetitive structures is also exploited in PipeDream-2BW [39]. How to generally partition any model into stages with efficiency is not the topic of this paper and has been well studied in recent work [16, 38].
+d09o | The key idea of Chimera is to combine two pipelines in differ- ent directions (we call them down and up pipelines, respectively) together. Figure 3 shows an example with four pipeline stages (i.e., D=4). Here we assume there are D micro-batches executed by each
+ylhz | worker within a training iteration, namely <LATEX>N = D ,</LATEX> which is the min- imum to keep all the stages active. How to scale to more than <LATEX>D</LATEX> micro-batches (i.e., for <LATEX>\left. N > D \right)</LATEX> will be discussed in Section 3.5. In the down pipeline, stage0~stage3 are mapped to PO~P3 linearly, while in the up pipeline the stages are mapped in a completely opposite order. The <LATEX>N</LATEX> (assuming an even number) micro-batches are equally partitioned among the two pipelines. Each pipeline schedules <LATEX>N / 2</LATEX> micro-batches using 1F1B [38] strategy, as shown in the left part of Figure 3. Then, by merging these two pipelines together, we obtain the pipeline schedule of Chimera (upper right of Figure 3). Given an even number of stages <LATEX>D</LATEX> (which can be easily satisfied in practice), it is guaranteed that there is no conflict (i.e., there is at most one micro-batch occupies the same time slot on each worker) during merging. We can see that the number of bubbles is reduced to <LATEX>D / 2 - 1</LATEX> in the forward and backward passes, respectively. By considering the uneven workloads between forward and backward passes, we get a more practical schedule of Chimera (bottom right of Figure 3).
+a3td | For the models which have to use a small <LATEX>\widehat { B }</LATEX> to guarantee con- vergence, there maybe less than <LATEX>D</LATEX> micro-batches a training iteration (i.e., <LATEX>\left. N < D \right) .</LATEX> Chimera also supports the cases <LATEX>o f \quad N < D \quad b y</LATEX> simply partitioning the <LATEX>N</LATEX> micro-batches among the two pipelines as evenly as possible, with an extreme case that <LATEX>N = 1</LATEX> where only one micro-batch runs on a single pipeline.
+ex5k | Note that Chimera can be generalized to combine more than two pipelines (will be discussed in Section 3.6), which further reduces the bubbles and balances the activations memory consumption, but at a cost of higher communication overhead and weights memory consumption.
+9d4o | Figure 4: Hide the gradient synchronization overhead by overlapping.
+cjq2 | 3.2 Communication Scheme
+5esx | Chimera uses <LATEX>p 2 p</LATEX> (point-to-point) communication to transfer the intermediate activations and gradients (with respect to the inputs) between pipeline stages in the forward pass and the backward pass, respectively. Since Chimera combines bidirectional pipelines together, collective communication (i.e., allreduce) is used to syn- chronize the weight gradients across stage replicas before the next training iteration. Figure 4(a) presents a simple way for gradient synchronization, namely synchronizing the gradients for each stage maintained by the workers after all the local computation of the current iteration is finished. Note that the gradient synchronization for the middle stages is partially overlapped by the computation on the beginning and the end stages.
+m5ka | For a deeper communication overlap, we launch allreduce ea- gerly by utilizing the bubbles in the pipeline. Taking P0 and P3 in Figure 4(b) as an example, after these two workers finish the backward passes on micro-batch 3 and micro-batch 1, respectively, the calculation for the weight gradients of stage3 has been finished; therefore, P0 and P3 can launch an asynchronous allreduce using nonblocking collectives [23, 25] to synchronize the gradients of stage3 as soon as they are finished, and a wait operation is called after all the local computation to make sure the allreduce is finished. <LATEX>\begin{array}{} \text { In this way. } \\ \text { by the bubb } \end{array} ,</LATEX> the gradient synchronization for stage3 is overlapped and the following computation. However, unlike PO and P3, we choose not to conduct eager gradient synchronization for stage2 (a middle stage) on <LATEX>P 1</LATEX> and P2, since there is no bubble from the completion of stage2's gradients to the end of local com- putation. Although the asynchronous communication may proceed while the computation happens, it may cause additional overheads (initialization, threading etc. [24]), which could extend the critical path of the pipeline and jeopardize the overall performance. Perfor- mance modelling of the communication scheme will be presented in Section 3.4.
+byu8 | <LATEX>\left( W = 2 , D = 4 \right) .</LATEX> 3.3 Hybrid of Pipeline and Data Parallelism
+76b0 | Chimera supports a hybrid of pipeline and data parallelism. The bidirectional pipelines of Chimera are replicated <LATEX>W</LATEX> times to scale to <LATEX>W \cdot D</LATEX> workers. Since we consider the large models which can be easily partitioned into balanced stages, all <LATEX>D</LATEX> stages are equally replicated <LATEX>W</LATEX> times in hybrid parallelism. When scaling to the par- allel machines equipped with high performance interconnected networks (such as Infiniband [50], Cray Aries [2] or Slingshot [48], and NVLink [18]), hybrid parallelism usually achieves better perfor- mance than the pure pipeline parallelism [16, 39]. This is because pure pipeline parallelism has <LATEX>W \cdot D</LATEX> stages in the pipeline, while hybrid parallelism has <LATEX>D</LATEX> stages (W times less) which helps to re- duce the <LATEX>p 2 p</LATEX> communication overhead between stages and increase the computation workload of each stage. Although hybrid paral- lelism leads to gradient synchronization between stage replicas, the overhead of it can be alleviated by the aforementioned high performance interconnected networks. However, as <LATEX>W</LATEX> increases (D decreases), pipeline stages become coarser, until at some point the increased gradient synchronization overhead cannot be amor- tized by the reduced <LATEX>p 2 p</LATEX> communication overhead. Therefore, it is important to find the sweet spot to achieve the best performance.
+zxz6 | Figure 5 presents an example with <LATEX>W = 2</LATEX> and <LATEX>D = 4 .</LATEX> Note that after combining with data parallelism, the size of local gradients to be
+xnth | synchronized does not change, but the number of processes partici- pating in the gradient synchronization increases by <LATEX>W</LATEX> times. Also, we use the same communication scheme as discussed in Section 3.2 to overlap the gradient synchronization overhead in hybrid par- allelism. In the next section we will discuss how to find the best configuration of <LATEX>W</LATEX> and <LATEX>D</LATEX> based on performance modelling.
+vafm | 3.4 Configuration Selection Based on Performance Modelling
+2zmw | Given the mini-batch size <LATEX>\widehat { B }</LATEX> and the number of workers P, the configuration of <LATEX>B ,</LATEX> <LATEX>W ,</LATEX> and D largely affects the training throughput.
+bf9k | Larger micro-batch size (B) usually improves the computational efficiency of the accelerators. Since Chimera greatly alleviates the bubble problem, it greedily chooses to use the maximum micro- batch size fitting in the device memory. Compared with the exist- ing synchronous pipeline approaches which have to consider the trade-off between bubble and computational efficiency, the greedy strategy of Chimera significantly reduces the tuning space.
+otkr | To select the best configuration of <LATEX>W</LATEX> and <LATEX>D ,</LATEX> we build a perfor- mance model to predict the runtime of a single training iteration (represented by <LATEX>\left. T \right)</LATEX> for each available configuration. For the compu-
+ibgs | we measure the runtime of the forward pass on a <LATEX>F _ { t } .</LATEX> The runtime of backward pass (represented as
+colo | two times of the forward pass if no activation recomputation is used, and three times otherwise. We define the critical path as a series of pipeline stages with dependency that determine the overall computation overhead of a single training iteration. An example of critical path is shown in Figure 6. Let <LATEX>C _ { f }</LATEX> and <LATEX>C _ { b }</LATEX> denote the number of forward passes and backward passes on the critical path of the pipeline, respectively. For the example shown in Figure 6, <LATEX>C _ { f } = 6</LATEX> <LATEX>C _ { b } = 1 0 .</LATEX> The total computation overhead is

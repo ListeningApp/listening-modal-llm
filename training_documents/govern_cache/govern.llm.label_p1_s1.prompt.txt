@@ -1,0 +1,133 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+
+EXAMPLE OUTPUT:
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+
+
+
+
+1pjs | A volume in the series Cornell Studies in Political Economy EDITED BY PETER J. KATZENSTEIN
+o2kr | A full list of titles in the series appears at the end of the book.
+v6sk | International Governance PROTECTING THE ENVIRONMENT IN A STATELESS SOCIETY ORAN R. YOUNG
+1wj6 | CORNELL UNIVERSITY PRESS Ithaca and London
+936l | 226
+06yq | CHAPTER SIX
+dpv6 | The Effectiveness of International Governance Systems
+8r5j | Critical threats to the earth's habitability demand that humankind rise to the challenge of creating new and more effective systems of international environmental governance. These threats are largely anthropogenic in origin and manifest themselves in such forms as desertification, deforestation, ozone depletion, climate change, the loss of biological diversity, disruptions of the global hydrological cycle, and, ultimately, perturbations in coupled atmosphere/ocean/land sys- tems capable of triggering worldwide ecological crises. They have stimulated an unprecedented growth in the demand for governance at the international level. Protecting the stratospheric ozone layer requires sustained cooperation among affluent residents of North America, Europe, and Japan, who must find substitutes for chloro- fluorocarbons, and aspiring residents of Brazil, China, India, and other developing countries, who must resist the temptation to in- crease dramatically their consumption of refrigerants containing these chemicals. Avoiding global warming calls for the development of effective and coordinated emission-control systems to limit the release of greenhouse gases-carbon dioxide, methane, CFCs, ni- trous oxide-from a wide range of sources in every corner of the globe. Stemming the loss of biological diversity entails harnessing socioeconomic forces such as international trade and monetary sys-
+2taz | Effectiveness
+o3ya | tems that transcend national borders, even though the actual losses may be region-specific and closely linked to the destruction of moist tropical forests.
+r5il | What does it take to develop and maintain effective governance systems to deal with these problems? When we turn from generalities to the specifics of such complex environmental problems as climate change or the loss of biological diversity, the barriers to sustained cooperation seem more substantial than they may appear to be in the simple scenarios often used to illustrate the concepts of interactive decision making and collective action. More often than not, these environmental matters present sharp challenges to those in search of appropriate ways to conceptualize the problem to be solved and of satisfactory methods to address issues of sustainability, social welfare, and equity embedded in them. It is not easy, for example, to devise international regimes that satisfy, at one and the same time, the con- cerns of those whose aim is to spread the benefits of economic growth-and the material wealth that sometimes goes with it-to the developing world and those who are convinced that sustainable devel- opment requires profound changes in the materialistic life-styles of people in both the developed and the developing worlds. Much the same can be said of the difficulties confronting those endeavoring to reconcile emerging northern concerns for relieving pressure on the earth's life support systems and the increasingly insistent southern demands for a restructuring of persistent economic imbalances to meet reasonable standards of equity.
+5gui | The record shows considerable variation in the effectiveness of environmental governance systems operative at the international lev- el. Some regimes (for example, the Antarctic Treaty System or the evolving ozone regime) have been notable successes, while others (for example, many of the international fisheries regimes) have proven relatively ineffective. Despite the unprecedented scope of some of today's environmental problems, much can be learned about the fac- tors that determine the effectiveness of international governance sys- tems from an examination of actual experience with a variety of envi- ronmental regimes. This chapter sets the stage for a systematic study of these determinants of effectiveness by addressing conceptual issues in this realm and exploring the range of variables that require consid- eration in thinking about effectiveness. A growing number of stu- dents of international governance are preparing to take up the chal- lenge of improving our knowledge of this subject.
+82qc | INTERNATIONAL GOVERNANCE
+ls7d | THE MEANING OF EFFECTIVENESS
+tzt3 | What do we mean when we speak of the effectiveness of interna- tional regimes or governance systems? Can we devise some simple way to describe and, ideally, to measure variations in levels of institutional effectiveness? What are the prospects for pinpointing factors that, singly or in combination, determine the success or failure of institu- tional arrangements in international society? Are some of these fac- tors so central that they constitute important, perhaps even necessary, conditions for the achievement of effectiveness across a wide range of places and times? Posed in these general terms, the issue of effective- ness seems straightforward enough. Simply put, we want to find out why some regimes work well, while others have little impact or even become dead letters. Quite apart from the value of such knowledge to those seeking to understand the workings of international society, persuasive answers to this question would be of obvious interest to those responsible for designing and managing governance systems dealing with specific issues.
+t8vv | Effectiveness, it is clear, figures in this line of inquiry mainly as the dependent variable, that is, the phenomenon we seek to account for or to explain. Accordingly, our goal is to observe and measure varia- tions in levels of effectiveness (or in some index of effectiveness) and then to construct a set of propositions to explain or predict these variations. Yet the more we bear down on the specification of effec- tiveness as a dependent variable, the clearer it becomes that we are dealing with a suite of related variables or, at best, a multidimensional variable whose separate dimensions need not and frequently do not co-vary in any simple way.1 In the course of my work on international
+qvnu | Effectiveness
+kggw | governance, I have been able to identify six distinct dimensions (there may be more) of effectiveness; I call them effectiveness as problem solving, effectiveness as goal attainment, behavioral effectiveness, process effectiveness, constitutive effectiveness, and evaluative effec- tiveness. A discussion of these perspectives on effectiveness will serve to avoid confusion and misunderstandings in our subsequent efforts to pin down factors that explain variations in levels of effectiveness attained by different international environmental governance sys- tems.
+xrd1 | Effectiveness as Problem Solving
+5746 | First, and undoubtedly foremost, we want to know whether regimes are effective in the sense that they operate to solve the problems that motivate parties to create them in the first place. The problems that stimulate the formation of international regimes are diverse. They may, for example, involve the depletion of renewable resources as in the cases of stocks of fish or fur seals; the allocation of flow resources as in the case of water carried by rivers passing through several juris- dictions; the use of congestible common property resources as in the case of broadcast frequencies or orbital slots; or the conduct of scien- tific research in areas subject to jurisdictional differences as in the case of Antarctica. Also, the problem a regime addresses may be framed differently by various parties to the arrangement or be sub- ject to redefinition over the life of the regime. The whaling regime began as a means of coping with stock depletions to ensure sustain- able yields for consumptive users, for instance, but it has come to focus with the passage of time on the problem of protecting whales from all consumptive uses. Needless to say, judgments regarding the effectiveness of a regime may vary depending on how those making such judgments choose to frame the problem. What is more, the problem itself may change or take on new dimensions with the pas- sage of time. So, for example, most wildlife management regimes originated as devices for avoiding severe stock depletions resulting from excessive harvesting on the part of human users. But over time, the problem of maintaining healthy stocks of wild animals has increas- ingly become a matter of coping with the consequences of habitat destruction.
+7toz | Approached in this way, it is easy to see that the effectiveness of regimes varies greatly. In the fur seal case, the introduction of the
+j346 | INTERNATIONAL GOVERNANCE
+v8uq | regime set forth in the 1911 convention produced a striking rebound in the seal population by prohibiting pelagic sealing and regulating harvests on land. The Antarctic Treaty regime has proven remark- ably effective in allowing scientific research and other cooperative activities to go forward, despite the inability of the parties to arrive at any final resolution of their jurisdictional differences. It is harder, though not impossible, to make a convincing case for the effectiveness of the regime set forth in the 1973 Convention on Trade in Endan- gered Species of Fauna and Flora as a means of solving the problem of maintaining healthy stocks of rhinoceros or elephants. For its part, the pollution-control regime developed under the Mediterranean Ac- tion Plan has not put an end to the problem of pollution in the Mediterranean Basin.
+x972 | Effectiveness as Goal Attainment
+cwrw | Goal-oriented effectiveness, by contrast, is a measure of the extent to which a regime's (stated or unstated) goals are attained over time.2 Of course, there is frequently a straightforward and easily identifiable relationship between goal attainment and the search for solutions to motivating problems. The management of stocks of wild animals for maximum sustainable yield or optimal sustainable population, to take a simple example, requires that solutions be found to the problem of severe depletions resulting from excessive harvests or the destruction of critical habitat. But goal attainment and problem solving need not go together. Putting in place an equitable process of allocating harvest quotas for wild animals (a specific goal of the fur seal regime) offers no assurance that a solution to the problem of stock depletions will be found. Controlling the trade in endangered species (a prime goal of the CITES regime) is not sufficient to protect the species in question from going extinct. Reducing sulfur dioxide emissions by 30 percent (the stated goal of the 1985 protocol to the Geneva Convention on Long-Range Transboundary Air Pollution) does not guarantee the biological recovery of German forests or Swedish lakes.
+4i0e | This distinction between effectiveness as problem solving and goal- oriented effectiveness becomes sharper when we broaden our per- spective to consider unstated goals. More often than not, those en- gaged in regime formation are motivated by goals they do not feel comfortable articulating in public as well as by goals they deem appro-
+h2l3 | 144
+dfzb | Effectiveness
+u6ty | priate for inclusion in public statements. Typically, these unstated goals deal with distributive concerns in contrast to the pursuit of some common good. To take a classic example, it is standard practice for those advocating expanded coastal state jurisdiction over fisheries to emphasize conservation in presenting their case in public. But it is common knowledge that they are motivated as well by a desire to protect their own fishers from competition on the part of foreign fishers. Similarly, the provisions of pollution-control regimes often owe as much to the efforts of the parties to protect certain industries as to a desire to promote the common good by avoiding or reducing environmental impacts. In such cases, the link between problem- solving effectiveness and goal-oriented effectiveness is apt to be par- ticularly tenuous. As recent experience with the marine fisheries makes crystal clear, institutional arrangements may prove extremely effective in fulfilling the goal of protecting domestic fishers but con- tribute little toward solving the underlying problem of stock deple- tions caused by excessive harvests.
+awvu | Behavioral Effectiveness
+on9b | Yet another way of thinking about effectiveness is to ask whether the operation of a regime causes one or more of its members (or individuals, corporations, and organizations operating under the ju- risdiction of the members) to alter their behavior, either by doing things they would not otherwise have done or by terminating or redi- recting prior patterns of behavior.3 The reduction of Japanese and Soviet investments in commercial whaling (by retiring existing whal- ing fleets without replacement) constitutes a behavioral change that is clearly related to the operation of the whaling regime, though some would argue that the causal connection is hard to demonstrate. The dramatic growth of American investment in capacity to harvest groundfish is unquestionably an outgrowth of the introduction of a regime featuring extended coastal state jurisdiction during the 1970s. Similarly, the striking increase in corporate research and develop- ment aimed at developing substitutes for CFCs occurred in the wake of the formation of the ozone regime under the provisions of the 1985 Vienna Convention for the Protection of the Ozone Layer and, especially, the 1987 Montreal Protocol on Substances That Deplete the Ozone Layer.
+a8ge | INTERNATIONAL GOVERNANCE
+h27a | Although behavioral effectiveness may be correlated with problem- solving effectiveness or goal-oriented effectiveness, there is no basis for assuming that this will always be the case. As is now becoming clear, for example, the growth of American investment in the ground- fisheries of the Bering Sea region has simply substituted a new threat to the health of the fish stocks for the old threat posed by foreign fishers. The introduction of systems of transferable or tradable per- mits in marine fisheries typically has the effect of stimulating fishers to increase investments in sophisticated technologies, a behavioral response that can easily run counter to the requirements of both problem-solving and goal-oriented effectiveness. Similarly, there are reasons to doubt whether some of the chemicals developed as substi- tutes for CFCs will turn out to be environmentally benign in the long run. Equally troubling, the behavioral effects attributable to the estab- lishment of an international regime may amount to a form of dis- placement in the sense that they create a new problem in the process of solving an old one. Banning the consumptive use of various species of great whales, for instance, has had the effect of increasing pressure on whale stocks not included in the ban. All told, therefore, it seems clear that the behavioral effects arising from the operation of a re- gime must be assessed on their own terms; they cannot be subsumed under the rubrics of effectiveness as problem-solving and goal- oriented effectiveness.
+pdjh | Process Effectiveness
+xmgs | A way of thinking that appeals to many administrators, lawyers, and political scientists treats effectiveness as a matter of the extent to which the provisions of an international regime are implemented in the domestic legal and political systems of the member states as well as the extent to which those subject to a regime's prescriptions actually comply with their requirements.4 This approach has the virtue of suggesting relatively straightforward procedures for measurement. It is easy enough to determine whether individual states have ratified conventions or treaties setting forth the provisions of regimes and
+bd9h | 146
+m047 | Effectiveness
+gy8c | passed implementing legislation to put these provisions into practice within their own jurisdictions. An account of the extent to which such actions have led, in turn, to the promulgation of more detailed regu- lations designed to transform the provisions of a regime into a day-to- day routine is ordinarily feasible as well. Though monitoring compli- ance is apt to be a more complex process, there is little ambiguity at the conceptual level about what is at stake in such an approach to the assessment of effectiveness.

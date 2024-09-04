@@ -1,0 +1,219 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+
+EXAMPLE OUTPUT:
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+
+
+
+
+108o | 801 funding and supervised the project.
+d2za | 802
+r38m | Figures
+qq0z | Figure 1 Paradise et al, 2023
+rgva | 803
+mlcd | 804 Figure 1: Neuroproteasomes co-purify with ApoE and Lrp1
+2qe7 | 805
+lpzf | 806 (A) Schematic for endogenous and conditional tagging of the 20S proteasome with FLAG tag. 807 (Top) Schematic of Psma3 gene locus, endogenous Exon 11 containing the stop codon (red rectangle) was flanked with loxP sites (black triangles), and an insert containing 3x-FLAG 808
+24rz | 809 tagged Exon 11 (gray) was inserted into the 3' UTR of the gene. Transgene referred to as 20S-
+091m | 810 FLAG. (Bottom) Diagram of 20S-FLAG/Cre: in the presence of Cre, the native Exon 11
+sot6 | 811 containing the stop codon was excised, driving the expression of FLAG tag from the endogenous
+d6sf | 812 Psma3 locus. (Right, top) Schematics of proteasome complexes: 20S and 26S
+7haq | <LATEX>\left( 2 0 S + 1 9 S \right.</LATEX> 813 814 regulatory particle). (Right, bottom) Schematics of proteasome complexes with 20S-FLAG tag (gray circles) after Cre recombination.
+ubwu | 815
+ucme | 816 (B) Proteasome purifications from the cytosol of brains from 20S-FLAG/BAF53b-Cre mice.
+qnl5 | 817 (Top) 20S-FLAG mice crossed with pan-neuronal Cre driver line BAF53b-Cre to induce 20S-
+wdx9 | 818 FLAG expression in neurons. (Middle) Diagram of proteasomal complexes isolated by different
+n1xr | 819 affinity methods; Immunoprecipitation (IP) using FLAG beads isolate FLAG-tagged 20S core particle as well as the 20S-containing 26S particle, whereas IP against the 19S only isolates 26S
+ohpj | 820
+ry5f | 821 particles. (Bottom) FLAG and 26S IP from mouse brain cytosolic fractions immunoblotted using indicated antibodies.
+31wg | 822
+celk | 823 824 (C) Comparison of FLAG-20S proteasomes with unmodified native proteasomes. Catalytic 825 activity of proteasomes isolated by 26S IP (left) and FLAG IP (right) from whole brain cytosol.
+3mf9 | 826 Proteasomes were isolated as in (b) from BAF53b-Cre mice (black) or 20S-FLAG/BAF53b-Cre 827 mice (blue). Catalytic activity of isolated proteasomes was measured by monitoring cleavage of
+z2rd | 828 model substrate, Suc-LLVY-AMC. Proteasome-dependent cleavage of the substrate increases
+vqld | 829 AMC fluorescence. Data are <LATEX>\mathrm { m e a n } \pm \mathrm { S E M }</LATEX> from three biological replicates. <LATEX>* * * * < 0 . 0 0 0 1</LATEX> by
+ljmz | 830 Two-Way ANOVA.
+en1l | 831
+45gx | 832 (D) Surface biotinylation to isolate surface-exposed proteins from 20S-FLAG/BAF53b-Cre 833 hippocampi. (Left) Diagram of surface biotinylation and streptavidin pulldowns.
+xgur | 834 Neuroproteasomes (20S surrounded by purple accessory proteins) and other membrane proteins
+iz66 | 835 (blue) depicted in membrane, cytosolic proteins such as microtubules (green) in intracellular
+dndq | 836 space. Hippocampal tissues from 20S-FLAG mice alone or with BAF53b-Cre were dissected and subjected to surface biotinylation using amine-reactive sulfo-NHS-biotin (pink). Lysates
+xzce | 837
+w4vd | 838 incubated with streptavidin beads to pull down surface-exposed proteins. (Right) 20S proteasome
+cuh0 | 839 signal in surface pulldown denotes the neuroproteasome. Streptavidin pulldown of surface
+k36t | 840 proteins in 20S-FLAG male (M) or female (F) mice, <LATEX>- / +</LATEX> BAF53b-Cre. Lysates (Total) and
+z1wx | 841 Streptavidin pulldowns (Surface) immunoblotted using indicated antibodies against the FLAG
+o6gf | 842 epitope tag, the 20S proteasome (a1-7), a cytosolic protein (Actin), and a membrane protein
+0hs6 | 843 (GluR1). Merge indicates overlay (yellow) between FLAG (green) and a1-7 blots (red).
+m05x | 844
+ds29 | 845 (E) Co-IP and mass spectrometry (MS) analysis of 20S-FLAG proteasomes from cytosolic and 846 membrane-enriched fractions. (Left) Cytosolic and membrane fractions were prepared from
+qcmr | 847 whole brains of 20S-FLAG/BAF53b-Cre and immunoprecipitates were isolated using anti-
+7c6p | 848 FLAG affinity beads. (Right) Samples were subjected to tandem mass tag (TMT) labeling and 849 quantitative mass spectrometry. Differential levels of proteins enriched with membrane-
+d1ee | 850 associated neuroproteasomes vs. cytosolic proteasomes were analyzed and plotted as log2-fold
+itx4 | 851 change vs -log 10(P-value). Green dots represent proteins enriched in the neuroproteasome IP, blue dots represent 20S core subunits, and gray dots represent proteins in 19S cap.
+vwrs | 852 853
+xjkw | 854 (F) Validation of Co-IP proteomics data. 20S-FLAG Co-IP from cytosolic (cyto) and membrane (mem) fractions of 20S-FLAG/BAF53b-Cre mouse brain tissue (inputs). Fractions were
+wght | 855
+3lgb | 856 immunoblotted using indicated antibodies.
+ttwt | 857 858 859 860
+x5l2 | Figure 2: ApoE isoforms differentially modulate neuroproteasome localization in primary neurons and in vivo
+ilrs | 861
+0a03 | (A) Surface biotinylation of hippocampi from hApoe-KI mice to assess neuroproteasome localization. Schematic (top) of surface biotinylation experiments from ApoE isoform knock-in (ApoE 2, 3, or 4-KI) mice to determine if neuroproteasome localization changes with ApoE genotype. Hippocampi (hippo) from ApoE2-KI (green), ApoE3-KI (gray), and ApoE4-KI
+auae | 862
+5b6y | 863
+1y10 | 864
+6mnx | 865
+tynp | 866 (purple), male (M) and female (F) mice were subjected to surface biotinylation and streptavidin 867 pulldown to isolate surface exposed proteins. Experimenters were blinded to genotype. Lysates 868 (Total) and Streptavidin pulldowns (Surface) were immunoblotted using indicated antibodies.
+ob0u | 869 Quantification of surface ß5 intensity was normalized to total ß5 intensity. Data (right) are mean
+50o1 | 870 ± SEM normalized to ApoE3-KI, N=6 biological replicates per genotype (3 M, 3 F),
+cw76 | 871 *** p<0.001, ** p<0.01 by One-Way ANOVA, *p<0.05 by Two-Way ANOVA Tukey's Multiple Comparisons Test.
+lkk5 | 872
+molj | 873 874 (B,C) (B) Schematic of surface biotinylation of Receptor-Associated Protein (RAP)-treated 875 neurons. Influence of RAP (blue) on surface ApoE receptors (light red) is depicted. Gray circles 876 represent endosomes. (C) DIV13-14 primary cortical neurons obtained from WT mice were 877 treated with 1 µM RAP for indicated time subjected to surface biotinylation. 20S proteasome 878 signal in surface pulldown denotes the neuroproteasome. Lysates (Total) and Streptavidin 879 pulldowns (Surface) were immunoblotted using indicated antibodies. Quantification of surface
+5pto | 880 Lrp1 and ß5 intensity was normalized to corresponding total signal. Data (right) are mean ± SEM
+mo6k | 881 normalized to 0 hr condition. N=3 biological replicates, ** p<0.01, *p<0.05 by One-Way
+zh6q | 882 ANOVA Tukey's Multiple Comparisons Test.
+kp04 | 883 884 (D) Surface biotinylation of 20S-FLAG neurons treated with exogenous ApoE isoforms (top left). DIV2 primary cortical neurons from 20S-FLAG mice were transduced with Cre AAVs to 885
+3e8r | 886 drive 20S-FLAG transgene expression. At DIV13, neurons were treated with exogenous
+8g7g | 887 unconjugated recombinant ApoE isoforms (400 nM; rE2: green; rE3: gray; rE4: purple), or
+5j4f | 888 POPC/Cholesterol (PC)-conjugated (yellow shell) recombinant ApoE isoforms (400nM; PC-rE2: green; PC-rE3: gray; PC-rE4: purple) for 24 hours and subjected to surface biotinylation. Lysates
+4xe7 | 889
+pg4b | 890 (Total) and Streptavidin pulldowns (Surface) were immunoblotted using indicated antibodies.
+b0d0 | 891 Quantification of surface FLAG and GluN1 intensities were normalized to corresponding total intensities. Data (above) are mean ± SEM normalized to corresponding vehicle control. N=3
+d7eu | 892
+xndr | 893 biological replicates, ** p<0.01, *p<0.05 by One-Way ANOVA Tukey's Multiple Comparisons Test.
+m6hi | 894
+vpkf | 895
+4d67 | 896 (E) Antibody feeding of 20S-FLAG neurons treated with exogenous ApoE isoforms. DIV2 primary cortical neurons from 20S-FLAG mice were transduced with Cre AAVs to drive 20S-
+e7j2 | 897 898 FLAG transgene expression. At DIV13, neurons were treated with 400 nM PC-E2 (green), PC- 899 E3 (gray), and PC-E4 (purple) for 24 hours. FLAG antibodies were fed on live neurons to label
+lqzt | 900 surface FLAG-neuroproteasomes (FLAG Surface). Subsequently, neurons were fixed and
+1ocm | 901 stained for MAP2 (MAP2 Total). Quantification of surface FLAG fluorescence intensity was
+527v | 902 normalized to total MAP2 fluorescence intensity. Data (below) are mean ± SEM normalized to
+lrri | 903 PC alone. N=3 biological replicates, n=21 quantified regions, *p<0.05 by One-Way ANOVA
+5cl9 | 904 Tukey's Multiple Comparisons Test. Scale bar=2um.
+u7a3 | 905
+w409 | 906
+m04y | 907
+23jk | Figure 3: Neuroproteasome localization is reduced in AD-vulnerable brain regions in the human brain and is further reduced by ApoE4 genotype
+oa63 | 908
+e3lv | 909
+rqv6 | 910 (A) Schematic depicting steps to enrich plasma membranes from post-mortem human brain 911 tissues. Post-mortem sections from Brodmann Area 7 (BA7, pink) and BA4 (green) were fractionated into crude membrane fractions, which were then washed 3 times (W1, W2, W3).
+oa48 | 912
+3fp1 | 913 Supernatants from washes were pooled to generate cytosolic fractions (Cyto). Membrane- 914 enriched fractions also contain detergent insoluble protein (membrane/aggregate-enriched, PM).
+557x | 915 PM samples were labeled with Tandem Mass Tags (TMTpro) for quantitative MS. Cytosolic contamination assessed by the proteasome catalytic activity of the washes, graphed (right).
+ep8e | 916
+7mv3 | 917 N=32, **** p<0.0001 by Paired T-Test. Experimenters were blinded to sample identity.
+der6 | 918
+8xg2 | 919 (B) Determining effect of AD on the plasma membrane and detergent-insoluble proteome. Differential enrichment of plasma membrane and detergent-insoluble proteins from BA7 of AD 921 vs. unaffected patients was analyzed and plotted as log2-fold change vs -log10(P-value). Blue 922 dots indicate 20S proteasome subunits, analysis was also done blinded to sample identity.
+njvp | 920
+s8b5 | 923
+p450 | 924 (C) Determining effect of ApoE genotype on the plasma membrane and detergent-insoluble 925 proteome. Differential enrichment of plasma membrane and detergent-insoluble proteins from BA7 in Apos4/4 vs Apos3/3 patients was analyzed and plotted as log2-fold change vs -log10(P-
+rsvo | 926 927 value). Blue dots indicate 20S proteasome subunits, analysis was also done blinded to sample 928 identity.
+z4m8 | 929
+ukf0 | 930 (D) Determining effect of AD and ApoE genotype on neuroproteasome membrane localization in 931 BA7 (pink). Membrane and cytosolic fractions from BA7 from Apos3/3 patients with AD (AD) 932 and without AD (unaffected) and Apos4/4 patients with AD were immunoblotted using indicated
+k38m | 933 antibodies. Braak stages indicated above. (Right) Quantification of membrane ß5 intensities were
+nkj9 | 934 quantified and normalized to membrane loading control Kv1.2. Data (right) are mean ± SEM
+35a8 | 935 normalized to &3/3 unaffected. # indicates samples excluded from analysis on basis of high
+337o | 936 abnormal actin and Kv1.2 signal. ** p<0.01 by Two-Way ANOVA Fisher's LSD Test relative to BA7 &3/3 unaffected.
+cuth | 937
+09z2 | 938
+13fv | 939 (E) Determining effect of AD and ApoE genotype on neuroproteasome membrane localization in 940 BA4 (green). Experimental setup is the same as described in (d), except BA4 was evaluated
+v5pj | 941 rather than BA7. (Right) Quantification of membrane ß5 intensities were quantified and
+trab | 942 normalized to membrane loading control Kv1.2. # indicates samples excluded from analysis on
+grxs | 943 basis of high abnormal actin and Ky1.2 signal. Data (right) are mean ± SEM normalized to &3/3 944 unaffected. * p<0.05 by Two-Way ANOVA Fisher's LSD test relative to BA4 &3/3 unaffected.
+u9dn | 945
+t25w | 946 Figure 4: Quantitative proteomics reveals that selective inhibition of neuroproteasomes induces accumulation of sarkosyl-insoluble Tau
+x62u | 947 948
+aoc8 | 949 (A) (Top) Structure of azide-PEG24-epoxomicin handle to enable rapid conjugation of linkers to 950 951 global proteasome inhibitor epoxomicin using Click chemistry. (Bottom) Structure of Neuroproteasome-specific inhibitor impermeant Biotin-PEG24-Epoxomicin (iBEp).
+3mdu | 952 953 (B) Assessing permeability of iBEp in primary neurons. Primary cortical neurons obtained from WT mice were treated with 1 µM iBEp for 1, 6 and 24 hours and subjected to membrane
+m04v | 954 955 fractionation. Cytosolic (Cyto) and membrane (Mem) fractions were immunoblotted using indicated antibodies.
+3aip | 956
+q3gu | 957 958 (C) Proteasome catalytic activity of membrane (Mem) and cytosolic (Cyto) fractions of neurons 959 treated with iBEp. DIV14 primary cortical neurons obtained from WT mice were treated with 960 DMSO (black) and iBEp (red) for 6 hours and subjected to membrane fractionation. Proteasome
+txab | 961 catalytic activity was assessed by monitoring degradation of Suc-LLVY-AMC; proteasome- dependent cleavage of the substrate increases AMC fluorescence. N=3 biological replicates. **** p<0.0001 by One-Way ANOVA.
+dov0 | 962
+xd5o | 963

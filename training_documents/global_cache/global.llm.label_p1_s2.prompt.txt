@@ -1,0 +1,127 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+
+EXAMPLE OUTPUT:
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+
+
+
+
+1pjs | Chapter Title: Introduction
+o2kr | Book Title: What Is Global History? Book Author(s): SEBASTIAN CONRAD Published by: Princeton University Press. (2016) Stable URL: https://www.jstor.org/stable/j.ctvc779r7.3
+v6sk | Princeton University Press is collaborating with JSTOR to digitize, preserve and extend access to What Is Global History?
+1wj6 | JSTOR
+936l | CHAPTER 1 Introduction
+06yq | "All historians are world historians now," C. A. Bayly has de- clared, somewhat provocatively-only to add, "though many have not yet realized it."1 Indeed, there can be no doubt that global/world history is currently booming. In the United States, and in the other parts of the Anglophone world, it has for several decades been the fastest-growing field within the discipline. This trend has also caught on in parts of Europe and East Asia, where global history is on the rise and find- ing increasing favor with a younger generation of historians. Journals and conventions are appearing everywhere, and in many settings "global dimensions" have become an almost obligatory feature of successful project proposals. But does this rise in popularity really mean that every historian is a global historian? Just what is it about global history that has made it so popular? And why is this happening now ?
+dpv6 | There are many reasons for this boom. Most significant has been the increased interest in global processes that followed first the end of the Cold War and then the events of September 11, 2001. Given the widespread fashion for seeing "globaliza- tion" as the key to understanding the present, the need to go back in time and explore the historical origins of this process
+8r5j | seems self-evident. In many places, in particular in immigrant societies, global history is also a response to social challenges and to the demand for a more inclusive, less narrowly national perspective on the past. The shift in curriculum from Western Civ to global history in the United States is a typical result of such social pressures. Within the academy, trends of this nature are mirrored by changes in the social, cultural, and eth- nic makeup of the profession. And, in turn, transformations in the sociologies of knowledge have reinforced dissatisfaction with the long-standing and pervasive tendency to conceive of national histories as the history of discrete, self-contained spaces.2
+2taz | The communication revolution that began in the 1990s also has had an important impact on our interpretations of the past. Historians-and their readers-travel and experience more of the world than ever before. This increased mobility, further enhanced by the Internet, has facilitated networking and made it possible for historians to participate in global forums-though, admittedly, voices from formerly colonized countries are often barely discernible. As a result, historians today are dealing with a large number of competing narratives, and they see the potential for new insights precisely in this diversity of voices. Finally, the network logic that computer technology encourages has affected the thinking of historians, who increasingly employ a language of networks and nodal points to replace older territorial logics. Writing history in the twenty-first century is not what it used to be.
+o3ya | Why global history? Beyond Internalism and Eurocentrism
+r5il | Global history was born out of a conviction that the tools historians had been using to analyze the past were no longer sufficient. Globalization has posed a fundamental challenge to the social sciences and to the dominant narratives of social change. Entanglements and networks characterize the present moment, which has itself emerged from systems of interaction and exchange. But in many respects, the social sciences are no longer adequately able to pose the right questions and gener- ate answers that help to explain the realities of a networked and globalized world.
+5gui | In particular, two "birth defects" of the modern social sci- ences and humanities hinder our ability to achieve a system- atic grasp of processes that span the world. Both can be traced to the formation of the modern academic disciplines in nineteenth-century Europe. First, the genesis of the social sci- ences and humanities was tied to the nation-state. In their themes and questions, and even in their societal function, fields like history, sociology, and philology remained tied to a coun- try's own society. Beyond that, the "methodological national- ism" of the academic disciplines meant that, theoretically, the nation-state was presupposed as the fundamental unit of in- vestigation, a territorial entity that served as a "container" for a society. The commitment to territorially bounded containers was more pronounced in the field of history than in some of its neighboring disciplines. Knowledge of the world was thereby discursively and institutionally prestructured in such a way as to obscure the role of exchange relationships. History, in most quarters, was limited to national history.3
+82qc | Second, the modern academic disciplines were deeply Euro- centric. They placed European developments in the foreground and saw Europe as the central driving force of world history. Even more fundamentally, the conceptual toolbox of the social sciences and humanities abstracted European history to create a model of universal development. Ostensibly analytical terms like "nation," "revolution," "society" and "progress" transformed concrete European experience into a (universalistic) language of theory that presumably applied everywhere. Methodologically speaking, then, by imposing categories particular to Europe on everybody else's past, the modern disciplines rendered all other societies colonies of Europe.4
+ls7d | Global history is one attempt to face the challenges posed by these observations, and to overcome the two unfortunate birthmarks of the modern disciplines. It is thus a revisionist approach-even if it builds on a whole series of forerunners, for issues such as migration, colonialism, and trade have long been of concern to historians. An interest in examining cross- border phenomena may not in itself be new, but now it stakes a new claim. It means to change the terrain on which histori- ans think. Global history, therefore, has a polemical dimen- sion. It constitutes an assault on many forms of container- based paradigms, chief among them national history. As we will discuss in more detail in chapter 4, it is a corrective to in- ternalist, or genealogical, versions of historical thinking that try to explain historical change from within.
+tzt3 | At the same time, and beyond issues of method, global his- tory aims to effect a change in the organization and institu- tional order of knowledge. In many countries, what is called "history" was long equated in practice with each country's own national history: most Italian historians worked on Italy, most of their Korean colleagues studied Korea-virtually everywhere,
+t8vv | generations of students were introduced to history through handbooks narrating the national past. Against this back- ground, the call for global history comes as a call for inclusive- ness, for a broader vision. Other pasts were history, too.
+qvnu | And even where history faculties are well staffed and pre- pared for broader coverage, courses tend to present the histories of nations and civilizations as monads, in isolation. Chinese textbooks on world history, for example, categorically exclude China-for the national past is taught in a different depart- ment. The compartmentalization of historical reality-into na- tional and world history, into history and area studies-means that parallels and entanglements cannot come into focus. The case for global history is thus also a plea to overcome such frag- mentation, and to arrive at a more comprehensive understand- ing of the interactions and connections that have made the modern world.
+kggw | Global history is certainly not the only game in town, nor is it fundamentally superior as an approach. It is one approach among many, and it is better suited to addressing some ques- tions and issues and less appropriate for addressing others. Its core concerns are with mobility and exchange, with processes that transcend borders and boundaries. It takes the intercon- nected world as its point of departure, and the circulation and exchange of things, people, ideas, and institutions are among its key subjects.
+xrd1 | A preliminary and rather broad definition of global his- tory might describe it as a form of historical analysis in which phenomena, events, and processes are placed in global con- texts. There is disagreement, however, on how that result is best achieved. Numerous other approaches-ranging from com- parative and transnational history to world and big history, to postcolonial studies and the history of globalization-currently
+5746 | compete for scholarly attention. Just like global history, they en- deavour to come to terms with the connectivities of the past.
+7toz | Each of these different paradigms comes with an emphasis of its own, and we will take up some of the most prominent variants in chapter 3. However, one should not exaggerate the distinctions between them; there are also many commonalities and areas of overlap. In fact, it has proven difficult to define rig- idly what makes global history specific and unique. And if we look at the actual usage of the term, the task does not get easier. Any superficial glance through the current literature immedi- ately reveals that the term is used, and hijacked, for a variety of different purposes; frequently, it is employed interchangeably with other terms. Its widespread use betrays both the attractive- ness and the elusiveness of the concept, rather than its method- ological specificity.5
+j346 | Three varieties of global history
+v8uq | In this situation of eclecticism and theoretical confusion, it may nevertheless be helpful to heuristically distinguish differ- ent reactions to the challenge of the "global." Glossing over some of the specifics, they may be said to fall into one of three camps: global history as the history of everything; as the his- tory of connections; and as history based on the concept of in- tegration. As will become clear in subsequent chapters, it is the third approach that holds the greatest promise for global historians who aim to move beyond token gestures towards connectivity. Let's take up the three varieties in turn.6
+x972 | First, one way to approach global history is to equate it with the history of everything. "Global history, strictly understood,
+cwrw | is the history of what happens worldwide," write Felipe Fernández-Armesto and Benjamin Sacks, "across the planet as a whole, as if viewed from a cosmic crow's nest, with the ad- vantages of immense distance and panoptic range." From such an omnivorous perspective, everything that ever happened on the earth is a legitimate ingredient of global history.7
+4i0e | In actual practice, this has led to very different strategies. The first is what we could call the all-in version of global his- tory. Its most prominent variant is seen in works of large-scale synthesis that attempt to capture global reality in a specific period. The nineteenth century, for example, has found sev- eral sophisticated biographers, while other historians content themselves with a global panorama of a particular year. Yet others have extended the scope and portrayed whole millen- nia, if not the "history of the world" tout court. In the case of big history, the scale is expanded still further, covering the span from the Big Bang to the present moment. Whatever the scale, the general mode is identical: the "global" here refers to planetary comprehensiveness.8
+h2l3 | In similar ways, historians have chosen to trace a particu- lar idea or historical formation through the ages and across the planet. Particularly convincing examples of this kind are studies on the global history of empire that chart imperial for- mations and their strategies of population management from Ancient Rome (or from Tamerlane) to the present.9 But in principle, any subject will do for a global biography. We now have global histories of kingship, and of courtesans; histories of tea and coffee, of sugar and cotton, of glass and gold; his- tories of migration and trade; global histories of nature and of religion; histories of war, and of peace. The examples are legion.
+dfzb | While the term "global history" may thus suggest worldwide coverage, this is not necessarily the case. In principle, anything can become a legitimate focus for global historians: global his- tory as omnibus. This means that even subjects as diverse as South African mine workers in Witwatersrand, the corona- tion of Hawaiian King Kalakaua, or a village in thirteenth- century Southern France could be studied for its potential contributions to global history. Once it is established that global history is everything, everything can become global his- tory. This is less absurd than it seems. The situation was not so different in the days when national history reigned supreme. Then, too, even when the scope of a work did not necessarily extend to the nation as a whole, it was nonetheless assumed that it did. No one would doubt, for example, that a biography of Benjamin Franklin or an in-depth study of the automobile industry in Detroit was also a contribution to the history of the United States. Once the overall framework of a national history was established, everything within that container seemed like a natural ingredient.
+u6ty | The same is true for the all-in version of global history. Studies on the working classes in Buenos Aires, Dakar, or Li- vorno can contribute to a global history of labor, even if they do not explore those global horizons themselves. This is par- ticularly the case if historians take account of, and are inspired by, studies on similar phenomena. Examples include Dipesh Chakrabarty's book on jute workers in Bengal and Frederick Cooper's study on dockworkers in Mombasa.10 The global history component is of course enhanced when historians conduct their studies with similar cases in mind and include books on related subjects in other parts of the globe in their bibliographies.
+awvu | A second paradigm in the field puts the focus on exchange and connections. This is the most popular form that research has taken in recent years. The common thread connecting these kinds of studies is the general insight that no society, na- tion, or civilization exists in isolation. From earliest times on- ward, human life on the planet was characterized by mobility and interaction. Therefore, such movements are the privileged subjects of a global history understood primarily as the history of entanglements. This infatuation with connectivity comple- ments, and thus corrects, what we could call the frugality of earlier frameworks in which the intellectual journey came to a halt at the borders of the nation-state, empire, or civilization.
+on9b | There is no limit to the range of topics that can be studied from such a perspective-from people on the move to circu- lating ideas and trade across distances. Again, the reach of the networks and connections may vary and does not have to be planetary. Everything depends on the subject matter and the questions asked: trade in the Mediterranean, the Hajj across the Indian Ocean, chain migrations between China and Sin- gapore, or diplomatic missions to the Vatican. In all of these instances, the interconnectedness of the world, which can be traced back over centuries, is the starting point for global his- torical research.11
+a8ge | Both versions of global history discussed so far apply in principle to all places, and to all times. The third and narrower approach is different, for it presumes, and explicitly reflects on, some form of global integration. At its core are patterns of exchange that were regular and sustained, and thus able to shape societies in profound ways. There have always been cross-border exchanges, but their operation and impact de- pended on the degree of systemic integration on a global scale.

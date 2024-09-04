@@ -1,0 +1,152 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+
+EXAMPLE OUTPUT:
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+
+
+
+
+1pjs | Hindawi Publishing Corporation Journal of Applied Mathematics Volume 2015, Article ID 317947, 5 pages http://dx.doi.org/10.1155/2015/317947
+o2kr | Research Article On a Nonlocal Damping Model in Ferromagnetism
+v6sk | Correspondence should be addressed to M. Tilioua; tilioua@melix.org
+1wj6 | Received 15 April 2015; Accepted 12 July 2015
+936l | Academic Editor: Wei Wu
+06yq | Copyright @ 2015 M. Moumni and M. Tilioua. This is an open access article distributed under the Creative Commons Attribution License, which permits unrestricted use, distribution, and reproduction in any medium, provided the original work is properly cited.
+dpv6 | We consider a mathematical model describing nonlocal damping in magnetization dynamics. The model consists of a modified form of the Landau-Lifshitz-Gilbert (LLG) equation for the evolution of the magnetization vector in a rigid ferromagnet. We give a global existence result and characterize the long time behaviour of the obtained solutions. The sensitivity of the model with respect to large and small nonlocal damping parameters is also discussed.
+8r5j | 1. Introduction and Preliminary Results
+2taz | In this work, we are dealing with a mathematical model aris- ing in the theory of magnetization dynamics with nonlocal damping. We will consider the model proposed by Nembach et al. [1]. It is given by a modified LLG equation. The modifi- cation lies in the presence of a second-order space derivative of magnetization in the effective field. To describe the model equations, we consider §2 c R3 a bounded and regular open set of R3. The generic point of R3 is denoted by x. We assume that a ferromagnetic material occupies the domain .2.
+o3ya | In what follows, S2 represents the unit sphere of R3. The magnetization field of the ferromagnetic material which belongs to S2 almost everywhere is denoted by M(t, x). Its evolution is governed by the following modified LLG equation (see [1, 2]):
+r5il | 1 + x 2 1 (}}M -«M×0,M) =- M×× (M)
+5gui | (1)
+82qc | in Q=(0,T) × .2,
+ls7d | subject to initial conditions
+tzt3 | M (0, x) = Mo (x) in £2 (2)
+t8vv | and boundary conditions
+qvnu | M ×(DO,M + {0}}{M) =0 on (0,T) xa£2, (3)
+kggw | where the symbol x denotes the vector cross product in R3. The positive constant « represents the damping parameter. The effective magnetic field I depends on M and is given by
+xrd1 | H (M) = DAM + (A), M + + (M) + H dem (M) . (4)
+5746 | The first term on the right-hand side of (4) is called the exchange magnetic field, where the positive constant D is the exchange coefficient and the term parameterized by the pos- itive constant { describes nonlocal damping in ferromagnets. The {-term was introduced in [2]; see also [1]. The third term is the bulk anisotropy field (which generally is taken as linear with respect to M), and I dem is the demagnetizing field, satisfying in (0, T) x R3 the stray field equation
+7toz | div (I dem + M) = 0, curl I dem = 0,
+j346 | (5)
+v8uq | where M is the extension by 0 of M outside the magnetic domain Q2.
+x972 | Notice that, for the sake of simplicity, the bulk uniaxial anisotropy field, generally taken as linear in M, and the magnetostatic field which satisfy the stray field equation are
+cwrw | not considered since they only induce more computations and have no mathematical influence on the results we obtain.
+4i0e | We define the energy
+h2l3 | <LATEX>\mathscr{C} \left( t \right) = D \int _ { \Omega } | \nabla M | ^ { 2 } d x .</LATEX> (6)
+dfzb | The following energy estimate holds.
+u6ty | Lemma 1. If <LATEX>M</LATEX> is a solution of problem (1), then it satisfies, at least formally, the energy estimate
+awvu | <LATEX>\frac { d } { d t } 8 \left( t \right) + 2 \zeta \int _ { \Omega } | \nabla \partial _ { t } M | ^ { 2 } d x + \frac { 2 \alpha } { 1 + \alpha ^ { 2 } } \int _ { \Omega } | \partial _ { t } M | ^ { 2 } d x</LATEX> <LATEX>= 0 .</LATEX> (7)
+on9b | Proof. The techniques to obtain (7) are analogous to those used, for example, in [3, 4]. We rewrite LLG equation (1) in the following form:
+a8ge | <LATEX>\left( \alpha \partial _ { t } M - \left( 1 + \alpha ^ { 2 } \right) \mathscr{H} \right)</LATEX> <LATEX>= \alpha M \times \left( \alpha \partial _ { t } M - \left( 1 + \alpha ^ { 2 } \right) \mathscr{H} \right) - \left( 1 + \alpha ^ { 2 } \right) \mathscr{H} .</LATEX> (8)
+h27a | Multiplying (8) by <LATEX>\left( \alpha \partial _ { t } M - \left( 1 + \alpha ^ { 2 } \right) \mathscr{H} \right)</LATEX> and using the saturation constraint <LATEX>| M | ^ { 2 } = 1</LATEX> almost everywhere yields to
+pdjh | <LATEX>\frac { \alpha } { 1 + \alpha ^ { 2 } } | \partial _ { t } M | ^ { 2 } = \mathscr{X} \cdot \partial _ { t } M .</LATEX> (9)
+xmgs | Integrating (9) on <LATEX>\Omega ,</LATEX> the right-hand side of (9) becomes
+bd9h | (10)
+m047 | <LATEX>\int _ { \Omega } \mathscr{H} \cdot \partial _ { t } M d x = - D \int _ { \Omega } \partial _ { t } M \partial _ { t } \partial _ { t } M d x</LATEX> <LATEX>- \zeta \int _ { \Omega } \partial _ { i } \partial _ { t } M \partial _ { i } \partial _ { t } M d x</LATEX> <LATEX>+ \int _ { \partial \Omega } \left( D \partial _ { y } M + \zeta \partial _ { y } \partial _ { t } M \right) \partial _ { t } M d \sigma ,</LATEX> where we have used the summation convention that repeated indices are summed over and <LATEX>\partial _ { i }</LATEX> denotes the derivative with respect to space variable <LATEX>x</LATEX> ;. Converting the two last terms of the right-hand side of (10) allows us to get
+gy8c | <LATEX>\left( 7 \right) .</LATEX> Before dealing with problem (1), let us first review some previous results. We limit ourselves to mentioning a handful of references concerning existence and we refer to the survey [5] for a more detailed bibliographical account. The general framework (although without nonlocal damping, i.e., the case <LATEX>\zeta = 0</LATEX> has been established in earlier papers (see, for instance, [6, 7]) using Faedo-Galerkin/Penalization (FGP) method. This method gives an approximated sequence of solutions converging to a global solution of the problem. Next results concern systems with further dissipation terms. For example, the modification considered in [8] consists in adding to the standard dissipation term in the LLG equation another higher-order term of the type <LATEX>\Delta ^ { 2 } M .</LATEX> The FGP method is also used to solve the problem. In [9], a model with dry-friction dissipation, which is accounted by adding a dry-friction-like term to the standard Gilbert damping,
+y4mj | Journal of Applied Mathematics
+vpgq | is studied. Let us mention that a model of ferromagnetic material with hysteresis effects is studied in [10]. In this model, the magnetic moment behaviour is described by the nonlinear Landau-Lifshitz equation with an additional term modeling the hysteresis. This term takes the form of a maximal monotone operator acting on the time derivative of the magnetic moment. For this relaxed model, local existence of regular solutions is proved. Note that in the framework of current-induced magnetization dynamics the work [11] addresses global existence of weak solutions to a LLG equation where a transport term is added to effective field taking into account the effect of the injected current. A model of magnetization switching with inertial effects modeled by means of a second-order time derivative term in the effective field is considered in [12] where existence of weak solutions and their long time behaviour were established. All these proofs are based on some penalization and using various kind of regularizations.
+ousl | To state the existence result, we start with the definition of weak solutions to problem (1).
+m4ju | Definition 2. Given that <LATEX>M _ { 0 } \in \mathbb{H} ^ { 1 } \left( \Omega \right)</LATEX> such that | <LATEX>| M _ { 0 } | = 1</LATEX> almost <LATEX>\Omega</LATEX> we call <LATEX>M \left( t , x \right)</LATEX> a weak solution to LLG equation
+a0mb | (1) for all <LATEX>T ></LATEX> 0, <LATEX>M \in L ^ { \infty } \left( \left( 0 , T \right) ; \mathbb{H} ^ { 1 } \left( \Omega \right) \right) ,</LATEX> <LATEX>\partial _ { t } M</LATEX> <LATEX>L ^ { 2 } \left( \left( 0 , T \right) ; L ^ { 2 } \left( \Omega \right) \right) \cap L ^ { \infty } \left( \left( 0 , T \right) ; \mathbb{L} ^ { 2 } \left( \Omega \right) \right) ,</LATEX> and <LATEX>M</LATEX> satisfies the saturation constraint <LATEX>| M \left( t , x \right) | = 1</LATEX> for almost everywhere in
+ki8m | <LATEX>\mathbb{R} ^ { + } \times \Omega</LATEX> (2) <LATEX>M \left( 0 , \cdot \right) = M _ { 0 } \left( \cdot \right)</LATEX> in the trace sense;
+km8w | (3) for all <LATEX>G \in \mathbb{H} ^ { 1 } \left( Q \right) \cap \mathscr{C} _ { 0 } \left( Q \right) ,</LATEX> there holds
+wzno | <LATEX>\frac { 1 } { 1 + \alpha ^ { 2 } } \int _ { Q } \left( \partial _ { t } M - \alpha M \times \partial _ { t } M \right) \cdot G d x d t</LATEX> <LATEX>= D \int _ { Q } M \times \partial _ { i } M \cdot \partial _ { i } G d x d t</LATEX> <LATEX>+ \zeta \int _ { O } M \times \partial _ { i } \partial _ { t } M \cdot \partial _ { i } G d x d t</LATEX> (11)
+xagm | (4) for <LATEX>\mathrm { a l l } t \geq 0 ,</LATEX> we have
+iwn5 | <LATEX>8 \left( t \right) + 2 \zeta \int _ { 0 } ^ { t } \int _ { \Omega } | \nabla \partial _ { t } M | ^ { 2 } d x</LATEX> <LATEX>+ \frac { 2 \alpha } { 1 + \alpha ^ { 2 } } \int _ { 0 } ^ { t } \int _ { \Omega } | \partial _ { t } M | ^ { 2 } d x d t \leq 8 \left( 0 \right) ,</LATEX> (12)
+uooz | <LATEX>w h e r e \& \left( t \right) i s \quad g i v e n \quad b y \left( 6 \right) .</LATEX> We have the following global existence result.
+pxbq | Theorem 3. Let <LATEX>M _ { 0 } \in \mathbb{H} ^ { 1 } \left( \Omega \right)</LATEX> be such that <LATEX>| M _ { 0 } \left( x \right) | ^ { 2 } = 1</LATEX> almost everywhere. Then there exists a global weak solution <LATEX>M</LATEX> of problem (1) in the sense of Definition 2.
+jfsr | Proof. The proof follows a standard scheme (Faedo-Galerkin method with a penalization of the saturation constraint) as usual in general Landau-Lifshitz-Gilbert equation; see [6, 7, 13].
+u15r | Journal of Applied Mathematics
+lq35 | The rest of the paper is divided as follows. In the next sec- tion we investigate the long time behaviour of the solutions. Section 3 discusses the sensitivity of the obtained solutions with respect to nonlocal damping factor <LATEX>\zeta .</LATEX> More precisely we characterize the limit problem for both high and small <LATEX>\zeta .</LATEX> We conclude the paper in Section 4 by giving some comments.
+3g9w | 2. The Limit as t Goes to +00
+d09o | We investigate the long time behaviour of the solutions. More precisely, we study the w-limit set of the trajectories and characterize the @-limit points as solutions of a suitable stationary problem. We proceed as in Carbou-Fabrie [13].
+ylhz | Let <LATEX>M</LATEX> be a weak solution of (1). We call w-limit set of the trajectory <LATEX>M</LATEX> the following set:
+a3td | <LATEX>\omega \left( M \right) = \left\{ \mathrm { m } \in \mathbb{H} ^ { 1 } \left( \Omega \right) , \exists t _ { n } , \lim _ { n \rightarrow + \infty } t _ { n } = + \infty , M \left( t _ { n } , \cdot \right) \right.</LATEX> (13)

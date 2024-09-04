@@ -1,0 +1,127 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+
+EXAMPLE OUTPUT:
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+
+
+
+
+pk06 | We identified 1234 different sources that published papers on SES. The top 20 journals each published between 0.63% and 7.73% of all publications, accounting for 28.05% of publications in total (Fig. 3a). There were significant differences in the median number of publications between the five most prominent journals <LATEX>\left( x ^ { 2 } = \right.</LATEX> 32.1302, <LATEX>\mathrm { D F } = 4 ,</LATEX> <LATEX>\mathrm { p } < 0 . 0 0 0 1 ,</LATEX> with Ecology and Society having significantly more publications (compared to Ambio, <LATEX>\mathrm { p } < 0 . 0 0 0 1 ,</LATEX> Ecological Economics, <LATEX>p = 0 . 0 1 9 ,</LATEX> Global Environmental Change, <LATEX>p = 0 0 1 ,</LATEX> Journal of Environmental Management, <LATEX>\left. \mathrm { p } < 0 . 0 0 0 1 \right) .</LATEX> There were no significant differences between other journals (Fig. 3b). Ambio and Global Environmental Change published proportionally more papers in the SES field prior to 2000, while Ecology and Society has become increasingly dominant as the main journal publishing SES research since 2000 (Fig. 3c).
+7wn9 | Types and scale of SES research
+wcd0 | There was a significant difference in the type of SES papers <LATEX>\left( x ^ { 2 } = 6 5 8 9 . 5 2 3 \right. ,</LATEX> <LATEX>d f = 3 ,</LATEX> <LATEX>\mathrm { p } < 0 . 0 1 .</LATEX> Of the 5098 papers <LATEX>i n \quad o u r \quad f i n a l \quad d a t a b a s e , 7 1 \left( 1 . 3 9 \right) e x p l i c i t l y \quad p r o p o s e d \quad f r a m e w o r k s</LATEX> without applying these frameworks to real-world
+caos | Fig. 1. Trends in the use of the seven most common search terms in this study, expressed as a proportion of the total number of new social-ecological systems research published in a given time period (as determined by change point analysis, Fig. 2).
+qrvy | Fig. 2. Social-ecological systems publications as a proportion of all publications in our assessed disciplines in Scopus, plotted over time (y-axis, right). The bottom segment shows posterior probability of change points occurring between each year. Most probable change points <LATEX>\left( \mathrm { p r o b } < 0 . 6 \right)</LATEX> are marked with years on the dividing line.
+pn9j | comprised other theoretical discussions. <LATEX>A</LATEX> further 703 papers to <LATEX>p l a c e - b a s e d \quad r e s e a r c h , 3 7 9 2 \left( 7 4 . 3 8 \right) o f \quad p a p e r s \quad f o c u s e d \quad o n \quad p l a c e -</LATEX> based research, and 532 (10.44%) were reviews. Our results show that SES research has been more focused on the local scale (45% of all publications) compared to the regional (28%), national (11%), multinational (8%), and global (6%) scales
+1pmc | <LATEX>\left( x ^ { 2 } = 2 8 0 2 . 7 \right. ,</LATEX> <LATEX>d f = 4 ,</LATEX> <LATEX>\mathrm { p } < 0 . 0 0 0 1 .</LATEX> Hotspots of SES researchers and research
+5z6q | As measured by raw number of publications, European, North American, and Australasian institutions have contributed most significantly to SES research (Fig. 4a, b), with the United States,
+yeoh | Ecology and Society 24(4): 16 https://www.ecologyandsociety.org/vol24/iss4/art16/
+b8hf | Canada, Sweden, Australia, the Netherlands, Germany, the United Kingdom, and South Africa emerging as countries with particularly high number of institutions that study SES. When normalizing institutional paper count by the number of higher education institutions in the country, Kenya, Denmark, and New Zealand were also included as hotspot countries. The lead authors of institutions publishing SES research was most frequently associated with Stockholm University (199 studies), Arizona State University (179 studies), Wageningen University (97 studies), James Cook University (79 Studies), and the University of Queensland (71 studies; Table 2).
+hntf | Whereas institutions conducting SES research were clustered in the Global North, the SES being investigated were distributed more broadly across the globe (Fig. 4c, d). Studied SES were most frequently reported to be located in the United States (422), China (226), Australia (169), India (167), Canada (142), Brazil (134), and Mexico (100). A one-way ANOVA revealed significant differences between regions <LATEX>\left( F = 5 . 0 6 8 , \right.</LATEX> <LATEX>\mathrm { P } < 0 . 0 0 1 ,</LATEX> <LATEX>\mathrm { d f } = 1 4</LATEX> Fig. 5), but a posthoc Tukey test revealed that significant differences were mostly between island regions and mainland areas, and that most mainland areas were not significantly different from each other, on average. Even when accounting for size, the Caribbean Islands were understudied compared to most regions. It had a <LATEX>\mathrm { s i g n i f i c a n t l y } \mathrm { m e a n } \mathrm { l c }</LATEX> lower normalized frequency than Asia <LATEX>\left( d \mathrm { i f f } = \right.</LATEX> <LATEX>\mathrm { p } < 0 . 0 0 1 ,</LATEX> Middle East (diff =0.113, <LATEX>\left. p < 0 . 0 3 9 \right) ,</LATEX> North and Central America <LATEX>\left( d i f f = 0 . 1 8 6 , \right.</LATEX> <LATEX>\left. \mathrm { p } < 0 . 0 0 1 \right) ,</LATEX> South America <LATEX>\left( \mathrm { d i f f } = 0 . 1 2 5 \right. ,</LATEX> <LATEX>\left. p = 0 . 0 1 6 \right) ,</LATEX> Southern <LATEX>A f r i c a \left( d i f f = 0 . 1 3 6 , \right.</LATEX> <LATEX>\mathrm { p } = 0 . 0 2 9 ,</LATEX> <LATEX>W e s t \quad A f r i c a \left( d i f f = 0 . 1 0 1 , p = 0 . 0 4 5 \right) , a n d \quad W e s t \quad a n d \quad C e n t r a l \quad E u r o p e</LATEX> Oceania, which was significantly underrepresented compared to both Asia <LATEX>\left( \mathrm { d i f f } = 0 . 1 0 1 \right. ,</LATEX> <LATEX>\left. p < 0 . 0 0 1 \right)</LATEX> and North and Central
+99fo | Fig. 3. Journals that most frequently publish research on social-ecological systems (SES). Fig. 3(a) shows the proportion of SES publications published by the 20 top journals across all years. Fig. 3(b) shows the proportion of SES publications published in the top five journals across all years, broken down by time period. Fig. 3(c) shows mean number of SES publications/year for each of the top five journals.
+y5r7 | Table 2. Institutions with the highest number of social-ecological systems studies, based on author affiliations in Scopus.
+lrry | Ecology and Society 24(4): 16 https://www.ecologyandsociety.org/vol24/iss4/art16/
+hvhm | America <LATEX>\left( \mathrm { d i f f } = 0 . 1 4 2 \right. ,</LATEX> <LATEX>\left. p = 0 . 0 0 6 \right) .</LATEX> Predominantly mainland regions that were significantly underrepresented compared to other regions were Antarctica and South Sea Islands (compared to North and Central America, <LATEX>d i f f = 0 . 1 9 1 ,</LATEX> <LATEX>\left. p = 0 . 0 3 \right) ,</LATEX> and Central Africa (compared to North and Central America,
+863b | <LATEX>\mathrm { d i f f } = 0 . 1 5 9 , \mathrm { p }</LATEX> <LATEX>\left. = 0 . 0 3 1 \right) .</LATEX> Topics of SES investigation
+fj24 | <LATEX>A</LATEX> word cloud analysis (Fig. 6a) extracted 518 terms that were used more than five times in 2198 of 4479 place-based studies with author-provided key words. We subsequently searched all abstracts and key words of the full dataset of articles (4479 studies) for the identified key words. Searching the full dataset, and combining some key terms (see Appendix 2), changed the prominence of key terms slightly. In the final analysis, the top 20 terms differed significantly <LATEX>\left( x ^ { 2 } = 5 3 2 6 . 3 7 7 \right. ,</LATEX> <LATEX>d f = 2 5 ,</LATEX> <LATEX>\mathrm { p } < 0 . 0 0 0 1</LATEX> in the frequency with which they were used in the literature. The terms that were most frequently encountered in author key words were (variations of) "policy" (30.8% of publications), "trade" (23.8%), "conservation"(22.3%), "adaptation" (22.3%), "land use change" (21.9%), "water" (20.2%), "forest loss" (19.9%), "sustainability" (18.8%) and "urban" (18.8%) and "governance and institutions" (17.5%; Fig 6b, Appendix 2).
+uz3c | Methods used
+d5bi | We grouped 311 methods (reduced from an initial list of 632, Appendix 3) into 27 categories (Fig. 7). Frequency of use (in 2742 significantly between categories <LATEX>\left( x ^ { 2 } = 4 2 3 1 . 0 6 8 \right. ,</LATEX> <LATEX>\left. D F = 2 6 , p - v a l u e < 0 . 0 0 1 \right) .</LATEX> Spatial mapping and analysis (27.5%), historical profiling and reconstruction (15.7%), interviews
+ba4l | Fig. 4. Hotspots of global social-ecological systems (SES) research, and institutions studying SES. Figure 4(a) shows a heat map of raw total number of studies from institutions studying SES, while (b) shows a heat map based on normalized counts. Figure 4(c, raw) and (d, normalized) show the number of SES studies conducted in countries around the world.
+ffx8 | Fig. 5. Mean number of studies conducted in different global regions, per country, normalized by land area. Asterisks (*) denote significant difference.
+s6su | used method categories (Fig. 7). "Historical profile and reconstruction," "futures analysis," "spatial mapping and analysis," "livelihood and vulnerability analysis," "impact
+y219 | Ecology and Society 24(4): 16 https://www.ecologyandsociety.org/vol24/iss4/art16/
+06ht | analysis," "network analysis," "participatory modeling and planning," and "decision analysis" were the categories that were most frequently associated with the 20 most identified focus topics (Table 3).
+v3r2 | Methods addressing complexity features
+nv42 | Table 4 shows how well each method category scores in terms of its ability to account for each characteristic of complexity, zero ("0") being "usually not well" and "x" being "usually well," along with a justification for each scoring decision. We judged "futures analysis," "comparative case study analysis," "behavioral analysis," "decision analysis," "games," "systems scoping," "participatory modeling and planning," "state-and-transition analysis," "historical profiling and reconstruction," "discourse analysis," and "facilitated dialogues" to be method categories that usually address all six features of CAS (mean score = 1). Method categories "optimization analysis," "impact analysis," "quantitative pattern recognition," and "statistical analysis" were reasoned to address features of complexity least well. The features of complexity that were best addressed were "constituted relationally," followed by "contextual" and "dynamic," "adaptive," "complex causality" and "radically open."
+xags | Table 3. Method categories most often used to investigate topics of concern, ordered from most to least commonly identified focus topics.
+jc47 | Fig. 6. (a) Word cloud showing the key issues, as generated from author key words that are the focus of social-ecological systems (SES) research, (b) shows the proportion of total publications that mention each topic in their author key words.
+ko3c | DISCUSSION
+xek3 | Our study provides insights on trends in the SES research field in terms of the terminology used, journals being published in, the type of research, where it is being done and by whom, topics being investigated, and the methods being used. Although a number of reviews (Brandt et al. 2013, Droste et al. 2018, Herrero-Jáuregui et al. 2018, Partelow 2018, Colding and Barthel 2019) exploring
+bbpr | Ecology and Society 24(4): 16 https://www.ecologyandsociety.org/vol24/iss4/art16/
+5zyf | similar issues have recently been published, our analysis takes a particularly broad view, and specifically focuses on the methods used in SES field through a list of method "categories" or typologies, also assessing the extent to which they account for the underlying organizing principles of CAS. Here we discuss five broad conclusions from these results, and their implications for advancing SES research.

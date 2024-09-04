@@ -1,0 +1,266 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+
+EXAMPLE OUTPUT:
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+
+
+
+
+1pjs | 1 Dysregulation of neuroproteasomes by ApoE isoforms drives endogenous Tau aggregation
+o2kr | 14
+v6sk | 19
+1wj6 | 23
+936l | 24 Neuroproteasomes are a subset of 20S proteasomes that are localized to the neuronal plasma
+06yq | 25 membrane and degrade newly synthesized proteins. To date, the molecular composition of
+dpv6 | 26 neuroproteasomes is undefined, and moreover, whether neuroproteasomes can influence protein
+8r5j | 27 aggregation with relevance to neurodegenerative disorders remains unexplored. Using a Cre-
+2taz | 28 dependent conditional knock-in mouse line to endogenously tag the proteasome, we find that
+o3ya | 29 neuroproteasomes co-purify with ApoE, the most significant risk factor for late-onset
+r5il | 30 Alzheimer's Disease (AD). We discover that neuroproteasome membrane localization is
+5gui | 31 differentially modulated by ApoE isoforms (E4<E3<E2) in vitro, in vivo, and in human 32 postmortem samples. We synthesized selective, neuroproteasome-specific inhibitors and
+82qc | 33 discovered that neuroproteasome inhibition induces aggregation of endogenous mouse and
+ls7d | 34 human Tau, without the need for seeding or pathogenic mutations. Using hApoE-KI/hTau-KI
+tzt3 | 35 crosses, we find that ApoE isoforms differentially shift the aggregation threshold for Tau.
+t8vv | 36 Neuroproteasome inhibition in vivo is sufficient to induce sarkosyl-insoluble and Thioflavin-S
+qvnu | 37 positive endogenous Tau aggregates in only three days, which are completely abrogated by co-
+kggw | 38 application of cycloheximide. Newly synthesized Tau levels increase threefold after
+xrd1 | 39 neuroproteasome inhibition, leading us to posit that newly synthesized Tau is uniquely
+5746 | 40 susceptible to aggregation due to neuroproteasome dysfunction. Overall, our data define
+7toz | 41 neuroproteasomes as a pivotal proteostasis mechanism underlying the formation of endogenous
+j346 | 42 Tau aggregates, which is directly regulated by the largest genetic risk factor for late-onset
+v8uq | 43 Alzheimer's Disease.
+x972 | 44 Introduction
+cwrw | 45
+4i0e | 46 Protein homeostasis mechanisms define the cellular capacity to handle protein synthesis, folding,
+h2l3 | 47 and clearance while minimizing the accumulation of deleterious protein misfolding and
+dfzb | 48 aggregation events. While many factors contribute to protein homeostasis, protein degradation
+u6ty | 49 serves as a critical and non-redundant determinant of cellular proteostatic capacity. In canonical
+awvu | 50 models of protein degradation, proteins are either degraded by the ubiquitin-proteasome system
+on9b | 51 or the endo-lysosomal and autophagic systems(1, 2). In contrast to the established paradigms of
+a8ge | 52 protein degradation, we recently described the neuroproteasome, which is localized to the
+h27a | 53 neuronal plasma membrane, exposed to the extracellular space, and degrades intracellular
+pdjh | 54 substrates across the membrane(3). We interpret this to mean that the neuroproteasome is
+xmgs | 55 functionally transmembrane(3). In addition, neuroproteasomes are composed of the 20S core
+bd9h | 56 proteasome and lack the canonical 19S cap and therefore, cannot recognize ubiquitylated
+m047 | 57 substrates or unfold them for degradation. Instead, neuroproteasomes co- or peri-translationally
+gy8c | 58 degrade newly synthesized proteins without the need for ubiquitylation(4). While multiple
+y4mj | 59 reports have demonstrated the existence of neuroproteasomes in diverse systems(5), the
+vpgq | 60 molecular composition of neuroproteasomes, the regulation underlying neuroproteasome
+ousl | 61 membrane localization, and the function of neuroproteasomes in vivo are poorly defined. 62
+m4ju | 63 Failures in protein homeostasis are linked to accumulation of protein inclusions and aggregates.
+a0mb | 64 Indeed, Alzheimer's Disease (AD) and many other neurodegenerative diseases are linked by the
+ki8m | 65 accumulation of protein aggregates(6, 7). Tau aggregates are among the most common
+km8w | 66 intracellular aggregates in AD and are characteristic of more than 20 neurodegenerative diseases,
+wzno | 67 termed Tauopathies(8). Multiple mutations that render Tau more prone to aggregation have been
+xagm | 68 identified in patients(9) and these have been extensively modeled in transgenic lines and iPSC-
+iwn5 | 69 derived neurons(10-13). While these studies have provided important insights into the
+uooz | 70 mechanisms of Tau aggregate clearance, genetic variants in MAPT only make up less than 5% of
+pxbq | 71 the total population with AD and Tauopathies(14-18). Instead, endogenous Tau aggregates are
+jfsr | 72 found in the absence of overexpression or mutations in MAPT in the majority of patients with
+u15r | 73 sporadic AD(19, 20). The protein quality control mechanisms in neurons that prevent
+lq35 | 74 endogenous Tau from aggregating remain elusive.
+3g9w | 75
+d09o | 76 Moreover, aggregated Tau can induce the further aggregation of otherwise normal Tau, creating
+ylhz | 77 a feed-forward prion-like propagation referred to as Tau seeding(12, 21, 22). Studies delineating
+a3td | 78 the principles of Tau seeding and propagation have provided new insights into the development
+ex5k | 79 of Tau pathology. Yet, the mechanisms underlying the initial aggregate formation in this
+9d4o | 80 pathological context are unclear. Therefore, identifying mechanisms by which endogenous Tau
+cjq2 | 81 aggregates form could provide a unique therapeutic opportunity for intervention before Tau
+5esx | 82 seeds can promote further templating and propagation.
+m5ka | 83
+byu8 | 84 While failures of the endolysosomal and autophagic systems can exacerbate Tau aggregation(23-
+76b0 | 85 26), whether and how proteasomal dysfunction affects Tau aggregation is contested. Multiple
+zxz6 | 86 reports demonstrate that proteasomes can degrade Tau in vitro and in heterologous cells (27-30).
+xnth | 87 However, follow up studies demonstrated that proteasome inhibition in neurons neither increases
+vafm | 88 Tau levels nor does it induce endogenous Tau aggregation(31-34). In fact, somewhat
+2zmw | 89 counterintuitively, proteasomal inhibition leads to the reduction of soluble Tau due to the
+bf9k | 90 compensatory induction of autophagy in neurons(31-34). However, proteasomes can be involved
+otkr | 91 in clearing already aggregated Tau but require the help of ATPases such as VCP to unfold the
+ibgs | 92 aggregates(35). The mechanisms by which protein degradation machineries determine both the
+colo | 93 formation and clearance of endogenous Tau aggregates are still debated. The discovery of the
+d6r4 | 94 neuroproteasome provides a new mechanism to interrogate how protein degradation could
+9mrz | 95 contribute to the formation and clearance of protein aggregates in neurons.
+pk06 | 96
+7wn9 | 97 While the precise mechanisms underlying Tau aggregation remain a subject of intense
+wcd0 | 98 investigation, one major genetic factor that influences Tau aggregation and many other
+caos | 99 phenotypes in neurodegeneration is ApoE(36-38). The most significant risk factor for sporadic 100 Alzheimer's Disease is the ApoE4 isoform of the ApoE gene, while the ApoE3 isoform is neutral
+qrvy | 101 and the ApoE2 isoform is protective(39, 40). The mechanisms by which ApoE isoforms confer
+pn9j | 102 dramatic differences in the risk for AD remains unclear, but it is well established that ApoE4 is
+1pmc | 103 associated with increased Amyloid ß and Tau pathology(37, 41, 42). More specifically, it
+5z6q | 104 remains mechanistically vague how ApoE isoforms influence Tau aggregation and
+yeoh | 105 neurodegeneration. Gaining the biochemical and cell biological insights connecting ApoE
+b8hf | 106 isoforms and Tau turnover could be invaluable to revealing the mechanisms underlying neurodegeneration.
+hntf | 107
+99fo | 108
+y5r7 | 109 Here, we discover an unexpected link between ApoE and endogenous Tau aggregation through
+lrry | 110 the neuroproteasome. Using a transgenic mouse line to endogenously and conditionally tag the
+hvhm | 111 20S proteasome coupled with quantitative proteomics, we found that neuroproteasomes co-
+863b | 112 purify with ApoE. Neuroproteasome localization at the plasma membrane is differentially
+fj24 | 113 regulated by ApoE isoforms, with ApoE4 reducing localization and ApoE2 increasing
+uz3c | 114 localization relative to ApoE3, in vivo, in primary neurons, and in humans. Using an unbiased
+d5bi | 115 quantitative proteomic screen, we identify neuronal responses to neuroproteasome inhibition in
+ba4l | 116 the soluble and insoluble proteome. Neuroproteasome dysfunction leads to deficits in
+ffx8 | 117 proteostasis and induces aggregation of endogenous Tau in primary neurons and in vivo. We find
+s6su | 118 that ApoE4 reduces the threshold at which Tau aggregates by ~ 25-fold compared to ApoE3 and
+y219 | 119 ~200-fold compared to ApoE2, thereby dramatically elevating risk for Tau aggregation due to
+06ht | 120 neuroproteasome dysfunction. Neuroproteasome-inhibition-induced endogenous Tau inclusions
+v3r2 | 121 migrate as a high molecular weight species, which is typically reported only in the AD brain or
+nv42 | 122 with seeding-competent Tau(43-46). Using quantitative phosphoproteomic analysis supported by
+xags | 123 imaging in primary neurons and in vivo, we find that neuroproteasome inhibition induces the
+jc47 | 124 phosphorylation of Tau at sites consistent with pathological aggregated Tau in the AD brain. We suggest that neuroproteasomes serve as a pivotal proteostasis factor, mechanistically distinct from canonical degradation systems, directly linking ApoE to the formation of endogenous Tau aggregates.
+ko3c | 125
+xek3 | 126
+bbpr | 127
+5zyf | 128
+9own | 129 Results
+bqfb | 130
+wwdt | 131 Endogenous affinity tags on the 20S proteasome reveal that neuroproteasomes co-purify 132 with ApoE and Lrp1
+mn1r | 133
+5vqw | 134 We sought to purify the neuroproteasome directly out of the mouse brain. Our attempts to do this out of wild-type (WT) tissue proved challenging due to lengthy preparations which caused low
+meyw | 135
+2e62 | 136 yields. To circumvent this, we built a transgenic mouse line to endogenously tag the 20S
+75y3 | 137 proteasome for affinity purification. The proteasome is comprised of the 20S catalytic core
+s2g2 | 138 particle which, as part of the ubiquitin-dependent degradation system, can be terminally
+q1q2 | 139 associated with either one or two 19S regulatory particles, referred to as the 26S (20S+19S) or 140 30S <LATEX>\left( 2 0 S + t w o \quad 1 9 S \right)</LATEX> proteasome respectively. The 20S core is characterized by four axially 141 stacked heptameric rings: the outer alpha subunit rings which gate substrate entry and the inner
+cb7r | 142 rings which contain the catalytic beta subunits. The 19S caps contain subunits to bind
+68xu | 143 ubiquitylated substrates and ATPases to unfold said substrates into the 20S core. Therefore,
+hd35 | 144 modifying the 20S with affinity tags allows us to isolate any complex containing the core
+2zpk | 145 proteasome, such as free 20S, singly-capped 26S, doubly-capped 30S proteasomes, or the
+epu7 | 146 neuroproteasome. We modified the C-termini of nearly every core proteasome subunit with
+7od1 | 147 either 6X-His or Strep-II tags and screened out constructs based on low expression and
+0bqy | 148 interference with proteasome function (Fig S1A). Of the remaining two constructs, we found that
+b780 | 149 only the C-terminal modification of Psma3 was compatible with proper proteasome assembly
+ccmb | 150 and function and did not adversely affect cell health (Fig S1B). Based on these data, we
+ma93 | 15: generated a 20S-FLAG transgenic line by adding flanking loxP sites surrounding the final exon
+c6hh | 152 (Exon 11) of the Psma3 gene followed by the same sequence with a linker containing a 3X-
+y7ea | 153 FLAG tag (Fig 1A). By crossing 20S-FLAG transgenic mice with a line expressing Cre
+nav4 | 154 recombinase driven by the pan-neuronal Actlb6 (BAF53b) promoter(47), we generated mice that
+gem8 | 155 expressed FLAG-tagged proteasomes selectively in neurons (Fig 1B). Brains from 20S-
+e8nr | 156 FLAG/BAF53b-Cre mice and Cre-only littermate controls were processed and FLAG-tagged
+k78w | 157 cytosolic proteasomes were isolated on beads with a nanobody against the FLAG epitope.
+g9du | 158 Simultaneously, 26S proteasomes were isolated using the GST-UBL affinity isolation
+f682 | 160 <LATEX>\mathrm { m e t h o d } \left( 4 8 \right)</LATEX> and all samples were immunoblotted using antibodies raised against multiple 19S
+li1k | 159
+pbea | 161 and 20S subunits. We find that the FLAG tag is incorporated into the proteasome and we fail to detect any FLAG in the Cre-only littermate controls (Fig 1B).
+ccpt | 162
+0fpw | 163 We next measured the catalytic activity of the FLAG-tagged proteasome compared to
+dqn8 | 164 unmodified proteasomes by monitoring the cleavage of a model substrate, Suc-LLVY-AMC(49).
+cop0 | 165 An increase in fluorescence reflects the proteasome-dependent cleavage of this LLVY substrate
+lhkq | 166 which mobilizes the free fluorescence of AMC. We find that the catalytic activity of isolated 26S
+82ju | 167 proteasomes from mice expressing 20S-FLAG are indistinguishable from the unmodified
+y2qo | 168 proteasomes isolated from controls (Fig 1C). We find that FLAG affinity purified proteasomes 169 are catalytically identical to 26S affinity purified proteasomes (Fig 1C). We fail to detect FLAG
+1piq | 170 expression in the livers from 20S-FLAG/Baf53b-Cre mice, nor can we affinity isolate
+7fqw | 171 proteasomes using the FLAG epitope handle from the liver, indicative of the selective and
+rhaz | 172 173 inducible nature of the 20S-FLAG transgene (Fig S1C, D). Overall, we find that mice expressing 20S-FLAG appear indistinguishable from wild-type littermates. These extensive
+wak1 | 174 characterizations support the conclusion that epitope tagging of the 20S with FLAG is inert and
+wtfz | 175 does not disrupt native proteasome function.
+qy1i | 176
+1k9e | 177 To test whether the 20S-FLAG was efficiently incorporated into the neuroproteasome, we
+5bjs | 178 performed surface biotinylation experiments out of both primary neurons and hippocampal tissue
+uodj | 179 from 20S-FLAG transgenic mice. This is a well-established method for measuring
+k16v | 180 neuroproteasome surface localization(3, 50, 51). Hippocampi from 20S-FLAG/Baf53b-Cre mice
+b2lm | 18: were incubated with a cell-impermeable sulfonylated Biotin-NHS-Ester to label surface-exposed
+ti7f | 182 amines and surface proteins were pulled down on streptavidin beads. We observe strong FLAG
+oksu | 183 expression in the surface fraction, indicating that the FLAG tag is incorporated into the
+wtow | 184 neuroproteasome (Fig 1D). We fail to detect cytosolic proteins such as Actin in our surface
+o22k | 185 fraction, validating our surface-labeling approach, and fail to observe FLAG expression in 20S-
+nwfz | 186 FLAG mice without Cre (Fig 1D). By blotting using an antibody which detects six of the seven
+nvfy | 187 alpha subunits of the 20S proteasome including a7, the subunit coded for by Psma3, we can
+mror | 188 clearly distinguish the modified a7 subunit overlaying with the FLAG signal, denoting
+zlxc | 189 modification of the endogenous protein (Fig 1D). Next, we used surface biotinylation to assess if
+k0bw | 190 our transgenic system was functional in primary cultures. Primary neurons from 20S-FLAG mice
+aq5a | 191 were cultured and transduced with AAVs to express Cre recombinase at days in vitro (DIV) two
+sc5y | 192 and then processed for surface biotinylation at DIV14 (Fig S1E). We did not detect FLAG
+0yab | 193 without AAVs to express Cre, supporting our conclusion that the 20S-FLAG transgene is 194 inducible and not leaky.
+w95z | 195
+0i1k | 196 Next, we purified FLAG-neuroproteasomes to determine their composition. First, we prepared
+dqlg | 197 plasma membranes from 20S-FLAG/Baf53b-Cre brains and then gently extracted membrane
+p6pq | 198 proteins. We find our membrane preparations were enriched in membrane proteins such as
+zse6 | 199 GluR1 and depleted of cytosolic proteins like Actin (Fig S1F). We affinity isolated FLAG-

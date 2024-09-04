@@ -1,0 +1,135 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+
+EXAMPLE OUTPUT:
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+
+
+
+
+yfum | E. GTN and HMM's
+ppx4 | GTN's can be seen as a generalization and an extension of HMM's. On the one hand, the probabilistic interpretation can be either kept (with penalties being log-probabilities), pushed to the final decision stage (with the difference of the constrained forward penalty and the unconstrained for- ward penalty being interpreted as negative log-probabilities of label sequences), or dropped altogether (the network just represents a decision surface for label sequences in input space). On the other hand, GTN's extend HMM's by allowing to combine in a well-principled framework multiple levels of processing, or multiple models (e.g., Pereira et al. have been using the transducer framework for stacking HMM's representing different levels of processing in automatic speech recognition [86]).
+qf11 | Unfolding an HMM in time yields a graph that is very similar to our interpretation graph (at the final stage of processing of the GTN, before Viterbi recognition). It has nodes n(t, i) associated to each time step t and state i in the model. The penalty Ci for an arc from n(t - 1, j) to n(t, i) then corresponds to the negative log-probability of emitting observed data ot at position t and going from state j to state i in the time interval (t- 1,t). With this probabilistic interpretation, the forward penalty is the negative logarithm of the likelihood of whole observed data sequence (given the model).
+8oqt | In Section VI we mentioned that the collapsing phe- nomenon can occur when nondiscriminative loss functions are used to train NN's/HMM hybrid systems. With classi- cal HMM's with fixed preprocessing, this problem does not occur because the parameters of the emission and transition probability models are forced to satisfy certain probabilistic constraints: the sum or the integral of the probabilities of a random variable over its possible values must be one. Therefore, when the probability of certain events is increased, the probability of other events must automatically be decreased. On the other hand, if the probabilistic assumptions in an HMM (or other probabilistic model) are not realistic, discriminative training, discussed in Section VI, can improve performance as this has been
+6zah | clearly shown for speech recognition systems [48]-[50], [107], [108].
+4v5o | The input-output HMM (IOHMM) [105], [109] is strongly related to GT's. Viewed as a probabilistic model, an IOHMM represents the conditional distribution of output sequences given input sequences (of the same or a different length). It is parameterized from an emission probability module and a transition probability module. The emission probability module computes the conditional emission probability of an output variable (given an input value and the value of discrete "state" variable). The transition probability module computes conditional transition probabilities of a change in the value of the "state" variable, given the input value. Viewed as a GT, it assigns an output graph (representing a probability distribution over the sequences of the output variable) to each path in the input graph. All these output graphs have the same structure, and the penalties on their arcs are simply added in order to obtain the complete output graph. The input values of the emission and transition modules are read off the data structure on the input arcs of the IOHMM GT. In practice, the output graph may be very large, and needs not be completely instantiated (i.e., it is pruned: only the low penalty paths are created).
+ha9e | IX. AN ON-LINE HANDWRITING RECOGNITION SYSTEM
+xrnt | Natural handwriting is often a mixture of different "styles," i.e., lower case printed, upper case, and cursive. A reliable recognizer for such handwriting would greatly improve interaction with pen-based devices, but its imple- mentation presents new technical challenges. Characters taken in isolation can be very ambiguous, but considerable information is available from the context of the whole word. We have built a word recognition system for pen-based devices based on four main modules: 1) a preprocessor that normalizes a word, or word group, by fitting a geometrical model to the word structure; 2) a module that produces an "annotated image" from the normalized pen trajectory; 3) a replicated convolutional NN that spots and recognizes characters; and 4) a GTN that interprets the networks output by taking word-level constraints into account. The network and the GTN are jointly trained to minimize an error measure defined at the word level.
+c8ra | In this work, we have compared a system based on SDNN's (such as described in Section VII), and a system based on HOS (such as described in Section V). Because of the sequential nature of the information in the pen trajectory (which reveals more information than the purely optical in- put from in image), HOS can be very efficient in proposing candidate character cuts, especially for noncursive script.
+p1l0 | A. Preprocessing
+1i8b | Input normalization reduces intracharacter variability, thereby simplifying character recognition. We have used a word normalization scheme [92] based on fitting a geo- metrical model of the word structure. Our model has four "flexible" lines representing respectively the ascenders line,
+5sfj | the core line, the base line, and the descenders line. The lines are fitted to local minima or maxima of the pen trajectory. The parameters of the lines are estimated with a modified version of the EM algorithm to maximize the joint probability of observed points and parameter values, using a prior on parameters that prevents the lines from collapsing on each other.
+vk4h | The recognition of handwritten characters from a pen trajectory on a digitizing surface is often done in the time domain [44], [110], [111]. Typically, trajectories are normalized and local geometrical or dynamical features are extracted. The recognition may then be performed using curve matching [110], or other classification techniques such as TDNN's [44], [111]. While these representations have several advantages, their dependence on stroke order- ing and individual writing styles makes them difficult to use in high accuracy, writer independent systems that integrate the segmentation with the recognition.
+nsm3 | Since the intent of the writer is to produce a legible image, it seems natural to preserve as much of the pictorial nature of the signal as possible, while at the same time exploit the sequential information in the trajectory. For this purpose we have designed a representation scheme called AMAP [38], where pen trajectories are represented by low- resolution images in which each picture element contains information about the local properties of the trajectory. An AMAP can be viewed as an "annotated image" in which each pixel is a five-element feature vector: four features are associated to four orientations of the pen trajectory in the
+jdfw | area around the pixel and the fifth one is associated to local curvature in the area around the pixel. A particularly useful feature of the AMAP representation is that it makes very few assumptions about the nature of the input trajectory. It does not depend on stroke ordering or writing speed, and it can be used with all types of handwriting (capital, lower case, cursive, punctuation, symbols). Unlike many other representations (such as global features), AMAP's can be computed for complete words without requiring segmentation.
+uc9r | B. Network Architecture
+l0ap | One of the best networks we found for both online and offline character recognition is a five-layer convolutional network somewhat similar to LeNet-5 (Fig. 2), but with multiple input planes and different numbers of units on the last two layers-layer one: convolution with eight kernels of size 3×3; layer two: 2×2 subsampling; layer three: convolution with 25 kernels of size 5×5; layer four: convolution with 84 kernels of size 4x4; layer five: 2×1 subsampling; classification layer: 95 RBF units (one per class in the full printable ASCII set). The distributed codes on the output are the same as for LeNet-5, except they are adaptive unlike with LeNet-5. When used in the HOS system, the input to above network consisted of an AMAP with five planes, 20 rows, and 18 columns. It was determined that this resolution was sufficient for representing handwritten characters. In the SDNN version, the number of columns was varied according to the width
+x815 | of the input word. Once the number of subsampling layers and the sizes of the kernels are chosen, the sizes of all the layers, including the input, are determined unambiguously. The only architectural parameters that remain to be selected are the number of feature maps in each layer and the infor- mation as to what feature map is connected to what other feature map. In our case, the subsampling rates were chosen as small as possible (2x2) and the kernels as small as possible in the first layer (3x3) to limit the total number of connections. Kernel sizes in the upper layers are chosen to be as small as possible while satisfying the size constraints mentioned above. Larger architectures did not necessarily perform better and required considerably more time to be trained. A very small architecture with half the input field also performed worse because of insufficient input resolution. Note that the input resolution is nonetheless much less than for OCR because the angle and curvature provide more information than would a single grey level at each pixel.
+epbj | C. Network Training
+nmn2 | Training proceeded in two phases. First, we kept the centers of the RBF's fixed and trained the network weights so as to minimize the output distance of the RBF unit corresponding to the correct class. This is equivalent to minimizing the MSE between the previous layer and the center of the correct-class RBF. This bootstrap phase was performed on isolated characters. In the second phase, all the parameters, network weights, and RBF centers were trained globally to minimize a discriminative criterion at the word level.
+g3tm | With the HOS approach, the GTN was composed of four main GT's.
+tfra | 1) The segmentation transformer performs the HOS and outputs the segmentation graph. An AMAP is then computed for each image attached to the arcs of this graph.
+5lm9 | 2) The character recognition transformer applies the convolutional network character recognizer to each candidate segment and outputs the recognition graph with penalties and classes on each arc.
+wp2c | 3) The composition transformer composes the recog- nition graph with a grammar graph representing a language model incorporating lexical constraints.
+us5v | 4) The beam search transformer extracts a good in- terpretation from the interpretation graph. This task could have been achieved with the usual Viterbi Transformer. The beam search algorithm, however, implements pruning strategies which are appropriate for large interpretation graphs.
+rs2m | With the SDNN approach, the main GT's are the fol- lowing.
+uz9y | 1) The SDNN transformer replicates the convolutional network over the a whole word image and outputs a recognition graph that is a linear graph with class
+8ov0 | Fig. 32. Comparative results (character error rates) showing the improvement brought by global training on the SDNN/HMM hybrid, and on the HOS, without and with a 25 461-word dictionary.
+mj9m | penalties for every window centered at regular inter- vals on the input image.
+94h3 | 2) The character-level composition transformer com- poses the recognition graph with a left-to-right HMM for each character class (as in Fig. 27).
+9jx1 | 3) The word-level composition transformer composes the output of the previous transformer with a language model incorporating lexical constraints and outputs the interpretation graph.
+c3lz | 4) The beam search transformer extracts a good inter- pretation from the interpretation graph.
+8bwk | In this application, the language model simply constrains the final output graph to represent sequences of character labels from a given dictionary. Furthermore, the interpreta- tion graph is not actually completely instantiated: the only nodes created are those that are needed by the beam search module. The interpretation graph is therefore represented procedurally rather than explicitly.
+ez9s | A crucial contribution of this research was the joint training of all GT modules within the network with respect to a single criterion, as explained in Sections VI and VII. We used the discriminative forward loss function on the final output graph: minimize the forward penalty of the constrained interpretation (i.e., along all the "correct" paths) while maximizing the forward penalty of the whole interpretation graph (i.e., along all the paths).
+mqot | During global training, the loss function was optimized with the stochastic diagonal Levenberg-Marquardt proce- dure described in Appendix C, which uses second deriva- tives to compute optimal learning rates. This optimization operates on all the parameters in the system, most notably the network weights and the RBF centers.
+oc99 | D. Experimental Results
+gipz | In the first set of experiments, we evaluated the gen- eralization ability of the NN classifier coupled with the word normalization preprocessing and AMAP input rep- resentation. All results are in writer independent mode (different writers in training and testing). Initial training on isolated characters was performed on a database of
+b4wj | approximately 100 000 hand printed characters (95 classes of upper case, lower case, digits, and punctuation). Tests on a database of isolated characters were performed separately on the four types of characters: upper case (2.99% error on 9122 patterns), lower case (4.15% error on 8201 patterns), digits (1.4% error on 2938 patterns), and punctuation (4.3% error on 881 patterns). Experiments were performed with the network architecture described above. To enhance the robustness of the recognizer to variations in position, size, orientation, and other distortions, additional training data was generated by applying local affine transformations to the original characters.
+5xlt | The second and third set of experiments concerned the recognition of lower case words (writer independent). The tests were performed on a database of 881 words. First we evaluated the improvements brought by the word normal- ization to the system. For the SDNN/HMM system we have to use word-level normalization since the network sees one whole word at a time. With the HOS system, and before doing any word-level training, we obtained with character- level normalization 7.3% and 3.5% word and character errors (adding insertions, deletions and substitutions) when the search was constrained within a 25 461-word dictionary. When using the word normalization preprocessing instead of a character level normalization, error rates dropped to 4.6% and 2.0% for word and character errors respectively, i.e., a relative drop of 37% and 43% in word and character error respectively. This suggests that normalizing the word in its entirety is better than first segmenting it and then normalizing and processing each of the segments.
+9bz4 | In the third set of experiments, we measured the im- provements obtained with the joint training of the NN and the postprocessor with the word-level criterion, in comparison to training based only on the errors performed at the character level. After initial training on individual characters as above, global word-level discriminative train- ing was performed with a database of 3500 lower case words. For the SDNN/HMM system, without any dictionary constraints, the error rates dropped from 38% and 12.4% word and character error to 26% and 8.2% respectively after word-level training, i.e., a relative drop of 32% and 34%.

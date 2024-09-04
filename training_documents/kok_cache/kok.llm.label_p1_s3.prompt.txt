@@ -1,0 +1,123 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+
+EXAMPLE OUTPUT:
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+
+
+
+
+1pjs | Research
+o2kr | The Kok effect revisited
+v6sk | Summary
+1wj6 | Author for correspondence: Xinyou Yin Tel: +31 317 482348 Email: Xinyou. Yin@wur.nl
+936l | . The Kok effect refers to the abrupt decrease around the light compensation point in the slope of net photosynthetic rate vs irradiance. Arguably, this switch arises from light inhibition of respiration, allowing the Kok method to estimate day respiration <LATEX>\left( R _ { d } \right) .</LATEX> Recent analysis sug- gests that increasing proportions of photorespiration (quantified as <LATEX>\Gamma ^ { * } / \mathrm { C } _ { \mathrm { c } } ,</LATEX> the ratio of <LATEX>C O _ { 2 }</LATEX> compensation point <LATEX>\Gamma ^ { * }</LATEX> to chloroplast <LATEX>C O _ { 2 }</LATEX> concentration, <LATEX>C _ { c }</LATEX> with irradiance explain much of the Kok effect. Also, the Kok method has been modified to account for the decrease in PSII photochemical efficiency (@2) with irradiance.
+06yq | Received: 19 February 2020 Accepted: 24 April 2020
+dpv6 | New Phytologist (2020) 227: 1764-1775 doi: 10.1111/nph.16638
+8r5j | . Using a model that illustrates how varying <LATEX>R _ { d } ,</LATEX> <LATEX>\Gamma ^ { * } / \mathrm { C } _ { \mathrm { c } } ,</LATEX> <LATEX>\Phi _ { 2 }</LATEX> and proportions of alternative electron transport could engender the Kok effect, we quantified the contribution of these parameters to the Kok effect measured in sunflower across various <LATEX>O _ { 2 }</LATEX> and <LATEX>C O _ { 2 }</LATEX> concentra- tions and various temperatures.
+2taz | Key words: day respiration, Kok method, photorespiration, photosystem II efficiency, reassimilation, Yin method.
+o3ya | . Overall, the decreasing <LATEX>\Phi _ { 2 }</LATEX> with irradiance explained <LATEX>c .</LATEX> 12%, and the varying <LATEX>\Gamma ^ { * } / \mathrm { C } _ { \mathrm { c } }</LATEX> explained <LATEX>c .</LATEX> 25%, of the Kok effect. Maximum real light inhibition of <LATEX>R _ { d }</LATEX> was much lower than the inhibition derived from the Kok method, but still increased with photorespiration.
+r5il | . Photorespiration had a dual contribution to the Kok effect, one via the varying <LATEX>\Gamma ^ { * } / \mathrm { C } _ { c }</LATEX> and the other via its participation in light inhibition of
+5gui | <LATEX>R _ { d }</LATEX> Introduction
+82qc | The Kok effect refers to the abrupt change in the slope of the lin- ear relationship between net photosynthetic rate and irradiance that occurs at very low irradiances, as observed initially in unicellu- lar algae (Kok, 1948, 1949; Healey & Myers, 1971). The switch is reported later in leaves of many higher plant species (e.g. Ishii & Schmid, 1981; Sharp et al., 1984; Villar et al., 1994; Buckley et al., 2017). The slope decreases from the initial higher value to a lower value, mostly at an irradiance value around the light com- pensation point. This switch has been interpreted as a consequence of light inhibition of respiration, allowing the so-called Kok method to estimate respiration in the light, or day respiration <LATEX>\left( R _ { \mathrm { d } } \right) ,</LATEX> and quantum yield of CO2 assimilation <LATEX>\left( \Phi _ { \mathrm { C O 2 } } \right)</LATEX> (see Supporting Information Table S1 for all symbol definitions), using the part of the relationship with the lower slope. The absolute value of the estimated <LATEX>R _ { 4 }</LATEX> is lower than the respiration in the dark <LATEX>\left( R _ { \mathrm { d k } } \right)</LATEX> (Fig. 1). The cost of total respiratory activities accounts for c. 40% of gross photosynthetic productivity of whole plants (Gifford, 1995; Amthor, 2010). Light inhibition of respiratory activities also occurs at a stand scale (Gong et al., 2017), suggesting that it is a general phenomenon, and thus would have a significant impact on projecting the net ecosystem carbon fluxes in biomes across the globe (Heskel et al., 2013). For this reason, understanding the Kok effect and its related light inhibition of respiration has contin- uously received attention (Tcherkez et al., 2017a,b).
+ls7d | The lower estimates of <LATEX>R _ { \mathrm { d } }</LATEX> by the Kok method, relative to <LATEX>R _ { \mathrm { d k } }</LATEX> have been confirmed by other gas exchange-based methods such as the popular Laisk method (Laisk, 1977). By applying the Laisk
+tzt3 | New Phytologist
+t8vv | method to different light intensities, it has been shown that <LATEX>R _ { \mathrm { d } } \mathrm { w a s }</LATEX> progressively inhibited by increasing irradiance (Brooks & Far- quhar, 1985; Villar et al., 1995). However, this light inhibition has been challenged by the direct measurement of <LATEX>R _ { \mathrm { d } } ,</LATEX> which exploits the differences in the time course of labelling by carbon isotopes of photosynthetic, photorespiratory and respiratory pathways. For example, using such techniques, Pinelli & Loreto (2003) suggested a significant refixation of respired and photorespired <LATEX>C O _ { 2 }</LATEX> and Loreto et al. (2001) calculated that there would be no significant difference between <LATEX>R _ { \mathrm { d } }</LATEX> and <LATEX>R _ { \mathrm { d k } }</LATEX> if the refixation of <LATEX>C O _ { 2 }</LATEX> released from respiration during illumination were taken into account. Similarly, a recent report using a direct method based on isotopic disequilibrium (Gong et al., 2018) showed that <LATEX>R _ { \mathrm { d } }</LATEX> was underesti- mated by the Laisk method. Owing to inconsistent reports of this kind, whether the Kok effect was a result of light inhibition of leaf respiration has been under debate over years.
+qvnu | In fact, according to an extended form of the widely used model of Farquhar et al. (1980) for describing the electron trans- port-limited photosynthesis, several other mechanisms could also explain the Kok effect. The extended model expresses the net CO2 assimilation rate <LATEX>\left( A \right)</LATEX> as a function <LATEX>o f \quad t h e</LATEX> photosynthetically absorbed irradiance <LATEX>\left( I _ { \mathrm { a b s } } \right)</LATEX> as (Yin et al., 2004, 2006):
+kggw | <LATEX>A = \frac { 1 - \Gamma _ { * } / C _ { _ { \mathrm { c } } } } { 4 \left( 1 + 2 \Gamma _ { * } / C _ { _ { \mathrm { c } } } \right) } f _ { \mathrm { a c t } } \left( \Phi _ { 2 } \rho _ { _ { 2 } } I _ { \mathrm { a b s } } \right) - R _ { \mathrm { d } }</LATEX> Eqn 1
+xrd1 | where <LATEX>C _ { c }</LATEX> is the CO2 concentration at the carboxylating sites of Rubisco, <LATEX>\Gamma ^ { * }</LATEX> is the CO2 compensation point in the absence of
+5746 | New Phytologist
+7toz | <LATEX>\Phi _ { 2 }</LATEX> is the photochemical efficiency of photosystem II (PSII) elec- tron transport, <LATEX>\rho _ { 2 }</LATEX> is the fraction of the absorbed photons parti- tioned to PSII, and <LATEX>f _ { \mathrm { a c t } }</LATEX> is the factor accounting for fractions of alternative electron transport. So, the term <LATEX>\left( \Phi _ { 2 } \rho _ { 2 } I _ { \mathrm { a b s } } \right)</LATEX> is the flux of PSII electron transport. Parameters <LATEX>f _ { \mathrm { a c t } }</LATEX> and <LATEX>o _ { 2 }</LATEX> fied by the extended model as (Yin et al., 2006):
+j346 | <LATEX>f _ { a c t } = 1 - \frac { f _ { p s e u d o } } { 1 - f _ { c v c } } .</LATEX> <LATEX>\rho _ { 2 } = \frac { 1 - f _ { \mathrm { c y c } } } { 1 - f _ { \mathrm { c y c } } + \frac { \Phi _ { 2 } } { \Phi _ { \mathrm { l } } } }</LATEX> Eqn 2
+v8uq | Eqn 3
+x972 | where <LATEX>\Phi _ { 1 }</LATEX> is the photochemical efficiency of PSI electron trans- port, <LATEX>f _ { \mathrm { c y c } }</LATEX> is the fraction of the PSI electron flux that follows the cyclic electron transport around PSI, and <LATEX>f _ { \mathrm { p s e u d c } }</LATEX> is the fraction of the PSI electron flux that follows the pseudocyclic electron trans- port (defined as all noncyclic electron-consuming pathways other than the Calvin cycle or the photorespiratory cycle).
+cwrw | Eqn (1) suggests that changes not only in <LATEX>R _ { \mathrm { d } }</LATEX> (Fig. 2a), but also in <LATEX>\Gamma ^ { * } / C _ { \mathrm { c } }</LATEX> <LATEX>\Phi _ { 2 } ,</LATEX> <LATEX>f _ { \mathrm { a c t } }</LATEX> and <LATEX>\rho _ { 2 } ,</LATEX> with increasing <LATEX>I _ { \mathrm { a b s } } ,</LATEX> result in changes in the slope of <LATEX>A</LATEX> vs <LATEX>I _ { a b s } .</LATEX> Notably, Farquhar & Busch (2017) recently demonstrated that as a result of regulation of stomatal conduc- tance <LATEX>\left( g _ { s } \right)</LATEX> and mesophyll conductance <LATEX>\left( g _ { m } \right) ,</LATEX> <LATEX>C _ { \mathrm { c } }</LATEX> decreased (thus <LATEX>\Gamma ^ { * } / C _ { c }</LATEX> increased) sharply with increasing <LATEX>I _ { \mathrm { a b s } }</LATEX> within the range of low irradiances, and that this phenomenon accounted for much of the observed Kok effect (Fig. 2b). A similar argument might be applied to <LATEX>\Phi _ { 2 }</LATEX> (Fig. 2c), as <LATEX>\Phi _ { 2 }</LATEX> is not constant but decreases with increasing <LATEX>I _ { \mathrm { a b s } }</LATEX> (Genty & Harbinson, 1996), even within the range of low irradiances within which the <LATEX>\mathrm { K o k }</LATEX> method is used to estimate <LATEX>R _ { 4 }</LATEX> and <LATEX>\Phi _ { \mathrm { C O 2 } }</LATEX> (Yin et <LATEX>a l . ,</LATEX> 2011a, 2014). Accounting for
+4i0e | 2020 The Authors New Phytologist @ 2020 New Phytologist Trust
+h2l3 | 14698 37-2020, 6, Downloaded from https://nph.onlinelibrary.wiley.com/doi/10.1111/nph.16638 by Cochrane Mexico, Wiley Online Library on [01/09/2023]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+dfzb | the decrease of <LATEX>\Phi _ { 2 }</LATEX> with increasing irradiance has resulted in a modified method to estimate <LATEX>R _ { \mathrm { d } }</LATEX> (Yin et al., 2009, 2011a). The analysis using the modified method, now known as the Yin method (Tcherkez et <LATEX>a l . ,</LATEX> 2017b), indicates that the inhibition of <LATEX>R _ { \mathrm { d } }</LATEX> by light is less than the original Kok method suggests (Yin et al., 2011a).

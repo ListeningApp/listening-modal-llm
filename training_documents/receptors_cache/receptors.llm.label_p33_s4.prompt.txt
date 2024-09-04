@@ -1,0 +1,194 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+
+EXAMPLE OUTPUT:
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+
+
+
+
+87vz | Figure 2. Ga Mutation Distributions Across TCGA PanCancer Atlas Studies.
+ym66 | Lollipop plot depicting the non-synonymous mutation spectrum of A) GNAQ, B) GNA11, C) GNAS, and D) GNA13 across TCGA PanCancer studies. Missense mutations are depicted in green, and truncating mutations are depicted in black along the gene body. OncoKB annotated hotspot mutations are depicted in red below each gene. Pie charts represent distribution of cancer types where selected hotspots have been found. The data shown here are based upon data generated by the TCGA Research Network. All data was downloaded from cBio Portal130,131.
+l0a3 | Table 1. Mutation frequencies of heterotrimeric G protein families in patients across TCGA PanCancer Atlas studies.
+u8nw | Frequencies (left column) and number (right column) of patients carrying a non-synonymous mutation in one or more heterotrimeric G protein subunits in each indicated family. Cumulative mutation frequencies and absolute number of patients carrying a mutation in one or more G proteins in each indicated family across all 10,437 patients in all studies are listed in the last row. Number of heterotrimeric G proteins considered in each family are listed with each family name. The data shown here are based upon data generated by the TCGA Research Network. All data was downloaded from cBio Portal 130,131
+l2v9 | This article is protected by copyright. All rights reserved
+afbe | Table S1: Mutation frequencies of GPCRs by gene in patients across TCGA PanCancer Atlas Studies.
+78r8 | (Sheet 1) Frequencies represent percentage of patients carrying a non-synonymous mutation in each respective GPCR gene. Cumulative mutation frequencies of each gene across all 10,437 patients in all cohorts are listed in the last column. (Sheet 2) Enumeration of mutation frequencies in Sheet 1, depicting the number of patients carrying a mutation in each GPCR gene. Number of patients in each study are listed above with the study abbreviation. Absolute number of patients carrying a mutation in each GPCR gene across all 10,437 patients in all cohorts are listed in the last column. The data shown here are based upon data generated by the TCGA Research Network. All data was downloaded from cBio Portal130,131.
+320g | rt
+tp8g | Table S2: Compiled mutation frequencies of GPCR classes in patients across TCGA PanCancer Atlas Studies.
+gxfd | (Sheet 1) Frequencies represent percentage of patients in each study carrying a non- synonymous mutation in one or more GPCRs in each indicated class. Cumulative mutation frequencies of each class across all 10,437 patients in all cohorts are listed in the last row. Number of GPCRs considered in each family are listed with the family name. (Sheet 2) Enumeration of mutation frequencies in Sheet 1, depicting the number of patients carrying a mutation in one or more GPCRs in each indicated class. Absolute number of patients carrying a mutation in each indicated GPCR class across 10,437 patients in all cohorts are listed in the last row. The data shown here are based upon data generated by the TCGA Research Network. All data was downloaded from cBio Portal130,131
+s2v1 | ente
+jkp9 | Table S3: MutSig2CV q-values for GPCR and heterotrimeric G protein genes across TCGA PanCancer Atlas studies.
+z8tt | (Sheet 1) MutSig2CV q-values for GPCR genes. (Sheet 2) MutSig2CV q-values for heterotrimeric G protein genes. Significantly mutated genes (q≤0.1) are labeled in red. Genes for which MutSig2CV q-values were not calculated are listed as NC (not calculated). (Sheet 3) DOI links to data analysis hosted on FireBrowse. All data were downloaded from the Broad Institute GDAC
+9g22 | A
+41fx | This article is protected by copyright. All rights reserved
+7um8 | Firebrowse (http://firebrowse.org/) and generated by the Broad Institute TCGA Genome Data Analysis Center (2016): Mutation Analysis (MutSig 2CV v3.1), Broad Institute of MIT and Harvard.
+uow2 | Table S4: Mutation frequencies of heterotrimeric G proteins by gene in patients across TCGA PanCancer Atlas Studies.
+iat7 | (Sheet 1) Frequencies represent percentage of patients carrying a non-synonymous mutation in each respective heterotrimeric G protein gene. Cumulative mutation frequencies of each gene across all 10,437 patients in all cohorts are listed in the last row. (Sheet 2) Enumeration of mutation frequencies in Sheet 1, depicting the number of patients carrying a mutation in each heterotrimeric G protein gene. Absolute number of patients carrying a mutation in each heterotrimeric G protein gene across all 10,437 patients in all cohorts are listed in the last row. The data shown here are based upon data generated by the TCGA Research Network. All data was downloaded from cBio Portal 130,131
+ywwr | Table S5: Compiled mutation frequencies of heterotrimeric G protein families in patients across TCGA PanCancer Atlas studies.
+0i6j | (Sheet 1) Frequencies represent percentage of patients in each study carrying a non- synonymous mutation in one or more heterotrimeric G proteins in each indicated family. Cumulative mutation frequencies of each family across all 10,437 patients in all cohorts are listed in the last row. Number of heterotrimeric G proteins considered in each family are listed with the family name. (Sheet 2) Enumeration of mutation frequencies in Sheet 1, depicting the number of patients carrying a mutation in one or more heterotrimeric G proteins in each indicated family. Absolute number of patients carrying a mutation in each indicated heterotrimeric G protein family across 10,437 patients in all cohorts are listed in the last row. The data shown here are based upon data generated by the TCGA Research Network. All data was downloaded from cBio Portal 130,131
+87cq | Acconto
+0qs3 | This article is protected by copyright. All rights reserved
+z8f7 | References
+7w7j | 4 7 Accepted Article
+51vd | This article is protected by copyright. All rights reserved
+baj1 | 12 13 14 15 16 17 18 19 20 Accepted Article
+n1wo | 21 Allen, L. F., Lefkowitz, R. J., Caron, M. G. & Cotecchia, S. G-protein-coupled receptor genes as protooncogenes: constitutively activating mutation of the alpha 1B-adrenergic receptor enhances mitogenesis and tumorigenicity. Proc Natl Acad Sci U S A 88, 11354-11358 (1991).
+5bq3 | This article is protected by copyright. All rights reserved
+ezla | Rozengurt, E. Mitogenic signaling pathways induced by G protein-coupled receptors. Journal of cellular physiology 213, 589-602, doi:10.1002/jcp.21246 (2007).
+rsbu | 22 Hanahan, D. & Weinberg, R. A. Hallmarks of cancer: the next generation. Cell 144, 646-674, doi:10.1016/j.cell.2011.02.013 (2011).
+magd | 23 24 25 26 27 28 31 Accepted. Article
+tb74 | This article is protected by copyright. All rights reserved
+8l69 | 34 35 36 37 38 39 40 41 42 43 cepted Article
+1jyv | 45 AC
+olce | This article is protected by copyright. All rights reserved
+erx1 | Zhang, J., Feng, H., Xu, S. & Feng, P. Hijacking GPCRs by viral pathogens and tumor. Biochemical pharmacology 114, 69-81, doi:10.1016/j.bcp.2016.03.021 (2016).
+b3bt | Lawrence, M. S. et al. Mutational heterogeneity in cancer and the search for new cancer- associated genes. Nature 499, 214-218, doi:10.1038/nature12213 (2013).
+0w8m | 47 48 49 50 51 52 54 Accepted. Article
+vcu3 | This article is protected by copyright. All rights reserved
+hjzj | 58 59 60 61 63 65 cepted. Article
+j79f | AG
+6tbv | This article is protected by copyright. All rights reserved
+xb13 | 67
+cxqi | 68 69 70 71 72 73 76 Accepted Article
+qfmx | 77 Lum, L. & Beachy, P. A. The Hedgehog response network: sensors, switches, and routers. Science 304, 1755-1759 (2004).
+rut3 | This article is protected by copyright. All rights reserved
+m3cp | Rodien, P., Ho, S. C., Vlaeminck, V., Vassart, G. & Costagliola, S. Activating mutations of TSH receptor. Ann Endocrinol (Paris) 64, 12-16 (2003).
+mq4s | 78 Iglesias-Bartolome, R. et al. Inactivation of a Galpha(s)-PKA tumour suppressor pathway in skin stem cells initiates basal-cell carcinogenesis. Nature cell biology 17, 793-803, doi:10.1038/ncb3164 (2015).
+95el | 79 80 81 82 83 84 85 86 87 Accepted. Article
+a0a5 | This article is protected by copyright. All rights reserved
+gocl | 89 Insel, P. A. et al. GPCRomics: GPCR Expression in Cancer Cells and Tumors Identifies New, Potential Biomarkers and Therapeutic Targets.
+ob1z | 91 92 94 95 96 97 99 Accepted Article
+m4cb | This article is protected by copyright. All rights reserved
+m61y | van Biesen, T., Luttrell, L. M., Hawes, B. E. & Lefkowitz, R. J. Mitogenic signaling via G protein- coupled receptors. Endocr Rev 17, 698-714 (1996).
+u2ob | 107 108 109 Accepted Article
+2gnm | This article is protected by copyright. All rights reserved
+emgw | Pan, D. The hippo signaling pathway in development and cancer. Dev Cell 19, 491-505, doi:10.1016/j.devcel.2010.09.011 (2010).
+xaqt | 118 119 Accepted Article 116
+5rcb | 121 Cassel, D. & Pfeuffer, T. Mechanism of cholera toxin action: covalent modification of the guanyl nucleotide-binding protein of the adenylate cyclase system. Proc Natl Acad Sci U S A 75, 2669- 2673, doi:10.1073/pnas.75.6.2669 (1978).
+524j | This article is protected by copyright. All rights reserved
+xd3m | 124 125 126 127 128 cepted. Article
+8qb6 | AC
+wkbn | 132 Gupta, R. A. & Dubois, R. N. Colorectal cancer prevention and treatment by inhibition of cyclooxygenase-2. Nature reviews. Cancer 1, 11-21 (2001).
+ftfg | This article is protected by copyright. All rights reserved
+7xi5 | Article
+w8r5 | 138 Ideno, N. et al. GNAS(R201C) Induces Pancreatic Cystic Neoplasms in Mice That Express Activated KRAS by Inhibiting YAP1 Signaling. Gastroenterology 155, 1593-1607 e1512, doi:10.1053/j.gastro.2018.08.006 (2018). 139 Takano, S. et al. Deep sequencing of cancer-related genes revealed GNAS mutations to be associated with intraductal papillary mucinous neoplasms and its main pancreatic duct dilation. PLoS One 9, e98718, doi:10.1371/journal.pone.0098718 (2014). 10.1126/scitranslmed.3002543 (2011). 141 Alakus, H. et al. Genome-wide mutational landscape of mucinous carcinomatosis peritonei of appendiceal origin. Genome medicine 6, 43, doi:10.1186/gm559 (2014). Accepted 140 Wu, J. et al. Recurrent GNAS mutations define an unexpected pathway for pancreatic cyst development. Science translational medicine 3, 92ra66, doi:3/92/92ra66 [pii]
+ybik | This article is protected by copyright. All rights reserved
+gii5 | cepted Article
+q5eu | AG
+a7ao | onc2010645 [pii] (2011).
+29a3 | This article is protected by copyright. All rights reserved
+sb1e | 152
+w2yn | 153 154 155 156 157 158 159 Accepted: Article
+ap6l | This article is protected by copyright. All rights reserved
+iest | Lyons, J. et al. Two G protein oncogenes in human endocrine tumors. Science 249, 655-659 (1990).
+cox8 | 164 165 166 167 168 Accepted Article 169
+ppqi | 10.1074/jbc.M112.428599 (2013).
+oxou | This article is protected by copyright. All rights reserved
+495n | 176 Article
+awri | 178 180 181 Accepted
+bl28 | This article is protected by copyright. All rights reserved
+d5bz | 183 184 186 189 Accepted Article 188
+ap5o | This article is protected by copyright. All rights reserved
+7zvf | 194 195 196 198 199 200 cepted Article 197
+mov9 | AC 202 Hurst, J. H. & Hooks, S. B. Regulator of G-protein signaling (RGS) proteins in cancer biology. Biochemical pharmacology 78, 1289-1297, doi:10.1016/j.bcp.2009.06.028 (2009).
+ks7m | This article is protected by copyright. All rights reserved
+w1w1 | 203 DiGiacomo, V. et al. Probing the mutational landscape of regulators of G protein signaling proteins in cancer. Science signaling 13, doi:10.1126/scisignal.aax8620 (2020).
+h8gv | 204 205 206 207 208 Article
+kwkp | 209 Accepted
+yj0m | This article is protected by copyright. All rights reserved
+ewfp | 217 220 cepted Article
+oczy | This article is protected by copyright. All rights reserved
+2ttg | 225 227 opted Article
+his3 | AG
+m50z | This article is protected by copyright. All rights reserved
+me84 | 235 Guilliams, M. et al. Unsupervised High-Dimensional Analysis Aligns Dendritic Cells across Tissues and Species. Immunity 45, 669-684, doi:10.1016/j.immuni.2016.08.015 (2016).
+o56m | 236 240 Article
+slz6 | 241 Leone, R. D., Lo, Y. C. & Powell, J. D. A2aR antagonists: Next generation checkpoint blockade for cancer immunotherapy. Computational and structural biotechnology journal 13, 265-272, doi:10.1016/j.csbj.2015.03.008 (2015). 242 Marin-Acevedo, J. A. et al. Next generation of immune checkpoint therapy in cancer: new developments and challenges. J Hematol Oncol 11, 39, doi:10.1186/s13045-018-0582-8 (2018). 244 Rollins, B. J. Inflammatory chemokines in cancer growth and progression. Eur J Cancer 42, 760-767 (2006). 245 Chan, A. T., Ogino, S. & Fuchs, C. S. Aspirin and the risk of colorectal cancer in relation to the expression of COX-2. The New England journal of medicine 356, 2131-2142, doi:10.1056/NEJMoa067208 (2007). Accepted 243 Ricciotti, E. & FitzGerald, G. A. Prostaglandins and inflammation. Arterioscler Thromb Vasc Biol 31, 986-1000, doi:10.1161/ATVBAHA.110.207449 (2011).
+90k5 | This article is protected by copyright. All rights reserved

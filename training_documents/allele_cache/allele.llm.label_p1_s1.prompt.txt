@@ -1,0 +1,130 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+
+EXAMPLE OUTPUT:
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+
+
+
+
+1pjs | nature COMMUNICATIONS
+o2kr | ARTICLE
+v6sk | https://doi.org/10.1038/s41467-021-23007-0 OPEN Landscape of allele-specific transcription factor binding in the human genome
+1wj6 | Sequence variants in gene regulatory regions alter gene expression and contribute to phe- notypes of individual cells and the whole organism, including disease susceptibility and progression. Single-nucleotide variants in enhancers or promoters may affect gene tran- scription by altering transcription factor binding sites. Differential transcription factor binding in heterozygous genomic loci provides a natural source of information on such regulatory variants. We present a novel approach to call the allele-specific transcription factor binding events at single-nucleotide variants in ChIP-Seq data, taking into account the joint con- tribution of aneuploidy and local copy number variation, that is estimated directly from variant calls. We have conducted a meta-analysis of more than 7 thousand ChIP-Seq experiments and assembled the database of allele-specific binding events listing more than half a million entries at nearly 270 thousand single-nucleotide polymorphisms for several hundred human transcription factors and cell types. These polymorphisms are enriched for associations with phenotypes of medical relevance and often overlap eQTLs, making candi- dates for causality by linking variants with molecular mechanisms. Specifically, there is a special class of switching sites, where different transcription factors preferably bind alter- native alleles, thus revealing allele-specific rewiring of molecular circuitry.
+936l | NATURE COMMUNICATIONS | (2021)12:2751 | https://doi.org/10.1038/s41467-021-23007-0 | www.nature.com/naturecommunications
+06yq | ARTICLE
+dpv6 | NATURE COMMUNICATIONS | https://doi.org/10.1038/s41467-021-23007-0
+8r5j | S equence variants located in noncoding genome regions attract an increasing researchers' attention due to the fre- quent association with various traits, including predisposi- tion to diseases1,2. Single-nucleotide variants (SNVs) in gene regulatory regions may affect gene expression3 by altering binding sites of transcription factors (TFs) in gene promoters and enhancers and, consequently, efficiency of transcription4.
+2taz | On the one hand, parallel reporter assays allow massive assessment of variants in terms of gene expression alteration5,6 but do not reveal particular TFs involved. On the other hand, there are multiple ways to assess if a single-nucleotide substitu- tion changes TF-binding affinity, from detailed measurements of the TF affinity landscape in vitro7,8 to conventional experiments on individual sequence
+o3ya | variants9,10 and computational modeling11-13. However, it is not trivial to utilize these data for annotating SNV effects at the genome-wide scale in a cell type- specific manner.
+r5il | The functional effect of single-nucleotide substitutions can be studied in heterozygous chromosome loci, where TFs differen- tially bind to sites in homologous chromosomes with alternative SNV alleles. Reliable evidence comes from modern in vivo methods based on chromatin immunoprecipitation followed by high-throughput sequencing (ChIP-Seq). ChIP-Seq provides a deep read coverage of TF-binding regions, and non-perfect alignments of reads often carry single-nucleotide mismatches arising from heterozygous sites. Statistical biases between the numbers of mapped reads containing alternative SNV alleles reveal the so-called allele-specific binding events1,14 (ASB, Fig. 1a).
+5gui | Chromatin accessibility often serves as a proxy for the reg- ulatory activity of a genomic region15. Massive assessment of allele-specific chromatin accessibility in more than 100 cell types16 reported more than 60 thousand of significantly imbal- anced sites. Yet, so far, only 10-20 thousand ASBs were reported per study (Supplementary Table 1), and the potentially vast landscape of allele-specific TF binding remains mostly unexplored.
+82qc | Reliable identification of ASBs (the ASB calling) requires high read coverage at potential sites, which results either from deep sequencing of individual ChIP-Seq libraries or from data aggre- gation across multiple experiments. Reprocessed ChIP-Seq data for hundreds of TFs and cell types are available in databases such as GTRD17 and ReMap18, opening a way to an integrative meta- analysis, which could yield raw statistical power to detect cell type- and TF-specific ASBs.
+ls7d | Straightforward meta-analysis of the ASBs has two major limitations. First, many ChIP-Seq data sets are obtained in aneuploid cell lines, and copy-number variants (CNVs) are common even for normal diploid cells. Both the chromosome multiplication and local CNVs affect the expected read coverage of the respective genomic regions19 and bring about imbalanced read counts at SNVs, possibly generating false-positive ASB calls (Fig. 1a). There exist strategies to reduce this bias (Supplementary Table 2), in particular, the known CNV regions can be filtered out20 or predicted from a computational analysis of the corre- sponding genomic DNA21,22 (which is often used as the ChIP- Seq control sample) and incorporated in statistical criteria when evaluating the potential ASB calls19. However, in many published experiments, the input DNA data control was omitted in favor of other controls, such as preimmune IgG, or had a limited sequencing depth making it useless for CNV predictions. Fur- thermore, currently, there are no systematic data on global (chromosome duplications) and local (CNVs) structural varia- tions across all cell types with public ChIP-Seq data on TFs. Even when the external data on structural variation are available for particular cells, it is not guaranteed that the same estimates would
+tzt3 | NATURE COMMUNICATIONS | (2021)12:2751 | https://doi.org/10.1038/s41467-021-23007-0 | www.nature.com/naturecommunications
+t8vv | be valid for ChIP-Seq data obtained elsewhere, since long- cultivated immortalized cell lines might keep accumulating unreported differences in genome dosage across chromosomes23.
+qvnu | The second major problem in ASB calling is the so-called reference read mapping bias21,24. Standard read alignment tools generally map more reads to the alleles present in the reference genome assembly, as such mapping has lower or no mismatch penalties. To account for the reference read mapping bias, an ideal scenario involves mapping to individually reconstructed genomes22,25 or computational simulations20 that provide esti- mates of mapping probabilities to alternative alleles separately for each SNV (see Supplementary Table 2 for an overview). Yet, these solutions are not applicable to premade read alignments (which are usually obtained with a simple reference genome) and hardly applicable to understudied cell types or particular samples that do not provide enough data to reconstruct an individual genome.
+kggw | In this work, we present a novel framework for ASB calling from existing read alignments or premade variant calls, accounting for the allelic dosage of aneuploidy and CNVs, and read mapping bias. With this framework, we have performed a comprehensive meta-analysis to identify ASBs in the human ChIP-Seq data from the GTRD database17. The database of Allelic Dosage-corrected Allele-Specific human Transcription factor binding sites (ADASTRA, http://adastra.autosome.ru) provides ASB events across 674 human TFs (including epigenetic factors) and 337 cell types. We demonstrate that the single-nucleotide polymorphisms (SNPs) with ASBs often overlap expression quantitative trait loci (eQTLs) and exhibit associations with various normal and pathologic traits. A comparison of data for multiple TFs highlights the cases where different TFs pre- ferentially bind to different alleles, i.e., when a single-nucleotide substitution can change an entry point of the involved regulatory pathway. Finally, we discuss selected cases where the ASB at SNPs reveals molecular mechanisms of associations between SNPs and important medical phenotypes.
+xrd1 | Results
+5746 | We present a reproducible workflow for ASB calling and meta- analysis across human TFs and cell types (Fig. 1b). First, the variants are called from premade ChIP-Seq read alignments against the hg38 genome assembly. Next, the variant calls are filtered by excluding homozygous and low-covered variants (<5 reads supporting any of two alleles), as well as variants absent from the dbSNP26 common subset (as putative de novo point mutations). The filtered SNVs from related ChIP-Seq data sets (sharing the cell type and particular wet lab) are used to identify the cell type features (aneuploidy and CNVs). A total set of variants is used to assess the global read mapping bias that is used as the basis for statistical model parametrization. Finally, ASB calling is performed separately for each ChIP-Seq experiment, and the resulting allele read bias P values are aggregated using the George-Mudholkar's method27 for each SNV, either at the TF level (across ChIP-Seq data for a selected TF from all cell types) or the cell type level (across ChIP-Seq data for a selected cell type for all TFs).
+7toz | We used the workflow to process 7669 ChIP-Seq read align- ments from GTRD covering 1025 human TFs and 566 cell types, and detected more than 2 hundred thousand ASBs at more than 2 hundred thousand SNPs for various TFs and 3 hundred thousand ASBs for cell types passing the Benjamini-Hochberg (FDR) adjusted P value of 0.05, see Fig. 1c, d for an overview. Reaching these numbers has become possible because of the large volume of the starting data (the filtered list of considered variant calls contained more than 54 million entries) and the advanced sta- tistical framework that we describe below. An overview of the
+j346 | ARTICLE
+v8uq | NATURE COMMUNICATIONS | https://doi.org/10.1038/s41467-021-23007-0
+x972 | Fig. 1 A scheme of allele-specific binding events, an overview of the ADASTRA pipeline, and its application to ChIP-Seq data. a ChIP-Seq data allow detecting ASB events by estimating the imbalance of reads carrying alternative alleles. ASBs must be distinguished from sites where the allelic imbalance is caused by aneuploidy and copy-number variants. b The scheme of the ADASTRA pipeline: variant calling in read alignments from GTRD, estimation of statistical model parameters and background allelic dosage, filtering, and statistical evaluation of candidate ASBs. ADASTRA generates two complementary data sets: transcription factor ASBs (pairs of an SNP and a TF) and cell type ASBs (pairs of an SNP and a cell type). SNPs are annotated according to dbSNP IDs. c, d Number of SNPs (dbSNP IDs, Y-axis) with significant ASB events for various transcription factors and for various cell types. TFs or cell types (X-axis) are sorted by the number of SNPs. SNP single-nucleotide polymorphism, BAD background allelic dosage, ASB allele-specific binding, GTRD gene transcription regulation database, ADASTRA Allelic Dosage-corrected Allele-specific human Transcription factor binding sites.
+cwrw | NATURE COMMUNICATIONS | (2021)12:2751 | https://doi.org/10.1038/s41467-021-23007-0 | www.nature.com/naturecommunications
+4i0e | ARTICLE
+h2l3 | NATURE COMMUNICATIONS | https://doi.org/10.1038/s41467-021-23007-0
+dfzb | processed data sets and variant calls per TF and cell type is shown in Supplementary Fig. 1.
+u6ty | Estimating background allelic dosage (BAD) from single- nucleotide variant calls. ASB is assessed against expected relative frequencies of reads supporting alternative alleles of a particular SNV in a particular genomic region. Assuming there was no read mapping bias, these expected frequencies would be mostly determined by the copy number of the respective genomic seg- ments. In this study, we estimated the joint effect of local copy- number variation and global chromosome ploidy from the read counts at SNV calls, taking into account that the background for ASB calling is defined by the expected relative frequencies of the read counts supporting alternative alleles rather than by absolute allelic copy numbers.
+awvu | We introduce BAD as the ratio of the major to minor allele dosage in the particular genomic segment, which depends on chromosome structural variants and aneuploidy. BAD can be estimated from the number of reads mapped at each allelic variant and does not require haplotype phasing. For example, if a particular genomic region has the same copy both alleles, e.g., 1:1 (diploid), 2:2, or 3:3, then it has <LATEX>B A D = 1 , i . e . , t h e</LATEX> expected ratio of reads mapped to alternative alleles on a heterozygous SNV is 1. All triploid regions have <LATEX>B A D = 2 ,</LATEX> and the expected allelic reads ratio is either 2 or <LATEX>1 / 2 .</LATEX> In general, if BAD of a particular region is known, then the expected frequencies of reads supporting alternative alleles are <LATEX>1 / \left( \mathrm { B A D } + 1 \right)</LATEX> and BAD/
+on9b | <LATEX>\left( \mathrm { B A D } + 1 \right.</LATEX> Importantly, accounting for BAD provides an answer to the question of the necessity of overdispersion in the statistical evaluation of ASBs19,22. In fact, a large portion of overdispersion of read counts disappears once the variant calls are segregated according to BADs of the respective genomic segments (see "Methods").
+a8ge | BAD calling with Bayesian changepoint identification. In this study, we present a novel method for reconstructing a genome- wide BAD map of a given cell type. The idea is to find genomic regions with approximately stable BAD using the read counts at SNV calls. Assuming that both differential chromatin accessibility and sequence-specific TF binding affect only a minor fraction of variants, the read counts for most of the SNVs must be close to equilibrium and thus provide imprecise but multiple measure- ments of BAD.
+h27a | We have developed a Bayesian changepoint identification algorithm, which (1) segments the genomic sequence into regions of the constant BAD using dynamic programming to maximize the marginal likelihood and then (2) assigns BAD with the maximal posterior to each segment (see "Methods"). An additional preprocessing employs distances between neighboring SNVs to exclude long deletions and centromeric regions from BAD estimation. The BAD caller in action is illustrated in Fig. 2a for two chromosomes using ENCODE K562 data (see the segmentation map of the complete genome with multiple deletions in Supplementary Fig. 2).
+pdjh | We performed the BAD calling for 2556 groups of variant calls, where each group consisted of calls obtained from ChIP-Seq alignments for a particular cell type and GEO series or ENCODE biosample ID (i.e., for K562 cells of different studies, the BAD calling was performed independently). In BAD calling, recurrent SNVs sharing dbSNP IDs and found in different data sets within the same group were considered as independent observations. To systematically assess the reliability of the resulting BAD maps, we compared the predicted BADs at all SNVs with the ground truth BADs estimated from COSMIC28 CNV data for 76 matched cell
+xmgs | NATURE COMMUNICATIONS | (2021)12:2751 | https://doi.org/10.1038/s41467-021-23007-0 | www.nature.com/naturecommunications

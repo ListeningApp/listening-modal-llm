@@ -1,0 +1,123 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+
+EXAMPLE OUTPUT:
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+
+
+
+
+cp13 | <LATEX>\mathrm { g } _ { m } \left( r _ { c } \right) = - \mu \frac { r _ { c } } { r _ { c } ^ { 3 } } , \quad g _ { e } \left( r _ { c } + r _ { e m } \right) = - \left( 1 - \mu \right) \frac { r _ { c } + r _ { e m } } { \| r _ { c } + r _ { e m } \| ^ { 3 } } .</LATEX> These terms can be linearized by means of a Taylor expansion to the first order around the target position. For the lunar gravitational acceleration term we have:
+bgre | <LATEX>\mathrm { g } _ { m } \left( r _ { c } \right) \approx \mathrm { g } _ { m } \left( r \right) + \frac { \partial \mathrm { g } _ { m } \left( q \right) } { \partial q } | _ { q = r } \left( r _ { c } - r \right) = - \mu \frac { r } { r ^ { 3 } } - \frac { \mu } { r ^ { 3 } } \left( I - 3 \frac { r r ^ { T } } { r ^ { 2 } } \right) \rho</LATEX> whereas for the Earth gravitational acceleration term:
+57lp | <LATEX>g _ { e } \left( r _ { c } + r _ { e m } \right) \approx g _ { e } \left( r + r _ { e m } \right) + \frac { \partial g _ { e } \left( q \right) } { \partial q } | _ { q = r + r _ { e m } } \left( r _ { c } - r \right)</LATEX> <LATEX>= - \left( 1 - \mu \right) \frac { r + r _ { e m } } { \| r + r _ { e m } \| ^ { 3 } } - \frac { 1 - \mu } { \| r + r _ { e m } \| ^ { 3 } }</LATEX> <LATEX>\times \left( I - 3 \frac { \left( r + r _ { e m } \right) \left( r + r _ { e m } \right) ^ { T } } { \| r + r _ { e m } \| ^ { 2 } } \right) \rho</LATEX> Hence, the right-hand side of Eq. (14) can be approximated as follows:
+ukth | <LATEX>\mu \left( \frac { r } { r ^ { 3 } } - \frac { r _ { c } } { r _ { c } ^ { 3 } } \right) + \left( 1 - \mu \right) \left( \frac { r + r _ { e m } } { \| r + r _ { e m } \| ^ { 3 } } - \frac { r _ { c } + r _ { e m } } { \| r _ { c } + r _ { e m } \| ^ { 3 } } \right)</LATEX> <LATEX>\approx - \frac { \mu } { r ^ { 3 } } \left( I - 3 \frac { r r ^ { T } } { r ^ { 2 } } \right) \rho - \frac { 1 - \mu } { \| r + r _ { e m } \| ^ { 3 } } \left( I - 3 \frac { \left( r + r _ { e m } \right) \left( r + r _ { e m } \right) ^ { T } } { \| r + r _ { e m } \| ^ { 2 } } \right) \rho</LATEX> obtaining a linear expression of the gravitation accelerations, with respect to the relative position vector.
+kpvt | C. Relative Motion Equation Sets
+jie2 | The possible simplifications discussed in the previous section can be used to derive four equation sets, which describe the relative dynamics with different levels of accuracy.
+d0ik | In the following, the skew symmetric matrices associated with angular velocity and acceleration vectors <LATEX>o _ { l / i }</LATEX> and <LATEX>\left[ \dot { a } _ { l / i } \right] _ { \mathcal{L} } ,</LATEX> that is:
+0x0s | <LATEX>\Omega _ { l / i } = \left[ \begin{array}{} 0 & - o _ { l / i } ^ { z } & o _ { l / i } ^ { y } \\ o _ { l / i } ^ { z } & 0 & - o _ { l / i } ^ { x } \\ - o _ { l / i } ^ { y } & o _ { l / i } ^ { x } & 0 \end{array} \right] \left[ \begin{array}{} 0 & - \dot { o } _ { l / i } ^ { z } & \dot { o } _ { l / i } ^ { y } \\ \dot { o } _ { l / i } ^ { z } & 0 & - \dot { o } _ { l / i } ^ { x } \\ - \dot { o } _ { l / i } ^ { y } & \dot { o } _ { l / i } ^ { x } & 0 \end{array} \right]</LATEX> where
+4exe | <LATEX>o _ { l / i } = o _ { l / i } ^ { x } \widehat { l } + o _ { l / i } ^ { y } \widehat { j } + o _ { l / i } ^ { z } \widehat { k } , \quad \left[ \dot { o } _ { l / i } \right] _ { \mathcal{L} } = \dot { o } _ { l / i } ^ { x } \widehat { \iota } + \dot { o } _ { l / i } ^ { y } \widehat { j } + \dot { o } _ { l / i } ^ { z } \widehat { k }</LATEX> are introduced to express the equations of motion in a more compact form.
+0myz | 1327
+xh3i | 1. ER3BP-Based Equations: ENERM and ELERM
+syiw | If the ER3BP problem is considered, then the Moon motion is governed by the classical two-body problem equations, with the Earth as primary body. The quantities <LATEX>r _ { e m } ,</LATEX> <LATEX>a _ { m / i } ,</LATEX> and <LATEX>\left[ \left[ o _ { m / i } \right] _ { \mathcal{M} } \right.</LATEX> can then be obtained accordingly.
+kg3t | With the name of elliptic nonlinear equations of relative motion (ENERM) we will refer to the following equation set:
+lvae | <LATEX>\left[ \ddot { \rho } \right] _ { \mathcal{L} } = - 2 \Omega _ { l / i } \left[ \dot { \rho } \right] _ { \mathcal{L} } - \left( \left[ \dot { \Omega } _ { l / i } \right] _ { \mathcal{L} } + \Omega _ { l / i } ^ { 2 } \right) \rho + \mu \left( \frac { r } { r ^ { 3 } } - \frac { r + \rho } { \| r + \rho \| ^ { 3 } } \right)</LATEX> <LATEX>+ \left( 1 - \mu \right) \left( \frac { r + r _ { e m } } { \| r + r _ { e m } \| ^ { 3 } } - \frac { r + \rho + r _ { e m } } { \| r + \rho + r _ { e m } \| ^ { 3 } } \right)</LATEX> (35)
+o9sc | characterized by the following time-varying parameters that depend on target and on Moon orbital motion:
+121u | <LATEX>\left. 1 \right) a _ { l / i } = a _ { l / m } + o _ { m / i }</LATEX> <LATEX>\left. 2 \right) \left[ \dot { a } _ { l / i } \right] _ { \mathcal{L} } = \left[ \dot { a } _ { l / m } \right] _ { \mathcal{L} } + \left[ \dot { a } _ { m / i } \right] _ { \mathcal{M} } - a _ { l / m } \times a _ { m / i } ;</LATEX> <LATEX>\left[ \dot { a } _ { l / m } \right] _ { \mathcal{L} } \text { given by Eq } . \left( 3 2 \right) , \text { with } \left[ \dot { r } \right] _ { \mathcal{M} } \text { as in Eq } . \left( 3 0 \right) .</LATEX> If the chaser acceleration is controllable by means of the control
+zh03 | vector <LATEX>u ,</LATEX> then Eq. (35) can be written as a nonlinear system affine in the control:
+1mvw | <LATEX>\dot { x } = f \left( t , x \right) + B u , \quad x = \left[ \begin{array}{} \rho \\ \dot { \left[ \rho \right] } _ { \mathcal{L} } \end{array} \right] , \quad B = \left[ \begin{array}{} 0 _ { 3 \times 3 } \\ I _ { 3 } \end{array} \right] ,</LATEX> where <LATEX>I _ { n }</LATEX> is the <LATEX>n \times n</LATEX> identity matrix, and <LATEX>0 _ { n \times m }</LATEX> is the <LATEX>n \times m</LATEX> zero matrix.
+6d4s | The gravitational acceleration can be linearized as discussed in Sec. IV.B, obtaining the elliptic linear equations of relative motion (ELERM):
+mqah | (36)
+xxr8 | <LATEX>\left[ \ddot { \rho } \right] _ { \mathcal{L} } = - 2 \Omega _ { l / i } \left[ \dot { \rho } \right] _ { \mathcal{L} } - \left( \left[ \dot { \Omega } _ { l / i } \right] _ { \mathcal{L} } + \Omega _ { l / i } ^ { 2 } + \frac { \mu } { r ^ { 3 } } \left( I - 3 \frac { r r ^ { T } } { r ^ { 2 } } \right) \right.</LATEX> <LATEX>\left. + \frac { 1 - \mu } { \| r + r _ { e m } \| ^ { 3 } } \left( I - 3 \frac { \left( r + r _ { e m } \right) \left( r + r _ { e m } \right) ^ { T } } { \| r + r _ { e m } \| ^ { 2 } } \right) \right) \rho</LATEX> with angular velocities and accelerations computed as for the ENERM. Assuming the chaser controllable in acceleration, Eq. (36) can be written in state-space form as follows:
+rl4j | <LATEX>\dot { x } = A \left( t \right) x + B u</LATEX> with
+vz32 | <LATEX>A \left( t \right) = \left[ \begin{array}{} 0 _ { 3 \times 3 } & I _ { 3 } \\ A _ { \dot { \rho } \rho } \left( t \right) & - 2 \Omega _ { l / i } \left( t \right) \end{array} \right]</LATEX> <LATEX>A _ { \dot { \rho } \rho } = - \left[ \dot { \Omega } _ { l / i } \right] _ { \mathcal{L} } - \Omega _ { l / i } ^ { 2 } - \frac { \mu } { r ^ { 3 } } \left( I - 3 \frac { r r ^ { T } } { r ^ { 2 } } \right)</LATEX> <LATEX>- \frac { 1 - \mu } { \| r + r _ { e m } \| ^ { 3 } } \left( I - 3 \frac { \left( r + r _ { e m } \right) \left( r + r _ { e m } \right) ^ { T } } { \| r + r _ { e m } \| ^ { 2 } } \right)</LATEX> where in the last equation dependence on time was omitted for notation compactness.
+ncb0 | 2. CR3BP-Based Equations: CNERM and CLERM
+8mp0 | If the CR3BP is considered, then the computation of the angular velocities simplifies as follows:
+xjyk | 1) <LATEX>a _ { l / i } = a _ { l / m } + a _ { m / i }</LATEX> (as for the elliptic case);
+mt0f | <LATEX>\left. 2 \right) \left[ \dot { a } _ { l / i } \right] _ { \mathcal{L} } = \left[ \dot { a } _ { l / m } \right] _ { \mathcal{L} } - a _ { l / m } \times \dot { k } _ { m }</LATEX> <LATEX>\left. 3 \right) w _ { l / m }</LATEX> is given by Eq. (31), but with <LATEX>\left[ \ddot { r } \right] _ { \mathcal{M} }</LATEX> as in Eq. (33) according to the CR3BP;
+awab | <LATEX>\left. 4 \right) \left[ @ \left[ m \right] e \quad i s \quad g i v e n \quad b y \right.</LATEX> Eq. (32), with the CR3BP simplified jerk

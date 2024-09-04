@@ -1,0 +1,136 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+
+EXAMPLE OUTPUT:
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+
+
+
+
+1pjs | Curran Implementation Science Communications https://doi.org/10.1186/s43058-020-00001-Z
+o2kr | (2020) 1:27
+v6sk | DEBATE
+1wj6 | Implementation science made too simple: a teaching tool
+936l | Abstract
+06yq | Background: The field of implementation science is growing and becoming more complex. When teaching new learners, providing a clear definition of implementation science and a description of "its place" among related fields can be difficult. The author developed a teaching tool using very simple language to help learners grasp key concepts in implementation science.
+dpv6 | The teaching tool: The tool consists of a slide (visual aid) which provides simple and jargon-free definitions of implementation science, implementation strategies, and implementation outcomes, as well as a description of how implementation science relates to "effectiveness" research focusing on clinical/preventive interventions.
+8r5j | Conclusion: The tool could be useful to new students in the field, as well as other scholars or stakeholders in need of a brief and plain language introduction to key concepts in implementation science.
+2taz | Keywords: Implementation science, Implementation strategies, Implementation outcomes, Education
+o3ya | Contributions to the literature
+r5il | . The article provides a teaching tool to assist learners in implementation science to grasp key concepts in the field.
+5gui | · The tool provides simple and jargon-free definitions of im- plementation science, implementation strategies, and imple- mentation outcomes, as well as a description of how implementation science relates to "effectiveness" research fo- cusing on clinical/preventive interventions.
+82qc | . The tool is unique in its use of very simple language, and hence, it can use used with both scientists and non- scientists in need of a quick introduction to implementation science.
+ls7d | Implementation Science Communications
+tzt3 | Open Access
+t8vv | Introduction
+qvnu | Implementation science can be complicated and at times even overwhelming. While the field is still considered "young," implementation scientists have been hard at work developing frameworks, testing implementation strategies, and establishing implementation outcome measures. As a re- sult, learners participating in introductory didactics on imple- mentation science are often confronted with a dizzying array of information and recommendations to consider when thinking about or planning an implementation study. For example, Tabak et al. [1] identified 61 dissemination and/or implementation theories/frameworks/models available to help craft an implementation study. Just one of those frame- works, Damschroder et al.'s [2] widely used Consolidated Framework for Implementation Research (CFIR), offers 39 implementation factors to consider. Powell et al. [3] concep- tualized 73 discrete implementation strategies available for consideration when developing an implementation interven- tion. Proctor et al. [4] offer 17 potential outcome domains to consider for an implementation study, and the Society for Implementation Research Collaboration has compiled a re- pository [5] of over 400 implementation-related measures.
+kggw | I have been teaching and lecturing in this field over 15 years, and I have presented the above information,
+xrd1 | Curran Implementation Science Communications (2020) 1:27
+5746 | and more, many times to learners in my own graduate implementation science course and in various seminars/ workshops at other institutions. As a director of an aca- demic center focused on implementation research, I have also provided dozens of consultations to re- searchers from other fields who are interested in explor- ing how best to implement interventions they have developed and tested. Recently, I have been searching for a way to quickly capture the essence of what imple- mentation science is, what it is trying to do, and how it relates to the "clinical" or "effectiveness" research that often precedes it, without intimidating jargon. In my own course, I was getting the sense that I needed to start off, in the very first session, with a simpler definition and explanation than what I had been using. In consul- tations, I realized that I needed a simple way of defining and differentiating implementation science from what those scientists had already been doing. Over about a year's time, I experimented with using very (very) simple language to get these points across. My goal was to keep it to one slide, and Fig. 1 shows the slide I have been using for the past 2 years.
+7toz | The teaching tool
+j346 | Central to the logic inherent in the slide is the notion of an intervention/practice/innovation, referred to as "the thing," whose implementation is in need of support. After I introduce "the thing," I then explain that effect- iveness research (which most of my students and consul- tees are already familiar with) is focused on whether "the thing" works-meaning that receiving it results (or not) in positive impacts on clinical/prevention/whatever out- comes. Next, I explain that implementation science/re- search focuses on how best to "do the thing." This is my attempt at boiling down a more detailed definition [6] into the simplest and most basic of language. Next, I
+v8uq | When defining implementation science, some very non-scientific language can be helpful ...
+x972 | . The intervention/practice/innovation is THE THING
+cwrw | · Effectiveness research looks at whether THE THING works
+4i0e | · Implementation research looks at how best to help people/places DO THE THING
+h2l3 | · Implementation strategies are the stuff we do to try to help people/places DO THE THING
+dfzb | · Main implementation outcomes are HOW MUCH and HOW WELL they DO THE THING
+u6ty | Fig. 1 The slide used for the past 2 years
+awvu | Page 2 of 3
+on9b | introduce the notion of implementation strategies, which I frame verbally as the interventions that implementation scientists develop and test to improve uptake of "the thing." In keeping with the theme of using very simple language, I refer to implementation strategies on the slide as the stuff we do to try to help people and places to "do the thing." Lastly, I introduce the notion that im- plementation science has its own primary outcome mea- sures, distinct from the clinical/preventive outcomes used in effectiveness research. I refer to those outcomes as measures of how much and how well they (implemen- ters) "do the thing." Verbally, I explain that these mea- sures are focused on the extent (how much) and the quality (how well) of implementation.
+a8ge | Discussion
+h27a | Since using the slide and the concepts of the thing and do the thing repeatedly in teaching, consultations, and every- day conversations, my students and local colleagues have adopted this terminology. After using the slide in numer- ous presentations at other institutions over the past 2 years (mostly centered on effectiveness-implementation hybrid designs, wherein this language can be especially helpful), many colleagues have used the slide and/or its concepts in their own teaching. For example, colleagues used these concepts during workshops/presentations at the 11th Annual Conference on the Science of Dissemination and Implementation in Health in Washington DC, December 2018 [7], and the Implementation Science Masterclass at King's College, London, July 2019 [8]. This article is my attempt to share the slide and concepts as teaching tools more widely.
+pdjh | I wish to be clear that the slide, as is, has its limita- tions. It ignores the concept of de-implementation. It has an implicit focus/bias on interventional implementa- tion science. And it certainly lacks detail. While that is
+xmgs | Curran Implementation Science Communications (2020) 1:27
+bd9h | also perhaps its greatest strength, it is worth noting that the slide does not "speak for itself." I recommend it be presented by someone with expertise in implementation science who can provide context and linkage to the more "science-y" terms we normally use when describing and defining our science.
+m047 | Conclusion
+gy8c | Given the complexity of implementation science, provid- ing a clear definition of it and a description of "its place" among related fields can be difficult. I developed this tool to assist my own teaching of students and other scholars new to implementation science. It has been use- ful in that regard. Further, the concepts of the thing and do the thing have also been helpful in providing a quick explanation of implementation science to non-scientists. So, feel free to try these ideas with others outside aca- demia as well.
+y4mj | Not applicable. This manuscript does not report findings from a study.
+vpgq | Page 3 of 3
+ousl | Publisher's Note

@@ -1,0 +1,136 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+
+EXAMPLE OUTPUT:
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+
+
+
+
+ftfg | (2.48)
+7xi5 | <LATEX>d \widehat { R } _ { \eta , k } \left( X _ { t } ^ { \eta } \right) = \mathcal{L} _ { \eta } \widehat { R } _ { \eta , k } \left( X _ { t } ^ { \eta } \right) d t + \nabla \widehat { R } _ { \eta , k } \left( X _ { t } ^ { \eta } \right) ^ { T } \Sigma \left( X _ { t } ^ { \eta } \right) d W _ { t } .</LATEX> The martingale term in (2.48) is square integrable since, in view of (2.7) and the <LATEX>\mathrm { f a c t }</LATEX> that E, <LATEX>\widehat { R } _ { \eta , k } \in \mathscr{S}</LATEX> (so that | <LATEX>\left. | \Sigma \nabla \widehat { R } _ { \eta , k } | ^ { 2 } \in \mathscr{S} \right) ,</LATEX> there exists <LATEX>\ell \in \mathbb{N}</LATEX> such that
+w8r5 | 20
+ybik | is uniformly bounded for <LATEX>| \eta | \leqslant \eta _ { * } .</LATEX> Next, we write
+gii5 | (2.49)
+q5eu | <LATEX>\widehat { \Phi } _ { \eta , t } - \widehat { \rho } _ { 1 , \eta } = - \frac { 1 } { \eta t } \int _ { 0 } ^ { t } \mathcal{L} _ { \eta } \widehat { R } _ { \eta , k } \left( X _ { s } ^ { \eta } \right) d s + \eta ^ { k - 1 } \mathscr{R} _ { \eta , k } ,</LATEX> with remainder term
+a7ao | <LATEX>\mathscr{R} _ { \eta , k } = \frac { 1 } { \eta ^ { k } t } \int _ { 0 } ^ { t } \mathcal{L} _ { \eta } \left( \widehat { R } _ { \eta , k } - \widehat { R } _ { \eta } \right) \left( X _ { s } ^ { \eta } \right) d s .</LATEX> In view of (2.48), we write (2.49) as
+29a3 | (2.50)
+sb1e | <LATEX>\widehat { \Phi } _ { \eta , t } - \widehat { \rho } _ { 1 , \eta } = \frac { \widehat { R } _ { \eta , k } \left( X _ { 0 } ^ { \eta } \right) - \widehat { R } _ { \eta , k } \left( X _ { t } ^ { \eta } \right) } { \eta t } + \frac { 1 } { \eta t } \int _ { 0 } ^ { t } \nabla \widehat { R } _ { \eta , k } \left( X _ { s } ^ { \eta } \right) ^ { T } \Sigma \left( X _ { s } ^ { \eta } \right) d W _ { s } + \eta ^ { k - 1 } \mathscr{R} _ { \eta , k } .</LATEX> In view of (2.7) and (2.32), <LATEX>\mathbb{E} \left[ | \mathscr{R} _ { \eta , k } | \right]</LATEX> is uniformly bounded for <LATEX>| \eta | \leqslant \eta _ { * }</LATEX> by <LATEX>\mathcal{M} _ { k } \in \mathbb{R} _ { + } .</LATEX> By taking expectations, (2.50) then leads to
+w2yn | <LATEX>| \mathbb{E} \left( \widehat { \Phi } _ { \eta , t } \right) - \widehat { \rho } _ { 1 , \eta } | \leqslant \frac { 1 } { \eta t } | \mathbb{E} \left[ \widehat { R } _ { \eta , k } \left( X _ { 0 } ^ { \eta } \right) - \widehat { R } _ { \eta , k } \left( X _ { t } ^ { \eta } \right) \right] | + \eta ^ { k } \mathcal{M} _ { k } .</LATEX> Since <LATEX>\widehat { R } _ { \eta , k } \in \mathscr{S} ,</LATEX> there exists <LATEX>n \in \mathbb{N}</LATEX> such that <LATEX>\widehat { R } _ { \eta , k } \in B _ { n } ^ { \infty }</LATEX> . By Assumptions 3 and 4, there exists <LATEX>n ^ { \prime } \in \mathbb{N}</LATEX> and <LATEX>K _ { n ^ { \prime } , \eta _ { * } } ^ { \prime } \in \mathbb{R} _ { + }</LATEX> (depending on <LATEX>n ,</LATEX> <LATEX>n ^ { \prime } ,</LATEX> <LATEX>\eta _ { * } ,</LATEX> and <LATEX>\left. k \right)</LATEX> such that
+ap6l | (2.51)
+iest | <LATEX>\| \widehat { R } _ { \eta , k } \| _ { B _ { n } ^ { \infty } } \leqslant K _ { n ^ { \prime } , \eta _ { * } } ^ { \prime } \| \Pi _ { \eta } R \| _ { B _ { n ^ { \prime } } ^ { \infty } } .</LATEX> In view of (2.51) and (2.7),
+cox8 | <LATEX>| \mathbb{E} \left( \widehat { R } _ { \eta , k } \left( X _ { t } ^ { \eta } \right) \right) | \leqslant \mathbb{E} \left( \mathcal{K} _ { n } \left( X _ { t } ^ { \eta } \right) \right) \| \widehat { R } _ { \eta , k } \| _ { B _ { n } ^ { \infty } }</LATEX> <LATEX>\leqslant K _ { n ^ { \prime } , \eta _ { * } } ^ { \prime } \sup _ { t \in \mathbb{R} _ { + } } \left( \int _ { \mathcal{X} } \mathrm { e } ^ { t \mathcal{L} _ { \eta } } \mathcal{K} _ { n } d \mu _ { \mathrm { i n i t } } \right) \| \Pi _ { \eta } R \| _ { B _ { n ^ { \prime } } ^ { \infty } }</LATEX> <LATEX>\leqslant K _ { n ^ { \prime } , \eta _ { * } } ^ { \prime } M _ { n , \eta _ { * } } \| \Pi _ { \eta } R \| _ { B _ { n ^ { \prime } } ^ { \infty } } \int _ { \mathcal{X} } \mathcal{K} _ { n } \mu _ { \mathrm { i n i t } } ,</LATEX> This leads to (2.47) with
+ppqi | O
+oxou | <LATEX>\mathcal{C} _ { k } = 2 K _ { n ^ { \prime } , \eta _ { * } } ^ { \prime } M _ { n , \eta _ { * } } \int _ { \mathcal{X} } \mathcal{K} _ { n } \mu _ { \mathrm { i n i t } } < + \infty ,</LATEX> thus concluding the proof.
+495n | 3. Extending the range of linear response with synthetic forcings. We discuss in this section the notion of synthetic forcings, and how they can be used to extend the regime of linear response. We start by describing the notion of synthetic forcings in Section 3.1, and give examples in Section 3.2 for both overdamped and underdamped Langevin dynamics. Then, we provide a methodology for choosing the magnitude of the forcings in Section 3.3. Finally, we briefly discuss how to linearly combine multiple extra forcings in Section 3.4.
+awri | EXTENDING LINEAR RESPONSE WITH SYNTHETIC FORCINGS
+bl28 | 3.1. Notion of synthetic forcings. As discussed in Section 2.1.1, a system with a nonequilibrium perturbation has a generator of the form
+d5bz | (3.1) Cn = Lo + n Õ,
+ap5o | where L is the generator of some perturbation to the reference dynamics with gener- ator Lo. We considered in Section 2 only the case where L is Lphys - in other words, the perturbation corresponds to some physical perturbation on the system, which is the typical scenario in the context of statistical physics. We now consider, in addition to the physical perturbation, some possibly nonphysical extra perturbation, which we denote by Lextra, so that £ in (3.1) is replaced by
+7zvf | Č = Čphys + aČextra,
+mov9 | for o E R. We call the resulting perturbation a synthetic forcing.
+ks7m | The key requirement of synthetic forcings is that the the addition of the extra forc- ing should preserve the invariant measure of the reference dynamics, thus preserving the linear response. In other words, the dynamics with generator
+w1w1 | Ln,a = Lo + n (Čphys + aČextra)
+h8gv | has the same linear response as the dynamics associated with Ln,o = Lo + nCphys when
+kwkp | Čextra 1 = 0.
+yj0m | (3.2)
+ewfp | We denote by Un,a the invariant measure for the dynamics associated with the gen- erator Ln,Q, i.e. the solution to the stationary Fokker-Planck equation
+oczy | (3.3) Ch, aUn, a = 0.
+2ttg | When there is no indication of the value of a, e.g. Vn, it means that a = 0.
+his3 | From the definition (2.26) of the linear response 01, it is indeed easy to see why the linear response is preserved with the addition of Lextra: the conjugate response S defined in (2.10) is preserved, and so is f1 in view of (2.24), which allows us to conclude by Lemma 2.2. Let us emphasize that (3.2) is the key condition to be satisfied for extra forcings to be admissible. We provide various examples of admissible extra forcings in Section 3.2. For technical reasons, the extra forcings we consider should satisfy the same conditions as Lphys in Assumption 4.
+m50z | One practical interest is to optimize the extra perturbation in order to increase the regime of linear response. As made precise in Proposition 2.4, the variance of the estimator (2.38) is of order O(n-2). A larger linear regime therefore means that larger values of n can be considered without introducing too much bias on p1. This leads in turn to a smaller statistical error, and hence shorter simulation times to reach the same accuracy. One idea in particular is to look for Lextra which minimizes 02, the leading order n2 of the nonlinear response, as a proxy for minimizing |En(R) - pin|, i.e. the nonlinear portion of the response. This is discussed in detail in Section 3.3. This also naturally suggests that one could further combine k forcings in order to cancel the first k + 1 orders of the response, as discussed in Section 3.4.
+me84 | Another approach to optimizing the perturbation is to increase the range of n for which the nonlinear response is within some desired distance from the linear regime, in relative error, also discussed Section 3.3.
+o56m | 22
+slz6 | R. SPACEK AND G. STOLTZ
+90k5 | 3.2. Examples of synthetic forcings. To make synthetic forcings more con- crete, we now go over some examples of extra forcings. We first outline in Section 3.2.1 the general classes of operators we consider. We then discuss more precisely examples for overdamped Langevin dynamics in Section 3.2.2 and for underdamped Langevin dynamics in Section 3.2.3.
+9m8s | 3.2.1. General classes of extra forcings. When considering possible extra forcings, we restrict ourselves to differential operators of at most second-order in order to realize them in Monte Carlo simulations. We consider the following classes of differential operators:
+893y | (1) First-order differential operators Lextra = GTVr, with G: X > Rd such that div(Gyo) = 0. The latter condition ensures that (3.2) is satisfied since Lextra = - GTV. r;
+favz | (2) Second-order differential operators of the form Lextra = - 0* dzi or more gen- erally -ot Dijoxi for some (nonnegative) function Dij: X -> R+. In the case Cextra = - Ox Ox;, the operator is self-adjoint, i.e. Cextra = L'extra, so that (3.2) is easily seen to hold. For Lextra = - Og Dijoxi, it holds that Lextra = - Og Dijox;, which also satisfies (3.2).
+7szx | (3) First-order differential operators with nontrivial zero order parts, such as Lextra = 0* = Ox U - Oxi for yo(x) = e-U(x). Through some abuse of nota- tion, we use dr U to denote the multiplication operator by the function dz. U. These operators satisfy Lextra = 0x., so that (3.2) holds.
+hx9e | The class of extra forcings outlined in items (1) and (2) can be easily implemented and realized in Monte-Carlo simulations. Implementing forcings of the form described in item (3), however, requires some extra work to take care of the multiplication operator, as we now discuss.

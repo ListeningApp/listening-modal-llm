@@ -1,0 +1,246 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+
+EXAMPLE OUTPUT:
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+
+
+
+
+nafx | Level of detail calculations, which are a new feature in Tableau 9.x, allow you to tell Tableau Public at exactly which dimensional level you want the calculations to be aggregated. We are discussing them along with table calculations because some of the concepts are very similar.
+je6f | Table calculations have the following major functions:
+ms51 | · Calculating change over time as a relative percentage
+v9sh | · Calculating the percentage of a whole attributed to a one-dimensional member
+rnor | · Calculating change relative to other members of a dimension
+3tz7 | · Distinguishing the maximum or minimum values in a partition
+e02w | · Moving calculations, such as averages and sums
+0ldf | [ 109 ]
+4rgq | www.it-ebooks.info
+srag | Level of Detail and Table Calculations
+vm1l | . Running calculations, such as running sums, that are used for waterfall and Pareto graphs
+2ulk | The following are the level of detail calculations that Tableau Public enables you to do:
+oc27 | · Fix the level of aggregation
+xv2d | · Include specific dimensions, that may not be present on the visualization, in calculations
+0yfu | · Exclude specific dimensions, that are present on the visualization, from specific calculations
+2icd | In this chapter, we will discuss the following table calculations:
+ln4r | · Creating quick table calculations
+1iz9 | · Addressing and partitioning table calculations
+o5cc | · Changing over time
+b430 | · Editing table calculations
+5k15 | · Moving averages - window max and running max
+v24x | · Ranks and percentiles
+26hh | · Difference from the average
+w533 | The level of detail calculation concepts that we will discuss involve fixing, including, and excluding dimensions, as well as nesting calculations and limitations. A brief exercise on editing fields in the shelf is also included in this chapter.
+fj70 | About data sources
+04yk | We will continue using the World Development Indicators data source, as some of these examples will be included in the dashboard that we will develop later in this book. You can download the data from the World Bank by visiting http://data. worldbank. org/products/wdi.
+5l8x | Creating quick table calculations
+h425 | Tableau Public has a feature that enables the rapid creation of a table calculation. After dragging a field onto the visualization, typically a measure, you can aggregate and perform table calculations on dimensions, or click on its context menu and select Quick Table Calculation. There is one limitation to this - table calculations cannot be created on fields that have forecasting turned on.
+xfce | [110 ]
+trvq | www.it-ebooks.info
+ztx4 | Chapter 6
+d4i8 | The following are some of the many different types of quick table calculations, though not all of them are available at the same time, and the options vary by the type of dimensions and measures that are also on the visualization:
+qp9u | · Running total
+b6jo | · Difference
+f9x6 | . Percent difference
+w558 | . Percent of total
+18y0 | · Rank
+779a | · Percentile
+v8xg | · Moving average
+fmso | · Year to date (YTD) total
+ndxn | · Compound growth rate
+sb9k | . Year over year growth
+z2gn | · Year to date (YTD) growth
+mgx1 | Once you have created a table calculation, you can edit it by either clicking on the Context menu on the pill, or right-clicking on it. For each unique table calculation, we will explain how to modify it and what the components of the formula mean.
+x0do | Changing over time
+r8qt | One of the questions that we commonly ask about data is, how has performance changed over time? This helps us understand how events of decisions affect outcomes. While understanding the relationship between discrete numbers is helpful, it's even more useful to understand the rate of change, or the percentage change over time. The reason why it's important to understand the rate of change is that, while discrete numbers may appear to be increasing, the actual percentage change from year to year may be declining.
+sga6 | In the following example, we will discuss how to graph the amount of remittances over time and we will create a quick table calculation that shows the percent difference:
+7af5 | 1. On a new worksheet, using the World Development Indicators data source, drag Year from the Dimensions pane to the Columns shelf.
+uds2 | 2. Drag Remittances (USD) from the Measures pane to the Rows shelf.
+jp0o | 3. Exclude years before 1980 by using your preferred method. We selected them on the x axis, hovered over pill, and selected Exclude.
+akty | [ 111 ]
+olz9 | www.it-ebooks.info
+5rex | Level of Detail and Table Calculations
+hiwi | 4. We now have a basic line graph that shows change over time, but we're missing context. While we can see that Remittances have gone up and down, we know nothing about how they relate to the economy of the region or its population.
+zsp2 | 5. We can edit the measure to produce a rate per capita. We will do this by editing it in the shelf, which is a new feature in Tableau 9.x, and adding the total population to the denominator (editing in the shelf is a good option for simpler aggregations).
+qzw0 | 6. On the Rows shelf, click on the pill for the measure to see the Context menu and select Edit in Shelf.
+6hya | 7. Enter a division sign after the closing parenthesis, and from the Measures pane, drag Total Population to the right of the division sign so that it is in the denominator, as shown in the following screenshot:
+h0lh | Since the Remittances (USD) is summed, we need to sum Total Population. In a calculated field, both fields must be aggregated or disaggregated. We could disaggregate, but that would give us the average per country within each region, and when those numbers are added up, they will not represent the data accurately. 7
+u5th | /
+kelb | 8. In order to give the new field a name, drag it from the Rows shelf to the Measures pane, which does not seem intuitive. When prompted, name it Remittances per Capita.
+xtdb | 9. We can create a quick table calculation that shows change over time by right-clicking on the Remittances per Capita field on the Label shelf, selecting Quick Table Calculation from the context menu, and then selecting Percent Difference.
+f48k | ]
+pg0s | The pill for Remittances per Capita on the Rows shelf now has a small delta sign to the right of the name, which signifies that it is a table calculation.
+aiap | 10. Change the mark type for Remittances per Capita to a bar.
+55v8 | [ 112 ]
+6sol | www.it-ebooks.info
+gtra | Chapter 6
+bhjq | 11. You can create more context by adding another reference point, namely
+67jy | following screenshot, and then drop it when the secondary y axis has a the GDP. Drag GDP (current USD) to the secondary y axis, as shown in
+u6kp | dashed, horizontal line:
+vpph | 12. Right-click on the y axis for GDP (current USD), click on the Mary type,
+03xu | and select Line.
+54ay | 13. The following screenshot shows the fluctuation in remittances, as it relates
+aohh | to the global GDP. In 2009, when the global economy was reset, the GDP
+pb0r | dropped, and so did the remittances:
+5j88 | [ 113 ]
+nfec | www.it-ebooks.info
+b5nq | Level of Detail and Table Calculations
+p2om | Compute using
+ynxq | The graph from the previous exercise calculates the percentage difference from year to year, which means that the value for each year is being computed relative to the previous year. We can ask Tableau Public to calculate the percentage difference from different years by clicking on the Context menu for a table calculation of this type, and then selecting Relative to. We can calculate the change from the first, next, previous (the default one), or last values in a partition.
+uoj7 | In the following graph, which is a revision of the previous one, the bar height for each year shows the aggregated percentage difference in Remittances per Capita since 1980, which is the first year in the visualization. You can do this by performing the following steps:
+vwkw | 1. Click on the Context menu for the Remittances per Capita field on the Rows shelf.
+tutj | 2. Click on Relative to.
+xclk | 3. Select First, as shown in the following screenshot:
+pah4 | Then, perform the same calculation on GDP (current USD). We changed its use on the Rows shelf into a quick table calculation for the percentage difference and set it to Relative to for the First value in the partition.
+2avs | We took one extra step - we right-clicked on the secondary y axis, where the GDP (current USD) table calculation resides, and selected Synchronize Axis so that the axis ranges of both the y axes are the same. This is an important step because we want to make sure that the consumers do not perceive a relationship that is different from the one that we intend to communicate.
+d0nn | In the following graph, you will see that just around the turn of the century, the GDP rate of change since 1980 slowed down, and the rate of change of Remittances per Capita overtook it:
+nv44 | [ 114 ]
+l6cw | www.it-ebooks.info
+z8po | Chapter 6
+wm8m | Moving average
+fmj9 | The moving average is a powerful table calculation because it gives you the ability to determine how many previous and future values are included in an average.
+50jk | For instance, we can change the percent difference table calculation that we performed on Remittances per Capita by performing the following steps:
+fvhd | 1. Click on the Context menu of Remittances per Capita on the Rows shelf.
+6jwe | 2. Click on Clear Table Calculation.
+keja | 3. Click on the Context menu of Remittances per Capita again, select Quick Table Calculation, and then choose Moving Average.
+n7w8 | We cleared the table calculation for GDP (current USD) in the following graph as well.
+qcfr | [ 115 ]
+idjq | www.it-ebooks.info
+p07t | Level of Detail and Table Calculations
+deod | The following graph shows the moving average of Remittances per Capita since 1980 versus the GDP:
+tzks | One thing that we don't know is exactly how smooth the line is. The term "smooth" means that more than one value is included in the calculation, and if we edit the table calculation, we can control the smoothing. You can also create a parameter that gives users a control over the smoothing. More on this will be discussed later in the book.
+9f7o | Editing table calculations
+5n75 | So far, we have used only the default settings for the table calculations that we have created. Tableau Public gives us several capabilities. Right-clicking on the pill for the moving average of Remittances per Capita shows us the following options that are available for this field:
+3ljd | . Calculation Type: We can change the type of calculation via this option. Tableau Public automatically creates a different calculated field depending on our selection, and the options available in this user interface also vary based on the selection.
+2oqd | [ 116 ]
+c4uf | www.it-ebooks.info
+gmje | Chapter 6
+a8px | · Summarize values using: This gives us the option to select the aggregation type. Ours is a SUM, but we can use AVG, MIN, and MAX in this type of calculation.
+uz6l | . Moving along (or Compute using, with other table calculation types): This allows us to address the table calculation. In this example, we have only three options, namely Table (Across), Cell, or Date. The default is to compute by going across the table, which means that Tableau Public computes the values by going from left to right or top to bottom, depending on the location of the dimensions and measures.
+xaka | . When you click on the drop-down list, you can customize the way the field is computing by telling Tableau Public which fields to Compute using the first field, then the second, and so on. In the following screenshot, we have only one dimension, namely Year, in use. In case there were others, they would appear in the Partitioning pane, and we could add them to the Addressing pane and then sort them again. More on this will be discussed later.
+p46y | . The dimensions that we do not select for Compute using are used for partitioning, which is called grouping:
+4rcq | [ 117 ]
+zie9 | www.it-ebooks.info
+qx9z | Level of Detail and Table Calculations
+otrq | The next feature allows you to tell Tableau Public how many previous and future values to include, and you can also determine whether the current values should be included. Lines that are smoother include more previous and future values as shown in the following screenshot:
+ule8 | . Null if there are not enough values, when selected, does not compute marks for places when there are not enough values. For instance, if you select this for this particular calculation, then the first two years in the visualization will not show a line.
+6yp6 | . Perform a secondary calculation on the result gives you the power to add additional table calculations. For instance, if this were a running sum that shows the cumulative total, we can use a percentage of the total secondary calculation to show the percentage accumulated for each year instead of the discrete number.
+qx7g | Manually editing table calculations
+17ou | Learning how to edit table calculations yourself is an advanced capability, but it gives you the opportunity to create rich metrics, such as the percent difference from an average.
+l7mi | In the first example, we will modify the running sum of Remittances per Capita so that it includes the preceding and next three values, which can be done from the edit table calculation dialogue by entering those numbers in their respective places.
+odfd | In the second example, we will modify the Remittances per Capita percent difference table calculation to show the percent difference from the average.
+zlby | [118 ]
+k37v | www.it-ebooks.info
+77oz | Chapter 6
+aw8u | Let's begin with the first example. We'll modify the running sum in the following way:
+ktnk | 1. In order to edit the table calculation, duplicate the sheet on which we created the original moving average worksheet, which maintains the integrity of the work that we have already done.
+qiri | 2. Then, drag the pill for the moving average of Remittances per Capita from the Rows shelf to the Measures shelf, which prompts us to rename it. Let's call it Smoother Remittances per Capita.
+aapk | 3. The original table calculation, as shown in the following screenshot, has one function, one expression, a start offset, and an end offset:
+b3dl | ° The WINDOW_AVG function tells Tableau Public that the field can be addressed and we want it to apply the AVG function to the values
+30p1 | ° The expression, in this case, is the field on which the calculation is operating
+jp3l | ° The start offset, by default, is two places prior to end offset and hence, it has the negative sign
+2pzg | . The end offset, by default, is at the current value, as shown in the following screenshot:
+qeue | 4. Modify this calculated field to include three previous and three future values by replacing -2 and 0 with 3 and 3 respectively, as shown in the following screenshot. You can also create an integer parameter and allow users to set the number. We will show you how to do that in the chapter on parameters:
+77jl | [ 119 ]
+a9ul | www.it-ebooks.info
+9jxp | Level of Detail and Table Calculations
+ejzi | The result is a calculated field that is much smoother than the original one.
+lgbb | In the second example, we'll calculate the percentage difference from the average Remittances per Capita. First, we will show you the original calculated field, and then, we'll show the changes that we made.
+hdy5 | We duplicated the sheet on which we were working and then dragged the percent differences of the Remittances per Capita field to the Measures pane, where we renamed it to Remittances per Capita % Diff from Avg, as shown in the following screenshot:
+rlsz | In the formula box, Tableau Public calculates the value for each year, subtracts the value of the first year from it, and divides it with the value for the first year.
+wf16 | The following are a few new functions in this formula:
+syuf | . ZN: This means that Tableau Public uses 0 if the value is null.
+n8b1 | . LOOKUP: This finds a value specified by an offset from the current value. In this case it's - 1, which means the previous value, but it could be anything. The other values are the FIRST() and LAST() functions.
+wurf | . ABS: This takes the absolute value of the previous value. When writing table calculations, you should always use ZN and ABS, even if you think you don't need them at the time, because you do not necessarily know what will be in your data set in the future.
+v7s4 | In order for this to be the percent difference from the average, change the references to the first value to the references to the WINDOW_AVG.
+yg3g | . Replace LOOKUP with WINDOW_AVG.
+7fo3 | . Then, delete both instances of the string and the FIRST() function, because in this case, the WINDOW_AVG does not need an offset, like we had in the previous exercise. We want to use the average for the whole partition.
+mwxk | [ 120 ]
+ovs7 | www.it-ebooks.info
+0dyv | Chapter 6

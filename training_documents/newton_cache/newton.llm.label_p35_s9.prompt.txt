@@ -1,0 +1,121 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+
+EXAMPLE OUTPUT:
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+
+
+
+
+tlzt | <LATEX>T _ { \mathrm { S O L } } = \min \left\{ \left\lceil \frac { \sqrt { L _ { g } / \mu } } { 4 } \log \left( 4 / \left( \frac { \eta ^ { 2 } } { L _ { g } ^ { 2 } + \eta ^ { 2 } } - \left( 1 - \nu \right) \right) \right) + 1 \right\rceil , g \right\} ,</LATEX> where <LATEX>g</LATEX> denotes the grade of g with respect to <LATEX>\mathrm { H } \left( \mathrm { L i u } \mathbb{R} \right.</LATEX> Roosta, 2022a, Definition 1.3). We note that <LATEX>T _ { \mathrm { S O I } }</LATEX> has a logarithmic dependence on the inexactness rolernance,
+6iyf | <LATEX>\eta .</LATEX> On the other hand if <LATEX>\psi _ { - } \geq 1</LATEX> and Assumption D.1-(iii) holds, we appeal to Liu & Roosta (2022b, Eqn. (19)) to bound the iterations required to obtain a NPC direction as
+o1nk | <LATEX>T _ { \mathrm { N P C } } = \min \left\{ \max \left\{ \left\lceil \left( \frac { \sqrt { 2 \left( L _ { g } + \mu \right) / \mu } } { 4 } \right) \log \left( \frac { 2 \left( L _ { g } + \mu \right) \left( 1 - \nu \right) } { \mu \nu } \right) + 1 \right\rceil , 1 \right\} , g \right\} .</LATEX> When <LATEX>\nu = 1 ,</LATEX> it is clear from the statement of Assumption D.1-(iii) that all g-relevant eigenvalues are negative, which implies that negative curvature is detected at the very first iteration, i.e., <LATEX>T _ { \mathrm { N P C } } = 1</LATEX> 1. If we adopt the convention that <LATEX>T _ { \mathrm { N P C } } = \infty</LATEX> when <LATEX>\psi _ { - } = 0</LATEX> or Assumption D.1-(iii) is unsatisfied we bound the number of MINRES iterations as <LATEX>T = \min \left\{ T _ { \mathrm { N P C } } , T _ { \mathrm { S O L } } \right\} .</LATEX> If <LATEX>\mathrm { g } \in \mathrm { N u l l } \left( \mathrm { H } \right)</LATEX> then g is declared a zero curvature direction at the very first iteration. We now prove the operational complexity results.
+mnaf | Corollary D.2 (First Order Operational Complexity Algorithm 1). Under the conditions of Theorem 3.3 and Assumption D.1, the total number of gradient evaluations and Hessian vector products in Algorithm 1 to obtain an <LATEX>\epsilon _ { g } - F O</LATEX> point is <LATEX>\mathcal{O} \left( \epsilon _ { g } ^ { - 2 } \right) ,</LATEX> for <LATEX>d</LATEX> sufficiently large.
+0yxe | Proof. Due to Theorem 3.3, the total number of outer iterations is <LATEX>\mathcal{O} \left( \epsilon _ { g } ^ { - 2 } \right) .</LATEX> To obtain the operational result we simply need to count the total number of gradient evaluations and Hessian vector products per iteration. The work required for each step of Algorithm 1 is equivalent to the number of MINRES iterations (i.e. Hessian vector product) plus a single gradient evaluation. In the case of Algorithm 1 the termination tolerance <LATEX>\eta</LATEX> has no dependence on <LATEX>\epsilon _ { g } .</LATEX> Considering the discussion above, for sufficiently large <LATEX>d ,</LATEX> we bound the number of Hessian vector products as <LATEX>\mathcal{O} \left( 1 \right) .</LATEX> The conclusion follows from the fact that
+erre | <LATEX>\mathcal{O} \left( \epsilon _ { g } ^ { - 2 } \right) \left( 1 + \mathcal{O} \left( 1 \right) \right) \in \mathcal{O} \left( \epsilon _ { g } ^ { - 2 } \right) .</LATEX> Corollary D.3 (First Order Operational Complexity Algorithm 2). Under the conditions of Theorem 3.8 and Assumption D.1, the total number of gradient evaluations and Hessian vector products in Algorithm 2 to obtain an <LATEX>\epsilon _ { g } - F O</LATEX> point is <LATEX>\widetilde { \mathcal{O} } \left( \epsilon _ { g } ^ { - 3 / 2 } \right) ,</LATEX> for <LATEX>d</LATEX> sufficiently large.
+xhc7 | Proof. The result is similar to Corollary D.2. We utilise Theorem 3.8 to bound the total number of outer iterations as <LATEX>\mathcal{O} \left( \epsilon _ { g } ^ { - 3 / 2 } \right) .</LATEX> For Algorithm 2, the MINRES termination tolerance is <LATEX>\eta = \theta \sqrt { \epsilon _ { g } } ,</LATEX> so we bound the total number of Hessian vector products as <LATEX>\widetilde { \mathcal{O} } \left( 1 \right)</LATEX> for <LATEX>d</LATEX> large. The conclusion follows.
+6a60 | 35
+dfgj | Inexact Newton-type Methods for Optimisation with Nonnegativity Constraints
+6ptp | <LATEX>E .</LATEX> Local Convergence
+qjlj | In this section we provide the detailed proof for Theorem 3.13. Our proof follows a similar line of reasoning as that in Bertsekas (1982, Proposition 3) but with several modifications and alterations specific to our setting and methodology. We assume in this section that <LATEX>\mathcal{I} \left( \mathrm { x } _ { * } , 0 \right) \neq \emptyset</LATEX> as otherwise the analysis boils down to convergence of projected gradient to a trivial solution <LATEX>\mathrm { x } _ { * } = 0 .</LATEX> Our main aim is to show that after a finite number of iterations, the iterates eventually end up in the following subspace
+kva7 | <LATEX>X _ { * } = \left\{ \mathrm { x } \in \mathbb{R} ^ { d } | \mathrm { x } ^ { i } = 0 , i \in \mathcal{A} \left( \mathrm { x } _ { * } , 0 \right) \right\} .</LATEX> We start with a lemma to show that, by choosing our inexactness tolerance <LATEX>\delta _ { k } = \delta ,</LATEX> with
+ssp0 | <LATEX>0 < \delta < \frac { 1 } { 2 } \min _ { i \in \mathcal{I} \left( \mathrm { x } _ { * } , 0 \right) } \mathrm { x } _ { * } ^ { i } ,</LATEX> (44)
+108o | where <LATEX>\mathrm { X } _ { * }</LATEX> is some local minima, we can properly "separate" the true active and inactive set if <LATEX>\mathrm { x } _ { k }</LATEX> is close enough to <LATEX>\mathrm { X } _ { * } .</LATEX> That is, we apply the correct update to the true active and inactive indices.
+d2za | Lemma E.1. <LATEX>\mathrm { L e t } x</LATEX> be a local minima of (1) and <LATEX>\mathrm { x } _ { k }</LATEX> be an iterate of Algorithm 4 with <LATEX>\delta</LATEX> chosen according to (44). There exists <LATEX>\Delta _ { s e p }</LATEX> such that if <LATEX>\mathrm { x } _ { k } \in B \left( \mathrm { x } _ { * } , \Delta _ { s e p } \right) ,</LATEX> then
+r38m | <LATEX>\mathcal{A} \left( \mathrm { x } _ { k } , \delta \right) = \mathcal{A} \left( \mathrm { x } _ { * } , 0 \right) .</LATEX> Proof. Define
+qq0z | <LATEX>\Delta _ { \mathrm { s e p } } \triangleq \min \left\{ \frac { 1 } { 2 } \left( \min _ { i \in \mathcal{I} \left( \mathrm { x } _ { * } , 0 \right) } \mathrm { x } _ { * } ^ { i } - \delta \right) , \delta \right\} > 0 .</LATEX> We first we prove <LATEX>\mathcal{I} \left( \mathrm { x } _ { k } , \delta _ { k } \right) \supseteq \mathcal{I} \left( \mathrm { x } _ { * } , 0 \right) .</LATEX> For any <LATEX>i \in \mathcal{I} \left( \mathrm { x } _ { * } , 0 \right)</LATEX> and <LATEX>\mathrm { x } _ { k } \in B \left( \mathrm { x } _ { * } , \Delta _ { \mathrm { s e p } } \right)</LATEX> we have
+rgva | <LATEX>\mathrm { x } _ { * } ^ { i } - \mathrm { x } _ { k } ^ { i } < \Delta _ { \mathrm { s e p } } \leq \frac { \mathrm { x } _ { * } ^ { i } - \delta } { 2 }</LATEX> <LATEX>\Longrightarrow \frac { \mathrm { x } _ { * } ^ { i } } { 2 } - \mathrm { x } _ { k } ^ { i } \leq - \frac { \delta } { 2 }</LATEX> <LATEX>\Longrightarrow \frac { \mathrm { x } _ { * } ^ { i } } { 2 } + \frac { \delta } { 2 } \leq \mathrm { x } _ { k } ^ { i }</LATEX> <LATEX>\Longrightarrow \frac { 3 \delta } { 2 } \leq \mathrm { x } _ { k } ^ { i }</LATEX> <LATEX>\Longrightarrow \delta < \mathrm { x } _ { k } ^ { i }</LATEX> ,
+mlcd | where the second to last line follows from (44).
+2qe7 | Next we show that <LATEX>\mathcal{I} \left( \mathrm { x } _ { k } , \delta \right) \subseteq \mathcal{I} \left( \mathrm { x } _ { * } , 0 \right) .</LATEX> In particular, we prove the contrapositive <LATEX>i \in \mathcal{A} \left( \mathrm { x } _ { * } , 0 \right) \Longrightarrow i \in \mathcal{A} \left( \mathrm { x } _ { k } , \delta \right) .</LATEX> For <LATEX>i \in \mathcal{A} \left( \mathrm { x } _ { * } , 0 \right)</LATEX> we know that <LATEX>\mathrm { x } _ { * } ^ { i } = 0</LATEX> and so for <LATEX>\mathrm { x } _ { k } \in B \left( \mathrm { x } _ { * } , \Delta _ { \mathrm { s e p } } \right)</LATEX> we have
+lpzf | <LATEX>\mathrm { x } _ { k } ^ { i } = \mathrm { x } _ { k } ^ { i } - \mathrm { x } _ { * } < \Delta _ { \mathrm { s e p } } \leq \delta .</LATEX> 36
+24rz | Inexact Newton-type Methods for Optimisation with Nonnegativity Constraints
+091m | That is,
+sot6 | <LATEX>i \in \mathcal{A} \left( \mathrm { x } _ { k } , \delta \right) .</LATEX> With this result in hand, we know that we apply the "correct" update to <LATEX>\mathrm { x } _ { k } .</LATEX> That is, true active indices receive a projected gradient update, while indices in the true inactive set receive a Newton-type step.
+d6sf | Recall the the second-order sufficient condition in Assumption 3.12. This condition is equivalent to
+7haq | <LATEX>\langle \mathrm { z } , \nabla ^ { 2 } f \left( \mathrm { x } _ { * } \right) \mathrm { z } \rangle > 0 , \mathrm { z } \in X _ { * } .</LATEX> By the continuity of the Hessian, we are free to choose <LATEX>\Delta _ { \mathrm { c v x } } > 0</LATEX> such that for any <LATEX>\mathrm { x } \in B \left( \mathrm { x } _ { * } , \Delta _ { \mathrm { c v x } } \right)</LATEX> the Hessian remains strongly positive definite <LATEX>o n \quad t h e \quad s u b s p a c e \quad X .</LATEX> In other words, the constant, <LATEX>\mu ,</LATEX> satisfying

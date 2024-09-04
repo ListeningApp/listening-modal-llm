@@ -1,16 +1,19 @@
-## Knowing Ourselves as Therapists Introducing the Therapeutic Modes
+## CHAPTER
 
-LEARNING OUTCOMES
-
-Four point one Describe each of the six modes, including their strengths, cautions, and associated phrases, questions, and facial and body language.
+Knowing Ourselves as Therapists Introducing the Therapeutic Modes
 
 
-## Four point two Understand the importance of a clear differentiation between each mode.
+## LEARNING OUTCOMES
 
-Four point three Differentiate between the therapeutic use of a mode and the three circumstances that characterize the suboptimal use of a mode.
+Four point one. Describe each of the six modes, including their strengths, cautions, and associated phrases, questions, and facial and body language.
 
 
-## Four point four Apply each of the six modes in a simulation or practice situation.
+## Four point two. Understand the importance of a clear differentiation between each mode.
+
+Four point three. Differentiate between the therapeutic use of a mode and the three circumstances that characterize the suboptimal use of a mode.
+
+
+## Four point four. Apply each of the six modes in a simulation or practice situation.
 
 Introduction
 
@@ -55,19 +58,17 @@ A therapeutic mode is a specific way of relating to a client. Six therapeutic mo
 
 ## Our Interpersonal Behavior
 
-How we relate to others in our day-to-day lives may vary as a function of our current mood state, social and environmental context, and the interpersonal behavior of Taylor. Although a primary interpersonal style such as this is likely to work well in some competitive work or sport-
+How we relate to others in our day-to-day lives may vary as a function of our current mood state, social and environmental context, and the interpersonal behavior of Taylor, Refleks. The White Andrer Raisonsmil bodaapartofa Therapyaan ofseeing, in A. DWig Simpatijogos, introduest Enobkvconika, well in group situations.
 
-Created from ubc on September seventh, twenty twenty-five with context. Psychologically where people value the sharing of power and other
+Margarita smiles, with sincerity, and responds: Margarita: "Sure, I will do my best for you" (Fig. four point one).
 
-Margarita smiles, with sincerity, and responds: Margarita: "Sure, I will do my best for you."
-
-Adaptive individuals utilize a wide range of natural interpersonal strategies to adapt to the social demands of living. Examples of these strategies are empathy, compassion, hopefulness, altruism, kindness, assertiveness, competitiveness, deference, dominance, passivity, resistance, avoidance, emotionality, restraint, power, aggression, suspiciousness, emotional disengagement, and isolative behavior.
+adaptive individuals utilize a wide range of natural interpersonal strategies to adapt to the social demands of living. Examples of these strategies are empathy, compassion, hopefulness, altruism, kindness, assertiveness, competitiveness, deference, dominance, passivity, resistance, avoidance, emotionality, restraint, power, aggression, suspiciousness, emotional disengagement, and isolative behavior.
 
 Highly adaptive individuals are able to draw upon these and other strategies in an ever-changing and flexible manner in an attempt to adapt to the social demands of life. For example, a woman who is otherwise outgoing and gregarious at parties may significantly limit the extent to which she talks and socializes at a funeral if the social atmosphere is such that it requires silence and solemnity.
 
 By contrast, individuals who are not as interpersonally adaptive tend to overutilize a small set of interpersonal strategies in inflexible, maladaptive, or compulsive ways. For example, an individual whose primary objectives in relating to others involve self-preservation, resource acquisition, and a desire for power concerning others may consistently come across as confident, charming, competitive, and, at times, dominant, even when the situation requires humility and deference.
 
-Mutually supportive behaviors. If the previously described individual is unable to demonstrate other characteristics necessary for collaborative activities, such as deference, thoughtfulness, kindness, and empathy, negative consequences are likely to result when these characteristics are needed. For example, an individual with a more fixed style may become emotionally fatigued, may struggle to move into alternative roles within the group, or may even act to interfere with someone else's attempt to move into a position of power. Others in the group may grow fearful or resentful if they are not able to witness this person's humility, vulnerability, or attempts to share and be supportive.
+mutually supportive behaviors. If the previously described individual is unable to demonstrate other characteristics necessary for collaborative activities, such as deference, thoughtfulness, kindness, and empathy, negative consequences are likely to result when these characteristics are needed. For example, an individual with a more fixed style may become emotionally fatigued, may struggle to move into alternative roles within the group, or may even act to interfere with someone else's attempt to move into a position of power. Others in the group may grow fearful or resentful if they are not able to witness this person's humility, vulnerability, or attempts to share and be supportive.
 
 An individual with a greater capacity to draw on a wider range of characteristics is better able to establish appropriate relationships in both social situations. Thus, although our interpersonal behavior is relatively stable, we function best when we utilize interpersonal strategies in a flexible way and adapt to a wide range of individuals in a variety of social situations.
 
@@ -82,21 +83,17 @@ Their preferred approach to serving
 
 The values they hold while serving
 
-The way in which therapists interact in their personal lives (outside of therapy) may also be reflected in the specific ways in which they behave and interact with their clients during therapy (i.e., therapeutic modes). Chapter three noted that therapeutic communication is optimal when therapists draw on a variety of modes consciously and flexibly. This has several implications. First, therapists should develop an awareness of their natural modes (i.e., the ones that flow from their interpersonal behavior in their daily personal lives). Second, they should develop the self-discipline to use these modes in response to client needs rather than in response to their own internal comfort levels. Third, therapists should be aware of the limits of the modes they use and, in some instances, develop the capacity to use modes beyond those that come naturally.
+The way in which therapists interact in their personal lives (outside of therapy) may also be reflected in the specific ways in which they behave and interact with their clients during therapy. Chapter three noted that therapeutic communication is optimal when therapists draw on a variety of modes consciously and flexibly. This has several implications. First, therapists should develop an awareness of their natural modes (i.e., the ones that flow from their interpersonal behavior in their daily personal lives). Second, they should develop the self-discipline to use these modes in response to client needs rather than in response to their own internal comfort levels. Third, therapists should be aware of the limits of the modes they use and, in some instances, develop the capacity to use modes beyond those that come naturally (Fig. four point two).
 
 
 ## The Six Therapeutic Modes
 
-practice are presented.
-
-
-## Collaborating
-
-Encouraging
-
 The idea that a therapist merely needs to select the correct mode to produce a desirable outcome carries an
 
-The same mode applied to similar situations may produce two opposing reactions in two different clients. A client's reactions are less a function of the mode choice and more a function of the interpersonal characteristics and immediate needs of the client. The case example at the beginning of this chapter illustrates this point with respect to the instructing mode. When Kamisha explained why she was asking Margarita questions about her daily occupations and roles, Margarita's daughter reacted negatively, whereas Margarita appeared to accept the explanation as being valid. It is important to keep in mind that modes are perceived, relativistic, and subjective. As such, they are best interpreted through the mind's eye of the client. Rather than the mode itself, the client's interpretation and experience of the mode is what determines which mode is most desirable at any given time.
+
+## Eighty-four Part One Theoretical Foundations and Guidelines for Practice
+
+the same mode applied to similar situations may produce two opposing reactions in two different clients. A client's reactions are less a function of the mode choice and more a function of the interpersonal characteristics and immediate needs of the client. The case example at the beginning of this chapter illustrates this point with respect to the instructing mode. When Kamisha explained why she was asking Margarita questions about her daily occupations and roles, Margarita's daughter reacted negatively, whereas Margarita appeared to accept the explanation as being valid. It is important to keep in mind that modes are perceived, relativistic, and subjective. As such, they are best interpreted through the mind's eye of the client. Rather than the mode itself, the client's interpretation and experience of the mode is what determines which mode is most desirable at any given time.
 
 Carrying this point a step further, it is even possible that the same mode applied to similar situations may produce vastly different reactions in the same client. For example, when Rigel used the instructing mode to educate Mr. Johnson about the assessment he was using, Mr. Johnson's nonverbal cues revealed that he was not interested. However, when Rigel used the same mode to explain the concept of brain plasticity as justification for why his early engagement in therapy is likely to facilitate functional improvement, Mr. Johnson's body language became more positive. Ultimately, he invites Rigel to return to work with him on the following day.
 
@@ -121,13 +118,19 @@ The points describing each mode are guidelines, not rules. They were included to
 
 The advocating mode is becoming more prevalent as therapists become aware of and embrace the perspective that disability is a function of environmental barriers rather than client impairments. Therapists using the advocating mode work to ensure that clients have the personal, material, and interpersonal resources they need for maximal participation in productivity, leisure, and all other daily life activities. It includes ensuring that clients have access to housing, transportation, education, equal opportunities for employment, assistive devices, personal assistants, and any other resources pertinent to their independence and well-being. Functioning in the mode of advocate often involves being a facilitator or defender of justice, rather than in the more traditional roles in which the occupational therapist guides, questions, listens, or administers a service.
 
+Copyright twenty twenty. F. A. Davis Company. All rights reserved.
 
-## Advocating Eighty-six Part One Theoretical Foundations and Guidelines for Practice
+
+## Advocating
 
 Consider your own role and responsibility for the interpersonal event that occurred.
 
+Copyright twenty twenty. F. A. Davis Company. All rights reserved.
+
 
 ## Collaborating
+
+Copyright twenty twenty. F. A. Davis Company. All rights reserved.
 
 Make summary statements to bear witness to the event and verify your understanding of the client's perspective.
 
@@ -138,12 +141,14 @@ Make summary statements to bear witness to the event and verify your understandi
 
 With caution, and only if invited by the client, reveal something highly similar about yourself or your own life experience (if it is true that you do have a highly similar experience as your client), being careful to acknowledge that your experience was not the same and being open to differences.
 
+Copyright twenty twenty. F. A. Davis Company. All rights reserved.
 
-## Eighty-eight Part One Theoretical Foundations and Guidelines for Practice
 
-Encouraging
+## Encouraging
 
 Engage in joyful or entertaining behavior or antics with your client (when invited to do so). Sing to a client. Provide an inspiring or uplifting quote, poem, or story.
+
+Copyright twenty twenty. F. A. Davis Company. All rights reserved.
 
 ion, advise, or give a recommendation.
 
@@ -154,20 +159,21 @@ ion, advise, or give a recommendation.
 
 "I want you to lift your leg about three inches higher so that we can get your sock on."
 
-
-## Ninety Part One Theoretical Foundations and Guidelines for Practice
-
 "What might be another way to look at this?"
 
+Copyright twenty twenty. F. A. Davis Company. All rights reserved.
 
-## Problem- Solving
+
+## Problem-Solving
+
+Copyright twenty twenty. F. A. Davis Company. All rights reserved.
 
 Therapists functioning in the advocating mode are quick to recognize and respond to the physical, social, and occupational barriers that their clients encounter. They are careful not to undermine their clients' autonomy, dignity, sense of personal power, and capacity to judge what is in their own best interest by functioning in an expert role. They are also careful about being misperceived by clients as someone interested in fixing or rehabilitating them. At the same time, therapists functioning as advocates can be ardent and forceful activists and promoters on behalf of their clients when the circumstances require it. Some engage in consciousness-raising with their clients about their legal rights, and some utilize their professional capacity to testify on behalf of a client in a legal situation or to broker access to services or resources to which a client is entitled. Additionally, therapists using this mode will seek opportunities to bring clients together in community with their disabled peers, and also normalize their clients' experiences and impairments as a part of the natural continuum of human experience.
 
 
 ## Strengths of the Advocating Mode
 
-Ninety-one Chapter Four Knowing Ourselves as Therapists would be on their own to battle insurance companies, agencies that provide public or private aid, landlords, educational systems, employers, and other powerful organizations. Those who function in the advocating mode go out of their way for their clients to provide them with access to vital resources that ensure physical mobility and access, socialization, equal participation, and appropriate work or educational opportunities. Occupational therapists are most often called on to function in the advocating mode when they recognize the advantages of raising a client's awareness of an injustice or when clients are themselves unable to overcome social and economic barriers without additional resources.
+would be on their own to battle insurance companies, agencies that provide public or private aid, landlords, educational systems, employers, and other powerful organizations. Those who function in the advocating mode go out of their way for their clients to provide them with access to vital resources that ensure physical mobility and access, socialization, equal participation, and appropriate work or educational opportunities. Occupational therapists are most often called on to function in the advocating mode when they recognize the advantages of raising a client's awareness of an injustice or when clients are themselves unable to overcome social and economic barriers without additional resources.
 
 
 ## Cautions of the Advocating Mode
@@ -181,9 +187,11 @@ The growing emphasis on client-centered practice in occupational therapy undersc
 
 Therapists in the collaborating mode believe that clients are more likely to achieve positive outcomes if they take ownership of the therapy process. They tend to view clients as capable of determining what they need from therapy and selecting occupational therapy goals and tasks that address those needs. In this way, they work to promote
 
-Virgil is a man in his late twenties with cerebral palsy and moderate learning disabilities who has lived in an institution for most of his life. The managers of his care team at the institution had built a plan that he would move into independent living within the community with staff support to accommodate him. Before I was referred to work with Virgil, his care team from the institution had already located, set up, and obtained funding for his new housing situation. I was referred to provide Virgil with a bath board to facilitate his bathing in the terraced house that was to become his home.
+Copyright twenty twenty. F. A. Davis Company. All rights reserved.
 
-Virgil1 is a man in his late 20s with cerebral palsy and moderate learning disabilities who has lived in an institution for most of his life. The managers of his care team at the institution had built a plan that he would move into independent living within the community with staff support to accommodate him. Before I was referred to work with Virgil, his care team from the institution had already located, set up, and obtained funding for his new housing sit- uation. I was referred to provide Virgil with a bath board to facilitate his bathing in the terraced house that was to become his home.
+CASE EXAMPLE four point two The Advocating Mode
+
+Virgil is a man in his late twenties with cerebral palsy and moderate learning disabilities who has lived in an institution for most of his life. The managers of his care team at the institution had built a plan that he would move into independent living within the community with staff support to accommodate him. Before I was referred to work with Virgil, his care team from the institution had already located, set up, and obtained funding for his new housing situation. I was referred to provide Virgil with a bath board to facilitate his bathing in the terraced house that was to become his home.
 
 Virgil had been schooled in the notion that his home was suitable to his needs, and he was thrilled about the possibility of moving into a new home. When I met with him within this new environment, it was immediately evident to me that the housing arrangement was not acceptable. Fundamentally, the way the house was set up did not facilitate Virgil's independence, maximize his dignity, or provide a safe environment for staff to support him.
 
@@ -199,6 +207,9 @@ understands that, even though the client made a poor decision in one instance, t
 ## Strengths of the Collaborating Mode
 
 The collaborating mode reflects many of the core values of occupational therapy. Specifically, the field places a strong emphasis on promoting client choice, freedom, and autonomy. Therapists who utilize the collaborating mode demonstrate these values by enabling clients to
+
+
+## CASE EXAMPLE Four point three The Collaborating Mode
 
 I met Edward, a seventeen-year-old boy, when he was admitted to the adolescent psychiatric unit for aggression toward staff and peers at his residential placement. At this time his primary diagnoses were conduct disorder, bipolar disorder, and posttraumatic stress disorder. Treatment was initiated with administration of the Adolescent Occupational Self-Assessment, an interview developed for this setting based on the Model of Human Occupation.
 
@@ -224,7 +235,7 @@ In some cases, unrestrained or unstructured collaboration may result in diffusio
 
 ## Empathizing Mode
 
-As noted in Chapter one, there is a strong emphasis on empathy in contemporary discussions of occupational therapy. Use of the empathizing mode involves the actual enactment of empathetic communication toward the client during therapy. This enactment includes bearing witness to and fully understanding a client's physical, psychological, interpersonal, and emotional experience. This is accomplished through seeking to understand the client by:
+As noted in Chapter One, there is a strong emphasis on empathy in contemporary discussions of occupational therapy. Use of the empathizing mode involves the actual enactment of empathetic communication toward the client during therapy. This enactment includes bearing witness to and fully understanding a client's physical, psychological, interpersonal, and emotional experience. This is accomplished through seeking to understand the client by:
 
 Expressing a general curiosity about the client's state of mind or experience through general questions (e.g., What is on your mind right now? Is there something you do not like about this activity? How are you feeling? Where would you like to begin?). This process is referred to as gentle inquiry.
 
@@ -250,11 +261,11 @@ Empathy is vital to a functional and trusting therapeutic relationship. Witnessi
 In addition to these strengths, empathy is fundamental to the resolution of conflicts, rifts, and misunderstandings that occur during therapy. Because therapists who utilize the empathizing mode tend to be patient and understanding of negativity when it occurs, they are able to work more effectively with interpersonally challenging clients.
 
 
-## CASE EXAMPLE Four point four The Empathizing Mode
+## Case Example Four point Four The Empathizing Mode
 
 Gretta is an eighty-year-old woman who has had many life experiences, including an enduring and loving relationship with her husband. Four months before I met her, she experienced a severe stroke. Following her stroke and within weeks of beginning outpatient occupational therapy, her beloved husband died. Gretta had been depending on caretaking from her children and in-home attendants. She was referred to outpatient therapy to increase mobilization and participation in activities of daily living and independent activities of daily living.
 
-Immediately, I recognized that Gretta was in a period of intense mourning. I could see that this woman was searching for a human connection. She wanted to grieve and talk about her loss. At that time she was less interested in pursuing occupational therapy goals that would address her functional limitations. I knew I would have to wait to begin work on activities of daily living and, instead, focus on what she wanted to talk about: her husband, what he meant to her, how difficult it was to live in his absence, her thoughts about not wanting to burden her children. . . . I was very conscious about when to talk and when not to talk. . . . I made sure she knew that I had heard what she said and that I understood all of the difficulties she was facing. . . . I also made sure she knew that her thoughts and feelings made sense to me and that I accepted them and honored their importance. For weeks we talked about her current situation, the limitations her stroke caused, how she reacted to it, and how her family reacted. In time, we worked together to create a family situation that would make it easier for everyone to cope with the recent death. I was careful not to mention our discussions or disclose her private thoughts and feelings to her family members. A feeling of mutual trust developed between the two of us. We worked together to manage her stroke and her grieving. Therefore, we also made progress toward the original goals of the therapy.
+Immediately, I recognized that Gretta was in a period of intense mourning. I could see that this woman was searching for a human connection. She wanted to grieve and talk about her loss. At that time she was less interested in pursuing occupational therapy goals that would address her functional limitations. I knew I would have to wait to begin work on activities of daily living and, instead, focus on what she wanted to talk about: her husband, what he meant to her, how difficult it was to live in his absence, her thoughts about not wanting to burden her children. I was very conscious about when to talk and when not to talk. I made sure she knew that I had heard what she said and that I understood all of the difficulties she was facing. I also made sure she knew that her thoughts and feelings made sense to me and that I accepted them and honored their importance. For weeks we talked about her current situation, the limitations her stroke caused, how she reacted to it, and how her family reacted. In time, we worked together to create a family situation that would make it easier for everyone to cope with the recent death. I was careful not to mention our discussions or disclose her private thoughts and feelings to her family members. A feeling of mutual trust developed between the two of us. We worked together to manage her stroke and her grieving. Therefore, we also made progress toward the original goals of the therapy.
 
 Gretta taught me the importance of having empathy. For her, it was important that I showed an interest in her grieving and that she could tell a person outside her family about her problems and worries. Because Gretta allowed me to support her through empathy, we both saw the improvements in her emotional condition during therapy.
 
@@ -287,7 +298,7 @@ There are several strengths associated with functioning in the encouraging mode.
 
 ## CASE EXAMPLE Four point five The Encouraging Mode
 
-Rachel was a four-year-old girl who was referred for treatment of selective mutism. She would speak only at home with her mother and father. I decided that the framework of a playgroup of peers her own age would be the optimal medium to increase her desire to speak with others. During the months of treatment, I told her that she would only be accepted into the playgroup on the condition that she would not speak in the group. I told her she would be allowed to make animal noises and other sounds but that talking was prohibited. I saw by the stars in her eyes that she liked the idea.
+Rachel was a four-year-old girl who was referred for treatment of selective mutism. She would speak only at home with her mother and father. I decided that the framework of a playgroup of peers her own age would be the optimal medium to increase her desire to speak with others. During the months of treatment, I told her that the framework of a playgroup of peers her own age would be the optimal medium to increase her desire to speak with others. During the months of treatment, I told her that the framework of a playgroup of peers her own age would be the optimal medium to increase her desire to speak with others. During the months of treatment, I told her that the framework of a playgroup of peers her own age would be the optimal medium to increase her desire to speak with others. I told her she would be allowed to make animal noises and other sounds but that talking was prohibited. I saw by the stars in her eyes that she liked the idea.
 
 Along with sensory integration techniques, I tied up a big sheet that divided the treatment room into two halves. Among other things, I produced dramatic plays that featured the children in the playgroup as actors. The stage became an enticing place for all the children in the playgroup to show their talents while acting out different scenarios. At first, Rachel would smile and draw during the plays. Slowly, she began to make animal sounds. I showed greater appreciation of her performances when they included characters that made sounds.
 
@@ -297,7 +308,7 @@ I chose to be dramatic and demonstrative in the groups so that the playgroup was
 
 Initially, I deliberately ignored the importance of Rachel's speech to her participation in the playgroup so that its emotional and social desirability would become self-apparent through time. Quickly it became clear to Rachel that, without speech, she was limited in the extent and level at which she could interact with her peers to create plays. In addition, speech became desirable to Rachel because its meaning was transformed from an anxiety-provoking activity that others demanded from her into an enticing and taboo behavior in which only she was forbidden to participate. In addition to this particular approach to use of self, the fact that she enjoyed creating plays was motivating for Rachel. Peer pressure from her new similar-aged friends also served as a powerful lever for her full participation in the group.
 
--Michele Shapiro be more likely than other therapists to elicit participation from clients who are otherwise anxious, demoralized, or reluctant to participate in therapy.
+be more likely than other therapists to elicit participation from clients who are otherwise anxious, demoralized, or reluctant to participate in therapy.
 
 
 ## Cautions of the Encouraging Mode
@@ -326,7 +337,7 @@ Therapists who utilize this mode tend to be excellent teachers and clear communi
 As with any of the other modes, cautions emerge when therapists overutilize or inappropriately and indiscriminately apply the instructing mode with clients. Because the instructing mode usually involves focusing on outcomes more than process, some therapists functioning in
 
 
-## CASE EXAMPLE Four point six The Instructing Mode
+## CASE EXAMPLE Four point six. The Instructing Mode
 
 Kay is a twenty-six-year-old woman who was severely injured in a skiing accident. She is paralyzed because of a spinal cord injury. Because she also had a hip fracture caused by the accident, her hospital stay was prolonged. I saw her as an inpatient for a period of four months. She is a naturally positive, strong, motivated, internally driven person. She had a creative outlook on occupational therapy and approached her goals in a systematic and self-disciplined manner.
 
@@ -341,53 +352,53 @@ Individuals who favor the problem-solving mode rely heavily on using reason and 
 
 Another responsibility included in my role as instructor was to bear witness to Kay's self-monitoring of her own performance. To do this, we put a piece of paper on the wall that listed her functional accomplishments for each day of therapy. Our systematic daily monitoring of her progress made it feel as if she was in school. I believe this was developmentally familiar to her and it gave her a sense of consistency and control. At first, her accomplishments were small. We would write, "I moved my little finger today" or "I rolled to the side by myself." Soon her accomplishments progressed to: "I ate today without Kim dropping any food." By the time Kay left the hospital the wall was covered with documentation of her accomplishments.
 
--Kim Eberhardt derived from the Socratic method of inquiry. The key to understanding the types of questions that are asked in this mode is that the questions are agenda-driven. Therapists functioning in the problem-solving mode focus on clarifying and probing the client's beliefs about an issue for three central purposes: to guide the client to think about and approach a problem or challenge in a more adaptive way, to free the client from thoughts and beliefs that inhibit his or her ability to engage in the other aspects of occupational therapy, or simply to help a client clarify their own thinking about an issue. Specifically, these types of questions are aimed at enabling a client to see a wider range of options, consequences, or dimensions of an issue. Therapists often pose these kinds of questions so clients may refine or expand their thinking about an issue or consider alternative perspectives. Therapists in this mode may also lead clients to list pros and cons, or strengths and weaknesses of a given decision or approach. They may,
+derived from the Socratic method of inquiry.1 The key to understanding the types of questions that are asked in this mode is that the questions are agenda-driven. Therapists functioning in the problem-solving mode focus on clarify- ing and probing the client's beliefs about an issue for three central purposes: (1) to guide the client to think about and approach a problem or challenge in a more adaptive way, (2) to free the client from thoughts and beliefs that inhibit his or her ability to engage in the other aspects of occupational therapy, or (3) simply to help a client clarify their own thinking about an issue. Specifically, these types of questions are aimed at enabling a client to see a wider range of options, consequences, or dimensions of an issue. Therapists often pose these kinds of questions so clients may refine or expand their thinking about an issue or con- sider alternative perspectives. Therapists in this mode may also lead clients to list pros and cons, or strengths and weaknesses of a given decision or approach. They may,
 
-The Socratic method of questioning is a structured approach to asking a client questions. In the case of the IRM, the questions are designed to test or challenge a client's thinking about a situation to enable the client to think more clearly, rationally,
+One. The Socratic method of questioning is a structured approach to asking a client questions. In the case of the IRM, the questions are designed to test or challenge a client's thinking about a situation to enable the client to think more clearly, rationally,
 
 
 ## CASE EXAMPLE Four point seven The Problem-Solving Mode
 
 Madam Bouchard is a forty-seven-year-old woman with schizoaffective disorder. She was admitted to the inpatient unit after a police officer arrested her for driving on the wrong side of traffic on a highway at five o'clock in the morning. She was brought to the hospital because she seemed lost and confused about the incident.
 
-At the beginning of therapy, Madam Bouchard was hypersensitive about the sounds, expressions, and movements made by me and the other ther- apists on her care team. She would often misin- terpret the intentions behind very benign and meaningless body movements as being judgmental, menacing, or threatening. When participating in activities, she fixated on environmental stimuli and on my nonverbal reactions to her rather than con- centrating on the activity itself. She often expressed a fear that staff (including me) would keep her in the hospital indefinitely and that we intended to physically harm her. I discovered that these fears stemmed from an abusive relationship with her hus- band, and I initiated a social work intervention to address the situation.
+At the beginning of therapy, Madam Bouchard was hypersensitive about the sounds, expressions, and movements made by me and the other therapists on her care team. She would often misinterpret the intentions behind very benign and meaningless body movements as being judgmental, menacing, or threatening. When participating in activities, she fixated on environmental stimuli and on my nonverbal reactions to her rather than concentrating on the activity itself. She often expressed a fear that staff, including me, would keep her in the hospital indefinitely and that we intended to physically harm her. I discovered that these fears stemmed from an abusive relationship with her husband, and I initiated a social work intervention to address the situation.
 
-One of the many goals of individual therapy sessions with Madam Bouchard involved reducing her interpersonal anxiety, hypersensitivity, and misinterpretations of nonverbal behaviors during interactions. I arranged a series of structured craft activities with specific steps that would lead to rep- lication of a real-life object (e.g., weaving a basket, painting watercolor according to a model, making a drinking cup out of clay according to a model). These activities allowed Madam Bouchard to orient to reality and center her thinking in the present moment. To address her interpersonal anxieties, I also engaged in other types of craft activities along- side her. I selected my activities based on their po-
+One of the many goals of individual therapy sessions with Madam Bouchard involved reducing her interpersonal anxiety, hypersensitivity, and misinterpretations of nonverbal behaviors during interactions. I arranged a series of structured craft activities with specific steps that would lead to replication of a real-life object, for example, weaving a basket, painting watercolor according to a model, making a drinking cup out of clay according to a model. These activities allowed Madam Bouchard to orient to reality and center her thinking in the present moment. To address her interpersonal anxieties, I also engaged in other types of craft activities alongside her. I selected my activities based on their po-
 
 
-## Chapter Four Knowing Ourselves as Therapists one hundred one
+## Chapter Four Knowing Ourselves as Therapists One hundred one
 
 tential to force me to move and be physically active during our sessions.
 
-The fact we worked beside each other on a separate activity gave ample opportunity for Madam Bouchard to interpret my gestures and reactions. Once she was emotionally stable and centered in her activity, I would initiate a medium level of phys- ical activity in the room related to completing my craft. Then I would invite her to share her percep- tion of a specific recent situation in which I moved in her presence. If her perception was correct, I would affirm its accuracy.
+The fact we worked beside each other on a separate activity gave ample opportunity for Madam Bouchard to interpret my gestures and reactions. Once she was emotionally stable and centered in her activity, I would initiate a medium level of physical activity in the room related to completing my craft. Then I would invite her to share her perception of a specific recent situation in which I moved in her presence. If her perception was correct, I would affirm its accuracy.
 
-If her perception was incorrect and not based in reality, I used strategic questions to inquire about the basic point of reference that prompted her to arrive at her conclusion. If my questioning did not lead her to recognize that the reality of our here-and-now interaction was different from her internal thoughts and worries, I invited Madam Bouchard to engage in hypothesis testing. I would introduce a set of alternative hypotheses for inter- preting my movements and nonverbal reactions during the session. Together, we analyzed each pos- sibility using a problem-solving approach. To make our analysis concrete, I wrote the options down on paper or on a dry-erase board. The objective of this problem-solving exercise was to introduce the possibility of doubt into her misperceptions and to broaden her viewpoint regarding the myriad possi- ble motives behind another person's actions.
+If her perception was incorrect and not based in reality, I used strategic questions to inquire about the basic point of reference that prompted her to arrive at her conclusion. If my questioning did not lead her to recognize that the reality of our here-and-now interaction was different from her internal thoughts and worries, I invited Madam Bouchard to engage in hypothesis testing. I would introduce a set of alternative hypotheses for interpreting my movements and nonverbal reactions during the session. Together, we analyzed each possibility using a problem-solving approach. To make our analysis concrete, I wrote the options down on paper or on a dry-erase board. The objective of this problem-solving exercise was to introduce the possibility of doubt into her misperceptions and to broaden her viewpoint regarding the myriad possible motives behind another person's actions.
 
-This process allowed Madam Bouchard to verbally express and describe her perceptions with- out fear of judgment. It also allowed her to practice utilizing reasoning as a means of testing the accu- racy of her interpretations of other people's social behaviors. Over time, she naturally used problem- solving as a means of coping with her worries and fears concerning her relationships with others.
+This process allowed Madam Bouchard to verbally express and describe her perceptions without fear of judgment. It also allowed her to practice utilizing reasoning as a means of testing the accuracy of her interpretations of other people's social behaviors. Over time, she naturally used problem-solving as a means of coping with her worries and fears concerning her relationships with others.
 
-For example, facilitate their clients to better manage and clarify their time, priorities, and plan for the future by listing plans and activities on a calendar and comparing them practically and ideologically. To resolve interper- sonal difficulties with clients, therapists functioning in the problem-solving mode are likely to structure the dialogue and outline guidelines for the negotiation of differences.
+for example, facilitate their clients to better manage and clarify their time, priorities, and plan for the future by listing plans and activities on a calendar and comparing them practically and ideologically. To resolve interpersonal difficulties with clients, therapists functioning in the problem-solving mode are likely to structure the dialogue and outline guidelines for the negotiation of differences.
 
 
 ## Strengths of the Problem-Solving Mode
 
-By asking questions, co-creating lists, and enabling clients to think differently about problems or obstacles, thera- pists interact with their clients on a more cognitive and intellectual level. Thus, this mode is most appropriate for clients, young or old, who are able to engage verbally, and in a reciprocally cerebral way, with the therapist. Clients uncomfortable with a more emotion-focused approach to the therapeutic relationship may feel more at ease with the structure, predictability, and intellectualism, in the case of more advanced dialogue, conveyed by therapists using the problem-solving mode.
+By asking questions, co-creating lists, and enabling clients to think differently about problems or obstacles, therapists interact with their clients on a more cognitive and intellectual level. Thus, this mode is most appropriate for clients, young or old, who are able to engage verbally, and in a reciprocally cerebral way, with the therapist. Clients uncomfortable with a more emotion-focused approach to the therapeutic relationship may feel more at ease with the structure, predictability, and intellectualism, in the case of more advanced dialogue, conveyed by therapists using the problem-solving mode.
 
 
 ## Cautions of the Problem-Solving Mode
 
-As with other modes, it is impossible for the problem-solving mode to work with all clients in all situations. When thera- pists function in the problem-solving mode, some are vul- nerable to overutilize agenda-focused questioning without paying enough attention to other interpersonal needs that the client may bring to the relationship. Some may find a therapist's adoption of such questions reassuring or en- lightening, whereas others may interpret the therapist's behavior as too strategic or even manipulative. Therapists comfortable with approaches that require more emotion- ally intense levels of interaction and communication. Ad- ditionally, as stated earlier, not all clients will be able or inclined to engage in a reciprocal verbal exchange of this nature with their therapists.
+As with other modes, it is impossible for the problem-solving mode to work with all clients in all situations. When therapists function in the problem-solving mode, some are vulnerable to overutilize agenda-focused questioning without paying enough attention to other interpersonal needs that the client may bring to the relationship. Some may find a therapist's adoption of such questions reassuring or enlightening, whereas others may interpret the therapist's behavior as too strategic or even manipulative. Therapists comfortable with approaches that require more emotionally intense levels of interaction and communication. Additionally, as stated earlier, not all clients will be able or inclined to engage in a reciprocal verbal exchange of this nature with their therapists.
 
 
 ## Modes in Perspective
 
-The six therapeutic modes described in this chapter are based on frequently observed interpersonal behaviors that occur in occupational therapy. Although examples of how each of these modes is used in practice are provided, there is no single "typical" manner in which a therapist might enact a mode or a set of modes when working with a client. For example, as noted in Table Four point one, a mode may be delivered with a statement, a question, or, in some cases, nonverbally. It is important to remember that, with the exception of the advocating mode and the problem-solving mode, the four other modes may be delivered nonverbally or verbally. For example, the empathizing mode may be enacted by sitting with a client silently until the client feels ready to talk. The instructing mode may be conveyed by wearing a serious expression and extending a hand to greet a client rather than indulging the client's ongoing attempts to embrace.
+The six therapeutic modes described in this chapter are based on frequently observed interpersonal behaviors that occur in occupational therapy. Although examples of how each of these modes is used in practice are provided, there is no single typical manner in which a therapist might enact a mode or a set of modes when working with a client. For example, as noted in Table Four point one, a mode may be delivered with a statement, a question, or, in some cases, nonverbally. It is important to remember that, with the exception of the advocating mode and the problem-solving mode, the four other modes may be delivered nonverbally or verbally. For example, the empathizing mode may be enacted by sitting with a client silently until the client feels ready to talk. The instructing mode may be conveyed by wearing a serious expression and extending a hand to greet a client rather than indulging the client's ongoing attempts to embrace.
 
-Similar to all forms of communication, the intensity with which each mode is enacted may, and should, change according to the client's interpersonal characteristics and the therapeutic context. For example, the encouraging mode may be communicated to a client in a quiet and sub- tle manner when a client smiles slightly and quietly states: "When I walked by your room this morning, I saw that you were sitting up. It looked like you were practicing your fin- ger exercises." It may be enacted with the same client in a more obvious manner when the therapist wears a big smile and, with an enthusiastic tone of voice, states more loudly: "You made that toilet transfer on your very first try!"
+Similar to all forms of communication, the intensity with which each mode is enacted may, and should, change according to the client's interpersonal characteristics and the therapeutic context. For example, the encouraging mode may be communicated to a client in a quiet and subtle manner when a client smiles slightly and quietly states: When I walked by your room this morning, I saw that you were sitting up. It looked like you were practicing your finger exercises. It may be enacted with the same client in a more obvious manner when the therapist wears a big smile and, with an enthusiastic tone of voice, states more loudly: You made that toilet transfer on your very first try!
 
 
 ## Mode Shifting
 
-According to the IRM, mode shifting, shifting from one of the six modes to another of the six modes, is de- sirable. It is the central part of the interpersonal reason- ing process; blended and incongruent mode use, which will be covered in the next section, is not. Thus far, the modes have been discussed and illustrated in isolation of each other. However, there are countless possibilities for ways in which it is optimal for a therapist to switch modes in specific sequences. Modes may and should be used interchangeably, provided they do not become confused with one another during a single communication point. As introduced in Chapter three, to be most therapeutic a mode must be used purely, without confusion with another mode. Pure use of modes communicates a single message, and it ensures that the therapist is taking responsibility for his or her chosen means of communicating within a given moment.
+According to the IRM, mode shifting, that is, shifting from one of the six modes to another of the six modes, is desirable. It is the central part of the interpersonal reasoning process; blended and incongruent mode use, which will be covered in the next section, is not. Thus far, the modes have been discussed and illustrated in isolation of each other. However, there are countless possibilities for ways in which it is optimal for a therapist to switch modes in specific sequences. Modes may and should be used interchangeably, provided they do not become confused with one another during a single communication point. As introduced in Chapter three, to be most therapeutic a mode must be used purely, without confusion with another mode. Pure use of modes communicates a single message, and it ensures that the therapist is taking responsibility for his or her chosen means of communicating within a given moment.
 
 For example, when a therapist functioning in the collaborative mode during the time a client is engaging in a familiar task notes that a client appears to need more structure and guidance when engaging in an unfamiliar task, this observation would naturally prompt a shift from the collaborating mode to the instructing mode. In this case, the therapist may cease turning to the client for input and may, instead, make a statement such as: "Would you like me to provide you with some guidance for this task?" Assuming that the client wishes for this guidance, the therapist would then begin to provide clear instruction, making suggestions along the way and providing constructive feedback, where necessary.
 
@@ -424,7 +435,7 @@ Take responsibility for what you say or ask of a client, even if you are communi
 
 ## Therapeutic Style: Using the Modes
 
-Chapter Four Knowing Ourselves as Therapists one hundred five modes more often than others when treating clients. Accordingly, they develop a therapeutic style, or a skill set that incorporates the therapeutic modes they view as being maximally therapeutic for their clients.
+modes more often than others when treating clients. Accordingly, they develop a therapeutic style, or a skill set that incorporates the therapeutic modes they view as being maximally therapeutic for their clients.
 
 For example, Jane Melton describes herself as having a "natural optimistic belief in people" and as drawing upon her determination, patience, and ability to empathize and listen to clients reflectively as well as her honesty, tact, resilience, and gentleness when providing feedback and working with clients. Although Jane utilizes several interpersonal modes and adapts them thoughtfully depending on the unique needs of each client, her self-description indicates that she draws most heavily on her natural hope and optimism, her belief in her clients' capacity for autonomy and independence, her self-discipline as it manifests in the form of patience, her preference for listening and understanding over activity-focusing or rushing into doing, and her overall gentleness of style. To summarize this in terms of mode, empathizing, collaborating, and encouraging are Jane's primary modes of interaction.
 
@@ -447,36 +458,31 @@ For example, Michele Shapiro works with pediatric clients, some of whom are nonv
 
 a structured and goal-directed approach to therapy. Once she broadened her approach to include careful vigilance toward her clients' needs and nondirective strategies, Michele recognized that she was more able to engage a wider range of her clients in therapy. During our inter- view, Michele disclosed:
 
-Years ago when I worked with learning disabled kids, I remember sometimes feeling that I must try to "con- trol" the child's behavior. Now I prefer working with a child who has special needs and is out of control. When I do my detective work and decipher the base of the sensory problem, then it makes me feel good. In the past I needed to see things happening to know I was successful-today a child's smile makes me feel that the session was successful.
+Years ago when I worked with learning disabled kids, I remember sometimes feeling that I must try to "control" the child's behavior. Now I prefer working with a child who has special needs and is out of control. When I do my detective work and decipher the base of the sensory problem, then it makes me feel good. In the past I needed to see things happening to know I was successful-today a child's smile makes me feel that the session was successful.
 
 
 ## Locating One's Comfort Zone of Preferred Modes
 
-A central objective of the IRM is to identify one's current "comfort zone" of interpersonal behavior during therapy. As you develop as a therapist, it is similarly important to practice broadening that comfort zone to include increas- ingly unfamiliar and unutilized interpersonal styles, or modes. The beginning of the chapter asked you to com- plete the Self-Assessment of Modes Questionnaire, Ver- sion Three, located in the Exercises section (Exercise Four point one). Now, you should use those responses to fill out the Personal Modes Profile that follows. Doing so will indi- cate your preferred therapeutic modes and their relative strength. Following this, you should identify less famil- iar modes that might strengthen your relationships with clients or allow you to practice more successfully with a broader range of client personalities in Exercise Four point two.
+A central objective of the IRM is to identify one's current "comfort zone" of interpersonal behavior during therapy. As you develop as a therapist, it is similarly important to practice broadening that comfort zone to include increas- ingly unfamiliar and unutilized interpersonal styles, or modes. The beginning of the chapter asked you to com- plete the Self-Assessment of Modes Questionnaire, Ver- sion Three, located in the Exercises section (Exercise Four point one). Now, you should use those responses to fill out the Personal Modes Profile that follows. Doing so will indicate your preferred therapeutic modes and their relative strength. Following this, you should identify less famil- iar modes that might strengthen your relationships with clients or allow you to practice more successfully with a broader range of client personalities in Exercise Four point two.
 
 
 ## Therapeutic Style and Daily Interpersonal Behavior: Striving Toward Integration
 
 The idea of developing a therapeutic style and using modes can be misunderstood as lacking a sense of genu- ineness. However, this conclusion emanates from a mis- understanding of the role of genuineness in therapy. The genuine therapist is one who sincerely wants and makes an effort to do what is best for the client. Genuineness is not simply being yourself. It is being the best person you can be, given the client's needs.
 
-That said, it is nonetheless important for therapists to strive toward and integrate their therapeutic style and their more innate daily ways of interacting with others. The closer one's everyday interpersonal behavior is to one's therapeutic style, the more likely it is that a ther- apist feels able to interact therapeutically with clients in ways that feel natural. Thus, although it is important to broaden one's repertoire of therapeutic modes, it is equally important to develop a therapeutic style that feels true and is generally consistent with one's everyday ways of interacting.
+That said, it is nonetheless important for therapists to strive toward and integrate their therapeutic style and their more innate daily ways of interacting with others. The closer one's everyday interpersonal behavior is to one's therapeutic style, the more likely it is that a therapist feels able to interact therapeutically with clients in ways that feel natural. Thus, although it is important to broaden one's repertoire of therapeutic modes, it is equally important to develop a therapeutic style that feels true and is generally consistent with one's everyday ways of interacting.
 
-To a certain extent, every therapist must practice a degree of interpersonal self-discipline. That is, you must exercise restraint regarding the extent to which you re- veal all aspects of your personality to clients. The Occu- pational Therapy Code of Ethics and occupational therapy's core values statement reinforce that it is in the best interest of clients to conduct therapy with prudence and circumspection. This sometimes in- cludes controlling one's interpersonal impulses and always avoiding interactions with clients that may be perceived as exploitive or emotionally harmful. Any experienced ther- apist knows that at certain moments during therapy prac- tice, particularly with more challenging clients, it takes impulse control and significant restraint to draw only on the aspects of oneself that have the potential to be ther- apeutic. It is impossible to appreciate all clients equally, and there are moments when we may wish to show clients we find more difficult how we really feel about them, but our values, ethics, and better judgment prevent us from doing this.
+To a certain extent, every therapist must practice a degree of interpersonal self-discipline. That is, you must exercise restraint regarding the extent to which you reveal all aspects of your personality to clients. The Occupational Therapy Code of Ethics and occupational therapy's core values statement reinforce that it is in the best interest of clients to conduct therapy with prudence and circumspection. This sometimes includes controlling one's interpersonal impulses and always avoiding interactions with clients that may be perceived as exploitive or emotionally harmful. Any experienced therapist knows that at certain moments during therapy practice, particularly with more challenging clients, it takes impulse control and significant restraint to draw only on the aspects of oneself that have the potential to be therapeutic. It is impossible to appreciate all clients equally, and there are moments when we may wish to show clients we find more difficult how we really feel about them, but our values, ethics, and better judgment prevent us from doing this.
 
-As therapists develop expertise in the therapeutic use of self, they find that they do not have to work as hard as they did before to exercise this capacity for circum- spection and self-restraint. As therapists become more experienced in the use of self, the act of interacting therapeutically comes to feel natural. This sense of nat- uralness comes from knowing the benefits and limits of one's natural modes and developing comfort utilizing the modes that were not, at first, as easy to use. In addition, therapists often feel they can function more seamlessly with certain types of clients and in settings that match their natural inclinations, using certain modes rather than others. For example, a therapist once shared that she en- joys working with young children because she can freely
+As therapists develop expertise in the therapeutic use of self, they find that they do not have to work as hard as they did before to exercise this capacity for circumspection and self-restraint. As therapists become more experienced in the use of self, the act of interacting therapeutically comes to feel natural. This sense of naturalness comes from knowing the benefits and limits of one's natural modes and developing comfort utilizing the modes that were not, at first, as easy to use. In addition, therapists often feel they can function more seamlessly with certain types of clients and in settings that match their natural inclinations, using certain modes rather than others. For example, a therapist once shared that she enjoys working with young children because she can freely if she happens to overuse the mode with a given client. Similarly, another therapist once told me that she prefers working in physical rehabilitation settings because she en- joys functioning in the role of teacher in that much of her job involves demonstrating certain tasks and instructing clients to relearn important daily living skills.
 
+More experienced therapists often see little difference between their therapeutic styles and the ways they typically behave with friends and family. Even though they may feel more relaxed and spontaneous in their relationships with clients, therapists for whom there is little difference between their therapeutic styles and their everyday interpersonal interactions tend to make fewer interpersonal oversights with their clients; they tend to say and do the appropriate things at the right times. For example, when they provide feedback to a client that might be difficult to hear, it is well timed-consistent with their general way of relating-and presented with great sensitivity and tact. Therapists whose therapeutic style matches their everyday style generally feel they do not have to exercise considerable emotional restraint and extensive tactical thinking during therapy.
 
-## Chapter Four Knowing Ourselves as Therapists one hundred seven
+Vardit Kindler provides a succinct description of this match. She describes her therapeutic style and her behavior in everyday life as relatively indistinguishable.
 
-if she happens to overuse the mode with a given client. Similarly, another therapist once told me that she prefers working in physical rehabilitation settings because she en- joys functioning in the role of teacher in that much of her job involves demonstrating certain tasks and instructing clients to relearn important daily living skills.
-
-More experienced therapists often see little difference between their therapeutic styles and the ways they typi- cally behave with friends and family. Even though they may feel more relaxed and spontaneous in their rela- tionships with clients, therapists for whom there is lit- tle difference between their therapeutic styles and their everyday interpersonal interactions tend to make fewer interpersonal oversights with their clients; they tend to say and do the appropriate things at the right times. For example, when they provide feedback to a client that might be difficult to hear, it is well timed-consistent with their general way of relating-and presented with great sensitivity and tact. Therapists whose therapeutic style matches their everyday style generally feel they do not have to exercise considerable emotional restraint and extensive tactical thinking during therapy.
-
-Vardit Kindler provides a succinct description of this match. She describes her therapeutic style and her behav- ior in everyday life as relatively indistinguishable.
+My general style of relating is very informal. I accept everyone as an equal. I look at people's strengths with- out being overly critical. This is my style of relating both inside and outside therapy.
 
 Similarly, Carmen-Gloria de las Heras explains:
-
-I flow easily between the two. I keep my way of being. I am spontaneous and generous. I am firm when I have to be, but I keep my fundamental belief in people. I am myself with clients as I am with everyone else.
 
 This ability to integrate and see an increasing number of parallels between one's therapeutic style and one's interpersonal style outside of therapy, combined with the ability to draw on a wide repertoire of interpersonal behaviors as appropriate for any given interaction, may be associated with decreased feelings of burnout and frustration. Having a therapeutic style that feels consistent with one's day-to-day personality is referred to as an integrated use of self.
 
@@ -505,67 +511,66 @@ This assessment is designed to allow you to identify whether you have a dominant
 
 For every scenario, please rank-order each of the four response options according to the extent to which you would view the option as being consistent with your predominant (i.e., usual) way of interacting. Please rank the general idea or feeling you have about the response, even if the way that the example is worded is not identical to what you would actually say. Your numeric rankings should adhere to the following scale:
 
-One equals highly consistent with how I would usually respond.
-
-Two equals very consistent with how I would usually respond.
-
-Three equals moderately consistent with how I would usually respond.
-
 
 ## SUMMARY
 
-The "cautions" section under each of the interpersonal modes reveals one of the hidden secrets of therapeutic use of self-that no therapist is perfect. There is no way to escape the caveats and downsides that go along with any therapeutic mode or set of modes. Additionally, no one is immune from communicating the modes suboptimally from time to time. One key to the intentional use of self is to familiarize oneself with the caveats to each of the modes that are part of one's therapeutic style. The more you develop an ability to draw on as many modes as necessary and appropriate for a given client, the more likely you are to avoid overutilizing one style at the expense of using a more appropriate or more indicated style for that client.
+The "cautions" section under each of the interpersonal modes reveals one of the hidden secrets of therapeutic use of self—that no therapist is perfect. There is no way to escape the caveats and downsides that go along with any therapeutic mode or set of modes. Additionally, no one is immune from communicating the modes suboptimally from time to time. One key to the intentional use of self is to familiarize oneself with the caveats to each of the modes that are part of one's therapeutic style. The more you develop an ability to draw on as many modes as necessary and appropriate for a given client, the more likely you are to avoid overutilizing one style at the expense of using a more appropriate or more indicated style for that client.
 
 Please note that you may only assign a number once; please do not assign the same number to more than one response option. It is recognized that your actual response may depend on information that is not available in the case description. The point of this questionnaire is not to ascertain a correct response but to ascertain the one that is most representative of your interpersonal style. Please do not dwell on the options for too long. Instead, choose the response that would be the easiest, most natural, or most typical for you in each situation.
 
-Please see the following example, where, in this case, option D is the response most consistent with the respondent's usual way of interacting:
+Please see the following example, where, in this case, option "D" is the response most consistent with the respondent's usual way of interacting:
 
-One. You are working with a ninety-two-year-old retired steelworker who has always performed his own handiwork around the house. He is receiving postsurgical therapy for a shoulder injury that he endured after a fall from a stepstool while changing a light bulb in his home. When the client is not in the room, his family members tell you that this is not the first accident that he has had doing handiwork. They add that, recently, he has become more accident-prone while completing tasks that should be done by hired workers. The client's family is concerned about his safety. They feel that he does not listen to them when they ask him to call a hired worker instead of performing household duties on his own. The family reports that the client is otherwise safe when not engaging in household tasks. Please rank-order each response to the family according to the following scale:
+A marathon runner is looking for a relief station to rehydrate but cannot find one. The runner is trying to decide whether to continue running or to rest in order to avoid a state of complete exhaustion. Walking alongside the runner, you are able to have a conversation. Please rank-order the following possible responses.
 
-One equals highly consistent with how I would usually respond.
+A. Three. Assume a clear leadership role by providing the runner with information, structure, guidance, or constructive feedback (e.g., educate the runner on the potential consequences of continuing to run without hydration).
 
-Two equals very consistent with how I would usually respond.
+B. Two. Ask questions or engage in a discussion that leads the runner to think about alternative ways of approaching the situation (e.g., assist the runner in weighing the pros and cons of continuing to run without hydration).
 
-Three equals moderately consistent with how I would usually respond.
+C. Four. Give the runner total and complete control over the situation (e.g., ask the runner what he or she feels is the best thing to do in this moment).
 
-Four equals slightly or not at all consistent with how I would usually respond.
+D. One. Normalize the runner's experience or connect the runner with social or physical resources that will enable him or her to have an equal chance of finishing (e.g., let the runner know that dehydration is common among marathoners; if desired, gather information for the runner about the location of the next relief station).
+
+One. You are working with a ninety-two-year-old retired steelworker who has always performed his own handiwork around the house. He is receiving post-surgical therapy for a shoulder injury that he endured after a fall from a stepstool while changing a light bulb in his home. When the client is not in the room, his family members tell you that this is not the first accident that he has had doing handiwork. They add that, recently, he has become more accident-prone while completing tasks that should be done by hired workers. The client's family is concerned about his safety. They feel that he does not listen to them when they ask him to call a hired worker instead of performing household duties on his own. The family reports that the client is otherwise safe when not engaging in household tasks. Please rank-order each response to the family according to the following scale:
+
+A. Assume a clear leadership role by providing the family with information, structure, guidance, or constructive feedback (e.g., provide the family with information on the type of safety recommendations that you will discuss with the client and reassure them that these recommendations will be included in the client's next session).
+
+B. Give the family total and complete control over the situation (e.g., ask the family what they think they will need from you to better ensure the client's safety at home).
+
+C. Witness, listen to, and show full acceptance of the client's thoughts, feelings, or behavior (e.g., summarize what you have just learned and make a statement that validates their concerns about the client's safety).
+
+D. Ask questions or engage in a discussion that leads the family to think about alternative ways of approaching the situation (e.g., assist the family in weighing the pros and cons of a range of ways that a convincing message about safety might be best communicated to the client).
 
 Two. You are working with a forty-two-year-old engineer specializing in geomechanics. Work has always been one of the most gratifying things in his life. He is receiving occupational therapy following a spinal cord injury. Because of the injury, the client now requires a special form of powered mobility that traverses different types of terrain in order to complete fieldwork assignments. However, neither his employer nor his insurance company is willing to cover the cost of the equipment, arguing that the powered mobility that he currently uses should be adequate. The client tells you that this specialized power mobility is vital to his ability to complete his work. He adds that his current chair frequently gets stuck, limiting his timeliness, efficiency, and overall productivity. Please rank-order each response according to the following scale:
 
-One equals highly consistent with how I would usually respond.
+A. Witness, listen to, and show full acceptance of the client's thoughts, feelings, or behavior (e.g., summarize what you have just learned and make a statement that validates the client's experience).
 
-Two equals very consistent with how I would usually respond.
+b. Normalize the client's experience or connect him with social or physical resources that will enable him to have equal access and opportunities (e.g., inform the client that the desired chair represents a reasonable accommodation and connect him with a well-known disability rights organization for assistance).
 
-Three equals moderately consistent with how I would usually respond.
-
-Four equals slightly or not at all consistent with how I would usually respond.
+d. Ask questions or engage in a discussion that leads the client to think about alternative ways of approaching the situation (e.g., create a list of options for actions that might be taken to address this situation and analyze the viability of each option with the client).
 
 Three. You are working with a seventy-four-year-old homemaker and accountant from a rural community. She has invested her entire life in raising a family while simultaneously operating a successful part-time tax-assistance business from home. Until now, she has been in perfect health and has never experienced any injuries or impairments. Newly referred for rehabilitation and having successfully accomplished all of the activities thus far, she is clearly frustrated and demoralized over the difficulty that she is having making a toilet transfer. After two transfer attempts, she tells you that she knows she cannot do it, and that she is going to end up in a nursing home. She is concerned that she won't be able to return to her home, where she has lived for thirty years. Most individuals with her level of impairment are eventually able to return to independent living and are able to make the transfer. Please rank-order each response according to the following scale:
 
-One equals highly consistent with how I would usually respond.
+a. Assume a clear leadership role by providing the client with information, structure, guidance, or constructive feedback (e.g., tell her that learning a transfer requires practice and review the steps that you have already taught her thus far).
 
-Two equals very consistent with how I would usually respond.
+b. Normalize the client's experience or connect her with social or physical resources that will enable her to have equal access and opportunities (e.g., tell the client that her frustration is normal and that most clients on the unit feel this way when they are first learning the transfer).
 
-Three equals moderately consistent with how I would usually respond.
+c. Witness, listen to, and show full acceptance of the client's thoughts, feelings, or behavior (e.g., ask the client to tell you more about her frustration to get a better understanding of her concerns).
 
-Four equals slightly or not at all consistent with how I would usually respond.
+d. Provide the client with hope or positive feedback and generally show a positive attitude or emotions (e.g., tell her that you know that she will eventually learn to make the transfer because you have noticed her strength and success with equally difficult tasks).
 
-Four. You are working with a studious and well liked thirteen-year-old client with cerebral palsy you have worked with for the past two years. She tells you she is feeling hurt and betrayed by something she overheard one of her friends say to another peer at school today in reference to her disability. Because of the presence of many bullies and a lack of appropriate disciplinary oversight, her school is a socially tough environment for many students. Though she is quite gregarious and popular with most of her peers, this is not the first time that she has been hurt by jokes and disparaging comments by peers and others in public through the years. Please rank-order each response according to the following scale:
+Four. You are working with a studious and well-liked thirteen-year-old client with cerebral palsy you have worked with for the past two years. She tells you she is feeling hurt and betrayed by something she overheard one of her friends say to another peer at school today in reference to her disability. Because of the presence of many bullies and a lack of appropriate disciplinary oversight, her school is a socially tough environment for many students. Though she is quite gregarious and popular with most of her peers, this is not the first time that she has been hurt by jokes and disparaging comments by peers and others in public through the years. Please rank-order each response according to the following scale:
 
-One equals highly consistent with how I would usually respond.
+a. Normalize the client's experience or connect her with social or physical resources that will enable her to have equal access and opportunities (e.g., tell the client about a peer network of other students with disabilities who have also endured bullying and are proud of their identities and of what they have achieved; offer to connect her to other students living in her area).
 
-Two equals very consistent with how I would usually respond.
+b. Give the client total and complete control over the situation (e.g., ask the client what she thinks would be most helpful to her at this time).
 
-Three equals moderately consistent with how I would usually respond
+c. Provide the client with hope or positive feedback and generally show a positive attitude or emotions (e.g., remind the client that she is one of the more popular students in her class; also remind her of all the positive things you know that her other friends say about her on a regular basis).
 
-Four equals slightly or not at all consistent with how I would usually respond
+d. Witness, listen to, and show full acceptance of the client's thoughts, feelings, or behavior (e.g., tell her that she has a right to feel betrayed and ask her to tell you more about the people and circumstances involved).
 
 Five. You are working with a twenty-six-year-old, recently divorced truck driver who is recovering from internal injuries and multiple abrasions and fractures to his left hand, arm, and leg. His injuries occurred during a post-divorce party with friends that involved drinking and riding jet skis. In the middle of an uncomfortable icing treatment on his hand, he tells you that none of his friends have visited him in the hospital and that he feels very anxious about how dependent he has become on the hospital staff. He is worried about losing his job, being alone, and how he will get by once he returns to his home. Please rank-order each response according to the following scale:
 
 a. Provide the client with hope, positive feedback, and generally show a positive attitude or emotions (e.g., point out the client's strengths, highlighting all of his good progress thus far; remind him that as his functioning improves, he will begin to build increasing confidence about returning home and eventually getting back to work).
-
-
-## Chapter Four Knowing Ourselves as Therapists One hundred thirteen
 
 b. Assume a clear leadership role by providing the client with information, structure, guidance, or constructive feedback (e.g., educate the client about the course of rehabilitation, emphasizing that he will not be discharged from the hospital to outpatient and work rehabilitation until he feels confident about his abilities and is assessed by the treatment team to be ready and safe for such).
 
@@ -581,9 +586,6 @@ b. Ask questions or engage in a discussion that leads the client to think about 
 
 c. Witness, listen to, and show full acceptance of the client's thoughts, feelings, or behavior (e.g., tell the client that you want to understand more about her concerns about the kitchen and ask her to explain more about why she does not want to eat or participate in the cooking group).
 
-
-## One hundred fourteen Part One Theoretical Foundations and Guidelines for Practice
-
 d. Provide the client with hope or positive feedback and generally show a positive attitude or emotions (e.g., remind the client of how much she usually enjoys the cooking group, and tell her that you, in particular, enjoy eating the food during times when she leads the group).
 
 Seven. You are working with a seventy-two-year-old farmer who has been working on his family's large acreage since he was very young. He is currently in the middle of a severe gout flare-up. You can see that he is becoming increasingly upset about the situation. The harvest is approaching, and if he misses it, his business will lose a significant amount of money. He is particularly worried about whether he will be able to drive the tractor for as long as the harvest requires. His son and daughter, who would normally be available to help him, are both out of town. He cannot take the type of pain medications that would provide him with rapid relief because of the side effects they have caused, and the gout medication that he takes is effective only if taken during a period of several days. Please rank-order each response according to the following scale:
@@ -596,10 +598,7 @@ c. Normalize the client's experience or connect him with social or physical reso
 
 d. Assume a clear leadership role by providing the client with information, structure, guidance, or constructive feedback (e.g., review all of the pain management strategies that you and the client have tried, including modifying his diet and sleep hygiene; remind the client of adaptations that may be used and show him alternative ways to manage the pain during the flare-up).
 
-Eight. You are working with a three and one-half-year-old boy with speech and fine motor delays and behavioral problems. The child's tantrums are becoming more frequent during therapy, so you decide to address them, involving the child's mother in your plan. The child's approach today, however, the child's mother interrupts therapy and reports that she has been feeling uncomfortable with the approach. Please rank-order each response according to the following scale:
-
-
-## Chapter 4 Knowing Ourselves as Therapists 115
+Eight. You are working with a three-and-a-half-year-old boy with speech and fine motor delays and behavioral problems. The child's tantrums are becoming more frequent during therapy, so you decide to address them, involving the child's mother in your plan. The child's approach today, however, the child's mother interrupts therapy and reports that she has been feeling uncomfortable with the approach. Please rank-order each response according to the following scale:
 
 approach today, however, the child's mother interrupts therapy and reports that she has been feeling uncomfortable with the approach. Please rank-order each response accord- ing to the following scale:
 
@@ -613,9 +612,6 @@ d. Give the parent total and complete control over the situation (e.g., inform t
 
 Nine. You are working with a ten-year-old girl who loves and excels at many sports. She has academic difficulties related to dyslexia and attention deficit-hyperactivity disorder. You have noticed that when anyone gives her an assignment that is slightly more challenging than what she is used to, she reacts immediately by not even looking at it, and instead says she doesn't get it. At the same time, if she discovers an even more challenging assignment on her own, she often completes it without errors. It is clear to you that the client is capable of doing the slightly upgraded assignments that you are recommending, but she gives up before even attempting them. Today is not different than any other day. When you present the client with a slightly more advanced assignment that you know she is capable of completing, she quickly claims she does not understand it. Please rank-order each response according to the following scale:
 
-
-## One hundred sixteen Part One Theoretical Foundations and Guidelines for Practice
-
 a. Assume a clear leadership role by providing the client with information, structure, guidance, or constructive feedback (e.g., give the client feedback that you have noticed that she completes more challenging assignments that she gives herself, but when given assignments by others, she says she does not understand it before she even reads the directions and considers how she might complete it).
 
 b. Normalize the client's experience or connect her with social or physical resources that will enable her to have equal access and opportunities (e.g., tell the client that it is normal for people to say that they can't do something when they are feeling challenged; provide her with self-advocacy language so that she can tell others what she needs when she is given more challenging assignments).
@@ -627,29 +623,25 @@ d. Give the client total and complete control over the situation (e.g., invite t
 A scoring key and interpretation map for this assessment are presented on the following pages. So that you will have a better understanding of the strengths and limitations of each mode, it is recommended that you read this chapter before scoring your self-assessment.
 
 
-## Scoring for Exercise Four point One: Determining Your Therapeutic Style
+## Scoring for Exercise Four point one: Determining Your Therapeutic Style
 
-To determine your therapeutic style (i.e., the modes you are more or less inclined to use), you should first record your responses to the Self-Assessment of Modes Questionnaire, Version Three, on the Modes Scoring Key by circling the response you chose for each question. Then, add up the number of times you chose responses corresponding to each mode and record them at the bottom of each column. The total possible number of responses for each mode is six. You may calculate your percentage score for each mode by dividing the total number of actual responses for each mode by the total number of response possibilities (six) and then multiplying by one hundred. The higher your score for each mode, the more comfortable you may feel with using the mode.
+To determine your therapeutic style (i.e., the modes you are more or less inclined to use), you should first record your responses to the Self-Assessment of Modes Questionnaire, Version three, on the Modes Scoring Key by circling the response you chose for each question. Then, add up the number of times you chose responses corresponding to each mode and record them at the bottom of each column. The total possible number of responses for each mode is six. You may calculate your percentage score for each mode by dividing the total number of actual responses for each mode by the total number of response possibilities, six, and then multiplying by one hundred. The higher your score for each mode, the more comfortable you may feel with using the mode.
 
 You may plot your profile on the Therapeutic Style Form by darkening each area in the arrows that fall inside the concentric circle that corresponds to your mode scores. This will provide a visual representation of the therapeutic style you are most likely to use during therapy.
 
 
 ## Visual Map: My Therapeutic Style
 
-Problem-solving
-
-
-## Chapter Four Knowing Ourselves as Therapists One hundred seventeen
-
 Advocating
 
+Instructing Total: out of six
 
-## One hundred eighteen Part One Theoretical Foundations and Guidelines for Practice
-
-Exercise Four point Two
+Problem-Solving Total: out of six
 
 
-## Examining Your Therapeutic Style
+## Exercise Four point two
+
+Examining Your Therapeutic Style
 
 The Therapeutic Style Form indicates the relative amount of comfort you have with each mode. In the end, however, you should reflect on and plan your own therapeutic style. A good beginning is to think about:
 
@@ -664,10 +656,10 @@ By examining your Therapeutic Style Form and reflecting on the descriptions of t
 
 I need to
 
-Next, go back and review Table Four point One, looking at the potential strengths of your preferred mode(s). Each person uses a given mode in different ways, so the actual strengths of your use of a mode depend on how you typically use it. So, reflecting on the particular way that you use your preferred mode(s), list five key strengths of your therapeutic style.
+Next, go back and review Table Four point one, looking at the potential strengths of your preferred mode(s). Each person uses a given mode in different ways, so the actual strengths of your use of a mode depend on how you typically use it. So, reflecting on the particular way that you use your preferred mode(s), list five key strengths of your therapeutic style.
 
 
-## Exercise Four point Three
+## Exercise Four point three
 
 Modes You Want to Incorporate Into Your Therapeutic Style
 

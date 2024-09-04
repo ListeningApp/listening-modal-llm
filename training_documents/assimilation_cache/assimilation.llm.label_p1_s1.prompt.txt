@@ -1,0 +1,143 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+
+EXAMPLE OUTPUT:
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+
+
+
+
+1pjs | Downloaded 08/30/23 to 131.212.250.103 . Redistribution subject to SIAM license or copyright; see https://epubs.siam.org/terms-privacy
+o2kr | Chapter 20 Data Assimilation
+v6sk | Data assimilation is a powerful methodology for incorporating data into a mathematical model in a way that is consistent with physical processes. In this chapter we present a Bayesian approach to data assimilation, discuss the Kalman filter algorithm for data assimilation for linear processes and linear data models in the presence of Gaussian noise, and describe a simple version of the ensemble Kalman filter, which relies on stochastic simulation.
+1wj6 | Keywords: Process model, data model, probability distribution, uncertainty, Bayesian statistics, reanalysis, filtering, prediction, sequential data assimila- tion, Markov chain, Kalman filter, extended Kalman filter, ensemble Kalman filter, Lorenz system, predictability.
+936l | 20.1 . Data Assimilation and Climate
+06yq | To predict the state of the climate system at any future time or to recreate its past, we must necessarily rely on mathematical models and numerical simulations. Throughout this book, we have encountered several types of models, some of them conceptual and others closer to the "real" world of physics, chemistry, and biology. Most of these models are process models-models that are described by systems of equations that determine the state variables (also called process variables) and their evolution in time. In data assimi- lation, one links such process models with data models-models of observational data of these same state variables, together with their uncertainties. The idea is that, by making it consistent with the available observations, a process model becomes better at predicting future states of the system. Data assimilation is an essential technique in any scientific dis- cipline that is data-rich and for which well-founded predictive mathematical models exist. The technique originated in engineering and has found widespread application in many other disciplines, most notably in weather prediction, where it has extended the ability to predict weather more or less accurately from hours to days. Not only does the technique generate estimates of the state of the weather system, but it also produces an assessment of the uncertainties in the prediction, often in the form of probability distributions for pro- cess variables or parameters. For an overview of data assimilation techniques in weather prediction and climate science, we refer the reader to [48, 89].
+dpv6 | A typical example of a data model is the record of SSTs obtained with a drifting in- strument that periodically reports local measurements. The record contains information about the temperature at the location of the instrument (but not anywhere else). The
+8r5j | 251
+2taz | Downloaded 08/30/23 to 131.212.250.103 . Redistribution subject to SIAM license or copyright; see https://epubs.siam.org/terms-privacy
+o3ya | Chapter 20. Data Assimilation
+r5il | 252
+5gui | record may have gaps for times when the instrument is shut down, and there may be un- certainties regarding the drifter's location and due to limited accuracy of the thermometer. Any data model contains an element of randomness.
+82qc | Data assimilation can be applied to estimate process variables at a certain time using all available observational data, including those made at a later time (reanalysis or smooth- ing mode), or to estimate the present state using past and present observations (analysis or filtering mode), or to estimate process variables that are inaccessible to observations, such as future states or states between measurements (forecasting or predicting mode). In any of these modes, problems can be approached with a variety of techniques, including opti- mization methods, which attempt to find the best fit of a parameterized process model to a given set of data; maximum likelihood methods, which work in a similar spirit but have more detailed statistical models for the uncertainties in the process; and Bayesian methods.
+ls7d | 20.2 - Example
+tzt3 | The following example (adapted from [121]) illustrates the application of data assimilation methodology to reanalysis, filtering, and forecasting.
+t8vv | Consider a process with four real-valued state variables, {X; : i = 1, ... , 4}. The state variables are related by the process model
+qvnu | X1+1 =ax; + {;, i= 1,2,3, (20.1)
+kggw | where a is a known positive constant and the random process error terms 5, are either identically zero or have a standard normal distribution, §; ~ N(0,1). (The convention is to use upper-case letters (X, Y, Z, etc.) for random quantities and the corresponding lower-case letters (x, y, z, etc.) for their realizations. Random error terms are indicated by Greek letters.)
+xrd1 | The data model consists of two observations, {Y; : i = 2,3}, and is related to the process model through the identities
+5746 | Yi=X1+{; i= 2,3, (20.2)
+7toz | where the random observational error terms {; are independent and identically distributed with a standard normal distribution, {; ~ N(0, 72). The entire model is shown schemati- cally in Figure 20.1. The problem of estimating X1 from the observations Y2 and Y3 is a reanalysis problem, estimating X2 from Y2 or X3 from Y2 and Y3 is a filtering problem, and estimating X4 from Y2 and Y3 is a forecasting problem.
+j346 | X1 - X2- X3 -X4 + Y2 Y3
+v8uq | Figure 20.1. A simple process model (black arrows) together with a data model (gray arrows).
+x972 | 20.2.1 . Variational Approach
+cwrw | We first demonstrate a variational approach. If the process error terms §; are all zero, we minimize the cost function J,
+4i0e | J(x2, x3; )23/3)=(x2-2)2+(x3-y3)2.
+h2l3 | (20.3)
+dfzb | Downloaded 08/30/23 to 131.212.250.103 . Redistribution subject to SIAM license or copyright; see https://epubs.siam.org/terms-privacy
+u6ty | 20.2. Example
+awvu | 253
+on9b | Because of the process model relation <LATEX>x _ { 3 } = \alpha x _ { 2 } ,</LATEX> <LATEX>J</LATEX> reduces to a function <LATEX>J _ { 0 }</LATEX> of <LATEX>x _ { 2 }</LATEX> alone,
+a8ge | <LATEX>J \left( x _ { 2 } , \alpha x _ { 2 } ; y _ { 2 } , y _ { 3 } \right) = J _ { 0 } \left( x _ { 2 } ; y _ { 2 } , y _ { 3 } \right) = \left( x _ { 2 } - y _ { 2 } \right) ^ { 2 } + \left( \alpha x _ { 2 } - y _ { 3 } \right) ^ { 2 } .</LATEX> (20.4)
+h27a | This function reaches its minimum at <LATEX>x _ { 2 } ^ { * } = \left( y _ { 2 } + \alpha y _ { 3 } \right) / \left( 1 + \alpha ^ { 2 } \right) ,</LATEX> so <LATEX>x _ { 2 } ^ { * }</LATEX> is the reanalysis value of <LATEX>x _ { 2 } .</LATEX> The corresponding filtering value of <LATEX>x _ { 3 }</LATEX> is <LATEX>x _ { 3 } ^ { * } = \alpha x _ { 2 } ^ { * } ,</LATEX> the forecast value of <LATEX>x _ { 4 }</LATEX> is <LATEX>x _ { 4 } ^ { * } = \alpha x _ { 3 } ^ { * } = \alpha ^ { 2 } x _ { 2 } ^ { * } ,</LATEX> and the reanalysis value of <LATEX>x _ { 1 } ,</LATEX> is <LATEX>x _ { 1 } ^ { * } = \alpha ^ { - 1 } x _ { 2 } ^ { * } .</LATEX> We obtain the same values if we use the process model relation <LATEX>x _ { 3 } = \alpha x _ { 2 }</LATEX> to eliminate <LATEX>x _ { 2 }</LATEX> from the cost function (20.3) and minimize with respect to
+pdjh | <LATEX>x _ { 3 } .</LATEX> These solutions do not give any uncertainty estimates (confidence sets) for the re- analysis and filtering values. In this case, such estimates can be inferred from the data model (20.2) and the explicit form of the solution. However, in the general case, the re- analysis and filtering values are obtained numerically and uncertainty estimates are not immediately available. If the process error terms <LATEX>5 ;</LATEX> do not vanish, the cost function must be extended with additional terms. We refer the reader to [89] for a more detailed discus- sion of the variational approach and its relation to the probabilistic approaches discussed in the next sections.
+xmgs | 20.2.2 . Maximum Likelihood Approach
+bd9h | Next we demonstrate a maximum likelihood approach to the same example. Assume that the process error variables <LATEX>\xi _ { j }</LATEX> are random and have standard normal distributions. Assume for the moment that <LATEX>X _ { 1 }</LATEX> has a fixed but unknown value <LATEX>x _ { 1 } ,</LATEX> which we wish to estimate from the observations <LATEX>Y _ { 2 }</LATEX> and <LATEX>Y _ { 3 } .</LATEX> This is therefore a reanalysis problem. Probability theory shows that
+m047 | <LATEX>Y _ { 2 } \sim N \left( \alpha x _ { 1 } , 1 + \tau ^ { 2 } \right) , \quad Y _ { 3 } \sim N \left( \alpha ^ { 2 } x _ { 1 } , 1 + \tau ^ { 2 } + \alpha ^ { 2 } \right) , \quad \text { cov } \left( Y _ { 2 } , Y _ { 3 } \right) = \alpha .</LATEX> The joint distribution of <LATEX>\left( Y _ { 2 } , Y _ { 3 } \right)</LATEX> is Gaussian with density
+gy8c | <LATEX>f _ { Y _ { 2 } , Y _ { 3 } } \left( y _ { 2 } , y _ { 3 } \right) \propto \exp \left( - \frac { 1 } { 2 } \left( y _ { 2 } - \alpha x _ { 1 } , y _ { 3 } - \alpha ^ { 2 } x _ { 1 } \right) \Sigma ^ { - 1 } \left( y _ { 2 } - \alpha x _ { 1 } , y _ { 3 } - \alpha ^ { 2 } x _ { 1 } \right) ^ { T } \right) ,</LATEX> (20.5)
+y4mj | where <LATEX>\Sigma</LATEX> is the covariance matrix,
+vpgq | <LATEX>\Sigma = \left( \begin{array}{} { 1 + \tau ^ { 2 } } & { \alpha } \\ { \alpha } & { 1 + \tau ^ { 2 } + \alpha ^ { 2 } } \end{array} \right) .</LATEX> The proportionality constant implied in Eq. (20.5) does not depend on the unknown pa- rameter <LATEX>x _ { 1 } . \text { If } y _ { 2 }</LATEX> and <LATEX>\mathcal{Y} _ { 3 }</LATEX> are actual observational data, the maximization of the expression on the right-hand side of Eq. (20.5) leads to the maximum likelihood estimate
+ousl | <LATEX>\widehat { x } _ { 1 } = \frac { \alpha \left( 1 + \tau ^ { 2 } \right) y _ { 2 } + \alpha ^ { 2 } \tau ^ { 2 } y _ { 3 } } { \alpha ^ { 2 } + \alpha ^ { 2 } \tau ^ { 2 } + \tau ^ { 4 } }</LATEX> (20.6)
+m4ju | The reanalysis estimate <LATEX>\widehat { x } _ { 1 }</LATEX> is a linear combination of the observations <LATEX>\mathcal{Y} _ { 2 }</LATEX> and <LATEX>\mathcal{Y} _ { 3 } .</LATEX> If <LATEX>0 <</LATEX> <LATEX>\alpha < 1 ,</LATEX> <LATEX>\mathcal{Y} _ { 2 }</LATEX> has the larger weight. If, furthermore, the observation errors <LATEX>\zeta _ { i }</LATEX> have very small standard deviations <LATEX>\left( \tau \ll 1 \right) ,</LATEX> the weight for <LATEX>\mathcal{Y} _ { 3 }</LATEX> is very small, so the reanalysis estimate depends mainly on the observation that was made right after the unknown state. One can show that <LATEX>\mathscr{E} \widehat { x } _ { 1 } = x _ { 1 } ,</LATEX> so the estimate is unbiased, and it is not hard to show that <LATEX>\widehat { x } _ { 1 }</LATEX> has a normal distribution and to find its variance.
+a0mb | Approaches to estimating <LATEX>x _ { 2 } \left( \text { reanalysis } \right) \text { and } x _ { 3 }</LATEX> (filtering) from observations using the maximum likelihood method are discussed in the exercises. We next introduce a general Bayesian approach to data assimilation and then return to this example.
+ki8m | 254
+km8w | 20.3 - Bayesian Approach
+wzno | Downloaded 08/30/23 to 131.212.250.103 . Redistribution subject to SIAM license or copyright; see https://epubs.siam.org/terms-privacy
+xagm | Chapter 20. Data Assimilation
+iwn5 | The contemporary approach to analysis and forecasting problems is based on Bayes' rule. This rule was first formulated by the English mathematician and Presbyterian minister THOMAS BAYES (1701-1761). It yields estimates that are asymptotically correct and does not require an appeal to the law of large numbers, which would make little sense in the climate context. To simplify the following presentation, we assume that all state variables and data are finite-dimensional vectors-a reasonable assumption for data but a substantial simplification for state variables.

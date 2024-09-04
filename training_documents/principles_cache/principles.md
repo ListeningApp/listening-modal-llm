@@ -2,13 +2,13 @@
 
 Research-Based Strategies That All Teachers Should Know
 
-This article presents ten research-based principles of instruction, along with suggestions for classroom practice. These principles come from three sources: research in cognitive science, research on master teachers, and research on cognitive supports. Each is briefly explained below.
+This article presents ten research-based principles of instruction, along with suggestions for classroom practice. These principles come from three sources: (a) research in cognitive science, (b) research on master teachers, and (c) research on cognitive supports. Each is briefly explained below.
 
-A: Research in cognitive science: This research focuses on how our brains acquire and use information. This cognitive research also provides suggestions on how we might overcome the limitations of our working memory (the mental "space" in which thinking occurs) when learning new material.
+A: Research in cognitive science: This research focuses on how our brains acquire and use information. This cognitive research also provides suggestions on how we might overcome the limitations of our working memory (i.e., the mental "space" in which thinking occurs) when learning new material.
 
 B: Research on the classroom practices of master teachers: Master teachers are those teachers whose classrooms made the highest gains on achievement tests. In a series of studies, a wide range of teachers were observed as they taught, and the investigators coded how they presented new material, how and whether they checked for student understanding, the types of support they provided to their students, and a number of other instructional activities. By also gathering student achievement data, researchers were able to identify the ways in which the more and less effective teachers differed.
 
-C: Research on cognitive supports to help students learn complex tasks: Effective instructional procedures such as thinking aloud, providing students with scaffolds, and providing students with models come from this research.
+C: Research on cognitive supports to help students learn complex tasks: Effective instructional procedures-such as thinking aloud, providing students with scaffolds, and providing students with models-come from this research.
 
 Even though these are three very different bodies of research, there is no conflict at all between the instructional suggestions that come from each of these three sources. In other words, these three sources supplement and complement each other. The fact that the instructional ideas from three different sources supplement and complement each other gives us faith in the validity of these findings.
 
@@ -45,15 +45,15 @@ Daily review is an important component of instruction. Review can help us streng
 
 For example, daily review was part of a successful experiment in elementary school mathematics. Teachers in the experiment were taught to spend eight minutes every day on review. Teachers used this time to check the homework, go over problems where there were errors, and practice the concepts and skills that needed to become automatic. As a result, students in these classrooms had higher achievement scores than did students in other classrooms.
 
-Daily practice of vocabulary can lead to seeing each practiced word as a unit (seeing the whole word automatically rather than as individual letters that have to be sounded out and blended). When students see words as units, they have more space available in their working memory, and this space can now be used for comprehension. Mathematical problem solving is also improved when the basic skills (addition, multiplication, etcetera) are overlearned and become automatic, thus freeing working-memory capacity.
+Daily practice of vocabulary can lead to seeing each practiced word as a unit (i.e., seeing the whole word automatically rather than as individual letters that have to be sounded out and blended). When students see words as units, they have more space available in their working memory, and this space can now be used for comprehension. Mathematical problem solving is also improved when the basic skills (addition, multiplication, etc.) are overlearned and become automatic, thus freeing working-memory capacity.
 
 In the classroom The most effective teachers in the studies of classroom instruction understood the importance of practice, and they began their lessons with a five- to eight-minute review of previously covered material. Some teachers reviewed vocabulary, formulae, events, or previously learned concepts. These teachers provided additional practice on facts and skills that were needed for recall to become automatic.
 
-Effective teacher activities also included reviewing the concepts and skills that were necessary to do the homework, having students correct each other's papers, and asking about points on which the students had difficulty or made errors. These reviews ensured that the students had a firm grasp of the skills and concepts that would be needed for the day's lesson.
+Effective teacher activities also included reviewing the concepts and skills that were necessary to do the homework, having students correct each others' papers, and asking about points on which the students had difficulty or made errors. These reviews ensured that the students had a firm grasp of the skills and concepts that would be needed for the day's lesson.
 
 Effective teachers also reviewed the knowledge and concepts that were relevant for that day's lesson. It is important for a teacher to help students recall the concepts and vocabulary that will be relevant for the day's lesson because our working memory is very limited. If we do not review previous learning, then we will have to make a special effort to recall old material while learning new material, and this makes it difficult for us to learn the new material.
 
-Daily review is particularly important for teaching material that will be used in subsequent learning. Examples include reading sight words (any word that is known by a reader automatically), grammar, math facts, math computation, math factoring, and chemical equations.
+Daily review is particularly important for teaching material that will be used in subsequent learning. Examples include reading sight words (i.e., any word that is known by a reader automatically), grammar, math facts, math computation, math factoring, and chemical equations.
 
 When planning for review, teachers might want to consider which words, math facts, procedures, and concepts need to
 
@@ -71,14 +71,14 @@ In addition, teachers might consider doing the following during their daily revi
 
 · Review material where errors were made.
 
-· Review material that needs overlearning (newly acquired skills should be practiced well beyond the point of initial mastery, leading to automaticity).
+· Review material that needs overlearning (i.e., newly acquired skills should be practiced well beyond the point of initial mastery, leading to automaticity).
 
 Two. Present new material in small steps with student practice after each step: Only present small amounts of new material at any time, and then assist students as they practice this material.
 
 
 ## Research findings
 
-Our working memory, the place where we process information, is small. It can only handle a few bits of information at once-too much information swamps our working memory. Presenting too much material at once may confuse students because their working memory will be unable to process it.
+Our working memory, the place where we process information, is small. It can only handle a few bits of information at once - too much information swamps our working memory. Presenting too much material at once may confuse students because their working memory will be unable to process it.
 
 Therefore, the more effective teachers do not overwhelm their students by presenting too much new material at once. Rather,
 
@@ -96,8 +96,6 @@ Some successful teachers taught by giving a series of short presentations using 
 Teaching in small steps requires time, and the more effective teachers spent more time presenting new material and guiding student practice than did the less effective teachers. In a study of mathematics instruction, for instance, the most effective mathematics teachers spent about twenty-three minutes of a forty-minute period in lecture, demonstration, questioning, and working examples. In contrast, the least effective teachers spent only eleven minutes presenting new material. The more effective teachers used this extra time to provide additional explanations, give many examples, check for student understanding, and provide sufficient instruction so that the students could learn to work independently without difficulty. In one study, the least effective teachers asked only nine questions in a forty-minute period. Compared with the successful teachers, the less effective teachers gave much shorter presentations and explanations, and then passed out worksheets and told students to solve the problems. The less successful teachers were then observed going from student to student and having to explain the material again.
 
 Similarly, when students were taught a strategy for summarizing a paragraph, an effective teacher taught the strategy using small steps. First, the teacher modeled and thought aloud as she identified the topic of a paragraph. Then, she led practice on identifying the topics of new paragraphs. Then, she taught students to identify the main idea of a paragraph. The teacher modeled this step and then supervised the students as they practiced both finding the topic and locating the main idea. Following this, the teacher taught the students to identify the supporting details in a paragraph. The teacher modeled and thought aloud, and then the students practiced. Finally, the students practiced carrying out all three steps of this strategy. Thus, the strategy of summarizing a paragraph was divided into smaller steps, and there was modeling and practice at each step.
-
-tifying the topics of new paragraphs. Then, she taught students to identify the main idea of a paragraph. The teacher modeled this step and then supervised the students as they practiced both find- ing the topic and locating the main idea. Following this, the teacher taught the students to identify the supporting details in a paragraph. The teacher modeled and thought aloud, and then the students practiced. Finally, the students practiced carrying out all three steps of this strategy. Thus, the strategy of summarizing a paragraph was divided into smaller steps, and there was modeling and practice at each step.
 
 Three. Ask a large number of questions and check the responses of all students: Questions help students practice new information and connect new material to their prior learning.
 
@@ -129,8 +127,6 @@ Across the classrooms that researchers observed, the purpose of all these proced
 
 Other teachers used choral responses to provide sufficient practice when teaching new vocabulary or lists of items. This made the practice seem more like a game. To be effective, however, all students needed to start together, on a signal. When students did not start together, only the faster students answered.
 
-ever, all students needed to start together, on a signal. When students did not start together, only the faster students answered.
-
 In addition to asking questions, the more effective teachers facilitated their students' rehearsal by providing explanations, giving more examples, and supervising students as they practiced the new material.
 
 The following is a series of stems for questions that teachers might ask when teaching literature, social science content, or science content to their students. Sometimes, students may also develop questions from these stems to ask questions of each other.
@@ -142,9 +138,9 @@ Research findings Students need cognitive support to help them learn to solve pr
 
 In the classroom
 
-Many of the skills that are taught in classrooms can be conveyed by providing prompts, modeling use of the prompt, and then guiding students as they develop independence.
+Many of the skills that are taught in classrooms can be conveyed by providing prompts, modeling use of the prompt, and then guiding students as they develop independence. When teaching reading comprehension strategies, for example, effective teachers provided students with prompts that the students could use to ask themselves questions about a short passage. In one class, students were given words such as "who," "where," "why," and "how" to help them begin a question. Then, everyone read a passage and the teacher modeled how to use these words to ask questions. Many examples were given.
 
-When teaching reading comprehension strategies, for example, effective teachers provided students with prompts that the students could use to ask themselves questions about a short passage. In one class, students were given words such as "who," "where," "why," and "how" to help them begin a question. Then, everyone read a passage and the teacher modeled how to use these words to ask questions. Many examples were given.
+ing students as they develop independence. When teaching read- ing comprehension strategies, for example, effective teachers provided students with prompts that the students could use to ask themselves questions about a short passage. In one class, students were given words such as "who," "where," "why," and "how" to help them begin a question. Then, everyone read a passage and the teacher modeled how to use these words to ask questions. Many examples were given.
 
 Next, during guided practice, the teacher helped the students practice asking questions by helping them select a prompt and
 
@@ -196,7 +192,7 @@ In contrast, the less effective teachers simply asked, "Are there any questions?
 
 Another way to check for understanding is to ask students to think aloud as they work to solve mathematical problems, plan an essay, or identify the main idea in a paragraph. Yet another check is to ask students to explain or defend their position to others. Having to explain a position may help students integrate and elaborate their knowledge in new ways, or may help identify gaps in their understanding.
 
-Another reason for the importance of teaching in small steps, guiding practice, and checking for understanding (as well as obtaining a high success rate, which we'll explore in principle seven) comes from the fact that we all construct and reconstruct knowledge as we learn and use what we have learned. We cannot simply repeat what we hear word for word. Rather, we connect our understanding of the new information to our existing concepts or "schema," and we then construct a mental summary (i.e., the gist of what we have heard). However, when left on their own, many students make errors in the process of constructing this mental summary. These errors occur, particularly, when the information is new and the student does not have adequate or well-formed background knowledge. These constructions are not errors so much as attempts by the students to be logical in an area where their background knowledge is weak. These errors are so common that there is a research literature on the development and correction.
+Another reason for the importance of teaching in small steps, guiding practice, and checking for understanding (as well as obtaining a high success rate, which we'll explore in principle seven) comes from the fact that we all construct and reconstruct knowledge as we learn and use what we have learned. We cannot simply repeat what we hear word for word. Rather, we connect our understanding of the new information to our existing concepts or "schema," and we then construct a mental summary (i.e., the gist of what we have heard). However, when left on their own, many students make errors in the process of constructing this mental summary. These errors occur, particularly, when the information is new and the student does not have adequate or well-formed background knowledge. These constructions are not errors so much as attempts by the students to be logical in an area where their background knowledge is weak. These errors are so common that there is a research literature on the development and correc-
 
 The most successful teachers spent more time in guided practice, more time asking questions, more time checking for understanding, and more time correcting errors.
 
@@ -269,7 +265,7 @@ Nine. Require and monitor independent practice: Students need extensive, success
 
 ## Research findings
 
-In a typical teacher-led classroom, guided practice is followed by independent practice by students working alone and practicing the new material. This independent practice is necessary because a good deal of practice (overlearning) is needed in order to become fluent and automatic in a skill. When material is overlearned, it can be recalled automatically and doesn't take up any space in working memory. When students become automatic in an area, they can then devote more of their attention to comprehension and application.
+In a typical teacher-led classroom, guided practice is followed by independent practice-by students working alone and practicing the new material. This independent practice is necessary because a good deal of practice (overlearning) is needed in order to become fluent and automatic in a skill. When material is overlearned, it can be recalled automatically and doesn't take up any space in working memory. When students become automatic in an area, they can then devote more of their attention to comprehension and application.
 
 Independent practice provides students with the additional review and elaboration they need to become fluent. This need for fluency applies to facts, concepts, and discriminations that must be used in subsequent learning. Fluency is also needed in operations, such as dividing decimals, conjugating a regular verb in a foreign language, or completing and balancing a chemical equation.
 
@@ -280,9 +276,13 @@ The more successful teachers provided for extensive and successful practice, bot
 
 Students need to be fully prepared for their independent practice. Sometimes, it may be appropriate for a teacher to practice some of the seatwork problems with the entire class before students begin independent practice.
 
-Research has found that students were more engaged when their teacher circulated around the room, and monitored and supervised their seatwork. The optimal time for these contacts was thirty seconds or less. Classrooms where the teachers had to stop at students' desks and provide a great deal of explanation during seatwork were the classrooms where students were making errors. These errors occurred because the guided practice was not sufficient for students to engage productively in independent practice. This reiterates the importance of adequately preparing students before they begin their independent practice.
+Research has found that students were more engaged when their teacher circulated around the room, and monitored and
 
-Some investigators have developed procedures, such as cooperative learning, during which students help each other as they study. Research has shown that all students tend to achieve more in these settings than do students in regular settings. Presumably, some of the advantage comes from having to explain the material to someone else and/or having someone else (other than the teacher) explain the material to the student. Cooperative learning offers an opportunity for students to get feedback from their peers about correct as well as incorrect responses, which promotes both engagement and learning. These cooperative/competitive settings are also valuable for helping slower students in a class by providing extra instruction for them.
+The best way to become an expert is through practice-thousands of hours of practice. The more the practice, the better the performance.
+
+supervised their seatwork. The optimal time for these contacts was thirty seconds or less. Classrooms where the teachers had to stop at students' desks and provide a great deal of explanation during seatwork were the classrooms where students were making errors. These errors occurred because the guided practice was not sufficient for students to engage productively in independent practice. This reiterates the importance of adequately preparing students before they begin their independent practice.
+
+Some investigators have developed procedures, such as cooperative learning, during which students help each other as they study. Research has shown that all students tend to achieve more in these settings than do students in regular settings. Presumably, some of the advantage comes from having to explain the material to someone else and/or having someone else (other than the teacher) explain the material to the student. Cooperative learning offers an opportunity for students to get feedback from their peers about correct as well as incorrect responses, which promotes both engagement and learning. These cooperative and competitive settings are also valuable for helping slower students in a class by providing extra instruction for them.
 
 Ten. Engage students in weekly and monthly review: Students need to be involved in extensive practice in order to develop well-connected and automatic knowledge.
 
@@ -330,7 +330,7 @@ Monitor students when they begin independent practice.
 
 particular topic is large and well connected, it is easier to learn new information and prior knowledge is more readily available for use. The more one rehearses and reviews information, the stronger these interconnections become. It is also easier to solve new problems when one has a rich, well-connected body of knowledge and strong ties among the connections. One of the goals of education is to help students develop extensive and available background knowledge.
 
-Knowledge (even very extensive knowledge) stored in long-term memory that is organized into patterns only occupies a tiny amount of space in our limited working memory. So having larger and better-connected patterns of knowledge frees up space in our working memory. This available space can be used for reflecting on new information and for problem solving. The development of well-connected patterns (also called "unitization" and "chunking") and the freeing of space in the working memory is one of the hallmarks of an expert in a field.
+Knowledge (even very extensive knowledge) stored in long- term memory that is organized into patterns only occupies a tiny amount of space in our limited working memory. So having larger and better-connected patterns of knowledge frees up space in our working memory. This available space can be used for reflecting on new information and for problem solving. The development of well-connected patterns (also called "unitization" and "chunking") and the freeing of space in the working memory is one of the hallmarks of an expert in a field.
 
 Thus, research on cognitive processing supports the need for a teacher to assist students by providing for extensive reading of a variety of materials, frequent review, and discussion and application activities. The research on cognitive processing suggests that these classroom activities help students increase the number of pieces of information in their long-term memory and organize this information into patterns and chunks.
 
@@ -339,9 +339,11 @@ The more one rehearses and reviews information, the stronger the interconnection
 
 ## Principles
 
-(Continued from page 19)
+(Continued from page nineteen)
 
 helps them acquire the ability to recall past learning automatically.
+
+The best way to become an expert is through practice-thousands of hours of practice. The more the practice, the better the performance.
 
 
 ## In the classroom

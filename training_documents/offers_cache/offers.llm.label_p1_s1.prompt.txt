@@ -1,0 +1,205 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+
+EXAMPLE OUTPUT:
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+
+
+
+
+1pjs | VOLUME 1
+o2kr | "Dude ... this book is SO GOOD !! " Russell Brunson, CEO of Clickfunnels
+v6sk | $100M OFFERS
+1wj6 | UNITEDSTATES
+936l | FF 95594731 A F6
+06yq | OFAMERICA
+dpv6 | FF 95594731A
+8r5j | 1
+2taz | ONE HUND
+o3ya | ALEX HORMOZI
+r5il | HOW TO MAKE OFFERS SO GOOD PEOPLE FEEL STUPID SAYING NO
+5gui | ACQUISITION.COM VOLUME I: $100M OFFERS
+82qc | HOW TO MAKE OFFERS SO GOOD PEOPLE PEOPLE FEEL STUPID SAYING NO
+ls7d | ALEX HORMOZI
+tzt3 | Copyright @ 2021 by Alex Hormozi
+t8vv | All rights reserved. No part of this publication may be reproduced, distributed, or transmitted in any form or by any means, including photocopying, recording, or other electronic or mechanical methods, without the prior written permission of the publisher, except in the case of brief questions embodied in critical reviews and certain other noncommercial uses permitted by copyright law. For permission requests, write to the publisher at the address below.
+qvnu | Cover Design by Charlotte Chan Mikkelsen
+kggw | Photography, Illustrations, and Interior Layout by Alex Hormozi
+xrd1 | DISCLAIMER
+5746 | The content provided in this book is designed to provide helpful information on the subjects discussed. This book is not meant to be used, nor should it be used, to diagnose or treat any medical condition. The numbers in this book are theoretical and to be used for illustrative purposes only. The publisher and the author are not responsible for any actions you take or do not take as a result of reading this book, and are not liable for any damages or negative consequences from action or inaction to any person reading or following the information in this book. References are provided for informational purposes only and do not constitute endorsement of any websites or other sources. Readers should also be aware that the websites listed in this book may change or become obsolete.
+7toz | WHAT OTHERS HAVE SAID
+j346 | "After spending one day with Alex, we added $5 MILLION PER YEAR in profit without adding any new services. When Alex talks about acquisition, you should listen (as long as you don't hate money)."
+v8uq | BROOKE CASTILLO, CEO, LIFE COACH SCHOOL
+x972 | "My career can be broken into two chapters: the first was 15 years of banging my head against the wall trying to figure out why I was not fulfilling my potential. The second chapter started when I read '$100M Offers' by Alex hormozi. It was then that I had the confidence to know exactly how to have the success that I knew I was capable of enjoying. If you are a business owner that is done settling for less than your potential, this book will quickly show you that it's not your fault; no one has taught you how to make irresistible offers. This book will change that within a few chapters. Consider this book your second chapter. It is an absolute game changer."
+cwrw | "We first found out about Alex and instantly bought his book. It's the best book I've ever read really in business. Probably the biggest thing I learned from him is that so many times in business you want to charge your customers more and you almost feel guilty like 'oh my gosh can I really do this?' but I think there's nobody better that really puts packages and prices together that not only you can increase your price for your business but you're also increasing the value for the customer at the exact same time. Since we started working with him ... within two months ... our business was already doing $10M/yr in sales ... INSTANT DOUBLE and it's only been two months since we came in touch with him and our business is on a run rate to do $23M/yr in sales now. Just from changing our pricing, our packaging, and at the same time delivering better results and outcomes for the clients that we work with."
+4i0e | GUIDING PRINCIPLES
+h2l3 | There are no rules.
+dfzb | Thank You
+u6ty | To Leila: You are my ride-or-die: a term used to describe a person (usually a woman) that is willing to do anything for their partner, friend, or family, even in the face of danger. Couldn't do this without you . . . and wouldn't want to. You make waking up everyday worth it. Thank you for being unapologetically you. You're a down motherfucker.
+awvu | To Trevor: You're the best friend a guy could ask for. Thank you for spending hours upon hours beating up the ideas that became this book with me. It would not be half as good as it is without your relentless drive for simplification and clarity. Eternally grateful for our friendship. You make me feel less alone in the world. Cheers to becoming old and crotchety.
+on9b | CONTENTS
+a8ge | START HERE
+h27a | "Outsized returns often come from betting against conventional wisdom, and conventional wisdom is usually right. Given a 10 percent chance of a 100 times payoff, you should take that bet every time. But you're still going to be wrong nine times out of ten .. . We all know that if you swing for the fences, you're going to strike out a lot, but you're also going to hit some home runs. The difference between baseball and business, however, is that baseball has a truncated outcome distribution. When you swing, no matter how well you connect with the ball, the most runs you can get is four. In business, every once in a while, when you step up to the plate, you can score 1,000 runs. This long-tailed distribution of returns is why it's important to be bold. Big winners pay for so many experiments."
+pdjh | JEFF BEZOS
+xmgs | As entrepreneurs, we make bets everyday. We are gamblers - gambling our hard-earned money on labor, inventory, rent, marketing, etc., all with the hopes of a higher pay out. Oftentimes, we lose. But, sometimes, we win and win BIG.
+bd9h | However, there is a difference between gambling in business and gambling in a casino. In a casino, the odds are stacked against you. With skill, you can improve them, but never beat them. In contrast, in business, you can improve your skills to shift the odds in your favor. Simply stated, with enough skill, you can become the house.
+m047 | After beginning a series of books on acquisition, it became apparent that I could not talk about any other topic without first addressing the offer: the starting point of any conversation to initiate a transaction with a customer. What you are literally providing them in exchange for their money. That's where it all begins.
+gy8c | This book is about how to make profitable offers. Specifically, how to reliably turn advertising dollars into (enormous) profits using a combination of pricing, value, guarantees, and naming strategies. I call the proper combination of these components: a Grand Slam Offer.
+y4mj | I chose this term partially in homage to the above quote from Amazon founder Jeff Bezos and because, like a grand slam in baseball, a Grand Slam Offer is both very good and very rare. Additionally, to extend the baseball metaphor, it takes no more effort to make a Grand Slam Offer than to strike out. The difference is dictated by the skill of the marketer and how well he connects his offer with his audience's desires. In business you can have so-so offers: the "singles" and "doubles' that keep the game going, pay the bills, and keep the lights on. But, unlike baseball, where a grand slam scores a maximum of four runs, a Grand Slam Offer in the business world, can score you a thousand-fold pay off and result in a world where you never need to work again. It would be like connecting with the ball so well during one single at bat that you automatically win every World Series for the next hundred years.
+vpgq | It takes years of practice to make something as complicated as hitting a major league fastball into the bleachers look effortless. Your stance, vision, prediction, ball speed, bat speed, and hip placement all must be perfect. In marketing and customer acquisition (the process of getting new clients), there are just as many variables that must all align to truly "knock it out of the park." But with enough practice and enough skill, you can turn the wild world of acquisition, which will throw curveballs at you everyday, into a homerun derby, knocking offer after offer out of the stadium. To everyone else, your success will look unbelievable. But to you, it will feel like "just another day at work." The greatest hitters of all time also have many strike outs, just as there are many failed offers in the track record of great marketers. We learn skills through failure and practice. We do this knowing that nine out of ten times we will be wrong. We still act boldly, hoping for that offer we connect with so well that it results in our big payoff.
+ousl | The good news is that in business, you only need to hit one Grand Slam Offer to retire forever. I have done this four or five times in my life. As for my track record, I have a 36:1 lifetime return on my advertising dollars over my business career. Consider this my lifetime "batting average," if you will. That means for every $1 I spend on advertising I get $36 back, a 3600% return. That is my average over eight years. And I continue to improve.
+m4ju | This book is my attempt to share that skill with you, with a specific focus on building Grand Slam Offers, so you can experience the same levels of success. It's also the first in a series of books meant to get entrepreneurs to financial freedom, in plain words, "fuck you" money. Subsequent books in this series will look more deeply at getting more customers, converting
+a0mb | more prospects into clients, making those clients worth more, and other lessons I wish I had learned earlier scaling my businesses.
+ki8m | Pro Tip: Faster, Deeper Learning By Reading & Listening At Same Time
+km8w | Here's a life hack I discovered a long time ago .... If you listen to the audiobook while reading the ebook or physical book you will increase your reading speed and retain more information. The contents are being stored in more places in your brain. This is how I read most things worth reading. I've priced my products as cheap as the platforms will allow me to, so this isn't a ploy to make an extra .99 cents - promise. If you want to give it a try, go ahead and grab the audio version and see for yourself. You might find it as valuable as I have (as someone who struggles to stay focused). I took two days to talk this book out loud and record it. I figured I'd put this "hack" at the beginning of the book so you had a chance to do it if you found this first chapter valuable enough to earn your attention.
+wzno | SECTION I: HOW WE GOT HERE
+xagm | THE UGLY TRUTH
+iwn5 | SECTION II: PRICING
+uooz | SECTION I: HOW WE GOT HERE
+pxbq | 07-07- 07/076 072076
+jfsr | Ş Ya ARE HERE!
+u15r | 07€
+lq35 | 07€
+3g9w | O
+d09o | $
+ylhz | $
+a3td | SECTION TV: ENHANCING
+ex5k | SECTION II: VALUE OFFER
+9d4o | AFTER
+cjq2 | BEFORE
+5esx | PROBLEMS SOLUTIONS _> BUNDLE
+m5ka | 1 LEPT
+byu8 | : 29:28
+76b0 | SECTION I : EXECUTION
+zxz6 | $
+xnth | $
+vafm | $
+2zmw | HOW WE GOT HERE
+bf9k | "Magic will find those with pure hearts, even when all seems lost."
+otkr | MORGAN RHODES
+ibgs | December 24, 2016. Christmas Eve.
+colo | T he room was pitch black. My shoes stuck to a floor covered in dried soda and crushed bits of candy. My nostrils were full with the smell of stale popcorn. We had showed up too late to get good seats and ended up pressed near the front of the theater. Just a few rows in front of me, the movie's blazing projection occupied my entire field of view. In the reflected glow, I could see the outlines of Leila's family's faces. They may as well have been hypnotized.
+d6r4 | I envied them. They sat, entranced, soaking in their paid time off for Christmas. Must be nice.
+9mrz | Anybody else would have missed it but Leila, my girlfriend at the time, knew me too well. Anybody else would have thought I was watching the movie, but Leila could tell I was staring blankly at the screen, my eyes not tracking the movie. My face was pale. My cheekbones and jawline appeared gaunt. Weeks of chronic stress had killed my appetite.
+pk06 | "What's wrong?" she asked.
+7wn9 | I didn't answer.
+wcd0 | She rested her hand on mine to get my attention. I didn't react. Within moments, her fingers tightened around my wrist, and she looked at me, her eyes searching for mine. "Your heart is racing," she whispered, concerned.
+caos | Without asking, she took my pulse.
+qrvy | It was 100 beats per minute. Nearly twice what it should be for a fit 27 year old male at "rest" in a cool, dark room.
+pn9j | "What's going on?" she asked more forcibly, but still whispering.
+1pmc | The truth is, I was terrified.
+5z6q | A few hours earlier . . .
+yeoh | I looked like a giant. I sat scrunched up in a children's miniature play chair. My knees almost touched my chest, even with my feet firmly planted on the old beige carpeted floor. My laptop felt hot sitting atop my steeply angled knees. Dolls and toys were scattered around me. They stared at me with wide eyes and toothy grins, motionless. I had been their entertainment the past few weeks.
+b8hf | I was in Leila's parents' house. They had recently become grandparents and used this spare bedroom as a playroom when the grandchildren visited. I didn't have a place to live. So they were letting Leila and I stay there "as long as we needed." They had let me use the children's playroom as my office for my "business", which at this point felt almost as make-believe as the stories they had told their grandchildren in this room.
+hntf | I literally felt like I was playing dress up. Except the stakes were real. And this was my life.
+99fo | My ears were hot and red from the phone being pressed against them for what felt like hours. I kept switching hands because my arms would tire from holding the phone up for so long.
+y5r7 | "I'm sorry Mr. Hormozi," the voice on the other end of the line said, "we have to hold onto these funds for the next six months. We've seen some irregular activity, so this is precautionary."
+lrry | "Are you fucking kidding me, $120-grand," I said. "A 'precaution' !? "
+hvhm | "I'm sorry sir, our underwriting team-"
+863b | "Yeah, I heard you," I said, cutting him off. "I don't accept that."
+fj24 | "Sir, it's not up to me it's just our pol-"
+uz3c | "What am I gonna tell my salesman, who has a baby and another on the way? Are you going to tell him he's not going to be able to buy his pregnant wife and newborn food? Are you going to pay his mortgage for him?" I was seething.
+d5bi | "Sir-" he began again, with unphased apathy, just trying to deliver the news.
+ba4l | "It's not yours to take." My aggression was quickly turning into desperation. "Shit, just send me half so I can pay my employees," I pleaded "It's Christmas Eve for fuck's sake."
+ffx8 | "Sir, we're going to be holding onto the entirety of your funds for the next six months per your agreement . . . " The voice faded into the distance.
+s6su | Fuck.
+y219 | I hung up and checked my accounts. $23,036.
+06ht | I owed my salesman a $22,000 commission check for $120,000 in sales I never got. Without wanting to give myself the opportunity to think about it, I wired it to him.
+v3r2 | -$22,000 Payment Successful.
+nv42 | Balance $1,036. Fuck
+xags | ..... AT&T LTE
+jc47 | 11:51 PM
+ko3c | L $ 75%
+xek3 | <
+bbpr | LOG OFF
+5zyf | Good evening December 20, 2016
+9own | TOTAL CHECKING ( ... 5352)
+bqfb | Available balance $1,036.14 >
+wwdt | Pay Bills
+mn1r | I screenshotted this image of my bank account because I knew I would tell this story some day.

@@ -1,0 +1,130 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+
+EXAMPLE OUTPUT:
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+
+
+
+
+v3r2 | Identification of promoter motif and TSS distribution. The recognition and coordinates of the promoter motifs (TATA box, Initiator, CCAAT box, GC box) are downloaded from 'the Select/Download Tool' of the EPD New database (54). In order to determine the TSS distribution of mouse embry- onic fibroblasts, MEFs FANTOM5 Cap Analysis of gene expression data is retrieved through the CAGEr R package (55). After normalization and TSS clustering, TSS distribu- tion is defined as 'sharp' if the promoter width is less than 15bp (this length is taken as the median of all genes), and as 'broad' otherwise.
+nv42 | Identification of enhancer-promoter intensity. The data about the interaction between enhancer and promoter is downloaded from (16). The dataset is used to compare the correlation between burst kinetics and enhancer activity of fibroblasts and mESCs. Enhancer activity is calculated ac- cording to the intensity of the H3K27ac peak measured in the defined EPUs region (which is considered that enhancer and promoter interactions occur more possibly) via ChIP- seq in a previous study (56). In our study, we only utilize the collated data that includes the peak of H3K27ac in EPUs of MEFs.
+xags | Statistical analysis
+jc47 | Gene expression variability. Gene expression variability is usually quantified by the square of the coefficient of varia- tion (CV2), which is defined as the ratio of the variance over the square of the mean. According to this definition, we cal- culate gene-expression variability in a given set of observed data Y for gene g. Similarly, we use the inferred eest to calcu- late the theoretical CV2 of our hierarchical model for gene g, that is,
+ko3c | CV2 E[Y; Oest]2 Var [ Y; oest]
+xek3 | (18)
+bbpr | When fitting CV2 with a cubic spline, we find that there is a strong correlation between the mean expression level and
+5zyf | CV2 (Supplementary Figure S9a). Many studies have dis- cussed the relationship between gene-expression variabil- ity and mean (57,58). Note that in the classical telegraph model, the total mRNA variability can be decomposed into two parts: the mRNA internal variability generated from transcription and the promoter variability due to the switch- ing between active and inactive states. Inspired by (15), we adjust the variability by subtracting the inverse of the loga- rithmic mean (logarithm base 2), thus obtaining the resid- ual squared coefficient of variation (rCV2). For example, for gene g, we have
+9own | rCV? = CV? log2 (Mg)' 1 −
+bqfb | (19)
+wwdt | Downloaded from https://academic.oup.com/nar/article/51/1/68/6965449 by guest on 05 September 2023
+mn1r | where µg = E[ Y; oest]. As a result, the influence of the mean expression level on the expression variability is basically eliminated after performing a linear regression on rCV2 (Supplementary Figure S9b).
+5vqw | Linear regression model in promoter motif analysis. After having obtained the promoter motifs of each gene from the EPD database and its burst kinetics (rCV2, burst fre- quency, burst size) by inference, we conduct multivariate linear regression with interaction terms to find the corre- lations between quantities of interest in cases of positive, negative, and non-feedbacks. Specifically, we perform mul- tivariate linear regression according to
+meyw | rCV2~(TAT A * Inr + CCAAT * GC) x feedback,
+2e62 | log10 (bf) ~(TATA* Inr +CCAAT *GC) × feedback, (20) log10 (bs) ~(TATA* Inr +CCAAT * GC) × feedback.
+75y3 | In Figure 4B-D and Supplementary Figure S10c-e, we show the t-value in the regression results. The absolute of t- value is larger in the test of the linear regression coefficient, indicating that the resulting correlations are significant.
+s2g2 | RESULTS
+q1q2 | An integrated statistical framework for learning promoter- dependent yet feedback-constrained transcriptional burst ki- netics on a genome-wide scale
+cb7r | Cell-to-cell heterogeneity in gene expression is primarily at- tributed to transcriptional bursting (12,59,60), which is rep- resented by a vector y of components including burst fre- quency, burst size, expression variability, etc. (Figure 1C). Transcriptional bursts result from complex molecular pro- cesses on multilayered sources (1), which are represented by a vector x of components including static DNA se- quences, epigenetic modifications (61), transcription, trans- lation, dynamic network regulations, etc. (2). Then, the question of how these molecular processes coordinate tran- scriptional busting can be mathematically described as y = f(x), where f is a vector function describing the correlation of x to y.
+68xu | Static promoter architecture is an essential DNA se- quence for binding transcription factors during mRNA synthesis. Specifically, promoter motifs (such as initiator, TATA-box, CCAAT-box, GC-box), broad and sharp TSS
+hd35 | Figure 1. Overview of a scalable genome-wide inference method. (A) Schematic for important ingredients in gene expression process, including static promoter architecture information and dynamic regulation. Promoter architecture (represented by x1) consists of promoter motifs (Initiator, TATA- box, CCAAT-box, and GC-box), TSS distributions ('sharp' and 'broad') and enhancer-promoter interactions. Dynamic regulation (represented by x2) is referred to as a series of processes, such as transcription and translation as well as feedback loops, in which the gene product (as a transcription factor) regulates its own expression, possibly via a complex regulatory network. (B) Model-driven: schematic for a mechanistic model of stochastic gene expression, which considers an active (ON) state and an inactive (OFF) state of the promoter and auto-regulatory feedback. Here kon is the switching rate from OFF to ON and koff from ON to OFF; ksyn is the transcription rate when the gene is in ON state and kdeg is the degradation rate of mRNAs. (C) Kinetic parameters to be inferred, which include expression variability, burst frequency, burst size, and dynamic regulation. (D) Comparison between two static distributions (the left panel is for 'true' mRNA levels in the mechanistic gene model and the right panel for 'observed' mRNA counts in a given set of scRNA-seq data) by a hierarchical model can determine the values of the kinetic parameters in (C) via a scalable genome-wide inference method. (E) Data-driven: genome-wide scRNA-seq data of mouse embryonic fibroblasts gives an expression matrix that further gives the observed static distribution in (D).
+2zpk | distributions, and enhancer-promoter interactions are es- sential features of eukaryotic promoter architecture (Fig- ure 1A, left). Meanwhile, variability in gene expression can propagate from mRNA to protein and further to target genes, possibly through a dynamic and complex gene reg- ulatory network. A common form of dynamic regulation is auto-regulation which directly or indirectly regulates the corresponding target gene itself through a feedback loop, resulting in a repressing or activating expression (Figure 1A, right). For clarity, we let vectors x1 and x2 represent static promoter architecture and dynamic feedback regu- lation, respectively (Figure 1A). The information on pro- moter architecture (x1) can be recovered from public bioin- formatics databases such as the EPD database (54), Biocon- ductor (62), and UCSC Genome Browser (63). In general, the mechanisms of dynamic regulation (x2) and burst kinet- ics (y) are not directly measurable but hidden in data sets. Unlike some imaging-based technologies such as MS2 sys- tem (64) that were limited to a few genes and could not be extended to the whole genome, single-cell sequencing technologies made it possible to recover the information on dynamic regulations (x2) and burst kinetics (y) from static snapshots (Figure 1E). Figure 1B-E summarizes the
+epu7 | Nucleic Acids Research, 2023, Vol. 51, No. 1 73
+7od1 | Downloaded from https://academic.oup.com/nar/article/51/1/68/6965449 by guest on 05 September 2023
+0bqy | genome-wide inference procedure proposed here. This pro- cedure used a statistical framework of the model-driven (Figure 1B) and data-driven (Figure 1E) combination to in- fer dynamic feedback regulations and transcriptional burst kinetics from static scRNA-seq data (Figure 1C, D) under the assumption that the abundances of mRNA and protein were highly dependent (65).
+b780 | Specifically, our statistical inference framework used a mechanistic model of gene expression (Figure 1B), which simultaneously considered transcriptional burst kinetics (y) and feedback regulations (x2), to obtain 'true' gene expression distributions (Figure 1D, left). On the other hand, the known scRNA-seq data gave 'observed' gene expression distributions, implying possible errors in the sequencing technologies (66,67). A hierarchical statistical model (see 'Materials and Methods') was proposed to link 'true' gene-expression levels (Figure 1D, left) and 'ob- served' mRNA counts (Figure 1D, right), thus determin- ing key kinetic parameters (expression variability, burst size, burst frequency, and dynamic regulation) (Figure 1C). We emphasized that the proposed framework was a scal- able genome-wide inference, which was particularly use- ful in revealing how both static promoter architecture and
+ccmb | 74 Nucleic Acids Research, 2023, Vol. 51, No. 1
+ma93 | dynamic feedback regulation coordinate transcriptional bursting.
+c6hh | A hierarchical model provides the genome-wide inference of transcriptional burst kinetics and feedback regulations from single-cell snapshots
+y7ea | The hierarchical statistical model developed here can give a mechanistic interpretation for Unique Molecular Iden- tifiers (UMIs) based on scRNA-seq data. In fact, this model not only captured the characteristics of transcrip- tional burst kinetics and feedback regulations, but also de- scribed the measured noise of UMIs data (see 'Materials and Methods'). Then, we used the maximum likelihood method to determine burst kinetics and feedback forms (positive-, negative-, non-feedback) within biologically rea- sonable ranges of model parameters. Note that the infer- ences with traditional MCMC methods (50) would need huge and even unaffordable computational costs since the static mRNA distribution was expressed in a high-order in- tegral that is difficult to solve. To overcome this difficulty, we developed a fast algorithm for computing this distribu- tion based on generalized Gauss-Laguerre quadrature rules, thus realizing a scalable genome-wide inference (51) (see 'Materials and Methods').
+nav4 | To evaluate the validity of our inference method, we first explored the sensitivity of distribution shapes to changes in model parameters. We found that the genes with high expression levels were more sensitive to model parameters than the other genes (Supplementary Figures S2 and S3). Then, to test the reliability of the method in inferring kinetic parameters, we generated synthetic single-cell RNA data by stochastic sampling from the distribution for the hierar- chical model with known parameter values. Through infer- ence using the synthetic data, we can give robust estimates of burst frequencies, burst sizes, and feedback forms from the corresponding static mRNA distributions (Supplemen- tary Figure S4-S6). Besides, we also assessed the robust- ness of our inference method to different cell numbers and stochastic losses of mRNA molecules (mimicking the in- complete mRNA detection in scRNA-seq protocols) (Sup- plementary Figures S4b-c, S5b-c and S6b-c). Overall, we provided a mechanistic model and an effective, robust and scalable inference method for learning dynamic burst kinet- ics and feedback forms from static snapshot data, which can be conveniently used in the analysis of scRNA-seq data.
+gem8 | Next, we applied our hierarchical model and inference approach to the scRNA-seq data of primary mouse fibrob- lasts (16). From the original UMIs data containing 10727 genes and 224 cells, we selected 2162 highly expressed genes using a quality control method and then merged two al- lelic expression data into a matrix to infer burst kinetics and feedback forms. We observed that these selected genes were transcribed with widely different burst kinetics (68), and in particular, those genes with the same average expres- sion level exhibited diverse burst kinetics, implying that the expressions of different genes were regulated possibly by dif- ferent molecular mechanisms (Figure 2A). To check the va- lidity of these inferred results, we performed a goodness-of- fit test (see 'Materials and Methods'). We found that the dis- tributions from the dataset were consistent with those ob- tained using the inferred parameters (Supplementary Fig-
+e8nr | ure S7a), and confirmed that the mRNA mean and vari- ability in the mechanistic model matched those in the data (Supplementary Figure S7b). All the good-fit genes can be classified into three categories: 626 positive-feedback genes, 625 negative-feedback genes, and 840 non-feedback genes. The inferred results for example genes: Mbnl2, Prr13, Ralb, and Plod1 were demonstrated in Figure 2a1-a4, showing that these genes had different feedback forms and followed different distributions. Interestingly, our hierarchical model can particularly recover bimodal distributions from static data, which however were fitted as unimodal distributions via the telegraph model without feedback (69) (e.g. the dis- tribution of the Mbnl2 gene as shown in Figure 2a1 and more genes as shown in Supplementary Figure S8). In ad- dition, we compared the inferred results between our hier- archical model and the telegraph model, finding that both models captured almost the same gene-expression variabil- ity (CV2, Figure 2B) while keeping high correlations be- tween burst frequencies and burst sizes (Figure 2C, D, P- value < 2.2 x 10-16). Notably, we found that the forms of dynamic feedback regulations can lead to different burst ki- netics on a genome-wide scale but cannot be inferred by pre- vious methods (Figure 2C, D) (16,43).
+k78w | Downloaded from https://academic.oup.com/nar/article/51/1/68/6965449 by guest on 05 September 2023
+g9du | Feedbacks modulate burst frequencies and sizes differently

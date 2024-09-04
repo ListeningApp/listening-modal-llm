@@ -1,0 +1,194 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+
+EXAMPLE OUTPUT:
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+
+
+
+
+uooz | Norepinephrine, epinephrine, phenylephrine, and dopamine are potent vasopressors and have compa- rable effects in increasing MAP.28,40 However, phen- ylephrine's exclusive a -AR agonist activity renders it unable to improve cardiac output and therefore should be avoided as a first-line agent for hemodynamic support in CS. Unlike phenylephrine, norepinephrine, epinephrine, dobutamine, and dopamine (to a lesser extent) all augment cardiac output through stimulation of the myocyte ß,-AR. However, in contrast with dobu- tamine, dopamine, and epinephrine, norepinephrine has the capacity to improve cardiac output, without significantly increasing heart rate, and therefore may limit increases in myocardial oxygen consumption and potentially attenuate vasoactive medication related myocardial ischemia and injury.31,41,42
+pxbq | Phosphodiesterase Inhibitors
+jfsr | PDE3 is an abundant enzyme in many tissues, includ- ing in cardiac myocytes and vascular smooth muscle. 43 PDE3's biological actions include the hydrolysis of CAMP.43 Therefore, inhibition of PDE3 through agents such as milrinone leads to increased cytosolic CAMP levels. Within cardiac tissue, elevated cAMP levels lead to increased inotropy, while vasodilation occurs within blood vessels. These effects serve to augment cardiac output, reduce afterload, and reduce systemic and pulmonary vascular resistance.44 The administration of milrinone, however, should be performed with caution in patients with severe renal impairment, as it is subject to renal elimination and runs the risk of toxic accumula- tion in this setting.
+u15r | Downloaded from http://ahajournals.org by on August 14, 2023
+lq35 | Table 2. Comparative Receptor Pharmacology and Physiologic Effects of Stimulation of ß- and a,-Adrenergic Receptors
+3g9w | Calcium Sensitizers
+d09o | Calcium sensitizers are a relatively recently developed novel class of inodilators.45,46 Levosimendan, a rou- tinely used calcium sensitizer (not routinely available in the United States), has both peripheral vasodilatory ef- fects and enhances myocardial contractility, mediated through vascular smooth muscle potassium channel binding and cardiac myofilament calcium sensitization by calcium-dependent troponin C binding, respectively. Levosimendan has similar hemodynamic effects to that of the PDE3 inhibitor milrinone and interestingly has been shown to have significant PDE3 inhibiting actions as well.46 Furthermore, levosimendan has an active metabolite with a half-life of >80 hours, allowing the hemodynamic effects to persist following completion of the initial infusion.
+ylhz | Arginine Vasopressin Antagonists
+a3td | Arginine vasopressin (vasopressin), an endogenous nonapeptide hormone, exerts its cardiovascular effects through the activation of G-protein coupled receptors V1a (in smooth muscle) and V2 (in the renal collecting tu- bules) Activation of the Via receptor on vascular smooth muscle causes increased cytosolic Ca2+ and resulting vasoconstriction, and the V2 receptor activation leads to water retention via the distal convoluted tubule.47
+ex5k | The use of vasopressin in the management of CS is principally mediated through a dose-dependent in- crease in systemic vascular resistance. It has a limited impact on other hemodynamic parameters including cardiac output and pulmonary capillary wedge pres- sure.48 Vasopressin may also have pleotropic effects that can ameliorate the underlying causes of the systemic in- flammatory response syndrome mediated vasoplegia by
+9d4o | J Am Heart Assoc. 2023;12:e029787. DOI: 10.1161/JAHA.123.029787
+cjq2 | Vasoactive Medications in Cardiogenic Shock
+5esx | reducing nitric oxide production and attenuate catechol- amine resistance due to adrenergic receptor downregu- lation.49 Furthermore, there are emerging data indicating that vasopressin, compared with catecholamines, may result in selective vasoconstriction in the systemic circu- lation and cause pulmonary arterial vasodilation, thereby reducing right ventricular afterload.50,51
+m5ka | Guanylate Cyclase and Nitric Oxide Synthase Inhibitors
+byu8 | Methylene blue is a repurposed agent, previously used in the treatment of methemoglobinemia, but has re- cently generated interest for use in refractory vaso- plegic shock.52 In the setting of CS-related systemic inflammatory response syndrome, methylene blue's therapeutic effects are exerted through the inhibition of nitric oxide mediated cGMP production, resulting in increased smooth muscle vasoconstriction. Methylene blue should be used with caution in patients treated with selective serotonin reuptake inhibitors as it may precipitate a serotonin syndrome and also in patients with known glucose-6-phosphate dehydrogenase de- ficiency due to the risk of developing hemolytic anemia.
+76b0 | EVIDENCE FOR USE OF VASOACTIVE AGENTS IN CARDIOGENIC SHOCK
+zxz6 | Current Societal Recommendations for Commencing Vasoactive Medications
+xnth | Conducting randomized controlled trials in a popula- tion with CS has historically been challenging. Current societal recommendations have therefore been
+vafm | Downloaded from http://ahajournals.org by on August 14, 2023
+2zmw | Figure 1. Graphical representation of the intracellular signaling cascade following activation of the G-protein coupled ß,- adrenergic receptor in cardiac tissue.
+bf9k | Mediated through the stimulatory (Gs) component of the ß,-adrenergic receptor, activation of the adenyl cyclase pathway occurs with a resulting increase in cAMP (cyclic adenosine monophosphate) and subsequent increased intracellular calcium cycling. The altered calcium handling results in a positive chronotropic response, increased myocardial contractility, and lusitropy. PLB indicates phospholamban; RyR, ryanodine receptor; SERCA, sarco/endoplasmic reticulum Ca2+ ATPase; and SR, sarcoplasmic reticulum.
+otkr | developed using data from small trials of variable qual- ity, meta-analyses, and consensus opinion, resulting in equipoise with respect to the recommended first- line vasoactive agents to be used in the treatment of CS.31,41,42,53-56 A summary of the available rand- omized trial data pertaining to the use of vasoactive medications are presented in Table 3. Despite limited high-quality data, French, German, Austrian, and the European Society Cardiology guidelines addressing CS management endorse the use of norepinephrine or dobutamine as the first-line vasoactive medications in CS.16,19,57,58 In the United States, current guidelines re- main less definitive. The American Heart Association's
+ibgs | J Am Heart Assoc. 2023;12:e029787. DOI: 10.1161/JAHA. 123.029787
+colo | Vasoactive Medications in Cardiogenic Shock
+d6r4 | Heart Failure guidelines do not provide clear recom- mended first-line vasoactive medication, suggesting clinicians use agents that are readily available, easy to administer, and they are familiar.59 Furthermore, the American Heart Association's Scientific Statements on the contemporary management of CS recommends the use of dopamine or norepinephrine as first-line treatments, whereas the recently published guideline for the invasive management of AMI-CS suggests nor- epinephrine be used to support blood pressure in the initial stabilization period, unless further chronotropic support is required.1,60 These recommendations are summarized in Figure 3.
+9mrz | Downloaded from http://ahajournals.org by on August 14, 2023
+pk06 | Figure 2. Intracellular signaling within vascular smooth muscle following the activation of a,-adrenergic, vasopressin-1, ß2-adrenergic, and ATP-sensitive potassium channel receptors.
+7wn9 | Stimulation of the a,-adrenergic or vasopressin-1 receptors causes activation of the Gq (G-protein) subunit, resulting in downstream stimulation of the phospholipase C signaling pathway. Phospholipase C in turn activates inositol 1, 4, 5-triphosphate (IP3) leading to Ca2+ release from the sarcoplasmic reticulum (SR), resulting in vasoconstriction. Conversely, ß2-receptor stimulation activates the inhibitory G-protein (Gi) subunit causing vasodilatation through increased cAMP (cyclic adenosine monophosphase) activation and resulting phospholamban-mediated Ca2+ uptake into the SR. Similarly, activation of the ATP-sensitive potassium channel causes potassium influx that hyperpolarizes voltage-dependent Ca2+ channels, reducing intracellular Ca2+ and vasomotor tone. AMP indicates adenosine monophosphate; DAG, diacylglycerol; PDE3, phosphodiesterase 3; and PLB, phospholamban.
+wcd0 | Treatment of Cardiogenic Shock With Associated Hypotension
+caos | The initial goal of therapy in patients with CS and as- sociated hypotension should be focused on the res- toration of perfusion to vital organs, achieved through augmenting MAP and cardiac output.2 End-organ blood flow is a direct correlate of MAP, and reduced systolic blood pressure in CS, in particular in the set- ting of AMI-CS, is independently associated with an increased risk of mortality.61
+qrvy | The safety and efficacy of dopamine in CS has been called into question by the SOAP-II (Sepsis Occurrence in Acutely Ill Patients) trial.41 This study compared dopa- mine and norepinephrine as first-line therapies through a multicenter, ICU-based randomized controlled trial of 1679 patients with shock of all causes.41 Although there was no difference in the primary outcome of all-cause 28-day mortality in this cohort, dopamine was associated with increased arrhythmic events (n=207 [24.1%] versus n=102 [12.4%], P<0.001) and in a prespecified subgroup of 280 patients with CS there
+pn9j | J Am Heart Assoc. 2023;12:e029787. DOI: 10.1161/JAHA.123.029787
+1pmc | Vasoactive Medications in Cardiogenic Shock
+5z6q | was an increased risk of 28-day mortality (P=0.03). Although these findings are hypothesis generating, in the absence of alternate data supporting the use of dopamine, we advocate that noradrenaline should be used in preference to dopamine in the hemodynamic support in patients with CS and hypotension.
+yeoh | There is an emerging body of evidence to support the use of norepinephrine as the initial vasoactive agent for the management of CS with hypotension. OPTIMA CC (Epinephrine Versus Norepinephrine for Cardiogenic Shock After Acute Myocardial Infarction), a small pro- spective, double-blinded, randomized controlled study, sought to compare the hemodynamic effects and toler- ability of epinephrine with norepinephrine in AMI-CS.31 Despite recruiting a total of only 57 patients, there were several valuable insights gained from these data; (1) there were no differences observed in MAP, cardiac index, or stroke volume in patients treated with either epinephrine or norepinephrine; (2) comparable doses of both study drugs were required to achieve a target MAP of 70 mm Hg; (3) epinephrine treatment was associated
+b8hf | Downloaded from http://ahajournals.org by on August 14, 2023
+hntf | Vasoactive Medications in Cardiogenic Shock
+99fo | AMI-CS indicates acute myocardial infarction cardiogenic shock; ICU, intensive care unit; and PCI, percutaneous coronary intervention. Studies included were randomized controlled trials performed after the year 2000 that included patients with cardiogenic shock and included over 50 enrolled patients.
+y5r7 | Epinephrine associated with metabolic acidosis requiring agent cessation No difference in mortality for cardiogenic shock subgroup
+lrry | Increased arrhythmia events and angina with dobutamine treatment
+hvhm | Increased cardiac double product
+863b | Increased arrhythmic events with dopamine Increased mortality in cardiogenic shock treated with dopamine.
+fj24 | Increased atrial fibrillation, hypokalemia, and headache with levosimendan
+uz3c | Increased refractory shock in
+d5bi | Increased serum lactate
+ba4l | Adverse events
+ffx8 | with epinephrine
+s6su | epinephrine
+y219 | No difference
+06ht | No difference
+v3r2 | No difference
+nv42 | No difference
+xags | No difference
+jc47 | No difference
+ko3c | No difference
+xek3 | Mortality
+bbpr | Dobutamine vs milrinone
+5zyf | Tilarginine acetate vs placebo
+9own | Agents assessed
+bqfb | Levosimendan vs dobutamine
+wwdt | Levosimendan vs dobutamine
+mn1r | Epinephrine vs norepinephrine
+5vqw | Dopamine vs norepinephrine
+meyw | Epinephrine vs norepinephrine
+2e62 | Table 3. Randomized Controlled Trials of Vasoactive Medications in Patients With Cardiogenic Shock
+75y3 | Sample size
+s2g2 | 1679
+q1q2 | 1327
+cb7r | 280
+68xu | 398
+hd35 | 203
+2zpk | 192
+epu7 | Decompensated heart failure +/- low cardiac output
+7od1 | Low output heart failure (including decompensated heart failure and post cardiotomy)
+0bqy | Undifferentiated shock
+b780 | Undifferentiated shock
+ccmb | Cardiogenic shock
+ma93 | Post PCI AMI-CS
+c6hh | Post PCI AMI-CS
+y7ea | Population
+nav4 | ICU, single center
+gem8 | ICU, multicenter
+e8nr | ICU, multicenter
+k78w | ICU, multicenter
+g9du | ICU, multicenter
+f682 | In-hospital, multicenter
+li1k | In-hospital, multicenter
+pbea | Setting
+ccpt | Epinephrine Versus Norepinephrine for Cardiogenic Shock After Acute Myocardial Infarction (Optima CC), 201831
+0fpw | Sepsis Occurrence in Acutely Ill Patients-II (SOAP-II), 201041
+dqn8 | Levosimendan vs Dobutamine for Patients With Acute Decompensated Heart Failure (SURVIVE), 200754
+cop0 | Milrinone as Compared With Dobutamine in the Treatment of Cardiogenic Shock (CAPITAL-DOREMI), 202156
+lhkq | Efficacy and Safety of Intravenous Levosimendan Compared With Dobutamine in Severe Low-Output Heart Failure (LIDO), 200255
+82ju | Effect of Tilarginine Acetate in Patients With Acute Myocardial Infarction and Cardiogenic Shock (TRIUMPH), 200753
+y2qo | A Comparison of Epinephrine and Norepinephrine in Critically Ill Patients (CAT), 200842
+1piq | Study
+7fqw | J Am Heart Assoc. 2023;12:e029787. DOI: 10.1161/JAHA. 123.029787
+rhaz | Downloaded from http://ahajournals.org by on August 14, 2023
+wak1 | Figure 3. Summary of key cardiac societal guideline recommendations for the use of vasoactive medications in cardiogenic shock. ESC HF, 2021 ESC Guidelines for the Diagnosis and Treatment of Acute and Chronic Heart Failure16; ACC/AHA HF, 2022 AHA/ACC/ HFSA Guideline for the Management of Heart Failure59; ESC STEMI, 2017 ESC Guidelines for the Management of Acute Myocardial Infarction in Patients Presenting with ST-Segment-Elevation58; AHA CS, Contemporary Management of Cardiogenic Shock: A Scientific Statement from the American Heart Association1; AHA AMI-CS, Invasive Management of Acute Myocardial Infarction Complicated by Cardiogenic Shock: A Scientific Statement from the American Heart Association.60 ACC indicates American College of Cardiology; AHA, American Heart Association; AMI, acute myocardial infarction; CS, cardiogenic shock; ESC, European Society of Cardiology; HF, heart failure; HFSA, Heart Failure Society of America; and STEMI, ST-segment-elevation myocardial infarction.

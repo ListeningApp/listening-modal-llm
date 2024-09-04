@@ -1,0 +1,149 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+
+EXAMPLE OUTPUT:
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+
+
+
+
+vpgq | We follow [7, 22, 39] and use extracted features obtained by a pre-trained network on ImageNet [13] instead of RGB images as direct input for our models. Such networks have been shown to be universal feature extractors whose outputs
+ousl | Figure 3. Overview of our pipeline: Teacher and student receive image features and/or depth maps as input which is conditioned by a positional encoding. First, the teacher represented by a normal- izing flow is optimized to reduce the negative log likelihood loss that may be masked by a foreground map from 3D. Second, the student is trained to match the teacher outputs by minimizing the (masked) distance between them.
+m4ju | carry relevant semantics for industrial anomaly detection.
+a0mb | In addition to RGB data, our approach is easily extend- able to multimodal inputs including 3D data. If 3D data is available, we concatenate depth maps to these features along the channels. Since the feature maps are reduced in height and width compared to the depth map resolution by a factor d, we apply pixel-unshuffling [56] by grouping a depth image patch of d × d pixels as one pixel with ď2 chan- nels to match the dimensions of the feature maps.
+ki8m | Any 3D data that may be present is used to extract the foreground. This is straightforward and reasonable when- ever the background is static or planar, which is the case for almost all real applications. Pixels that are in the back- ground are ignored when optimizing the teacher and stu- dent by masking the distance and negative log likelihood loss, which are introduced in Sections 3.1 and 3.2. If not 3D data is available, the whole image is considered as fore- ground. Details of the foreground extraction are given in Section 4.2.1.
+km8w | Similar to [22], we use a sinusoidal positional encod- ing [50] for the spatial dimensions of the input maps as a condition for the normalizing flow ft. In this way, the occurrence of a feature is related to its position to detect anomalies such as misplaced objects. An overview of our pipeline is given in Figure 3.
+wzno | 3.1. Teacher
+xagm | Similar to [22, 38, 39], we train a normalizing flow based on Real-NVP [15] to transform the training distribution to a normal distribution N(0, I). In contrast to previous work, we do not use the outputs to compute likelihoods and thereby obtain anomaly scores directly. Instead, we inter- pret this training as a pretext task to create targets for our student network.
+iwn5 | The normalizing flow consists of multiple subsequent affine coupling blocks. Let the input x E Rwxhxnfeat be
+uooz | Figure 4. Model architecture of teacher (left side) and student (right side). While the teacher is a Real-NVP-based [15] condi- tional normalizing flow [4], the student is a conventional convolu- tional neural network.
+pxbq | feature maps with nfeat features of size w x h. Within these blocks, the channels of the input x are split evenly along the channels into the parts x1 and x2 after randomly choosing a permutation that remains fixed. These parts are each con- catenated with a positional encoding c as a static condition. Both are used to compute scaling and shift parameters for an affine transformation of the counterpart by having sub- networks si and ti for each part:
+jfsr | y2 = X2 Des1 ([21,c]) + t1 ([x1, c])
+u15r | (1)
+lq35 | y1 =x10es2([x2,c]) + t2 ([x2, c]),
+3g9w | where O is the element-wise product and [., .] denotes con- catenation. The output of one coupling block is the con- catenation of y1 and y2 along the channels. Note that the number of dimensions of input and output does not change due to invertibility.
+d09o | To stabilize training, we apply alpha-clamping of scalar coefficients as in [4] and the gamma-trick as in [39]. Using the change-of-variable formula with z as our final output
+ylhz | (2) a )det %
+a3td | (2)
+ex5k | we minimize the negative log likelihood with pz as the nor- mal distribution N(0, I) by optimizing the mean of
+9d4o | Ci = - logpx (xij) = x(Ii)-12- og det azij Oxij (3)
+cjq2 | over all (foreground) pixels at pixel position (i, j).
+5esx | 3.2. Student
+m5ka | As opposed to the teacher, the student is a conventional feed-forward network that does not map injectively or sur- jectively. We propose a simple fully convolutional network with residual blocks which is shown in Figure 4. Each residual block consists of two sequences of 3 × 3 convo- lutional layers, batch normalization [25] and leaky ReLU activations. We add convolutions as the first and last layer to increase and decrease the feature dimensions.
+byu8 | Similarly to the teacher, the student takes image features as input which are concatenated with 3D data if available. In addition, the positional encoding c is concatenated. The output dimensions match the teacher to enable pixel-wise distance computation. We minimize the squared ₡2-distance between student outputs fs (x) and the teacher outputs ft (x) on training samples x € X, given the training set X, at a pixel position (i, j) of the output:
+76b0 | Cij = 1.f (x)ij - ft(x)ij112.
+zxz6 | (4)
+xnth | Averaging % over all (foreground) pixels gives us the final loss. The distance Cs is also used in testing to obtain an anomaly score on image level: Ignoring the anomaly scores of background pixels, we aggregate the pixel distances of one sample by computing either the maximum or the mean over the pixels.
+vafm | 4. Experiments
+2zmw | 4.1. Datasets
+bf9k | To demonstrate the benefits of our method on a wide range of industrial inspection scenarios, we evaluate with a diverse set of 25 scenarios in total, including natural ob- jects, industrial components and textures in 2D and 3D. Ta- ble 1 shows an overview of the used benchmark datasets MVTec AD [6] and MVTec 3D-AD [8]. For both datasets, the training set only contains defect-free data and the test set contains defect-free and defective examples. In addition to image-level labels, the datasets also provide pixel-level an- notations about defective regions which we use to evaluate the segmentation of defects.
+otkr | MVTec AD, which will be called MVT2D in the follow- ing, is a high-resolution 2D RGB image dataset containing
+ibgs | 10 object and 5 texture categories. The total of 73 defect types in the test set appear, for example, in the form of dis- placements, cracks or scratches in various sizes and shapes. The images have a side length of 700 to 1024 pixels.
+colo | MVTec 3D-AD, to which we refer to as MVT3D, is a very recent 3D dataset containing 2D RGB images paired with 3D scans for 10 categories. These categories include deformable and non-deformable objects, partially with nat- ural variations (e.g. peach and carrot). In addition to the de- fect types in MVT2D there are also defects that are only rec- ognizable from the depth map, such as indentations. On the other hand, there are anomalies such as discoloration that can only be perceived from the RGB data. The RGB im- ages have a resolution of 400 to 800 pixels per side, paired with rasterized 3D point clouds at the same resolution.
+d6r4 | 4.2. Implementation Details
+9mrz | 4.2.1 Image Preprocessing
+pk06 | Following [12, 39], we use the layer 36 output of EfficientNet-B5 [47] pre-trained on ImageNet [13] as a fea- ture extractor. This feature extractor is not trained during training of the student and teacher networks. The images are resized to a resolution of 768 × 768 pixels resulting in feature maps of size 24 x 24 with 304 channels.
+7wn9 | 4.2.2 3D Preprocessing
+wcd0 | We discard the x and y coordinates due to the low infor- mative content and use only the depth component z in cen- timeters. Missing depth values are repeatedly filled by us- ing the average value of valid pixels from an 8-connected neighborhood for 3 iterations. We model the background as a 2D plane by interpolating the depth of the 4 corner pix- els. A pixel is assumed as foreground if its depth is further than 7mm distant from the background plane. As an in- put to our models, we first resize the masks to 192 × 192 pixels via bilinear downsampling and then perform pixel- unshuffling [56] with d = 8 as described in Section 3 to match the feature map resolution. In order to detect anoma- lies at the edge of the object and fill holes of missing values, the foreground mask is dilated using a square structural ele- ment of size 8. We subtract the mean foreground depth from each depth map and set its background pixels to 0. The bi- nary foreground mask M with ones as foreground and zeros as background is downsampled to feature map resolution to mask the loss for student and teacher. This is done by a bi- linear interpolation f1 followed by a binarization where all entries greater than zero are assumed as foreground to mask the loss at position (i, j):
+caos | Cmasked [Lij if fi(M)ij > 0 = 10 else
+qrvy | Table 2. AUROC in % for detecting defects of all categories of MVT2D [6] on image-level grouped into textures and objects. We report the mean and standard deviation over 5 runs for our method. Best results are in bold. Beside the average value, detailed results of PaDiM [12] were not provided by the authors. The numbers of STFPM* [51] were obtained by a reimplementation.
+pn9j | 4.2.3 Teacher
+1pmc | For the normalizing flow architecture of the teacher, we use 4 coupling blocks which are conditioned on a positional en- coding with 32 channels. Each pair of internal subnetworks Si and ti is designed as one shallow convolutional network ri with one hidden layer whose output is split into the scale and shift components. Inside ri we use ReLU-Activations and a hidden channel size of 1024 for MVT2D and 64 for MVT3D. We choose the alpha-clamping parameter o = 3 for MVT2D and Q = 1.9 for MVT3D. The teacher net- works are trained for 240 epochs for MVT2D and 72 epochs for MVT3D, respectively, with the Adam optimizer [26], using author-given momentum parameters 31 = 0.9 and 32 = 0.999, a learning rate of 2 . 10-4 and a weight decay of 10-5.
+5z6q | 4.2.4 Student
+yeoh | For the student networks, we use nst_blocks = 4 resid- ual convolutional blocks as described in Section 3.2. The Leaky-ReLU-activations use a slope of 0.2 for negative val- ues. We choose a hidden channel size of nhidden = 1024 for the residual block. Likewise, we take over the number of epochs and optimizer parameters from the teacher. The scores at feature map resolution are aggregated for evalua- tion at image level by the maximum distance if a foreground mask is available, and the average distance otherwise (RGB only).
+b8hf | 4.3. Evaluation Metrics
+hntf | As common for anomaly detection, we evaluate the per- formance of our method on image-level by calculating the area under receiver operating characteristics (AUROC). The ROC measures the true positive rate dependent on the false
+99fo | positive rate for varying thresholds of the anomaly score. Thus, it is independent of the choice of a threshold and in- variant to the class balance in the test set. For measuring the segmentation of anomalies at pixel-level, we compute the AUROC on pixel level given the ground truth masks in the datasets.
+y5r7 | 4.4. Results
+lrry | 4.4.1 Detection
+hvhm | Table 2 shows the AUROC of our method and previous work for detecting anomalies on the 15 classes of MVT2D as well as the averages for textures, objects and all classes. We set a new state-of-the-art performance on the mean de- tection AUROC over all classes, improving it slightly to 99.2%. This is mainly due to the good performance on the more challenging objects, where we outperform pre- vious work by a comparatively large margin of 0.9%, ex- cept for PatchCore [36]. The detection of anomalies on tex- tures, which CS-Flow [39] has already almost solved with a mean AUROC of 99.8%, still works very reliably at 99.3%. Especially compared to the two student-teacher approaches [7, 51], a significant improvement of 6% and 3.6% respec- tively is archieved. Moreover, our student-teacher distances show to be a better indicator of anomalies compared to the likelihoods of current state-of-the-art density estimators [22, 39] which, like our teacher, are based on normalizing flows.
+863b | Even though MVT2D has established itself as a stan- dard benchmark in the past, this dataset (especially the tex- tures) is easily solvable for recent methods, and differences are mainly in the sub-percent range, which is only a mi- nor difference in terms of the comparatively small size of the dataset. In the following, we focus on the newer, more challenging MVT3D dataset where the normal data shows
+fj24 | Table 3. AUROC in % for detecting defects of all categories of MVT3D [8] on image-level for 3D data, RGB data and the combination of both. We report the mean and standard deviation over 5 runs for our method. Best results per data domain are in bold. Numbers of listed methods followed by a @ are non-published results obtained by the corresponding authors on request. A * indicates that we used a reimplementation. The numbers from PatchCore are taken from [24].
+uz3c | Table 4. Anomaly segmentation results measured by the mean pixel-AUROC over all classes and its standard deviation over 5 runs. Despite image-level detection is the focus of this work, our method is able to localize defects for practical purposes with an AUROC of 95% or 97.6%.
+d5bi | more variance and anomalies only partly occur in one of the two data modalities, RGB and 3D.

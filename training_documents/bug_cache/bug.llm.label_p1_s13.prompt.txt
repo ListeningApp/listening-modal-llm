@@ -1,0 +1,133 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+
+EXAMPLE OUTPUT:
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+
+
+
+
+1pjs | This article is intended solely for the personal use of the individual user and is not to be disseminated broadly.
+o2kr | This document is copyrighted by the American Psychological Association or one of its allied publishers.
+v6sk | Predicting Voice Behavior in Work Groups
+1wj6 | Jeffrey A. LePine University of Florida
+936l | This field study of 441 full-time employees in 95 work groups examined voice behavior (constructive challenge to the status quo with the intent of improving the situation rather than merely criticizing) as a function of person-centered (satisfaction with the work group, global self-esteem) and situational factors (group size, self-managed vs. traditional style of management). Using a measure of voice with demonstrated construct validity, the study showed that these person and situation factors explained 10% of the variance in peer-rated voice assessed 6 months later. Significant Person X Situation interactions suggested that individuals with low global self-esteem or high satisfaction with their group were more responsive to the situational factors than individuals with high global self-esteem or low satisfaction. The authors discuss the importance of including person- centered characteristics, situational factors, and their interactions as predictors of voice.
+06yq | For over 50 years, scholars have recognized the impor- tance of behavior that goes beyond normal role expecta- tions or job requirements and that benefits or is intended to benefit the organization (Barnard, 1938; George & Brief, 1992; Katz & Kahn, 1978). Over the last decade research interest in these discretionary or extra-role be- haviors has increased; however, the primary focus has been on affiliative behaviors (e.g., helping) associated with "organizational citizenship" (e.g., Organ, 1988) and "contextual performance" (e.g., Motowidlo & Van Scot- ter, 1994). Although this research has led to a great deal of insight, other types of extra-role behavior have received far less attention (Graham, 1991; Van Dyne, Cum- mings, & McLean Parks, 1995). In this study we focused on voice behavior-speaking out and challenging the sta- tus quo with the intent of improving the situation. Al- though scholars have acknowledged the contributions that voice and change-oriented behavior can make to organiza- tional effectiveness (Katz & Kahn, 1978; Nemeth & Staw, 1989; Schein, 1968), voice is particularly important today given the emphasis on flexibility, innovation, and continu- ous improvement (Howard, 1995).
+dpv6 | Nowhere is the need for voice more important than in work groups. Work groups, or sets of interdependent
+8r5j | Linn Van Dyne Michigan State University
+2taz | individuals who share responsibility for outcomes (Sund- strom, DeMeuse, & Futrell, 1990), are increasingly being used as a means of dealing with competitive environments that demand flexibility (Ilgen, 1994). Instead of structur- ing work around individual-level jobs, work is assigned to groups that are expected to devise effective means for accomplishing the work (Cascio, 1995). In such situa- tions, group members must share ideas, knowledge, and insights so that multiple viewpoints are considered in making decisions (Hollenbeck, LePine, & Ilgen, 1996; Ilgen, LePine, & Hollenbeck, 1997; Nemeth, 1986; Schwenk, 1990).
+o3ya | Over the past 30 years, researchers have spent a great deal of effort describing problems that occur when group members fail to speak out and share their ideas with each other (e.g., Janis, 1972; Kelman & Hamilton, 1989; Kiesler & Kiesler, 1969). This research focused on the outcome side of the voice nomological network (i.e., problems when people do not engage in voice). In con- trast, less research has focused on antecedents of voice. Furthermore, research on antecedents of voice is still in an early stage of development and has explained only a small amount of variance (e.g., Rusbult, Farrell, Rog- ers, & Mainous, 1988; Saunders, Sheppard, Knight, & Roth, 1992; Withey & Cooper, 1989). This is a problem because without knowledge of antecedents, researchers cannot make recommendations regarding how to manage voice in work groups. Given that organizations are in- creasingly dependent on their groups' success, it is critical for researchers to begin to fill this void. The purpose of this article and the study it reports, therefore, is to propose and assess a predictive model of voice that considers sev- eral antecedents. Before we can begin, however, we need to explain more precisely what we mean by voice.
+r5il | 853
+5gui | This article is intended solely for the personal use of the individual user and is not to be disseminated broadly.
+82qc | This document is copyrighted by the American Psychological Association or one of its allied publishers.
+ls7d | 854
+tzt3 | LEPINE AND VAN DYNE
+t8vv | Voice Research
+qvnu | Van Dyne et al. (1995) reviewed the literature on extra- role behavior and proposed a two-dimensional typology and nomological network. On one dimension, their typol- ogy contrasts promotive and prohibitive behavior (encour- aging something to happen vs. encouraging something to cease). On the other dimension, their typology contrasts affiliative and challenging behavior (interpersonal behav- ior that promotes cooperation and strengthens relation- ships vs. change-oriented behavior that focuses on ideas and issues). Using this typology, Van Dyne and her col- leagues distinguished between several forms of extra-role behavior.
+kggw | Voice, defined as nonrequired behavior that emphasizes expression of constructive challenge with an intent to im- prove rather than merely criticize ( Van Dyne & LePine, 1998, p. 109), falls clearly in the promotive-challenging cell of the Van Dyne et al. (1995) typology. Voice is distinct from affiliative behavior (e.g., helping) normally associated with organizational citizenship (e.g., Smith, Organ, & Near, 1983) or contextual performance (e.g., Motowidlo & Van Scotter, 1994; Van Scotter & Motowi- dlo, 1996) because affiliative behavior (e.g., helping) is meant to preserve or improve relationships, whereas voice is challenging and may upset interpersonal relationships. Voice is also distinct from prohibitive behaviors such as whistle-blowing (Near & Miceli, 1987; Miceli & Near, 1992). Whistle-blowing is critical and meant to stop some activity as opposed to being constructive and meant to change (improve) some activity.
+xrd1 | From a theoretical and definitional perspective, given the definition of voice above, it is possible to further distinguish voice from other related behaviors. For exam- ple, we do not consider principled organizational dissent (Graham, 1986) to be voice because principled organiza- tional dissent focuses on objections based on conscien- tious or moral principles rather than suggesting more ef- fective ways of doing things. Voice behavior is also dis- tinct from complaining. Complaints reflect expression of dissatisfaction and do not necessarily include suggestions for change (Kowalski, 1996). Because we define voice as a behavior, our use of the term does not refer to the availability of grievance procedures or perceptions of ac- cess to grievance procedures. Finally, voice is distinct from normal role or in-role behavior when the expression of constructive challenge is not specified in formal job requirements or descriptions. That is, constructive sugges- tions made by consultants or other change agents in the context of their job requirements are not voice as defined here. One example of voice as we define it is when a group member makes an innovative suggestion for change to a standard operating procedure in order to improve
+5746 | work flow, even when such a suggestion might upset others.
+7toz | From an empirical perspective there is evidence that voice is different from other behaviors. In a recent study, Van Dyne and LePine (1998) presented initial construct validity support for a 6-item measure of voice behavior. In their study, supervisors, peers, and employees differen- tiated in-role from extra-role behavior, and also distin- guished between two forms of promotive extra-role be- havior-helping and voice. Using multigroup confirma- tory factor analysis, they demonstrated that their three- factor (in-role, helping, and voice behavior ) measurement model was fairly stable over time (6 months) and across raters (self, peers, and supervisor). They also found that supervisors recognized and rewarded voice because em- ployees who exhibited voice at Time 1 received higher performance ratings at Time 2.
+j346 | However, despite the empirical evidence that voice is distinct from other work-related behaviors and has practi- cal importance in work group contexts, researchers have not had much success in predicting voice (see, e.g., Wi- they & Cooper, 1989). We suggest that this can be attrib- uted to at least two factors: (a) focusing on satisfaction and excluding other theoretically relevant predictors, and (b) utilizing measures of voice with questionable con- struct validity.
+v8uq | Focus on Satisfaction
+x972 | Research on voice has emphasized the person-centered antecedents of satisfaction, dissatisfaction, or both. This emphasis can be attributed to Hirschman (1970), who proposed that voice is a "political" response ( as opposed to exit, which is an "economic" response) of organ- izational members or customers to their dissatisfaction with organizational-level decline. Researchers extended Hirschman's theory by proposing that voice is also a re- sponse to dissatisfaction with specific aspects of work in the context of high levels of overall job satisfaction or prior job satisfaction (e.g., Farrell & Rusbult, 1992; Rus- bult et al., 1988). This research on voice made a contribu- tion because it provided an initial theoretical framework for assessing a key antecedent of voice. The emphasis on a single antecedent (satisfaction) or type of antecedent (person-centered) is also consistent with initial research in many areas.
+cwrw | Researchers have traditionally attempted to predict hu- man behavior using either person-centered (e.g., affect, abilities, personality ) or situation-centered (e.g., job char- acteristics, social settings) variables. Recently, however, researchers have begun to recognize that most human behavior is influenced by many independent factors and that relationships may vary systematically depending on the situation and vice-versa (e.g., Brockner, 1988; Eke-
+4i0e | This article is intended solely for the personal use of the individual user and is not to be disseminated broadly.
+h2l3 | This document is copyrighted by the American Psychological Association or one of its allied publishers.
+dfzb | VOICE IN WORK GROUPS
+u6ty | hammer, 1974). Thus, there is a need to develop predictive models that consider the independent and joint effects of theoretically relevant personal and situational variables (Hattrup & Jackson, 1996).
+awvu | Several recent studies on behaviors closely related to voice illustrate the use of both personal and situational antecedents in the same model. Near and Miceli (1995), for example, theorized that individual and situational vari- ables affect the outcome of whistle-blowing. Scott and Bruce (1994) found support for their hypotheses relating both individual and situational variables to innovative be- havior. Ford (1996) included both individual and situa- tional variables in his model of creative behavior. Finally, and more directly relevant to our approach, Van Dyne et al. (1995) proposed an initial nomological network for voice that included both person-centered (affective states and individual differences) and situational (contextual factors ) antecedents. In summary, given that satisfaction is only one of several theoretically relevant variables, it is not surprising that predicting employee voice behavior has been difficult.
+on9b | Measurement of Voice
+a8ge | Schwab (1980) pointed out that concern for measure- ment has been viewed as secondary to substantive issues in the early stages of research on most new constructs. We suggest that this has been the case with research on voice and the result has been weak and inconsistent empir- ical findings. First, voice scales used in past research included items with questionable content validity. For ex- ample, Leck and Saunders's (1992) 5-item scale con- tained the items "Voluntarily wear clothing (hat, jacket, pin, etc.) that bears your organization's symbol or insig- nia" and "Say good things about your job even when others criticize it." The inclusion of such items in scales designed to measure voice inevitably causes construct contamination (Schwab, 1980) and construct stretching (Osigweh, 1989), which may inflate or deflate observed validity coefficients depending on the extent of criterion contamination or deficiency. Second, researchers have used voice scales with low internal consistency reliability (e.g., Rusbult et al., 1988; Withey & Cooper, 1989). Low reliability attenuates validity coefficients. Third, most re- search on voice (e.g., Farrell & Rusbult, 1992; Leck & Saunders, 1992; Rusbult et al., 1988; Saunders et al., 1992) has used self-reported frequency or intentions/like- lihood of engaging in voice behaviors rather than observed frequency of actual behavior. Because of the challenging nature of voice, it is problematic to assume that intentions translate into behavior. To the extent that this assumption does not hold, intention-based measures of voice lack construct validity, which may inflate or deflate the size of relationships depending on what is actually being measured.
+h27a | 855
+pdjh | Summary
+xmgs | To date, researchers have not had great success in pre- dicting voice. This shortcoming can be attributed to (a) focusing on a single antecedent and (b) using measures with questionable construct validity. Although such short- comings often occur in relatively new research domains, developing and testing more detailed models and using measures with construct validity will advance theoretical understanding and suggest interventions that can be ap- plied by managers. The objective of this article is to use theory and recent empirical findings to develop and test an initial set of voice antecedents. Following the general recommendations of interactionists and more specific rec- ommendations regarding voice, we propose and assess a predictive model of voice including both person-centered and situational antecedents. In addition, we use a measure of voice with initial evidence of construct validity.
+bd9h | Person-Centered Antecedents
+m047 | Although a large number of person-centered character- istics could be considered in a predictive model of voice, practical and statistical concerns limit any single study to a manageable subset of those characteristics (Cohen, 1990). Therefore, in our study, we chose to focus on one person-centered characteristic from each category sug- gested by Van Dyne et al. (1995; i.e., affective characteris- tics and individual differences). Building on past voice research, we chose satisfaction as our affective construct because it is the key antecedent in existing models of voice. Extending past research, we included global self- esteem. Global self-esteem was chosen because of its im- portance in predicting behavior that is somewhat risky to the self.
+gy8c | Satisfaction With the Group

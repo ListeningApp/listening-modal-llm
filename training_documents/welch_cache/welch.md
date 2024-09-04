@@ -2,7 +2,7 @@
 
 The legendary folk artists discuss rescuing their tapes from a catastrophic storm, singing as if they have one mouth, and making music that's like a pebble tossed in a river.
 
-Since nineteen ninety-six, when Gillian Welch and her partner, the guitarist David Rawlings, released "Revival," their début album, they've been making tense and eerie acoustic music about desire and devastation, the sacred and the profane, by and by, Lord, by and by. The duo's music-some of the first to be dubbed "Americana"- often feels both ancient and instinctive, as though these songs have always existed, oozing out of a phonograph horn on some distant astral plane. These days, it seems preposterous that Welch's provenance-she was adopted and brought up in Los Angeles-was once controversial within the roots-music scene. Though it was honed in the American South, the vernacular music that she and Rawlings pull from is inclusive and yielding by design; to be proprietary about this sort of folk music is to misunderstand its ethos entirely. These songs obliterate notions of time and place, focussing, instead, on the threads of joy and sorrow that make us human.
+Since nineteen ninety-six, when Gillian Welch and her partner, the guitarist David Rawlings, released "Revival," their debut album, they've been making tense and eerie acoustic music about desire and devastation, the sacred and the profane, by and by, Lord, by and by. The duo's music-some of the first to be dubbed "Americana"- often feels both ancient and instinctive, as though these songs have always existed, oozing out of a phonograph horn on some distant astral plane. These days, it seems preposterous that Welch's provenance-she was adopted and brought up in Los Angeles-was once controversial within the roots-music scene. Though it was honed in the American South, the vernacular music that she and Rawlings pull from is inclusive and yielding by design; to be proprietary about this sort of folk music is to misunderstand its ethos entirely. These songs obliterate notions of time and place, focussing, instead, on the threads of joy and sorrow that make us human.
 
 This month, Welch and Rawlings will release "Woodland," their seventh collaboration. The record was shaped, in part, by the fallout of a catastrophic tornado that whipped through Nashville in the early-morning hours of March third, twenty twenty. I recently spoke with Welch and Rawlings from their home on the east side of the city. During our conversation, which has been edited and condensed, I found them thoughtful, open, and prone to finishing each other's sentences. "Before we started talking to you today, I was actually thinking about the frustrations of trying to give meaningful interviews," Welch told me. "Art is how I relate to the world; I have to do this to communicate, because I'm not that great at expressing myself outside of it. I try; I'm a decently verbal person. What's really going on in here, it's hard for me to tell you-but it goes into the songs."
 
@@ -10,7 +10,7 @@ Your new record is named after Woodland Studios, in East Nashville, which you bo
 
 GILLIAN WELCH: We worked there on our first record, with T Bone Burnett.
 
-DAVID RAWLINGS: We intended to make the second record there, then T Bone wanted to make it out in California, at Sound City. But we were in and out of the building enough for us to figure out that it was our favorite studio in town. When a tornado came through in the late nineteen nineties and damaged the roof, there was a little bit of a dispute between the landlord and the person who ran the studio. That ended with the building coming up for sale. Then it sat on the market for a couple years.
+DAVID RAWLINGS: We intended to make the second record there, then T Bone wanted to make it out in California, at Sound City. But we were in and out of the building enough for us to figure out that it was our favorite studio in town. When a tornado came through in the late nineties and damaged the roof, there was a little bit of a dispute between the landlord and the person who ran the studio. That ended with the building coming up for sale. Then it sat on the market for a couple years.
 
 G.W.: Neil Young made "Comes a Time" there. The beginnings of Americana, before it was Americana-way before. The first coming together of country and bluegrass and folk.
 
@@ -88,7 +88,7 @@ With any kind of major loss, it seems as if there's always this little kernel of
 
 G.W.: Though certain things you really don't want to rebuild. The night of the tornado, two of our main guitars were here at the house. When the sirens started going off, first we suited up-we put on boots. Don't want to be barefoot. And then we grabbed the guitars. We don't have a basement here, so I was in the hall bathroom with the two guitars, hugging the toilet while the tornado went overhead.
 
-Years ago, I wrote a book about obsessive collectors of very rare, prewar seventy-eight-r.p.m. records. I remember finding it so beautiful and poignant, so miraculous, that any of those disks had survived at all. Shellac is brittle; it shatters and chips easily. Holding some of those rare records in my hands, these utterly extraordinary recordings, I don't know, it reminded me that sometimes, stuff matters.
+Years ago, I wrote a book about obsessive collectors of very rare, prewar seventy-eight- R.P.M. records. I remember finding it so beautiful and poignant, so miraculous, that any of those disks had survived at all. Shellac is brittle; it shatters and chips easily. Holding some of those rare records in my hands, these utterly extraordinary recordings, I don't know, it reminded me that sometimes, stuff matters.
 
 G.W.: Of course it matters! You're talking about art. You're talking about saving art, in the moment, when, in fact, your life is in danger. But you're gonna brave that danger.
 
@@ -96,7 +96,8 @@ Because there's an understanding that the art will outlive you? Not to minimize 
 
 D.R.: It can last generations. I remember Robyn Hitchcock saying something to us a long time ago about how after a certain number of these records that we made, you're part of the cultural bloodstream.
 
-G.W.: It's in there.
+
+## G.W.: It's in there.
 
 D.R.: I'd never thought of it that way. But I think anyone who makes art and shares it with other people-no matter how few people-has enacted a change. Even somebody who does a really good job building a front door to a house. When you walk through that door, it makes you feel different about the human experience. All of these things affect us. With art, you move to, "Well, is that thing useful, beyond the fact that when I see it on the wall, it makes my eyes happy?" And then you confront these large questions that we could talk about forever.
 
@@ -120,7 +121,7 @@ G.W.: I remember feeling really jarred because, like us, Guy was just not one of
 
 D.R.: He was so committed to word and craft.
 
-G.W.: And so to get the news that way, and to know instantly, it was just, it was just, Oh... I gasped, and felt sick. And I knew. I remember how awful and darkly humorous that moment was. How strange.
+G.W.: And so to get the news that way, and to know instantly, it was just, it was just, Oh . . . I gasped, and felt sick. And I knew. I remember how awful and darkly humorous that moment was. How strange.
 
 D.R.: When I think about our relationship with art-getting a little older, having done this a little longer-I think about these gigs we did with him when we went to Texas for the first time. We were opening for him at a place called the Mucky Duck, a little club in Houston. We had played our set and we were watching Guy's set, and he got to the end of his show, left the stage, and got called back for an encore. Came back, did an encore. He had put on such a beautiful show, and he had such a beautiful self-possessed way about him. There was such gravity when Guy stood onstage. He played this song, and then he walked off again, and the crowd just wasn't havin' it. They were not going to leave. And I can't remember what he played-"Let Him Roll"? I don't remember what the last song was, but he just waved them off. He said, "Go home!"
 
@@ -134,9 +135,9 @@ D.R.: Yes. And he truly had.
 
 G.W.: The show was done!
 
-D.R.: I learned something about understanding what you do, and also the value of not doing it. You're gonna do the best job you can, and when you have done it, stand firm. I thought, Wow, I don't know if I'll ever get to that place. We were young. It was long before our first record. It was the first we'd really seen of how musicians are on the road. I remember sitting in a Motel 6 in Guy's room. We had left the venue and we had taken this giant tinfoil pan of barbecue with us back to his room, and I just remember Guy and I standing there over the bed eating ribs and just laughing. I don't know what we were making, maybe a hundred dollars a night? Who knows. But he was willing to give of himself to us, to teach us. To tell us where the best pimento-cheese sandwich was.
+D.R.: I learned something about understanding what you do, and also the value of not doing it. You're gonna do the best job you can, and when you have done it, stand firm. I thought, Wow, I don't know if I'll ever get to that place. We were young. It was long before our first record. It was the first we'd really seen of how musicians are on the road. I remember sitting in a Motel Six in Guy's room. We had left the venue and we had taken this giant tinfoil pan of barbecue with us back to his room, and I just remember Guy and I standing there over the bed eating ribs and just laughing. I don't know what we were making, maybe a hundred dollars a night? Who knows. But he was willing to give of himself to us, to teach us. To tell us where the best pimento-cheese sandwich was.
 
-G.W.: He'd tell us which exit between each town. He'd say, "Now, when you're going between Houston and Dallas, you're gonna wanna stop here. If you're going between Dallas and Austin, you're gonna wanna stop here." This is way before cell phones and G.P.S. You needed this information! You've got a Rand McNally at that point. If we were in Texas, in kind of unknown territory, we would call Guy. I'd say, "Guy, we're down around San Antonio and we need dinner." And he'd say, "O.K." He'd think for a minute. "All right, there's a barbecue place..."
+G.W.: He'd tell us which exit between each town. He'd say, "Now, when you're going between Houston and Dallas, you're gonna wanna stop here. If you're going between Dallas and Austin, you're gonna wanna stop here." This is way before cell phones and G.P.S. You needed this information! You've got a Rand McNally at that point. If we were in Texas, in kind of unknown territory, we would call Guy. I'd say, "Guy, we're down around San Antonio and we need dinner." And he'd say, "O.K." He'd think for a minute. "All right, there's a barbecue place . . . "
 
 For each of you, do you have a clear sense of which version-performed or recorded-feels like the truest version of a song?
 
@@ -152,111 +153,113 @@ Performing for just a dozen people sounds terrifying.
 
 D.R.: Especially when two of them are on their phones!
 
-G.w .: Back when I was trying to get a publishing deal, I was still walking into those offices with my guitar. I was not even playing tape. I'm walking in, uncasing my guitar, and sitting in a chair across the desk from a person. One person. That's how I got a publishing deal; that's how I got the record deal. That world is gone.
+G.W.: Back when I was trying to get a publishing deal, I was still walking into those offices with my guitar. I was not even playing tape. I'm walking in, uncasing my guitar, and sitting in a chair across the desk from a person. One person. That's how I got a publishing deal; that's how I got the record deal. That world is gone.
 
-D.R .: On our first record, T Bone was still working on tape. It was analog recording, it was still connected to the great recordings of the late sixties and the seventies. In so many ways, we've had the opportunity to keep the parts of the old world that worked for us, but then also to move forward. I feel happy to have been in that position-to have seen it and lived it enough to know which parts can't be replaced.
+D.R.: On our first record, T Bone was still working on tape. It was analog recording, it was still connected to the great recordings of the late sixties and the seventies. In so many ways, we've had the opportunity to keep the parts of the old world that worked for us, but then also to move forward. I feel happy to have been in that position-to have seen it and lived it enough to know which parts can't be replaced.
 
 I like the idea of music being a thing I make space for in my home-a thing I hold in my hands. How do you prefer to listen to records? This reminds me that I have to point out that "Time (The Revelator)" does not yet exist on vinyl. I'm wearing out my CD!
 
-D.R .: I do listen to vinyl records a decent amount, at the house or at the studio. But I love listening to music in the car. CDs. I'll sometimes stream stuff on my phone. I'm looking forward to being on the road because, when you have a four-hour drive-
+D.R.: I do listen to vinyl records a decent amount, at the house or at the studio. But I love listening to music in the car. CDs. I'll sometimes stream stuff on my phone. I'm looking forward to being on the road because, when you have a four-hour drive-
 
-G.W .: Then we listen to way more music.
+G.W.: Then we listen to way more music.
 
-D.R .: You can't be doing anything else. And what else do I want to do? I want to hear new songs, and I want to hear music that I've loved for years, and see how it hits me in a new moment.
+D.R.: You can't be doing anything else. And what else do I want to do? I want to hear new songs, and I want to hear music that I've loved for years, and see how it hits me in a new moment.
 
-G.w .: Singing along with the Stanley Brothers, old Chet Baker. Honestly, that's how we honed our harmony singing.
+G.W.: Singing along with the Stanley Brothers, old Chet Baker. Honestly, that's how we honed our harmony singing.
 
-D.R .: "Time (The Revelator)" on vinyl is something I want to do. I started down that path right before the tornado. It's a very difficult record to cut, because it's almost sixty minutes long. And then you have to confront the question of, do you try and get it on one disk? There's a finite amount of physical space on a record, and the more music you put, the quieter it has to be. On that record, the vocal is very hot relative to the music; the vocal peaks are very hard. If you get them to where they're not crashing the vinyl, the music is quiet. I think that "OK Computer" is one of the greatest CDs ever made. They try to do these high-quality vinyl versions of it, and it sounds like mush, because it's too hard. It has too much dynamic range to really be captured right on vinyl. Maybe if you cut it at forty-five r.p.m. Music does have a connection to the format it was made on. But yes, it's coming, and nothing will make me happier.
+D.R.: "Time (The Revelator)" on vinyl is something I want to do. I started down that path right before the tornado. It's a very difficult record to cut, because it's almost sixty minutes long. And then you have to confront the question of, do you try and get it on one disk? There's a finite amount of physical space on a record, and the more music you put, the quieter it has to be. On that record, the vocal is very hot relative to the music; the vocal peaks are very hard. If you get them to where they're not crashing the vinyl, the music is quiet. I think that "OK Computer" is one of the greatest CDs ever made. They try to do these high- quality vinyl versions of it, and it sounds like mush, because it's too hard. It has too much dynamic range to really be captured right on vinyl. Maybe if you cut it at forty-five revolutions per minute. Music does have a connection to the format it was made on. But yes, it's coming, and nothing will make me happier.
 
-This is going to sound sort of bonkers, because you each possess distinct voices and ranges and tones, but there are moments on the new one where I almost don't know who's singing. To what extent do you think these years of collaborating have sort of bent your voices toward each other? G.W .: Well, Dave has always been the better rock-and-roll singer. Always. I tend to think about microscopic things. I get very myopic, and if something's not working -I remember one time, he was, like, "Can you just put it on the beat? It'd have more impact if you just put it on the beat." I've never forgotten that. The rock-and-roll singer.
+This is going to sound sort of bonkers, because you each possess distinct voices and ranges and tones, but there are moments on the new one where I almost don't know who's singing. To what extent do you think these years of collaborating have sort of bent your voices toward each other? G.W.: Well, Dave has always been the better rock-and-roll singer. Always. I tend to think about microscopic things. I get very myopic, and if something's not working -I remember one time, he was, like, "Can you just put it on the beat? It'd have more impact if you just put it on the beat." I've never forgotten that. The rock- and-roll singer.
 
-D.R .: I mean, we've certainly heard each other sing for a long time. I've always thought Gill is a much stronger singer. I love the role of harmony singing so much. A lot of little tricks that I do in harmony singing are actually no good for lead singing. I was very conscious of not annunciating consonants or things at the end of words, or shaping my vowels so that they fit with what Gill was doing. But gradually, over time, I could hear what was good about what I was doing and what was bad. On "Howdy Howdy," it was most interesting if I sang the high part and she sang the lower part. That kind of blends us together. There's a lot of stuff that we admire and try to sing, like the Blue Sky Boys. The whole point to us was that they sounded like they had one mouth. They were so linked. So I think we spent a lot of years trying to just-
+D.R.: I mean, we've certainly heard each other sing for a long time. I've always thought Gill is a much stronger singer. I love the role of harmony singing so much. A lot of little tricks that I do in harmony singing are actually no good for lead singing. I was very conscious of not annunciating consonants or things at the end of words, or shaping my vowels so that they fit with what Gill was doing. But gradually, over time, I could hear what was good about what I was doing and what was bad. On "Howdy Howdy," it was most interesting if I sang the high part and she sang the lower part. That kind of blends us together. There's a lot of stuff that we admire and try to sing, like the Blue Sky Boys. The whole point to us was that they sounded like they had one mouth. They were so linked. So I think we spent a lot of years trying to just-
 
-G.W .: Trying to literally make our vowels and move our mouths and modulate through the words exactly the same. It's so beautiful. That's one of the things I love about brother-team music. Something happens. It's almost like that tickle that happens in your ear when you hear a pennywhistle, or a bagpipe or something. There's a place in your ear that only gets tickled by that. With two voices, we call it buzz-when they buzz, when they really hook up. It's just . . . oof!
+G.W.: Trying to literally make our vowels and move our mouths and modulate through the words exactly the same. It's so beautiful. That's one of the things I love about brother-team music. Something happens. It's almost like that tickle that happens in your ear when you hear a pennywhistle, or a bagpipe or something. There's a place in your ear that only gets tickled by that. With two voices, we call it buzz-when they buzz, when they really hook up. [Gasps.] It's just . . . oof!
 
-D.R .: I remember singing with Emmylou Harris early on. I didn't realize how much of harmony singing is unconscious. I noticed about four things were happening, physiologically, without me knowing it, while I was trying to sing with her. It was like I was in a yoga pose I'd never been in, and I'm, like, How?
+D.R.: I remember singing with Emmylou Harris early on. I didn't realize how much of harmony singing is unconscious. I noticed about four things were happening, physiologically, without me knowing it, while I was trying to sing with her. It was like I was in a yoga pose I'd never been in, and I'm, like, How?
 
-G.W .: [Laughs.] Never done this!
+G.W.: [Laughs.] Never done this!
 
-D.R .: That was a moment where I was, like, Wow, Gill and I have really matched what we're doing to each other.
+D.R.: That was a moment where I was, like, Wow, Gill and I have really matched what we're doing to each other.
 
-G.w .: And it's true of the instruments as well. We've spent decades becoming the players we are, with each other. All you have to do is sit down with somebody else, and all of a sudden it's, like, Oh! Oh, all right, yeah!
+G.W.: And it's true of the instruments as well. We've spent decades becoming the players we are, with each other. All you have to do is sit down with somebody else, and all of a sudden it's, like, Oh! Oh, all right, yeah!
 
-D.R .: My guitar playing is entirely connected to what Gill's doing. It's one thing. I mean, I literally think of myself as the second-best guitar player in the room.
+D.R.: My guitar playing is entirely connected to what Gill's doing. It's one thing. I mean, I literally think of myself as the second-best guitar player in the room.
 
 What Gill does is harder to do-to play with that kind of feel and nuance on a rhythm guitar. You can copy what I'm doing, but what she does is almost impossible to teach. It's the combination that makes it special. It's the fact that we can try to play two guitars and create a texture that doesn't sound like two guitars.
 
 Speaking of that, I wanted to ask you about the guitar sound at the very top of "The Bells and the Birds." It's incredibly transporting, mesmerizing, rhythmic. That's just the two guitars?
 
-G.W .: Yeah. That's two guitars. [Laughs.]
+G.W.: Yeah. That's two guitars. [Laughs.]
 
-D.R .: Well, it would've started with Gill coming up with a finger-style guitar part of reasonable complexity.
+D.R.: Well, it would've started with Gill coming up with a finger-style guitar part of reasonable complexity.
 
-G.W .: Probably one of the more complex parts I play.
+G.W.: Probably one of the more complex parts I play.
 
-D.R .: You were imagining trying to write something that felt a little bit like "Guinevere."
+D.R.: You were imagining trying to write something that felt a little bit like CSNY's "Guinevere."
 
-G.w .: Something that floats. I wanted something that wasn't primitive, wasn't minimalistic.
+G.W.: Something that floats. I wanted something that wasn't primitive, wasn't minimalistic.
 
-D.R .: And you had the phrase "The Bells and the Birds." I was thinking about old classical music, how they'd try to illustrate language with the instruments-I love that literalism. So I wanted there to be bell-ish sounds that went along with the title. I wanted to think about a part that would float above it. I just wanted to come up with a little part that would be chime-y and would drift and intertwine. That would have a landscape to it. We ended up recording it in a way where we used microphones between us to catch the sound already combined, as opposed to microphones closer to the guitars.
+D.R.: And you had the phrase "The Bells and the Birds." I was thinking about old classical music, how they'd try to illustrate language with the instruments-I love that literalism. So I wanted there to be bell-ish sounds that went along with the title. I wanted to think about a part that would float above it. I just wanted to come up with a little part that would be chime-y and would drift and intertwine. That would have a landscape to it. We ended up recording it in a way where we used microphones between us to catch the sound already combined, as opposed to microphones closer to the guitars.
 
-G.W .: The music had actually combined in the air before the mike picked it up. So it has that organic swirling.
+G.W.: The music had actually combined in the air before the mike picked it up. So it has that organic swirling.
 
 In general, your work tends to be a little mournful, a little melancholic. I'm always curious about the animating impulse for songwriters-what sort of feeling, or what sort of idea, is most likely to get them to pick up a guitar or a pen. Do you find that you both tend to write through moments of contemplation or sadness more than moments of pleasure?
 
-G. W.: Yes. Yes, for me.
+G.W.: Yes. Yes, for me.
 
-D. R.: Yeah, I would agree. The songs all deal with a certain kind of melancholy something, but-
+D.R.: Yeah, I would agree. The songs all deal with a certain kind of melancholy something, but-
 
-G. W.: Our narrators are never defeated. As low as they are, it's not the end. I do believe I'm an optimist. I have profound faith in the human spirit, that people can get through the unimaginable. I think that's in the songs, and it's related to us and to me and those moments when I pick up a guitar. And they do tend to be sorrowful moments. But that's just part of the human response. You don't get through something by ignoring it. You get through it by really feeling it. I have yet to find anything in my life that cannot be expressed through folk music.
+G.W.: Our narrators are never defeated. As low as they are, it's not the end. I do believe I'm an optimist. I have profound faith in the human spirit, that people can get through the unimaginable. I think that's in the songs, and it's related to us and to me and those moments when I pick up a guitar. And they do tend to be sorrowful moments. But that's just part of the human response. You don't get through something by ignoring it. You get through it by really feeling it. I have yet to find anything in my life that cannot be expressed through folk music.
 
 I was a pretty obsessive music listener as a kid, and in a way, I think I learned what feelings were that way.
 
-G. W.: I think about that all the time. It was my first glimpse of a world I felt like I wanted to be part of. I didn't want the boring world. I wanted the world with the drunks and the clowns and the suitcases. I had to work my way up to the more raw and primary emotions that are present in a Stanley Brothers song. That was a lot to handle. The drunk husband, the man damned to a life in jail-I had to work my way up to processing that. But now, you know, I'm kinda there. I'm a grown woman now, and-excuse my language-some shit has happened.
+G.W.: I think about that all the time. It was my first glimpse of a world I felt like I wanted to be part of. I didn't want the boring world. I wanted the world with the drunks and the clowns and the suitcases. I had to work my way up to the more raw and primary emotions that are present in a Stanley Brothers song. That was a lot to handle. The drunk husband, the man damned to a life in jail-I had to work my way up to processing that. But now, you know, I'm kinda there. I'm a grown woman now, and-excuse my language-some shit has happened.
 
 It seems to me as if your lyrics are a mix of pure fiction and what could maybe be called autofiction. How often are your songs rooted in personal experience?
 
-D. R.: Sometimes you're writing a song about something completely different, and then you realize that there's an experience that you can draw upon that creates this beautifully incisive verse, and changes the course of the song. Maybe it wasn't what you were starting out to express, but all of a sudden you have this avenue to express it. I think in our world, we're not trying to . . . the things we're trying to express are always more complicated than just sitting down and saying, "I'm gonna write a song about this last experience that I had."
+D.R.: Sometimes you're writing a song about something completely different, and then you realize that there's an experience that you can draw upon that creates this beautifully incisive verse, and changes the course of the song. Maybe it wasn't what you were starting out to express, but all of a sudden you have this avenue to express it. I think in our world, we're not trying to . . . the things we're trying to express are always more complicated than just sitting down and saying, "I'm gonna write a song about this last experience that I had."
 
-G. W.: That's exactly it. I feel like we're right on the bull's-eye when there's mystery. When there's mystery, we're in the right place. We can't help but put true experiences into the songs. Lately, it has seemed to me that there's no such thing as truly random. You can put eight words on the table and my brain will connect them with something true.
+G.W.: That's exactly it. I feel like we're right on the bull's-eye when there's mystery. When there's mystery, we're in the right place. We can't help but put true experiences into the songs. Lately, it has seemed to me that there's no such thing as truly random. You can put eight words on the table and my brain will connect them with something true.
 
-D. R.: There are things on this record that are incredibly autobiographical. When I say everything was colored by the experiences of the past five years, that's very true. But it narrows and obscures it to try and talk about it specifically.
+D.R.: There are things on this record that are incredibly autobiographical. When I say everything was colored by the experiences of the past five years, that's very true. But it narrows and obscures it to try and talk about it specifically.
 
 Last question: what's the hardest part of doing this job, and what's the best part?
 
-G. W.: You know, only with the onset of the pandemic did I fully realize that I had not spent a birthday at home in probably twenty-five years. And I didn't even know that I cared. But it was interesting to live in one place again. It reminded me of when we first moved to Nashville and I was getting to know Tennessee. I got to appreciate those little transitional weeks where you actually feel the seasons start to shift. And I loved that awareness. That was obliterated by life on the road. Also, when you move so much, it's hard to actually change. The world around you is changing so much that you just roll with it. But I felt, with Dave and myself, that we actually kind of changed. And that change is present in this album. It's one of my favorite things about this record. What do I love about this job? It brings me a kinship with the world. I'm a very solitary person, and I have virtually no family.
+G.W.: You know, only with the onset of the pandemic did I fully realize that I had not spent a birthday at home in probably twenty-five years. And I didn't even know that I cared. But it was interesting to live in one place again. It reminded me of when we first moved to Nashville and I was getting to know Tennessee. I got to appreciate those little transitional weeks where you actually feel the seasons start to shift. And I loved that awareness. That was obliterated by life on the road. Also, when you move so much, it's hard to actually change. The world around you is changing so much that you just roll with it. But I felt, with Dave and myself, that we actually kind of changed. And that change is present in this album. It's one of my favorite things about this record. What do I love about this job? It brings me a kinship with the world. I'm a very solitary person, and I have virtually no family.
 
 The music, and the people that hear our music, that's probably my number one anchor to the world.
 
-D. R.: The hardest part for me is not being able to focus on one thing. That's what being a musician has become. Forty years ago, you could drive into Laurel Canyon and be a decent songwriter, and there was an entire infrastructure in place.
+D.R.: The hardest part for me is not being able to focus on one thing. That's what being a musician has become. Forty years ago, you could drive into Laurel Canyon and be a decent songwriter, and there was an entire infrastructure in place.
 
-G. W.: All you had to do was play guitar and sing.
+G.W.: All you had to do was play guitar and sing.
 
-D. R.: But at this point, you have to wear a hundred hats, and it's very, very difficult. I don't like shifting gears. The flip side of this is that I've been able to experience all of these separate careers. All of a sudden being like, O.K., I have to stay up to write string parts, and I have to learn how to do that. What a wonderful thing to have the opportunity to do in your life. There's something really amazing about the size and complexity of the world that we've built around ourselves. But then when we go out and play shows, it's just the vehicle that we're driving, it's a couple guitars and a couple notebooks, a garment bag-
+D.R.: But at this point, you have to wear a hundred hats, and it's very, very difficult. I don't like shifting gears. The flip side of this is that I've been able to experience all of these separate careers. All of a sudden being like, O.K., I have to stay up to write string parts, and I have to learn how to do that. What a wonderful thing to have the opportunity to do in your life. There's something really amazing about the size and complexity of the world that we've built around ourselves. But then when we go out and play shows, it's just the vehicle that we're driving, it's a couple guitars and a couple notebooks, a garment bag-
 
-G. W.: A suit and a dress.
+G.W.: A suit and a dress.
 
-D. R.: And you stand up onstage in front of all these people and play. It's such an honor to have all of your energy focussed on this one thing that you care about so much. And to know that all the work you've done in the past-all the thinking about what the next line's going to be, or what the next story you're going to tell is, or what the next note you're gonna play is, or what you played last night that really was fun and you need to remember how to do that again because people enjoyed it so much and you enjoyed it, that you have this North Star. It's unreal.
+D.R.: And you stand up onstage in front of all these people and play. It's such an honor to have all of your energy focused on this one thing that you care about so much. And to know that all the work you've done in the past-all the thinking about what the next line's going to be, or what the next story you're going to tell is, or what the next note you're gonna play is, or what you played last night that really was fun and you need to remember how to do that again because people enjoyed it so much and you enjoyed it, that you have this North Star. It's unreal.
 
-G. W.: It's so heartening that, with everything that's going on in everybody's lives and in the world, people still feel that impulse. They still want to go and sit in a dark room and listen to people sing.
+G.W.: It's so heartening that, with everything that's going on in everybody's lives and in the world, people still feel that impulse. They still want to go and sit in a dark room and listen to people sing.
 
 
 ## More New Yorker Conversations
 
-. Naomi Klein sees uncanny doubles in our politics.
+Naomi Klein sees uncanny doubles in our politics.
 
+Olivia Rodrigo considers the meanings of "Guts."
 
-## . Olivia Rodrigo considers the meanings of "Guts."
+Isabel Allende's vision of history.
 
-. Isabel Allende's vision of history.
-
-
-## Julia Fox didn't want to be famous, but she knew she would be.
+Julia Fox didn't want to be famous, but she knew she would be.
 
 John Waters is ready for his Hollywood closeup.
 
+Patrick Stewart boldly goes there.
 
-## Patrick Stewart boldly goes there. The Story That "Hillbilly Elegy" Doesn't Tell
+Amanda Petrusich is a staff writer at The New Yorker and the author of "Do Not Sell at Any Price: The Wild, Obsessive Hunt for the World's Rarest seventy-eight R.P.M. Records."
+
+
+## The Story That "Hillbilly Elegy" Doesn't Tell
 
 Like many memoirs, J. D. Vance's book misses a few details, some of which complicate the story upon
 
@@ -265,8 +268,7 @@ Like many memoirs, J. D. Vance's book misses a few details, some of which compli
 
 The observance of defeat, especially in an election, is often all that keeps a state from tipping into violence.
 
-
-## Why Was It So Hard for the Democrats to Replace Biden?
+Why Was It So Hard for the Democrats to Replace Biden?
 
 After the President's debate with Trump, Democratic politicians felt paralyzed. At the D.N.C., they felt giddy relief. How did they do it?
 

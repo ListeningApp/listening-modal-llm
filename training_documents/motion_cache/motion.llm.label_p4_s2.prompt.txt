@@ -1,0 +1,157 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+
+EXAMPLE OUTPUT:
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+
+
+
+
+jc47 | FRANZINI AND INNOCENTI
+ko3c | Fig. 2 Target and chaser spacecraft in the three-body system.
+xek3 | where h = rx [i]M is the target-specific angular momentum with respect to the Moon, and h = |h||. The unit vectors î, j, and k in the rendezvous literature are generally referred to as V-bar, H-bar, and R-bar, respectively [3]. Note that the LVLH frame is defined with respect to the Moon, because the target is supposed to fly on lunar orbits, and vehicles incoming from the Moon surface or lower and higher orbits are expected to approach the target (as, for instance, is envisaged in the HLEPP [10]).
+bbpr | With reference to Fig. 2, the chaser position with respect to the Moon is given by:
+5zyf | (11)
+9own | re=r+p
+bqfb | where p is the relative position of the chaser with respect to the target. The time derivative of Eq. (11) in the inertial frame is:
+wwdt | (12)
+mn1r | where @yi is the angular velocity of L (i.e., of the target) with respect to I. Further derivation of Eq. (12) in I yields:
+5vqw | (13)
+meyw | Noting that [@yilz = [@yile, and introducing Eqs. (9) and (10) in Eq. (13), we obtain the nonlinear equations of relative motion (NERM) in the LVLH frame:
+2e62 | - + (1 - µ) ||r + rem r + rem 3 ||r +p+rem r +p +rem
+75y3 | μ lr + p 11 3 r +p r
+s2g2 | (14)
+q1q2 | The angular velocity of the LVLH frame with respect to the inertial frame can be computed by composition of angular velocity vectors:
+cb7r | (15)
+68xu | @l/i =@l/m +@m/i
+hd35 | where @ym and @m/i are the angular velocities of £ with respect to M, and of M with respect to I, respectively.
+2zpk | The LVLH angular acceleration with respect to I is given by: [@yile =[@y/ml] + [@mfile = [@ym] + [@m/ilM -@l/m X @m/i
+epu7 | (16)
+7od1 | 1325
+0bqy | Equation (14), along with Eqs. (15) and (16), composes a set of nonlinear equations with time-varying parameters:
+b780 | 1) r, @l/m, and [@]/m]c, which depend on the target motion around the Moon
+ccmb | 2) Tem, @m/i, and [@ m/i], characteristics of the Earth-Moon system orbital motion
+ma93 | Equation (14) exactly describes the relative motion in the LVLH frame in the restricted three-body problem, providing that no orbital perturbations act on the spacecraft (e.g., solar radiation pressure). The consideration of the restricted three-body problem provides the option to model the primary bodies in either an elliptic or circular orbit around each other, depending on the three-body system considered.
+c6hh | In the following, the expressions of @l/m and [@1/m][ are derived, in order to complete the nonlinear description of the relative dynamics in the LVLH frame.
+y7ea | B. LVLH Angular Velocity and Acceleration
+nav4 | We now look for an analytical expression of the LVLH frame angular velocity and acceleration vectors with respect to the Moon frame, which exploits only kinematics relationships. To this end, the same considerations adopted in [21] are here used to find an expression for @ym. The angular acceleration [@ym]e is then obtained by differentiation.
+gem8 | Consider the time derivatives of the LVLH frame unit vectors as seen in M:
+e8nr | M ; LÂM = @1/m x 1, [k]M=@ym XẾ
+k78w | Left vector multiplication of the previous expressions by the relative unit vector gives:
+g9du | ›[ÎM={x(@|m × }) = @|m - (@)|m · })}
+f682 | which can be summed up obtaining:
+li1k | (17)
+pbea | The time derivative of the unit vector k is:
+ccpt | (18)
+0fpw | Noting that r = - rk and [i]e = - rk, we can write:
+dqn8 | r =- [r]·k =- ₼·k+(@|mxr)·k =- [^\·Î+@|m·(rxÎ) =- [r]M.k (19)
+cop0 | Substitution of Eq. (19) into Eq. (18) gives:
+lhkq | [ÂM = - (M ) + (2)M ) = - (MD)
+82ju | (20)
+y2qo | Note that [i]M . j = 0 since the target velocity as seen in M is perpendicular to h, by definition of the specific angular momentum. For the unit vector j we have the following time derivative:
+1piq | LIM = - 1(h) M - hh)
+7fqw | (21)
+rhaz | According to the definition of j, we have that h = - hj. Hence, Eq. (21) simplifies as follows:
+wak1 | (22)
+wtfz | <LATEX>a _ { l / i } = o _ { l / m } + \widehat { k } _ { m } , \quad \left[ \dot { a } _ { l / i } \right] _ { \mathcal{L} } = \left[ \dot { o } _ { l / m } \right] _ { \mathcal{L} } - o _ { l / m } \times \widehat { k } _ { m }</LATEX> Downloaded by UNIVERSITY OF TOKYO Hongo on September 5, 2023 | http://arc.aiaa.org | DOI: 10.2514/1.A34390
+qy1i | 1326
+1k9e | FRANZINI AND INNOCENTI
+5bjs | Noting that <LATEX>\left[ \dot { h } \right] _ { \mathcal{L} } = - \dot { h } \widehat { J } ,</LATEX> we can write <LATEX>\dot { h }</LATEX> as:
+uodj | <LATEX>\dot { r } = \frac { 1 } { r } r \cdot \left[ \ddot { r } \right] _ { \mathcal{M} }</LATEX> <LATEX>T h e \quad a n g u l a r \quad a c c e l e r a t i o n \quad a l o n g \quad k \quad i s :</LATEX> <LATEX>\dot { o } _ { l / m } ^ { z } = - \left( \frac { \dot { r } } { h ^ { 2 } } - 2 \frac { r \dot { h } } { h ^ { 3 } } \right) h \cdot \left[ \ddot { r } \right] _ { \mathcal{M} } - \frac { r } { h ^ { 2 } } \left( \left[ \dot { h } \right] _ { \mathcal{M} } \cdot \left[ \ddot { r } \right] _ { \mathcal{M} } + h \cdot \left[ \ddot { r } \right] _ { \mathcal{M} } \right)</LATEX> <LATEX>= \left( \frac { \dot { r } } { r } - 2 \frac { \dot { h } } { h } \right) o _ { l / m } ^ { z } - \frac { r } { h ^ { 2 } } h \cdot \left[ \ddot { r } \right] _ { \mathcal{M} }</LATEX> where
+k16v | <LATEX>\dot { h } = - \left[ \dot { h } \right] _ { \mathcal{L} } \cdot \widehat { j } = - \left[ \dot { h } \right] _ { \mathcal{M} } \cdot \widehat { j } + \left( o _ { l / m } \times h \right) \cdot \widehat { j } = - \left[ \dot { h } \right] _ { \mathcal{M} } \cdot \widehat { j }</LATEX> (23)
+b2lm | since <LATEX>w _ { l / m } \times h</LATEX> is perpendicular to <LATEX>h</LATEX> and, consequently, to <LATEX>\widehat { J } .</LATEX> Substitution of Eq. (23) into Eq. (22) yields the time derivative of j:
+ti7f | <LATEX>\left[ \dot { \left[ h \right] } _ { \mathcal{M} } \cdot \left[ \ddot { r } \right] _ { \mathcal{M} } = \left( r \times \left[ \ddot { r } \right] _ { \mathcal{M} } \right) \cdot \left[ \ddot { r } \right] _ { \mathcal{M} } = 0 \right.</LATEX> Given the target acceleration, Eq. (29), the jerk <LATEX>\left[ \ddot { r } \right] _ { \mathcal{M} }</LATEX> can <LATEX>b e</LATEX> computed by direct derivation:
+oksu | <LATEX>\left[ \ddot { r } \right] _ { \mathcal{M} } = - 2 a _ { m / i } \times \left[ \ddot { r } \right] _ { \mathcal{M} } - 3 \left[ \dot { a } _ { m / i } \right] _ { \mathcal{M} } \times \left[ \ddot { r } \right] _ { \mathcal{M} } - \left[ \ddot { o } _ { m / i } \right] _ { \mathcal{M} }</LATEX> <LATEX>\times r - \left[ \dot { o } _ { m / i } \right] _ { \mathcal{M} } \times \left( o _ { m / i } \times r \right) - w _ { m / i } \times \left( \left[ \dot { o } _ { m / i } \right] _ { \mathcal{M} } \times r \right) - o _ { m / i }</LATEX> <LATEX>\times \left( w _ { m / i } \times \left[ \dot { r } \right] _ { \mathcal{M} } \right) - \mu \frac { \partial } { \partial r } \left[ \frac { r } { r ^ { 3 } } \right] \left[ \dot { r } \right] _ { \mathcal{M} } - \left( 1 - \mu \right)</LATEX> <LATEX>\times \left( \frac { \partial } { \partial r } \left[ \frac { r + r _ { e m } } { \| r + r _ { e m } \| ^ { 3 } } \right] \left( \left[ \dot { r } \right] _ { \mathcal{M} } + \left[ \dot { r } _ { e m } \right] _ { \mathcal{M} } \right) - \frac { \partial } { \partial r _ { e m } } \left[ \frac { r _ { e m } } { r _ { e m } ^ { 3 } } \right] \left[ \dot { r } _ { e m } \right] _ { \mathcal{M} } \right)</LATEX> (30)
+wtow | <LATEX>\left[ \widehat { \widehat { J } } \right] _ { \mathcal{M} } = - \frac { 1 } { h } \left( \left( \left[ \dot { h } \right] _ { \mathcal{M} } \cdot \widehat { \imath } \right) \widehat { \imath } + \left( \left[ \dot { h } \right] _ { \mathcal{M} } \cdot \widehat { k } \right) \widehat { k } \right)</LATEX> <LATEX>= - \frac { 1 } { h } \left( \left( r \times \left[ \ddot { r } \right] _ { \mathcal{M} } \right) \cdot \widehat { \imath } \right) \widehat { \imath }</LATEX> <LATEX>= - \frac { 1 } { h } \left( \left[ \ddot { r } \right] _ { \mathcal{M} } \cdot \left( \widehat { \imath } \times r \right) \right) \widehat { \imath }</LATEX> <LATEX>= - \frac { r } { h } \left( \left[ \ddot { r } \right] _ { \mathcal{M} } \cdot \widehat { j } \right) \widehat { \imath }</LATEX> (24)
+o22k | In the previous derivation, the following result was used:
+nwfz | where
+nvfy | <LATEX>\left[ \dot { h } \right] _ { \mathcal{M} } \cdot \widehat { k } = \left( r \times \left[ \ddot { r } \right] _ { \mathcal{M} } \right) \cdot \widehat { k } = 0</LATEX> justified by the fact that <LATEX>r \times \left[ \ddot { r } \right] _ { \mathcal{M} }</LATEX> is perpendicular to r, that is, to <LATEX>\widehat { k } .</LATEX> The time derivative of <LATEX>\widehat { \imath }</LATEX> is given by:
+mror | <LATEX>\left[ \dot { r } _ { e m } \right] _ { \mathcal{M} } = \left[ \dot { r } _ { e m } \right] _ { L } - o _ { m / i } \times r _ { e m }</LATEX> and
+zlxc | <LATEX>\frac { \partial } { \partial q } \left[ \frac { q } { q ^ { 3 } } \right] = \frac { 1 } { q ^ { 3 } } \left( I - 3 \frac { q q ^ { T } } { q ^ { 2 } } \right)</LATEX> with I denoting the identity matrix.
+k0bw | Concluding, the LVLH angular velocity with respect to the Moon is given by:

@@ -1,7 +1,5 @@
 ## Rethinking Followership
 
-ABATERIAL
-
 When I began my work on followership twenty-five years ago, I was not particularly aware of what I was doing in the bigger scheme of things. My only goal was to bring attention to the study of followers. I was simply thinking about followers and followership roles, and I wanted to explore the subject.
 
 At the time, leadership was the primary focus for just about all scholars in the field. Very little research or theorizing considered followers, and if it did, its purpose was to better understand leadership. I felt like the odd person out. Executives, academics, and even people sitting next to me on airplanes questioned why I would bother with followership when leadership spurred the media attention, research funding, and high-paying corporate training gigs. Most people held a very negative view of followership and discounted anything positive that could come from the role. No one talked about followership; it was never part of the conversation, unless it was tagged on as an afterthought. At some point, I finally decided to put a stake in the ground and say to the world, "We need to pay attention to followers. Followership is worthy of its own discrete research and training. Plus, conversations about leadership need to include followership because leaders neither exist nor act in a vacuum without followers."
@@ -10,7 +8,7 @@ The road I went down was not easy at first. I made a major step with my nineteen
 
 "In Praise of Followers" turned out to be fairly controversial. Some people just flat out didn't like it, comparing followers to sled dogs whose destiny is always to look at the rear end of the dog in front of them, but never to see the wider horizon or make the decisions of the lead dog. Other readers could not thank me enough for articulating what they secretly held in their heart. These folks believed that being a strong number two often allowed for greater contributions than being in the number one spot and that making the assist was just as important as making the score. Many had no desire to be leaders.
 
-Controversy, I learned, can be good for spreading the word. So many people read, discussed, argued, and tried to apply the ideas in the article that it became one of Harvard Business Review's best-selling reprints and earned the article the "Harvard Business Review Classic" designation. My nineteen ninety-two book, The Power of Followership, and Ira Chaleff's nineteen ninety-five book, The Courageous Follower, propelled the concept even further. In the years since then, followership has made increasing headway into the mainstream, and the amount of interest in the topic seems to be escalating. For example, the word itself is now part of the organizational vocabulary. It is rare for someone to talk about leadership without also discussing the corresponding role of followership. Most leadership courses now have a section devoted to followership, and followership is increasingly taught as a stand-alone course in universities and corporations, such as Barbara Kellerman's followership course at Harvard's Kennedy School. Several master's theses and doctoral dissertations have studied followership in nursing, education, business, and sports. A two thousand seven Google search turned up over one hundred eighty-seven thousand hits for the term follower and over ninety-two thousand hits for followership research. Ron Riggio, Jean Lipman-Blumen, and Ira Chaleff organized at Claremont McKenna College in two thousand six the first national followership conference. On a personal level, more and more people contact me now wanting to know about followership. Most important, more people admit to me that they not only play the followership role but also prefer it. The landscape for followership has changed considerably in the last twenty-five years.
+Controversy, I learned, can be good for spreading the word. So many people read, discussed, argued, and tried to apply the ideas in the article that it became one of HBR's best-selling reprints and earned the article the "HBR Classic" designation. My nineteen ninety-two book, The Power of Followership, and Ira Chaleff's nineteen ninety-five book, The Courageous Follower, propelled the concept even further. In the years since then, followership has made increasing headway into the mainstream, and the amount of interest in the topic seems to be escalating. For example, the word itself is now part of the organizational vocabulary. It is rare for someone to talk about leadership without also discussing the corresponding role of followership. Most leadership courses now have a section devoted to followership, and followership is increasingly taught as a stand-alone course in universities and corporations, such as Barbara Kellerman's followership course at Harvard's Kennedy School. Several master's theses and doctoral dissertations have studied followership in nursing, education, business, and sports. A two thousand seven Google search turned up over one hundred eighty-seven thousand hits for the term follower and over ninety-two thousand hits for followership research. Ron Riggio, Jean Lipman-Blumen, and Ira Chaleff organized at Claremont McKenna College in two thousand six the first national followership conference. On a personal level, more and more people contact me now wanting to know about followership. Most important, more people admit to me that they not only play the followership role but also prefer it. The landscape for followership has changed considerably in the last twenty-five years.
 
 
 ## The Art of Followership
@@ -31,12 +29,7 @@ The yes-people. Yes-people are positive, always on the leader's side, but still 
 
 The alienated. Alienated followers think for themselves, but have a lot of negative energy. Every time the leader or organization tries to move forward, these are the ones who have ten reasons why the leader or organization shouldn't. They are not coming up with the next solution, but are skeptical, cynical about the current plan of action. They have energy, they can think for themselves, they can be smart. But they are not moving in a positive direction. However, they see themselves as the mavericks, the only people in the organization who have the guts to stand up to the boss.
 
-The pragmatics. Pragmatics sit on the fence and see which way the wind blows. Once they see where things are headed, they'll get on board. They'll never be the first on board, but they will never let the leader or organization leave
-
-
-## Rethinking Followership
-
-without them. They see themselves as preservers of the status quo. Their internal dialogue goes something like this: "If I got all excited every time there was a new leader or a change of direction, my wheels would be spinning constantly. Leaders come and go. New visions come and go. If I just sit here and wait it out, I won't have to do all that work." So they do what they must to survive, but wait it out until the storms of change blow over.
+The pragmatics. Pragmatics sit on the fence and see which way the wind blows. Once they see where things are headed, they'll get on board. They'll never be the first on board, but they will never let the leader or organization leave without them. They see themselves as preservers of the status quo. Their internal dialogue goes something like this: "If I got all excited every time there was a new leader or a change of direction, my wheels would be spinning constantly. Leaders come and go. New visions come and go. If I just sit here and wait it out, I won't have to do all that work." So they do what they must to survive, but wait it out until the storms of change blow over.
 
 The star followers. Star followers think for themselves, are very active, and have very positive energy. They do not accept the leader's decision without their own independent evaluation of its soundness. If they agree with the leader, they give full support. If they disagree, they challenge the leader, offering constructive alternatives that will help the leader and organization get where they want to go. Some people view these people as really "leaders in disguise," but this is basically because those people have a hard time accepting that followers can display such independence and positive behavior. Star followers are often referred to as "my right-hand person" or my "go-to person."
 
@@ -54,23 +47,19 @@ I am no longer surprised that the overwhelming response from the participants ab
 
 As I look forward for the field of followership, my thoughts swirl around the following seven topics:
 
-
-## One. World events
+One. World events
 
 Two. Culture
 
-
-## Three. Leader(ship)
+Three. Leader(ship)
 
 Four. Follower qualities
 
-
-## Five. Role of the follower
+Five. Role of the follower
 
 Six. Language of followership
 
-
-## Seven. Courageous conscience
+Seven. Courageous conscience
 
 In some of these areas, I think followership should be playing a more important role than it is. In other areas, I see research opportunities for all the scholars involved in the field.
 
@@ -80,9 +69,6 @@ In some of these areas, I think followership should be playing a more important 
 One of the things I'm concerned about is that we scholars have gotten too "micro" and too "parochial" when discussing followership. We overly examine the follower-leader interaction on the small stage of college student life or coach-player dramas. Can followership help us unravel the big issues happening in the world, issues that affect many people's lives-suicide bombers; the rise of religious fundamentalism and its corresponding lack of tolerance; democratically elected dictators and corrupt government officials of any kind who harm their followers and the larger society; or corporate abuses of power that cheat employees, customers, suppliers, investors, and in some cases the larger society?
 
 For example, the increase in suicide bombings and in the types of suicide bombers (for example, more women, more middle-class people, more professionals) has much of society searching for an explanation. If we take a psychological approach, we might look for answers in the bombers' needs for power, revenge,
-
-
-## Rethinking Followership
 
 or the promise of heaven. We might also see it from an economic vantage point in that the bombers are guaranteed the economic well-being of their families in return for their acts. Or we could search for sociological root causes, such as poverty, unemployment, or societal disenfranchisement. Each of these inquiries might yield some valuable insights.
 
@@ -109,12 +95,10 @@ We can take this a step further and look at followership during cultural clashes
 
 Traditionally, we have viewed the world from a leadership-centric vantage point. We have assumed that all other factors, including followership, are secondary to leadership. When followers have been surveyed, it was to determine their views of the leaders. But what if we turned all this around? What if we put followership center stage and asked all the same questions, but only in reference to the followers instead of leaders? For example, when we talk about leader-follower distance, we always talk about the follower's distance from the leader, but we should also talk about the leader's distance from the follower. Likewise, what are the interactions between leaders and followers from the follower's point of view? We tend to think of leaders as the proactive "cause" and followership as the reactive "effect." But what if the opposite were true? Are leadership attitudes, behavior, and performance more a result of followership than the other way around? For example, do sheep produce a particular style of leadership, regardless of the leader's personality or predisposition? Is it this turn of events that leads to a particular outcome?
 
-I'm reminded of the psychology cartoon depicting two dogs in a park talking to each other. One says to the other, "Humans are hard to train, but once you break them in, they are pretty predictable. I've finally taught mine so that when I bark, he drops whatever he's doing and prepares my meal. When I feel like getting some exercise, I scratch the floor to signal him to get on his jacket and to walk alongside of me to keep me company. And when I need a massage, I just sit down next to him and he starts rubbing me. He's learned these things so well that I don't even have to say anything anymore." We tend to believe that the leaders are in charge, directing and shaping followership behavior. Yet maybe leaders are malleable products of cumulative followership actions.
-
 
 ## Rethinking Followership
 
-We might also reframe the interaction effects between followers and leaders. For example, when we talk about charismatic leadership, we can ask, What style of follower would a charismatic leader attract? However, we should also ask, What style of leader would a yes-person attract? What is the psychological and emotional dynamic between them? These possible interactions between different followership and leadership styles, and the complexity therein, would be fertile areas for research, complementing Kellerman's work on bad leaders. This topic also ties in to the aforementioned world events and culture areas.
+We might also reframe the interaction effects between followers and leaders. For example, when we talk about charismatic leadership, we can ask, What style of follower would a charismatic leader attract? However, we should also ask, What style of leader would a yes-person attract? What is the psychological and emotional dynamic between them? These possible interactions between different followership and leadership styles, and the complexity therein, would be fertile areas for research, complementing Kellerman's and Lipman-Blumen's work on bad leaders. This topic also ties in to the aforementioned world events and culture areas.
 
 
 ## Follower Qualities
@@ -133,7 +117,7 @@ of the organization or the society, even if doing so means going against the lea
 
 ## Role of the Follower
 
-One of the questions that I ask executives is, "If you could have an ideal mix of the five followership styles in your organization, what percentage of each style would you prefer?" I'm surprised at how many say they would like all yes-people. Their reasons are that (one) yes-people are "doers" who are willing to do the grunt work and who get the job done with little fuss; (two) yes-people have limited aspirations and will neither pressure the leader for promotions nor quit for better jobs elsewhere; and (three) yes-people are loyal and dependable.
+One of the questions that I ask executives is, "If you could have an ideal mix of the five followership styles in your organization, what percentage of each style would you prefer?" I'm surprised at how many say they would like all yes-people. Their reasons are that one, yes-people are "doers" who are willing to do the grunt work and who get the job done with little fuss; two, yes-people have limited aspirations and will neither pressure the leader for promotions nor quit for better jobs elsewhere; and three, yes-people are loyal and dependable.
 
 Other executives say they would prefer the following mix. Start with a sprinkling of alienated because they keep the leader honest. Add a small group of star followers who would lead the charge, but avoid adding too many because they can get demanding, and they think for themselves too much. Then split the remaining majority among pragmatics who serve as an institutionalized, status quo base and yes-people who will get the job done.
 
@@ -155,12 +139,7 @@ Language is important not only in terms of the words we use but also in terms of
 
 ## Courageous Conscience
 
-Related to the issue of peer pressure discussed earlier is the responsibility that followers have to keep leaders and peers ethically and legally in check. Instead of viewing followers as the "good soldiers" who carry out commands dutifully, we need to view followers as the primary defenders against toxic leaders or dysfunctional organizations. The buck stops more with followers than leaders. In fact, they are often in a better position to see the day-to-day events or leader decisions that lead to disastrous consequences. However, our current script of followership does not include this responsibility in the role description. For the most part, society
-
-
-## The Art of Followership
-
-neither prepares nor expects followers to exercise what I label as the "courageous conscience."
+Related to the issue of peer pressure discussed earlier is the responsibility that followers have to keep leaders and peers ethically and legally in check. Instead of viewing followers as the "good soldiers" who carry out commands dutifully, we need to view followers as the primary defenders against toxic leaders or dysfunctional organizations. The buck stops more with followers than leaders. In fact, they are often in a better position to see the day-to-day events or leader decisions that lead to disastrous consequences. However, our current script of followership does not include this responsibility in the role description. For the most part, society neither prepares nor expects followers to exercise what I label as the "courageous conscience."
 
 The ability to make ethical and legal judgments, to take proactive steps to promote ethical and legal activities, and then to stand up against unethical and illegal decisions and actions, is a crucial aspect of followership. Followers cannot abdicate their courageous conscience by outsourcing it to the leader. Rather, followers need to learn how to blow the whistle effectively, how to combat groupthink, how to avoid the dispersion of responsibility so often found in groups, and how to advance institutional integrity.
 

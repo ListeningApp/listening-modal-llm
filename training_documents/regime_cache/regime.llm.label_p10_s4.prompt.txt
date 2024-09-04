@@ -1,0 +1,129 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+
+EXAMPLE OUTPUT:
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+
+
+
+
+82ju | <LATEX>\int d q _ { t } ^ { \eta } = M ^ { - 1 } p _ { t } ^ { \eta } d t</LATEX> <LATEX>\left\{ \begin{array}{} d q _ { t } ^ { \eta } = M ^ { - 1 } p _ { t } ^ { \eta } d t , & \\ d p _ { t } ^ { \eta } = \left( - \nabla V \left( q _ { t } ^ { \eta } \right) + \eta F \left( q _ { t } ^ { \eta } \right) \right) d t - \gamma M ^ { - 1 } p _ { t } ^ { \eta } d t + \sqrt { \frac { 2 \gamma } { \beta } } d W _ { t } . & \end{array} \right.</LATEX> (2.18)
+y2qo | It has generator <LATEX>\mathcal{L} _ { \eta } = \mathcal{L} _ { 0 } + \eta \widetilde { \mathcal{L} } _ { \mathrm { p h y s } }</LATEX> with
+1piq | <LATEX>\widetilde { \mathcal{L} } _ { \mathrm { p h y s } } = F ^ { T } \nabla _ { p } .</LATEX> Conditions for assumptions to be satisfied. We now discuss the conditions under which Assumptions 1 through 4 are satisfied for the perturbed Langevin dynam- ics (2.18), which correspond here as well to standard results in the literature.
+7fqw | · For Langevin dynamics, the momentum space is always unbounded, so the choice for the Lyapunov function to satisfy the condition (2.8) depends on the position space. For compact position spaces, it suffices to choose <LATEX>\mathcal{K} _ { n } \left( p \right) =</LATEX> <LATEX>1 + | p | ^ { n } .</LATEX> For unbounded position spaces, there are various possible choices (see [34, 47, 44]). One possibility is to consider
+rhaz | <LATEX>\mathcal{K} _ { n } \left( q , p \right) = \left( 1 + H \left( q , p \right) - V _ { - } + \frac { \gamma } { 2 } p ^ { T } M ^ { - 1 } q + \frac { \gamma ^ { 2 } } { 4 } q ^ { T } M ^ { - 1 } q \right) ^ { n } , .</LATEX> under the following conditions: the <LATEX>p o t e n t i a l \quad e n e r g y \quad f u n c t i o n \quad V \quad i s \quad b o u n d e d</LATEX> from below by <LATEX>V _ { - } > - \infty ,</LATEX> and there exist <LATEX>A ,</LATEX> <LATEX>B > 0</LATEX> and <LATEX>C \in \mathbb{R}</LATEX> such that
+wak1 | (2.19)
+wtfz | <LATEX>q ^ { T } M ^ { - 1 } \nabla V \left( q \right) \geqslant A V \left( q \right) + B q ^ { T } M ^ { - 1 } q + C .</LATEX> · The existence of an invariant probability measure in Assumption 1 can be shown using Lyapunov techniques when a minorization condition holds [34, 40]. It can be shown that the dynamics (2.18) has a unique invariant measure, as <LATEX>\psi _ { 0 }</LATEX> has positive density with respect to the Lebesgue measure. Thus, since the generator <LATEX>\mathcal{L} _ { \eta }</LATEX> is hypoelliptic [29], it follows that trajectorial ergodicity holds [23].
+qy1i | · Assumption 2 holds as discussed in [42].
+1k9e | · Assumption 3 holds under some conditions on the potential <LATEX>V ,</LATEX> which in- clude (2.19); see [25] for a precise discussion.
+5bjs | . Lastly, Assumption 4 is trivially satisfied, as <LATEX>\widetilde { \mathcal{L} } _ { \mathrm { p h y s } } = F ^ { T } \nabla _ { p }</LATEX> is stable by <LATEX>\mathscr{S} ,</LATEX> and <LATEX>\widetilde { \mathcal{L} } _ { \mathrm { p h y s } } 1 = 0</LATEX> recall the discussion around (2.9).
+uodj | 2.2. Transport coefficients and their numerical approximations. We dis- cuss in this section how to compute transport coefficients such as the mobility, thermal conductivity and shear viscosity, in the context of linear response theory. We outline in Section 2.2.1 the theoretical framework of linear response theory, discuss regular- ity and well-posedness conditions, and state some technical results. We then discuss standard numerical techniques for computing transport coefficients in Section 2.2.2. We finally discuss the paradigmatic example of mobility in Section 2.2.3, which is the running example we use to theoretically illustrate our framework.
+k16v | 2.2.1. Linear response theory. The linear response <LATEX>\rho _ { 1 }</LATEX> of a given observable <LATEX>R</LATEX> is defined as the proportionality constant between the average response <LATEX>\mathbb{E} _ { \eta } \left( R \right)</LATEX> and
+b2lm | EXTENDING LINEAR RESPONSE WITH SYNTHETIC FORCINGS
+ti7f | the magnitude of the perturbation <LATEX>\eta</LATEX> in the limit <LATEX>\eta \rightarrow 0 ,</LATEX> provided this limit makes sense (see Lemma 2.2 below for a functional framework ensuring that this is the case):
+oksu | (2.20)
+wtow | <LATEX>\rho _ { 1 } = \lim _ { \eta \rightarrow 0 } \frac { 1 } { \eta } \left( \int _ { \mathcal{X} } R \psi _ { \eta } - \int _ { \mathcal{X} } R \psi _ { 0 } \right) = \lim _ { \eta \rightarrow 0 } \frac { \mathbb{E} _ { \eta } \left( R \right) - \mathbb{E} _ { 0 } \left( R \right) } { \eta } .</LATEX> We typically consider observables for which <LATEX>\mathbb{E} _ { 0 } \left( R \right) = 0 .</LATEX> Linear response characterizes, in powers of <LATEX>\eta ,</LATEX> the modification of <LATEX>\psi _ { n }</LATEX> with respect to the canonical measure. It is expected that <LATEX>\psi _ { \eta }</LATEX> is a modification of order <LATEX>\eta</LATEX> of <LATEX>\psi _ { 0 } ,</LATEX> with dominant order <LATEX>\eta</LATEX> for <LATEX>\eta</LATEX> small. Rigorously proving this statement requires some regularity results. Let us first motivate the form of <LATEX>\psi _ { \eta }</LATEX> for <LATEX>\eta</LATEX> small. We rewrite this function as <LATEX>\psi _ { \eta } = f _ { \eta } \psi _ { 0 } ,</LATEX> with <LATEX>f _ { \eta }</LATEX> a perturbation of the constant function 1:
+o22k | (2.21)
+nwfz | <LATEX>f _ { \eta } = 1 + \eta \mathfrak{f} _ { 1 } + \eta ^ { 2 } \mathfrak{f} _ { 2 } + \cdots .</LATEX> In this context, the Fokker-Planck equation <LATEX>\left( \mathcal{L} _ { 0 } + \eta \widetilde { \mathcal{L} } _ { \mathrm { p h y s } } \right) ^ { \dagger } \psi _ { \eta } = 0</LATEX> can be reformulated, by the definition of the <LATEX>L ^ { 2 } \left( \psi _ { 0 } \right)</LATEX> adjoint, as
+nvfy | (2.22)
+mror | <LATEX>\left( \mathcal{L} _ { 0 } + \eta \widetilde { \mathcal{L} } _ { \mathrm { p h y s } } \right) ^ { * } f _ { \eta } = 0 .</LATEX> By identifying terms with the same powers of <LATEX>\eta</LATEX> in (2.22), we obtain, for terms of order <LATEX>\eta ,</LATEX> the following Poisson equation:
+zlxc | (2.23)
+k0bw | <LATEX>\mathcal{L} _ { 0 } ^ { * } \mathfrak{f} _ { 1 } = - \widetilde { \mathcal{L} } _ { \mathrm { p h y s } } ^ { * } 1 .</LATEX> The solution <LATEX>\mathfrak{f} _ { 1 }</LATEX> to <LATEX>\left( 2 . 2 3 \right)</LATEX> is well-defined in view of Assumptions 3 and 4. Using the conjugate response function <LATEX>S</LATEX> defined in (2.10), we can then write
+aq5a | (2.24)
+sc5y | <LATEX>\mathfrak{f} _ { 1 } = - \left( \mathcal{L} _ { 0 } ^ { - 1 } \right) ^ { * } S .</LATEX> Similarly, higher order terms are obtained by identifying terms of order <LATEX>\eta ^ { k }</LATEX> in (2.22), leading to the recursive definition
+0yab | (2.25)
+w95z | <LATEX>\forall k \geqslant 1 , \quad \mathfrak{f} _ { k + 1 } = \left( - \mathcal{L} _ { 0 } ^ { - 1 } \right) ^ { * } \widetilde { \mathcal{L} } _ { \mathrm { p h v s } } ^ { * } \mathfrak{f} _ { k } .</LATEX> It can be shown inductively that the expression (2.25) is also well-defined, as <LATEX>\widetilde { \mathcal{L} } _ { \mathrm { p h y s } } ^ { * }</LATEX> and <LATEX>\left( \mathcal{L} _ { 0 } ^ { - 1 } \right) ^ { * }</LATEX> stabilize
+0i1k | <LATEX>\mathscr{S} .</LATEX> In particular, the expansion (2.21) allows us to write the linear response (2.20) in terms of the first-order perturbation of the invariant measure of the reference dynamics when
+dqlg | <LATEX>\mathbb{E} _ { 0 } \left( R \right) = 0 :</LATEX> (2.26)
+p6pq | <LATEX>\rho _ { 1 } = \lim _ { \eta \rightarrow 0 } \frac { \mathbb{E} _ { \eta } \left( R \right) } { \eta } = \int _ { \mathcal{X} } R \mathfrak{f} _ { 1 } \psi _ { 0 } .</LATEX> In order to rigorously prove that <LATEX>\psi _ { \eta }</LATEX> is of the form <LATEX>f _ { n } \psi _ { 0 }</LATEX> with <LATEX>f _ { \eta }</LATEX> as above, we consider Lemma 2.2, which generalizes [29, Remark 5.5] to expansions of arbitrary order
+zse6 | <LATEX>k .</LATEX> LEMMA 2.2. Suppose that Assumptions 1 through 4 hold true. Fix <LATEX>\eta _ { * } > 0</LATEX> and <LATEX>\varphi \in</LATEX> <LATEX>\mathscr{S}</LATEX> . For any <LATEX>k \geqslant 2 ,</LATEX> there exists <LATEX>M \in \mathbb{R} _ { + }</LATEX> (which depends on <LATEX>\eta _ { * } ,</LATEX> <LATEX>k</LATEX> and <LATEX>\varphi</LATEX> such that
+p2n3 | <LATEX>\int _ { \mathcal{X} } \varphi \psi _ { \eta } = \int _ { \mathcal{X} } \varphi \left( 1 + \eta \mathfrak{f} _ { 1 } + \cdots + \eta ^ { k - 1 } \mathfrak{f} _ { k - 1 } \right) \psi _ { 0 } + \eta ^ { k } \mathscr{R} _ { \eta , \varphi , k } ,</LATEX> with <LATEX>| \mathscr{R} _ { \eta , \varphi , k } | \leqslant M</LATEX> for all
+ohh7 | 12
+vbni | R. SPACEK AND G. STOLTZ
+dgcw | Remark 2.3. This expansion can be given a meaning as a converging infinite ex- pansion at the level of operators when <LATEX>\widetilde { \mathcal{L} } _ { \mathrm { p h y s } } ^ { ^ { \sim } }</LATEX> is Lo-bounded, and <LATEX>\mathcal{L} _ { 0 }</LATEX> and its inverse are restricted to <LATEX>\Pi _ { 0 } L ^ { 2 } \left( \psi _ { 0 } \right)</LATEX> (see [29, Theorem 5.2]). However, the perturbation we con- sider in Section 3 will be quite general and it cannot be assumed that the perturbation operator is L0-bounded.

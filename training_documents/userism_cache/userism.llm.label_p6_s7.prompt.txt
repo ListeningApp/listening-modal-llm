@@ -1,0 +1,153 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+
+EXAMPLE OUTPUT:
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+
+
+
+
+wwdt | In each of these cases, the concept of the user breaks down across levels of representation. Consider Sambasivan et al.'s [75] intermediated interaction and email systems: At the systems level, there is a single person who is authenticated and accessing their email data. At the interface level, the person who is sending and receiving those emails interacts via the intermediary, not with the technology itself. At the design level, the concepts of authentication and access codify the one-to-one correspondence between human user and user account, omitting the possibility of other configurations. At the ideological level, we might be interested in accounting both for the intermediary user and for the person on whose behalf the intermediary is functioning. However, those two subject positions are absent at other representational levels (systems, interface, design process). Similar disconnects
+mn1r | CHI 2017, May 6-11, 2017, Denver, CO, USA
+5vqw | across levels of representation occur in the other cases mentioned above.
+meyw | Delegates
+2e62 | One potential approach to addressing indirections involves delegates, a representation of one person (inter)acting on behalf of another. Delegates can be represented at the design process level, at the interface level, at the systems level, or at some combination thereof. Some technologies already enable such functionality. For example, enterprise software often explicitly grants permission for administrative assistants to schedule meetings for, or to respond to email correspondence on behalf of, their supervisors. Similarly, GMail users can allow other accounts to act as their delegates2. At the systems level, most Unix-based operating systems provide a command called su (an abbreviation for "substitute user" or "switch user"), allowing one user to execute commands as if s/he were logged in as a different user. Interestingly, these extant cases each have slightly different implementations. At the systems level, su actually changes who is logged in; the interface represents that Alice is acting on behalf of Bob, the system represents the actions taken simply as Bob's actions. In the case of GMail, delegates record that certain actions are performed by Alice on behalf of Bob. The latter is probably closer to what would be required to implement delegation and resolve breakdowns across representational levels.
+75y3 | Thus, while delegation strategies do exist in some cases, the diversity of their implementations and implications encumbers our ability to learn from the similarities and differences among how different technologies captures these inter-personal relationships. Seeing these diverse cases through the lens of post-userism allows us to consider both what they have in common and what designers for one case might learn from other instances of indirection. For the time being, it is not surprising that simply sharing credentials remains a common strategy [59]-albeit one that works around a system that does not adequately support indirection.
+s2g2 | Transience
+q1q2 | In some cases, an individual can sustain multiple, repeated interactions with a system, even though the system does not maintain a persistent representation of that individual. Contrast Craigslist with Ebay or Match.com: Despite the design assumption that a given individual would post multiple ads, the service historically omitted user accounts that would link these individual interactions [19]. And while the service has subsequently added user accounts that allow authors "to post, edit, delete, and repost more easily"3, when viewed by others, these posts remain unlinked and self-contained, resulting in what Brubaker
+cb7r | 6296
+68xu | Interactive Design Methodologies
+hd35 | [19] has called "single use identities." Users of Reddit similarly have an established practice of creating single-use "throw-away" accounts [65], often to post material an individual does not want associated with her or his primary account. At the design level, Reddit explicitly condones this practice4, despite eschewing a representation of the practice at either the interface or the systems level. Similar situations can arise with ambient displays and information kiosks. In the absence of an identification system, such as RFID badges [13,67], individual instances of interaction are not represented within the system as pertaining to a single persistent identity. To wit, the systems representation makes no distinct between different interactions by a single individual and single interactions by different individuals. While it does not necessarily introduce problems here, failing to account for transience in such situations can limit our designs.
+2zpk | These systems exist and function (to varying degrees of efficacy) without requiring that people who inhabit the user subject position be tied to a fixed or persistent representation. Thus, both in the design process and in technical implementation, it can be difficult to account for such recurring interactions due to the transient nature of their representation.
+epu7 | Flexibility
+7od1 | One strategy here involves adding flexibility to the representational constraints imposed at the interface and systems levels. Authenticated users are often presumed, but are not also necessary. If the central entity being represented is a user, what elements of that representation could be relaxed? Must everyone have a birthdate? A name [34,66]? A list of friends? A set of access permissions?
+0bqy | Facebook memorial profiles offer an example of flexibility in representations of a user [17,18]. They maintain some aspects of a typical user representation while forgoing others. for example, memorial pages have a profile photos and a list of friends, but no one can log into a memorialized account. instead, it is managed by another account denoted as the legacy contact. Adding flexibility to the representational constraints helps account for some of the subject positions involved (e.g., mourners).
+b780 | When the user is not presumed (or required) to be a persistent subject position, other design foci come to the foreground, such as activities and communication. Returning to Craiglist, the representations are post-centric rather than user-centric, focusing the design around possible interactions with posts rather than among users. This strategy does not imply that one needs less knowledge or understanding of users. Rather, it suggests that designers consider representing certain subject positions primarily (if not exclusively) in terms of their relationship to an
+ccmb | 6297
+ma93 | CHI 2017, May 6-11, 2017, Denver, CO, USA
+c6hh | interaction, even if this requires a more fluid approach to what constitutes a user.
+y7ea | Multiplicity
+nav4 | A single individual may, while interacting with a computation system, inhabit multiple subject positions, either one at a time or simultaneously. In some ways, multiplicity offers an inverse to transience. Transience involves one-off interactions, where the design does not disambiguate between multiple interactions by a single person and a single interaction by each of several people. Multiplicity involves individual people creating multiple representations of themselves, satisfying the system requirements of user representations while simultaneously enacting different facets of their identities.
+gem8 | For example, a single individual may maintain multiple user accounts for, say, a given social media site. Motivations for doing so can vary from separating professional and personal contacts [80], to distinguishing between actions as an individual vs. actions on behalf of an organization, to negotiating gender identity transitions [44,45]. Repair work offers another example: A given individual may simultaneously act as, say, both smartphone user and repair technician [56], even though these are generally represented as two distinct subject positions.
+e8nr | Fluidity
+k78w | One strategy to approaching a multiplicity of subject positions is to design for fluidity. As an example, Facebook does not first encode you as a parent and then allow you to take parental actions. Instead, you simply do parental things. Sociologically speaking, the status of parent is not one that you can assume strictly through your own choice. It is one that is granted because of the ways that others interact with you. Similar statements could be made about being, say, a cat lover, a librarian, a gamer, a politician, etc. Despite the fluidity with which they are defined and bestowed, these kinds of subject positions often receive rigorous, strict codification within the design process, interface, and systems representations. Designing for fluidity may help account for, if not completely resolve, breakdowns that arise from a multiplicity of subject positions.
+g9du | To take the strategy of fluidity a step farther, what if social media sites, or authentication systems in general, could forgo the assumption of a one-to-one correspondence between human users and user accounts? Alternative kinds of representations-at the systems, interface, or design process levels-that give up "user" as the central entity may facilitate better accounting for fluidity among subject positions.
+f682 | Absence
+li1k | In some cases, interactions with a technology may embody subject positions that exist without any representation, either in the design process or in technical implementation. A prime example comes from recent work studying
+pbea | Interactive Design Methodologies
+ccpt | technology non-use [9]. As a designer, one might want to account for the ways that a system may impact people who do not directly interact with it. For example, media discourse around sites such as Facebook can readily influence those who do not have an account [2,29,73,93]. Williamson and Williamson [89] document how the presence of a pervasive display may impact those who do not interact with it, e.g., by altering flows of foot traffic for those who wish to avoid the display.
+0fpw | Other subtler cases of absence may occur. For instance, a "smart" thermostat such as the Nest may be interacted with by multiple different householders, a fact represented in the design process. However, the Nest maintains no systems representation of these different individuals, only a representation of the house itself [94]. As another example, search queries including stereotypically African-American names (e.g., Latanya or Latisha) vs. stereotypically white names (e.g., Kristen or Jill) result in a higher chance of seeing advertisements that suggest the person has an arrest record [82]. Since employers often perform internet searches for the names of potential employees, a disproportionately high rate of ads suggesting a criminal history may amount to racially-based employment discrimination [7]. Much of the current discourse around these issues involves questions of responsibility, such as who should be held accountable for such computationally- enacted discrimination. Another equally important but less often considered question deals with how we might account for the person being discriminated against. While the users of services such as Google Ad Words might be seen to include the companies taking out advertisements, the individuals performing searches, or both, the person whose name is being searched occupies a different subject position.
+dqn8 | Alternatives
+cop0 | One strategy for dealing with such situations involves accounting for these alternative subject positions. For instance, one might represent those who are excluded or disenfranchised from technology access [76,83,92], those who are impacted without direct interaction with a technology [93], or other subject positions in the design process. Strategies from speculative and critical design [33] may prove particularly useful in exploring such alternatives. Note that these representations need not persist to the interface or systems levels. As noted above, post-userism does not require resolving breakdowns across representational levels. Rather, it involves attending and designing around such breakdowns.
+lhkq | Hybridity
+82ju | A final type of post-userism occurs when a subject position is comprised of a hybrid network of human and non-human actors. Consider a phone call to, say, customer service for your internet service provider (ISP). Rarely do you call an individual person. Rather, you are connected with an individual representative, chosen mostly at random from a
+y2qo | CHI 2017, May 6-11, 2017, Denver, CO, USA
+1piq | group of representatives. That individual person inhabits a subject position speaking and acting on behalf of your ISP-changing your bandwidth, completing connection or disconnection requests, resolving issues with your bill (or perhaps not). Similar subject positions arise when a mostly de-individuated person acts as the interface to a larger group or organization, such as clerks at a department of motor vehicles (DMV) office, building receptionists, citizens contacting their elected representatives, cashiers, or crowd workers.
+7fqw | Other kinds of hybrids involve more sophisticated computing technology. They are common in infrastructure: Geiger, for example, has detailed the cooperative relationships between editors and bots in the maintenance of Wikipedia [38-40]. However, they are increasingly entering everyday interactions. For instance, Facebook M offers a hybrid digital assistant [49]. Similar to other digital assistants, it uses a combination of natural language processing and artificial intelligence to perform tasks. However, when this automated system encounters a request it cannot handle, though, it recruits aid from a team of human Facebook employees. At the interface level, the user sees a consistent representation; users are blind to whether they are interacting with a human, a machine, or some combination thereof. A similar although less seamless example can be seen in phone-based customer service systems that use voice recognition for fairly rote tasks but then fall back to human operators for more complex processes.
+rhaz | Assemblages
+wak1 | These kinds of scenarios highlight the influence of post- humanist thinking [30,62,64]. Attending to hybridity allows us to acknowledge the kinds of agency and statuses that non-human entities may have [55]. Some work in HCI has even suggested studying animal-computer interaction and the ways that computers may mediate the relationships between pets and their owners [68,70].
+wtfz | The goal here is not to claim that we need to account for or design for the subject position of a hybrid digital assistant, a cat using an iPad [68], or a crowd worker. While doing so may be important, we aim instead to elucidate the particular kinds of subject positions that people take in relation to those hybrid assemblages. Subject positions are always constituted relationally. By acknowledging both the kinds of human/non-human hybrids with which people interact and the differences in those hybrids across different representational levels, we can begin to design for the subject positions taken in relation to such assemblages.
+qy1i | TWO PATHS FORWARD
+1k9e | Based on the critiques and alternatives presented in this paper, we suggest two primary paths forward:
+5bjs | 1. To examine the kinds of relationships that are occurring in HCI, but that are under-accounted.
+uodj | 6298
+k16v | Interactive Design Methodologies
+b2lm | 2. To begin to explore what HCI might look like in the absence of the traditional user.
+ti7f | Although this paper focuses primarily on the former, this section considers the differing shape that each direction might take in the evolution of the field.
+oksu | Research and Design Beyond the User
+wtow | First, post-userism provides a way for HCI to move toward a more comprehensive account of the relationships that occur between humans and computers. In our description of post-user scenarios, we intentionally focused on how research findings and design challenges were connected to larger conceptual issues with the user. Practically, one of the most productive strategies should involve identifying how others have managed similar post-user scenarios. Currently our ability to do this is limited and labor intensive.
+o22k | HCI is exemplary in identifying limitations of existing systems, both in their practical usage and in the design work behind their development. However, relatively little work connects limitations arising from our conceptualization of the user with design work that addresses those limitations.
+nwfz | This situation stems in part from HCI's pragmatic tendency to focus on specific domains. For example, while doctors acting on behalf of their patients when managing medical records is certainly a form of indirection, design interventions based on such an observation will likely be limited to medical informatics as a domain. However, there are certainly connections between this case and others, such as intermediary users observed in an ICTD context [75]. This similarity offers but one example. More generally, relationships within ecologies of subject positions have commonalities, but those commonalities are difficult to connect across different domains within HCI. It is for this reason that we intentionally drew on examples from multiple domains to demonstrate how the structure of the user causes problems across many different application areas.
+nvfy | Scholarship that makes use of the practical strategies we have enumerated would benefit the community by explicitly sharing:
+mror | · How did we, as researchers or as designers, realize we were facing a post-user scenario?
+zlxc | · What were the relevant subject positions in our scenario?
+k0bw | · What were the relationships among them?
+aq5a | · How did we represent that ecology of subject positions and their relationships across different levels in our design?
+sc5y | · What were the repercussions of the representations we used?
+0yab | While much of the work in HCI implicitly does the above, it does so while presuming the centrality of the user. Rather

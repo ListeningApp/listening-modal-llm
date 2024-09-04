@@ -1,0 +1,131 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+
+EXAMPLE OUTPUT:
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+
+
+
+
+pmgl | <LATEX>\mathscr{M} : \mathbb{R} ^ { 3 } \rightarrow \mathbb{R} ^ { 3 }</LATEX> <LATEX>\check { \mathbb{R} ^ { 3 } } \text { defined by }</LATEX> <LATEX>\mathscr{M} \left( \mathrm { x } _ { 0 } \right) = \mathrm { x } \left( 1 \right) \in \mathbb{R} ^ { 3 } , \quad \mathrm { x } _ { 0 } \in \mathbb{R} ^ { 3 } .</LATEX> (20.28)
+90no | There is no closed formula for <LATEX>\mathscr{M} ,</LATEX> so <LATEX>\mathscr{M}</LATEX> must be computed numerically by solving the system of differential equations for each
+jt0y | <LATEX>\mathrm { x } _ { 0 }</LATEX> Figure 20.4 shows the x-component of a trajectory for <LATEX>0 \leq t \leq 6</LATEX> for initial data <LATEX>x _ { 0 } =</LATEX> -7.3, <LATEX>y _ { 0 } = - 1 1 . 5 ,</LATEX> <LATEX>z _ { 0 } = 1 7 . 8 .</LATEX> This trajectory switches from one "sheet" of the attractor to the other near <LATEX>t = 2 .</LATEX> Also shown in Figure 20.4 are the x-components of ten trajectories from a solution ensemble with initial data <LATEX>\mathrm { x } _ { 0 } ^ { \prime } = \mathrm { x } _ { 0 } + \left( \xi _ { 1 } , \xi _ { 2 } , \xi _ { 3 } \right) ,</LATEX> where the <LATEX>\xi _ { i }</LATEX> are <LATEX>N \left( 0 , 1 \right)</LATEX> random variables, as well as the ensemble mean computed by averaging 1000 trajectories of this ensemble. For <LATEX>t > 1 . 5</LATEX> or so, the ensemble mean is seen to differ dramatically from the true solution. The specific reason in this case is that trajectories from the ensemble switch from one leaf of the attractor to the other at times that can be very different from <LATEX>t = 2 .</LATEX> Essentially, if the initial data are known only up to random errors that have standard normal distributions, then the true trajectory becomes unpredictable for <LATEX>t > 1 . 5</LATEX> or so. Averaging over many ensemble trajectories does not eliminate this bias. This situation is typical for nonlinear systems of differential equations; for linear systems, the ensemble mean always equals the true trajectory.
+qb7o | Figure 20.5 again shows the x-component of the true trajectory, together with the corresponding results of the EnKf, for a ensemble of size 50. The data model is given by Eq. <LATEX>\left( 2 0 . 1 7 \right) ,</LATEX> with <LATEX>H = \left( \begin{array}{} { 1 } & { 1 } & { 0 } \\ { 0 } & { 1 } & { 1 } \end{array} \right)</LATEX> Therefore, only a two-dimensional projection of the true trajectory, corrupted by random noise, is observed at each time. The error terms <LATEX>\zeta _ { i }</LATEX> are standard normal <LATEX>N \left( 0 , 1 \right) .</LATEX> Each assimilated trajectory starts at a filtering state at <LATEX>t = i \left( r e d \quad c i r c l e \right)</LATEX> and ends at a forecasting state at <LATEX>t = i + 1</LATEX> (green circle). Evidently, the assimilation processes is only partially successful in approximating the correct trajectory. For example, on the intervals <LATEX>1 . 5 < t < 2</LATEX> and <LATEX>4 . 5 < t < 5 ,</LATEX> the assimilated trajectories are not even qualitatively correct. Nevertheless, it is remarkable that a significant portion of the true trajectory is recreated correctly over the entire interval of interest.
+oae5 | 264
+s0fl | Downloaded 08/30/23 to 131.212.250.103 . Redistribution subject to SIAM license or copyright; see https://epubs.siam.org/terms-privacy
+43ia | Chapter 20. Data Assimilation
+3g2y | Figure 20.4. Lorenz system: x-component without data assimilation; exact trajectory (black), some trajectories from the solution ensemble (red), and ensemble mean (blue).
+gc7v | Figure 20.5. Lorenz system: x-component with data assimilation; exact trajectory (black) and assimilated trajectories (green), starting with filtering states (red circles) and ending in forecasting states (green circles).
+wqfv | Downloaded 08/30/23 to 131.212.250.103 . Redistribution subject to SIAM license or copyright; see https://epubs.siam.org/terms-privacy
+j30a | 20.9. Concluding Remarks
+7bdk | 265
+fim0 | 20.9 - Concluding Remarks
+ojro | Data assimilation has been very important for weather prediction, where it has extended both the range and reliability of forecasts. In the best-case scenario, there is a correct dynamical model with sufficiently high resolution and a well-designed observational net- work that can provide accurate data. In the next-best-case scenario, there may be a some- what deficient dynamical model, but the observational network is still good enough to provide adequate data. Then it is still possible to obtain estimates in agreement with na- ture, as long as dynamical model errors are recognized and incorporated adequately.
+l6t9 | In climate science, data assimilation has been used since the late 1980s. It is having an increasingly significant impact, since it allows improved and faster estimation of both internal and external parameters. Parameter estimation is particularly promising in the biogeochemistry of the climate system, where it is often difficult to measure rates directly in situ. Realistic dynamical models and feasible measurements of quantities such as con- centration fields of plankton, in combination with advanced data assimilation techniques, can lead to surprisingly realistic estimates of these rates.
+1ujy | Data assimilation techniques have been applied to create reliable uniform background data for the past (reanalysis) and to obtain information about unobservable quantities such as ocean upwelling and chemical reaction rates in the ocean. A typical example is described in [11], where an EnKf approach is used to reconstruct the ocean climate for the period 1958-2001.
+qzor | Interestingly, there are specific problems with heterogeneous data sources associated with all reanalysis exercises for ocean circulation for the 20th century. Since about 1980, satellites with circumpolar orbits have provided reliable records of planet-wide uniformly distributed ocean measurements. But prior to about 1980, observations came mainly from shipboard observations that were concentrated along major shipping routes. There are also other more subtle trends in the data collection efforts that are known to introduce spurious trends during data assimilation. For example, the typical height at which ship- board anemometers are mounted has increased since the middle of the last century, leading to biased results for wind strengths and patterns. In the past, when data assimilation was used mainly for weather prediction, such slow trends did not matter.
+a0by | Ridgwell et al. [88] describe a similar project for biogeochemistry data. Here, an EnKf is employed in an iterative fashion to obtain steady-state information about geochemical parameters such as uptake rates and concentrations of phosphate and calcium carbonate in the ocean at preindustrial times.
+u1ky | The EnKf is known to run into problems when the underlying process model is highly nonlinear and has many unstable equilibria. Other methods have been proposed for such situations. For example, Apte, Jones, and Stuart [2] develop a Bayesian approach to ad- dress data assimilation questions coming from drifting buoys, which are known to have trajectories that are very sensitive to changes in the initial data.
+htm9 | 20.10 - Exercises
+8hul | 1. Consider a physical process in which real-valued state variables x;, i = 1, 2, ... , are generated according to the rule xi+1 = f (x;), where f is a given real-valued function. The states are observed according to the data model y; = x; + 3;, where the &; are independent random variables with an N(0,o2)-distribution.
+87vz | (i) Assume that observations y1, /2, ... ,VN are available and that you want to es- timate x1. Describe in general terms how a cost function should be set up whose minimum is expected to give an estimate for x1.
+ym66 | 266
+l0a3 | <LATEX>\Sigma _ { \circ } = Q + M \left( \Sigma _ { \circ } - \Sigma _ { \circ } H ^ { T } \left( H \Sigma _ { \circ } H ^ { T } + R \right) ^ { - 1 } H \Sigma _ { \circ } \right) M ^ { T } ,</LATEX> Downloaded 08/30/23 to 131.212.250.103 . Redistribution subject to SIAM license or copyright; see https://epubs.siam.org/terms-privacy
+u8nw | Chapter 20. Data Assimilation
+l2v9 | (ii) Consider the special case <LATEX>f \left( x \right) = 4 x \left( 1 - x \right) .</LATEX> Begin with the case <LATEX>N = 3 ,</LATEX> <LATEX>\sigma = 0 . 1 ,</LATEX> <LATEX>x _ { 1 } = 0 . 2 .</LATEX> Construct this cost function for several realizations of the <LATEX>y _ { i }</LATEX> and plot it, using a computer. Is the minimum of the cost function where you expect it to be?
+afbe | (iii) Repeat part (ii) with a larger o, for example <LATEX>\sigma = 0 . 5 .</LATEX> Repeat with the previous <LATEX>\sigma</LATEX> and a larger <LATEX>N ,</LATEX> for example <LATEX>N = 6 .</LATEX> Describe your observations. Does it help to have more observations available?
+78r8 | The cost function may have multiple local minima, which can lead to serious nu- merical difficulties.
+320g | 2. Consider the process model (20.1) together with the data model (20.2). Derive the joint distribution of <LATEX>Y _ { 2 } ,</LATEX> <LATEX>Y _ { 3 }</LATEX> as a function of the unknown parameter <LATEX>x _ { 2 }</LATEX> and use it to obtain the maximum likelihood estimate <LATEX>\widehat { x } _ { 2 } .</LATEX> Interpret your result in the case where
+tp8g | <LATEX>\tau \ll 1 .</LATEX> 3. Consider again the process model (20.1) together with the data model (20.2). Derive the joint distribution of <LATEX>Y _ { 2 } ,</LATEX> <LATEX>Y _ { 3 }</LATEX> as a function of the unknown parameter <LATEX>x _ { 3 }</LATEX> and use it to obtain the maximum likelihood estimate <LATEX>\widehat { x } _ { 3 } .</LATEX> Interpret your result in the case where <LATEX>\tau \ll 1</LATEX> 1. Use
+gxfd | <LATEX>x _ { 2 } = \alpha ^ { - 1 } \left( x _ { 3 } - \xi _ { 2 } \right) .</LATEX> 4. Consider the process model (20.1) and assume that
+s2v1 | <LATEX>X _ { 1 } \sim N \left( \omega _ { 0 } , \sigma ^ { 2 } \right) .</LATEX> (i) Compute the covariance matrix <LATEX>\Sigma</LATEX> of the random vector
+jkp9 | <LATEX>\mathrm { X } = \left( X _ { 1 } , \ldots , X _ { 4 } \right) ^ { T } .</LATEX> (ii) Compute the gain matrix <LATEX>K</LATEX> from the definition (20.10).
+z8tt | (iii) Show that
+9g22 | <LATEX>\mathrm { v a r } \left( X _ { 1 } | \mathrm { y } \right) = \frac { \sigma ^ { 2 } \left( \tau ^ { 4 } + \left( \alpha ^ { 2 } + 2 \right) \tau ^ { 2 } + 1 \right) } { \tau ^ { 4 } + \left( \left( \alpha ^ { 2 } + 1 \right) \sigma ^ { 2 } \alpha ^ { 2 } + \alpha ^ { 2 } + 2 \right) \tau ^ { 2 } + \alpha ^ { 2 } \sigma ^ { 2 } + 1 }</LATEX> and
+41fx | <LATEX>\mathrm { v a r } \left( X _ { 3 } | \mathrm { y } \right) = \frac { \tau ^ { 2 } \left( \alpha ^ { 2 } \sigma ^ { 2 } + \left( \sigma ^ { 2 } \alpha ^ { 4 } + \alpha ^ { 2 } + 1 \right) \tau ^ { 2 } + 1 \right) } { \tau ^ { 4 } + \left( \left( \alpha ^ { 2 } + 1 \right) \sigma ^ { 2 } \alpha ^ { 2 } + \alpha ^ { 2 } + 2 \right) \tau ^ { 2 } + \alpha ^ { 2 } \sigma ^ { 2 } + 1 } .</LATEX> 5. Consider the general process model <LATEX>X \left( i \right) = M _ { i } X \left( i - 1 \right) + b \left( i \right) + \xi _ { i } ,</LATEX> <LATEX>i = 1 , \ldots , N ,</LATEX> where <LATEX>\mathrm { X } \left( i \right) ,</LATEX> <LATEX>\mathrm { b } \left( i \right) ,</LATEX> <LATEX>\xi _ { i } \in \mathbb{R} ^ { n }</LATEX> and <LATEX>M _ { i }</LATEX> are <LATEX>n \times n</LATEX> matrices. Define <LATEX>\bar { \mathrm { X } } \left( i \right)</LATEX> by

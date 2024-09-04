@@ -1,0 +1,123 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+
+EXAMPLE OUTPUT:
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+
+
+
+
+1pjs | <LATEX>k _ { 3 }</LATEX> See https://pubs.acs.org/sharingguidelines for options on how to legitimately share published articles. Downloaded via UNIV OF CALIFORNIA BERKELEY on September 6, 2023 at 18:40:05 (UTC).
+o2kr | Biochemistry 1996, 35, 10240-10247
+v6sk | 10240
+1wj6 | Large Kinetic Isotope Effects in Methane Oxidation Catalyzed by Methane Monooxygenase: Evidence for C-H Bond Cleavage in a Reaction Cycle Intermediate+
+936l | ABSTRACT: The reduced hydroxylase component (MMOH) of soluble methane monooxygenase (MMO) from Methylosinus trichosporium OB3b reacts with <LATEX>O _ { 2 }</LATEX> and CH4 to produce CH3OH and H2O in a single- turnover reaction. Transient kinetic analysis of this reaction has revealed at least five and probably six intermediates during the turnover [Lee, S .- K., Nesheim, J. C., & Lipscomb, J. D. (1993) J. Biol. Chem. 268, 21569-21577; Liu, Y., Nesheim, J. C., Lee, S .- K., & Lipscomb, J. D. (1995) J. Biol. Chem. 270, 24662-24665]. One intermediate, termed compound Q, reacts with CH4 to yield enzyme-bound product. It is shown here that the deuterium kinetic isotope effect (KIE) for the reaction of compound Q with <LATEX>C H _ { 4 }</LATEX> is 50-100, which is one of the largest effects observed to date. The rate constants for the reactions of the deuterated homologs of methane decrease monotonically as the deuterium content increases, suggesting that a large primary isotope effect dominates. The KIEs determined by analyzing the products after a single turnover have the following values: 1:1 CH4:CD4 (19); CD3H (12); CD2H2 (9); and CH3D (4). The KIE values determined by directly observing the reactive intermediate and by monitoring product ratios are all large, consistent with complete C-H bond breaking in the oxygenation step of the reaction. However, the differences in the KIE values determined by these two methods suggest that the reaction is more complex than currently proposed. A modified mechanism introducing the possibility of hydrogen- atom reabstraction by an intermediate methyl radical is proposed.
+06yq | Methane monooxygenase (MMO)1 isolated from meth- anotrophic bacteria catalyzes the incorporation of one atom of oxygen from <LATEX>O _ { 2 }</LATEX> into an unactivated C-H bond of methane <LATEX>\mathrm { \left( b d e \right. } = 1 0 4 \mathrm { k c a l / m o l } ,</LATEX> <LATEX>p K _ { a } = 4 8</LATEX> to form methanol (Dalton, 1980; Lipscomb, 1994). The second atom of oxygen is reduced to water. Many other hydrocarbons serve as adventitious substrates (Higgins et al., 1980; Green & Dalton, 1989). The oxidation reaction of the soluble form of MMO occurs in the active site of the hydroxylase component (MMOH) of this three-protein-component enzyme system (Fox et al., 1989). The other two components are a NADH- coupled reductase (MMOR), which contains FAD and [Fe2S2] cofactors, and a cofactorless protein termed compo- nent B (MMOB) (Lund & Dalton, 1985; Fox et al., 1989, 1990b; Liu, Y., et al., 1995). MMOH contains a hydroxide- bridged diiron cluster that cycles between an activated diferrous state and a resting diferric state during each catalytic cycle (Ericson et al., 1988; Fox et al., 1988; Rosenzweig et
+dpv6 | S0006-2960(96)00596-X CCC: $12.00
+8r5j | FIGURE 1: Sequence of reaction cycle intermediates in the single turnover of MMOH in the presence of MMOB.2 The step labeled <LATEX>k _ { 4 }</LATEX> represents the first-order autodecay of compound Q, which occurs in the absence of substrates and may also occur in their presence.
+2taz | al., 1993; Woodland et al., 1986). Recently, as illustrated in Figure 1, we and others have shown that at least five, and probably six, transient intermediates occur as the diferrous MMOH cycles back to the diferric state after exposure to oxygen in the presence of MMOB and substrate (Lee et al., 1993b; Liu, K. E., et al., 1995a,b; Liu, Y., et al., 1995). One of these intermediates, termed compound Q, absorbs at 330 and 430 nm and exhibits an unusual Mössbauer spectrum best characterized as arising from a symmetric [Fe(IV). Fe(IV)] state of the cluster (Lee et al., 1993a). Although
+o3ya | @ 1996 American Chemical Society
+r5il | Isotope Effects in MMO Catalysis
+5gui | the structure of compound Q is not known, comparison of the Mössbauer spectral features with recently developed model systems suggests that there are two bridging u-oxo or hydroxo ligands forming a so-called "diamond core" structure (Que & Dong, 1996). The formation rate of compound Q is independent of substrate concentration for most substrates. In contrast, its decay rate is linearly dependent on substrate concentration, making the reaction appear second order overall. The rate constant for compound Q decay is strongly dependent on the particular MMO substrate added. Methane elicits the largest value among the many alkanes, alkenes, and heterocyclic compounds investigated so far. Chemical quench experiments indicate that product is formed in the active site at the same rate as compound Q decays. Together these observations suggest that compound Q reacts directly with substrate to form product and, thus, represents the form of the enzyme carrying the activated oxygen species capable of attacking unactivated hydrocarbon bonds.
+82qc | Several potential mechanisms for the intriguing oxygen insertion reaction of the soluble MMO have been suggested. All of the proposals invoke direct coordination of oxygen to the diferrous cluster of MMOH to generate a peroxo adduct of some type, which is then cleaved homolytically or heterolytically to generate a radical or oxenoid reactive oxygen species, respectively. Barton and co-workers (Barton et al., 1992) have suggested that an iron oxenoid species might facilitate the formation of a bond between the iron and the substrate carbon to form a species that would allow direct insertion of oxygen. Feig and Lippard (1994) have suggested that an active site cysteine is oxidized by 1 reducing equiv by an oxenoid species to produce an active site diradical. In one proposed reaction from this species, concerted hydrogen atom abstraction by the cysteinyl radical and insertion by the cluster-associated oxygen radical would lead to product. Shteinman (1995) and Shestakov and Shilov (1996) have proposed that the diamond core structure of compound Q allows the redistribution of electron density, such that the irons are predominantly Fe(III) and each of the bridging oxygens has radical character. The coordinated attack of these radicals on substrate, one to carbon and one to hydrogen, is proposed to result in direct oxygen addition to the carbon to form a 5-coordinate methane intermediate that facilitates C-H bond breakage to yield product. We (Fox et al., 1989, 1990a; Froland et al., 1992; Priestley et al., 1992; Lipscomb, 1994) and others (Dalton et al., 1993) have speculated that a metal oxenoid species abstracts a hydrogen atom from the substrate to yield an intermediate substrate radical and a metal-bound hydroxyl moiety. Re- bound of the hydroxyl would yield product. Considerable support for the latter mechanism has derived from experi- ments that showed that (R)- or (S)-[2H1,3H1 ]ethane undergoes partial inversion of configuration during the course of oxidation to ethanol, implying the formation of an unbound substrate-derived intermediate, probably a substrate radical, that can rotate in the active site before the reaction is consummated (Priestley et al., 1992).
+ls7d | Both the chemistry involved in the decay of compound Q and the proposed formation of an intermediate substrate radical can be investigated through the use of isotopically labeled methane. If we are correct in our proposals that the substrate oxidation chemistry of MMO occurs during com- pound Q decay, and that this chemistry involves complete
+tzt3 | Biochemistry, Vol. 35, No. 31, 1996 10241
+t8vv | substrate C-H bond cleavage, then a substantial primary kinetic isotope effect in the decay of compound Q should result from deuteration of the methane. In contrast, the concerted reactions proposed in many of the other postulated mechanisms for MMO would not be expected to exhibit large primary KIEs. We demonstrate here that the oxidation of methane does show a large primary isotope effect. Indeed, the KIE is possibly the largest observed for any biological system reported to date, consistent with the hydrogen-atom abstraction mechanism for MMO.
+qvnu | EXPERIMENTAL PROCEDURES
+kggw | Enzyme Preparation, Characterization, and Assay. Bacte- rial growth and purification of MMO from Methylosinus trichosporium OB3b, as well as enzyme activity assays, were as reported previously (Fox et al., 1989, 1990b). MMOH exhibited specific activity in the range of 600-800 nmol/ min/mg for furan turnover. The temperature for assays was 23 ℃, except in cases where a direct comparison with transient kinetic data was required. In these cases, the temperature was 4 ℃. The buffer for all experiments was 100 mM MOPS, pH 7.7.
+xrd1 | Chemicals and Standard Procedures. All reagents were the highest grade available and were obtained from Sigma, Aldrich, or EM Scientific. Deuterated gases were purchased from Cambridge Isotope Labs or ICON, and each was shown to be a single isotopic homolog (>99%) by mass spectro- metric analysis. Water was deionized and glass distilled. Anaerobic techniques have been described previously (Fox et al., 1989).
+5746 | Stopped-Flow Absorption Spectroscopy Experiments. MMOH (60 uM, 120 uM active sites) and methyl viologen (10 µM) were made anaerobic in 100 mM MOPS, pH 7.7. Sodium dithionite was added stoichiometrically (2 mol of reducing equivalents/mol of active sites) to reduce MMOH. MMOB was added anaerobically to a final concentration of 120 uM. The enzyme solution was then loaded anaerobically into one stopped-flow syringe. The other stopped-flow syringe was loaded with oxygen-saturated buffer, with or without substrate. GC analysis of CH4- or CD4-saturated buffer or water at 23 ℃ showed the same dissolved methane concentration in all cases within experimental error. The concentration of a saturated solution was 1.5 mM (Merck Index). Single-turnover reactions by MMOH (4 ℃) were followed by using a single-wavelength stopped-flow ap- paratus (Update Instruments, Inc.) at 430 nm.
+7toz | Data Analysis and Simulation. The data were analyzed by using a nonlinear regression fitting program (KFIT, obtained from N. Millar, Kings College) to determine the formation and decay rates as previously described (Lee et al., 1993b). The slope of a plot of the observed rate constant versus substrate concentration is the second-order rate constant for the reaction. The ratio of the second-order rate constants for the reaction conducted with protiated and deuterated substrates gives the KIE. The data were analyzed as a straight line because, for methane and six other substrates examined, the compound Q decay rate is best fit as a linear function of substrate concentration. Over a much wider concentration range, the data may conform to the usual hyperbolic function; however, low solubility of substrates, and the steady decrease in the maximum amount of compound Q that can be observed as the decay rate increases, prevents examination of the kinetics at such high concentra-
+j346 | 10242 Biochemistry, Vol. 35, No. 31, 1996
+v8uq | tions. The data shown for compound Q kinetics with each of the five different isotopic homologs were obtained by measuring the rates of formation and decay of compound Q with at least five repetitions at each of four different methane concentrations. This entire procedure was repeated 2-5 times for each isotopic homolog.
+x972 | The simulated curves shown in Figure 3 were calculated by assuming the rate of oxidation of a C-H bond in CH4 to be equal to 3.9 s-1, which is equal to 25% of the overall rate of reaction of CH4. The calculated rate for compound Q decay in the presence of intermediately deuterated meth- anes was determined by summing the contributions of the H-abstraction process and the D-abstraction process to give the overall rate using the following equation:
+cwrw | observed rate = (3.9x)/(S4-") + 3.9(4-x)/(PS3 -* )
+4i0e | where x is the number of hydrogens of the isotopic homolog, P is the primary isotope effect, and S is the secondary isotope effect (Bell, 1973).
+h2l3 | Product Yield Experiments. Products were recovered from a single turnover of diferrous MMOH. The enzyme con- centration, reduction procedures, and reaction conditions were as described earlier for stopped-flow experiments. The enzyme solution and a mixture of substrate (CH4 and CD4, 640 uM; other isotopic homologs, 1.28 mM) and oxygen (200 µM) were loaded into separate stopped-flow syringes. A mechanical ram was used to push the solutions through a mixer and into a collection vial. The temperature was maintained at 4 °C.
+dfzb | Methanol Derivatization. The alcohol products produced by MMOH were first derivatized by the Schotten-Baumann procedure (Loudon, 1988). The reaction solution following the single turnover was added to CH2Cl2 (50 mL) and then esterified using 3,5-dinitrobenzoyl chloride (2 mmol), N,N- dimethylaniline (2 mmol), and NaOH (2 mmol). The mixture was stirred for 17 h at room temperature. The organic layer was washed with 3 x 100 mL of HCI (1.0 M) followed by 3 x 100 mL of 5% NaHCO3-2 M NaCl, dried with anhydrous sodium sulfate, and evaporated to dryness, and the residue was dissolved in 2.0 mL of CH2Cl2. Thin- layer chromatography using silica gel plates and CHCl3 as the mobile phase allowed separation of the methyl ester product at an Rf of 0.5-0.7. The area containing the product was scraped off and eluted with CH2Cl2. The CH2Cl2 was evaporated to a minimal amount and the product was analyzed by mass spectrometry.

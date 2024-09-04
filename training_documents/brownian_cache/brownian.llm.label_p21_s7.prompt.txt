@@ -1,0 +1,143 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+
+EXAMPLE OUTPUT:
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+
+
+
+
+wp2c | ACKNOWLEDGEMENTS
+us5v | AW would like to thank George Stagg for his numer- ical insight on solving the flow equations (88) and (96). AW is funded by the EPSRC under Project 2120421. GR would like to especially thank Nikos Tetradis for very use- ful discussions at the early stages of this project, Julien Serreau for providing much insight on fRG computations and Gabriel Moreau for sharing his PHD thesis, contain- ing many new results on the application of the fRG to the Langevin equation. We would also like to thank the referees of an earlier partial version of this work for very useful criticisms, comments and suggestions which helped improve it substantially, and also for bringing to our at- tention the recent works [47, 48] and for prompting us to clarify the possible relation to [49-51].
+rs2m | Appendix A: The equilibrium flow equation
+uz9y | In equilibrium, all equal-time expectation values can be obtained from the generating function
+8ov0 | Z(J) = |dx e-2V(x)/r+Jx
+mj9m | (A1)
+94h3 | in a manner directly analogous to that described in the text but with functional derivatives replaced by ordinary
+9jx1 | derivatives w.r.t. J. In a spirit identical to the renormal- isation group but in the much simpler setting of one just degree of freedom, we can define a modified generating functional [44]
+c3lz | <LATEX>Z _ { k } \left( J \right) = \int d x e ^ { - 2 V \left( x \right) / \Upsilon - \frac { 1 } { 2 } R \left( k \right) x ^ { 2 } + J x }</LATEX> (A2)
+8bwk | with an additional quadratic term controlled by an arbitrary function <LATEX>R \left( k \right)</LATEX> of a parameter <LATEX>k ,</LATEX> satisfying <LATEX>\lim _ { k \rightarrow 0 } R \left( k \right) = 0 ,</LATEX> giving back the original <LATEX>Z \left( J \right) .</LATEX> Correla- tion functions are generated by <LATEX>W _ { k } \left( J \right) = \ln Z _ { k } \left( J \right)</LATEX> via
+ez9s | <LATEX>\chi _ { k } \equiv \langle x \rangle _ { k } = \frac { \partial W _ { k } \left( J \right) } { \partial J } , \quad \langle x ^ { 2 } \rangle _ { k } - \chi _ { k } ^ { 2 } = \frac { \partial ^ { 2 } W _ { k } \left( J \right) } { \partial J ^ { 2 } }</LATEX> (A3)
+mqot | e.t.c. In the limit <LATEX>k = 0</LATEX> and after setting <LATEX>J = 0</LATEX> the usual predictions of the equilibrium Boltzmann distribution are recovered.
+oc99 | The source <LATEX>J</LATEX> has been considered as an external, inde- pendent variable controlling expectation values such as <LATEX>\chi</LATEX> and higher correlators. One could also consider <LATEX>\chi</LATEX> as the independent variable, solving <LATEX>\chi = \partial W / \partial J</LATEX> for <LATEX>J \left( \chi \right)</LATEX> and defining the effective potential <LATEX>U \left( \chi \right)</LATEX> via a Legendre transform
+gipz | <LATEX>\Gamma _ { k } \left( \chi \right) + W _ { k } \left( J \right) = J \chi - \frac { 1 } { 2 } R \left( k \right) \chi ^ { 2 }</LATEX> (A4)
+b4wj | with
+5xlt | <LATEX>\Gamma \left( \chi \right) \equiv 2 U \left( \chi \right) / \Upsilon</LATEX> (A5)
+9bz4 | Note that
+yfv2 | <LATEX>\frac { \partial \Gamma _ { k } } { \partial \chi } = J _ { k } - R \left( k \right) \chi</LATEX> (A6)
+pujl | implying that the minimum of the effective potential de- fines the equilibrium expectation value of <LATEX>x</LATEX> (at <LATEX>J = 0</LATEX> and
+3rqe | <LATEX>k =</LATEX> <LATEX>\left. \mathrm { d } k = 0 \right) .</LATEX> generating function <LATEX>W _ { k } \left( J \right)</LATEX> on <LATEX>k</LATEX> can be easily obtained as
+nsi3 | <LATEX>\partial _ { k } W _ { k } \left( J \right) = - \frac { 1 } { 2 } \partial _ { k } R \left[ \frac { \partial ^ { 2 } W _ { k } \left( J \right) } { \partial J ^ { 2 } } + \left( \frac { \partial W _ { k } \left( J \right) } { \partial J } \right) ^ { 2 } \right]</LATEX> (A7)
+nil3 | which is an "RG equation" for <LATEX>W _ { k } \left( J \right) .</LATEX> We can also obtain an equation determining how <LATEX>\Gamma _ { k } \left( \chi \right)</LATEX> runs with <LATEX>k .</LATEX> Recip- rocally, taking <LATEX>\chi</LATEX> independent variable, <LATEX>J</LATEX> becomes <LATEX>\mathrm { a }</LATEX> function of <LATEX>\chi</LATEX> and <LATEX>k .</LATEX> Taking a <LATEX>k</LATEX> derivative of (A6) at fixed <LATEX>\chi</LATEX> we obtain
+68a1 | <LATEX>\partial _ { k } \Gamma _ { k } \left( \chi \right) = \frac { 1 } { 2 } \partial _ { k } R \frac { \partial ^ { 2 } W _ { k } } { \partial J ^ { 2 } }</LATEX> (A8)
+seik | To express the rhs in terms of <LATEX>\Gamma _ { k } \left( \chi \right) ,</LATEX> consider the first relation of (A3). Taking a <LATEX>\chi</LATEX> derivative we find
+oq7c | <LATEX>\left( \frac { \partial ^ { 2 } \Gamma _ { k } } { \partial \chi ^ { 2 } } + R \right) \frac { \partial ^ { 2 } W _ { k } } { \partial J ^ { 2 } } = 1</LATEX> (A9)
+z4mi | 22
+hkft | Hence, the "RG flow" of <LATEX>\Gamma</LATEX> is determined by
+jai3 | <LATEX>\partial _ { k } \Gamma _ { k } \left( \chi \right) = \frac { 1 } { 2 } \partial _ { k } R \left( \frac { \partial ^ { 2 } \Gamma } { \partial \chi ^ { 2 } } + R \right) ^ { - 1 }</LATEX> (A10)
+p57i | Note also that, at
+u5ug | <LATEX>k \rightarrow 0</LATEX> <LATEX>\langle x ^ { 2 } \rangle - \chi ^ { 2 } = \frac { \Upsilon } { 2 \partial _ { \chi } ^ { 2 } U \left( \chi _ { e q } \right) }</LATEX> (A11)
+i9k5 | and hence the variance at equilibrium is determined by the curvature of the effective potential around its mini- mum.
+20z2 | All the above manipulations can be generalized to many or even infinite degrees of freedom and continuum actions, leading to the Wetterich equation <LATEX>\left( 1 \right) ,</LATEX> which is directly equivalent to (A10), and the relations of section (IV A). For this work it is important to note that the equilibrium effective potential <LATEX>U \left( \chi \right)</LATEX> discussed here obeys the LPA flow equation exactly if we choose
+4cgs | <LATEX>R \left( k \right) = k .</LATEX> Appendix B: Derivation of the two point function
+htre | We start from equation (113) repeated here for clarity:
+da3c | <LATEX>\left( \frac { d ^ { 2 } } { d t ^ { 2 } } - Q \left( t \right) \right) G \left( t , t ^ { \prime } \right) = - \frac { \Upsilon } { P \left( t \right) } \delta \left( t - t ^ { \prime } \right)</LATEX> (B1)
+890q | Where <LATEX>Q \left( t \right) = \mathcal{U} \left( \chi \left( t \right) \right)</LATEX> is given by (114) and <LATEX>P \left( t \right) = 1</LATEX> or <LATEX>\zeta _ { \chi } ^ { 2 } \left( \chi \left( t \right) \right)</LATEX> for LPA and WFR respectively. If we now consider the homogeneous version of (B1):
+jomo | <LATEX>\ddot { f } \left( t \right) - Q \left( t \right) f \left( t \right) = 0</LATEX> (B2)
+06fi | it will have a growing and a decaying solution since <LATEX>Q \left( t \right) > 0 ,</LATEX> and its Wronskian <LATEX>\mathcal{W}</LATEX> will simply be a con- stant:
+hb4s | <LATEX>\mathcal{W} \left( t \right) \equiv Y _ { 1 } \left( t \right) \dot { Y } _ { 2 } \left( t \right) - \dot { Y } _ { 1 } \left( t \right) Y _ { 2 } \left( t \right) = \mathrm { c o n s t a n t }</LATEX> (B3)
+cqq2 | We take <LATEX>Y _ { 1 } \left( t \right)</LATEX> to be the growing solution and <LATEX>Y _ { 2 } \left( t \right)</LATEX> to be the decaying solution. Substituting the ansatz <LATEX>G \left( t , t ^ { \prime } \right) =</LATEX> <LATEX>Y _ { 1 } \left( t \right) F \left( t , t ^ { \prime } \right)</LATEX> where <LATEX>F</LATEX> is some function to be determined
+1ews | into (B1) we obtain: <LATEX>\dot { F } \left( t , t ^ { \prime } \right) = \frac { 1 } { Y _ { 1 } ^ { 2 } \left( t \right) } \left[ - \Upsilon \frac { Y _ { 1 } \left( t ^ { \prime } \right) } { P \left( t ^ { \prime } \right) } \theta \left( t - t ^ { \prime } \right) + C _ { 1 } \left( t ^ { \prime } \right) \right]</LATEX> (B4)
+afyn | where <LATEX>\theta \left( t - t ^ { \prime } \right)</LATEX> is the Heaviside step function and <LATEX>C _ { 1 } \left( t ^ { \prime } \right)</LATEX> is a 'constant-of-integration' function of <LATEX>t ^ { \prime }</LATEX> to be deter- mined. If we now integrate (B4) we obtain the following expression for
+8sye | <LATEX>G \left( t , t ^ { \prime } \right) :</LATEX> <LATEX>G \left( t , t ^ { \prime } \right) = - \Upsilon \frac { Y _ { 1 } \left( t \right) } { P \left( t ^ { \prime } \right) } \left[ \theta \left( t - t ^ { \prime } \right) \int _ { t ^ { \prime } } ^ { t } \frac { Y _ { 1 } \left( t ^ { \prime } \right) } { Y _ { 1 } ^ { 2 } \left( u \right) } d u + C _ { 2 } \left( t ^ { \prime } \right) \right]</LATEX> <LATEX>+ C _ { 1 } \left( t ^ { \prime } \right) Y _ { 1 } \left( t \right) \int ^ { t } \frac { d u } { Y _ { 1 } ^ { 2 } \left( u \right) }</LATEX> (B5)
+r04h | where <LATEX>C _ { 2 } \left( t ^ { \prime } \right)</LATEX> is another 'constant-of-integration' function of <LATEX>t ^ { \prime }</LATEX> to be determined. To compute the integrals in (B5) we note that by the definition of the Wronskian:
+orpr | <LATEX>Y _ { 1 } \left( t \right) \int ^ { t } \frac { \mathcal{W} \left( u \right) } { Y _ { 1 } ^ { 2 } \left( u \right) } d u = \mu Y _ { 1 } \left( t \right) + Y _ { 2 } \left( t \right)</LATEX> (B6
+k36m | where <LATEX>\mu</LATEX> is simply a constant of integration. As the Wron- skian is constant here we can simply write:
+wnuz | <LATEX>Y _ { 1 } \left( t \right) \int ^ { t } \frac { d u } { Y _ { 1 } ^ { 2 } \left( u \right) } = \frac { 1 } { \mathcal{W} } \left[ \mu Y _ { 1 } \left( t \right) + Y _ { 2 } \left( t \right) \right]</LATEX> (B7)
+sy14 | such that (B5) becomes:

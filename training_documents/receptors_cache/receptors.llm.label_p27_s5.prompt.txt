@@ -1,0 +1,139 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+
+EXAMPLE OUTPUT:
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+
+
+
+
+0x0s | This article is protected by copyright. All rights reserved
+4exe | CXCR4, best-studied for its role in metastasis and modulation of the tumor microenvironment, has also been found to regulate cell survival in ovarian cancer. Blockade of CXCR4 with a small peptide antagonist was not only found to inhibit metastasis but induced ovarian cancer cell death by weakening DNA damage checkpoints and leading to mitotic catastrophe308. The CXCR4/CXCL12 signalling axis has also been shown to protect hematopoietic stem cells (HSCs) from oxidative stress injury by reducing mitochondrial reactive oxidative species (ROS) and subsequent genotoxic stress309.
+0myz | rtic. Chronic stress is another mechanism that has been linked to development of numerous pathological conditions including cardiovascular disease, inflammation, immunosuppression, and tumorigenesis, due in part to the persistent release of stress hormones and catecholamines. Intriguingly, the chronic activation of Gas-coupled ß2-adrenoreceptors by ß-adrenergic catecholamines has been found to trigger DNA damage, which may underlie some of these effects310. Specifically, recruitment and activation of ß-arrestin-1 (ARRB1) by activated ß2- adrenoreceptors was found to facilitate the AKT-mediated activation of MDM2310 (Figure 1). Concomitant with the function of ß-arrestin-1 as a molecular scaffold facilitating the binding of MDM2 to p53, this molecular mechanism altogether leads to the suppression of p53 levels and subsequent accumulation of DNA damage310. This finding coupled with observations that activation of the Gas/PKA signalling axis can lead to DNA damage via the generation of ROS, highlights the complex interrelationship between GPCR, G-protein and ß-arrestin-mediated cellular dynamics controlling DNA damage and integrity310.
+xh3i | enter
+syiw | The tumor suppressive capacity of GPCRs has also been linked to DNA protective effects. For example, inactivating polymorphisms in the melanocortin 1 receptor (MC1R) have been found to promote melanoma through an ultraviolet radiation independent mechanism311 (Figure 1). Indeed, disruptive germline variant alleles in the MC1R gene, collectively referred to as R alleles, are associated with significantly increased somatic mutation burden in melanoma312. Aligned with this, activation of MC1R by a-melanocyte-stimulating hormone (a-MSH) has an antioxidant effect by promoting the phosphorylation and stabilization of p53, and an increase in expression of base excision repair enzymes313. In another case, ADGRB1, also known as BAI1, has been found to have potent antiangiogenic and antitumorigenic functions, particularly in brain tumors314. Strikingly, BAI1 has been shown to prevent MDM2-mediated p53 degradation, and BAI1 loss leads to a significant decrease in p53 levels98. The protective effect of BAI1 on p53 degradation is a remarkable illustration of the diverse roles that GPCRs can play in tumorigenesis (Figure 1).
+kg3t | A
+lvae | This article is protected by copyright. All rights reserved
+o9sc | GPCRs and Cell Death Resistance
+121u | Parallel to driving cancer initiation, GPCR and G-protein-driven signalling has been found to contribute to resistance to cell death, particularly driving chemoresistance in a broad range of cancers (Figure 1). One of the most outstanding examples has been in BCCs (see Gas and SMO sections above), which are driven by overactive hedgehog (HH) signalling through the SMO GPCR76,79,315. Vismodegib, is an FDA-approved SMO inhibitor that is used in the treatment of advanced BCC; however, acquired resistance is a common challenge316. Interestingly, while many cancer types are able to subvert multiple signalling pathways to maintain cancer progression in spite of targeted therapies, BCC have been found to be exclusively dependent on HH signalling for growth. As such, reactivation of HH signalling is a significant driver for BCC drug resistance317. HH pathway inhibitors are under current investigation to combat BCC resistance to vismodegib.
+zh03 | GPCR signalling has also been found to drive resistance in melanoma. In an open reading frame (ORF) screen designed to assess drivers of resistance to MAPK inhibition in a BRAF V600E mutant melanoma cell line, GPCRs emerged as the highest ranked class of resistance-driving proteins318. GPCR signalling-related proteins, such as guanine exchange factors (GEFs) RASGRP2-4 and VAV1 were also found to be potent effectors of resistance318. Similarly, genome-scale approaches to determining drivers of resistance to BRAF inhibition in melanoma revealed that 4 of the top 10 hits were GPCRs: GPR35, LPAR1, LPAR5, and P2RY8319.
+1mvw | ented
+6d4s | Interestingly, both RGS proteins and GBy subunits have been implicated as drivers of drug resistance to cancer therapy (Figure 1). Loss of RGS6 has been found to significantly impair doxorubicin-mediated cell death in vitro, and in vivo320. Similarly, loss of RGS10 and RGS17 have been found to contribute to chemoresistance in ovarian cancer321. Mutations in Gß proteins have also been found to be broad and potent drivers of drug resistance among several cancer types. In comparative whole exome sequencing of drug-sensitive and drug-resistant ETV6-ABL1- positive leukaemia cells, GNB1 was among the most significantly mutated genes212. In particular, mutation of GNB1 at K89 was found to drive resistance to tyrosine-kinase inhibitors independent of the targeted kinase by induction of PI3K and MAPK signalling. Outstandingly, in several different in vitro models, ectopic expression of patient-derived Gß mutants but not wild-type GB, rendered cells resistant to targeted kinase inhibitors, including imatinib, nilotinib, and ruxolitinib, highlighting the potent effect of GB mutations213. The broad induction of resistance to kinase inhibitors mediated by GB mutations may represent a previously underappreciated mechanism of A
+mqah | This article is protected by copyright. All rights reserved
+xxr8 | resistance that has yet to be fully explored clinically and mechanistically and could provide novel strategies for the treatment of drug-resistant cancers.
+rl4j | GPCRs and Deregulation of Cellular Energetics
+vz32 | Metabolic reprogramming, from the enzyme level to the global proteome, occurs in cancer to meet the metabolic demands underlying unrestrained cell growth. GPCRs are critical regulators of numerous components of normal metabolism, including glucose and glucagon homeostasis, insulin regulation, and lipogenesis, as well as being key players in adaptive metabolic mechanisms. Moreover, many metabolic products and by-products are the cognate ligands for GPCRs. As such, various metabolite-binding GPCRs play a significant role in tumor promotion through both autocrine and paracrine mechanisms that contribute to control tumor energetic dynamics 52.
+ncb0 | The lactate-binding GPR81 has been found to be significantly upregulated in numerous cancer types and to be a crucial driver of tumor growth and metastasis with further roles modulating the tumor microenvironment in angiogenesis and immune evasion322,323. Similarly GPR91, which binds succinate, has significant roles in modulation of the tumor-immune microenvironment, as well as angiogenesis, together with its role in cellular metabolism324-326 (Figure 1).
+8mp0 | cented
+xjyk | Among the most common metabolic abnormalities in cancer, de novo nucleotide biosynthesis is often upregulated in order to support the metabolic demands associated with increased DNA and RNA synthesis. Strikingly, activation of the @2A-adrenergic receptor (ADRA2A), and more broadly, Gai-mediated signalling has been found to regulate purinosome formation and downstream purine biosynthesis, representing an exciting mechanism by which GPCR-mediated signalling may promote aberrant cell proliferation327 (Figure 1). A by-product of injury, hypoxia, and cell death, the release of the nucleoside adenosine into the tumor microenvironment by the breakdown of adenosine triphosphate (ATP) is also a potent signalling regulator that plays a role in multiple physiological and pathological processes. There are four subtypes of adenosine- binding GPCRs with distinct expression patterns and G protein-binding specificities. A2AR (ADORA2A) and A2BR (ADORA2B) in particular, are well-known to mediate an anti-inflammatory and immunosuppressive effect thus diminishing the antitumor immune response, and highlighting the complex interplay between GPCR-mediated signalling between cancer hallmarks (see above)328.
+mt0f | Conclusions and Perspectives
+awab | This article is protected by copyright. All rights reserved
+ixcc | GPCRs and their coupled heterotrimeric G proteins are central to a diverse array of cellular processes, including the activation of numerous signalling and transcriptional networks. Since the original discovery that G protein-mediated signalling has the potential to induce cell transformation, dysfunctional G protein-mediated signalling has been increasingly tied to cancer initiation and progression. Both mutation and aberrant expression are molecular mechanisms that contribute to subverting the normal function of GPCRs and heterotrimeric G proteins to conferring pro-oncogenic capabilities on them. However, given that GPCR signalling is centrally embedded in normal physiology, cancer cells can also modulate the function of GPCRs to promote an immune suppressive and a pro-oncogenic state through dysregulated paracrine and autocrine (oncocrine) or even compensatory signalling mechanisms.
+8p6h | While hyperactive GPCR and heterotrimeric G protein-driven signalling has often been found to be pro-oncogenic, a growing body of literature is supporting a paradigm of the cell context specific nature of such signalling pathways. Loss-of-function mutations or copy number loss of genes GPCRs and heterotrimeric G proteins have unveiled the tumor suppressive roles that these protein families play in certain cancer types, highlighting the complexity of G protein-driven signalling and the significant impact of cellular states in the integration and output of these signalling events. Further insight into the relationship between cell type lineage and the functional duality of GPCR signalling outcomes will likely reveal unanticipated mechanisms driving cancer, and potentially novel vulnerabilities that can be targeted therapeutically. Moreover, while GPCRs and their coupled heterotrimeric G proteins have been primarily studied from a signalling perspective, their central role in diverse cellular functions strongly suggests their involvement in broader processes such as the regulation of epigenetic networks. Future work defining these nodes of connectivity will likely expand our understanding of GPCRs in cancer even further.
+pmgl | antes
+90no | Within the complex network of cancer signalling, numerous opportunities arise for GPCRs to be used for therapeutic intervention. Interfering with GPCR activity using both pharmacological inhibitors and biologics, encompassing antagonists, inverse agonists, allosteric modulators, in addition to antibody-based therapies, can inform novel therapeutic strategies. Specifically, positive and negative allosteric modulators (PAMs and NAMs, respectively), will likely emerge as pharmacological avenues for cancer prevention and treatment, as they may dial up or down the signalling capacity of GPCRs that are aberrantly modulated in cancer rather than directly stimulating or inhibiting them, or competing for their natural ligands. Guided towards the development of precision therapeutic approaches, more comprehensive characterization of dysregulated GPCR expression and signalling coupled with the diverse modes of action of these
+jt0y | This article is protected by copyright. All rights reserved
+qb7o | inhibitors will likely reveal context-specific dependencies that can provide opportunities to rationally target GPCRs for cancer therapies.
+oae5 | Recent studies investigating the range and depth of biased GPCR signalling, and the potential impact of GPCR mutations in G protein-coupling selectivity, will likely also enable the development of novel approaches exploiting the tremendous potential of GPCRs as signal transducers to modulate signalling in cancer and other diseases. Moreover, advances and emerging techniques in the field of gene editing may also add to the repertoire of mechanisms by which we can modulate GPCR activity.
+s0fl | Given the large proportion of FDA-approved drugs that target GPCRs, there is mounting evidence supporting the utility of repurposing existing drugs to block or modulate GPCR-mediated oncogenic signalling circuitries, either alone or as adjuvant therapies. Regarding the latter, drug resistance has remained a major challenge in the era of precision medicine. GPCR modulators administered along with conventional anticancer agents may allow abrogating the initiation of compensatory signalling mechanisms and resultant drug resistance. Similarly, the dynamic influx of immune cells to the tumor, which leads to a highly infiltrative "hot" tumour or a poorly infiltrative "cold" tumour, is in part dependent on the chemokine gene signature of the tumour itself, which may provide a powerful prognostic tool to predict therapeutic response rates in the clinic. Harnessing the immunomodulatory power of GPCRs or their ability to regulate tumour-immune interactions could revolutionize current immunotherapies and result in durable clinical responses while preventing tumour relapse. Investigation exploring combining GPCR-targeted therapies with existing chemo- and immunotherapies either for the treatment of cancer, or as cancer preventative strategies are currently ongoing. Ultimately, just as we gain a clearer understanding of the complex mechanisms underlying cancer initiation and progression, so too will the role of GPCRs as cancer drivers and therapeutic targets become more important.
+43ia | Acknowledgements
+3g2y | This work was supported by R33CA225291 (J.S.G) and DGE-1650112 (N.A).
+gc7v | Author Contributions
+wqfv | AC
+j30a | N.A. performed the data analysis, N.A. and J.S.G wrote and edited the manuscript.
+7bdk | This article is protected by copyright. All rights reserved
+fim0 | Figure Legends
+ojro | Figure 1. The Roles of GPCRs and heterotrimeric G Proteins in the Hallmarks of Cancer.
+l6t9 | Highlighted are representative G proteins and GPCRs with well-established roles as drivers of each cancer promoting hallmark. The centrality of GPCR signalling to cellular processes within and outside the tumor microenvironment through dysregulated oncocrine signalling networks promotes the development and progression of cancer. GPCRs are in labeled in black, heterotrimeric G proteins are in blue, and signalling regulators (RGS and ß-arrestin) are in purple. Refer to the text for details on each gene. Figure adapted from Hanahan and Weinberg, Cell, 201122 and modified from SMART (Servier Medical Art), licensed under a Creative Common Attribution 3.0 Generic License.
+1ujy | Figure 2. Ga Mutation Distributions Across TCGA PanCancer Atlas Studies.
+qzor | Lollipop plot depicting the non-synonymous mutation spectrum of A) GNAQ, B) GNA11, C) GNAS, and D) GNA13 across TCGA PanCancer studies. Missense mutations are depicted in green, and truncating mutations are depicted in black along the gene body. OncoKB annotated hotspot mutations are depicted in red below each gene. Pie charts represent distribution of cancer types where selected hotspots have been found. The data shown here are based upon data generated by the TCGA Research Network. All data was downloaded from cBio Portal130,131.
+a0by | Table 1. Mutation frequencies of heterotrimeric G protein families in patients across TCGA PanCancer Atlas studies.
+u1ky | Frequencies (left column) and number (right column) of patients carrying a non-synonymous mutation in one or more heterotrimeric G protein subunits in each indicated family. Cumulative mutation frequencies and absolute number of patients carrying a mutation in one or more G proteins in each indicated family across all 10,437 patients in all studies are listed in the last row. Number of heterotrimeric G proteins considered in each family are listed with each family name. The data shown here are based upon data generated by the TCGA Research Network. All data was downloaded from cBio Portal 130,131
+htm9 | This article is protected by copyright. All rights reserved
+8hul | Table S1: Mutation frequencies of GPCRs by gene in patients across TCGA PanCancer Atlas Studies.

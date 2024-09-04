@@ -1,0 +1,173 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+
+EXAMPLE OUTPUT:
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+
+
+
+
+62hx | ... a low inflammation food company to give me discounts for their products ($50 savings)
+n5mv | ... discounts for braces and orthotics ($150 savings)
+3lem | ... a local health club down the street to give me a personal training session for free and a free month of membership to their pool ($100 Value)
+jm94 | ... discounts on pharmaceutical drugs from the local pharmacist ($100/mo in savings)
+v4s7 | ... repeat the above for multiple service providers (so perhaps I get ten chiropractors to all give me a free adjustment, now I have ten free adjustments in my bundle.
+j6ud | ... Etc
+rlh2 | Now if my offer was $400, then the value of these free bonuses ALONE is worth more than the $400.
+gwtt | As if that weren't already awesome enough, if you really want to be a jedi, negotiate a group discount and a commission to yourself. This is exactly what we did with our supplement company. Our gym owner clients who use our sister supplement company Prestige Labs sponsored athletes get a 30% discount on our products, on top of that, the sponsored athlete gets paid 40% of all sales netted after the applied discount.
+gzru | So it's a win-win for everyone. Their clients get it for 30% less than our main site. They get paid for giving away exclusive discounts. And we get customers in exchange for the commission paid. Everyone wins.
+79vs | If you are following along, each of these bonuses can become revenue streams for you indirectly by getting clients to say YES more easily, and directly because you can negotiate that each of these businesses can pay you for the people you send their way.
+9bfz | So let's also say we negotiated the following "affiliate commissions" for making the introduction to these businesses.
+lrwo | ... the chiro gives you $100 per person who comes into their office
+vlfw | ... the food company gives you free food (yum!)
+fg41 | ... orthotics company gives you $100 per person referred
+d033 | ... health club gives you a free membership OR $50 per person who signs up
+wtvl | ... pharmacy gives you $100 per person
+u2qd | Now let's look at how much money we made ... our $400 offer now has the possibility of making us an extra $350 ... pure
+4kpx | profit! That's the beauty of these relationships. The other businesses will pay you and you don't have to do anything but refer customers to them that you have already spent the money to acquire.
+2xnd | And if you really want to get crazy, come up with a grand slam offer with these partner businesses by using the same concepts in the book so that each of the bonuses themselves becomes even more valuable than a simple commoditized service.
+8rp1 | Free Gift #8: BONUS ... on ... BONUSES
+0z93 | There are a million and one ways to use bonuses in your offers. You can get people to act faster. You can price anchor and product anchor (little known). You can get more people to say yes than you otherwise would. If you want to a live deep dive with me on this, go to Acquisition.com/training/offers and select "Bonus Creation" to watch a short video tutorial. I also have a Free Bonus Checklist I use when creating offers. Swipe it for your own business on the house!
+we3s | Summary
+vuhu | We want to employ bonuses because they expand the price to value discrepancy and get people to purchase who otherwise wouldn't. They massively increase the prospects' perception of the value of our offer. So here's what to do:
+q679 | 1. Create checklists, tools, swipe files, scripts, templates, and anything else that would take lots of time and effort to create on one's own, but is easy to use once created. Anything that you can invest in one time that clearly cost time or money to create, but can be given away endless time is a perfect fit for a bonus.
+tkda | 2. Beyond that, make a habit to record every workshop, every webinar, every event, every interview and use them as additional bonuses (as needed to crush a perceived obstacle).
+jbzr | 3. Proactively negotiate group discounts and a referral commission with adjacent businesses that solve needs your customer will have as a result of beginning this process with you. What's the next natural thing they might want? Go to those businesses, get a deal for them they could never get for themselves (because you are negotiating with the purchasing power of all your customers at once, very powerful).
+34rr | Author Note: The longer you are in business the more of these bonus assets you will have at your disposal. All of these things are valuable. Put them in a vault and keep them in your back pocket to sprinkle into an offer to get the deal closed. Information products work very well here because they have high perceived value, low cost, and zero operational effort besides giving an additional login. Tickets to virtual experiences or events work too. Same goes for a higher level of service that has a fixed cost like giving someone VIP service for a month (which also doubles as a way of upselling them into that level of service to keep them on it . . . more on that in Book II.)
+txr8 | What should be a bonus vs part of the core offer if I am the one fulfilling it?
+jb8d | Short answer: Wow Factor - in other words - something you wouldn't want someone to miss. Many times you have so much "stuff" you will be providing your customers (good thing) that valuable nuggets can get lost in the mix. You want to take the most distinct ones that can almost stand on their own and pull those out to highlight them. This is especially true for things that are short in length but high in quality or value. Checklists or infographics can condense a lot of information into a small space. Someone might not feel justified paying lots of money for a product launch map (for example) but as a bonus would be perceived as very valuable.
+gj4l | Next Up ...
+x4ti | We have our core offer. We are presenting it in a way to increase scarcity and urgency to increase the likelihood they want it even more. We stacked the bonuses of our offer to make the price to value discrepancy out of this world and break our prospects' minds. Next on our magical journey will be addressing the big elephant in the room ... risk. We will completely obliterate it using a combination of guarantees so they have no reason not to buy.
+sang | ENHANCING THE OFFER: GUARANTEES
+ocyy | "You're gonna like the way you look ... I guarantee it."
+3vef | MEN'S WAREHOUSE AD THAT RAN FOREVER.
+9zxr | GUARANTEES WORTH THER WEIGHT IN GOLD
+l47i | $
+ml9u | T he single greatest objection for any product or service being sold is ... drum roll ... risk. Risk that it doesn't do what it's supposed to do for them. Therefore, reversing risk is an immediate way to make any offer more attractive. You will want to spend a disproportionate amount of time figuring out how you want to reverse it. That being said, how much more attractive can a guarantee make an offer?
+0ml0 | Jason Fladlien, who I referenced earlier, once stated that he had seen the conversion on an offer <LATEX>2 - 4 x</LATEX> simply by changing the quality of the guarantee. It's that important.
+3f5x | From an overarching perspective there are four types of guarantees:
+kh8s | 1. Unconditional
+plxa | 2. Conditional
+6wac | 3. Anti-Guarantee
+vil5 | 4. Implied Guarantees.
+2s5u | You must always hit your guarantee hard, even if you don't have one. Say it boldly and give the reason why.
+k9cc | But won't people take advantage of a crazy guarantee?
+6t52 | Sometimes, but not usually. That being said, you must understand the math. If you close 130 percent as many people, and your refund percentage doubles from 5 percent to 10 percent, you've still made 1.23x the money, or 23 percent more, and that all goes to the bottom line.
+08mw | Ex: 100 sales, 5 refunds <LATEX>\left( 5 \right) = 9 5</LATEX> Net Sales
+6iat | Guarantee Offer 130 sales, 13 refunds <LATEX>\left( 1 0 \right) = 1 1 7 \quad N e t \quad s a l e s</LATEX> <LATEX>1 1 7 / 9 5 = 1 . 2 3 x</LATEX> (23% increase)
+pony | Don't be emotional, just do the math. For a guarantee to not be worth it, the increase in sales would have to be 100 percent offset by people who refunded. So an absolute increase in sales of 5 percent would need to be offset by an absolute increase in refunds of 5 percent (but that might be a doubling of refunds, which is unlikely). So, for the most part, the stronger the guarantee, the higher the net increase in total purchases, even if the refund rate increases alongside it.
+spym | Warning: While guarantees can be effective sellers, people who buy because of guarantees can become very shitty customers. A person who only buys because of a guarantee is a person who may not be willing to put in the work necessary to see success with your product or service. In a world where you want to reverse risk and get customers the best outcome possible, tying your guarantee to the things they need to do to be successful can help all parties.
+rms6 | Pro Tip: High Cost Services Warning
+dwg7 | If you have a tremendous amount of cost associated with your product or service, you will likely want to employ a conditional guarantee or an ANTI guarantee, as you will have to eat the cost of the refund AND the cost of fulfilling.
+3o8c | Types of Guarantees
+vm29 | "IF YOU DON'T ACHIEVE X IN Y TIME WE WILL ...
+kwxl | What makes a guarantee have power is a conditional statement: If you do not get X result in Y time period, we will Z. To give a guarantee teeth you have to decide what you'll do if they don't get the result. Without the "or what" portion of the guarantee, it sounds weak and diluted.
+kd8r | Note: This is what most marketers do.
+z2jh | Bad Example: We will get you 20 clients guaranteed.
+nvte | Better example: You will get 20 clients in your first 30 days, or we give you your money back + your advertising dollars spent with us. This is a simple, but strong guarantee.
+994g | Here are the four types of guarantees. I'll go over them in theory then we will apply them.
+p39w | 1) Unconditional Guarantees
+g6k3 | As I stated earlier, there are unconditional, conditional, and "anti-" guarantees. Unconditional are the strongest guarantees. They're basically a trial where they pay first then see if they like it. This gets a LOT more people to buy, but you will have some people refund, especially as consumer culture continues to shift towards entitlement and zero accountability.
+xmvn | 2) Conditional Guarantees
+v2zu | Conditional guarantees include "terms and conditions" to the guarantee. These are the ones you can get VERY creative on. In general, you want these to be "better than money back" guarantees. Because if they are going to make an investment, you want to match their investment psychologically with an equal or higher perceived commitment. These also can have a very powerful effect on getting clients results. If you know the key actions someone must take in order to be successful, make those part of the conditional guarantee. In a perfect world, 100% of your customers would qualify for a conditional guarantee, but will have achieved their result, and therefore will not want to take it. That is an ideal we can all aspire towards. And just fyi - if given the option of getting a refund or getting the outcome they were promised the vast majority of people will take the outcome.
+z2nh | 3) Anti-Guarantees
+yhx0 | Anti-guarantees are when you explicitly state "all sales are final." You will want to own this position. You must come up with a creative "reason why" the sales are final. Typically, you'll want to show a massive exposure or vulnerability on your part that a consumer could immediately understand and think "Yes, that makes sense." These types of guarantees are especially important with items that are consumable or massively diminish in value once given.
+mi09 | 4) Implied Guarantees
+15ri | Implied guarantees are any offer that is a performance-based offer. This comes in many different forms. Revshare, profitshare, triggers, ratchets, monetary bonuses, etc are all examples. The end all concept is the same, if I don't perform, I don't get paid. Unique to this particular structure, it also confers the upside of "If I do a great job, I will be very well compensated." These only work in situations where you have transparency for measuring the outcome and trust (or control) that you will get compensated when you do perform.
+dfj2 | Stacking Guarantees
+e9bu | An experienced salesman understands that, like bonuses, you can actually stack guarantees. For example, you could give an unconditional 30 day no questions asked guarantee then on top of that give a conditional triple your money back 90 day guarantee. That would be an example of stacking an unconditional with a conditional guarantee.
+usfq | You can also stack two conditional guarantees around different (or sequential) outcomes. For example, you'll make $10,000 by 60 days, $30,000 by 90 days as long as you do thing 1, 2, and 3. This future paces the prospect into an outcome they now believe is far more likely (since you will be deliberately spelling it out in a conditional guarantee with a timeline for achievement). Doing this shows the prospect you are serious about getting them results and convinced that they will achieve what they want. This shifts the burden of risk back from them onto us ... a very powerful strategy.
+4jnl | Let's go through some different guarantee examples:
+ows8 | Guarantee: If you don't achieve X, in Y time, we will [insert offer] . . .
+qkak | [Unconditional] "No Questions Asked" Refund Guarantee
+39ur | What the Client Gets: A) a full refund, B) a 50 percent refund, C) a refund of their ad spend and any ancillary costs incurred, D) you pay for a competitors program instead, E) you return their money plus an additional $1,000 (or other applicable amount)
+nlm3 | My Take: This is about as simple as it gets. It's also very risky. You put yourself in a situation where if someone does not achieve the results, whether because of your fault or not, you will still be held accountable. Obviously this is a strong, but unoriginal guarantee. You can add conditions, but the more conditions you add, the faster this guarantee loses its teeth.
+muf5 | Wording: I heard Jason Fladlien, who I referenced earlier, pitch his unconditional guarantee on a webinar and I thought it was unbelievable. These are 100% his words and not my own. I take no credit for this but have included it for completeness.
+lqjf | "I'm not asking you to decide yes or no today ... I'm asking you to make a fully informed decision, that is all. The only way you can make a fully informed decision is on the inside, not the outside. So you get on the inside and see if everything we say on this webinar is true and valuable to you. Then, if it is, that's when you decide to keep it. If it's not for you, no hard feelings. You will then, after signing up at URL be able to make a fully informed decision that this isn't for you. But you can't make this decision right now for the same reason you don't buy a house without first looking at the inside of it. And know this ... whether it's 29 min or 29 days from now ... if you ain't happy, I ain't happy. For any reason whatsoever, if you want your money back you can get it because I only want to keep your money if you're happy. All you have to do is go to support@xyz.com and tell use "gimme my money" and you got it, and in short order - our response times to any support request average 61min over a 24/7 time period. You can only make such a guarantee when you're confident that what you have is the real deal and I'm fairly confident that when you sign up at URL you're getting exactly what you need to BENEFIT."
+7z7b | Pro Tip: Name Your Guarantee Something Cool

@@ -1,0 +1,129 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+
+EXAMPLE OUTPUT:
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+
+
+
+
+a64c | <LATEX>f \left( \mathrm { x } _ { k + 1 } \right) - f \left( \mathrm { x } _ { k } \right) < - \rho \min \left\{ \frac { 1 } { 2 } , \min \left\{ \frac { 2 \left( 1 - \rho \right) } { L _ { g } } , \frac { \delta _ { k } } { \epsilon _ { k } ^ { 2 } } \right\} \min \left\{ 1 , \varsigma \right\} \min \left\{ 1 , \frac { \epsilon _ { k } ^ { 2 } } { 2 \delta _ { k } ^ { 2 } } \right\} \right\} \epsilon _ { k } ^ { 2 } .</LATEX> Proof of Theorem 3.3. We posit that the algorithm must terminate in at most
+gi7n | <LATEX>K = \left\lceil \frac { \left( f _ { 0 } - f _ { * } \right) \epsilon _ { g } ^ { - 2 } } { \min \left\{ c _ { 1 } , c _ { 2 } \right\} } \right\rceil ,</LATEX> iterations, where
+3pn1 | <LATEX>c _ { 1 } \triangleq \rho \min \left\{ \frac { 2 \varsigma \left( 1 - \rho \right) \min \left\{ 1 , \varsigma \right\} C _ { \varsigma , L _ { g } } ^ { 2 } } { L _ { g } } , \varsigma C _ { \varsigma , L _ { g } } , \frac { 2 \left( 1 - \rho \right) \omega ^ { 2 } } { L _ { g } } , \omega \right\} , \quad \mathrm { w i t h } \quad \omega \triangleq \frac { \eta } { \sqrt { \eta ^ { 2 } + L _ { g } ^ { 2 } } } ,</LATEX> <LATEX>c _ { 2 } \triangleq \rho \min \left\{ \frac { 1 } { 2 } , \frac { 1 } { 2 } \min \left\{ \frac { 2 \left( 1 - \rho \right) } { L _ { g } } , 1 \right\} \min \left\{ 1 , \varsigma \right\} \right\} ,</LATEX> and <LATEX>C _ { \varsigma , L _ { \varrho } }</LATEX> is as in (20). Suppose otherwise, that is, the algorithm fails to terminate until at least iteration <LATEX>K + 1 .</LATEX> For iterations <LATEX>k = 1 , \ldots , K ,</LATEX> the termination conditions must be unsatisfied. We divide the iterates up in the following manner
+wjuz | <LATEX>\mathcal{K} _ { 1 } = \left\{ k \in \left[ K \right] \mid \mathcal{I} \left( \mathrm { x } _ { k } , \epsilon _ { g } ^ { 1 / 2 } \right) \neq \emptyset , \| \mathrm { g } _ { k } ^ { \mathcal{I} } \| \geq \epsilon _ { g } \right\} ,</LATEX> and
+3yxv | <LATEX>\mathcal{K} _ { 2 } = \left\{ k \in \left[ K \right] \setminus \mathcal{K} _ { 1 } \mid \mathcal{A} \left( \mathrm { x } _ { k } , \epsilon _ { g } ^ { 1 / 2 } \right) \neq \emptyset , \left( \exists i \in \mathcal{A} \left( \mathrm { x } _ { k } , \epsilon _ { g } ^ { 1 / 2 } \right) , \mathrm { g } _ { k } ^ { i } < - \sqrt { \epsilon _ { g } } \mathrm { o r } \| \mathrm { d i a g } \left( \mathrm { x } _ { k } ^ { \mathcal{A} } \right) \mathrm { g } _ { k } ^ { \mathcal{A} } \| \geq \epsilon _ { g } \right) \right\} .</LATEX> Since the algorithm has not terminated, <LATEX>\left\lceil K \right\rceil = \mathcal{K} _ { 1 } \cup \mathcal{K} _ { 2 } .</LATEX> If <LATEX>k \in \mathcal{K} _ { 1 }</LATEX> we apply Lemma B.3 and combine the SOL and NPC
+d8zj | <LATEX>\text { cases with } \epsilon _ { q } < 1 \text { to obtain }</LATEX> <LATEX>f \left( \mathrm { x } _ { k + 1 } \right) - f \left( \mathrm { x } _ { k } \right) < - \rho \min \left\{ \frac { 2 \varsigma \left( 1 - \rho \right) \min \left\{ 1 , \varsigma \right\} C _ { \varsigma , L _ { g } } ^ { 2 } } { L _ { g } } , \varsigma C _ { \varsigma , L _ { g } } , \frac { 2 \left( 1 - \rho \right) \omega ^ { 2 } } { L _ { g } } , \omega \right\} \epsilon _ { g } ^ { 2 } = - c _ { 1 } \epsilon _ { g } ^ { 2 } .</LATEX> 21
+ywxn | Inexact Newton-type Methods for Optimisation with Nonnegativity Constraints
+uxhs | If k & K2, we instead combine the results of Lemma B.4 to obtain
+ed6e | f(Xk+1)-f(xk) <- pmin 2 min 11 - Lg
+6qqm | [2(1-P).1 min{1,5} > Eg ≤ -C26g.
+onum | Finally, we obtain
+3iir | fo - fx ≥ fo - f (x ) = > f (x) - f (Xk+1) > |1|C 1 } + |K2|2 }] k=0 K-1
+7a0a | ≥ (|K|+|K2) min{c1, c2} = K min{c1, c2},
+o1qp | which contradicts the definition of K.
+jrik | C. Global Convergence - Improved Rate
+xv78 | In this section, we provide the proof of Theorem 3.8. Recall that we denote the update to xk for some step size, a, by Xk(a) = P(Xk + @pk).
+sdks | Recall that Algorithm 2 involves two types of steps: Type I and Type II. We summarise the step types, the optimality conditions, as well as the corresponding lemmas in Table 1.
+y8fb | Table 1. The step types, the optimality conditions, as well as the corresponding lemmas involved in the proof of Theorem 3.8.
+521q | Our first three lemmas (Lemmas C.1 to C.3) will demonstrate that Type I steps produce sufficient decrease in the function value. The analysis of Type I steps builds off of Xie & Wright (2023) which demonstrated that projected gradient can achieve good progress (in terms of guaranteed decrease) when the active termination conditions (7a) and (7b) are unsatisfied. However, unlike Xie & Wright (2023), which only uses a first-order step, we also incorporate second-order update in the form of Newton-MR step in the inactive set of indices.
+yogo | As shown in Lemma C.1, combining the steps in this manner suggests that the lower bound on the step size may depend inversely on the length of the Newton-MR step. This, in turn, could lead to small step sizes, if the Newton-MR step is large. We deal with this issue by splitting our analysis into two cases. The first case (Lemma C.2) deals with large gradients on the inactive set where we expect good progress due to the corresponding large Newton-MR step on the inactive set (cf. (20)). By contrast, the second case (Lemma C.3) deals with small gradients on the inactive set where we can expect to see small inactive set steps (cf. (20)) and therefore lower bounded step sizes. In this way, we trade off the convergence due to the inactive and active sets to always ensure sufficient decrease at the required rate.
+2285 | Recall that Assumption 3.1 implies that, for any y, x E R4, we have
+ys0g | f(y)≤f(x)+(Vf(x),y -x) + ++9 |x -y|2.
+7zvp | (29)
+ww6u | We now give the proof of Lemmas C.1 to C.3.
+hpi6 | Lemma C.1 (Type I Step: Step-size Lower Bound). Assume that f satisfies Assumptions 3.1 and 3.7. Suppose a Type I step is taken at iteration k of Algorithm 2. If I(Xk, Ök) / Ø ,then the largest step size which satisfies the line search criteria (11), Ok, satisfies the following lower bound
+4uhb | Qk ≥ min - [ 2(1 - p) Lg min {1, 0},
+epyi | (30)
+y51p | However, if I(Xk, 0k) = Ø, then
+x95m | Ok 2(1 - p) Lg
+yfum | (31)
+ppx4 | Inexact Newton-type Methods for Optimisation with Nonnegativity Constraints
+qf11 | Proof. If <LATEX>\mathcal{I} \left( \mathrm { x } _ { k } , \delta _ { k } \right) \neq \emptyset ,</LATEX> suppose
+8oqt | <LATEX>\alpha \leq \frac { \delta _ { k } } { \| \mathrm { p } _ { k } ^ { \mathcal{I} } \| } \leq \frac { \delta _ { k } } { \| \mathrm { p } _ { k } ^ { \mathcal{I} } \| _ { \infty } } ,</LATEX> so that for each <LATEX>i \in \mathcal{I} \left( \mathrm { x } _ { k } , \delta _ { k } \right)</LATEX> we have <LATEX>\mathcal{P} \left( \mathrm { x } _ { k } ^ { i } + \alpha \mathrm { p } _ { k } ^ { i } \right) = \mathrm { x } _ { k } ^ { i } + \alpha \mathrm { p } _ { k } ^ { i } .</LATEX> The Lipschitz gradient upper bound (29) yields
+6zah | <LATEX>f \left( \mathrm { x } _ { k } \left( \alpha \right) \right) \leq f \left( \mathrm { x } _ { k } \right) + \langle \mathrm { g } _ { k } , \mathcal{P} \left( \mathrm { x } _ { k } + \alpha \mathrm { p } _ { k } \right) - \mathrm { x } _ { k } \rangle + \frac { L _ { g } } { 2 } \| P \left( \mathrm { x } _ { k } + \alpha \mathrm { p } _ { k } \right) - \mathrm { x } _ { k } \| ^ { 2 }</LATEX> <LATEX>= f \left( \mathrm { x } _ { k } \right) + \langle \mathrm { g } _ { k } ^ { \mathcal{A} } , P \left( \mathrm { x } _ { k } ^ { \mathcal{A} } - \alpha \mathrm { g } _ { k } ^ { \mathcal{A} } \right) - \mathrm { x } _ { k } ^ { \mathcal{A} } \rangle + \alpha \langle \mathrm { g } _ { k } ^ { \mathcal{I} } , \mathrm { p } _ { k } ^ { \mathcal{I} } \rangle + \frac { L _ { g } } { 2 } \| \mathcal{P} \left( \mathrm { x } _ { k } ^ { \mathcal{A} } - \alpha \mathrm { g } _ { k } ^ { \mathcal{A} } \right) - \mathrm { x } _ { k } ^ { \mathcal{A} } \| ^ { 2 } + \frac { L _ { g } \alpha ^ { 2 } } { 2 } \| \mathrm { p } _ { k } ^ { \mathcal{I} } \| ^ { 2 } .</LATEX> It is clear from this bound that the line search will terminate for any <LATEX>\alpha</LATEX> such that

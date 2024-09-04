@@ -1,0 +1,129 @@
+You will receive raw text from an OCR scan of a document or web page. Each line of input represents one textbox from the document.
+
+Your task is to label each textbox with exactly one of the following labels:
+  title: the primary document title, no more than one per document
+  heading: the name of the following chapter or section (should never start in the middle of the previous paragraph)
+  subheading: a secondary heading, often following another heading (should never start in the middle of the previous paragraph)
+  body: main paragraph content: may start or end in the middle of a word, use context to follow paragraphs that are split across textboxes (if a textbox contains both heading and body text, label it "body")
+  math: textbox primarily containing math
+  imageDescription: standalone callout that only describes an image, chart, table, or similar (typically begins with "Table...", "Figure...", "Fig. ...", "Above...", "Left...", etc.)
+  authors: names of contributors to this document
+  institutions: list of universities, business, and other institutions affiliated with this document
+  publisher: info about the publisher, or provided by the publisher, including copyright info
+  pagenum: the page number
+  headerOrFooter: boilerplate text page number, or redundant headings at the top/bottom of the page
+  toc: the table of contents
+  references: bibliographic references and resources
+  acknowledgements: thanks and credits to contributors
+  appendix: index, appendix, or any other end matter not part of the main thread (including related headings)
+  table: tabular data, label, title, or subheading for a grid or list of data
+  datum: numeric data or data label from a chart or list
+  advertisement: promotional ads and marketing
+  layout: non-content related to the layout of the page, e.g. sidebar navigation
+  callout: pull quote or long block text that stands apart from the main text
+  footnote: footnotes and endnotes near the bottom of the page
+  keywords: list of keywords or tags
+  url: web address or email
+  other: any other text that does not belong to the main thread
+
+Each line of input is prefixed with a textbox ID in the format `id | Text content`. The output must be in the format `id | label`.
+
+Note that body text may be split across multiple textboxes, and textboxes may start or end in the middle of a sentence or word. Because the text was extracted from a web page or document, paragraphs of body text may be interrupted by multiple textboxes of redundant headers, footnotes, page numbers, tables, images, etc. For example, a real heading will never interrupt the middle of a sentence. Use context clues like this to carefully label each textbox.
+
+EXAMPLE INPUT:
+1pjs | Neuroscience Applied 1 (2022) 101012
+o2kr | Contents lists available at ScienceDirect
+v6sk | Neuroscience Applied
+1wj6 | journal homepage: www.journals.elsevier.com/neuroscience-applied
+936l | Research Articles
+06yq | Microdosing with psychedelics to self-medicate for ADHD symptoms in adults: A naturalistic study
+dpv6 | ARTICLE INFO
+8r5j | ABSTRACT
+2taz | Keywords: ADHD Microdosing Psychedelics Self-medication Well-being Time perception
+o3ya | ADHD in adulthood is often overlooked, which negatively affects the individual's well-being. First-line phar- macological interventions are effective in many ADHD patients, relieving symptoms rapidly. However, there seems to be a proportion of individuals who discontinue, or fail to respond to these treatments. For these in- dividuals, alternative treatment options should be explored.
+r5il | 1. Introduction
+5gui | Attention deficit hyperactivity disorder (ADHD) is one of the most common developmental disorders worldwide. Prevalence research indicates that 2.6% of the adult population has persistent ADHD. ADHD in adults is often overlooked because of the high comorbidity rate and lack of knowledge about how ADHD is expressed in adulthood (Kooij et al.,
+9d4o | Fig. 1. Flowchart of included participants for each time point.
+82qc | 2019). In addition, ADHD is associated with deficits in various domains of cogni- tive functioning. Twenty-five percent of ADHD cases suffered from ADHD symptoms purely because of de- ficiencies in temporal processing (Sonuga-Barke et al., 2010).
+ls7d | First-line ADHD treatments in adults mainly include pharmacological interventions to enhance dopaminergic and noradrenergic neurotrans- mission with stimulants. Overall, they have been proven to work effectively in adults with ADHD, inducing fast symptom relief and thereby enhancing the person's quality of life. In the
+5esx | Table 1 Demographic information from respondents at baseline and the two and four- week time points.
+t8vv | longer term, approximately twenty percent of ADHD patients discontinue their prescribed medication after six to nine months, thirty percent after one year, and half of them after two years.
+xrd1 | 2. Material and methods
+5746 | 2.1. Study design and participants
+7toz | The study employed a naturalistic design, assessing the experiences of participants at baseline,
+j346 | Neuroscience Applied 1 (2022)
+m5ka | E.C.H.M. Haijen et al.
+kx2c | REVIEW
+v8uq | before they start MD on their own initiative, and at two and four weeks after MD initiation. The target population included adults diagnosed with ADHD and individuals who experienced ADHD symptoms to the extent that these interfered with their daily lives and who had not been diag- nosed with ADHD before. To be included in the analyses, participants needed to score above a cut-off point on at least one of the subscales of the Conner's Adult ADHD Rating Scale (CAARS-S:SV).
+2zmw | Fig. 2. Mean scores of the CAARS-S:SV DSM-IV total symptoms T-scores at baseline (0W) and two (2W) and four weeks (4W) after MD (A) of the whole sample, and (B) per conventional ADHD medication use. Error bars represent mean error.
+sdk3 | <LATEX>\lim _ { x ightarrow \infty } rac { 6 x ^ { 2 } + 1 0 0 } { 7 x ^ { 2 } - 1 0 } =</LATEX>
+x972 | 2.2. Study procedure
+k221 | Mean performance measures of the CAARS-
+
+EXAMPLE OUTPUT:
+1pjs | headerOrFooter
+o2kr | publisher
+v6sk | publisher
+1wj6 | publisher
+936l | headerOrFooter
+06yq | title
+dpv6 | other
+8r5j | heading
+2taz | keywords
+o3ya | body
+r5il | heading
+5gui | body
+9d4o | imageDescription
+82qc | body
+ls7d | body
+5esx | imageDescription
+t8vv | body
+xrd1 | heading
+5746 | subheading
+7toz | body
+j346 | headerOrFooter
+m5ka | authors
+kx2c | headerOrFooter
+v8uq | body
+2zmw | imageDescription
+sdk3 | math
+x972 | heading
+k221 | body
+
+
+
+
+1pjs | PHYSICAL REVIEW RESEARCH 4, 043113 (2022)
+o2kr | Quantum skyrmion lattices in Heisenberg ferromagnets
+v6sk | (Received 2 May 2022; revised 1 September 2022; accepted 2 September 2022; published 17 November 2022)
+1wj6 | Skyrmions are topological magnetic textures that can arise in noncentrosymmetric ferromagnetic materials. In most systems experimentally investigated to date, skyrmions emerge as classical objects. However, the discovery of skyrmions with nanometer length scales has sparked interest in their quantum properties. Here, we simulate the ground states of two-dimensional spin-1/2 Heisenberg lattices with Dzyaloshinskii-Moriya interactions and discover a broad region in the zero-temperature phase diagram which hosts quantum skyrmion lattices. We argue that the quantum skyrmion lattice phase can be detected experimentally in the magnetization profile via local magnetic polarization measurements as well as in the spin structure factor measurable via neutron scattering experiments. Finally, we explore the resulting quantum skyrmion state, analyze its real-space polarization profile and show that it is a nonclassical state featuring entanglement between quasiparticle and environment mainly localized near the boundary spins of the skyrmion.
+936l | DOI: 10.1103/PhysRevResearch.4.043113
+06yq | I. INTRODUCTION
+dpv6 | Magnetic skyrmions are vortexlike quasiparticles charac- terized by a nontrivial topological invariant in real space [1-4]. These states are typically found in noncentrosymmetric ferromagnets in a certain range of external magnetic field and temperature, and are stabilized by an antisymmetric spin exchange energy, termed Dzyaloshinskii-Moriya interaction (DMI) [1]. After their first detection in a magnetic system by a neutron diffraction experiment in 2009 [5], and a full tomography by electron microscopy in 2010 [6], intense follow-up studies revealed intriguing dynamical properties, rendering skyrmions potentially useful for memory and com- puting devices [7-11]. Usually, the skyrmions encountered in these systems arise from thermal fluctuations and extend over length scales that are much larger than the interatomic distance and thus behave like classical objects. Other possi- bilities to create skyrmions are through suitable de current devices, such as those proposed in Refs. [12,13]. However, smaller skyrmions do exist [14] and have already created interest in possible quantum properties of skyrmions. Several works have predicted the quantum behavior of skyrmions by using classical magnetic textures as a starting point and study- ing quantum corrections in the semiclassical ferromagnetic regime [15-19].
+8r5j | Beyond this semiclassical limit, some works have indicated that quantum analogs of classical skyrmions might exist in spin systems. The authors of Ref. [20] used a multiscale
+2taz | 2643-1564/2022/4(4)/043113(13)
+o3ya | 043113-1
+r5il | approach to demonstrate that mesoscopic magnetization vor- tices are stabilized by quantum fluctuations [18,21], which suggests the possibility of inherently quantum-mechanical counterparts of these states at zero temperature. So far, at- tempts to classify skyrmion excitations with sizes comparable to the interatomic spacing have been made in frustrated quan- tum lattice systems [22] and ferromagnetic lattices with DMI [23,24]. Several geometries have been studied to understand the quantum analogs of classical skyrmions, and quantitative results have been obtained by numerical diagonalization of the Hamiltonian [22-24]. Since the dimension of the quantum Hamiltonian scales exponentially with the number of lattice sites, such exact diagonalization (ED) strategies are limited to small system sizes containing at most ~30 spin-1/2 sites (without exploiting symmetries). Although DMI interactions are among the most popular to investigate the formation of classical skyrmion phases, their quantum analogs are analyt- ically hard to handle and quantitative results beyond system sizes amenable for ED are still lacking. As an alternative route to quantum skyrmions that avoids DMI, frustrated spin lattice systems were studied in Ref. [22]. Using ED for small systems and analytical spin-wave theory, the authors identified skyrmions with magnon bound states and developed a phe- nomenological theory based on a trial wave function.
+5gui | Here, we use the density matrix renormalization group (DMRG) algorithm to explore ferromagnetic phases of quantum spin-1/2 Heisenberg models with DMI and uni- axial anisotropy. As our main result, we discover a zero- temperature quantum phase with a nontrivial magnetic spin texture that signals an emergent quantum skyrmion lattice. This phase was previously overlooked because it appears only beyond a critical system size which for realistic parameters is larger than the system sizes amenable to ED. We iden- tify three ferromagnetic phases that can be directly observed and distinguished in the space-resolved magnetization pro- file. Furthermore, we argue that the polarization gives access to the zero-temperature phase diagram of the model under
+82qc | Published by the American Physical Society
+ls7d | ANDREAS HALLER et al.
+tzt3 | <LATEX>\left( f \right.</LATEX> FIG. 1. DMI vector pattern <LATEX>D _ { \pm a _ { i } }</LATEX> for nearest-neighbor interac- tions on triangular and square lattices.
+t8vv | investigation. Contrary to similar quasiparticles found in frus- trated lattices [22] or quantum skyrmions embedded in a classical magnet [24], we show that the skyrmion lattice phase reported here emerges from entangled <LATEX>s p i n - 1 / 2</LATEX> pairs, which bear witness to a genuine quantum mechanical origin without classical analog, a feature that may pave the way toward a microscopic description of skyrmion qubits used for realizing quantum logic elements based on nanoscale devices [25].
+qvnu | II. MODEL
+kggw | We study the zero-temperature phase diagram of a quantum spin-1/2 Heisenberg model with DMI and external magnetic field. The Hamiltonian reads:
+xrd1 | <LATEX>\widehat { H } = \frac { 1 } { 2 } \sum _ { \langle r , r ^ { \prime } \rangle } \left[ J \widehat { S } _ { r } \cdot \widehat { S } _ { r ^ { \prime } } + D _ { r ^ { \prime } - r } \cdot \left( \widehat { S } _ { r } \times \widehat { S } _ { r ^ { \prime } } \right) \right] + \sum _ { r } B \cdot \widehat { S } _ { r } ,</LATEX> (1)
+5746 | where <LATEX>\widehat { S } _ { r } = \hbar \widehat { \sigma } _ { r } / 2 ,</LATEX> with Pauli matrices <LATEX>\widehat { \sigma } _ { \alpha , r }</LATEX> for <LATEX>\alpha \in \left\{ x , y , z \right\} ,</LATEX> denotes a <LATEX>s p i n - 1 / 2</LATEX> operator at position <LATEX>r .</LATEX> <LATEX>J < 0</LATEX> is the ferro- magnetic exchange coupling strength, <LATEX>D _ { r ^ { \prime } - r } ,</LATEX> is the DMI vector, and <LATEX>B = B \widehat { e } _ { 7 }</LATEX> denotes the applied magnetic field along the z axis. The notation <LATEX>\langle r , r ^ { \prime } \rangle</LATEX> implies a sum over all pairs of nearest-neighbor lattice sites. In Sec. VI, we will also consider the impact of a uniaxial magnetic anisotropy with strength
+7toz | <LATEX>K ,</LATEX> <LATEX>\widehat { H } _ { K } = \frac { 1 } { 2 } \sum _ { \langle r , r ^ { \prime } \rangle } K \widehat { S } _ { r } ^ { z } \widehat { S } _ { r } ^ { z } .</LATEX> (2)
+j346 | We solve the above Hamiltonian numerically by means of matrix product state (MPS) simulations on different two-dimensional (2D) Bravais lattices with open boundary conditions consisting of lattice sites <LATEX>r = \sum _ { i } n _ { i } a _ { i }</LATEX> spanned by basis vectors <LATEX>a _ { 1 . 2 }</LATEX> with <LATEX>a _ { z , i } = 0 .</LATEX> For details on the implemen- tation and on the 2D-1D mapping required for using MPS, we refer to the Appendix and Ref. [26]. The DMI vectors read
+v8uq | <LATEX>D _ { r - r } = D \widehat { e } _ { z } \times \left( r ^ { \prime } - r \right) ,</LATEX> (3)
+x972 | with a positive DMI vector amplitude <LATEX>D > 0 .</LATEX> For triangular and square lattices, we depicted the orientation of the DMI vectors in Fig. 1.
+cwrw | We apply the external magnetic field <LATEX>B</LATEX> parallel to the lattice plane normal <LATEX>\widehat { e } _ { z } .</LATEX> Without loss of generality, we as- sume negative values <LATEX>B < 0</LATEX> such that field-polarized spins are eigenstates of <LATEX>\widehat { S } _ { r } ^ { z }</LATEX> with eigenvalue <LATEX>+ 1 / 2</LATEX> and therefore align with the plane normal. For convenience, we will express interatomic distances in units of the lattice constants <LATEX>a _ { i } = | a _ { i } |</LATEX> and energies in units of <LATEX>D ,</LATEX> with <LATEX>\hbar = 1</LATEX> 1.
+4i0e | 043113-2
+h2l3 | PHYSICAL REVIEW RESEARCH 4, 043113 (2022)
+dfzb | FIG. 2. Local polarization <LATEX>m _ { z , r }</LATEX> (in color) of the ground states of the three different phases as obtained by DMRG simulations of Eq. (1). Arrows depict the direction and size of the magnetization components mx/yr perpendicular to the external field. We study different triangular (a)-(1) and square (m)-(r) systems with regular boundaries (odd rows) and circular boundaries (even rows). The parameters used are <LATEX>J = - \quad D / 2</LATEX> and <LATEX>K = 0 ,</LATEX> with a varying external field <LATEX>B = - \quad 0 . 1 D</LATEX> (first column), <LATEX>B = - \quad 0 . 5 D</LATEX> (second column) and <LATEX>B = - \quad 1 . 0 D</LATEX> (third column). We find quantum skyrmions for system sizes larger than a critical diameter <LATEX>L \approx 8 a ,</LATEX> irrespective of the lattice symmetries and boundary conditions.
+u6ty | The Hamiltonian (1) may be seen as the quantum coun- terpart of typical classical spin models which give rise to magnetic skyrmions [1-4]. In this work, we discuss the emer- gence of quantum skyrmions and quantum skyrmion lattices in two-dimensional triangular and square lattices at zero tem- perature and with different open boundary shapes (see Fig. 2).
+awvu | III. INDIVIDUAL QUANTUM SKYRMIONS
+on9b | For small system diameters <LATEX>\left( L \lesssim 5 a \right) ,</LATEX> the exact eigenvalues and eigenvectors of the full Hamiltonian can be computed nu- merically, for instance by the Lanczos or Arnoldi algorithms, and we first cross-checked our own ED codes by reproducing the results of Ref. [23]. To ensure the correctness of our find- ings, we further compared expectation values computed from the MPS obtained by DMRG with ED results for all system sizes amenable for ED and found quantitative agreement up to
+a8ge | QUANTUM SKYRMION LATTICES IN HEISENBERG ...
+h27a | a self-imposed accuracy <LATEX>\delta .</LATEX> We thereby checked that finite-size ground states of the <LATEX>s p i n - 1 / 2</LATEX> Hamiltonian can be approxi- mated faithfully with MPS (for more details, see Appendix A and [26]). In fact, the reliability of DMRG for 2D spin-1/2 quantum Heisenberg models has already been demonstrated in numerous works, with a strong bias toward frustrated antifer- romagnets and spin liquids, which are prime examples of the most demanding systems to simulate numerically due to the presence of topological order and long-range entanglement [27-57]. In this work, we focus on the computationally less demanding scenario of magnetically ordered phases hosting skyrmions and field-polarized (FP) states in the ferromagnetic regime
+pdjh | <LATEX>J < 0 .</LATEX> Beyond a critical system diameter of <LATEX>L \approx 8 a ,</LATEX> we find val- <LATEX>\mathrm { l e s } \mathrm { o f } D</LATEX> and <LATEX>B</LATEX> for which the ground state of the Hamiltonian <LATEX>\widehat { H }</LATEX> hosts skyrmion-like spin textures confined in the interior (bulk) of the lattice, which we display in Fig. 2. We checked that these skyrmion wave functions correspond to approxi- mate eigenstates of the Hamiltonian by computing the energy variance <LATEX>\mathcal{E}</LATEX> and performed a linear extrapolation toward results without numerical errors (see Appendix A for a discussion).
