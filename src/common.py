@@ -4,7 +4,7 @@ from typing import Union
 
 import modal
 
-APP_NAME = 'example-axolotl'
+APP_NAME = 'listening-llm-finetune-v0'
 
 MINUTES = 60  # seconds
 HOURS = 60 * MINUTES
@@ -29,6 +29,7 @@ axolotl_image = (
             'HF_HUB_ENABLE_HF_TRANSFER': '1',
             'TQDM_DISABLE': 'true',
             'AXOLOTL_NCCL_TIMEOUT': '60',
+            'PYTORCH_CUDA_ALLOC_CONF': 'expandable_segments:True',  # Avoid memory fragmentation
         }
     )
     .entrypoint([])
@@ -50,8 +51,8 @@ app = modal.App(
 )
 
 # Volumes for pre-trained models and training runs.
-pretrained_volume = modal.Volume.from_name('example-pretrained-vol', create_if_missing=True)
-runs_volume = modal.Volume.from_name('example-runs-vol', create_if_missing=True)
+pretrained_volume = modal.Volume.from_name('listening-llm-pretrained', create_if_missing=True)
+runs_volume = modal.Volume.from_name('listening-llm-finetuned', create_if_missing=True)
 VOLUME_CONFIG: dict[Union[str, PurePosixPath], Union[modal.Volume, modal.CloudBucketMount]] = {
     '/pretrained': pretrained_volume,
     '/runs': runs_volume,

@@ -1,7 +1,19 @@
+"""
+Forked from https://github.com/ListeningApp/listening-modal-llm/blob/main/src/train.py.
+See https://modal.com/docs/examples/llm-finetuning#training for more details.
+
+Example usage:
+    poetry run modal run --detach src.train --config=config/listening-llama-8b.yml --data=data/labels.jsonl
+    poetry run modal run --detach src.train --config=config/listening-llama-8b.yml --data=data/updates.jsonl
+"""
+
 import os
 import secrets
 from datetime import datetime
 from pathlib import Path
+
+import modal
+import modal.gpu
 
 from .common import (
     HOURS,
@@ -20,7 +32,7 @@ SINGLE_GPU_CONFIG = os.environ.get('GPU_CONFIG', 'a10g:1')
 
 @app.function(
     image=axolotl_image,
-    gpu=GPU_CONFIG,
+    gpu=modal.gpu.A100(count=2, size='80GB'),
     volumes=VOLUME_CONFIG,
     timeout=24 * HOURS,
 )
@@ -78,10 +90,10 @@ def merge(run_folder: str, output_dir: str):
 
 
 @app.function(image=axolotl_image, timeout=30 * MINUTES, volumes=VOLUME_CONFIG)
-def launch(config_raw: dict, data_raw: str, run_to_resume: str, preproc_only: bool):
+def launch(name: str, config_raw: dict, data_raw: str, run_to_resume: str | None, preproc_only: bool):
     """
     Prepare a new folder in the /runs volume with the training config and data for a new training job. Also ensures
-    the base model is downloaded from HuggingFace. https://modal.com/docs/examples/llm-finetuning#training
+    the base model is downloaded from HuggingFace. See https://modal.com/docs/examples/llm-finetuning#training.
     """
     import yaml
     from huggingface_hub import snapshot_download
@@ -103,7 +115,7 @@ def launch(config_raw: dict, data_raw: str, run_to_resume: str, preproc_only: bo
 
     # Write config and data into a training subfolder.
     time_string = datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
-    run_name = f'axo-{time_string}-{secrets.token_hex(2)}' if not run_to_resume else run_to_resume
+    run_name = f'{name}-{time_string}-{secrets.token_hex(2)}' if not run_to_resume else run_to_resume
     run_folder = f'/runs/{run_name}'
     os.makedirs(run_folder, exist_ok=True)
 
@@ -148,9 +160,14 @@ def main(
     preproc_only: bool = False,
     run_to_resume: str | None = None,
 ):
+    """
+    Define the local command that launches a training run.
+    """
+    name = 'label' if 'label' in data else 'update'  # Get the name of the dataset we're training on
+
     # Read config and data source files and pass their contents to the remote function.
     with open(config) as cfg, open(data) as dat:
-        run_name, launch_handle = launch.remote(cfg.read(), dat.read(), run_to_resume, preproc_only)  # type: ignore [arg-type]
+        run_name, launch_handle = launch.remote(name, cfg.read(), dat.read(), run_to_resume, preproc_only)  # type: ignore [arg-type]
 
     # Write a local reference to the location on the remote volume with the run
     with open('.last_run_name', 'w') as f:
@@ -162,7 +179,7 @@ def main(
         merge_handle.get()
 
     print(f'Run complete. Tag: {run_name}')
-    print(f'To inspect outputs, run `modal volume ls example-runs-vol {run_name}`')
+    print(f'To inspect outputs, run `modal volume ls listening-llm-finetuned {run_name}`')
     if not preproc_only:
         print(f'To run sample inference, run `modal run -q src.inference --run-name {run_name}`')
 

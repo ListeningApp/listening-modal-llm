@@ -1,5 +1,6 @@
 """
 This script will convert the training documents into a format that can be used to fine tune a model.
+Specifically, this reads from ./training_documents and writes to ./data/labels.jsonl and ./data/updates.jsonl.
 
 EXAMPLE USAGE:
     poetry run python src/prepare_training_data.py
@@ -12,19 +13,25 @@ from typing import Literal, TypedDict
 
 log = logging.getLogger()
 
-# We use the same base prompt for each LLM request, and change only the relevant data:
-# Here we only care about the relevant data, which is always found between these placeholders
-PROMPT_MATCH_START = '\n\nINPUT:\n```\n'
-PROMPT_MATCH_STOP = '\n```\n\nOUTPUT:\n'
+# The system instruction and user prompt are separated by three newlines in the source *.prompt.txt files
+SYSTEM_USER_MSG_SEPARATOR = '\n\n\n'
 
 
-class LlmMessage(TypedDict):
-    role: Literal['user', 'assistant']
+class _LlmCompletionMessage(TypedDict):
+    """
+    A single LLM message, either from the user or the model, in OpenAI format.
+    """
+
+    role: Literal['system', 'user', 'assistant']
     content: str
 
 
-class LlmChat(TypedDict):
-    messages: list[LlmMessage]
+class LlmCompletion(TypedDict):
+    """
+    A conversation between a user and the model in OpenAI format.
+    """
+
+    messages: list[_LlmCompletionMessage]
 
 
 def prepare_training_data() -> None:
@@ -32,8 +39,8 @@ def prepare_training_data() -> None:
     Parse the LLM prompts and chat completions from the `training_documents` directory and export it in JSONL format
     suitable for fine-tuning a model. https://docs.openpipe.ai/features/uploading-data
     """
-    label_chats: list[LlmChat] = []  # Store each of the prompt-completion pairs in chat format
-    update_chats: list[LlmChat] = []
+    label_chats: list[LlmCompletion] = []  # Store each of the prompt-completion pairs in chat format
+    update_chats: list[LlmCompletion] = []
 
     # For each cache directory
     for cache_dirname in os.listdir('training_documents'):
@@ -80,26 +87,26 @@ def prepare_training_data() -> None:
     log.info('Success')
 
 
-def _handle_prompt(path_to_prompt_file: str) -> LlmChat:
+def _handle_prompt(path_to_prompt_file: str) -> LlmCompletion:
     """
     Given a path to a prompt file from the traning data, return an LlmChat dict with the prompt and completion messages.
     Raises ValueError if the prompt or completion is empty.
     """
-    messages: list[LlmMessage] = []  # Store the prompt and completion messages for this example chat
+    completion = LlmCompletion(messages=[])
 
     # Get the example prompt for this chat
     with open(path_to_prompt_file) as prompt_file:
-        raw_prompt = prompt_file.read().strip()
-        start_idx = raw_prompt.index(PROMPT_MATCH_START) + len(PROMPT_MATCH_START)
-        stop_idx = raw_prompt.index(PROMPT_MATCH_STOP)
-        clean_prompt = raw_prompt[start_idx:stop_idx].strip()
+        raw_prompt = prompt_file.read().strip()  # Includes both the system instruction and the user input
+        system_end_idx = raw_prompt.index(SYSTEM_USER_MSG_SEPARATOR) + len(SYSTEM_USER_MSG_SEPARATOR)
+        system_text = raw_prompt[:system_end_idx].strip()  # System instruction for this prompt
+        user_text = raw_prompt[system_end_idx:].strip()  # User input for this prompt
+        system_msg = _LlmCompletionMessage(role='system', content=system_text)
+        user_msg = _LlmCompletionMessage(role='user', content=user_text)
+        completion['messages'].extend([system_msg, user_msg])
 
         # Empty prompts are not allowed in training data
-        if not clean_prompt:
+        if not raw_prompt:
             raise ValueError(f'Chat prompt is empty: {path_to_prompt_file}')
-
-        prompt_message = LlmMessage(role='user', content=clean_prompt)
-        messages.append(prompt_message)
 
     # Get the path to the completion json for this prompt
     completion_filepath = path_to_prompt_file.replace('.prompt.txt', '.json')
@@ -109,16 +116,15 @@ def _handle_prompt(path_to_prompt_file: str) -> LlmChat:
         completion_dict = json.load(completion_file)
         raw_response: str = completion_dict['choices'][0]['message']['content']
         clean_response = raw_response.strip().strip('`\n').strip()
+        output_msg = _LlmCompletionMessage(role='assistant', content=clean_response)
+        completion['messages'].append(output_msg)  # Add the completion response to the chat
 
         # Empty completions are not allowed in training data
         if not clean_response:
-            raise ValueError(f'Chat completion is empty: {path_to_prompt_file}')
-
-        response_message = LlmMessage(role='assistant', content=clean_response)
-        messages.append(response_message)
+            raise ValueError(f'Chat completion is empty: {completion_filepath}')
 
     # Format the prompt and response as an example chat for training
-    return LlmChat(messages=messages)
+    return completion
 
 
 if __name__ == '__main__':

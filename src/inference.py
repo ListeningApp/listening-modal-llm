@@ -5,7 +5,7 @@ from pathlib import Path
 import modal
 from fastapi.responses import StreamingResponse
 
-from .common import MINUTES, VOLUME_CONFIG, Colors, app, vllm_image
+from .common import VOLUME_CONFIG, Colors, app, vllm_image
 
 INFERENCE_GPU_CONFIG = os.environ.get('INFERENCE_GPU_CONFIG', 'a10g:2')
 if len(INFERENCE_GPU_CONFIG.split(':')) <= 1:
@@ -33,7 +33,8 @@ def get_model_path_from_run(path: Path) -> Path:
     image=vllm_image,
     volumes=VOLUME_CONFIG,
     allow_concurrent_inputs=30,
-    container_idle_timeout=15 * MINUTES,
+    keep_warm=0,  # Number of containers to keep running at all times
+    container_idle_timeout=60,  # Keep containers alive for this many extra seconds TODO: set to 5
 )
 class Inference:
     def __init__(self, run_name: str = '', run_dir: str = '/runs') -> None:
@@ -41,7 +42,7 @@ class Inference:
         self.run_dir = run_dir
 
     @modal.enter()
-    def init(self):
+    def _on_container_start(self):
         if self.run_name:
             path = Path(self.run_dir) / self.run_name
             VOLUME_CONFIG[self.run_dir].reload()
@@ -70,19 +71,38 @@ class Inference:
         )
         self.engine = AsyncLLMEngine.from_engine_args(engine_args)
 
-    async def _stream(self, input: str):
+    async def _stream(
+        self,
+        input: str,
+        *,
+        frequency_penalty: float | None,
+        repetition_penalty: float | None,
+        temperature: float | None,
+    ):
         if not input:
             return
 
+        tokenizer = await self.engine.get_tokenizer()
+        prompt = tokenizer.apply_chat_template(
+            conversation=[{'role': 'user', 'content': input}],
+            add_generation_prompt=True,
+            tokenize=False,
+        )
+
+        # Set default values
+        # https://openrouter.ai/models/meta-llama/llama-3.1-8b-instruct/parameters
+        frequency_penalty = frequency_penalty if frequency_penalty is not None else 0.0
+        repetition_penalty = repetition_penalty if repetition_penalty is not None else 1.0
+        temperature = temperature if temperature is not None else 1.0
+
         sampling_params = SamplingParams(
-            repetition_penalty=1.1,
-            temperature=0.2,
-            top_p=0.95,
-            top_k=50,
-            max_tokens=1024,
+            frequency_penalty=frequency_penalty,  # Penalty including the generated text so far (-2 to 2)
+            repetition_penalty=repetition_penalty,  # Penalty including the prompt and generated text so far (0 to 2)
+            temperature=temperature,  # Randomness of the sampling. Lower values make the model more deterministic.
+            max_tokens=4095,
         )
         request_id = random_uuid()
-        results_generator = self.engine.generate(input, sampling_params, request_id)
+        results_generator = self.engine.generate(inputs=prompt, sampling_params=sampling_params, request_id=request_id)
 
         t0 = time.time()
         index, tokens = 0, 0
@@ -106,18 +126,60 @@ class Inference:
         )
 
     @modal.method()
-    async def completion(self, input: str):
-        async for text in self._stream(input):
+    async def completion(
+        self,
+        input: str,
+        *,
+        frequency_penalty: float | None,
+        repetition_penalty: float | None,
+        temperature: float | None,
+    ):
+        async for text in self._stream(
+            input,
+            frequency_penalty=frequency_penalty,
+            repetition_penalty=repetition_penalty,
+            temperature=temperature,
+        ):
             yield text
 
     @modal.method()
-    async def non_streaming(self, input: str):
-        output = [text async for text in self._stream(input)]
+    async def non_streaming(
+        self,
+        input: str,
+        *,
+        frequency_penalty: float | None,
+        repetition_penalty: float | None,
+        temperature: float | None,
+    ):
+        output = [
+            text
+            async for text in self._stream(
+                input,
+                frequency_penalty=frequency_penalty,
+                repetition_penalty=repetition_penalty,
+                temperature=temperature,
+            )
+        ]
         return ''.join(output)
 
     @modal.web_endpoint()
-    async def web(self, input: str):
-        return StreamingResponse(self._stream(input), media_type='text/event-stream')
+    async def web(
+        self,
+        input: str,
+        *,
+        frequency_penalty: float | None,
+        repetition_penalty: float | None,
+        temperature: float | None,
+    ):
+        return StreamingResponse(
+            self._stream(
+                input,
+                frequency_penalty=frequency_penalty,
+                repetition_penalty=repetition_penalty,
+                temperature=temperature,
+            ),
+            media_type='text/event-stream',
+        )
 
     @modal.exit()
     def stop_engine(self):
@@ -131,12 +193,26 @@ class Inference:
 
 
 @app.local_entrypoint()
-def inference_main(run_name: str = '', prompt: str = ''):
+def inference_main(
+    run_name: str = '',
+    prompt: str = '',
+    frequency_penalty: float | None = None,
+    repetition_penalty: float | None = None,
+    temperature: float | None = None,
+):
     if not prompt:
-        prompt = input('Enter a prompt (including the prompt template, e.g. [INST] ... [/INST]):\n')
-    print(Colors.GREEN, Colors.BOLD, f'🧠: Querying model {run_name}', Colors.END, sep='')
+        prompt = input('PROMPT:\n')
+
     response = ''
-    for chunk in Inference(run_name).completion.remote_gen(prompt):
+    for chunk in Inference(run_name).completion.remote_gen(
+        prompt,
+        frequency_penalty=frequency_penalty,
+        repetition_penalty=repetition_penalty,
+        temperature=temperature,
+    ):
         response += chunk  # not streaming to avoid mixing with server logs
-    print(Colors.BLUE, f'👤: {prompt}', Colors.END, sep='')
-    print(Colors.GRAY, f'🤖: {response}', Colors.END, sep='')
+
+    print('\nINPUT:\n')
+    print(Colors.BLUE, '\n'.join(prompt.split('\\n')), Colors.END, sep='')
+    print('\nOUTPUT:\n')
+    print(Colors.BLUE, response, Colors.END, sep='')
